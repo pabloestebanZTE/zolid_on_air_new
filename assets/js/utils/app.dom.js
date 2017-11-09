@@ -381,13 +381,18 @@ var dom = {
      */
     formatDate(dateString, method) {
         if (dateString && dateString.trim() != "") {
-            if (method === "fillForm") {
+            if (method === "month") {
+                //dateString, outputFormat, inputFormat...            
+                return formatDate(dateString, 'dd/NNN/yyyy', 'yyyy/MM/dd');
+            } else if (method === "fillForm") {
                 //dateString, outputFormat, inputFormat...            
                 return formatDate(dateString, 'dd/MM/yyyy', 'yyyy/MM/dd');
             } else if (method === "getFormData") {
                 //dateString, outputFormat, inputFormat...
                 return formatDate(dateString, 'yyyy-MM-dd', 'dd/MM/yyyy');
             }
+        } else {
+            return "Indefinido";
         }
     }
 };

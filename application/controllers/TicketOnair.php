@@ -191,6 +191,12 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
+    public function getGroups() {
+        $ticket = new dao_ticketOnAir_model();
+        $response = $ticket->getGroups(1);
+        $this->json($response);
+    }
+
     public function getProcessTicket() {
         $ticket = new dao_ticketOnAir_model();
         $response = $ticket->getProcessTicket($this->request);
@@ -213,15 +219,15 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
-    public function createScaling(){
-      $scaling = new Dao_scaledOnair_model();
-      $ticket = new Dao_ticketOnair_model();
-      $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
-      $this->request->n_round = $response->n_round;
-      $response = $scaling->insertScaling($this->request);
-      $this->request->n_round = $this->request->n_round + 1;
-      $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
-      $this->json($response);
+    public function createScaling() {
+        $scaling = new Dao_scaledOnair_model();
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
+        $this->request->n_round = $response->n_round;
+        $response = $scaling->insertScaling($this->request);
+        $this->request->n_round = $this->request->n_round + 1;
+        $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
+        $this->json($response);
     }
 
 }

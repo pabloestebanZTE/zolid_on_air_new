@@ -432,7 +432,7 @@
                     </div>
                     <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
-                            <div class="display-block pull-right" style="width: 300px;">
+                            <div class="display-block pull-right" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
                                     <label class="">Grupos:</label>
                                 </div>
@@ -444,7 +444,7 @@
                             </div>
                         </div>
                         <div class="display-block">
-                            <div class="hour-step active">
+                            <div class="hour-step active" data-ref="#contentDetails_12h">
                                 <div class="body-step">
                                     <label>12H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -456,7 +456,7 @@
                                     <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step">
+                            <div class="hour-step" data-ref="#contentDetails_24h">
                                 <div class="body-step">
                                     <label>24H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -468,7 +468,7 @@
                                     <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step">
+                            <div class="hour-step" data-ref="#contentDetails_36h">
                                 <div class="body-step">
                                     <label>36H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -482,43 +482,44 @@
                             </div>
                         </div>
                         <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
-                            <div class="well m-b-0 p-t-5 p-b-5">
-                                <div class="row wiget">
-                                    <div id="model">
-                                        <div class="col-md-3 wiget-list">
-                                            <div class="item-wiget">
-                                                <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
-                                                <div class="details-wiget">                                                    
-                                                    <span class="title display-block">Fecha Inicio: </span>
-                                                    <span class="text display-block">09/Nov/2017</span>
-                                                </div>
-                                            </div>
-                                            <div class="item-wiget">
-                                                <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
-                                                <div class="details-wiget">                                                    
-                                                    <span class="title display-block">Fecha Fin: </span>
-                                                    <span class="text display-block">09/Nov/2017</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        </div>
-                                        <div class="col-md-4 wiget-list p-l-25 users">
-                                            <div class="item-wiget">
-                                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
-                                                <div class="details-wiget">                                                    
-                                                    <span class="title display-block">Alguien1</span>
-                                                </div>
-                                            </div>
-                                            <div class="item-wiget">
-                                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
-                                                <div class="details-wiget">                                                    
-                                                    <span class="title display-block">Alguien2</span>
-                                                </div>
-                                            </div>
+                            <div id="modelWiget" class="hidden">
+                                <div class="col-md-3 wiget-list">
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                        <div class="details-wiget">                                                    
+                                            <span class="title display-block">Fecha Inicio: </span>
+                                            <span class="text display-block" id="d_start">{d_start}</span>
                                         </div>
                                     </div>
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                        <div class="details-wiget">                                                    
+                                            <span class="title display-block">Fecha Fin: </span>
+                                            <span class="text display-block" id="d_end">{d_end}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
+                                </div>
+                                <div class="col-md-4 wiget-list p-l-25 users">
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                        <div class="details-wiget">                                                    
+                                            <span class="title display-block">{user_name}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="well m-b-0 p-t-5 p-b-5">                                
+                                <div class="row wiget" id="contentDetails_12h">
+
+                                </div>
+                                <div class="row wiget hidden" id="contentDetails_24h">
+
+                                </div>
+                                <div class="row wiget hidden" id="contentDetails_36h">
+
                                 </div>
                             </div>
                         </div>
@@ -548,7 +549,7 @@
                             <a href="javascript:;"><span class="icon-state theme3"><i class="fa fa-fw fa-forward"></i></span> Siguiente fase</a>
                         </li>
                         <li>
-                           <a href="<?= URL::to("User/scaling?id=".$_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar proceso</a>
+                            <a href="<?= URL::to("User/scaling?id=" . $_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar proceso</a>
                         </li>
                     </ul>
                     <label for="txtObservations">Observaciones:</label>

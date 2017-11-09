@@ -95,6 +95,9 @@ var TD = {
                     dom.alertControl(response, $('#alertFases'), true);
                     if (response.code > 0) {
                         $('#contentFases').removeClass('hidden').hide().fadeIn(500);
+                        //Listamos los grupos...
+                        TD.listGroups(response.data.groups, response.data.group);
+                        TD.listDetails(response.data.details);
                     }
                 })
                 .error(function (e) {
@@ -103,6 +106,43 @@ var TD = {
                 })
                 .send();
     },
+    listGroups: function (groups, group) {
+        var cmb = $('#cmbGruposTracking');
+        if (!Array.isArray(groups)) {
+            cmb.html('<option value="">No hay grupos</option>');
+            return;
+        }
+        cmb.html('');
+        for (var i = 0; i < groups.length; i++) {
+            var text = ((groups[i].date_start) ? dom.formatDate(groups[i].date_start, "month") : "Indefinido");
+            text += " - " + ((groups[i].date_end) ? dom.formatDate(groups[i].date_end, "month") : "Indefinido");
+            cmb.append(new Option(text, groups[i].group));
+        }
+        cmb.val(group).trigger('change.select2');
+    },
+    listDetails: function (details) {
+        //List 12h...
+        var content = $('#contentDetails_12h');
+        var model = $('#modelWiget');
+        var clone = model.clone().removeClass('hidden').removeAttr('id');
+        for (var i = 0, dat; dat = details["12h"][i], i < details["12h"].length; i++) {
+            clone.find('#d_start').html(dom.formatDate(dat.d_start12h, 'month'));
+            clone.find('#d_end').html(dom.formatDate(dat.d_fin12h, 'month'));
+            clone.find('#n_comentario').html(dat.n_comentario, 'month');
+            //Listamos los usuarios...
+            var ctx = clone.find('.users');
+            var item = ctx.find('.item-wiget').clone();
+            ctx.html('');
+            if (Array.isArray(dat.k_id_follow_up_12h)) {
+                for (var j = 0, dt; dt = dat.k_id_follow_up_12h[j], j < dat.k_id_follow_up_12h.length; j++) {
+                    var cln = item.clone();
+                    cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
+                    ctx.append(cln);
+                }
+            }
+            content.append(clone);
+        }
+    }
 };
 
 $(function () {

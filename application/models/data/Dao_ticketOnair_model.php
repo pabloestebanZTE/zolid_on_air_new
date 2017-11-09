@@ -179,30 +179,71 @@ class Dao_ticketOnair_model extends CI_Model {
         return $data;
     }
 
-    function getGroups() {
+    private function getGroupsGeneric($groups, $gh, $d_start, $d_end) {
+        //Recorremos los grupos para validar...
+        foreach ($gh as $key => $value) {
+            if (count($groups) == 0) {
+                $groups[] = [
+                    "date_start" => $value->{$d_start},
+                    "date_end" => $value->{$d_end},
+                    "group" => $value->i_round
+                ];
+            } else {
+                foreach ($groups as $i => $v) {
+                    if ($v["group"] != $value->i_round) {
+                        $groups[] = [
+                            "date_start" => $value->{$d_start},
+                            "date_end" => $value->{$d_end},
+                            "group" => $value->i_round
+                        ];
+                    } else {
+                        //Obteniendo la fecha principal...
+                        if (($value->{$d_start}) && ($v["date_start"])) {
+                            //Se compara si la fecha del value es menor...
+                            $d1 = Hash::getTimeStamp($value->{$d_start});
+                            $d2 = Hash::getTimeStamp($v["date_start"]);
+                            if (d1 < d2) {
+                                $groups[$i]["date_start"] = $value->{$d_start};
+                            }
+                        } else if ($value->{$d_start}) {
+                            $groups[$i]["date_start"] = $value->{$d_start};
+                        }
+
+                        //Obteniendo la fecha final...
+                        if (($value->{$d_end}) && ($v["date_end"])) {
+                            //Se compara si la fecha del value es Mayor...
+                            $d1 = Hash::getTimeStamp($value->{$d_end});
+                            $d2 = Hash::getTimeStamp($v["date_end"]);
+                            if (d1 > d2) {
+                                $groups[$i]["date_end"] = $value->{$d_end};
+                            }
+                        } else if ($value->{$d_end}) {
+                            $groups[$i]["date_end"] = $value->{$d_end};
+                        }
+                    }
+                }
+            }
+        }
+        return $groups;
+    }
+
+    function getGroups($idOnair) {
         try {
-            $idOnair = 1;
             $onAir12HModel = new OnAir12hModel();
             $onAir24HModel = new OnAir24hModel();
             $onAir36HModel = new OnAir36hModel();
             $groups = [];
             //Consultamos los grupos de 12h...
-            $gh12 = $onAir12HModel->where("k_id_onair", "=", $id)->get();
+            $gh12 = $onAir12HModel->where("k_id_onair", "=", $idOnair)->get();
             //Consultamos los grupos de 24h...
-            $gh24 = $onAir24HModel->where("k_id_onair", "=", $id)->get();
+            $gh24 = $onAir24HModel->where("k_id_onair", "=", $idOnair)->get();
             //Consultamos los grupos de 36h...
-            $gh36 = $onAir36HModel->where("k_id_onair", "=", $id)->get();
+            $gh36 = $onAir36HModel->where("k_id_onair", "=", $idOnair)->get();
 
-            //Recorremos los grupos para validar...
-            foreach ($gh12 as $key => $value) {
-                if (count($groups) == 0) {
-                    $groups[] = [
-                        "date_start" => $value->d_start12h,
-                        "date_end" => $value->d_fin12h,
-                        "group" => $value->i_round
-                    ];
-                }
-            }
+            $groups = $this->getGroupsGeneric($groups, $gh12, "d_start12h", "d_fin12h");
+            $groups = $this->getGroupsGeneric($groups, $gh24, "d_start24h", "d_fin24h");
+            $groups = $this->getGroupsGeneric($groups, $gh36, "d_start36h", "d_fin36h");
+            return $groups;
         } catch (ZolidException $exc) {
             return null;
         }
@@ -279,6 +320,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         $details["36h"][$key] = $value;
                     }
                 }
+                $groups = $this->getGroups($tck->k_id_onair);
                 $response = new Response(EMessages::QUERY);
                 $data = [
                     "status" => $status_onair,
@@ -311,10 +353,9 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    public function updatePrecheckStatus(){
-
+    public function updatePrecheckStatus() {
+        
     }
-
 
 }
 
