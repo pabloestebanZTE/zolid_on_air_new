@@ -21,7 +21,7 @@ class TicketOnair extends CI_Controller {
         $this->load->model('data/Dao_onAir36h_model');
         $this->load->model('data/Dao_preparationStage_model');
         $this->load->model('data/Dao_scaledOnair_model');
-        $this->load->model('data/dao_user_model');
+        $this->load->model('data/Dao_user_model');
     }
 
     public function listTicketOnair() {
@@ -57,7 +57,8 @@ class TicketOnair extends CI_Controller {
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
         $userId = Auth::user()->k_id_user;
-
+        $respuesta = [];
+        $flag = [];
         $precheckId = $precheck->getPrecheckById($userId)->data;
         for ($j = 0; $j < count($precheckId); $j++) {
             $res = $ticket->findByIdPrecheck($precheckId[$j]->k_id_precheck);
@@ -103,6 +104,7 @@ class TicketOnair extends CI_Controller {
         $unique = array_unique($flag);
         $final = array_values($unique);
         $ticketUnic = new dao_ticketOnAir_model();
+        $ticketUser = [];
         for ($t = 0; $t < count($final); $t++) {
             $ticketUser[$t] = $ticketUnic->findByIdOnAir($final[$t])->data;
             $ticketUser[$t]->k_id_band = $band->findById($ticketUser[$t]->k_id_band)->data; //band
