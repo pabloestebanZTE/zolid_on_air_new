@@ -144,6 +144,7 @@ class User extends CI_Controller {
     }
 
     public function assignEngineer() {
+      // header('Content-Type: text/plain');
         $id = $this->request->idOnair;
         $ticketOnAir = new dao_ticketOnAir_model();
         $station = new dao_station_model();
@@ -156,9 +157,7 @@ class User extends CI_Controller {
         $response = $ticketOnAir->findByIdOnAir($id);
         $response->data->k_id_preparation = $PS->findByIdPreparation($response->data->k_id_preparation)->data;
          $response->data->k_id_station = $station->findById($response->data->k_id_station)->data;
-         $response->data->k_id_station->k_id_city = $station->findCityById($response->data->k_id_station->k_id_city->k_id_city)->data;
-        //$response->data->k_id_station->k_id_city->k_id_regional = $station->findRegionalById($response->data->k_id_station->k_id_city->k_id_regional)->data;
-        $response->data->k_id_band = $band->findById($response->data->k_id_band)->data;
+          $response->data->k_id_band = $band->findById($response->data->k_id_band)->data;
         $response->data->k_id_technology = $technology->findById($response->data->k_id_technology)->data;
         $response->data->k_id_work = $work->findById($response->data->k_id_work)->data;
         $response->data->k_id_status_onair = $status->findById($response->data->k_id_status_onair)->data;

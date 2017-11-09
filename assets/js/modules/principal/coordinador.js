@@ -52,13 +52,13 @@ $(function () {
                 dom.refreshTable(principal.tablaPendientes, data);
                 return;
             }
+            console.log(data);
             principal.tablaPendientes = $('#tablaPendientes').DataTable(dom.configTable(data,
                     [
                         {title: "Estación", data: "k_id_station.n_name_station"},
                         {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
                         {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
-                        //Este campo no está trayendo nada...
-                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus'},
+                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
                         {title: "Tiempo", data: 'k_id_precheck'},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
@@ -77,8 +77,7 @@ $(function () {
                         {title: "Estación", data: "k_id_station.n_name_station"},
                         {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
                         {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
-                        //Este campo no está trayendo nada...
-                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus'},
+                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
                         {title: "Tiempo", data: 'k_id_precheck'},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
