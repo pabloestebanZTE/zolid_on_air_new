@@ -27,8 +27,8 @@
                                 </span>
                             </div>
                         </div>
-                        <ul>
-                            <li style="margin-top: 10px;">
+                        <ul class="m-t-20">
+                            <li>
                                 <a href="<?= URL::to('index.php/User/principalView') ?>"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Home</a>
                             </li>
                             <li>
