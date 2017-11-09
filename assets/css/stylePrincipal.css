@@ -150,11 +150,30 @@ nav {
     background-color: #207be5;
     border-color: blue;
 }
+
 #logo{
     height: 30px;
     width:70px;
-    margin-top: 10px;
+    margin-top: 20px;
     /*margin-left: -80px;*/
+}
+
+#infoUsu{
+    display: inline-block;
+    color: #ffffff;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
+#divImg{
+    float: left;
+}
+
+#imgRol{
+    height: 64px;
+    width:64px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #logoz{
@@ -162,6 +181,11 @@ nav {
     width:90px;
     margin-top: 25px;
     margin-left: 1100px;
+}
+
+#infoUsu span {
+    float: left;
+    margin-top: 5px;
 }
 
 
@@ -724,4 +748,59 @@ nav {
 }
 .icon-state.theme3 .fa:before{
     margin-left: 4px;
+}
+.wiget{
+    background: #FFF;
+    border: 1px solid #dedcdc;
+    padding: 15px 10px;
+}
+.wiget .wiget-list .item-wiget{
+    display: block;
+    border-bottom: 1px solid #efefef;
+    padding: 3px 0px;
+    margin-bottom: 5px;
+}
+.wiget .wiget-list .item-wiget:last-child{
+    border-bottom: 0px;
+}
+.wiget .wiget-list .item-wiget .icon-wiget{
+    background-color: #5d9faf;
+    float: left;
+    color: #FFF;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+}
+.wiget .wiget-list .item-wiget .icon-wiget .fa{
+    display: block;
+    margin: 0 auto;
+    margin-top: 8px;
+}
+.wiget .wiget-list .item-wiget .details-wiget{
+    display: inline-block;
+    margin-left: 5px;    
+    padding: 5px;
+}
+.wiget .wiget-list .item-wiget .details-wiget .title{
+    font-weight: bold;
+    font-size: 0.8em;
+}
+.wiget .wiget-list p{
+    line-height: 1.7em;    
+}
+.wiget .wiget-list.users .icon-wiget{
+    border-radius: 100%;
+    background-color: #af5d91;
+}
+.wiget .wiget-list.users .item-wiget{padding: 9px 0px;margin-bottom: 0px;}
+
+.wiget .wiget-list.users .item-wiget .details-wiget{
+    padding: 8px 7px;
+}
+.wiget .wiget-list.users .item-wiget .title{
+    font-size: 15px;    
+}
+.alert{
+    margin: 0px;
 }
