@@ -353,8 +353,17 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    public function updatePrecheckStatus() {
-        
+    public function updatePrecheckStatus($id) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_preparation", "=", $id)
+                    ->update(["i_precheck_realizado" => 1]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
     }
 
 }

@@ -29,7 +29,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                            <input type='text' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -262,9 +262,7 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
         $(function(){
-          dom.submit($('#createScaling'), function () {
-              location.href = app.urlTo('User/trackingDetails?id='+"<?= $_GET['id']; ?>");
-          }, false);
+          dom.submit($('#createScaling'),null, false);
         })
         // , function(){location.href = app.urlTo('User/principalView');}
         </script>
