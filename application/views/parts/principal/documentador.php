@@ -4,7 +4,7 @@
             <fieldset>
                 <div class="row">
                     <div class="col col-md-12 p-t-20">
-                        <a class="btn btn-primary" href="<?= URL::to('User/createTicketOnair') ?>"><span class="fa fa-fw fa-plus-circle"></span>&nbsp;</a>
+                        <a class="btn btn-primary" href="<?= URL::to('User/createTicketOnair') ?>"><span class="fa fa-fw fa-plus-circle"></span>&nbsp;Nueva asignación</a>
                     </div>
                     <div class="col col-md-12">
                         <hr/>

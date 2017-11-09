@@ -150,11 +150,30 @@ nav {
     background-color: #207be5;
     border-color: blue;
 }
+
 #logo{
     height: 30px;
     width:70px;
-    margin-top: 10px;
+    margin-top: 20px;
     /*margin-left: -80px;*/
+}
+
+#infoUsu{
+    display: inline-block;
+    color: #ffffff;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
+#divImg{
+    float: left;
+}
+
+#imgRol{
+    height: 64px;
+    width:64px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #logoz{
@@ -162,6 +181,11 @@ nav {
     width:90px;
     margin-top: 25px;
     margin-left: 1100px;
+}
+
+#infoUsu span {
+    float: left;
+    margin-top: 5px;
 }
 
 
