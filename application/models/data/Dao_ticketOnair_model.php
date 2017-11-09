@@ -162,7 +162,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     /**
-     * 
+     *
      * @param type $id_onair
      * @param type $table1 = Tabla onair_hh...
      * @param type $table2 = Tabla follow_hh...
@@ -170,9 +170,9 @@ class Dao_ticketOnair_model extends CI_Model {
      */
     function getFollowersProject($id_onair, $table1, $table2, $field) {
         $sql = "SELECT c.k_id_user, n_last_name_user, n_username_user, n_mail_user FROM $table2
-                a INNER JOIN $table1 b 
-                ON a.$field = b.$field  
-                INNER JOIN user c 
+                a INNER JOIN $table1 b
+                ON a.$field = b.$field
+                INNER JOIN user c
                 ON c.k_id_user = a.k_id_user WHERE b.k_id_onair = $id_onair";
 //        echo $sql;
         $data = (new DB())->select($sql)->get();
@@ -292,6 +292,19 @@ class Dao_ticketOnair_model extends CI_Model {
             } else {
                 return new Response(EMessages::EMPTY_MSG, "Aún no se ha hecho precheck para este proceso.");
             }
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    function updateRoundTicket($id, $value) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                    ->update(["n_round" => $value]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
         } catch (ZolidException $ex) {
             return $ex;
         }

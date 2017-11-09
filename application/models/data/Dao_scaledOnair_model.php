@@ -35,6 +35,18 @@
           }
         }
 
+        public function insertScaling($request){
+          try {
+            $scaledOnair = new ScaledOnAirMOdel();
+            $datos = $scaledOnair->insert($request->all());
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+          } catch (ZolidException $ex) {
+            return $ex;
+          }
+        }
+
 
 
 

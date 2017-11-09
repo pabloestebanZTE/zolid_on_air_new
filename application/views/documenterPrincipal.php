@@ -635,7 +635,6 @@
             $('#n_obra_civil option[value="'+fields.n_obra_civil+'"]').attr('selected', 'selected');
             $('#on_air option[value="'+fields.on_air+'"]').attr('selected', 'selected');
             $('#n_noc option[value="'+fields.n_noc+'"]').attr('selected', 'selected');
-
             $('input[name=k_id_ticket]').val(fields.k_id_onair);
             $('input[name=k_id_prep]').val(fields.k_id_preparation.k_id_preparation);
 
@@ -648,7 +647,7 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
         $(function(){
-          dom.submit($('#detailsForm'));
+          dom.submit($('#detailsForm'), null, false);
         })
         // , function(){location.href = app.urlTo('User/principalView');}
         </script>
