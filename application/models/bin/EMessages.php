@@ -3,6 +3,7 @@
 //Configuración mensajes
 class EMessages {
 
+    const EMPTY_MSG = 0;
     const CORRECT = 1;
     const SUCCESS = 1;
     const QUERY = 12;
@@ -24,6 +25,8 @@ class EMessages {
 
     public static function getResponse($code) {
         switch ($code) {
+            case EMessages::EMPTY_MSG:
+                return new Response(0, "No se encontraron registros.");
             case EMessages::CORRECT:
             case EMessages::SUCCESS:
                 return new Response(1, "Se ha ejecutado la solicitud correctamente.");
@@ -56,9 +59,9 @@ class EMessages {
             case EMessages::SESSION_INACTIVE:
                 return new Response(1, "La sesión se encuentra inactiva.");
             case EMessages::NOT_ALLOWED:
-                return new Response(-5, "No tienes permisos");
+                return new Response(-5, "No tienes permisos.");
             case EMessages::NO_FOUND_REGISTERS:
-                return new Response(0, "No se encontraron registros");
+                return new Response(0, "No se encontraron registros.");
         }
     }
 
