@@ -42,6 +42,14 @@ class TicketOnair extends CI_Controller {
         $this->json($res);
     }
 
+    public function getGroups() {
+        $ticket = new dao_ticketOnAir_model();
+        $response = $ticket->getGroups();
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
+    }
+
     public function ticketUser() {
         //Se comprueba si no hay sesión.
         if (!Auth::check()) {

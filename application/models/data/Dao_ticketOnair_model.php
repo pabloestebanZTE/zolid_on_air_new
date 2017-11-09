@@ -179,9 +179,38 @@ class Dao_ticketOnair_model extends CI_Model {
         return $data;
     }
 
+    function getGroups() {
+        try {
+            $idOnair = 1;
+            $onAir12HModel = new OnAir12hModel();
+            $onAir24HModel = new OnAir24hModel();
+            $onAir36HModel = new OnAir36hModel();
+            $groups = [];
+            //Consultamos los grupos de 12h...
+            $gh12 = $onAir12HModel->where("k_id_onair", "=", $id)->get();
+            //Consultamos los grupos de 24h...
+            $gh24 = $onAir24HModel->where("k_id_onair", "=", $id)->get();
+            //Consultamos los grupos de 36h...
+            $gh36 = $onAir36HModel->where("k_id_onair", "=", $id)->get();
+
+            //Recorremos los grupos para validar...
+            foreach ($gh12 as $key => $value) {
+                if (count($groups) == 0) {
+                    $groups[] = [
+                        "date_start" => $value->d_start12h,
+                        "date_end" => $value->d_fin12h,
+                        "group" => $value->i_round
+                    ];
+                }
+            }
+        } catch (ZolidException $exc) {
+            return null;
+        }
+    }
+
     function getProcessTicket($request) {
         try {
-            $ticketModel = new TicketOnAirModel();            
+            $ticketModel = new TicketOnAirModel();
             //PRIMERO CONSULTAMOS EL TICKET...
             $tck = $ticketModel->where("k_id_onair", "=", $request->id)->first();
             //Verificamos si viene el round desde el cliente...
@@ -254,6 +283,8 @@ class Dao_ticketOnair_model extends CI_Model {
                 $data = [
                     "status" => $status_onair,
                     "details" => $details,
+                    "groups" => $groups,
+                    "group" => $round,
                     "actual_status" => $actual_status
                 ];
                 $response->setData($data);

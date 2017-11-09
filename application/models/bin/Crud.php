@@ -48,6 +48,12 @@ class Crud {
         return $this;
     }
 
+    public function groupBy($key) {
+        $this->init();
+        $this->db->groupBy($key);
+        return $this;
+    }
+
     public function first() {
         $this->init();
         return $this->db->first();
