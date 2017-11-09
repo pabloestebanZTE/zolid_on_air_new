@@ -25,6 +25,8 @@ class ScaledOnAirModel extends Model {
     protected $n_detalle_solucion;
     protected $n_ultimo_subestado_de_escalamiento;
     protected $n_round;
+    protected $n_atribuible_nokia2;
+    protected $n_atribuible_nokia;
 
     //Los campos que desea ocultar para que no se reflejen en la vista.
     protected $table = "scaled_on_air";
@@ -173,6 +175,18 @@ class ScaledOnAirModel extends Model {
     }
     public function getNRound() {
         return $this->n_round;
+    }
+    public function setNAtribuibleNokia($n_atribuible_nokia) {
+        $this->n_atribuible_nokia = $n_atribuible_nokia;
+    }
+    public function getNAtribuibleNokia() {
+        return $this->n_atribuible_nokia;
+    }
+    public function setNAtribuibleNokia2($n_atribuible_nokia2) {
+        $this->n_atribuible_nokia2 = $n_atribuible_nokia2;
+    }
+    public function getNAtribuibleNokia2() {
+        return $this->n_atribuible_nokia2;
     }
 
 }

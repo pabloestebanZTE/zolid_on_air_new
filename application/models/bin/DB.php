@@ -147,6 +147,11 @@ class DB extends PDO {
         return $this;
     }
 
+    public function groupBy($key) {
+        $this->others .= " GROUP BY `$key` ";
+        return $this;
+    }
+
     public function get($fech = null) {
         try {
             if ($this->sql == "") {

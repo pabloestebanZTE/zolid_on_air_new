@@ -174,7 +174,38 @@ class Dao_ticketOnair_model extends CI_Model {
                 ON a.$field = b.$field
                 INNER JOIN user c
                 ON c.k_id_user = a.k_id_user WHERE b.k_id_onair = $id_onair";
+//        echo $sql;
         $data = (new DB())->select($sql)->get();
+        return $data;
+    }
+
+    function getGroups() {
+        try {
+            $idOnair = 1;
+            $onAir12HModel = new OnAir12hModel();
+            $onAir24HModel = new OnAir24hModel();
+            $onAir36HModel = new OnAir36hModel();
+            $groups = [];
+            //Consultamos los grupos de 12h...
+            $gh12 = $onAir12HModel->where("k_id_onair", "=", $id)->get();
+            //Consultamos los grupos de 24h...
+            $gh24 = $onAir24HModel->where("k_id_onair", "=", $id)->get();
+            //Consultamos los grupos de 36h...
+            $gh36 = $onAir36HModel->where("k_id_onair", "=", $id)->get();
+
+            //Recorremos los grupos para validar...
+            foreach ($gh12 as $key => $value) {
+                if (count($groups) == 0) {
+                    $groups[] = [
+                        "date_start" => $value->d_start12h,
+                        "date_end" => $value->d_fin12h,
+                        "group" => $value->i_round
+                    ];
+                }
+            }
+        } catch (ZolidException $exc) {
+            return null;
+        }
     }
 
     function getProcessTicket($request) {
@@ -188,6 +219,9 @@ class Dao_ticketOnair_model extends CI_Model {
             if (!$tck) {
                 return new Response(EMessages::NO_FOUND_REGISTERS);
             }
+            if (!$tck->k_id_precheck) {
+                return new Response(EMessages::EMPTY_MSG, "Aún no se ha hecho precheck para este proceso.");
+            }
             //Si no viene el round desde el cliente, se setea al que tenemos en el tck...
             if (!$round) {
                 $round = $tck->n_round;
@@ -196,6 +230,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $status_onair = DB::table("status_on_air")
                     ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
                     ->first();
+            $actual_status = null;
             if ($status_onair) {
                 //Comprobamos el status actual...
                 switch ($status_onair->k_id_substatus) {
@@ -208,8 +243,6 @@ class Dao_ticketOnair_model extends CI_Model {
                     case ConstStates::SEGUIMIENTO_36H:
                         $actual_status = "36h";
                         break;
-                    default:
-                        return new Response(EMessages::EMPTY_MSG, "Aún no se ha hecho precheck para este proceso.");
                 }
                 $details = array();
                 $onAir12HModel = new OnAir12hModel();
@@ -220,21 +253,38 @@ class Dao_ticketOnair_model extends CI_Model {
                         ->where("k_id_onair", "=", $tck->k_id_onair)
                         ->where("i_round", "=", $round)
                         ->get();
-                if ($details["12h"]) {
-                    $details["12h"]->k_id_follow_up_12h = $this->getFollowersProject($tck->k_id_onair, "follow_up_12h", "on_air_12h", "k_id_follow_up_12h");
+                if (count($details["12h"]) > 0) {
+                    foreach ($details["12h"] as $key => $value) {
+                        $value->k_id_follow_up_12h = $this->getFollowersProject($tck->k_id_onair, "on_air_12h", "follow_up_12h", "k_id_follow_up_12h");
+                        $details["12h"][$key] = $value;
+                    }
                 }
-                $details["24h"] = $onAir24HModel->where("k_id_onair", "=", $tck->k_id_onair)->get();
-                if ($details["24h"]) {
-                    $details["24h"]->k_id_follow_up_24h = $details["12h"]->k_id_follow_up_12h = $this->getFollowersProject($tck->k_id_onair, "follow_up_24h", "on_air24h", "k_id_follow_up_24h");
+                $details["24h"] = $onAir24HModel
+                        ->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->where("i_round", "=", $round)
+                        ->get();
+                if (count($details["24h"]) > 0) {
+                    foreach ($details["24h"] as $key => $value) {
+                        $value->k_id_follow_up_24h = $this->getFollowersProject($tck->k_id_onair, "on_air24h", "follow_up_24h", "k_id_follow_up_24h");
+                        $details["24h"][$key] = $value;
+                    }
                 }
-                $details["36h"] = $onAir36HModel->where("k_id_onair", "=", $tck->k_id_onair)->get();
-                if ($details["36h"]) {
-                    $details["36h"]->k_id_follow_up_36h = $details["12h"]->k_id_follow_up_12h = $this->getFollowersProject($tck->k_id_onair, "follow_up_36h", "on_air_36h", "k_id_follow_up_36h");
+                $details["36h"] = $onAir36HModel
+                        ->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->where("i_round", "=", $round)
+                        ->get();
+                if (count($details["36h"]) > 0) {
+                    foreach ($details["24h"] as $key => $value) {
+                        $value->k_id_follow_up_36h = $this->getFollowersProject($tck->k_id_onair, "on_air_36h", "follow_up_36h", "k_id_follow_up_36h");
+                        $details["36h"][$key] = $value;
+                    }
                 }
                 $response = new Response(EMessages::QUERY);
                 $data = [
                     "status" => $status_onair,
                     "details" => $details,
+                    "groups" => $groups,
+                    "group" => $round,
                     "actual_status" => $actual_status
                 ];
                 $response->setData($data);
@@ -244,6 +294,20 @@ class Dao_ticketOnair_model extends CI_Model {
             }
         } catch (ZolidException $ex) {
 
+            return $ex;
+        }
+    }
+
+    function updateRoundTicket($id, $value) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                    ->update(["n_round" => $value]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
         }
     }
 

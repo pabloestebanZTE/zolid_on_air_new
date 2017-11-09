@@ -26,7 +26,7 @@
           try {
             $follow12 = new FollowUp12hModel();
             $datos = $follow12->where("k_id_user","=",$idUser)
-                          ->first();
+                          ->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;

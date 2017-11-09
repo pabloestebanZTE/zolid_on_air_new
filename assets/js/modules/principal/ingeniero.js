@@ -38,7 +38,7 @@ $(function () {
         },
         getButtons: function (obj) {
             return '<div class="btn-group">'
-                    + '<a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" title="Seguimiento"><span class="fa fa-fw fa-history"></span></a>'
+                    + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Seguimiento"><span class="fa fa-fw fa-history"></span></a>'
                     + '<a href="' + app.urlTo('User/doPrecheck?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Precheck"><span class="fa fa-fw fa-file-archive-o"></span></a>'
                     + '</div>';
         },
