@@ -44,3 +44,5 @@ ALTER TABLE `on_air_36h`
 	ADD COLUMN `i_round` INT NOT NULL DEFAULT '0' AFTER `i_timestamp`,
 	ADD COLUMN `d_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `i_round`;
 
+ALTER TABLE scaled_on_air add n_atribuible_nokia varchar(100);
+ALTER TABLE scaled_on_air add n_atribuible_nokia2 varchar(100);

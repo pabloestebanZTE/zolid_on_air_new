@@ -19,9 +19,7 @@ class TicketOnAirModel extends Model {
     protected $n_sectoresbloqueados;
     protected $n_sectoresdesbloqueados;
     protected $n_estadoonair;
-    protected $n_atribuible_nokia;
     protected $n_kpis_degraded;
-    protected $n_atribuible_nokia2;
     protected $n_kpi1;
     protected $n_kpi2;
     protected $n_kpi3;
@@ -175,17 +173,17 @@ class TicketOnAirModel extends Model {
     public function getNAtribuibleNokia() {
         return $this->n_atribuible_nokia__;
     }
-    public function setNKpisDegraded($n_kpis_degraded__) {
-        $this->n_kpis_degraded__ = $n_kpis_degraded__;
-    }
-    public function getNKpisDegraded() {
-        return $this->n_kpis_degraded__;
-    }
     public function setNAtribuibleNokia2($n_atribuible_nokia2) {
         $this->n_atribuible_nokia2 = $n_atribuible_nokia2;
     }
     public function getNAtribuibleNokia2() {
         return $this->n_atribuible_nokia2;
+    }
+    public function setNKpisDegraded($n_kpis_degraded__) {
+        $this->n_kpis_degraded__ = $n_kpis_degraded__;
+    }
+    public function getNKpisDegraded() {
+        return $this->n_kpis_degraded__;
     }
     public function setNKpi1($n_kpi1) {
         $this->n_kpi1 = $n_kpi1;

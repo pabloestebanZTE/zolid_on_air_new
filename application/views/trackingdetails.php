@@ -512,7 +512,7 @@
                             <a href="javascript:;"><span class="icon-state theme3"><i class="fa fa-fw fa-forward"></i></span> Siguiente fase</a>
                         </li>
                         <li>
-                            <a href="<?= URL::to("User/scaling"); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar proceso</a>
+                           <a href="<?= URL::to("User/scaling?id=".$_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar proceso</a>
                         </li>
                     </ul>
                     <label for="txtObservations">Observaciones:</label>

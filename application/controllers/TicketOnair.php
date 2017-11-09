@@ -162,10 +162,6 @@ class TicketOnair extends CI_Controller {
         if ($res->onair36) {
             $res->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res->onair36->k_id_follow_up_36h)->data; //follow up 24
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> e7f4273ba8d3fbc2860584cdcd40e5bbb564aef3
         $response = new Response(EMessages::QUERY);
         $response->setData($res);
         $this->json($response);
@@ -206,6 +202,17 @@ class TicketOnair extends CI_Controller {
         $this->request->k_id_precheck = $response->data->data;
         $response = $ticket->updatePrecheckOnair($this->request);
         $this->json($response);
+    }
+
+    public function createScaling(){
+      $scaling = new Dao_scaledOnair_model();
+      $ticket = new Dao_ticketOnair_model();
+      $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
+      $this->request->n_round = $response->n_round;
+      $response = $scaling->insertScaling($this->request);
+      $this->request->n_round = $this->request->n_round + 1;
+      $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
+      $this->json($response);
     }
 
 }
