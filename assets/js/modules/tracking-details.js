@@ -1,10 +1,11 @@
 var TD = {
+    contentFases: $('#contentFases'),
     init: function () {
         TD.events();
         TD.configView();
-        TD.fillTable([]);
         TD.getDetail();
         TD.listCombox();
+        TD.getDetails();
         dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
@@ -54,7 +55,7 @@ var TD = {
         dom.configCalendar($('#txtFechaCG'));
         dom.configCalendar($('#txtFechaBloqueado'));
         dom.configCalendar($('#txtFechaDesBloqueado'));
-        dom.timer($('#timeStep'), 1509706921000, $('#progressStep1'));
+//        dom.timer($('#timeStep'), 1509706921000, $('#progressStep1'));
         $('select').select2({'width': '100%'});
     },
     getDetail: function () {
@@ -74,6 +75,7 @@ var TD = {
                         form.fillForm(objTemp);
                         form.find('#cmbEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_status.k_id_status);
                         form.find('#cmbSubEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_substatus.k_id_substatus);
+                        form.find('.select-fill').trigger('select2fill');
                         form.find('select').trigger('change.select2');
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");
@@ -87,25 +89,20 @@ var TD = {
         $('#modalDetailsInit').modal('show');
     },
     getDetails: function () {
-
+        dom.printAlert('Consultando, por favor espere...', 'loading', $('#alertFases'));
+        app.post('TicketOnair/getProcessTicket', {id: app.getParamURL("id")})
+                .success(function (response) {
+                    dom.alertControl(response, $('#alertFases'), true);
+                    if (response.code > 0) {
+                        $('#contentFases').removeClass('hidden').hide().fadeIn(500);
+                    }
+                })
+                .error(function (e) {
+                    console.error(e);
+                    dom.alertError($('#alertFases'));
+                })
+                .send();
     },
-    fillNA: function () {
-        return "Indefinido";
-    },
-    fillTable: function (data) {
-        if (TD.tablaTD) {
-            dom.refreshTable(TD.tablaTD, data);
-            return;
-        }
-        TD.tablaTD = $('#tblTrackingDetails').DataTable(dom.configTable(data,
-                [
-                    {title: "Columna 1", data: TD.fillNA()},
-                    {title: "Columna 2", data: TD.fillNA()},
-                    {title: "Columna 3", data: TD.fillNA()},
-                    {title: "Columna 4", data: TD.fillNA()},
-                    {title: "Columna 5", data: TD.fillNA()},
-                ]));
-    }
 };
 
 $(function () {

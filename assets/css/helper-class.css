@@ -255,6 +255,9 @@ and open the template in the editor.
 .text-bold{
     font-weight: bold !important;
 }
+.text-normal{
+    font-weight: normal !important;
+}
 .a-link{
     color: #000;    
 }
