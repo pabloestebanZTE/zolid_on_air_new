@@ -188,10 +188,6 @@
                                             <a href="#step-2" type="button" class="btn btn-default btn-circle" >3</a>
                                             <!--<p>Parte 2</p>-->
                                         </div>
-                                        <!--                                        <div class="stepwizard-step">
-                                                                                    <a href="#step-3" type="button" class="btn btn-default btn-circle" >3</a>
-                                                                                    <p>Step 3</p>
-                                                                                </div>-->
                                     </div>
                                 </div>
                                 <form id="formTrackingDetails" action="TicketOnair/updateTicket">
@@ -430,7 +426,11 @@
                     </div>
                 </div>
                 <div class="well">
-                    <div>
+                    <div class="alert alert-info alert-dismissable m-b-0" id="alertFases">
+                        <a href="#" class="close">&times;</a>
+                        <p id="text" class="m-b-0 p-b-0"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultado, por favor espere...</p>
+                    </div>
+                    <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
                             <div class="display-block pull-right" style="width: 300px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
@@ -453,7 +453,7 @@
                                     <span class="progress-step" id="progressStep1"></span>
                                 </div>
                                 <div class="footer-step">
-                                    <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -01:35</label>
+                                    <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
                             <div class="hour-step">
@@ -482,8 +482,44 @@
                             </div>
                         </div>
                         <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
-                            <div class="well m-b-0">
-                                <table id="tblTrackingDetails" class="table table-hover table-condensed table-striped" width="100%"></table>
+                            <div class="well m-b-0 p-t-5 p-b-5">
+                                <div class="row wiget">
+                                    <div id="model">
+                                        <div class="col-md-3 wiget-list">
+                                            <div class="item-wiget">
+                                                <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                                <div class="details-wiget">                                                    
+                                                    <span class="title display-block">Fecha Inicio: </span>
+                                                    <span class="text display-block">09/Nov/2017</span>
+                                                </div>
+                                            </div>
+                                            <div class="item-wiget">
+                                                <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                                <div class="details-wiget">                                                    
+                                                    <span class="title display-block">Fecha Fin: </span>
+                                                    <span class="text display-block">09/Nov/2017</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                        <div class="col-md-4 wiget-list p-l-25 users">
+                                            <div class="item-wiget">
+                                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                                <div class="details-wiget">                                                    
+                                                    <span class="title display-block">Alguien1</span>
+                                                </div>
+                                            </div>
+                                            <div class="item-wiget">
+                                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                                <div class="details-wiget">                                                    
+                                                    <span class="title display-block">Alguien2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

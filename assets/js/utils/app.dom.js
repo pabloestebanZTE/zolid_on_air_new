@@ -129,6 +129,25 @@ var dom = {
             }
         };
     },
+    alertControl: function (response, alert, hideOnSuccess) {
+        if (app.successResponse(response)) {
+            if (hideOnSuccess != true) {
+                dom.printAlert(response.message, 'success', alert);
+            } else {
+                alert.addClass('hidden').hide();
+            }
+        } else
+        if (response.code == 0) {
+            dom.printAlert(response.message, 'warning', alert);
+        } else {
+            dom.printAlert(response.message, 'danger', alert);
+        }
+        return alert;
+    },
+    alertError: function (alert) {
+        var messageError = 'Se ha producido un error desconocido, por favor compruebe su conexión a internet y vuelva a intenarlo nuevamente.';
+        dom.printAlert(messageError, 'danger', alert);
+    },
     parseTime: function (time) {
         if (typeof time === "string") {
             var parts = time.split(':');
@@ -275,7 +294,7 @@ var dom = {
                 }
             }).error(function (e) {
                 console.error(e);
-                dom.printAlert("Se ha producido un error inesperado, compruebe su conexión a internet e inténtelo de nuevo.", 'danger', form.find('.alert'));
+                dom.alertError(form.find('.alert'));
             }).send();
         };
         form.on('submit', onSubmitForm);
