@@ -219,6 +219,8 @@ class TicketOnair extends CI_Controller {
       $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
       $this->request->n_round = $response->n_round;
       $response = $scaling->insertScaling($this->request);
+      print_r($response);
+
       $this->request->n_round = $this->request->n_round + 1;
       $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
       $this->json($response);
