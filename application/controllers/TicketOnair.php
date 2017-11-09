@@ -162,10 +162,7 @@ class TicketOnair extends CI_Controller {
         if ($res->onair36) {
             $res->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res->onair36->k_id_follow_up_36h)->data; //follow up 24
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> e7f4273ba8d3fbc2860584cdcd40e5bbb564aef3
         $response = new Response(EMessages::QUERY);
         $response->setData($res);
         $this->json($response);
