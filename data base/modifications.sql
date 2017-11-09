@@ -44,3 +44,4 @@ ALTER TABLE `on_air_36h`
 	ADD COLUMN `i_round` INT NOT NULL DEFAULT '0' AFTER `i_timestamp`,
 	ADD COLUMN `d_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `i_round`;
 
+ALTER TABLE ticket_on_air add i_precheck_realizado integer;

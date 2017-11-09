@@ -55,7 +55,9 @@ class Precheck extends CI_Controller {
 
     public function doPrecheck(){
       $preparation =  new Dao_preparationStage_model();
+      $ticket =new Dao_ticketOnair_model();
       $response = $preparation->updatePreparationStage($this->request)->data;
+      // $response = $ticket->updatePrecheckOnair($this->request)->data;
       $this->json($response);
     }
 

@@ -199,7 +199,8 @@
                                 </div>
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
-
+                            <input type="hidden" class="form-control input-sm" id="i_precheck_realizado" name="i_precheck_realizado" value="1" />
+                            <input type="hidden" class="form-control input-sm" id="n_round" name="n_round" value="1" />
                             <!--   fin seccion derecha---->
 
                             <!-- Button -->
