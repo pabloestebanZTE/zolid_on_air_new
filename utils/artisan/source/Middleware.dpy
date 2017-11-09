@@ -1,0 +1,14 @@
+<?php
+
+class ClassName extends Controller{
+
+    public function handle($request) {
+        if (!Auth::check()) {
+            //Acción para evitar el acceso.
+        }
+        //importante retornar true para continuar el proceso.
+        return true;
+    }
+
+}
+

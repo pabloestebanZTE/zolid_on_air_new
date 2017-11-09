@@ -1,0 +1,19 @@
+
+<?php
+
+class ClassName extends Validator {
+
+    private $request;
+
+    function __construct($request, $errorsKeys = null) {
+        parent::__construct($errorsKeys);
+        $this->request = $request;
+        $this->init();
+    }
+
+    private function init() {
+        $this->make(
+                $this->request->all(), [/*validations*/]);
+    }
+
+}

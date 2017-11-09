@@ -1,0 +1,10 @@
+
+<?php
+
+require './utils/Roots.php';
+require PATH_UTILS . "File.php";
+require PATH_UTILS . '/artisan/Process.php';
+require PATH_UTILS . '/artisan/Artisan.php';
+
+$artisan = new Artisan($argv);
+$artisan->run();
