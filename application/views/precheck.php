@@ -207,7 +207,8 @@
                                 <div class="form-group">
                                     <label class="col-md-12 control-label"></label>
                                     <div class="col-md-12">
-                                        <button type="submit" id="btnAsignar" class="btn btn-primary" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
+                                        <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
+                                        <button type="button" id="btnNoexitiso" class="btn btn-primary" onclick = "location.href = '<?= URL::to('User/scaling?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
                                     </div>
                                 </div>
                             </center>
@@ -222,35 +223,35 @@
         <?php $this->load->view('parts/generic/scripts'); ?>
         <!-- CUSTOM SCRIPT   -->
         <script>
-          $(function () {
-            var ticket = <?php echo $ticket; ?>;
-            console.log(ticket);
-            $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
-            $('input[name=txtBanda]').val(ticket.k_id_band.n_name_band);
-            $('input[name=txtRegional]').val(ticket.k_id_station.k_id_city.k_id_regional.n_name_regional);
-            $('input[name=txtTecnologia]').val(ticket.k_id_technology.n_name_technology);
-            $('input[name=txtTipotrabajo]').val(ticket.k_id_work.n_name_ork);
-            $('input[name=txtCiudad]').val(ticket.k_id_station.k_id_city.n_name_city);
-            $('input[name=txtEnte]').val(ticket.k_id_preparation.n_enteejecutor);
-            $('input[name=txtCRQ]').val(ticket.k_id_preparation.n_crq);
-            $('input[name=txtWP]').val(ticket.k_id_preparation.n_wp);
-            $('input[name=txtFecha]').val(ticket.k_id_preparation.d_ingreso_on_air);
-            $('input[name=txtEstado]').val(ticket.k_id_status_onair.k_id_status.n_name_status);
-            $('input[name=txtSubestado]').val(ticket.k_id_status_onair.k_id_substatus.n_name_substatus);
-            $('input[name=k_id_ticket]').val(ticket.k_id_onair);
-            $('input[name=txtIngeniero]').val(ticket.k_id_precheck.k_id_user.n_name_user+" "+ticket.k_id_precheck.k_id_user.n_last_name_user);
-            $('input[name=k_id_preparation]').val(ticket.k_id_preparation.k_id_preparation);
-          })
+            $(function () {
+                var ticket = <?php echo $ticket; ?>;
+                console.log(ticket);
+                $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
+                $('input[name=txtBanda]').val(ticket.k_id_band.n_name_band);
+                $('input[name=txtRegional]').val(ticket.k_id_station.k_id_city.k_id_regional.n_name_regional);
+                $('input[name=txtTecnologia]').val(ticket.k_id_technology.n_name_technology);
+                $('input[name=txtTipotrabajo]').val(ticket.k_id_work.n_name_ork);
+                $('input[name=txtCiudad]').val(ticket.k_id_station.k_id_city.n_name_city);
+                $('input[name=txtEnte]').val(ticket.k_id_preparation.n_enteejecutor);
+                $('input[name=txtCRQ]').val(ticket.k_id_preparation.n_crq);
+                $('input[name=txtWP]').val(ticket.k_id_preparation.n_wp);
+                $('input[name=txtFecha]').val(ticket.k_id_preparation.d_ingreso_on_air);
+                $('input[name=txtEstado]').val(ticket.k_id_status_onair.k_id_status.n_name_status);
+                $('input[name=txtSubestado]').val(ticket.k_id_status_onair.k_id_substatus.n_name_substatus);
+                $('input[name=k_id_ticket]').val(ticket.k_id_onair);
+                $('input[name=txtIngeniero]').val(ticket.k_id_precheck.k_id_user.n_name_user + " " + ticket.k_id_precheck.k_id_user.n_last_name_user);
+                $('input[name=k_id_preparation]').val(ticket.k_id_preparation.k_id_preparation);
+            })
         </script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
-        $(function(){
-          dom.submit($('#precheckForm'), function () {
-              location.href = app.urlTo('User/principalView');
-          });
-        })
-        // , function(){location.href = app.urlTo('User/principalView');}
+            $(function () {
+                dom.submit($('#precheckForm'), function () {
+                    location.href = app.urlTo('User/principalView');
+                });
+            })
+            // , function(){location.href = app.urlTo('User/principalView');}
         </script>
     </body>
 </html>
