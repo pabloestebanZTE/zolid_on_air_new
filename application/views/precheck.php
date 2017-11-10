@@ -199,7 +199,7 @@
                                 </div>
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
-
+                            <input type="hidden" class="form-control input-sm" id="<?= $_GET['idOnair']; ?>" name="idOnair" value="<?= $_GET['idOnair']; ?>" />
                             <!--   fin seccion derecha---->
 
                             <!-- Button -->

@@ -162,7 +162,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     /**
-     * 
+     *
      * @param type $id_onair
      * @param type $table1 = Tabla onair_hh...
      * @param type $table2 = Tabla follow_hh...
@@ -170,18 +170,88 @@ class Dao_ticketOnair_model extends CI_Model {
      */
     function getFollowersProject($id_onair, $table1, $table2, $field) {
         $sql = "SELECT c.k_id_user, n_last_name_user, n_username_user, n_mail_user FROM $table2
-                a INNER JOIN $table1 b 
-                ON a.$field = b.$field  
-                INNER JOIN user c 
+                a INNER JOIN $table1 b
+                ON a.$field = b.$field
+                INNER JOIN user c
                 ON c.k_id_user = a.k_id_user WHERE b.k_id_onair = $id_onair";
 //        echo $sql;
         $data = (new DB())->select($sql)->get();
         return $data;
     }
 
+    private function getGroupsGeneric($groups, $gh, $d_start, $d_end) {
+        //Recorremos los grupos para validar...
+        foreach ($gh as $key => $value) {
+            if (count($groups) == 0) {
+                $groups[] = [
+                    "date_start" => $value->{$d_start},
+                    "date_end" => $value->{$d_end},
+                    "group" => $value->i_round
+                ];
+            } else {
+                foreach ($groups as $i => $v) {
+                    if ($v["group"] != $value->i_round) {
+                        $groups[] = [
+                            "date_start" => $value->{$d_start},
+                            "date_end" => $value->{$d_end},
+                            "group" => $value->i_round
+                        ];
+                    } else {
+                        //Obteniendo la fecha principal...
+                        if (($value->{$d_start}) && ($v["date_start"])) {
+                            //Se compara si la fecha del value es menor...
+                            $d1 = Hash::getTimeStamp($value->{$d_start});
+                            $d2 = Hash::getTimeStamp($v["date_start"]);
+                            if (d1 < d2) {
+                                $groups[$i]["date_start"] = $value->{$d_start};
+                            }
+                        } else if ($value->{$d_start}) {
+                            $groups[$i]["date_start"] = $value->{$d_start};
+                        }
+
+                        //Obteniendo la fecha final...
+                        if (($value->{$d_end}) && ($v["date_end"])) {
+                            //Se compara si la fecha del value es Mayor...
+                            $d1 = Hash::getTimeStamp($value->{$d_end});
+                            $d2 = Hash::getTimeStamp($v["date_end"]);
+                            if (d1 > d2) {
+                                $groups[$i]["date_end"] = $value->{$d_end};
+                            }
+                        } else if ($value->{$d_end}) {
+                            $groups[$i]["date_end"] = $value->{$d_end};
+                        }
+                    }
+                }
+            }
+        }
+        return $groups;
+    }
+
+    function getGroups($idOnair) {
+        try {
+            $onAir12HModel = new OnAir12hModel();
+            $onAir24HModel = new OnAir24hModel();
+            $onAir36HModel = new OnAir36hModel();
+            $groups = [];
+            //Consultamos los grupos de 12h...
+            $gh12 = $onAir12HModel->where("k_id_onair", "=", $idOnair)->get();
+            //Consultamos los grupos de 24h...
+            $gh24 = $onAir24HModel->where("k_id_onair", "=", $idOnair)->get();
+            //Consultamos los grupos de 36h...
+            $gh36 = $onAir36HModel->where("k_id_onair", "=", $idOnair)->get();
+
+            $groups = $this->getGroupsGeneric($groups, $gh12, "d_start12h", "d_fin12h");
+            $groups = $this->getGroupsGeneric($groups, $gh24, "d_start24h", "d_fin24h");
+            $groups = $this->getGroupsGeneric($groups, $gh36, "d_start36h", "d_fin36h");
+            return $groups;
+        } catch (ZolidException $exc) {
+            return null;
+        }
+    }
+
     function getProcessTicket($request) {
         try {
-            $ticketModel = new TicketOnAirModel();            
+            $ticketModel = new TicketOnAirModel();
             //PRIMERO CONSULTAMOS EL TICKET...
             $tck = $ticketModel->where("k_id_onair", "=", $request->id)->first();
             //Verificamos si viene el round desde el cliente...
@@ -250,10 +320,13 @@ class Dao_ticketOnair_model extends CI_Model {
                         $details["36h"][$key] = $value;
                     }
                 }
+                $groups = $this->getGroups($tck->k_id_onair);
                 $response = new Response(EMessages::QUERY);
                 $data = [
                     "status" => $status_onair,
                     "details" => $details,
+                    "groups" => $groups,
+                    "group" => $round,
                     "actual_status" => $actual_status
                 ];
                 $response->setData($data);
@@ -261,6 +334,33 @@ class Dao_ticketOnair_model extends CI_Model {
             } else {
                 return new Response(EMessages::EMPTY_MSG, "Aún no se ha hecho precheck para este proceso.");
             }
+        } catch (ZolidException $ex) {
+
+            return $ex;
+        }
+    }
+
+    function updateRoundTicket($id, $value) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                    ->update(["n_round" => $value]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    public function updatePrecheckStatus($id) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_preparation", "=", $id)
+                    ->update(["i_precheck_realizado" => 1]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
         } catch (ZolidException $ex) {
             return $ex;
         }

@@ -21,7 +21,7 @@ class TicketOnair extends CI_Controller {
         $this->load->model('data/Dao_onAir36h_model');
         $this->load->model('data/Dao_preparationStage_model');
         $this->load->model('data/Dao_scaledOnair_model');
-        $this->load->model('data/dao_user_model');
+        $this->load->model('data/Dao_user_model');
     }
 
     public function listTicketOnair() {
@@ -57,7 +57,8 @@ class TicketOnair extends CI_Controller {
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
         $userId = Auth::user()->k_id_user;
-
+        $respuesta = [];
+        $flag = [];
         $precheckId = $precheck->getPrecheckById($userId)->data;
         for ($j = 0; $j < count($precheckId); $j++) {
             $res = $ticket->findByIdPrecheck($precheckId[$j]->k_id_precheck);
@@ -74,8 +75,8 @@ class TicketOnair extends CI_Controller {
         $ticket12 = new dao_ticketOnAir_model();
         $res2 = $follow12->getfollow12ById($userId)->data;
         for ($i = 0; $i < count($res2); $i++) {
-            $res3[$i] = $onair12->getOnair12ByFollow($res2[$i]->k_id_follow_up_12h)->data;
-            $res = $ticket12->findByIdOnAir($res3[$i]->k_id_onair);
+            $res2[$i] = $onair12->getOnair12ByFollow($res2[$i]->k_id_follow_up_12h)->data;
+            $res = $ticket12->findByIdOnAir($res2[$i]->k_id_onair);
             $respuesta[$j + $i] = $res->data;
         }
         // print_r($respuesta);//ticket prechek+12h
@@ -103,6 +104,7 @@ class TicketOnair extends CI_Controller {
         $unique = array_unique($flag);
         $final = array_values($unique);
         $ticketUnic = new dao_ticketOnAir_model();
+        $ticketUser = [];
         for ($t = 0; $t < count($final); $t++) {
             $ticketUser[$t] = $ticketUnic->findByIdOnAir($final[$t])->data;
             $ticketUser[$t]->k_id_band = $band->findById($ticketUser[$t]->k_id_band)->data; //band
@@ -191,6 +193,12 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
+    public function getGroups() {
+        $ticket = new dao_ticketOnAir_model();
+        $response = $ticket->getGroups(1);
+        $this->json($response);
+    }
+
     public function getProcessTicket() {
         $ticket = new dao_ticketOnAir_model();
         $response = $ticket->getProcessTicket($this->request);
@@ -210,6 +218,17 @@ class TicketOnair extends CI_Controller {
         $response = $precheck->insertPrecheck($this->request);
         $this->request->k_id_precheck = $response->data->data;
         $response = $ticket->updatePrecheckOnair($this->request);
+        $this->json($response);
+    }
+
+    public function createScaling() {
+        $scaling = new Dao_scaledOnair_model();
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
+        $this->request->n_round = $response->n_round;
+        $response = $scaling->insertScaling($this->request);
+        $this->request->n_round = $this->request->n_round + 1;
+        $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
         $this->json($response);
     }
 

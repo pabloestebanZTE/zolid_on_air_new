@@ -6,7 +6,7 @@
         <div class="container autoheight">
             <div class='tab-content' id='tab3'><brt><br>
                     <div class="container">
-                        <form class="well form-horizontal" action=" " method="post"  id="assignService" name="assignServie">
+                        <form class="well form-horizontal" action="TicketOnair/createScaling" method="post"  id="createScaling" name="createScaling">
                             <legend>Escalar Actividad</legend>
                             <fieldset class="col-md-6 control-label">
                                 <div class="form-group">
@@ -14,11 +14,11 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                            <select class="form-control input-sm" name="" id="txtAtribuibleNokia" name="txtAtribuibleNokia">
+                                            <select class="form-control input-sm" id="n_atribuible_nokia" name="n_atribuible_nokia">
                                                 <option value="">Seleccione</option>
-                                                <option value="1">SI</option>
-                                                <option value="2">NO</option>
-                                                <option value="3">NA</option>
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
+                                                <option value="NA">NA</option>
                                             </select>
                                         </div>
                                     </div>
@@ -28,9 +28,8 @@
                                     <label for="txtTimeEscalado" class="col-md-3 control-label">Time escalado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtTimeEscalado" id="txtTimeEscalado" class="form-control" value='' placeholder="DD/MM/YYYY">
-                                            <div class="input-group-btn"><button class="btn btn-default"><i class="fa fa-fw fa-calendar"></i></button></div>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
+                                            <input type='datetime-local' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -39,8 +38,8 @@
                                     <label for="txtFechaEscalado" class="col-md-3 control-label">Fecha de escalado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                            <input type='text' name="txtFechaEscalado" id="txtFechaEscalado" class="form-control" value='' >
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
+                                            <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" value='' placeholder="DD/MM/YYYY">
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +49,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                            <input type='text' name="txtContEscImp" id="txtContEscImp" class="form-control" value='' >
+                                            <input type='text' name="i_cont_esc_imp" id="i_cont_esc_imp" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +59,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtTimeEscImp" id="txtTimeEscImp" class="form-control" value='' >
+                                            <input type='text' name="time_esc_imp" id="time_esc_imp" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +69,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                            <input type='text' name="txtContEscRF" id="txtContEscRF" class="form-control" value='' >
+                                            <input type='text' name="i_cont_esc_rf" id="i_cont_esc_rf" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +79,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtTimeEscRF" id="txtTimeEscRF" class="form-control" value='' >
+                                            <input type='text' name="i_time_esc_rf" id="i_time_esc_rf" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +89,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                            <input type='text' name="txtContEscNpo" id="txtContEscNpo" class="form-control" value='' >
+                                            <input type='text' name="cont_esc_npo" id="cont_esc_npo" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +99,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtContEscNpo" id="txtContEscNpo" class="form-control" value='' >
+                                            <input type='text' name="i_time_esc_npo" id="i_time_esc_npo" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +109,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                            <input type='text' name="txtContEscCare" id="txtContEscCare" class="form-control" value='' >
+                                            <input type='text' name="cont_esc_care" id="cont_esc_care" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +119,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtTimeEscCare" id="txtTimeEscCare" class="form-control" value='' >
+                                            <input type='text' name="i_time_esc_care" id="i_time_esc_care" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +133,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                            <input type='text' name="txtContEscGDRT" id="txtContEscGDRT" class="form-control" value='' >
+                                            <input type='text' name="i_cont_esc_gdrt" id="i_cont_esc_gdrt" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +143,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtTimeEscGDRT" id="txtTimeEscGDRT" class="form-control" value='' >
+                                            <input type='text' name="i_time_esc_gdrt" id="i_time_esc_gdrt" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +153,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="txtContEscOym" id="txtContEscOym" class="form-control" value='' >
+                                            <input type='text' name="i_cont_esc_oym" id="i_cont_esc_oym" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +163,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendarw"></i></span>
-                                            <input type='text' name="txtTimeEscOym" id="txtTimeEscOym" class="form-control" value='' >
+                                            <input type='text' name="time_esc_oym" id="time_esc_oym" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +173,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="txtContEscCalidad" id="txtContEscCalidad" class="form-control" value='' >
+                                            <input type='text' name="cont_esc_calidad" id="cont_esc_calidad" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +183,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='text' name="txtTimeEscCalidad" id="txtTimeEscCalidad" class="form-control" value='' >
+                                            <input type='text' name="i_time_esc_calidad" id="i_time_esc_calidad" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -194,11 +193,11 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <select class="form-control" name="" id="txtAtribuibleNokia2" name="txtAtribuibleNokia2">
+                                            <select class="form-control" id="n_atribuible_nokia2" name="n_atribuible_nokia2">
                                                 <option value="">Seleccione</option>
-                                                <option value="1">SI</option>
-                                                <option value="2">NO</option>
-                                                <option value="3">NA</option>
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
+                                                <option value="NA">NA</option>
                                             </select>
                                         </div>
                                     </div>
@@ -209,7 +208,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="txtAtribuibleNokia2" id="txtAtribuibleNokia2" class="form-control" value='' >
+                                            <input type='text' name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -219,7 +218,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="txtAtribuibleNokia2" id="txtAtribuibleNokia2" class="form-control" value='' >
+                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -229,10 +228,11 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="txtUltimoSubestadoEscalamiento" id="txtUltimoSubestadoEscalamiento" class="form-control" value='' >
+                                            <input type='text' name="n_ultimo_subestado_de_escalamiento" id="n_ultimo_subestado_de_escalamiento" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
+                                <input type='hidden' name="k_id_onair" id="k_id_onair" class="form-control" value="<?= $_GET['id']; ?>" >
                             </fieldset>
                             <!--   fin seccion derecha---->
 
@@ -258,5 +258,13 @@
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/js/modules/scaling.js') ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
+        <script type="text/javascript">
+        $(function(){
+          dom.submit($('#createScaling'),null, false);
+        })
+        // , function(){location.href = app.urlTo('User/principalView');}
+        </script>
     </body>
 </html>

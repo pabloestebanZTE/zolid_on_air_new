@@ -786,8 +786,8 @@ nav {
     font-weight: bold;
     font-size: 0.8em;
 }
-.wiget .wiget-list p{
-    line-height: 1.7em;    
+.wiget p{
+    line-height: 1.7em !important;
 }
 .wiget .wiget-list.users .icon-wiget{
     border-radius: 100%;
