@@ -272,19 +272,10 @@ class Dao_ticketOnair_model extends CI_Model {
                     ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
                     ->first();
             $actual_status = null;
+            $timestamp = 0;
+            $percent = 0;
             if ($status_onair) {
-                //Comprobamos el status actual...
-                switch ($status_onair->k_id_substatus) {
-                    case ConstStates::SEGUIMIENTO_12H:
-                        $actual_status = "12h";
-                        break;
-                    case ConstStates::SEGUIMIENTO_24H:
-                        $actual_status = "24h";
-                        break;
-                    case ConstStates::SEGUIMIENTO_36H:
-                        $actual_status = "36h";
-                        break;
-                }
+
                 $details = array();
                 $onAir12HModel = new OnAir12hModel();
                 $onAir24HModel = new OnAir24hModel();
@@ -324,17 +315,58 @@ class Dao_ticketOnair_model extends CI_Model {
                     }
                     $haveDetails++;
                 }
+
+                //Comprobamos el status actual...
+                $obj = null;
+                $dStartField = null;
+                $stepModel = null;
+                $stepIdField = null;
+                switch ($status_onair->k_id_substatus) {
+                    case ConstStates::SEGUIMIENTO_12H:
+                        $actual_status = "12h";
+                        $stepIdField = "k_id_12h_real";
+//                        $onAir12HModel = new OnAir12hModel();                        
+                        $stepModel = new OnAir12hModel();
+//                        $obj = $onAir12HModel->getLastDetail($tck);
+                        break;
+                    case ConstStates::SEGUIMIENTO_24H:
+                        $actual_status = "24h";
+                        $stepIdField = "k_id_24h_real";
+//                        $onAir24HModel = new OnAir24hModel();
+                        $stepModel = new OnAir24hModel();
+//                        $obj = $onAir24HModel->getLastDetail($tck);
+                        break;
+                    case ConstStates::SEGUIMIENTO_36H:
+                        $actual_status = "36h";
+                        $stepIdField = "k_id_36h_real";
+//                        $onAir36HModel = new OnAir36hModel();
+                        $stepModel = new OnAir36hModel();
+//                        $obj = $onAir36HModel->getLastDetail($tck);
+                        break;
+                }
+                //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
+                if ($stepModel) {
+                    $temp = $stepModel->updateTimeStamp($tck);
+                    $timestamp = $temp->i_timestamp;
+                    $percent = $temp->i_percent;
+//                    $percent = $temp["percent"];
+                }
+
+
                 if ($haveDetails == 0) {
                     return new Response(EMessages::EMPTY_MSG, "No hay ningún detalle para mostrar.");
                 }
                 $groups = $this->getGroups($tck->k_id_onair);
+                //Obtenemos el timestamp...
                 $response = new Response(EMessages::QUERY);
                 $data = [
                     "status" => $status_onair,
                     "details" => $details,
                     "groups" => $groups,
                     "group" => $round,
-                    "actual_status" => $actual_status
+                    "actual_status" => $actual_status,
+                    "timestamp" => $timestamp,
+                    "percent" => $percent
                 ];
                 $response->setData($data);
                 return $response;
