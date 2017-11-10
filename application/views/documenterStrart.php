@@ -162,6 +162,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                         <select name="k_id_status_onair" id="substatus" class="form-control selectpicker" required>
+                                            <option value="">Seleccione el Subestado</option>
                                         </select>
                                     </div>
                                 </div>
@@ -178,6 +179,74 @@
                             </div>
                         </center>
                     </form>
+                    
+                    <div class="panel-group" id="accordion">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="fa fa-fw fa-list"></i> Nueva estación</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form class="form-horizontal well"  action="" method="post"  id="detailsForm" name="detailsForm">
+                                    <div class="panel-body">
+                                        <fieldset class="col-md-6 control-label">
+                                            <div class="form-group">
+                                                <label for="cmbRegional" class="col-md-3 control-label">Regional:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                        <select name="cmbRegional" id="cmbRegional" class="form-control selectpicker" required>
+                                                            <option value="">Seleccione la Regional</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtNombreEstacion" class="col-md-3 control-label">Nombre estación:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control input-sm" id="txtNombreEstacion" name="txtNombreEstacion" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <!--  fin seccion izquierda form---->
+
+                                        <!--  inicio seccion derecha form---->
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label for="cmbPrelaunch" class="col-md-3 control-label">Ciudad:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                        <select name="pre_launch" id="pre_launch" class="form-control selectpicker" required>
+                                                            <option value="">Seleccione la Ciudad</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <!--   fin seccion derecha---->
+
+                                        <!-- Button -->
+                                        <center>
+                                            <div class="form-group">
+                                                <label class="col-md-12 control-label"></label>
+                                                <div class="col-md-12">
+                                                    <button type="submit" id="btnGuardar" class="btn btn-primary" onclick = "">Guardar <span class="fa fa-fw fa-floppy-o"></span></button>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
