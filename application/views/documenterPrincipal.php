@@ -451,6 +451,37 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="txtLac" class="col-md-3 control-label">LAC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control input-sm" id="txtLac" name="txtLac" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="txtSac" class="col-md-3 control-label">SAC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control input-sm" id="txtSac" name="txtSac" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="txtRac" class="col-md-3 control-label">RAC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control input-sm" id="txtRac" name="txtRac" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
                                             <input type="hidden" class="form-control input-sm" id="k_id_ticket" name="k_id_ticket" value="" />
                                             <input type="hidden" class="form-control input-sm" id="k_id_prep" name="k_id_prep" value="" />
                                         </fieldset>
