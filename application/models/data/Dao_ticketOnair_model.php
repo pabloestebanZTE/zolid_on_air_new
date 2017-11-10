@@ -294,11 +294,13 @@ class Dao_ticketOnair_model extends CI_Model {
                         ->where("k_id_onair", "=", $tck->k_id_onair)
                         ->where("i_round", "=", $round)
                         ->get();
+                $haveDetails = 0;
                 if (count($details["12h"]) > 0) {
                     foreach ($details["12h"] as $key => $value) {
                         $value->k_id_follow_up_12h = $this->getFollowersProject($tck->k_id_onair, "on_air_12h", "follow_up_12h", "k_id_follow_up_12h");
                         $details["12h"][$key] = $value;
                     }
+                    $haveDetails++;
                 }
                 $details["24h"] = $onAir24HModel
                         ->where("k_id_onair", "=", $tck->k_id_onair)
@@ -309,6 +311,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         $value->k_id_follow_up_24h = $this->getFollowersProject($tck->k_id_onair, "on_air24h", "follow_up_24h", "k_id_follow_up_24h");
                         $details["24h"][$key] = $value;
                     }
+                    $haveDetails++;
                 }
                 $details["36h"] = $onAir36HModel
                         ->where("k_id_onair", "=", $tck->k_id_onair)
@@ -319,6 +322,10 @@ class Dao_ticketOnair_model extends CI_Model {
                         $value->k_id_follow_up_36h = $this->getFollowersProject($tck->k_id_onair, "on_air_36h", "follow_up_36h", "k_id_follow_up_36h");
                         $details["36h"][$key] = $value;
                     }
+                    $haveDetails++;
+                }
+                if ($haveDetails == 0) {
+                    return new Response(EMessages::EMPTY_MSG, "No hay ningún detalle para mostrar.");
                 }
                 $groups = $this->getGroups($tck->k_id_onair);
                 $response = new Response(EMessages::QUERY);
