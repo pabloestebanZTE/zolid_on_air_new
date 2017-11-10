@@ -7,7 +7,6 @@
 var dom = {
     //Para agregar todas las interacciones del dom genericas.
     init: function () {
-
         try {
             $('body').on('click', '.alert .close', function () {
                 $(this).parent().hide();
@@ -17,9 +16,7 @@ var dom = {
             dom.events();
 
         } catch (e) {
-
         }
-
     },
     events: function () {
         //Configuración panel.
@@ -167,7 +164,7 @@ var dom = {
      * @param {Elem} progressElement : El elemento progress del timer...
      * @returns {undefined}
      */
-    timer: function (element, time, progressElement) {
+    timer: function (element, time, progressElement, percentValue) {
         //Número de tiempos al límite...
         if (element) {
             element.html('<i class="fa fa-fw fa-refresh fa-spin"></i> --:--');
@@ -175,35 +172,39 @@ var dom = {
         //Comprobará si se ha consultado la hora actual, o de lo contrario se
         //consultará...
         var getTimeActual = function (callback) {
-            if (dom.currentTimeStamp) {
-                callback(time, element, progressElement);
-                return;
-            }
+//            if (dom.currentTimeStamp) {
+            dom.time = time;
+            callback(time, element, progressElement, percentValue);
+//                return;
+//            }
             //Consultamos la hora actual en milisegundos...
-            app.get('Utils/getCurrentTimeStamp').success(function (response) {
-                dom.currentTimeStamp = parseFloat(response);
-                callback(time, element, progressElement);
-            }).send();
+//            app.get('Utils/getCurrentTimeStamp').success(function (response) {
+//                dom.currentTimeStamp = parseFloat(response);
+//                callback(time, element, progressElement);
+//            }).send();
         };
 
-        getTimeActual(function (time, element, progress) {
-            dom.parseTimer(time, element, progress);
+        getTimeActual(function (time, element, progress, percentValue) {
+            dom.parseTimer(time, element, progress, percentValue);
             //Creamos el intervalo a un minuto...
             window.setInterval(function () {
-                dom.currentTimeStamp += (1000 * 60);
-                dom.parseTimer(time, element, progress);
+//                dom.currentTimeStamp += (1000 * 60);
+                dom.time -= (1000 * 60);
+                dom.parseTimer(dom.time, element, progress);
             }, (1000 * 60));
         });
     },
-    parseTimer: function (time, element, progress) {
+    parseTimer: function (time, element, progress, progressValue) {
         var hoursToMillisecounds = function (hours) {
             return (((1000 * 60) * 60) * hours);
         };
-        var timeTemp = time + hoursToMillisecounds(12);
-        var diffMs = (timeTemp - dom.currentTimeStamp); // Milisegundos entre la fecha y hoy.
+//        var timeTemp = time + hoursToMillisecounds(12);
+//        var diffMs = (timeTemp - dom.currentTimeStamp); // Milisegundos entre la fecha y hoy.
+        var diffMs = time; // Milisegundos entre la fecha y hoy.
         var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
         var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-        var progressValue = Math.round(((dom.currentTimeStamp - time) / (timeTemp - time)) * 100);
+
+//        var progressValue = Math.round(((dom.currentTimeStamp - time) / (timeTemp - time)) * 100);        
 
         if (diffHrs < 0) {
             diffHrs *= -1;

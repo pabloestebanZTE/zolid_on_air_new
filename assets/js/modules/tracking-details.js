@@ -19,7 +19,6 @@ var TD = {
         });
     },
     onClickItemState: function (e) {
-//        app.stopEvent(e);
         var link = $(this);
         var ul = link.parents('ul');
         ul.find('a.active').removeClass('active');
@@ -98,6 +97,7 @@ var TD = {
                         //Listamos los grupos...
                         TD.listGroups(response.data.groups, response.data.group);
                         TD.listDetails(response.data.details);
+                        TD.setTimers(response.data);
                     }
                 })
                 .error(function (e) {
@@ -105,6 +105,21 @@ var TD = {
                     dom.alertError($('#alertFases'));
                 })
                 .send();
+    },
+    setTimers: function (obj) {
+        $('.timerstamp').html('<i class="fa fa-fw fa-info-circle"></i> No definido');
+        switch (obj.actual_status) {
+            case "12h":
+//                console.log("TIME: ", obj.timestamp, "PERCENT: ", obj.percent);
+                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_12h"] .progress-step'), obj.percent);
+                break;
+            case "24h":
+                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_24h"] .progress-step'), obj.percent);
+                break;
+            case "36h":
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), obj.timestamp, $('data-ref="#contentDetails_36h"] .progress-step'), obj.percent);
+                break;
+        }
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');
