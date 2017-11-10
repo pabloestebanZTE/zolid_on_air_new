@@ -47,3 +47,22 @@ ALTER TABLE `on_air_36h`
 	ALTER TABLE ticket_on_air add i_precheck_realizado integer;
 	ALTER TABLE scaled_on_air add n_atribuible_nokia varchar(100);
 	ALTER TABLE scaled_on_air add n_atribuible_nokia2 varchar(100);
+
+-- SE AGREGA UN CAMPO A LAS TABALS DE DETALLES
+ALTER TABLE `on_air_12h`
+	ADD COLUMN `state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
+
+ALTER TABLE `on_air24h`
+	ADD COLUMN `state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
+
+ALTER TABLE `on_air_36h`
+	ADD COLUMN `state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
+
+ALTER TABLE `on_air_12h`
+	ADD COLUMN `i_percent` TINYINT(1) NOT NULL DEFAULT '0' AFTER `i_round`;
+
+ALTER TABLE `on_air24h`
+	ADD COLUMN `i_percent` TINYINT(1) NOT NULL DEFAULT '0' AFTER `i_round`;
+
+ALTER TABLE `on_air_36h`
+	ADD COLUMN `i_percent` TINYINT(1) NOT NULL DEFAULT '0' AFTER `i_round`;

@@ -453,7 +453,7 @@
                                     <span class="progress-step" id="progressStep1"></span>
                                 </div>
                                 <div class="footer-step">
-                                    <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                                    <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
                             <div class="hour-step" data-ref="#contentDetails_24h">
@@ -465,7 +465,7 @@
                                     <span class="progress-step"></span>
                                 </div>
                                 <div class="footer-step">
-                                    <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                                    <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
                             <div class="hour-step" data-ref="#contentDetails_36h">
@@ -477,7 +477,7 @@
                                     <span class="progress-step"></span>
                                 </div>
                                 <div class="footer-step">
-                                    <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                                    <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
                         </div>

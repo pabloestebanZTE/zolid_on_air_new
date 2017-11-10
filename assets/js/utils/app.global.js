@@ -1,3 +1,35 @@
+var ConstStates = {
+    ADYACENCIAS_FALTANTES: 1,
+    ALARMAS_DE_ENERGIA: 2,
+    ALARMAS_DE_HW: 3,
+    ALARMAS_DE_RX: 4,
+    ALARMAS_DE_TX: 5,
+    ALTO_RTWP: 6,
+    CANCELADO: 7,
+    DEGRADACION_KPI: 8,
+    DESMONTADO: 9,
+    ERROR_COMISIONAMIENTO_BTS: 10,
+    ERROR_CONFIGURACION_ACCESO: 11,
+    ERROR_INSTALACION: 12,
+    PENDIENTE_CRQ: 13,
+    PENDIENTE_EVIDENCIAS: 14,
+    PENDIENTE_PRUEBAS_ALARMAS: 15,
+    REVISION_PARCIAL: 17,
+    SITIIO_FUERA_DE_SERVICIO: 17,
+    PRECHECK: 18,
+    REINICIO_12H: 19,
+    REINICIO_PRECHECK: 20,
+    SEGUIMIENTO_12H: 21,
+    SEGUIMIENTO_24H: 22,
+    SEGUIMIENTO_36H: 23,
+    ACTIVACION_CUARTA_PORTADORA: 24,
+    PENDIENTE_ID_RF_TOOLS: 25,
+    PENDIENTE_SITIO_LIMPIO: 26,
+    PENDIENTE_TAREAS_REMEDY: 27,
+    PENDIENTE_TESTGESTION: 28,
+    PRODUCCION: 29,
+    TEMPORAL: 30
+};
 var app = {
     urlbase: $('body').attr('data-base').trim('/') + '/',
     validResponse: function (response) {
@@ -137,7 +169,6 @@ var app = {
     getParamURL: function (param) {
         var url = new URL(location.href);
         var c = url.searchParams.get(param);
-        console.log(c);
         return c;
     }
 };
