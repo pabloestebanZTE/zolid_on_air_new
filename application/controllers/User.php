@@ -15,6 +15,7 @@ class User extends CI_Controller {
         $this->load->model('data/Dao_preparationStage_model');
         $this->load->model('data/Dao_precheck_model');
         $this->load->model('data/Dao_statusOnair_model');
+        $this->load->model('data/Dao_scaledOnair_model');
     }
 
     private function validUser($request) {
@@ -104,7 +105,13 @@ class User extends CI_Controller {
     }
 
     public function scaling() {
-        $this->load->view('scaling');
+      $ticketOnair = new dao_ticketOnAir_model();
+      $scaledOnair = new dao_scaledOnair_model();
+      $ticket = $this->request->id;
+      $res = $ticketOnair->findByIdOnAir($ticket)->data;
+      $res->scaledOnair = $scaledOnair->getScaledByTicketRound($res->k_id_onair,$res->n_round)->data; //scaledOnair nuevo elemento
+      $answer['items'] = json_encode($res);
+      $this->load->view('scaling', $answer);
     }
 
     public function coordinadordetails() {
@@ -189,6 +196,8 @@ class User extends CI_Controller {
       $answer['ticket'] = json_encode($response->data);
       $this->precheck($answer);
     }
+
+
 
 }
 

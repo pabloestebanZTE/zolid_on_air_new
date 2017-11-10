@@ -250,12 +250,43 @@
             </div>
         </div>
         <!--footer Section -->
-        <div class="for-full-back" id="footer">
+        <div class="for-full-back" id="footer">        
             Zolid By ZTE Colombia | All Right Reserved
         </div>
         <?php $this->load->view('parts/generic/scripts'); ?>
         <!-- CUSTOM SCRIPT   -->
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
+        <script>
+          $(function () {
+            var items = <?php echo $items; ?>;
+            console.log(items);
+            $('#createScaling').fillForm(items);
+
+            $('#n_atribuible_nokia option[value="'+items.scaledOnair.n_atribuible_nokia+'"]').attr('selected', 'selected');
+             // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
+             // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
+            $('input[name=i_cont_esc_imp]').val(items.scaledOnair.i_cont_esc_imp);
+            $('input[name=time_esc_imp]').val(items.scaledOnair.time_esc_imp);
+            $('input[name=i_cont_esc_rf]').val(items.scaledOnair.i_cont_esc_rf);
+            $('input[name=i_time_esc_rf]').val(items.scaledOnair.i_time_esc_rf);
+            $('input[name=cont_esc_npo]').val(items.scaledOnair.cont_esc_npo);
+            $('input[name=i_time_esc_npo]').val(items.scaledOnair.i_time_esc_npo);
+            $('input[name=cont_esc_care]').val(items.scaledOnair.cont_esc_care);
+            $('input[name=i_time_esc_care]').val(items.scaledOnair.i_time_esc_care);
+            $('input[name=i_cont_esc_gdrt]').val(items.scaledOnair.i_cont_esc_gdrt);
+            $('input[name=i_time_esc_gdrt]').val(items.scaledOnair.i_time_esc_gdrt);
+            $('input[name=i_cont_esc_oym]').val(items.scaledOnair.i_cont_esc_oym);
+            $('input[name=time_esc_oym]').val(items.scaledOnair.time_esc_oym);
+            $('input[name=cont_esc_calidad]').val(items.scaledOnair.cont_esc_calidad);
+            $('input[name=i_time_esc_calidad]').val(items.scaledOnair.i_time_esc_calidad);
+            $('#n_atribuible_nokia2 option[value="'+items.scaledOnair.n_atribuible_nokia2+'"]').attr('selected', 'selected');
+            $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
+            $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
+            $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
+
+          })
+        </script>
+
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/js/modules/scaling.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>

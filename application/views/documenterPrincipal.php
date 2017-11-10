@@ -19,7 +19,7 @@
                         <div id="collapse1" class="panel-collapse collapse in">
                             <div class="panel-body">
 
-                                <form class="form-horizontal well">
+                                <form class="form-horizontal well" name="basicForm" id="basicForm">
 
                                     <div class="panel-body">
                                         <fieldset class="col-md-6 control-label">
@@ -28,7 +28,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                                        <input type="text" name="k_id_station.n_name_station" id="txtEstacion" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_station" id="n_name_station" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -38,7 +38,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                        <input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_band" id="n_name_band" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -48,7 +48,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                                        <input type="text" name="k_id_regional.n_name_regional" id="txtRegional" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_regional" id="n_name_regional" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,7 +58,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" name="txtIngeniero" id="txtIngeniero" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_user" id="n_name_user" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +78,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_crq" id="txtCRQ" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_crq" id="n_crq" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,7 +88,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_wp" id="txtWP" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_wp" id="n_wp" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,7 +102,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_technology" id="n_name_technology" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,7 +112,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                        <input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_ork" id="n_name_ork" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,7 +122,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                                        <input type="text" name="k_id_station.k_id_city.n_name_city" id="txtciudad" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_city" id="n_name_city" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +132,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                                        <input type="text" name="txtEnteEjecutor" id="txtEnteEjecutor" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_enteejecutor" id="n_enteejecutor" class="form-control" value="" readonly="false">
 
                                                     </div>
                                                 </div>
@@ -143,7 +143,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                        <input type="text" name="k_id_status_onair.k_id_status.n_name_status" id="txtEstado" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_status" id="n_name_status" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,7 +153,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                        <input type="text" name="k_id_status_onair.k_id_substatus.n_name_substatus" id="txtSubestado" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="n_name_substatus" id="n_name_substatus" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -613,7 +613,9 @@
         <script>
           $(function () {
             var fields = <?php echo $fields; ?>;
-            console.log(fields);
+            // console.log(fields);
+            $('#detailsForm').fillForm(fields);
+
             $('input[name=n_integrador]').val(fields.k_id_preparation.n_integrador);
             $('#n_testgestion option[value="'+fields.k_id_preparation.n_testgestion+'"]').attr('selected', 'selected');
             $('#n_sitiolimpio option[value="'+fields.k_id_preparation.n_sitiolimpio+'"]').attr('selected', 'selected');
@@ -638,8 +640,23 @@
             $('input[name=k_id_ticket]').val(fields.k_id_onair);
             $('input[name=k_id_prep]').val(fields.k_id_preparation.k_id_preparation);
 
+            $('input[name=n_name_station]').val(fields.k_id_station.n_name_station);
+            $('input[name=n_name_band]').val(fields.k_id_band.n_name_band);
+            $('input[name=n_name_regional]').val(fields.k_id_station.k_id_city.k_id_regional.n_name_regional);
+            $('input[name=n_name_user]').val(fields.k_id_preparation.n_contratista);
+            $('input[name=txtFechaIngresoOnAir]').val(fields.k_id_preparation.d_ingreso_on_air);
+            $('input[name=n_crq]').val(fields.k_id_preparation.n_crq);
+            $('input[name=n_wp]').val(fields.k_id_preparation.n_wp);
+            $('input[name=n_name_technology]').val(fields.k_id_technology.n_name_technology);
+            $('input[name=n_name_ork]').val(fields.k_id_work.n_name_ork);
+            $('input[name=n_name_city]').val(fields.k_id_station.k_id_city.n_name_city);
+            $('input[name=n_enteejecutor]').val(fields.k_id_preparation.n_enteejecutor);
+            $('input[name=n_name_status]').val(fields.k_id_status_onair.k_id_status.n_name_status);
+            $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
+
           })
         </script>
+
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/js/modules/documenterPrincipal.js') ?>" type="text/javascript"></script>

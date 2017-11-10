@@ -51,7 +51,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                                        <input type="text" name="k_id_regional.n_name_regional" id="txtRegional" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="k_id_station.k_id_city.k_id_regional.n_name_regional" id="txtRegional" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -61,7 +61,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" name="txtIngeniero" id="txtIngeniero" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="txtIngeniero" id="txtIngeniero" class="form-control" value="<?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?>" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -71,7 +71,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                                        <input type="text" name="txtFechaIngresoOnAir" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" maxlength="10" placeholder="DD/MM/AAAA">
+                                                        <input type="text" name="k_id_preparation.d_ingreso_on_air" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" maxlength="10" placeholder="DD/MM/AAAA">
                                                     </div>
                                                 </div>
                                             </div>
@@ -486,14 +486,14 @@
                                 <div class="col-md-3 wiget-list">
                                     <div class="item-wiget">
                                         <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
-                                        <div class="details-wiget">                                                    
+                                        <div class="details-wiget">
                                             <span class="title display-block">Fecha Inicio: </span>
                                             <span class="text display-block" id="d_start">{d_start}</span>
                                         </div>
                                     </div>
                                     <div class="item-wiget">
                                         <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
-                                        <div class="details-wiget">                                                    
+                                        <div class="details-wiget">
                                             <span class="title display-block">Fecha Fin: </span>
                                             <span class="text display-block" id="d_end">{d_end}</span>
                                         </div>
@@ -505,13 +505,13 @@
                                 <div class="col-md-4 wiget-list p-l-25 users">
                                     <div class="item-wiget">
                                         <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
-                                        <div class="details-wiget">                                                    
+                                        <div class="details-wiget">
                                             <span class="title display-block">{user_name}</span>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
-                            <div class="well m-b-0 p-t-5 p-b-5">                                
+                            <div class="well m-b-0 p-t-5 p-b-5">
                                 <div class="row wiget" id="contentDetails_12h">
 
                                 </div>

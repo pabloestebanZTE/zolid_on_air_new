@@ -35,6 +35,21 @@
           }
         }
 
+        public function getScaledByTicketRound($ticket,$round){
+          try {
+            $scaledOnair = new ScaledOnAirMOdel();
+            $datos = $scaledOnair->where("k_id_onair","=",$ticket)
+                          ->where("n_round","=",$round-1)
+                          ->first();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+          } catch (ZolidException $ex) {
+            return $ex;
+          }
+        }
+
+
         public function insertScaling($request){
           print_r($request);
           try {
