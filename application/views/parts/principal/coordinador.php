@@ -19,11 +19,11 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab1default">
                                                 <h1 class="m-t-0">Pendientes para asignación</h1>
-                                                <table id="tablaPendientes" class="table table-hover table-condensed table-striped"></table>
+                                                <table id="tablaPendientes" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                             <div class="tab-pane fade" id="tab2default">
                                                 <h1 class="m-t-0">Ya asignados</h1>
-                                                <table id="tablaAsignados" class="table table-hover table-condensed table-striped"></table>
+                                                <table id="tablaAsignados" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                         </div>
                                     </div>
