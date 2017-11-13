@@ -95,6 +95,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">WBTS:</label>
+                                <div class="col-md-8 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
+                                        <input type='text' name="n_bcf_wbts_id" id="n_bcf_wbts_id" class="form-control" value='' required>
+                                    </div>
+                                </div>
+                            </div>
                         </fieldset>
                         <!--  fin seccion izquierda form---->
 
@@ -167,6 +176,17 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                              <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                <div class="col-md-8 inputGroupContainer">
+                                  <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador"></textarea>
+                                  </div>
+                              </div>
+                            </div>
+
                         </fieldset>
                         <!--   fin seccion derecha---->
                         <!-- Button -->

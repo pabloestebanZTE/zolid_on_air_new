@@ -93,6 +93,19 @@ class Dao_precheck_model extends CI_Model {
       }
     }
 
+    public function updatePrecheckCom($request){
+      try {
+        $precheck = new PrecheckModel();
+        $datos = $precheck->where("k_id_precheck","=",$request->k_id_precheck)
+                          ->update($request->all());
+        $response = new Response(EMessages::SUCCESS);
+        $response->setData($datos);
+        return $response;
+      } catch (ZolidException $ex) {
+        return $ex;
+      }
+    }
+
 }
 
 ?>

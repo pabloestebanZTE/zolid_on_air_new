@@ -157,6 +157,25 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
+                                                        <input type="text" name="n_bcf_wbts_id" id="n_bcf_wbts_id" class="form-control" value="" readonly="false">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                             <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                  <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                  </div>
+                                              </div>
+                                            </div>
                                         </fieldset>
                                         <!--   fin seccion derecha---->
                                     </div>
@@ -457,7 +476,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="txtLac" name="txtLac" value="" />
+                                                        <input type="text" class="form-control input-sm" id="n_lac" name="n_lac" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -467,7 +486,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="txtSac" name="txtSac" value="" />
+                                                        <input type="text" class="form-control input-sm" id="n_sac" name="n_sac" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -477,7 +496,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="txtRac" name="txtRac" value="" />
+                                                        <input type="text" class="form-control input-sm" id="n_rac" name="n_rac" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -596,7 +615,12 @@
             $('#n_gestion_power option[value="'+fields.n_gestion_power+'"]').attr('selected', 'selected');
             $('#n_obra_civil option[value="'+fields.n_obra_civil+'"]').attr('selected', 'selected');
             $('#on_air option[value="'+fields.on_air+'"]').attr('selected', 'selected');
-            $('#n_noc option[value="'+fields.n_noc+'"]').attr('selected', 'selected');
+            $('#n_noc option[value="'+fields.n_noc+'"]').attr('selected', 'selected');            
+            $('input[name=n_lac]').val(fields.k_id_preparation.n_lac);
+            $('input[name=n_rac]').val(fields.k_id_preparation.n_rac);
+            $('input[name=n_sac]').val(fields.k_id_preparation.n_sac);
+
+
             $('input[name=k_id_ticket]').val(fields.k_id_onair);
             $('input[name=k_id_prep]').val(fields.k_id_preparation.k_id_preparation);
 
@@ -613,6 +637,8 @@
             $('input[name=n_enteejecutor]').val(fields.k_id_preparation.n_enteejecutor);
             $('input[name=n_name_status]').val(fields.k_id_status_onair.k_id_status.n_name_status);
             $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
+            $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
+            $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
 
           })
         </script>

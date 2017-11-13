@@ -95,6 +95,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
+                                                        <input type="text" name="k_id_preparation.n_bcf_wbts_id" id="k_id_preparation.n_bcf_wbts_id" class="form-control" value="" readonly="false">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </fieldset>
                                         <!--  fin seccion izquierda form---->
 
@@ -158,6 +168,26 @@
                                                         <input type="text" name="k_id_status_onair.k_id_substatus.n_name_substatus" id="txtSubestado" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                             <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                  <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                             <label class="col-md-3 control-label">Observaciones de Asignacion</label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                  <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
+                                                  </div>
+                                              </div>
                                             </div>
                                         </fieldset>
                                         <!--   fin seccion derecha---->

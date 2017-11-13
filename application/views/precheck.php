@@ -78,6 +78,27 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                 <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                      <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                        <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                      </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                 <label class="col-md-3 control-label">Observaciones de Asignacion</label>
+                                  <div class="col-md-8 inputGroupContainer">
+                                      <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
+                                      </div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">controlador:</label>
                                     <div class="col-md-8 selectContainer">
@@ -93,15 +114,6 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
                                             <input type='text' name="n_idcontrolador" id="n_idcontrolador" class="form-control" value='' required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">btsipaddress:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_btsipaddress" id="n_btsipaddress" class="form-control" value='' required>
                                         </div>
                                     </div>
                                 </div>
@@ -169,6 +181,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">btsipaddress:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
+                                            <input type='text' name="n_btsipaddress" id="n_btsipaddress" class="form-control" value='' required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-3 control-label">bcf_wbts_id:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -197,8 +218,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                 <label class="col-md-3 control-label">Observaciones Precheck</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                      <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                        <textarea class="form-control" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
+                                      </div>
+                                  </div>
+                                </div>
+
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
+                            <input type='hidden' name="k_id_precheck" id="k_id_precheck" class="form-control" value='' required>
                             <input type="hidden" class="form-control input-sm" id="<?= $_GET['idOnair']; ?>" name="idOnair" value="<?= $_GET['idOnair']; ?>" />
                             <!--   fin seccion derecha---->
 
@@ -241,6 +273,11 @@
                 $('input[name=k_id_ticket]').val(ticket.k_id_onair);
                 $('input[name=txtIngeniero]').val(ticket.k_id_precheck.k_id_user.n_name_user + " " + ticket.k_id_precheck.k_id_user.n_last_name_user);
                 $('input[name=k_id_preparation]').val(ticket.k_id_preparation.k_id_preparation);
+                $('input[name=k_id_precheck]').val(ticket.k_id_precheck.k_id_precheck);
+                $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
+                $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
+                $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
+
             })
         </script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>

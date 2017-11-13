@@ -66,3 +66,7 @@ ALTER TABLE `on_air24h`
 
 ALTER TABLE `on_air_36h`
 	ADD COLUMN `i_percent` TINYINT(1) NOT NULL DEFAULT '0' AFTER `i_round`;
+
+ALTER TABLE preparation_stage add n_comentario_doc varchar(1000);
+ALTER TABLE ticket_on_air add n_comentario_coor varchar(1000);
+ALTER TABLE precheck add n_comentario_ing varchar(1000);

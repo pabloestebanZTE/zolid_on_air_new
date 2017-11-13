@@ -5,6 +5,7 @@ class PrecheckModel extends Model {
     protected $k_id_precheck;
     protected $k_id_user;
     protected $d_finpre;
+    protected $n_comentario_ing;
     //Los campos que desea ocultar para que no se reflejen en la vista.
     protected $table = "precheck";
     //Los campos que desea exculir del modelo.
@@ -37,6 +38,13 @@ class PrecheckModel extends Model {
 
     public function getDFinpre() {
         return $this->d_finpre;
+    }
+    public function setNComentarioIng($n_comentario_ing) {
+        $this->n_comentario_ing = $n_comentario_ing;
+    }
+
+    public function getNComentarioIng() {
+        return $this->n_comentario_ing;
     }
 
 }

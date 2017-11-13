@@ -37,6 +37,8 @@ class PreparationStageModel extends Model {
     protected $id_documentacion;
     protected $id_rftools;
     protected $n_evidenciatg;
+    protected $n_comentario_doc;
+
 
     //Los campos que desea ocultar para que no se reflejen en la vista.
     protected $table = "preparation_stage";
@@ -257,6 +259,12 @@ class PreparationStageModel extends Model {
     }
     public function getNEvidenciatg() {
       return $this->n_evidenciatg__;
+    }
+    public function setNComentarioDoc($n_comentario_doc) {
+      $this->n_comentario_doc = $n_comentario_doc;
+    }
+    public function getNComentarioDoc() {
+      return $this->n_comentario_doc;
     }
 
 
