@@ -48,5 +48,18 @@
           }
         }
 
+        public function findByIdCRQ($id){
+          try {
+            $preparation = new PreparationStageModel();
+            $datos = $preparation->where("n_crq","=",$id)
+                          ->first();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+          } catch (ZolidException $ex) {
+            return $ex;
+          }
+        }
+
     }
 ?>

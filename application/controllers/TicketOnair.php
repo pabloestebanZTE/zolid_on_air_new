@@ -31,6 +31,8 @@ class TicketOnair extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
+        $assign = new dao_user_model();
+        $stage = new dao_preparationStage_model();
         $res = $ticketsOnAir->getAll($this->request);
         for ($j = 0; $j < count($res->data); $j++) {
             $res->data[$j]->k_id_status_onair = $statusOnair->findById($res->data[$j]->k_id_status_onair)->data; //Status onair
@@ -38,6 +40,15 @@ class TicketOnair extends CI_Controller {
             $res->data[$j]->k_id_band = $band->findById($res->data[$j]->k_id_band)->data; //band
             $res->data[$j]->k_id_work = $work->findById($res->data[$j]->k_id_work)->data; //work
             $res->data[$j]->k_id_technology = $technology->findById($res->data[$j]->k_id_technology)->data; //technology
+            $res->data[$j]->k_id_preparation = $stage->findByIdPreparation($res->data[$j]->k_id_preparation)->data;//preparation
+
+            if ($res->data[$j]->i_actualEngineer != 0) {
+               $res->data[$j]->i_actualEngineer = $assign->findBySingleId($res->data[$j]->i_actualEngineer)->data;//
+               $res->data[$j]->i_actualEngineer = $res->data[$j]->i_actualEngineer->n_name_user." ".$res->data[$j]->i_actualEngineer->n_last_name_user;
+            }elseif ($res->data[$j]->i_actualEngineer == 0) {
+                $res->data[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+            }
+            
         }
         $this->json($res);
     }
@@ -180,7 +191,7 @@ class TicketOnair extends CI_Controller {
         $this->request->i_actualEngineer = 0;
         $response = $ticket->insertTicket($this->request);
         $this->json($response);
-    }
+            }
 
     public function getAllStates() {
         $ticket = new dao_ticketOnAir_model();
@@ -203,6 +214,12 @@ class TicketOnair extends CI_Controller {
     public function getProcessTicket() {
         $ticket = new dao_ticketOnAir_model();
         $response = $ticket->getProcessTicket($this->request);
+        $this->json($response);
+    }
+
+    public function createProrroga() {
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->createProrroga($this->request);
         $this->json($response);
     }
 

@@ -1,5 +1,6 @@
 var TD = {
     contentFases: $('#contentFases'),
+    exec: false,
     init: function () {
         TD.events();
         TD.configView();
@@ -17,15 +18,72 @@ var TD = {
             cmb.val(cmb.attr('data-value'));
             cmb.trigger('change.select2');
         });
+        $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
+    },
+    onClickAceptarModal: function () {
+        var action = $('.states-modal a.active').attr('data-action');
+        switch (action) {
+            case "PROR":
+                TD.createProrroga();
+                break;
+            case "NEXT":
+                TD.nextFase();
+                break;
+        }
+    },
+    createProrroga: function () {
+        //Validamos...
+        var txtHorasProrroga = $('#txtTiempoProrroga');
+        if (txtHorasProrroga.val().trim() === "" || txtHorasProrroga.val() == 0) {
+            swal("Error", "El tiempo asignado para la prórroga es inválido.", "error");
+            return;
+        }
+        var obj = {
+            idProceso: $('#idProceso').val(),
+            hours: $('#txtTiempoProrroga').val(),
+            comment: $('#modalChangeState #txtObservations').val()
+        };
+        app.post('TicketOnair/createProrroga', obj)
+                .success(function (response) {
+                    console.log(response);
+                    var v = app.validResponse(response);
+                    if (v) {
+                        swal("Guardado", "Se ha creado la prórroga éxitosamente.", "success");
+                    } else {
+                        swal("Atención", "No se pudo crear la prórroga.", "warning");
+                    }
+                }).error(function (e) {
+            swal("Error", "Se ha producido un error desconocido, compruebe su conexión y vuelva a intentarlo.", "error");
+            console.log(e);
+        }).send();
+    },
+    nextFase: function () {
+        console.log("SIGUIENTE FASE");
     },
     onClickItemState: function (e) {
         var link = $(this);
         var ul = link.parents('ul');
+        if (link.hasClass('active')) {
+            link.next().slideUp(500);
+            return;
+        }
+        if (link.next()) {
+            ul.find('.content-state').slideUp(500);
+            link.next().removeClass('hidden').hide().slideDown(500);
+            $(link.attr('data-focus')).focus();
+        }
         ul.find('a.active').removeClass('active');
         link.addClass('active');
     },
     onClickIconStep: function () {
         var icon = $(this);
+        var parent = icon.parents('.hour-step');
+        var hr = parseInt(parent.attr('data-value')) + 12;
+        hr = (hr > 36) ? 36 : hr;
+        $('#txtTiempoProrroga').val("12");
+        $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
+        $('#modalChangeState .content-state').hide();
+        $('#modalChangeState a.active').removeClass('active');
         $('#modalChangeState').modal('show');
     },
     listCombox: function () {
@@ -62,7 +120,6 @@ var TD = {
         //Consultamos...
         app.post('TicketOnair/getAllService', {id: app.getParamURL('id')})
                 .success(function (response) {
-                    console.log(response);
                     if (response.code > 0) {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
@@ -95,8 +152,10 @@ var TD = {
                     if (response.code > 0) {
                         $('#contentFases').removeClass('hidden').hide().fadeIn(500);
                         //Listamos los grupos...
-                        TD.listGroups(response.data.groups, response.data.group);
-                        TD.listDetails(response.data.details);
+                        if (!TD.exec) {
+                            TD.listGroups(response.data.groups, response.data.group);
+                            TD.listDetails(response.data.details);
+                        }
                         TD.setTimers(response.data);
                     }
                 })
@@ -108,16 +167,22 @@ var TD = {
     },
     setTimers: function (obj) {
         $('.timerstamp').html('<i class="fa fa-fw fa-info-circle"></i> No definido');
+        var fn = function () {
+            if (TD.exec) {
+                return true;
+            }
+            TD.getDetails();
+            TD.exec = true;
+        };
         switch (obj.actual_status) {
             case "12h":
-//                console.log("TIME: ", obj.timestamp, "PERCENT: ", obj.percent);
-                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_12h"] .progress-step'), obj.percent);
+                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_12h"] .progress-step'), obj.percent, fn, obj.detail_state);
                 break;
             case "24h":
-                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_24h"] .progress-step'), obj.percent);
+                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_24h"] .progress-step'), obj.percent, fn, obj.detail_state);
                 break;
             case "36h":
-                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), obj.timestamp, $('data-ref="#contentDetails_36h"] .progress-step'), obj.percent);
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), obj.timestamp, $('data-ref="#contentDetails_36h"] .progress-step'), obj.percent, fn, obj.detail_state);
                 break;
         }
     },
