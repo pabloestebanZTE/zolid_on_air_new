@@ -34,12 +34,12 @@ class Precheck extends CI_Controller {
 */            $array = $dao->getAssign();
             $array->data["pendingList"] = (is_array($array->data["pendingList"])) ? ($this->getFKRegisters($array->data["pendingList"])) : NULL;
             $array->data["assingList"] = (is_array($array->data["assingList"])) ? ($this->getFKRegisters($array->data["assingList"])) : NULL;
-            //asigno datos del usuario asignado 
-            for ($i=0; $i <count($array->data['assingList']) ; $i++) { 
+            //asigno datos del usuario asignado
+            for ($i=0; $i <count($array->data['assingList']) ; $i++) {
                 $array->data['assingList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['assingList'][$i]->i_actualEngineer)->data;
                 $array->data['assingList'][$i]->i_actualEngineer->n_name_user = $array->data['assingList'][$i]->i_actualEngineer->n_name_user." ".$array->data['assingList'][$i]->i_actualEngineer->n_last_name_user;
             }
-            for ($j=0; $j <count($array->data['pendingList']) ; $j++) { 
+            for ($j=0; $j <count($array->data['pendingList']) ; $j++) {
                 $array->data['pendingList'][$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
             }
             $this->json($array);
