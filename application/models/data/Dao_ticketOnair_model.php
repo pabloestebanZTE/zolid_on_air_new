@@ -202,7 +202,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             //Se compara si la fecha del value es menor...
                             $d1 = Hash::getTimeStamp($value->{$d_start});
                             $d2 = Hash::getTimeStamp($v["date_start"]);
-                            if (d1 < d2) {
+                            if ($d1 < $d2) {
                                 $groups[$i]["date_start"] = $value->{$d_start};
                             }
                         } else if ($value->{$d_start}) {
@@ -405,7 +405,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
+
     function updateRoundTicket($id, $value) {
         try {
             $ticketOnAir = new TicketOnAirModel();
@@ -450,7 +450,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $exc;
         }
     }
-         
+
     public function createProrroga($request) {
         try {
             //Se obtiene el id del proceso onair...
@@ -503,6 +503,74 @@ class Dao_ticketOnair_model extends CI_Model {
                 }
             }
             $response = new Response(EMessages::INSERT);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    public function nextFase($request) {
+        try {
+            $id = $request->idProceso;
+            $fase = $request->fase;
+            $comment = $request->comment;
+            $ticketModel = new TicketOnAirModel();
+            //Consultamos el ticket...
+            $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
+            $response = new Response(EMessages::INSERT);
+            $idStatus = 0;
+            $detailModel = null;
+            $dateField = null;
+            if ($ticket) {
+                //Se obtiene el código del subestado...
+                switch ($fase) {
+                    case "12h":
+                        $idStatus = ConstStates::SEGUIMIENTO_12H;
+                        $detailModel = new OnAir12hModel();
+                        $dateField = "d_start12h";
+                        break;
+                    case "24h":
+                        $idStatus = ConstStates::SEGUIMIENTO_24H;
+                        $detailModel = new OnAir24hModel();
+                        $dateField = "d_start24h";
+                        break;
+                    case "36h":
+                        $idStatus = ConstStates::SEGUIMIENTO_36H;
+                        $detailModel = new OnAir36hModel();
+                        $dateField = "d_start36h";
+                        break;
+                }
+                //Actualizamos el estado de la fase...
+                $status_onair = DB::table("status_on_air")
+                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                        ->update([
+                    "k_id_substatus" => $idStatus
+                ]);
+                //Luego actualizamos o insertamos el nuevo registro de la siguiente fase.
+                $temp = $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                        ->where("i_round", "=", $ticket->n_round)
+                        ->first();
+                //Se comprueba si existe, para actualizar...
+                if ($temp) {
+                    $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_round", "=", $ticket->n_round)
+                            ->update([
+                                "i_state" => 0,
+                                $dateField => Hash::getDate()
+                    ]);
+                } else {
+                    //Se comprueba si no existe para insertarlo.
+                    $detailModel->insert([
+                        "k_id_onair" => $ticket->k_id_onair,
+                        "i_state" => 0,
+                        "n_comentario" => $comment,
+                        "i_round" => $ticket->n_round,
+                        $dateField => Hash::getDate()
+                    ]);
+                }
+            } else {
+                $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
+            }
             return $response;
         } catch (ZolidException $ex) {
             return $ex;
