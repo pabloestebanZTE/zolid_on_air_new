@@ -465,7 +465,6 @@
             $('#substatus').empty();
             for (var j = 0; j < info.statusOnAir.data.length; j++){
               if(status === info.statusOnAir.data[j].k_id_status){
-                  console.log(info.statusOnAir.data[j].n_name_substatus);
                   $('#substatus').append($('<option>', {
                       value: info.statusOnAir.data[j].k_id_status_onair,
                       text: info.statusOnAir.data[j].n_name_substatus
