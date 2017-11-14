@@ -326,7 +326,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     case ConstStates::SEGUIMIENTO_12H:
                         $actual_status = "12h";
                         $stepIdField = "k_id_12h_real";
-//                        $onAir12HModel = new OnAir12hModel();                        
+//                        $onAir12HModel = new OnAir12hModel();
                         $stepModel = new OnAir12hModel();
 //                        $obj = $onAir12HModel->getLastDetail($tck);
                         break;
@@ -393,6 +393,19 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    function updateTicketScaling($request) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
+                    ->update($request->all());
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+    
     function updateRoundTicket($id, $value) {
         try {
             $ticketOnAir = new TicketOnAirModel();
@@ -419,6 +432,25 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    public function getAssign() {
+        try {
+            //Consultamos la lista de registros pendientes...
+            $db = new DB();
+            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0")->get();
+            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0")->get();
+            //Consultamos la lista de registros asignados...
+            $data = [
+                "pendingList" => $pending,
+                "assingList" => $assing
+            ];
+            $response = new Response(EMessages::QUERY);
+            $response->setData($data);
+            return $response;
+        } catch (ZolidException $exc) {
+            return $exc;
+        }
+    }
+         
     public function createProrroga($request) {
         try {
             //Se obtiene el id del proceso onair...

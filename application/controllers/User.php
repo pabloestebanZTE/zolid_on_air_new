@@ -45,14 +45,14 @@ class User extends CI_Controller {
             //Se actualiza la forma de validar los roles...
             //Podemos acceder directamente al método que comprobará un rol en especifico.
             if (Auth::isCoordinador()) {
-                
+
             }
             if (Auth::isDocumentador()) {
-                
+
             }
             //O también podemos detectar si el rol es uno personalizado...
             if (Auth::isRole("Ingeniero")) {
-                
+
             }
             Redirect::redirect(URL::to("User/principal"));
         } else {
@@ -108,7 +108,7 @@ class User extends CI_Controller {
         $ticketOnair = new dao_ticketOnAir_model();
         $scaledOnair = new dao_scaledOnair_model();
         $status = new dao_statusOnair_model();
-        
+
         $ticket = $this->request->id;
         $res = $ticketOnair->findByIdOnAir($ticket)->data;
         $res->scaledOnair = $scaledOnair->getScaledByTicketRound($res->k_id_onair, $res->n_round)->data; //scaledOnair nuevo elemento
@@ -127,7 +127,7 @@ class User extends CI_Controller {
                 }
             }
         }
-        
+
         $answer['items'] = json_encode($res);
         $this->load->view('scaling', $answer);
     }
@@ -142,6 +142,7 @@ class User extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $status = new dao_statusOnair_model();
+        $crq = new dao_preparationStage_model();
 
         $res['stations'] = $station->getAll();
         $res['cities'] = $station->getAllCities();
@@ -152,12 +153,13 @@ class User extends CI_Controller {
         $res['statusOnAir'] = $status->getAll();
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
-        for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
-            for ($j = 0; $j < count($res['status']->data); $j++) {
-                if ($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status) {
-                    $res['statusOnAir']->data[$i]->n_name_status = $res['status']->data[$j]->n_name_status;
-                }
+        /*$res['crq'] = $crq->*/
+        for($i = 0; $i < count($res['statusOnAir']->data); $i++){
+          for($j = 0; $j < count($res['status']->data); $j++){
+            if($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status){
+              $res['statusOnAir']->data[$i]->n_name_status = $res['status']->data[$j]->n_name_status;
             }
+          }
             for ($j = 0; $j < count($res['substatus']->data); $j++) {
                 if ($res['statusOnAir']->data[$i]->k_id_substatus == $res['substatus']->data[$j]->k_id_substatus) {
                     $res['statusOnAir']->data[$i]->n_name_substatus = $res['substatus']->data[$j]->n_name_substatus;
@@ -188,6 +190,9 @@ class User extends CI_Controller {
         $response->data->k_id_status_onair = $status->findById($response->data->k_id_status_onair)->data;
         $answer['ticket'] = json_encode($response->data);
         $answer['users'] = json_encode($users->getAll());
+        $answer['status'] = $status->getAllStatus();
+        $answer['substatus'] = $status->getAllSubstatus();
+        $answer['statusOnAir'] = $status->getAll();
         $this->toAssign($answer);
     }
 
@@ -212,6 +217,8 @@ class User extends CI_Controller {
         $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($response->data->k_id_precheck)->data;
         $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
         $answer['ticket'] = json_encode($response->data);
+        $answer['substatus'] = $status->getAllSubstatus();
+        $answer['status'] = $status->getAllStatus();
         $this->precheck($answer);
     }
 

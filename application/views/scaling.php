@@ -427,10 +427,13 @@
             console.log(items);
             
             for (var j = 0; j < items.status.data.length; j++){
-              $('#status').append($('<option>', {
-                  value: items.status.data[j].k_id_status,
-                  text: items.status.data[j].n_name_status
-              }));
+                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7') {
+                    $('#status').append($('<option>', {
+                        value: items.status.data[j].k_id_status,
+                        text: items.status.data[j].n_name_status
+                    }));
+                }
+              
             }
             
             $('#createScaling').fillForm(items);
@@ -465,7 +468,6 @@
             $('#substatus').empty();
             for (var j = 0; j < info.statusOnAir.data.length; j++){
               if(status === info.statusOnAir.data[j].k_id_status){
-                  console.log(info.statusOnAir.data[j].n_name_substatus);
                   $('#substatus').append($('<option>', {
                       value: info.statusOnAir.data[j].k_id_status_onair,
                       text: info.statusOnAir.data[j].n_name_substatus
@@ -485,9 +487,7 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                  swal("Poof! Your imaginary file has been deleted!", {
-                    icon: "success",
-                  });
+                    dom.submitDirect($('#createScaling'),null, false);
                 }
             });
           }
@@ -499,7 +499,6 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
         $(function(){
-          dom.submit($('#createScaling'),null, false);
         })
         // , function(){location.href = app.urlTo('User/principalView');}
         </script>
