@@ -48,6 +48,17 @@
           }
         }
 
-
+        public function update36FollowUp($request){
+          try {
+              $folloUp36 = new FollowUp36hModel();
+              $datos = $folloUp36->where("k_id_follow_up_36h", "=", $request->k_id_follow_up_36h)
+                      ->update($request->all());
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (ZolidException $ex) {
+              return $ex;
+          }
+        }
     }
 ?>

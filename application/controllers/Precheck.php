@@ -21,15 +21,27 @@ class Precheck extends CI_Controller {
         $this->load->model('data/Dao_followUp12h_model');
         $this->load->model('data/Dao_preparationStage_model');
         $this->load->model('data/Dao_precheck_model');
+        $this->load->model('data/dao_user_model');
     }
 
     public function getListPrecheckCoordinador() {
         $response = null;
         if (Auth::check()) {
-            $dao = new dao_precheck_model();
-            $array = $dao->getPrecheckByIdUser();
+/*            $dao = new dao_precheck_model();
+*/            $dao = new dao_ticketOnAir_model();
+              $user = new dao_user_model();
+/*            $array = $dao->getPrecheckByIdUser();
+*/            $array = $dao->getAssign();
             $array->data["pendingList"] = (is_array($array->data["pendingList"])) ? ($this->getFKRegisters($array->data["pendingList"])) : NULL;
             $array->data["assingList"] = (is_array($array->data["assingList"])) ? ($this->getFKRegisters($array->data["assingList"])) : NULL;
+            //asigno datos del usuario asignado 
+            for ($i=0; $i <count($array->data['assingList']) ; $i++) { 
+                $array->data['assingList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['assingList'][$i]->i_actualEngineer)->data;
+                $array->data['assingList'][$i]->i_actualEngineer->n_name_user = $array->data['assingList'][$i]->i_actualEngineer->n_name_user." ".$array->data['assingList'][$i]->i_actualEngineer->n_last_name_user;
+            }
+            for ($j=0; $j <count($array->data['pendingList']) ; $j++) { 
+                $array->data['pendingList'][$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+            }
             $this->json($array);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -43,12 +55,14 @@ class Precheck extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
+        $stage = new dao_preparationStage_model();
         for ($j = 0; $j < count($res); $j++) {
             $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j]->k_id_status_onair)->data; //Status onair
             $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
             $res[$j]->k_id_band = $band->findById($res[$j]->k_id_band)->data; //band
             $res[$j]->k_id_work = $work->findById($res[$j]->k_id_work)->data; //work
             $res[$j]->k_id_technology = $technology->findById($res[$j]->k_id_technology)->data; //technology
+            $res[$j]->k_id_preparation = $stage->findByIdPreparation($res[$j]->k_id_preparation)->data; //preparation
         }
         return $res;
     }

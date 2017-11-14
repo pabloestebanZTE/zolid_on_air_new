@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php $this->load->view('parts/generic/head'); ?>
+    <!--   SWEET ALERT    -->
+    <link rel="stylesheet" href="<?= URL::to('assets/plugins/sweetalert-master/dist/sweetalert.css') ?>" />
+    <script type="text/javascript" src="<?= URL::to('assets/plugins/sweetalert-master/dist/sweetalert.min.js') ?>"></script>
+    <!--   SCRIPT PROPIOS   -->
+    <script type="text/javascript" charset="utf-8" async defer>
+            //Funcion para mostrar mensaje de error de validacion de datos
+            function showMessage() {
+                swal({
+                    title: "Error de autentificación!",
+                    text: "Por favor verificar los datos",
+                    type: "error",
+                    confirmButtonText: "Ok"
+                });
+            }
+        </script>
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container">
@@ -390,5 +405,12 @@
           });
         })
         </script>
+        <?php
+        if (isset($error)) {
+            echo '<script type="text/javascript">showMessage();</script>';
+        }
+        ?>
+        <!--   ANIMACION DE LOGIN   -->
+        <script src="<?= URL::to('assets/js/index.js') ?>"></script>
     </body>
 </html>

@@ -85,7 +85,6 @@ ALTER TABLE `on_air_36h`
 
 ALTER TABLE ticket_on_air add i_actualEngineer integer;
 
-
 -- (Mar, 14/Nov/2017) SE AGREGA UNA COLUMNA EN LAS TABLAS DE DETALLES PARA MANIPULAR LAS HORAS QUE DURAN LAS PRORROGAS...
 ALTER TABLE `on_air_12h`
 	ADD COLUMN `i_hours` INT NULL DEFAULT '0' AFTER `i_state`;
@@ -95,3 +94,23 @@ ALTER TABLE `on_air24h`
 
 ALTER TABLE `on_air_36h`
 	ADD COLUMN `i_hours` INT NULL DEFAULT '0' AFTER `i_state`;
+-- Se eliminan estados 14/11/2017
+
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='3';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='9';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='19';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='24';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='30';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='41';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='46';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='47';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='51';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='52';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='55';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='56';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='57';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='60';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='61';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='62';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='66';
+DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='67';

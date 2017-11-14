@@ -62,7 +62,8 @@ $(function () {
                         {title: "Tiempo", data: 'k_id_precheck'},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
-                        {title: "Encargado", data: principal.fillNA},
+                        {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                        {title: "Encargado", data: 'i_actualEngineer'},
                         {title: "Opciones", data: principal.getButtonsPending},
                     ]
                     ));
@@ -81,7 +82,8 @@ $(function () {
                         {title: "Tiempo", data: 'k_id_precheck'},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
-                        {title: "Encargado", data: principal.fillNA},
+                        {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                        {title: "Encargado", data: 'i_actualEngineer.n_name_user'},
                         {title: "Opciones", data: principal.getButtonsAssing},
                     ]
                     ));

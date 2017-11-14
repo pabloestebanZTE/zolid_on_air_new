@@ -31,6 +31,8 @@ class TicketOnair extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
+        $assign = new dao_user_model();
+        $stage = new dao_preparationStage_model();
         $res = $ticketsOnAir->getAll($this->request);
         for ($j = 0; $j < count($res->data); $j++) {
             $res->data[$j]->k_id_status_onair = $statusOnair->findById($res->data[$j]->k_id_status_onair)->data; //Status onair
@@ -38,6 +40,15 @@ class TicketOnair extends CI_Controller {
             $res->data[$j]->k_id_band = $band->findById($res->data[$j]->k_id_band)->data; //band
             $res->data[$j]->k_id_work = $work->findById($res->data[$j]->k_id_work)->data; //work
             $res->data[$j]->k_id_technology = $technology->findById($res->data[$j]->k_id_technology)->data; //technology
+            $res->data[$j]->k_id_preparation = $stage->findByIdPreparation($res->data[$j]->k_id_preparation)->data;//preparation
+
+            if ($res->data[$j]->i_actualEngineer != 0) {
+               $res->data[$j]->i_actualEngineer = $assign->findBySingleId($res->data[$j]->i_actualEngineer)->data;//
+               $res->data[$j]->i_actualEngineer = $res->data[$j]->i_actualEngineer->n_name_user." ".$res->data[$j]->i_actualEngineer->n_last_name_user;
+            }elseif ($res->data[$j]->i_actualEngineer == 0) {
+                $res->data[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+            }
+            
         }
         $this->json($res);
     }
@@ -180,7 +191,7 @@ class TicketOnair extends CI_Controller {
         $this->request->i_actualEngineer = 0;
         $response = $ticket->insertTicket($this->request);
         $this->json($response);
-    }
+            }
 
     public function getAllStates() {
         $ticket = new dao_ticketOnAir_model();
@@ -222,10 +233,34 @@ class TicketOnair extends CI_Controller {
     public function assignTicket() {
         $precheck = new dao_precheck_model();
         $ticket = new dao_ticketOnAir_model();
-        $response = $precheck->insertPrecheck($this->request);
-        $this->request->k_id_precheck = $response->data->data;
-        $response = $ticket->updatePrecheckOnair($this->request);
-        $this->json($response);
+        $response = $ticket->findByIdOnAir($this->request->k_id_ticket);
+        if($response->data->k_id_status_onair == 78){
+          $response = $precheck->insertPrecheck($this->request);
+          $this->request->k_id_precheck = $response->data->data;
+          $this->request->i_actualEngineer = $this->request->k_id_user;
+          $response = $ticket->updatePrecheckOnair($this->request);
+          $this->json($response);
+        }
+        if($response->data->k_id_status_onair == 82){
+          $track24 = new dao_onAir24h_model();
+          $follow24 = new dao_followUp24h_model();
+          $response =  $track24->getOnair24ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+          $this->request->i_actualEngineer = $this->request->k_id_user;
+          $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
+          $response = $follow24->update24FollowUp($this->request);
+          $response = $ticket->updatePrecheckOnair($this->request);
+          $this->json($response);
+        }
+        if($response->data->k_id_status_onair == 83){
+          $track36 = new dao_onAir36h_model();
+          $follow36 = new dao_followUp36h_model();
+          $response =  $track36->getOnair36ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+          $this->request->i_actualEngineer = $this->request->k_id_user;
+          $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
+          $response = $follow36->update36FollowUp($this->request);
+          $response = $ticket->updatePrecheckOnair($this->request);
+          $this->json($response);
+        }
     }
 
     public function createScaling() {
