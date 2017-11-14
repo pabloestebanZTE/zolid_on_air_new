@@ -6,11 +6,12 @@ class OnAir36hModel extends Model {
     protected $k_id_follow_up_36h;
     protected $k_id_onair;
     protected $d_start36h;
+    protected $d_start_temp;
     protected $d_fin36h;
     protected $n_comentario;
     protected $i_timestamp;
-    protected $i_percent;
     protected $i_round;
+    protected $i_percent;
     protected $i_state;
     protected $d_created_at;
     //Los campos que desea ocultar para que no se reflejen en la vista.    
@@ -55,6 +56,14 @@ class OnAir36hModel extends Model {
         return $this->d_start36h;
     }
 
+    public function setDStartTemp($d_start_temp) {
+        $this->d_start_temp = $d_start_temp;
+    }
+
+    public function getDStartTemp() {
+        return $this->d_start_temp;
+    }
+
     public function setDFin36h($d_fin36h) {
         $this->d_fin36h = $d_fin36h;
     }
@@ -85,6 +94,14 @@ class OnAir36hModel extends Model {
 
     public function getIRound() {
         return $this->i_round;
+    }
+
+    public function setIPercent($i_percent) {
+        $this->i_percent = $i_percent;
+    }
+
+    public function getIPercent() {
+        return $this->i_percent;
     }
 
     public function setIState($i_state) {

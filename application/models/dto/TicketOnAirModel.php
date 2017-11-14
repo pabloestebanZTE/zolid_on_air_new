@@ -57,6 +57,8 @@ class TicketOnAirModel extends Model {
     protected $d_asignacion_final;
     protected $i_precheck_realizado;
     protected $n_comentario_coor;
+    protected $i_actualEngineer;
+
     //Los campos que desea ocultar para que no se reflejen en la vista.
     protected $table = "ticket_on_air";
     //Los campos que desea exculir del modelo.
@@ -410,4 +412,11 @@ class TicketOnAirModel extends Model {
     public function getNComentarioCoor() {
         return $this->n_comentario_coor;
     }
+    public function setIActualEngineer($i_actualEngineer) {
+        $this->i_actualEngineer = $i_actualEngineer;
+    }
+    public function getIActualEngineer() {
+        return $this->i_actualEngineer;
+    }
+
 }

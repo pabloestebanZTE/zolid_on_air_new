@@ -165,65 +165,51 @@ var dom = {
      * @returns {undefined}
      */
     timer: function (element, time, progressElement, percentValue) {
+        var parseTimer = function (time, element, progress, progressValue) {
+            var diffMs = time; // Milisegundos entre la fecha y hoy.
+            var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
+            var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+            if (diffHrs < 0) {
+                diffHrs *= -1;
+            }
+            if (diffMins < 0) {
+                diffMins *= -1;
+            }
+            if (element) {
+                if (progressValue <= 100) {
+                    element.html('<i class="fa fa-fw fa-clock-o"></i> -' + dom.parseTime(diffHrs + ":" + diffMins));
+                } else {
+                    progressValue = 100;
+                    element.parents('.hour-step').addClass('warning');
+                    element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+                }
+            }
+            if (progress) {
+                progress.css('width', progressValue + '%');
+            }
+        };
+
+        var refresh = function () {
+            timeRecord -= (1000 * 60);
+            var temp = (timeRecord / timeTotal) * 100;
+            percentValue = 100 - Math.floor(temp);
+            parseTimer(timeRecord, element, progressElement, percentValue);
+        };
+
         //Número de tiempos al límite...
         if (element) {
             element.html('<i class="fa fa-fw fa-refresh fa-spin"></i> --:--');
         }
         //Comprobará si se ha consultado la hora actual, o de lo contrario se
-        //consultará...
-        var getTimeActual = function (callback) {
-//            if (dom.currentTimeStamp) {
-            dom.time = time;
-            callback(time, element, progressElement, percentValue);
-//                return;
-//            }
-            //Consultamos la hora actual en milisegundos...
-//            app.get('Utils/getCurrentTimeStamp').success(function (response) {
-//                dom.currentTimeStamp = parseFloat(response);
-//                callback(time, element, progressElement);
-//            }).send();
-        };
+        var timeTotal = (time / percentValue) * 100;
+        var timeRecord = time;
+        parseTimer(time, element, progressElement, percentValue);
 
-        getTimeActual(function (time, element, progress, percentValue) {
-            dom.parseTimer(time, element, progress, percentValue);
-            //Creamos el intervalo a un minuto...
-            window.setInterval(function () {
-//                dom.currentTimeStamp += (1000 * 60);
-                dom.time -= (1000 * 60);
-                dom.parseTimer(dom.time, element, progress);
-            }, (1000 * 60));
-        });
-    },
-    parseTimer: function (time, element, progress, progressValue) {
-        var hoursToMillisecounds = function (hours) {
-            return (((1000 * 60) * 60) * hours);
-        };
-//        var timeTemp = time + hoursToMillisecounds(12);
-//        var diffMs = (timeTemp - dom.currentTimeStamp); // Milisegundos entre la fecha y hoy.
-        var diffMs = time; // Milisegundos entre la fecha y hoy.
-        var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
-        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-
-//        var progressValue = Math.round(((dom.currentTimeStamp - time) / (timeTemp - time)) * 100);        
-
-        if (diffHrs < 0) {
-            diffHrs *= -1;
-        }
-        if (diffMins < 0) {
-            diffMins *= -1;
-        }
-        if (element) {
-            if (progressValue <= 100) {
-                element.html('<i class="fa fa-fw fa-clock-o"></i> -' + dom.parseTime(diffHrs + ":" + diffMins));
-            } else {
-                progressValue = 100;
-                element.parents('.hour-step').addClass('warning');
-                element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
-            }
-        }
-        if (progress) {
-            progress.css('width', progressValue + '%');
-        }
+        //Creamos el intervalo a un minuto...
+        window.setInterval(function () {
+            refresh();
+        }, (1000 * 60));
+//        });
     },
     configCalendar: function (control, fechaInicio, fechaFin, fechaDefecto, btnToday) {
         control.datepicker('remove');

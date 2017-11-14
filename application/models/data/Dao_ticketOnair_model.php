@@ -347,8 +347,10 @@ class Dao_ticketOnair_model extends CI_Model {
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 if ($stepModel) {
                     $temp = $stepModel->updateTimeStamp($tck);
-                    $timestamp = $temp->i_timestamp;
-                    $percent = $temp->i_percent;
+                    if ($temp) {
+                        $timestamp = $temp->i_timestamp;
+                        $percent = $temp->i_percent;
+                    }
 //                    $percent = $temp["percent"];
                 }
 
@@ -366,7 +368,8 @@ class Dao_ticketOnair_model extends CI_Model {
                     "group" => $round,
                     "actual_status" => $actual_status,
                     "timestamp" => $timestamp,
-                    "percent" => $percent
+                    "percent" => $percent,
+                    "temp" => $temp
                 ];
                 $response->setData($data);
                 return $response;

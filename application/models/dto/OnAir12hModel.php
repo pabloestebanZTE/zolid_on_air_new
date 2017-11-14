@@ -6,14 +6,15 @@ class OnAir12hModel extends Model {
     protected $k_id_follow_up_12h;
     protected $k_id_onair;
     protected $d_start12h;
+    protected $d_start_temp;
     protected $d_fin12h;
     protected $n_comentario;
     protected $i_timestamp;
-    protected $i_percent;
     protected $i_round;
+    protected $i_percent;
     protected $i_state;
     protected $d_created_at;
-    //Los campos que desea ocultar para que no se reflejen en la vista.
+    //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "on_air_12h";
     //Los campos que desea exculir del modelo.
     protected $exclude = ["hidden", "exclude", "table", "class", "db", "__data"];
@@ -55,6 +56,14 @@ class OnAir12hModel extends Model {
         return $this->d_start12h;
     }
 
+    public function setDStartTemp($d_start_temp) {
+        $this->d_start_temp = $d_start_temp;
+    }
+
+    public function getDStartTemp() {
+        return $this->d_start_temp;
+    }
+
     public function setDFin12h($d_fin12h) {
         $this->d_fin12h = $d_fin12h;
     }
@@ -87,6 +96,14 @@ class OnAir12hModel extends Model {
         return $this->i_round;
     }
 
+    public function setIPercent($i_percent) {
+        $this->i_percent = $i_percent;
+    }
+
+    public function getIPercent() {
+        return $this->i_percent;
+    }
+
     public function setIState($i_state) {
         $this->i_state = $i_state;
     }
@@ -112,46 +129,77 @@ class OnAir12hModel extends Model {
         return $obj;
     }
 
-    public function updateTimeStamp($tck) {
-        $model = new OnAir12hModel();
+    private function timer(&$obj, $field, $timeMath) {
         $timestamp = 0;
         $percent = 0;
-        $obj = $model->getLastDetail($tck, $tck->n_round);
-        if (!$obj) {
-            return 0;
-        }
 
-        if ($obj->i_state == 0) {
-            //Calculamos el tiempo en formato timestamp y actualizamos
-            //el tiempo restante para desarrollar la actividad...
-            $time = Hash::getTimeStamp($obj->d_start12h);
-            $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
-            $timeFinal = $time + ((1000 * 60) * 60) * 12;
-            //Milisegundos entre la fecha y hoy (tiempo que falta)...
-            $timestamp = ($timeFinal - $today);
-            $state = 0;
+        $time = Hash::getTimeStamp($obj->{$field});
+        $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
 
-            //Obtenemos el porcentaje...
-            $percent = round((($today - $time) / ($timeFinal - $time)) * 100);
-
-
-            //Si el timestamp es menor o igual a 0, empiezan a correr las 3 horas...
-            if ($timestamp <= 0) {
-                $state = 1;
-                $timestamp = $today + ((1000 * 60) * 60) * 12;
+        $date = date("H:i:s");
+        $parts = explode(":", $date);
+        $hour = $parts[0];
+        $minute = $parts[1];
+        $v = Hash::betweenHoras("06:00:00", "18:00:00");
+        if (!$v) {
+            $hrs = 0;
+            if (floor($hour) < 6) {
+                $hrs = floor($hour);
+                //Detectamos si el día de hoy es igual o inferior al día del registro...                    
+                if (date("d", $time) != date("d", $today)) {
+                    $hrs += 6;
+                }
+            } else if (floor($hour) > 18) {
+                $hrs = floor($hour) - 18;
             }
-            $model = new OnAir12hModel();
-            $model->where("k_id_12h_real", "=", $obj->k_id_12h_real)->update([
-                "i_timestamp" => $timestamp,
-                "i_state" => $state //Cuando cambia a uno, es por que empiezan a correr las 3 horas...
-            ]);
+            $time += $hrs * (((1000 * 60) * 60));
         } else {
-            //3horas...
-            $timestamp = $obj->i_timestamp;
+            if (date("d", $time) != date("d", $today)) {
+                $hrs = 12;
+                $time += $hrs * (((1000 * 60) * 60));
+            }
         }
+
+        $timeFinal = $time + ((1000 * 60) * 60) * $timeMath;
+        //Milisegundos entre la fecha y hoy (tiempo que falta)...
+        $timestamp = ($timeFinal - $today);
+
+        //Obtenemos el porcentaje...
+        $percent = round((($today - $time) / ($timeFinal - $time)) * 100);
 
         $obj->i_timestamp = $timestamp;
         $obj->i_percent = $percent;
+    }
+
+    public function updateTimeStamp($tck) {
+        $model = new OnAir12hModel();
+        $obj = $model->getLastDetail($tck, $tck->n_round);
+        if (!$obj) {
+            return null;
+        }
+
+        if ($obj->i_state == 0) {
+            $this->timer($obj, "d_start12h", 12);
+        } else {
+            //3horas...           
+            $this->timer($obj, "d_start_temp", 3);
+        }
+
+        $state = 0;
+        //Si el timestamp es menor o igual a 0, empiezan a correr las 3 horas...
+        if ($obj->i_timestamp <= 0 && $obj->i_state == 0) {
+            $state = 1;
+            $model = new OnAir12hModel();
+            $model->where("k_id_12h_real", "=", $obj->k_id_12h_real)->update([
+                "d_start_temp" => Hash::getTimeStamp(date("Y-m-d H:i:s")) * ((1000 * 60) * 60) * 3,
+            ]);
+        }
+
+        $model = new OnAir12hModel();
+        $model->where("k_id_12h_real", "=", $obj->k_id_12h_real)->update([
+            "i_timestamp" => $obj->i_timestamp,
+            "i_state" => $state, //Cuando cambia a uno, es por que empiezan a correr las 3 horas...                
+        ]);
         return $obj;
     }
 
