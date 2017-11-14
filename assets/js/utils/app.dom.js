@@ -164,7 +164,8 @@ var dom = {
      * @param {Elem} progressElement : El elemento progress del timer...
      * @returns {undefined}
      */
-    timer: function (element, time, progressElement, percentValue) {
+    timer: function (element, time, progressElement, percentValue, callback, state) {
+        var interval = null;
         var parseTimer = function (time, element, progress, progressValue) {
             var diffMs = time; // Milisegundos entre la fecha y hoy.
             var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
@@ -176,23 +177,40 @@ var dom = {
                 diffMins *= -1;
             }
             if (element) {
-                if (progressValue <= 100) {
+                if (state == 1) {
+                    element.parents('.hour-step').addClass('warning');
+                }
+                if (progressValue < 100) {
                     element.html('<i class="fa fa-fw fa-clock-o"></i> -' + dom.parseTime(diffHrs + ":" + diffMins));
                 } else {
                     progressValue = 100;
                     element.parents('.hour-step').addClass('warning');
-                    element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+//                    element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+                    if (interval != null) {
+                        window.clearInterval(interval);
+                        interval = null;
+                        //Se crea otra vez el intervalo para las 3 horas.
+                    }
+                    if (typeof callback === "function" && state == 0) {
+                        callback();
+                    }
+                    if (state == 1) {
+                        element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+                    }
                 }
             }
             if (progress) {
                 progress.css('width', progressValue + '%');
             }
         };
+        var timeRecord = time;
+        var timeProgress = time;
+        var timeTotal = ((time / percentValue) * 100);
 
         var refresh = function () {
             timeRecord -= (1000 * 60);
-            var temp = (timeRecord / timeTotal) * 100;
-            percentValue = 100 - Math.floor(temp);
+            timeProgress += (1000 * 60);
+            percentValue = (timeProgress / timeTotal) * 100;
             parseTimer(timeRecord, element, progressElement, percentValue);
         };
 
@@ -200,16 +218,12 @@ var dom = {
         if (element) {
             element.html('<i class="fa fa-fw fa-refresh fa-spin"></i> --:--');
         }
-        //Comprobará si se ha consultado la hora actual, o de lo contrario se
-        var timeTotal = (time / percentValue) * 100;
-        var timeRecord = time;
         parseTimer(time, element, progressElement, percentValue);
 
         //Creamos el intervalo a un minuto...
-        window.setInterval(function () {
+        interval = window.setInterval(function () {
             refresh();
         }, (1000 * 60));
-//        });
     },
     configCalendar: function (control, fechaInicio, fechaFin, fechaDefecto, btnToday) {
         control.datepicker('remove');
@@ -248,6 +262,41 @@ var dom = {
     scrollTop: function () {
         $("html, body").animate({scrollTop: 0}, "slow");
     },
+    submitDirect: function (form, callback, clearForm) {
+        form.find('fieldset').prop('disabled', true);
+        form.find('button[type="submit"] i.fa-save').attr('class', 'fa fa-fw fa-refresh fa-spin');
+        var obj = form.getFormData();
+        var ajax = null;
+        dom.printAlert("Enviando, por favor espere...", 'loading', form.find('.alert'));
+        ajax = app.post(form.attr('action'), obj);
+        ajax.complete(function () {
+            form.find('fieldset').prop('disabled', false);
+            form.find('button[type="submit"] i.fa-refresh.fa-spin').attr('class', 'fa fa-fw fa-save');
+        }).success(function (response) {
+            if (app.successResponse(response)) {
+                dom.printAlert(response.message, 'success', form.find('.alert'));
+                if (clearForm != false) {
+                    form.find('input:not([type="hidden"]),textarea,select').val('');
+                    form.find('select.select2-hidden-accessible').trigger('change.select2');
+                }
+                if (typeof callback === "function") {
+                    callback(response);
+                }
+            } else {
+                dom.printAlert(response.message, 'danger', form.find('.alert'));
+            }
+        }).error(function (e) {
+            console.error(e);
+            dom.alertError(form.find('.alert'));
+        }).send();
+    },
+    /**
+     * 
+     * @param {type} form
+     * @param {type} callback
+     * @param {type} clearForm = Recibe falso, cuando no quiera limpiar...
+     * @returns {undefined}
+     */
     submit: function (form, callback, clearForm) {
         form.validate();
         var onSubmitForm = function (e) {
@@ -257,32 +306,7 @@ var dom = {
             }
             app.stopEvent(e);
             var form = $(this);
-            form.find('fieldset').prop('disabled', true);
-            form.find('button[type="submit"] i.fa-save').attr('class', 'fa fa-fw fa-refresh fa-spin');
-            var obj = form.getFormData();
-            var ajax = null;
-            dom.printAlert("Enviando, por favor espere...", 'loading', form.find('.alert'));
-            ajax = app.post(form.attr('action'), obj);
-            ajax.complete(function () {
-                form.find('fieldset').prop('disabled', false);
-                form.find('button[type="submit"] i.fa-refresh.fa-spin').attr('class', 'fa fa-fw fa-save');
-            }).success(function (response) {
-                if (app.successResponse(response)) {
-                    dom.printAlert(response.message, 'success', form.find('.alert'));
-                    if (clearForm != false) {
-                        form.find('input:not([type="hidden"]),textarea,select').val('');
-                        form.find('select.select2-hidden-accessible').trigger('change.select2');
-                    }
-                    if (typeof callback === "function") {
-                        callback(response);
-                    }
-                } else {
-                    dom.printAlert(response.message, 'danger', form.find('.alert'));
-                }
-            }).error(function (e) {
-                console.error(e);
-                dom.alertError(form.find('.alert'));
-            }).send();
+            dom.submitDirect(form, callback, clearForm);
         };
         form.on('submit', onSubmitForm);
     },
