@@ -427,10 +427,13 @@
             console.log(items);
             
             for (var j = 0; j < items.status.data.length; j++){
-              $('#status').append($('<option>', {
-                  value: items.status.data[j].k_id_status,
-                  text: items.status.data[j].n_name_status
-              }));
+                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7') {
+                    $('#status').append($('<option>', {
+                        value: items.status.data[j].k_id_status,
+                        text: items.status.data[j].n_name_status
+                    }));
+                }
+              
             }
             
             $('#createScaling').fillForm(items);
