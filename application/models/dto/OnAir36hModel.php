@@ -13,6 +13,7 @@ class OnAir36hModel extends Model {
     protected $i_round;
     protected $i_percent;
     protected $i_state;
+    protected $i_hours;
     protected $d_created_at;
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "on_air_36h";
@@ -110,6 +111,14 @@ class OnAir36hModel extends Model {
 
     public function getIState() {
         return $this->i_state;
+    }
+
+    public function setIHours($i_hours) {
+        $this->i_hours = $i_hours;
+    }
+
+    public function getIHours() {
+        return $this->i_hours;
     }
 
     public function setDCreatedAt($d_created_at) {

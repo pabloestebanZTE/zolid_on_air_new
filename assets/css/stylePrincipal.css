@@ -664,6 +664,7 @@ nav {
     box-shadow: 0px 0px 3px #ccc;
     border-radius: 0px 0px 3px 3px;
 }
+
 .hour-step.warning .body-step .icon-step{
     margin-top: -5px;
     float: right;
@@ -679,6 +680,28 @@ nav {
     height: 50px;
     text-align: center;
 }
+.hour-step.prorroga .body-step .icon-step{
+    margin-top: -5px;
+    float: right;
+    font-size: 28px;
+    background: #24d0f4!important;
+    background: -moz-linear-gradient(top,#ff0069 0,#b5044d 100%)!important;
+    background: -webkit-linear-gradient(top,#ff0069    59a 0,#b5044d 100%)!important;
+    background: linear-gradient(to bottom,#ff0069 0,#b5044d 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0069', endColorstr='#b5044d', GradientType=0 )!important;
+    color: #FFF;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+.hour-step.prorroga .body-step .icon-step i:before{
+    content: "\f04c";    
+    font-size: 23px;
+    display: block;    
+    margin-top: 13px;
+}
+
 .hour-step .body-step .icon-step:hover{
     margin-top: -5px;
     float: right;
@@ -695,7 +718,7 @@ nav {
     text-align: center;
 }
 .hour-step .body-step .icon-step:hover .fa-clock-o:before {
-    content: "\f04c";
+    content: "\f04d";
 }
 .hour-step .body-step.danger .icon-step .fa-clock-o:before{
     content: "\f017";
@@ -729,6 +752,11 @@ nav {
     text-decoration: none;
     color: #333;
     background-color: #f5f5f5;
+}
+.states-modal li a.disabled{
+    pointer-events: none;
+    cursor: pointer;
+    opacity: 0.5;
 }
 .states-modal li a:hover, .states-modal li a.active{
     background-color: #FFF;
