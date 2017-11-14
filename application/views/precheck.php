@@ -166,7 +166,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <input type='text' name="txtEstado" id="txtEstado" class="form-control" value='' readonly="false">
+                                            <input type='text' name="txtEstado" id="txtEstado" class="form-control" value='' readonly="false" required>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <input type='text' name="txtSubestado" id="txtSubestado" class="form-control" value='' readonly="false">
+                                            <input type='text' name="txtSubestado" id="txtSubestado" class="form-control" value='' readonly="false" required  >
                                         </div>
                                     </div>
                                 </div>
