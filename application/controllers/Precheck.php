@@ -70,12 +70,8 @@ class Precheck extends CI_Controller {
     public function doPrecheck(){
       $preparation =  new Dao_preparationStage_model();
       $ticket =new Dao_ticketOnair_model();
-      $precheck = new Dao_precheck_model();
-      // cuadrar la zona horario
-      //obtener la hora actual y fecha
-      //$this->request->d_finpre = fehca;
-
-
+      $precheck = new Dao_precheck_model();      
+      $this->request->d_finpre = Hash::getDate();
       $response = $preparation->updatePreparationStage($this->request)->data;
       $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data;//camilo
       $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data;//camilo
