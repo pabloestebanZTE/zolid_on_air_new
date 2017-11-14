@@ -171,23 +171,23 @@
                                             </div>
 
                                             <div class="form-group">
-                                             <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                <label class="col-md-3 control-label">Observaciones de Creación</label>
                                                 <div class="col-md-8 inputGroupContainer">
-                                                  <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
-                                                  </div>
-                                              </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
-                                             <label class="col-md-3 control-label">Observaciones de Asignacion</label>
+                                                <label class="col-md-3 control-label">Observaciones de Asignacion</label>
                                                 <div class="col-md-8 inputGroupContainer">
-                                                  <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
-                                                  </div>
-                                              </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </fieldset>
                                         <!--   fin seccion derecha---->
@@ -225,8 +225,7 @@
                                         <a href="#" class="close" >&times;</a>
                                         <p class="p-b-0" id="text"></p>
                                     </div>
-                                    <input type="hidden" name="ticket_on_air.id_onair" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>" />
-                                    <input type="hidden" name="ticket_on_air.id_onair" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" />
+                                    <input type="hidden" name="ticket_on_air.id_onair" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" id="idProceso" />
                                     <div class="display-block p-l-40 p-r-40 m-b-0 well step-panel" id="step-0">
                                         <div class="row form-xs">
                                             <div class="col-md-3">
@@ -474,7 +473,7 @@
                             </div>
                         </div>
                         <div class="display-block">
-                            <div class="hour-step active" data-ref="#contentDetails_12h">
+                            <div class="hour-step active" data-ref="#contentDetails_12h" data-value="12">
                                 <div class="body-step">
                                     <label>12H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -486,7 +485,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_24h">
+                            <div class="hour-step" data-ref="#contentDetails_24h" data-value="24">
                                 <div class="body-step">
                                     <label>24H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -498,7 +497,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_36h">
+                            <div class="hour-step" data-ref="#contentDetails_36h" data-value="36">
                                 <div class="body-step">
                                     <label>36H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -573,65 +572,47 @@
                 <div class="modal-body">
                     <ul class="states-modal">
                         <li>
-                            <a href="javascript:;"><span class="icon-state theme2"><i class="fa fa-fw fa-pause"></i></span> Crear Prorroga</a>
+                            <a href="javascript:;" data-action="PROR" data-focus="#txtTiempoProrroga"><span class="icon-state theme2"><i class="fa fa-fw fa-pause"></i></span> Crear Prórroga</a>
+                            <ul class="content-state hidden">
+                                <li>
+                                    <label class="display-block" for="txtTiempoProrroga"><i class="fa fa-fw fa-clock-o"></i> Tiempo de la prórroga (Horas):</label>
+                                    <div class="input-control">
+                                        <input type="text" class="form-control" placeholder="Horas" id="txtTiempoProrroga"/>
+                                    </div>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="javascript:;"><span class="icon-state theme3"><i class="fa fa-fw fa-forward"></i></span> Siguiente fase</a>
+                            <a href="javascript:;" data-action="NEXT"><span class="icon-state theme3"><i class="fa fa-fw fa-forward"></i></span> Siguiente Fase</a>
+                            <ul class="content-state hidden">
+                                <li>
+                                    <label class="display-block" for="cmbSiguienteFase"><i class="fa fa-fw fa-forward"></i> Seleccione la fase:</label>
+                                    <div class="input-control">                                        
+                                        <select id="cmbSiguienteFase" class="form-control">
+                                            <option value="12h">12H</option>
+                                            <option value="24h">24H</option>
+                                            <option value="36h">34H</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="<?= URL::to("User/scaling?id=" . $_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar proceso</a>
+                            <a href="<?= URL::to("User/scaling?id=" . $_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar Proceso</a>
                         </li>
                     </ul>
                     <label for="txtObservations">Observaciones:</label>
                     <textarea id="txtObservations" class="form-control" rows="5" placeholder="Escriba aquí las observaciones por las cuales está realizando el cambio."></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-fw fa-check"></i> Aceptar</button>
+                    <button id="btnAceptarModal" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-fw fa-check"></i> Aceptar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-fw fa-times"></i> Cerrar</button>
                 </div>
             </div>
 
         </div>
     </div>
-    <!--MODAL CHANGE STATE-->
-
-
-    <!--MODAL CHANGE STATE-->
-    <div id="modalChangeState" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-xs">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i> Cambiar estado</h4>
-                </div>
-                <div class="modal-body">
-                    <ul class="states-modal">
-                        <li>
-                            <a href="#"><span class="icon-state theme1"><i class="fa fa-fw fa-pause"></i></span> Crear Prorroga</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="icon-state theme2"><i class="fa fa-fw fa-stop"></i></span> Detener Prorroga</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="icon-state theme3"><i class="fa fa-fw fa-refresh"></i></span> Reiniciar Prorroga</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar proceso</a>
-                        </li>
-                    </ul>
-                    <label for="txtObservations">Observaciones:</label>
-                    <textarea id="txtObservations" class="form-control" rows="5" placeholder="Escriba aquí las observaciones por las cuales está realizando el cambio."></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-fw fa-check"></i> Aceptar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-fw fa-times"></i> Cerrar</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!--MODAL CHANGE STATE-->
+    <!--MODAL CHANGE STATE-->  
 
     <!--footer Section -->
     <div class="for-full-back" id="footer">

@@ -217,6 +217,12 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
+    public function createProrroga() {
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->createProrroga($this->request);
+        $this->json($response);
+    }
+
 //
 //    public function insertTicketOnair() {
 //        $ticket = new dao_ticketOnAir_model();

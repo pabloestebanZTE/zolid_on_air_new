@@ -72,7 +72,7 @@ ALTER TABLE ticket_on_air add n_comentario_coor varchar(1000);
 ALTER TABLE precheck add n_comentario_ing varchar(1000);
 
 
--- Se AGREGA UNA COLUMNA EN LAS TABLAS DE DETALLES (13/11/2017):
+-- SE AGREGA UNA COLUMNA EN LAS TABLAS DE DETALLES (13/11/2017):
 ALTER TABLE `on_air_12h`
 	ADD COLUMN `d_start_temp` TIMESTAMP NULL DEFAULT NULL AFTER `d_start12h`;
 
@@ -84,3 +84,14 @@ ALTER TABLE `on_air_36h`
 
 
 ALTER TABLE ticket_on_air add i_actualEngineer integer;
+
+
+-- (Mar, 14/Nov/2017) SE AGREGA UNA COLUMNA EN LAS TABLAS DE DETALLES PARA MANIPULAR LAS HORAS QUE DURAN LAS PRORROGAS...
+ALTER TABLE `on_air_12h`
+	ADD COLUMN `i_hours` INT NULL DEFAULT '0' AFTER `i_state`;
+
+ALTER TABLE `on_air24h`
+	ADD COLUMN `i_hours` INT NULL DEFAULT '0' AFTER `i_state`;
+
+ALTER TABLE `on_air_36h`
+	ADD COLUMN `i_hours` INT NULL DEFAULT '0' AFTER `i_state`;
