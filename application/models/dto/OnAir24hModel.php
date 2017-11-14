@@ -10,9 +10,10 @@ class OnAir24hModel extends Model {
     protected $d_fin24h;
     protected $n_comentario;
     protected $i_timestamp;
-    protected $i_round;
     protected $i_percent;
+    protected $i_round;
     protected $i_state;
+    protected $i_hours;
     protected $d_created_at;
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "on_air24h";
@@ -88,14 +89,6 @@ class OnAir24hModel extends Model {
         return $this->i_timestamp;
     }
 
-    public function setIRound($i_round) {
-        $this->i_round = $i_round;
-    }
-
-    public function getIRound() {
-        return $this->i_round;
-    }
-
     public function setIPercent($i_percent) {
         $this->i_percent = $i_percent;
     }
@@ -104,12 +97,28 @@ class OnAir24hModel extends Model {
         return $this->i_percent;
     }
 
+    public function setIRound($i_round) {
+        $this->i_round = $i_round;
+    }
+
+    public function getIRound() {
+        return $this->i_round;
+    }
+
     public function setIState($i_state) {
         $this->i_state = $i_state;
     }
 
     public function getIState() {
         return $this->i_state;
+    }
+
+    public function setIHours($i_hours) {
+        $this->i_hours = $i_hours;
+    }
+
+    public function getIHours() {
+        return $this->i_hours;
     }
 
     public function setDCreatedAt($d_created_at) {

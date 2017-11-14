@@ -347,13 +347,17 @@ class Dao_ticketOnair_model extends CI_Model {
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 $timetotal = 0;
+                $today = 0;
+                $time = 0;
                 if ($stepModel) {
                     $temp = $stepModel->updateTimeStamp($tck);
                     if ($temp) {
                         $timestamp = $temp->i_timestamp;
                         $percent = $temp->i_percent;
                         $detailState = $temp->i_state;
-                        $timetotal = $temp->i_round;
+                        $timetotal = $temp->i_timetotal;
+                        $today = $temp->today;
+                        $time = $temp->time;
                     }
 //                    $percent = $temp["percent"];
                 }
@@ -371,11 +375,12 @@ class Dao_ticketOnair_model extends CI_Model {
                     "groups" => $groups,
                     "group" => $round,
                     "actual_status" => $actual_status,
-                    "timestamp" => $timestamp,
-                    "percent" => $percent,
-                    "temp" => $temp,
-                    "detail_state" => $detailState,
-                    "time_total" => $timetotal
+                    "i_timestamp" => $timestamp,
+                    "i_timetotal" => $timetotal,
+                    "i_percent" => $percent,
+                    "i_state" => $detailState,
+                    "today" => $today,
+                    "time" => $time,
                 ];
                 $response->setData($data);
                 return $response;
@@ -456,11 +461,13 @@ class Dao_ticketOnair_model extends CI_Model {
                     //obtener el modelo necesario simplemente actualizamos el estado
                     //para ese modelo...
                     $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                            ->where("i_group", "=", $ticket->i_group)->update([
+                            ->where("i_round", "=", $ticket->n_round)->update([
                         "i_state" => 2, //Estado prórroga.
                         "d_start_temp" => date("Y-m-d H:i:s"),
-                        "i_hours" => $hoursProrroga
+                        "i_hours" => $hoursProrroga,
                     ]);
+
+//                    echo $stepModel->getSQL();
                 }
             }
             $response = new Response(EMessages::INSERT);
