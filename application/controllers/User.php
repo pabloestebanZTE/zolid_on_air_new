@@ -159,6 +159,7 @@ class User extends CI_Controller {
             if($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status){
               $res['statusOnAir']->data[$i]->n_name_status = $res['status']->data[$j]->n_name_status;
             }
+          }
             for ($j = 0; $j < count($res['substatus']->data); $j++) {
                 if ($res['statusOnAir']->data[$i]->k_id_substatus == $res['substatus']->data[$j]->k_id_substatus) {
                     $res['statusOnAir']->data[$i]->n_name_substatus = $res['substatus']->data[$j]->n_name_substatus;
