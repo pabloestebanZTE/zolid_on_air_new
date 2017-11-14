@@ -130,6 +130,7 @@ class OnAir12hModel extends Model {
     }
 
     private function timer(&$obj, $field, $timeMath) {
+//        echo $field;
         $timestamp = 0;
         $percent = 0;
 
@@ -146,7 +147,7 @@ class OnAir12hModel extends Model {
             if (floor($hour) < 6) {
                 $hrs = floor($hour);
                 //Detectamos si el día de hoy es igual o inferior al día del registro...                    
-                if (date("d", $time) != date("d", $today)) {
+                if (date("d", $time / 1000) != date("d", $today / 1000)) {
                     $hrs += 6;
                 }
             } else if (floor($hour) > 18) {
@@ -154,7 +155,7 @@ class OnAir12hModel extends Model {
             }
             $time += $hrs * (((1000 * 60) * 60));
         } else {
-            if (date("d", $time) != date("d", $today)) {
+            if (date("d", $time / 1000) != date("d", $today / 1000)) {
                 $hrs = 12;
                 $time += $hrs * (((1000 * 60) * 60));
             }
@@ -190,9 +191,15 @@ class OnAir12hModel extends Model {
         if ($obj->i_timestamp <= 0 && $obj->i_state == 0) {
             $state = 1;
             $model = new OnAir12hModel();
+//            $t = date("Y-m-d H:i:s", strtotime("+3 hours"));
+            $t = date("Y-m-d H:i:s");
             $model->where("k_id_12h_real", "=", $obj->k_id_12h_real)->update([
-                "d_start_temp" => Hash::getTimeStamp(date("Y-m-d H:i:s")) * ((1000 * 60) * 60) * 3,
+                "d_start_temp" => $t,
             ]);
+        }
+
+        if ($obj->i_state == 1) {
+            $state = 1;
         }
 
         $model = new OnAir12hModel();
@@ -200,6 +207,8 @@ class OnAir12hModel extends Model {
             "i_timestamp" => $obj->i_timestamp,
             "i_state" => $state, //Cuando cambia a uno, es por que empiezan a correr las 3 horas...                
         ]);
+
+        $obj->i_state = $state;
         return $obj;
     }
 

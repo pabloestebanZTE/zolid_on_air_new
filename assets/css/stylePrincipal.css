@@ -801,3 +801,14 @@ nav {
 .wiget .wiget-list.users .item-wiget .title{
     font-size: 15px;    
 }
+.content-state li{
+    padding: 15px;
+    display: block;
+    background-color: #fbfbfb;
+    border-bottom: 1px solid #ccc;
+    padding-left: 70px;
+}
+.content-state li .input-control{
+    display: block;
+    width: 222px;
+}

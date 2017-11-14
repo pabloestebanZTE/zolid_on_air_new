@@ -321,6 +321,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $dStartField = null;
                 $stepModel = null;
                 $stepIdField = null;
+                $detailState = 0;
                 switch ($status_onair->k_id_substatus) {
                     case ConstStates::SEGUIMIENTO_12H:
                         $actual_status = "12h";
@@ -345,11 +346,14 @@ class Dao_ticketOnair_model extends CI_Model {
                         break;
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
+                $timetotal = 0;
                 if ($stepModel) {
                     $temp = $stepModel->updateTimeStamp($tck);
                     if ($temp) {
                         $timestamp = $temp->i_timestamp;
                         $percent = $temp->i_percent;
+                        $detailState = $temp->i_state;
+                        $timetotal = $temp->i_round;
                     }
 //                    $percent = $temp["percent"];
                 }
@@ -369,7 +373,9 @@ class Dao_ticketOnair_model extends CI_Model {
                     "actual_status" => $actual_status,
                     "timestamp" => $timestamp,
                     "percent" => $percent,
-                    "temp" => $temp
+                    "temp" => $temp,
+                    "detail_state" => $detailState,
+                    "time_total" => $timetotal
                 ];
                 $response->setData($data);
                 return $response;
@@ -402,6 +408,62 @@ class Dao_ticketOnair_model extends CI_Model {
                     ->update(["i_precheck_realizado" => 1]);
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    public function createProrroga($request) {
+        try {
+            //Se obtiene el id del proceso onair...
+            $id = $request->idProceso;
+            $hoursProrroga = $request->hours;
+            $comment = $request->comment;
+            $ticketModel = new TicketOnAirModel();
+            $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
+            if ($ticket) {
+                //Se actualiza el comentario del ticket...|
+                $ticketModel->where("k_id_onair", "=", $id)->update([
+                    "n_comentario_coor" => $comment
+                ]);
+                //Ahora actualizamos el estado del detalle...
+                $status_onair = DB::table("status_on_air")
+                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                        ->first();
+                if ($status_onair) {
+                    $actual_status = null;
+                    $stepIdField = null;
+                    $stepModel = null;
+                    switch ($status_onair->k_id_substatus) {
+                        case ConstStates::SEGUIMIENTO_12H:
+                            $actual_status = "12h";
+                            $stepIdField = "k_id_12h_real";
+                            $stepModel = new OnAir12hModel();
+                            break;
+                        case ConstStates::SEGUIMIENTO_24H:
+                            $actual_status = "24h";
+                            $stepIdField = "k_id_24h_real";
+                            $stepModel = new OnAir24hModel();
+                            break;
+                        case ConstStates::SEGUIMIENTO_36H:
+                            $actual_status = "36h";
+                            $stepIdField = "k_id_36h_real";
+                            $stepModel = new OnAir36hModel();
+                            break;
+                    }
+                    //Después de comprobar sobre cual estado se encuentra y 
+                    //obtener el modelo necesario simplemente actualizamos el estado
+                    //para ese modelo...
+                    $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_group", "=", $ticket->i_group)->update([
+                        "i_state" => 2, //Estado prórroga.
+                        "d_start_temp" => date("Y-m-d H:i:s"),
+                        "i_hours" => $hoursProrroga
+                    ]);
+                }
+            }
+            $response = new Response(EMessages::INSERT);
             return $response;
         } catch (ZolidException $ex) {
             return $ex;
