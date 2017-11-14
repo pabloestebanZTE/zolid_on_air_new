@@ -217,6 +217,8 @@ class User extends CI_Controller {
         $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($response->data->k_id_precheck)->data;
         $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
         $answer['ticket'] = json_encode($response->data);
+        $answer['substatus'] = $status->getAllSubstatus();
+        $answer['status'] = $status->getAllStatus();
         $this->precheck($answer);
     }
 
