@@ -94,5 +94,29 @@
             return $ex;
           }
         }
+
+        public function insertStation($request){
+          try {
+              $station = new StationModel();
+              $datos = $station->insert($request->all());
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (ZolidException $ex) {
+              return $ex;
+          }
+        }
+
+        public function getLastId(){
+          try {
+            $station = new StationModel();
+            $datos = $station->get();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+          } catch (ZolidException $ex) {
+            return $ex;
+          }
+        }
     }
 ?>

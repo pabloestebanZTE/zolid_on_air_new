@@ -10,7 +10,7 @@
                 <div class='container'>
                     <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>
                         <fieldset>
-                            <legend>Asignacion</legend>
+                            <legend>Actividad</legend>
                             <!-- <div class= 'form-group'>
                                 <label class= 'col-md-4 control-label'>Elegir Archivo</label>
                                 <div class= 'col-md-6 inputGroupContainer'>
@@ -32,7 +32,7 @@
                           <a href="#" class="close" >&times;</a>
                           <p class="p-b-0" id="text"></p>
                       </div>
-                        <legend >Asignar Actividad</legend>
+                        <legend >Crear Actividad</legend>
                         <fieldset class="col-md-6 control-label">
                             <!-- Input Text -->
                             <div class="form-group">
@@ -72,13 +72,13 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
                                         <select name="n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker" required>
-                                            <option value="" >Seleccione el ente ejecutor</option><option value="Claro" >Claro</option><option value="INGYTELCOM" >INGYTELCOM</option><option value="Nokia" >Nokia</option>
+                                            <option value="" >Seleccione el ente ejecutor</option><option value="Claro" >Claro</option><option value="Nokia" >Nokia</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">CRQ:</label>
+                                <label class="col-md-3 control-label">CRQ / CHG:</label>
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
@@ -91,16 +91,16 @@
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                        <input type='text' name="n_wp" id="n_wp" class="form-control" value='' required>
+                                        <input type='text' name="n_wp" id="n_wp" class="form-control" value='' >
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">WBTS:</label>
+                                <label class="col-md-3 control-label">bcf_wbts_id:</label>
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                        <input type='text' name="n_bcf_wbts_id" id="n_bcf_wbts_id" class="form-control" value='' required>
+                                        <input type='text' name="n_bcf_wbts_id" id="n_bcf_wbts_id" class="form-control" value='' >
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <form class="form-horizontal well"  action="" method="post"  id="detailsForm" name="detailsForm">
+                                <form class="form-horizontal well"  action="Station/createCity" method="post"  id="stationForm" name="stationForm">
                                     <div class="panel-body">
                                         <fieldset class="col-md-6 control-label">
                                             <div class="form-group">
@@ -217,7 +217,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
-                                                        <select name="cmbRegional" id="cmbRegional" class="form-control selectpicker" required>
+                                                        <select name="regional_field" id="regional_field" class="form-control selectpicker" onchange="fillCities()" required>
                                                             <option value="">Seleccione la Regional</option>
                                                         </select>
                                                     </div>
@@ -229,7 +229,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="txtNombreEstacion" name="txtNombreEstacion" value="" />
+                                                        <input type="text" class="form-control input-sm" id="n_name_city" name="n_name_city" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,8 +243,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
-                                                        <select name="pre_launch" id="pre_launch" class="form-control selectpicker" required>
-                                                            <option value="">Seleccione la Ciudad</option>
+                                                        <select name="city_id" id="city_id" class="form-control selectpicker" required>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -323,6 +322,12 @@
                   text: info.status.data[j].n_name_status
               }));
             }
+            for (var j = 0; j < info.regions.data.length; j++){
+              $('#regional_field').append($('<option>', {
+                  value: info.regions.data[j].k_id_regional,
+                  text: info.regions.data[j].n_name_regional
+              }));
+            }
           })
           function editTextCityRegional(){
             var estacion = $( "#estacion" ).val();
@@ -344,6 +349,20 @@
               }
             }
           }
+
+          function fillCities(){
+            var regional = $( "#regional_field" ).val();
+            var info = <?php echo $respuesta; ?>;
+            for (var j = 0; j < info.cities.data.length; j++){
+              if(info.cities.data[j].k_id_regional == regional){
+                $('#city_id').append($('<option>', {
+                    value: info.cities.data[j].k_id_city,
+                    text: info.cities.data[j].n_name_city
+                }));
+              }
+            }
+          }
+
           function editSubstatus(){
             var status = $( "#status" ).val();
             console.log(status);
@@ -364,6 +383,11 @@
         <script type="text/javascript">
         $(function(){
           dom.submit($('#assignServie2'));
+        })
+        $(function(){
+          dom.submit($('#stationForm'), function () {
+              location.href = app.urlTo('User/createTicketOnair');
+          });
         })
         </script>
     </body>

@@ -70,3 +70,5 @@ ALTER TABLE `on_air_36h`
 ALTER TABLE preparation_stage add n_comentario_doc varchar(1000);
 ALTER TABLE ticket_on_air add n_comentario_coor varchar(1000);
 ALTER TABLE precheck add n_comentario_ing varchar(1000);
+
+ALTER TABLE ticket_on_air add i_actualEngineer integer;
