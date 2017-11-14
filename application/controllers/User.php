@@ -124,6 +124,7 @@ class User extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $status = new dao_statusOnair_model();
+        $crq = new dao_preparationStage_model();
 
         $res['stations'] = $station->getAll();
         $res['cities'] = $station->getAllCities();
@@ -134,6 +135,7 @@ class User extends CI_Controller {
         $res['statusOnAir'] = $status->getAll();
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
+        /*$res['crq'] = $crq->*/
         for($i = 0; $i < count($res['statusOnAir']->data); $i++){
           for($j = 0; $j < count($res['status']->data); $j++){
             if($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status){
