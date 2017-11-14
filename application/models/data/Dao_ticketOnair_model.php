@@ -408,6 +408,25 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    public function getAssign() {
+        try {
+            //Consultamos la lista de registros pendientes...
+            $db = new DB();
+            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0")->get();
+            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0")->get();
+            //Consultamos la lista de registros asignados...
+            $data = [
+                "pendingList" => $pending,
+                "assingList" => $assing
+            ];
+            $response = new Response(EMessages::QUERY);
+            $response->setData($data);
+            return $response;
+        } catch (ZolidException $exc) {
+            return $exc;
+        }
+    }
+
 }
 
 ?>

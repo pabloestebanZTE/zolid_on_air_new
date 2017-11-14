@@ -46,6 +46,7 @@ $(function () {
                 dom.refreshTable(principal.tablaPrincipal, data);
                 return;
             }
+
             principal.tablaPrincipal = $('#tablaPrincipal').DataTable(dom.configTable(data,
                     [
                         {title: "Estación", data: "k_id_station.n_name_station"},
@@ -55,7 +56,8 @@ $(function () {
                         {title: "Tiempo", data: 'k_id_precheck'},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
-                        {title: "Encargado", data: principal.fillNA},
+                        {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                        {title: "Encargado", data: 'i_actualEngineer'},
                         {title: "Opciones", data: principal.getButtons},
                     ]
                     ));
