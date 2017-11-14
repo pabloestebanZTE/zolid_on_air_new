@@ -40,7 +40,7 @@ var TD = {
         }
         var obj = {
             idProceso: $('#idProceso').val(),
-            hours: $('#txtTiempoProrroga').val(),
+            hours: txtHorasProrroga.val(),
             comment: $('#modalChangeState #txtObservations').val()
         };
         app.post('TicketOnair/createProrroga', obj)
@@ -48,9 +48,10 @@ var TD = {
                     console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
-                        swal("Guardado", "Se ha creado la prórroga éxitosamente.", "success");
+                        swal("Guardado", "Se ha registrado la prórroga éxitosamente.", "success");
+                        TD.getDetails();
                     } else {
-                        swal("Atención", "No se pudo crear la prórroga.", "warning");
+                        swal("Atención", "No se pudo registrar la prórroga.", "warning");
                     }
                 }).error(function (e) {
             swal("Error", "Se ha producido un error desconocido, compruebe su conexión y vuelva a intentarlo.", "error");
@@ -59,6 +60,16 @@ var TD = {
     },
     nextFase: function () {
         console.log("SIGUIENTE FASE");
+        var cmb = $('#cmbSiguienteFase');
+        if (cmb.val().trim() === "") {
+            swal("Error", "La fase seleccionada es inválida.", "error");
+            return;
+        }
+        var obj = {
+            idProceso: $('#idProceso').val(),
+            fase: cmb.val(),
+            comment: $('#modalChangeState #txtObservations').val()
+        };
     },
     onClickItemState: function (e) {
         var link = $(this);
@@ -84,6 +95,11 @@ var TD = {
         $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
         $('#modalChangeState .content-state').hide();
         $('#modalChangeState a.active').removeClass('active');
+        if (parent.hasClass('prorroga')) {
+            $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+        } else {
+            $('#modalChangeState .states-modal a:eq(0)').removeClass('disabled');
+        }
         $('#modalChangeState').modal('show');
     },
     listCombox: function () {
@@ -176,13 +192,13 @@ var TD = {
         };
         switch (obj.actual_status) {
             case "12h":
-                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_12h"] .progress-step'), obj.percent, fn, obj.detail_state);
+                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), $('[data-ref="#contentDetails_12h"] .progress-step'), fn, obj);
                 break;
             case "24h":
-                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_24h"] .progress-step'), obj.percent, fn, obj.detail_state);
+                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), $('[data-ref="#contentDetails_24h"] .progress-step'), fn, obj);
                 break;
             case "36h":
-                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), obj.timestamp, $('data-ref="#contentDetails_36h"] .progress-step'), obj.percent, fn, obj.detail_state);
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
                 break;
         }
     },

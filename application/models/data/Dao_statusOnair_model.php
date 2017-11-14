@@ -62,17 +62,6 @@ class Dao_statusOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
-    public function getStatusScaling(){
-          try {
-            $datos = DB::table("status")->get();
-            $response = new Response(EMessages::SUCCESS);
-            $response->setData($datos);
-            return $response;
-          } catch (ZolidException $ex) {
-            return $ex;
-          }
-        }
 
     public function getAllSubstatus() {
         try {
