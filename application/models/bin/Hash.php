@@ -35,4 +35,25 @@ class Hash {
         return strtotime($date) * 1000;
     }
 
+    public static function betweenHoras($hms_inicio, $hms_fin, $hms_referencia = NULL) {
+        if (is_null($hms_referencia)) {
+            $hms_referencia = date('G:i:s');
+        }
+
+        list($h, $m, $s) = array_pad(preg_split('/[^\d]+/', $hms_inicio), 3, 0);
+        $s_inicio = 3600 * $h + 60 * $m + $s;
+
+        list($h, $m, $s) = array_pad(preg_split('/[^\d]+/', $hms_fin), 3, 0);
+        $s_fin = 3600 * $h + 60 * $m + $s;
+
+        list($h, $m, $s) = array_pad(preg_split('/[^\d]+/', $hms_referencia), 3, 0);
+        $s_referencia = 3600 * $h + 60 * $m + $s;
+
+        if ($s_inicio <= $s_fin) {
+            return $s_referencia >= $s_inicio && $s_referencia <= $s_fin;
+        } else {
+            return $s_referencia >= $s_inicio || $s_referencia <= $s_fin;
+        }
+    }
+
 }

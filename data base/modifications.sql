@@ -50,13 +50,13 @@ ALTER TABLE `on_air_36h`
 
 -- SE AGREGA UN CAMPO A LAS TABALS DE DETALLES
 ALTER TABLE `on_air_12h`
-	ADD COLUMN `state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
+	ADD COLUMN `i_state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
 
 ALTER TABLE `on_air24h`
-	ADD COLUMN `state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
+	ADD COLUMN `i_state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
 
 ALTER TABLE `on_air_36h`
-	ADD COLUMN `state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
+	ADD COLUMN `i_state` TINYINT(1) NOT NULL DEFAULT b'0' AFTER `i_round`;
 
 ALTER TABLE `on_air_12h`
 	ADD COLUMN `i_percent` TINYINT(1) NOT NULL DEFAULT '0' AFTER `i_round`;
@@ -70,3 +70,14 @@ ALTER TABLE `on_air_36h`
 ALTER TABLE preparation_stage add n_comentario_doc varchar(1000);
 ALTER TABLE ticket_on_air add n_comentario_coor varchar(1000);
 ALTER TABLE precheck add n_comentario_ing varchar(1000);
+
+
+-- Se AGREGA UNA COLUMNA EN LAS TABLAS DE DETALLES (13/11/2017):
+ALTER TABLE `on_air_12h`
+	ADD COLUMN `d_start_temp` TIMESTAMP NULL DEFAULT NULL AFTER `d_start12h`;
+
+ALTER TABLE `on_air24h`
+	ADD COLUMN `d_start_temp` TIMESTAMP NULL DEFAULT NULL AFTER `d_start24h`;
+
+ALTER TABLE `on_air_36h`
+	ADD COLUMN `d_start_temp` TIMESTAMP NULL DEFAULT NULL AFTER `d_start36h`;
