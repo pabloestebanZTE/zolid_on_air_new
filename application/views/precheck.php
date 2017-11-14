@@ -162,7 +162,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="txtCiudad" class="col-md-3 control-label">Estado:</label>
+                                    <label for="txtCiudad" class="col-md-3 control-label">Estado Actual:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
@@ -172,7 +172,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="txtCiudad" class="col-md-3 control-label">Subestado:</label>
+                                    <label for="txtCiudad" class="col-md-3 control-label">Subestado Actual:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
@@ -227,7 +227,28 @@
                                       </div>
                                   </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Próximo Estado:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
+                                            <select name="k_id_status" id="k_id_status" class="form-control selectpicker" required>
+                                                <option value="" >Seleccione el Estado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Próximo Subestado:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
+                                            <select name="k_id_status_onair" id="k_id_status_onair" class="form-control selectpicker" required>
+                                                <option value="">Seleccione el Subestado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
                             <input type='hidden' name="k_id_precheck" id="k_id_precheck" class="form-control" value='' required>
@@ -257,7 +278,32 @@
         <script>
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
-                console.log(ticket);
+                var status = <?php echo $status; ?>;
+                var statusOnAir = <?php echo $statusOnAir; ?>;
+                var substatus = <?php echo $substatus; ?>;
+
+                console.log(substatus);
+                for (var j = 0; j < status.length; j++){
+                  if(status[j].k_id_status == 9){
+                    $('#k_id_status').append($('<option>', {
+                        value: status[j].k_id_status,
+                        text: status[j].n_name_status
+                    }));
+                  }
+                }
+
+                for (var j = 0; j < statusOnAir.length; j++){
+                  if(statusOnAir[j].k_id_status == 9){
+                    // for(var i = 0; i < substatus.length; i++){
+                    //   if ()
+                    // }
+                    $('#k_id_status_onair').append($('<option>', {
+                        value: statusOnAir[j].k_id_status_onair,
+                        text: statusOnAir[j].n_name_substatus
+                    }));
+                  }
+                }
+
                 $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
                 $('input[name=txtBanda]').val(ticket.k_id_band.n_name_band);
                 $('input[name=txtRegional]').val(ticket.k_id_station.k_id_city.k_id_regional.n_name_regional);
