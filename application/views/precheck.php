@@ -233,7 +233,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                             <select name="k_id_status" id="k_id_status" class="form-control selectpicker" required>
-                                                <option value="" >Seleccione el Estado</option>
+                                                <option value="" >Seleccione el Estado</option><option value = "">Seguimiento FO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -244,7 +244,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                             <select name="k_id_status_onair" id="k_id_status_onair" class="form-control selectpicker" required>
-                                                <option value="">Seleccione el Subestado</option>
+                                                <option value="">Seleccione el Subestado</option><option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>
                                             </select>
                                         </div>
                                     </div>
@@ -278,31 +278,6 @@
         <script>
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
-                var status = <?php echo $status; ?>;
-                var statusOnAir = <?php echo $statusOnAir; ?>;
-                var substatus = <?php echo $substatus; ?>;
-
-                console.log(substatus);
-                for (var j = 0; j < status.length; j++){
-                  if(status[j].k_id_status == 9){
-                    $('#k_id_status').append($('<option>', {
-                        value: status[j].k_id_status,
-                        text: status[j].n_name_status
-                    }));
-                  }
-                }
-
-                for (var j = 0; j < statusOnAir.length; j++){
-                  if(statusOnAir[j].k_id_status == 9){
-                    // for(var i = 0; i < substatus.length; i++){
-                    //   if ()
-                    // }
-                    $('#k_id_status_onair').append($('<option>', {
-                        value: statusOnAir[j].k_id_status_onair,
-                        text: statusOnAir[j].n_name_substatus
-                    }));
-                  }
-                }
 
                 $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
                 $('input[name=txtBanda]').val(ticket.k_id_band.n_name_band);

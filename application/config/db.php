@@ -23,7 +23,7 @@ return [
       | you may use many connections at once using the Database library.
       |
      */
-    'default' => 'camilo',
+    'default' => 'mysqlLocalhost',
     /*
       |--------------------------------------------------------------------------
       | Database Connections
