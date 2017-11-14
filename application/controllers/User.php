@@ -113,7 +113,7 @@ class User extends CI_Controller {
         $res = $ticketOnair->findByIdOnAir($ticket)->data;
         $res->scaledOnair = $scaledOnair->getScaledByTicketRound($res->k_id_onair, $res->n_round)->data; //scaledOnair nuevo elemento
         $res->statusOnAir = $status->getAll();
-        $res->status = $status->getAllStatus();
+        $res->status = $status->getStatusScaling();
         $res->substatus = $status->getAllSubstatus();
         for ($i = 0; $i < count($res->statusOnAir->data); $i++) {
             for ($j = 0; $j < count($res->status->data); $j++) {
