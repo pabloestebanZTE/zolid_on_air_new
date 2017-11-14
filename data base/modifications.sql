@@ -81,3 +81,6 @@ ALTER TABLE `on_air24h`
 
 ALTER TABLE `on_air_36h`
 	ADD COLUMN `d_start_temp` TIMESTAMP NULL DEFAULT NULL AFTER `d_start36h`;
+
+
+ALTER TABLE ticket_on_air add i_actualEngineer integer;
