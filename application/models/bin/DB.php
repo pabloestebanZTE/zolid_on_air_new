@@ -160,6 +160,7 @@ class DB extends PDO {
             $this->sql .= " " . $this->wheres;
             $this->sql .= " " . $this->others;
             $sth = $this->prepare($this->sql);
+            $this->query = $this->sql;
             $sth->execute();
             return $sth->fetchAll(($fech != null) ? $fech : $this->cogs["fetch"]);
         } catch (Exception $ex) {

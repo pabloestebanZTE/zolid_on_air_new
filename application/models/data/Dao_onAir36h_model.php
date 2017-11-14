@@ -63,6 +63,17 @@
         }
       }
 
-
+      public function getOnair36ByIdOnairAndRound($id, $round){
+        try {
+          $onair36 = new OnAir36hModel();
+          $datos = $onair36->where("k_id_onair","=",$id)->where("i_round","=",$round)
+                        ->first();
+          $response = new Response(EMessages::SUCCESS);
+          $response->setData($datos);
+          return $response;
+        } catch (ZolidException $ex) {
+          return $ex;
+        }
+      }
   }
 ?>

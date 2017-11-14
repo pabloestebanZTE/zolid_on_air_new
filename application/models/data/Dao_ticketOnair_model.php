@@ -325,7 +325,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     case ConstStates::SEGUIMIENTO_12H:
                         $actual_status = "12h";
                         $stepIdField = "k_id_12h_real";
-//                        $onAir12HModel = new OnAir12hModel();                        
+//                        $onAir12HModel = new OnAir12hModel();
                         $stepModel = new OnAir12hModel();
 //                        $obj = $onAir12HModel->getLastDetail($tck);
                         break;

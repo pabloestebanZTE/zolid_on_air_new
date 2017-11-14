@@ -163,13 +163,16 @@ class User extends CI_Controller {
         $status = new dao_statusOnair_model();
         $response = $ticketOnAir->findByIdOnAir($id);
         $response->data->k_id_preparation = $PS->findByIdPreparation($response->data->k_id_preparation)->data;
-         $response->data->k_id_station = $station->findById($response->data->k_id_station)->data;
-          $response->data->k_id_band = $band->findById($response->data->k_id_band)->data;
+        $response->data->k_id_station = $station->findById($response->data->k_id_station)->data;
+        $response->data->k_id_band = $band->findById($response->data->k_id_band)->data;
         $response->data->k_id_technology = $technology->findById($response->data->k_id_technology)->data;
         $response->data->k_id_work = $work->findById($response->data->k_id_work)->data;
         $response->data->k_id_status_onair = $status->findById($response->data->k_id_status_onair)->data;
         $answer['ticket'] = json_encode($response->data);
         $answer['users'] = json_encode($users->getAll());
+        $answer['status'] = $status->getAllStatus();
+        $answer['substatus'] = $status->getAllSubstatus();
+        $answer['statusOnAir'] = $status->getAll();
         $this->toAssign($answer);
     }
 

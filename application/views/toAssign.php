@@ -219,7 +219,7 @@
                 $('input[name=txtEstado]').val(ticket.k_id_status_onair.k_id_status.n_name_status);
                 $('input[name=txtSubestado]').val(ticket.k_id_status_onair.k_id_substatus.n_name_substatus);
                 $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
-                $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);               
+                $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
                 $('input[name=k_id_ticket]').val(ticket.k_id_onair);
 
             })
@@ -237,7 +237,9 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
         $(function(){
-          dom.submit($('#assignEng'));
+          dom.submit($('#assignEng'), function () {
+              location.href = app.urlTo('User/principalView');
+          });
         })
         // , function(){location.href = app.urlTo('User/principalView');}
         </script>

@@ -49,10 +49,10 @@
         }
       }
 
-      public function getOnair24ByIdOnair($id){
+      public function getOnair24ByIdOnairAndRound($id, $round){
         try {
           $onair24 = new OnAir24hModel();
-          $datos = $onair24->where("k_id_onair","=",$id)
+          $datos = $onair24->where("k_id_onair","=",$id)->where("i_round","=",$round)
                         ->first();
           $response = new Response(EMessages::SUCCESS);
           $response->setData($datos);
@@ -61,8 +61,5 @@
           return $ex;
         }
       }
-
-
-
   }
 ?>
