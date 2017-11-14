@@ -484,9 +484,7 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                  swal("Poof! Your imaginary file has been deleted!", {
-                    icon: "success",
-                  });
+                    dom.submitDirect($('#createScaling'),null, false);
                 }
             });
           }
@@ -498,7 +496,6 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
         $(function(){
-          dom.submit($('#createScaling'),null, false);
         })
         // , function(){location.href = app.urlTo('User/principalView');}
         </script>

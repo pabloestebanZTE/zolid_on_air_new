@@ -236,6 +236,7 @@ class TicketOnair extends CI_Controller {
         $response = $scaling->insertScaling($this->request);
         $this->request->n_round = $this->request->n_round + 1;
         $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
+        $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }
 

@@ -388,6 +388,19 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    function updateTicketScaling($request) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
+                    ->update($request->all());
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+    
     function updateRoundTicket($id, $value) {
         try {
             $ticketOnAir = new TicketOnAirModel();
