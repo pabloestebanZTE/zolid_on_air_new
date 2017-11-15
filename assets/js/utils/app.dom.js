@@ -155,6 +155,35 @@ var dom = {
             return "00:00";
         }
     },
+    betweenHours: function (hms_inicio, hms_fin, hms_referencia) {
+        hms_inicio = formatDate(hms_inicio, 'HH:mm:ss');
+        hms_fin = formatDate(hms_fin, 'HH:mm:ss');
+        hms_referencia = formatDate(hms_referencia, 'HH:mm:ss');
+        var h, m, s;
+        //HORA INICIO.
+        hms_inicio = hms_inicio.split(/[^\d]+/);
+        h = hms_inicio[0];
+        m = hms_inicio[1];
+        s = hms_inicio[2];
+        s_inicio = 3600 * h + 60 * m + s;
+        //HORA FIN.
+        hms_fin = hms_fin.split(/[^\d]+/);
+        h = hms_fin[0];
+        m = hms_fin[1];
+        s = hms_fin[2];
+        var s_fin = 3600 * h + 60 * m + s;
+        //HORA REFERENCIA.
+        hms_referencia = hms_referencia.split(/[^\d]+/);
+        h = hms_referencia[0];
+        m = hms_referencia[1];
+        s = hms_referencia[2];
+        var s_referencia = 3600 * h + 60 * m + s;
+        if (s_inicio <= s_fin) {
+            return s_referencia >= s_inicio && s_referencia <= s_fin;
+        } else {
+            return s_referencia >= s_inicio || s_referencia <= s_fin;
+        }
+    },
     timesInLimit: 0,
     timeForNotifyLimit: 1,
     /**
@@ -231,18 +260,32 @@ var dom = {
             }
         };
         var timeRecord = time;
+        var timePaused = false;
 //        var timeProgress = time;
 //        percentValue = (percentValue == 0) ? 1 : percentValue;
 //        var timeTotal = ((time / percentValue) * 100);
 
         var refresh = function () {
+            var mathTime = (1000 * 60);
+            today += mathTime;
+
+            var v = dom.betweenHours(new Date('01/01/2017 06:00'), new Date('01/01/2017 18:00'), new Date(today));
+//            var hrs = 0;
+//            var hour = formatDate(new Date(today), 'HH');
+            if (!v) {
+                timePaused = true;
+                return;
+            }
+            if (timePaused) {
+                location.reload();
+            }
 //            timeProgress += (1000 * 60);
 //            percentValue = (timeProgress / timeTotal) * 100;
+
             percentValue = Math.round(((today - timeInit) / (timeTotal - timeInit)) * 100);
             parseTimer(timeRecord, element, progressElement, percentValue);
-            var mathTime = (1000 * 60);
             timeRecord -= mathTime;
-            today += mathTime;
+//            if(today)
         };
 
         //Número de tiempos al límite...
