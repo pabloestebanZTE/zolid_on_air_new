@@ -140,3 +140,6 @@ create table reporte_comentario
 
 
 ALTER TABLE ticket_on_air modify n_estadoonair varchar(100) DEFAULT 'NO ON AIR';
+
+-- (15 nov 2017) se modifica el campo time_escalado
+ALTER TABLE scaled_on_air modify d_time_escalado varchar(100);

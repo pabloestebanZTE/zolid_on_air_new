@@ -336,7 +336,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbEstadosTD">Estado:</label>
-                                                    <select class="form-control select-fill input-sm" id="cmbEstadosTD" name="ticket_on_air.k_id_status_onair.k_id_status" >
+                                                    <select class="form-control select-fill input-sm" id="cmbEstadosTD" disabled="">
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
@@ -344,7 +344,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbSubEstadosTD">SubEstado:</label>
-                                                    <select class="form-control select-fill input-sm" id="cmbSubEstadosTD" name="ticket_on_air.k_id_status_onair.k_id_substatus" >
+                                                    <select class="form-control select-fill input-sm" id="cmbSubEstadosTD" disabled="">
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
@@ -592,7 +592,18 @@
                                             <option value="12h">12H</option>
                                             <option value="24h">24H</option>
                                             <option value="36h">36H</option>
-                                            <option value="prod">Producción</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-action="PROD" ><span class="icon-state theme1"><i class="fa fa-fw fa-play"></i></span> Producción</a>
+                            <ul class="content-state hidden">
+                                <li>
+                                    <div class="input-control">
+                                        <select class="form-control" id="cmbEstadosProcesos">
+                                            <option>Selecione</option>
                                         </select>
                                     </div>
                                 </li>

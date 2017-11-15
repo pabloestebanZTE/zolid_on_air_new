@@ -7,6 +7,7 @@ var TD = {
         TD.getDetail();
         TD.listCombox();
         TD.getDetails();
+        TD.getStatesProduction();
         dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
@@ -37,7 +38,37 @@ var TD = {
             case "NEXT":
                 TD.nextFase();
                 break;
+            case "PROD":
+                TD.toProduction();
+                break;
         }
+    },
+    toProduction: function () {
+        var cmbProduccion = $('#cmbEstadosProcesos');
+        //Validamos...
+        if (cmbProduccion.val().trim() === "" || cmbProduccion.val() == -1) {
+            swal("Error", "El tiempo asignado para la prórroga es inválido.", "error");
+            return;
+        }
+        var obj = {
+            idProceso: $('#idProceso').val(),
+            idStatus: cmbProduccion.val(),
+            comment: $('#modalChangeState #txtObservations').val()
+        };
+        app.post('TicketOnair/toProduction', obj)
+                .success(function (response) {
+                    console.log(response);
+                    if (response.code > 0) {
+                        swal("Actualizado", "Se ha actualizado el proceso correctamente.", "success");
+                    } else {
+                        swal("Información", response.message, "warning");
+                    }
+                })
+                .error(function (e) {
+                    console.error(e);
+                    swal("Error", "Se ha producio un error desconocido, por favor compruebe su conexión a internet y vuelva a intentarlo.", "error");
+                })
+                .send();
     },
     createProrroga: function () {
         //Validamos...
@@ -98,6 +129,7 @@ var TD = {
         var ul = link.parents('ul');
         if (link.hasClass('active')) {
             link.next().slideUp(500);
+            link.removeClass('active');
             return;
         }
         if (link.next()) {
@@ -122,6 +154,11 @@ var TD = {
         } else if (parent.hasClass('escalado')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
+        } else if (parent.hasClass('produccion')) {
+            $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
         } else {
             $('#modalChangeState .states-modal a').removeClass('disabled');
         }
@@ -234,9 +271,16 @@ var TD = {
             case "36h":
                 $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
                 $('[data-ref="#contentDetails_24h"]').removeClass('disabled');
-                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('[data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
                 $('[data-ref="#contentDetails_36h"]').addClass('active').removeClass('disabled');
                 $('#contentDetails_36h').removeClass('hidden');
+                break;
+            default :
+                $('[data-ref="#contentDetails_12h"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-play-circle"></i> En producción');
+                $('.progress-step').css('width', 100 + '%');
+                $('#contentDetails_12h').removeClass('hidden');
+                $('.hour-step').removeClass('disabled').addClass('produccion');
                 break;
         }
     },
@@ -321,6 +365,19 @@ var TD = {
             }
             content.append(clone);
         }
+    },
+    getStatesProduction: function () {
+        var cmb = $('#cmbEstadosProcesos');
+        app.post('TicketOnair/getStatesProduction')
+                .success(function (response) {
+                    console.log(response);
+                    var datos = app.parseResponse(response);
+                    if (datos) {
+                        dom.llenarCombo(cmb, datos, {text: "n_name_substatus", value: "k_id_status_onair"});
+                    }
+                }).error(function (e) {
+            dom.comboVacio(cmb);
+        }).send();
     }
 };
 

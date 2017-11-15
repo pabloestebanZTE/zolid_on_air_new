@@ -124,7 +124,7 @@ class TicketOnair extends CI_Controller {
             $ticketUser[$t]->k_id_station = $station->findById($ticketUser[$t]->k_id_station)->data; //Station
             $ticketUser[$t]->k_id_work = $work->findById($ticketUser[$t]->k_id_work)->data; //work
             $ticketUser[$t]->k_id_technology = $technology->findById($ticketUser[$t]->k_id_technology)->data; //technology
-            $ticketUser[$t]->k_id_preparation = $stage->findByIdPreparation($ticketUser[$t]->k_id_preparation)->data;//preparation
+            $ticketUser[$t]->k_id_preparation = $stage->findByIdPreparation($ticketUser[$t]->k_id_preparation)->data; //preparation
             if ($ticketUser[$t]->i_actualEngineer != 0) {
                 $ticketUser[$t]->i_actualEngineer = $assign->findBySingleId($ticketUser[$t]->i_actualEngineer)->data; //
                 $ticketUser[$t]->i_actualEngineer = $ticketUser[$t]->i_actualEngineer->n_name_user . " " . $ticketUser[$t]->i_actualEngineer->n_last_name_user;
@@ -231,6 +231,18 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
+    public function getStatesProduction() {
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->getStatesProduction($this->request);
+        $this->json($response);
+    }
+
+    public function toProduction() {
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->toProduction($this->request);
+        $this->json($response);
+    }
+
     public function nextFase() {
         $ticket = new Dao_ticketOnair_model();
         $response = $ticket->nextFase($this->request);
@@ -257,7 +269,7 @@ class TicketOnair extends CI_Controller {
             $this->json($response);
             $flag = 1;
         }
-         if ($flag == 0) {
+        if ($flag == 0) {
             if ($response->data->k_id_status_onair == 81) {
                 $track12 = new dao_onAir12h_model();
                 $follow12 = new dao_followUp12h_model();

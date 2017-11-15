@@ -17,6 +17,7 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->load->model('data/Dao_followUp24h_model');
         $this->load->model('data/Dao_followUp36h_model');
         $this->load->model('bin/ConstStates');
+        $this->load->model('bin/SubstatusModel');
     }
 
     public function insertTicket($request) {
@@ -101,17 +102,17 @@ class Dao_ticketOnair_model extends CI_Model {
                 $idStatusOnair = 0;
                 $idPreparation = 0;
                 //ACTUALIZANDO STATUS_ONAIR
-                if ($status_onair) {
-                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
-                    $idStatusOnair = $status_onair->k_id_status_onair;
-                    DB::table("status_on_air")
-                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
-                            ->update($objStatusOnair);
-                } else {
-                    //SE INSERTA EL STATUS_ONAIR...
-                    $idStatusOnair = DB::table("status_on_air")
-                            ->insert($objStatusOnair);
-                }
+//                if ($status_onair) {
+//                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
+////                    $idStatusOnair = $status_onair->k_id_status_onair;
+////                    DB::table("status_on_air")
+////                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
+////                            ->update($objStatusOnair);
+//                } else {
+//                    //SE INSERTA EL STATUS_ONAIR...
+//                    $idStatusOnair = DB::table("status_on_air")
+//                            ->insert($objStatusOnair);
+//                }
 
                 //ACTUALIZANDO PREPARATION STAGE.
                 $psModel = new PreparationStageModel();
@@ -347,6 +348,9 @@ class Dao_ticketOnair_model extends CI_Model {
                         $stepModel = new OnAir36hModel();
 //                        $obj = $onAir36HModel->getLastDetail($tck);
                         break;
+                    default :
+                        $actual_status = $status_onair->k_id_substatus;
+                        break;
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 $timetotal = 0;
@@ -531,6 +535,8 @@ class Dao_ticketOnair_model extends CI_Model {
 
 //                    echo $stepModel->getSQL();
                 }
+            } else {
+                $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
             $response = new Response(EMessages::INSERT);
             return $response;
@@ -571,11 +577,11 @@ class Dao_ticketOnair_model extends CI_Model {
                         break;
                 }
                 //Actualizamos el estado de la fase...
-                /*$status_onair = DB::table("status_on_air")
-                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
-                        ->update([
-                    "k_id_substatus" => $idStatus
-                ]);*/
+                /* $status_onair = DB::table("status_on_air")
+                  ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                  ->update([
+                  "k_id_substatus" => $idStatus
+                  ]); */
                 //Luego actualizamos o insertamos el nuevo registro de la siguiente fase.
                 $temp = $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
                         ->where("i_round", "=", $ticket->n_round)
@@ -597,46 +603,44 @@ class Dao_ticketOnair_model extends CI_Model {
                         "i_round" => $ticket->n_round,
                         $dateField => Hash::getDate()
                     ]);
-
-                    if ($idStatus == 21){
-                        $follow = new FollowUp12hModel();
-                        $onair = new OnAir12hModel();
-                        $request->n_round = $ticket->n_round;
-                        $datos = $follow->insert($request->all());
-                        $response = new Response(EMessages::SUCCESS);
-                        $response->setData($datos);
-                        $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=" ,$ticket->n_round)
+                }
+                if ($idStatus == ConstStates::SEGUIMIENTO_12H) {
+                    $follow = new FollowUp12hModel();
+                    $onair = new OnAir12hModel();
+                    $request->n_round = $ticket->n_round;
+                    $datos = $follow->insert($request->all());
+                    $response = new Response(EMessages::SUCCESS);
+                    $response->setData($datos);
+                    $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)
                             ->update(["k_id_follow_up_12h" => $response->data->data]);
-                        $this->updateEngTicket($ticket->k_id_onair, 0);
-                        $this->updateStatusTicket($ticket->k_id_onair, 81);      
-                    }
+                    $this->updateEngTicket($ticket->k_id_onair, 0);
+                    $this->updateStatusTicket($ticket->k_id_onair, 81);
+                }
 
-                    if ($idStatus == 22){
-                        $follow = new FollowUp24hModel();
-                        $onair = new OnAir24hModel();
-                        $request->n_round = $ticket->n_round;
-                        $datos = $follow->insert($request->all());
-                        $response = new Response(EMessages::SUCCESS);
-                        $response->setData($datos);
-                        $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=" ,$ticket->n_round)
+                if ($idStatus == ConstStates::SEGUIMIENTO_24H) {
+                    $follow = new FollowUp24hModel();
+                    $onair = new OnAir24hModel();
+                    $request->n_round = $ticket->n_round;
+                    $datos = $follow->insert($request->all());
+                    $response = new Response(EMessages::SUCCESS);
+                    $response->setData($datos);
+                    $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)
                             ->update(["k_id_follow_up_24h" => $response->data->data]);
-                        $this->updateEngTicket($ticket->k_id_onair, 0);
-                        $this->updateStatusTicket($ticket->k_id_onair, 82);      
-                    }
+                    $this->updateEngTicket($ticket->k_id_onair, 0);
+                    $this->updateStatusTicket($ticket->k_id_onair, 82);
+                }
 
-                    if ($idStatus == 23){
-                        $follow = new FollowUp36hModel();
-                        $onair = new OnAir36hModel();
-                        $request->n_round = $ticket->n_round;
-                        $datos = $follow->insert($request->all());
-                        $response = new Response(EMessages::SUCCESS);
-                        $response->setData($datos);
-                        $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=" ,$ticket->n_round)
+                if ($idStatus == ConstStates::SEGUIMIENTO_36H) {
+                    $follow = new FollowUp36hModel();
+                    $onair = new OnAir36hModel();
+                    $request->n_round = $ticket->n_round;
+                    $datos = $follow->insert($request->all());
+                    $response = new Response(EMessages::SUCCESS);
+                    $response->setData($datos);
+                    $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)
                             ->update(["k_id_follow_up_36h" => $response->data->data]);
-                        $this->updateEngTicket($ticket->k_id_onair, 0);
-                        $this->updateStatusTicket($ticket->k_id_onair, 83);      
-                    }
-
+                    $this->updateEngTicket($ticket->k_id_onair, 0);
+                    $this->updateStatusTicket($ticket->k_id_onair, 83);
                 }
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
@@ -644,6 +648,44 @@ class Dao_ticketOnair_model extends CI_Model {
             return $response;
         } catch (ZolidException $ex) {
             return $ex;
+        }
+    }
+
+    public function getStatesProduction() {
+        try {
+            $responde = new Response(EMessages::QUERY);
+            $subStatusModel = new SubstatusModel();
+            $data = $subStatusModel->join("status_on_air", "substatus.k_id_substatus", "=", "status_on_air.k_id_substatus")
+                            ->where("status_on_air.k_id_status", "=", 8)->get();
+            $responde->setData($data);
+            return $responde;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    public function toProduction($request) {
+        try {
+            $response = new Response(EMessages::INSERT);
+            //Variables...
+            $id = $request->idProceso;
+            $idStatus = $request->idStatus;
+            $comment = $request->comment;
+            $ticketModel = new TicketOnAirModel();
+            $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
+            if ($ticket) {
+                //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
+                $ticketModel->where("k_id_onair", "=", $id)->update([
+                    "k_id_status_onair" => $idStatus,
+                    "d_fechaproduccion" => Hash::getDate(),
+                    "n_estadoonair" => "ON AIR"
+                ]);
+            } else {
+                $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
+            }
+            return $response;
+        } catch (ZolidException $ex) {
+            
         }
     }
 
