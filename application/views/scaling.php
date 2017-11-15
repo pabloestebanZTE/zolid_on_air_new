@@ -419,7 +419,7 @@
             console.log(items);
             
             for (var j = 0; j < items.status.data.length; j++){
-                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7') {
+                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7' || items.status.data[j].k_id_status === '11' || items.status.data[j].k_id_status === '12' || items.status.data[j].k_id_status === '13') {
                     $('#status').append($('<option>', {
                         value: items.status.data[j].k_id_status,
                         text: items.status.data[j].n_name_status
@@ -452,6 +452,7 @@
             $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
             
             contEscStatus();
+            window.setInterval("contEscStatus()", 60000);
             editSubstatus();
           });
           
@@ -480,9 +481,6 @@
               }
             }
             
-            console.log(fecha_escalado);
-            console.log(fecha_escalado);
-            
             switch(status) {
                 case "3":
                     accountant("cont_esc_calidad");
@@ -500,8 +498,17 @@
                     accountant("i_cont_esc_rf");
                     timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_rf");
                     break;
-                case "7":
-                    
+                case "11":
+                    accountant("i_cont_esc_gdrt");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_gdrt");
+                    break;
+                case "12":
+                    accountant("cont_esc_care");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_care");
+                    break;
+                case "13":
+                    accountant("cont_esc_npo");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_npo");
                     break;
             }
             
@@ -517,11 +524,17 @@
           function timeEscStatus(date1, date2, id){
             var start_actual_time = new Date(date1);
             var end_actual_time = new Date(date2);
-
+            
             var diff = end_actual_time - start_actual_time;
-
+            var dias = Math.floor(diff / (1000 * 60 * 60 * 24)); 
             var diffSeconds = diff/1000;
+            var HH = Math.floor(diffSeconds/3600);
             var MM = Math.trunc(Math.floor(diffSeconds%3600)/60);
+            
+            if (dias > 0) {
+                var HH1 = (HH * 60) - (720 * dias);
+                MM = MM + HH1;
+            }
 
             var formatted = ((MM < 10)?("0" + MM):MM);
             $("#"+id).val(formatted);
