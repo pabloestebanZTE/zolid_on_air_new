@@ -297,7 +297,7 @@ var dom = {
         //Creamos el intervalo a un minuto...
         interval = window.setInterval(function () {
             refresh();
-        }, (1000));
+        }, (1000 * 60));
     },
     configCalendar: function (control, fechaInicio, fechaFin, fechaDefecto, btnToday) {
         control.datepicker('remove');
