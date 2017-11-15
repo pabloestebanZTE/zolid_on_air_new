@@ -592,7 +592,7 @@ nav {
     border: 1px solid #337ab77a;
     border-bottom: 0px;
     box-shadow: 0px 0px 3px #ccc;
-    opacity: 0.80;
+    opacity: 0.65;
 }
 .hour-step.disabled{
     opacity: 0.3;

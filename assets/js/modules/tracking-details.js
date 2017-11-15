@@ -234,7 +234,7 @@ var TD = {
             case "36h":
                 $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
                 $('[data-ref="#contentDetails_24h"]').removeClass('disabled');
-                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('[data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
                 $('[data-ref="#contentDetails_36h"]').addClass('active').removeClass('disabled');
                 $('#contentDetails_36h').removeClass('hidden');
                 break;
