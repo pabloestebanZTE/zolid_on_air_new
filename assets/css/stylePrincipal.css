@@ -868,3 +868,6 @@ nav {
 .hour-step .icon-step.no-action{
     pointer-events: none !important;
 }
+table td{
+    vertical-align: middle !important;
+}

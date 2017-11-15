@@ -218,17 +218,17 @@ class OnAir24hModel extends Model {
 
 
         //Si se terminan las 3 horas, se pasa a la siguiente fase.
-        if ($obj->i_timestamp <= 0 && $obj->i_state == 1) {
-            $ticket = new Dao_ticketOnair_model();
-            $o = new ObjUtil([
-                "idProceso" => $obj->k_id_onair,
-                "fase" => "36h",
-                "comment" => "Actualización automática de fase."
-            ]);
-            $response = $ticket->nextFase($o);
-            $obj->i_state = "CHANGE_FASE";
-            return $obj;
-        }
+//        if ($obj->i_timestamp <= 0 && $obj->i_state == 1) {
+//            $ticket = new Dao_ticketOnair_model();
+//            $o = new ObjUtil([
+//                "idProceso" => $obj->k_id_onair,
+//                "fase" => "36h",
+//                "comment" => "Actualización automática de fase."
+//            ]);
+//            $response = $ticket->nextFase($o);
+//            $obj->i_state = "CHANGE_FASE";
+//            return $obj;
+//        }
 
         if ($obj->i_state == 1) {
             $state = 1;

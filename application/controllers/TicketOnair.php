@@ -35,7 +35,7 @@ class TicketOnair extends CI_Controller {
         $stage = new dao_preparationStage_model();
         $res = $ticketsOnAir->getAll($this->request);
         for ($j = 0; $j < count($res->data); $j++) {
-            $res->data[$j]->k_id_status_onair = $statusOnair->findById($res->data[$j]->k_id_status_onair)->data; //Status onair
+            $res->data[$j]->k_id_status_onair = $statusOnair->findById($res->data[$j])->data; //Status onair
             $res->data[$j]->k_id_station = $station->findById($res->data[$j]->k_id_station)->data; //Station
             $res->data[$j]->k_id_band = $band->findById($res->data[$j]->k_id_band)->data; //band
             $res->data[$j]->k_id_work = $work->findById($res->data[$j]->k_id_work)->data; //work
