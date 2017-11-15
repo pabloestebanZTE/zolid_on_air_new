@@ -582,13 +582,43 @@ insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (96,11,6);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (97,11,8);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (98,11,10);
-insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (99,11,11;
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (99,11,11);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (100,11,12);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (101,11,13);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (102,11,14);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (103,11,15);
-insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (103,11,16);
-insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (103,11,17);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (104,11,16);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (105,11,17);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (106,12,1);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (107,12,2);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (108,12,3);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (109,12,4);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (110,12,5);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (111,12,6);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (112,12,8);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (113,12,10);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (114,12,11);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (115,12,12);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (116,12,13);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (117,12,14);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (118,12,15);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (119,12,16);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (120,12,17);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (121,13,1);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (122,13,2);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (123,13,3);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (124,13,4);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (125,13,5);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (126,13,6);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (127,13,8);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (128,13,10);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (129,13,11);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (130,13,12);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (131,13,13);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (132,13,14);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (133,13,15);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (134,13,16);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (135,13,17);
 
 
 /*table substatus */
