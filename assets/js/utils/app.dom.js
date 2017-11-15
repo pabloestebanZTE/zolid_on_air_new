@@ -203,6 +203,10 @@ var dom = {
 
         var interval = null;
 
+        if (typeof callback === "function" && (state == "CHANGE_FASE")) {
+            location.reload();
+        }
+
         if (state == 3) {
             progressElement.css('width', 100 + '%');
             var parent = element.parents('.hour-step');
