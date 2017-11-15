@@ -102,18 +102,17 @@ class Dao_ticketOnair_model extends CI_Model {
                 $idStatusOnair = 0;
                 $idPreparation = 0;
                 //ACTUALIZANDO STATUS_ONAIR
-                if ($status_onair) {
-                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
-                    $idStatusOnair = $status_onair->k_id_status_onair;
-                    DB::table("status_on_air")
-                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
-                            ->update($objStatusOnair);
-                } else {
-                    //SE INSERTA EL STATUS_ONAIR...
-                    $idStatusOnair = DB::table("status_on_air")
-                            ->insert($objStatusOnair);
-                }
-
+//                if ($status_onair) {
+//                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
+////                    $idStatusOnair = $status_onair->k_id_status_onair;
+////                    DB::table("status_on_air")
+////                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
+////                            ->update($objStatusOnair);
+//                } else {
+//                    //SE INSERTA EL STATUS_ONAIR...
+//                    $idStatusOnair = DB::table("status_on_air")
+//                            ->insert($objStatusOnair);
+//                }
                 //ACTUALIZANDO PREPARATION STAGE.
                 $psModel = new PreparationStageModel();
                 //COMPROBAMOS SI EXISTE
@@ -348,6 +347,9 @@ class Dao_ticketOnair_model extends CI_Model {
                         $stepModel = new OnAir36hModel();
 //                        $obj = $onAir36HModel->getLastDetail($tck);
                         break;
+                    default :
+                        $actual_status = $status_onair->k_id_substatus;
+                        break;
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 $timetotal = 0;
@@ -532,6 +534,8 @@ class Dao_ticketOnair_model extends CI_Model {
 
 //                    echo $stepModel->getSQL();
                 }
+            } else {
+                $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
             $response = new Response(EMessages::INSERT);
             return $response;
@@ -587,6 +591,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             ->where("i_round", "=", $ticket->n_round)
                             ->update([
                                 "i_state" => 0,
+                                "n_comentario" => $comment,
                                 $dateField => Hash::getDate()
                     ]);
                 } else {
@@ -656,6 +661,31 @@ class Dao_ticketOnair_model extends CI_Model {
             return $responde;
         } catch (ZolidException $ex) {
             return $ex;
+        }
+    }
+
+    public function toProduction($request) {
+        try {
+            $response = new Response(EMessages::INSERT);
+            //Variables...
+            $id = $request->idProceso;
+            $idStatus = $request->idStatus;
+            $comment = $request->comment;
+            $ticketModel = new TicketOnAirModel();
+            $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
+            if ($ticket) {
+                //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
+                $ticketModel->where("k_id_onair", "=", $id)->update([
+                    "k_id_status_onair" => $idStatus,
+                    "d_fechaproduccion" => Hash::getDate(),
+                    "n_estadoonair" => "ON AIR"
+                ]);
+            } else {
+                $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
+            }
+            return $response;
+        } catch (ZolidException $ex) {
+            
         }
     }
 

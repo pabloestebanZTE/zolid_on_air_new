@@ -237,6 +237,12 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
+    public function toProduction() {
+        $ticket = new Dao_ticketOnair_model();
+        $response = $ticket->toProduction($this->request);
+        $this->json($response);
+    }
+
     public function nextFase() {
         $ticket = new Dao_ticketOnair_model();
         $response = $ticket->nextFase($this->request);

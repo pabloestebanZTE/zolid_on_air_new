@@ -336,7 +336,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbEstadosTD">Estado:</label>
-                                                    <select class="form-control select-fill input-sm" id="cmbEstadosTD" name="ticket_on_air.k_id_status_onair.k_id_status" >
+                                                    <select class="form-control select-fill input-sm" id="cmbEstadosTD" disabled="">
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
@@ -344,7 +344,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbSubEstadosTD">SubEstado:</label>
-                                                    <select class="form-control select-fill input-sm" id="cmbSubEstadosTD" name="ticket_on_air.k_id_status_onair.k_id_substatus" >
+                                                    <select class="form-control select-fill input-sm" id="cmbSubEstadosTD" disabled="">
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
