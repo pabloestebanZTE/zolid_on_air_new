@@ -23,17 +23,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label for="txtFechaEscalado" class="col-md-3 control-label">Fecha de escalado:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                            <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" value='' placeholder="DD/MM/YYYY">
-                                        </div>
-                                    </div>
-                                </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Tipificacion solucion:</label>
                                     <div class="col-md-8 selectContainer">
@@ -53,6 +43,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group" style="height: 45px;"></div>
                                 
                                 <div class="form-group">
                                     <label for="txtKpi1" class="col-md-3 control-label">KPI 1:</label>
@@ -123,7 +115,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                            <input type='datetime-local' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
+                                            <input type='text' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -377,7 +369,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                             <select class="form-control" id="status" name=k_id_status" onchange="editSubstatus()" required>
-                                                <option value="">Seleccione</option>
+                                                <!--<option value="">Seleccione</option>-->
                                             </select>
                                         </div>
                                     </div>
@@ -438,8 +430,8 @@
             $('#createScaling').fillForm(items);
 
             $('#n_atribuible_nokia option[value="'+items.scaledOnair.n_atribuible_nokia+'"]').attr('selected', 'selected');
-             // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
-             // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
+            // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
+            // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
             $('input[name=i_cont_esc_imp]').val(items.scaledOnair.i_cont_esc_imp);
             $('input[name=time_esc_imp]').val(items.scaledOnair.time_esc_imp);
             $('input[name=i_cont_esc_rf]').val(items.scaledOnair.i_cont_esc_rf);
@@ -458,6 +450,9 @@
             $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
             $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
             $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
+            
+            contEscStatus();
+            editSubstatus()
           });
           
           function editSubstatus(){
@@ -475,6 +470,50 @@
             }
           }
           
+          function contEscStatus(){
+            var status = "";
+            var info = <?php echo $items; ?>;
+            for (var j = 0; j < info.statusOnAir.data.length; j++){
+              if(info.k_id_status_onair === info.statusOnAir.data[j].k_id_status_onair){
+                  status = info.statusOnAir.data[j].k_id_status;
+              }
+            }
+            
+            console.log(status);
+            
+            switch(status) {
+                case "3":
+                    var escCalidad = $( "#cont_esc_calidad" ).val();
+                    escCalidad++;
+                    $( "#cont_esc_calidad" ).val(escCalidad);
+                    break;
+                case "4":
+                    var escImp = $( "#i_cont_esc_imp" ).val();
+                    escImp++;
+                    $( "#cont_esc_calidad" ).val(escImp);
+                    break;
+                case "5":
+                    var escOym = $("#i_cont_esc_oym").val();
+                    escOym++;
+                    $("#i_cont_esc_oym").val(escOym);
+                    break;
+                case "6":
+                    var escRf = $( "#i_cont_esc_rf" ).val();
+                    escRf++;
+                    $( "#i_cont_esc_rf" ).val(escRf);
+                    break;
+                case "7":
+                    
+                    break;
+                case "n":
+                    
+                    break;
+                case "n":
+                    
+                    break;
+            }
+          }
+          
           function confirmar(){
             swal({
                 title: "¿Está seguro que desea escalar el ticket?",
@@ -487,6 +526,7 @@
             }).then((willDelete) => {
                 if (willDelete) {
                     dom.submitDirect($('#createScaling'),null, false);
+                    window.location = app.urlTo('User/principal');
                 }
             });
           }
