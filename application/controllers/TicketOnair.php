@@ -70,6 +70,7 @@ class TicketOnair extends CI_Controller {
         $assign = new dao_user_model();
         $userId = Auth::user()->k_id_user;
         $respuesta = [];
+        $res = [];
         $flag = [];
         $precheckId = $precheck->getPrecheckById($userId)->data;
         for ($j = 0; $j < count($precheckId); $j++) {
