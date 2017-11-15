@@ -115,7 +115,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                            <input type='text' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
+                                            <input type='text' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -419,7 +419,7 @@
             console.log(items);
             
             for (var j = 0; j < items.status.data.length; j++){
-                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7') {
+                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7' || items.status.data[j].k_id_status === '11' || items.status.data[j].k_id_status === '12' || items.status.data[j].k_id_status === '13') {
                     $('#status').append($('<option>', {
                         value: items.status.data[j].k_id_status,
                         text: items.status.data[j].n_name_status
@@ -452,7 +452,8 @@
             $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
             
             contEscStatus();
-            editSubstatus()
+            window.setInterval("contEscStatus()", 60000);
+            editSubstatus();
           });
           
           function editSubstatus(){
@@ -473,45 +474,95 @@
           function contEscStatus(){
             var status = "";
             var info = <?php echo $items; ?>;
+            var fecha_escalado = info.scaledOnair.d_fecha_escalado;
             for (var j = 0; j < info.statusOnAir.data.length; j++){
               if(info.k_id_status_onair === info.statusOnAir.data[j].k_id_status_onair){
                   status = info.statusOnAir.data[j].k_id_status;
               }
             }
             
-            console.log(status);
-            
             switch(status) {
                 case "3":
-                    var escCalidad = $( "#cont_esc_calidad" ).val();
-                    escCalidad++;
-                    $( "#cont_esc_calidad" ).val(escCalidad);
+                    accountant("cont_esc_calidad");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_calidad");
                     break;
                 case "4":
-                    var escImp = $( "#i_cont_esc_imp" ).val();
-                    escImp++;
-                    $( "#cont_esc_calidad" ).val(escImp);
+                    accountant("i_cont_esc_imp");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "time_esc_imp");
                     break;
                 case "5":
-                    var escOym = $("#i_cont_esc_oym").val();
-                    escOym++;
-                    $("#i_cont_esc_oym").val(escOym);
+                    accountant("i_cont_esc_oym");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "time_esc_oym");
                     break;
                 case "6":
-                    var escRf = $( "#i_cont_esc_rf" ).val();
-                    escRf++;
-                    $( "#i_cont_esc_rf" ).val(escRf);
+                    accountant("i_cont_esc_rf");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_rf");
                     break;
-                case "7":
-                    
+                case "11":
+                    accountant("i_cont_esc_gdrt");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_gdrt");
                     break;
-                case "n":
-                    
+                case "12":
+                    accountant("cont_esc_care");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_care");
                     break;
-                case "n":
-                    
+                case "13":
+                    accountant("cont_esc_npo");
+                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_npo");
                     break;
             }
+            
+            $('input[name=d_time_escalado]').val(timeEscalado(info));
+          }
+          
+          function accountant(id){
+            var cont = $("#"+id).val();
+            cont++;
+            $("#"+id).val(cont);
+          }
+          
+          function timeEscStatus(date1, date2, id){
+            var start_actual_time = new Date(date1);
+            var end_actual_time = new Date(date2);
+            
+            var diff = end_actual_time - start_actual_time;
+            var dias = Math.floor(diff / (1000 * 60 * 60 * 24)); 
+            var diffSeconds = diff/1000;
+            var HH = Math.floor(diffSeconds/3600);
+            var MM = Math.trunc(Math.floor(diffSeconds%3600)/60);
+            
+            if (dias > 0) {
+                var HH1 = (HH * 60) - (720 * dias);
+                MM = MM + HH1;
+            }
+
+            var formatted = ((MM < 10)?("0" + MM):MM);
+            $("#"+id).val(formatted);
+          }
+          
+          function GetTodayDate() {
+              var tdate = new Date();
+              var dd = tdate.getDate(); 
+              var MM = tdate.getMonth(); 
+              var yyyy = tdate.getFullYear();
+              var hh = tdate.getHours();
+              var min = tdate.getMinutes();
+              var ss = tdate.getSeconds();
+              var currentDate= yyyy + "-" +( MM+1) + "-" + dd + " " + hh + ":" + min + ":" + ss;
+              return currentDate;
+          }
+          
+          function timeEscalado() {
+              var time1 = $("#time_esc_imp").val();
+              var time2 = $("#i_time_esc_rf").val();
+              var time3 = $("#i_time_esc_npo").val();
+              var time4 = $("#i_time_esc_care").val();
+              var time5 = $("#time_esc_oym").val();
+              var time6 = $("#i_time_esc_gdrt").val();
+              var time7 = $("#i_time_esc_calidad").val();
+              var timeEscalado = parseInt(time1) + parseInt(time2) + parseInt(time3) + parseInt(time4) + parseInt(time5) + parseInt(time6) + parseInt(time7);
+//              console.log(timeEscalado);
+              return timeEscalado;
           }
           
           function confirmar(){
