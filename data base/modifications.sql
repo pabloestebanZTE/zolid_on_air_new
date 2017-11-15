@@ -114,3 +114,6 @@ DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='61';
 DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='62';
 DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='66';
 DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='67';
+
+
+ALTER TABLE ticket_on_air modify n_estadoonair varchar(100) DEFAULT 'NO ON AIR';
