@@ -233,7 +233,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                             <select name="k_id_status" id="k_id_status" class="form-control selectpicker" required>
-                                                <option value="" >Seleccione el Estado</option><option value = "">Seguimiento FO</option>
+                                                <option value="" >Seleccione el Estado</option><option value = "0">Seguimiento FO</option>
                                             </select>
                                         </div>
                                     </div>
