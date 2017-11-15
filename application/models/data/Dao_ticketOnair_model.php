@@ -102,17 +102,17 @@ class Dao_ticketOnair_model extends CI_Model {
                 $idStatusOnair = 0;
                 $idPreparation = 0;
                 //ACTUALIZANDO STATUS_ONAIR
-                if ($status_onair) {
-                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
-                    $idStatusOnair = $status_onair->k_id_status_onair;
-                    DB::table("status_on_air")
-                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
-                            ->update($objStatusOnair);
-                } else {
-                    //SE INSERTA EL STATUS_ONAIR...
-                    $idStatusOnair = DB::table("status_on_air")
-                            ->insert($objStatusOnair);
-                }
+//                if ($status_onair) {
+//                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
+////                    $idStatusOnair = $status_onair->k_id_status_onair;
+////                    DB::table("status_on_air")
+////                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
+////                            ->update($objStatusOnair);
+//                } else {
+//                    //SE INSERTA EL STATUS_ONAIR...
+//                    $idStatusOnair = DB::table("status_on_air")
+//                            ->insert($objStatusOnair);
+//                }
 
                 //ACTUALIZANDO PREPARATION STAGE.
                 $psModel = new PreparationStageModel();
