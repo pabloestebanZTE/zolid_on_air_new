@@ -168,13 +168,13 @@
                                             </div>
 
                                             <div class="form-group">
-                                             <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                <label class="col-md-3 control-label">Observaciones de Creación</label>
                                                 <div class="col-md-8 inputGroupContainer">
-                                                  <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
-                                                  </div>
-                                              </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </fieldset>
                                         <!--   fin seccion derecha---->
@@ -523,59 +523,102 @@
                 </div>
 
                 <div class="well">
-                    <div class="col-xs-12 text-right">
-                        <div class="display-block pull-right" style="width: 300px;">
-                            <div class="col-xs-4 text-right p-r-0 p-t-5">
-                                <label class="">Grupos:</label>
-                            </div>
-                            <div class="col-xs-8 p-r-0">
-                                <select class="form-control" id="cmbGruposTracking">
-                                    <option value="">Seleccione</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="alert alert-info alert-dismissable m-b-0" id="alertFases">
+                        <a href="#" class="close">&times;</a>
+                        <p id="text" class="m-b-0 p-b-0"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultado, por favor espere...</p>
                     </div>
-                    <div class="display-block">
-                        <div class="hour-step active">
-                            <div class="body-step">
-                                <label>12H</label>
-                                <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
-                            </div>
-                            <div class="back-progress-step">
-                                <span class="progress-step" style="width: 30%;"></span>
-                            </div>
-                            <div class="footer-step">
-                                <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -01:35</label>
-                            </div>
-                        </div>
-                        <div class="hour-step">
-                            <div class="body-step">
-                                <label>24H</label>
-                                <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
-                            </div>
-                            <div class="back-progress-step">
-                                <span class="progress-step"></span>
-                            </div>
-                            <div class="footer-step">
-                                <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                    <div id="contentFases" class="hidden">
+                        <div class="col-xs-12 text-right">
+                            <div class="display-block pull-right" style="width: 400px;">
+                                <div class="col-xs-4 text-right p-r-0 p-t-5">
+                                    <label class="">Grupos:</label>
+                                </div>
+                                <div class="col-xs-8 p-r-0">
+                                    <select class="form-control" id="cmbGruposTracking">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="hour-step">
-                            <div class="body-step">
-                                <label>36H</label>
-                                <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
+                        <div class="display-block">
+                            <div class="hour-step active" data-ref="#contentDetails_12h" data-value="12">
+                                <div class="body-step">
+                                    <label>12H</label>
+                                    <span class="icon-step no-action"><i class="fa fa-fw fa-clock-o"></i></span>
+                                </div>
+                                <div class="back-progress-step">
+                                    <span class="progress-step" id="progressStep1"></span>
+                                </div>
+                                <div class="footer-step">
+                                    <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                                </div>
                             </div>
-                            <div class="back-progress-step">
-                                <span class="progress-step"></span>
+                            <div class="hour-step" data-ref="#contentDetails_24h" data-value="24">
+                                <div class="body-step">
+                                    <label>24H</label>
+                                    <span class="icon-step no-action"><i class="fa fa-fw fa-clock-o"></i></span>
+                                </div>
+                                <div class="back-progress-step">
+                                    <span class="progress-step"></span>
+                                </div>
+                                <div class="footer-step">
+                                    <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                                </div>
                             </div>
-                            <div class="footer-step">
-                                <label id="timeStep"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                            <div class="hour-step" data-ref="#contentDetails_36h" data-value="36">
+                                <div class="body-step">
+                                    <label>36H</label>
+                                    <span class="icon-step no-action"><i class="fa fa-fw fa-clock-o"></i></span>
+                                </div>
+                                <div class="back-progress-step">
+                                    <span class="progress-step"></span>
+                                </div>
+                                <div class="footer-step">
+                                    <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
-                        <div class="well m-b-0">
-                            <table id="tblTrackingDetails" class="table table-hover table-condensed table-striped"></table>
+                        <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
+                            <div id="modelWiget" class="hidden">
+                                <div class="col-md-3 wiget-list">
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                        <div class="details-wiget">
+                                            <span class="title display-block">Fecha Inicio: </span>
+                                            <span class="text display-block" id="d_start">{d_start}</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                        <div class="details-wiget">
+                                            <span class="title display-block">Fecha Fin: </span>
+                                            <span class="text display-block" id="d_end">{d_end}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
+                                </div>
+                                <div class="col-md-4 wiget-list p-l-25 users">
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                        <div class="details-wiget">
+                                            <span class="title display-block">{user_name}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="well m-b-0 p-t-5 p-b-5">
+                                <div class="row wiget" id="contentDetails_12h">
+
+                                </div>
+                                <div class="row wiget hidden" id="contentDetails_24h">
+
+                                </div>
+                                <div class="row wiget hidden" id="contentDetails_36h">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -590,57 +633,57 @@
         <!-- CUSTOM SCRIPT   -->
         <link href="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>" rel="stylesheet" type="text/css"/>
         <script>
-          $(function () {
-            var fields = <?php echo $fields; ?>;
-            // console.log(fields);
-            $('#detailsForm').fillForm(fields);
+            $(function () {
+                var fields = <?php echo $fields; ?>;
+                // console.log(fields);
+                $('#detailsForm').fillForm(fields);
 
-            $('input[name=n_integrador]').val(fields.k_id_preparation.n_integrador);
-            $('#n_testgestion option[value="'+fields.k_id_preparation.n_testgestion+'"]').attr('selected', 'selected');
-            $('#n_sitiolimpio option[value="'+fields.k_id_preparation.n_sitiolimpio+'"]').attr('selected', 'selected');
-            $('#n_instalacion_hw_sitio option[value="'+fields.k_id_preparation.n_instalacion_hw_sitio+'"]').attr('selected', 'selected');
-            $('#n_cambios_config_solicitados option[value="'+fields.k_id_preparation.n_cambios_config_solicitados+'"]').attr('selected', 'selected');
-            $('#n_cambios_config_final option[value="'+fields.k_id_preparation.n_cambios_config_final+'"]').attr('selected', 'selected');
-            $('input[name=n_contratista]').val(fields.k_id_preparation.n_contratista);
-            $('#n_integracion_gestion_y_trafica option[value="'+fields.k_id_preparation.n_integracion_gestion_y_trafica+'"]').attr('selected', 'selected');
-            $('#puesta_servicio_sitio_nuevo_lte option[value="'+fields.k_id_preparation.puesta_servicio_sitio_nuevo_lte+'"]').attr('selected', 'selected');
-            $('#n_instalacion_hw_4g_sitio option[value="'+fields.k_id_preparation.n_instalacion_hw_4g_sitio+'"]').attr('selected', 'selected');
-            $('#pre_launch option[value="'+fields.k_id_preparation.pre_launch+'"]').attr('selected', 'selected');
-            $('input[name=n_evidenciasl]').val(fields.k_id_preparation.n_evidenciasl);
-            $('input[name=n_evidenciatg]').val(fields.k_id_preparation.n_evidenciatg);
-            $('input[name=id_rftools]').val(fields.k_id_preparation.id_rftools);
-            $('input[name=i_lider_cambio]').val(fields.i_lider_cambio);
-            $('input[name=i_lider_cuadrilla]').val(fields.i_lider_cuadrilla);
-            $('#n_implementacion_campo option[value="'+fields.n_implementacion_campo+'"]').attr('selected', 'selected');
-            $('#n_gestion_power option[value="'+fields.n_gestion_power+'"]').attr('selected', 'selected');
-            $('#n_obra_civil option[value="'+fields.n_obra_civil+'"]').attr('selected', 'selected');
-            $('#on_air option[value="'+fields.on_air+'"]').attr('selected', 'selected');
-            $('#n_noc option[value="'+fields.n_noc+'"]').attr('selected', 'selected');            
-            $('input[name=n_lac]').val(fields.k_id_preparation.n_lac);
-            $('input[name=n_rac]').val(fields.k_id_preparation.n_rac);
-            $('input[name=n_sac]').val(fields.k_id_preparation.n_sac);
+                $('input[name=n_integrador]').val(fields.k_id_preparation.n_integrador);
+                $('#n_testgestion option[value="' + fields.k_id_preparation.n_testgestion + '"]').attr('selected', 'selected');
+                $('#n_sitiolimpio option[value="' + fields.k_id_preparation.n_sitiolimpio + '"]').attr('selected', 'selected');
+                $('#n_instalacion_hw_sitio option[value="' + fields.k_id_preparation.n_instalacion_hw_sitio + '"]').attr('selected', 'selected');
+                $('#n_cambios_config_solicitados option[value="' + fields.k_id_preparation.n_cambios_config_solicitados + '"]').attr('selected', 'selected');
+                $('#n_cambios_config_final option[value="' + fields.k_id_preparation.n_cambios_config_final + '"]').attr('selected', 'selected');
+                $('input[name=n_contratista]').val(fields.k_id_preparation.n_contratista);
+                $('#n_integracion_gestion_y_trafica option[value="' + fields.k_id_preparation.n_integracion_gestion_y_trafica + '"]').attr('selected', 'selected');
+                $('#puesta_servicio_sitio_nuevo_lte option[value="' + fields.k_id_preparation.puesta_servicio_sitio_nuevo_lte + '"]').attr('selected', 'selected');
+                $('#n_instalacion_hw_4g_sitio option[value="' + fields.k_id_preparation.n_instalacion_hw_4g_sitio + '"]').attr('selected', 'selected');
+                $('#pre_launch option[value="' + fields.k_id_preparation.pre_launch + '"]').attr('selected', 'selected');
+                $('input[name=n_evidenciasl]').val(fields.k_id_preparation.n_evidenciasl);
+                $('input[name=n_evidenciatg]').val(fields.k_id_preparation.n_evidenciatg);
+                $('input[name=id_rftools]').val(fields.k_id_preparation.id_rftools);
+                $('input[name=i_lider_cambio]').val(fields.i_lider_cambio);
+                $('input[name=i_lider_cuadrilla]').val(fields.i_lider_cuadrilla);
+                $('#n_implementacion_campo option[value="' + fields.n_implementacion_campo + '"]').attr('selected', 'selected');
+                $('#n_gestion_power option[value="' + fields.n_gestion_power + '"]').attr('selected', 'selected');
+                $('#n_obra_civil option[value="' + fields.n_obra_civil + '"]').attr('selected', 'selected');
+                $('#on_air option[value="' + fields.on_air + '"]').attr('selected', 'selected');
+                $('#n_noc option[value="' + fields.n_noc + '"]').attr('selected', 'selected');
+                $('input[name=n_lac]').val(fields.k_id_preparation.n_lac);
+                $('input[name=n_rac]').val(fields.k_id_preparation.n_rac);
+                $('input[name=n_sac]').val(fields.k_id_preparation.n_sac);
 
 
-            $('input[name=k_id_ticket]').val(fields.k_id_onair);
-            $('input[name=k_id_prep]').val(fields.k_id_preparation.k_id_preparation);
+                $('input[name=k_id_ticket]').val(fields.k_id_onair);
+                $('input[name=k_id_prep]').val(fields.k_id_preparation.k_id_preparation);
 
-            $('input[name=n_name_station]').val(fields.k_id_station.n_name_station);
-            $('input[name=n_name_band]').val(fields.k_id_band.n_name_band);
-            $('input[name=n_name_regional]').val(fields.k_id_station.k_id_city.k_id_regional.n_name_regional);
-            $('input[name=n_name_user]').val(fields.k_id_preparation.n_contratista);
-            $('input[name=txtFechaIngresoOnAir]').val(fields.k_id_preparation.d_ingreso_on_air);
-            $('input[name=n_crq]').val(fields.k_id_preparation.n_crq);
-            $('input[name=n_wp]').val(fields.k_id_preparation.n_wp);
-            $('input[name=n_name_technology]').val(fields.k_id_technology.n_name_technology);
-            $('input[name=n_name_ork]').val(fields.k_id_work.n_name_ork);
-            $('input[name=n_name_city]').val(fields.k_id_station.k_id_city.n_name_city);
-            $('input[name=n_enteejecutor]').val(fields.k_id_preparation.n_enteejecutor);
-            $('input[name=n_name_status]').val(fields.k_id_status_onair.k_id_status.n_name_status);
-            $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
-            $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
-            $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
+                $('input[name=n_name_station]').val(fields.k_id_station.n_name_station);
+                $('input[name=n_name_band]').val(fields.k_id_band.n_name_band);
+                $('input[name=n_name_regional]').val(fields.k_id_station.k_id_city.k_id_regional.n_name_regional);
+                $('input[name=n_name_user]').val(fields.k_id_preparation.n_contratista);
+                $('input[name=txtFechaIngresoOnAir]').val(fields.k_id_preparation.d_ingreso_on_air);
+                $('input[name=n_crq]').val(fields.k_id_preparation.n_crq);
+                $('input[name=n_wp]').val(fields.k_id_preparation.n_wp);
+                $('input[name=n_name_technology]').val(fields.k_id_technology.n_name_technology);
+                $('input[name=n_name_ork]').val(fields.k_id_work.n_name_ork);
+                $('input[name=n_name_city]').val(fields.k_id_station.k_id_city.n_name_city);
+                $('input[name=n_enteejecutor]').val(fields.k_id_preparation.n_enteejecutor);
+                $('input[name=n_name_status]').val(fields.k_id_status_onair.k_id_status.n_name_status);
+                $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
+                $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
+                $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
 
-          })
+            })
         </script>
 
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>

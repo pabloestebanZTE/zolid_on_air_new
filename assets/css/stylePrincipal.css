@@ -865,3 +865,6 @@ nav {
     display: block;
     width: 222px;
 }
+.hour-step .icon-step.no-action{
+    pointer-events: none !important;
+}
