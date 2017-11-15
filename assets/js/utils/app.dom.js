@@ -164,8 +164,25 @@ var dom = {
      * @param {Elem} progressElement : El elemento progress del timer...
      * @returns {undefined}
      */
-    timer: function (element, time, progressElement, percentValue, callback, state) {
+    timer: function (element, progressElement, callback, obj) {
+        var timeInit = obj.time;
+        var time = obj.i_timestamp;
+        var timeTotal = obj.i_timetotal;
+        var state = obj.i_state;
+        var percentValue = obj.i_percent;
+        var today = obj.today;
+
         var interval = null;
+
+        if (state == 3) {
+            progressElement.css('width', 100 + '%');
+            var parent = element.parents('.hour-step');
+            parent.removeClass('prorroga').addClass('escalado');
+            parent.addClass('warning');
+            element.html('<span class="text-danger"><i class="fa fa-fw fa-undo"></i> Escalado</span>');
+            return;
+        }
+
         var parseTimer = function (time, element, progress, progressValue) {
             var diffMs = time; // Milisegundos entre la fecha y hoy.
             var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
@@ -180,6 +197,16 @@ var dom = {
                 if (state == 1) {
                     element.parents('.hour-step').addClass('warning');
                 }
+                if (state != 2 && element.hasClass('prorroga')) {
+                    window.clearInterval(interval);
+                    interval = null;
+                    console.warn("SE TERMINA EL INTERVAL POR PRORROGA.");
+                    return;
+                }
+                if (state == 2) {
+                    var parent = element.parents('.hour-step');
+                    parent.removeClass('warning').addClass('prorroga');
+                }
                 if (progressValue < 100) {
                     element.html('<i class="fa fa-fw fa-clock-o"></i> -' + dom.parseTime(diffHrs + ":" + diffMins));
                 } else {
@@ -191,7 +218,7 @@ var dom = {
                         interval = null;
                         //Se crea otra vez el intervalo para las 3 horas.
                     }
-                    if (typeof callback === "function" && state == 0) {
+                    if (typeof callback === "function" && (state == 0 || state == 2)) {
                         callback();
                     }
                     if (state == 1) {
@@ -204,14 +231,18 @@ var dom = {
             }
         };
         var timeRecord = time;
-        var timeProgress = time;
-        var timeTotal = ((time / percentValue) * 100);
+//        var timeProgress = time;
+//        percentValue = (percentValue == 0) ? 1 : percentValue;
+//        var timeTotal = ((time / percentValue) * 100);
 
         var refresh = function () {
-            timeRecord -= (1000 * 60);
-            timeProgress += (1000 * 60);
-            percentValue = (timeProgress / timeTotal) * 100;
+//            timeProgress += (1000 * 60);
+//            percentValue = (timeProgress / timeTotal) * 100;
+            percentValue = Math.round(((today - timeInit) / (timeTotal - timeInit)) * 100);
             parseTimer(timeRecord, element, progressElement, percentValue);
+            var mathTime = (1000 * 60);
+            timeRecord -= mathTime;
+            today += mathTime;
         };
 
         //Número de tiempos al límite...

@@ -12,6 +12,7 @@ var TD = {
     events: function () {
         $('#btnDetails').on('click', TD.onClickDetails);
         $('.hour-step .icon-step').on('click', TD.onClickIconStep);
+        $('.hour-step').on('click', TD.onClickHourStep);
         $('.states-modal li a').on('click', TD.onClickItemState);
         $('.select-fill').on('select2fill', function () {
             var cmb = $(this);
@@ -19,6 +20,13 @@ var TD = {
             cmb.trigger('change.select2');
         });
         $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
+    },
+    onClickHourStep: function () {
+        $hourStep = $(this);
+        $('.row.wiget').addClass('hidden');
+        $($hourStep.attr('data-ref')).removeClass('hidden');
+        $('.hour-step').removeClass('active');
+        $hourStep.addClass('active');
     },
     onClickAceptarModal: function () {
         var action = $('.states-modal a.active').attr('data-action');
@@ -40,7 +48,7 @@ var TD = {
         }
         var obj = {
             idProceso: $('#idProceso').val(),
-            hours: $('#txtTiempoProrroga').val(),
+            hours: txtHorasProrroga.val(),
             comment: $('#modalChangeState #txtObservations').val()
         };
         app.post('TicketOnair/createProrroga', obj)
@@ -48,9 +56,10 @@ var TD = {
                     console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
-                        swal("Guardado", "Se ha creado la prórroga éxitosamente.", "success");
+                        swal("Guardado", "Se ha registrado la prórroga éxitosamente.", "success");
+                        TD.getDetails();
                     } else {
-                        swal("Atención", "No se pudo crear la prórroga.", "warning");
+                        swal("Atención", "No se pudo registrar la prórroga.", "warning");
                     }
                 }).error(function (e) {
             swal("Error", "Se ha producido un error desconocido, compruebe su conexión y vuelva a intentarlo.", "error");
@@ -59,6 +68,30 @@ var TD = {
     },
     nextFase: function () {
         console.log("SIGUIENTE FASE");
+        var cmb = $('#cmbSiguienteFase');
+        if (cmb.val().trim() === "") {
+            swal("Error", "La fase seleccionada es inválida.", "error");
+            return;
+        }
+        var obj = {
+            idProceso: $('#idProceso').val(),
+            fase: cmb.val(),
+            comment: $('#modalChangeState #txtObservations').val()
+        };
+        app.post('TicketOnair/nextFase', obj)
+                .success(function (response) {
+                    console.log(response);
+                    var v = app.validResponse(response);
+                    if (v) {
+                        swal("Guardado", "Se ha terminado la fase correctamente.", "success");
+                        TD.getDetails();
+                    } else {
+                        swal("Atención", response.message, "warning");
+                    }
+                }).error(function (e) {
+            swal("Error", "Se ha producido un error desconocido, compruebe su conexión y vuelva a intentarlo.", "error");
+            console.log(e);
+        }).send();
     },
     onClickItemState: function (e) {
         var link = $(this);
@@ -84,6 +117,14 @@ var TD = {
         $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
         $('#modalChangeState .content-state').hide();
         $('#modalChangeState a.active').removeClass('active');
+        if (parent.hasClass('prorroga')) {
+            $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+        } else if (parent.hasClass('escalado')) {
+            $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
+        } else {
+            $('#modalChangeState .states-modal a').removeClass('disabled');
+        }
         $('#modalChangeState').modal('show');
     },
     listCombox: function () {
@@ -174,15 +215,28 @@ var TD = {
             TD.getDetails();
             TD.exec = true;
         };
+        $('.hour-step').removeClass('active').addClass('disabled');
+        $('.row.wiget').addClass('hidden');
+        $('.hour-step').removeClass('active');
+
         switch (obj.actual_status) {
             case "12h":
-                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_12h"] .progress-step'), obj.percent, fn, obj.detail_state);
+                $('[data-ref="#contentDetails_12h"]').addClass('active').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), $('[data-ref="#contentDetails_12h"] .progress-step'), fn, obj);
+                $('#contentDetails_12h').removeClass('hidden');
                 break;
             case "24h":
-                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), obj.timestamp, $('[data-ref="#contentDetails_24h"] .progress-step'), obj.percent, fn, obj.detail_state);
+                $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
+                $('[data-ref="#contentDetails_24h"]').addClass('active').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), $('[data-ref="#contentDetails_24h"] .progress-step'), fn, obj);
+                $('#contentDetails_24h').removeClass('hidden');
                 break;
             case "36h":
-                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), obj.timestamp, $('data-ref="#contentDetails_36h"] .progress-step'), obj.percent, fn, obj.detail_state);
+                $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
+                $('[data-ref="#contentDetails_24h"]').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
+                $('[data-ref="#contentDetails_36h"]').addClass('active').removeClass('disabled');
+                $('#contentDetails_36h').removeClass('hidden');
                 break;
         }
     },
@@ -203,6 +257,7 @@ var TD = {
     listDetails: function (details) {
         //List 12h...
         var content = $('#contentDetails_12h');
+        content.html('');
         var model = $('#modelWiget');
         var clone = model.clone().removeClass('hidden').removeAttr('id');
         for (var i = 0, dat; dat = details["12h"][i], i < details["12h"].length; i++) {
@@ -215,6 +270,50 @@ var TD = {
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_12h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_12h[j], j < dat.k_id_follow_up_12h.length; j++) {
+                    var cln = item.clone();
+                    cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
+                    ctx.append(cln);
+                }
+            }
+            content.append(clone);
+        }
+        //List 24h...
+        var content = $('#contentDetails_24h');
+        content.html('');
+        var model = $('#modelWiget');
+        var clone = model.clone().removeClass('hidden').removeAttr('id');
+        for (var i = 0, dat; dat = details["24h"][i], i < details["24h"].length; i++) {
+            clone.find('#d_start').html(dom.formatDate(dat.d_start24h, 'month'));
+            clone.find('#d_end').html(dom.formatDate(dat.d_fin24h, 'month'));
+            clone.find('#n_comentario').html(dat.n_comentario, 'month');
+            //Listamos los usuarios...
+            var ctx = clone.find('.users');
+            var item = ctx.find('.item-wiget').clone();
+            ctx.html('');
+            if (Array.isArray(dat.k_id_follow_up_24h)) {
+                for (var j = 0, dt; dt = dat.k_id_follow_up_24h[j], j < dat.k_id_follow_up_24h.length; j++) {
+                    var cln = item.clone();
+                    cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
+                    ctx.append(cln);
+                }
+            }
+            content.append(clone);
+        }
+        //List 36h
+        var content = $('#contentDetails_36h');
+        content.html('');
+        var model = $('#modelWiget');
+        var clone = model.clone().removeClass('hidden').removeAttr('id');
+        for (var i = 0, dat; dat = details["36h"][i], i < details["36h"].length; i++) {
+            clone.find('#d_start').html(dom.formatDate(dat.d_start36h, 'month'));
+            clone.find('#d_end').html(dom.formatDate(dat.d_fin36h, 'month'));
+            clone.find('#n_comentario').html(dat.n_comentario, 'month');
+            //Listamos los usuarios...
+            var ctx = clone.find('.users');
+            var item = ctx.find('.item-wiget').clone();
+            ctx.html('');
+            if (Array.isArray(dat.k_id_follow_up_36h)) {
+                for (var j = 0, dt; dt = dat.k_id_follow_up_36h[j], j < dat.k_id_follow_up_36h.length; j++) {
                     var cln = item.clone();
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);

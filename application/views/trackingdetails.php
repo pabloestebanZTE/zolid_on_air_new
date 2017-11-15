@@ -583,7 +583,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:;" data-action="NEXT"><span class="icon-state theme3"><i class="fa fa-fw fa-forward"></i></span> Siguiente Fase</a>
+                            <a href="javascript:;" data-action="NEXT"><span class="icon-state theme3"><i class="fa fa-fw fa-forward"></i></span> Cambiar Fase</a>
                             <ul class="content-state hidden">
                                 <li>
                                     <label class="display-block" for="cmbSiguienteFase"><i class="fa fa-fw fa-forward"></i> Seleccione la fase:</label>
@@ -591,7 +591,8 @@
                                         <select id="cmbSiguienteFase" class="form-control">
                                             <option value="12h">12H</option>
                                             <option value="24h">24H</option>
-                                            <option value="36h">34H</option>
+                                            <option value="36h">36H</option>
+                                            <option value="prod">Producción</option>
                                         </select>
                                     </div>
                                 </li>

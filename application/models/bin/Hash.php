@@ -35,6 +35,10 @@ class Hash {
         return strtotime($date) * 1000;
     }
 
+    public static function getDate() {
+        return date("Y-m-d H:i:s");
+    }
+
     public static function betweenHoras($hms_inicio, $hms_fin, $hms_referencia = NULL) {
         if (is_null($hms_referencia)) {
             $hms_referencia = date('G:i:s');

@@ -10,9 +10,10 @@ class OnAir12hModel extends Model {
     protected $d_fin12h;
     protected $n_comentario;
     protected $i_timestamp;
-    protected $i_round;
     protected $i_percent;
+    protected $i_round;
     protected $i_state;
+    protected $i_hours;
     protected $d_created_at;
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "on_air_12h";
@@ -88,14 +89,6 @@ class OnAir12hModel extends Model {
         return $this->i_timestamp;
     }
 
-    public function setIRound($i_round) {
-        $this->i_round = $i_round;
-    }
-
-    public function getIRound() {
-        return $this->i_round;
-    }
-
     public function setIPercent($i_percent) {
         $this->i_percent = $i_percent;
     }
@@ -104,12 +97,28 @@ class OnAir12hModel extends Model {
         return $this->i_percent;
     }
 
+    public function setIRound($i_round) {
+        $this->i_round = $i_round;
+    }
+
+    public function getIRound() {
+        return $this->i_round;
+    }
+
     public function setIState($i_state) {
         $this->i_state = $i_state;
     }
 
     public function getIState() {
         return $this->i_state;
+    }
+
+    public function setIHours($i_hours) {
+        $this->i_hours = $i_hours;
+    }
+
+    public function getIHours() {
+        return $this->i_hours;
     }
 
     public function setDCreatedAt($d_created_at) {
@@ -168,22 +177,31 @@ class OnAir12hModel extends Model {
         //Obtenemos el porcentaje...
         $percent = round((($today - $time) / ($timeFinal - $time)) * 100);
 
+        $obj->time = $time;
         $obj->i_timestamp = $timestamp;
+        $obj->i_timetotal = $timeFinal;
         $obj->i_percent = $percent;
+        $obj->today = $today;
     }
 
     public function updateTimeStamp($tck) {
         $model = new OnAir12hModel();
         $obj = $model->getLastDetail($tck, $tck->n_round);
+        $obj = new ObjUtil($obj);
         if (!$obj) {
             return null;
         }
 
         if ($obj->i_state == 0) {
             $this->timer($obj, "d_start12h", 12);
-        } else {
+        } else if ($obj->i_state == 1) {
             //3horas...           
             $this->timer($obj, "d_start_temp", 3);
+        } else if ($obj->i_state == 2) {
+            //Prórroga...
+            $this->timer($obj, "d_start_temp", $obj->i_hours);
+        } else if ($obj->i_state == 3) {
+            return $obj;
         }
 
         $state = 0;
@@ -200,16 +218,32 @@ class OnAir12hModel extends Model {
 
         if ($obj->i_state == 1) {
             $state = 1;
+            $this->updateState($obj->k_id_12h_real, $state);
+        } else if ($obj->i_state == 2) {
+            $state = 2;
+            $this->updateState($obj->k_id_12h_real, $state);
         }
 
-        $model = new OnAir12hModel();
-        $model->where("k_id_12h_real", "=", $obj->k_id_12h_real)->update([
-            "i_timestamp" => $obj->i_timestamp,
-            "i_state" => $state, //Cuando cambia a uno, es por que empiezan a correr las 3 horas...                
-        ]);
+        //Si es prorroga, se comprobará si se ha llegado al final, y se reiniciará el ciclo.
+        if ($obj->i_percent == 100 && $obj->i_state == 2) {
+            $state = 0;
+            $this->updateState($obj->k_id_12h_real, $state, Hash::getDate());
+            //Se realizan nuevamente los cálculos necesarios.
+            return $this->updateTimeStamp($tck);
+        }
 
         $obj->i_state = $state;
         return $obj;
+    }
+
+    private function updateState($id, $state, $date = null) {
+        $model = new OnAir12hModel();
+        $obj = [];
+        $obj["i_state"] = $state;
+        if ($date != null) {
+            $obj["d_start12h"] = $date;
+        }
+        $model->where("k_id_12h_real", "=", $id)->update($obj);
     }
 
 }

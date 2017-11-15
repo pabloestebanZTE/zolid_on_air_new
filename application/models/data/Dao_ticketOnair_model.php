@@ -13,6 +13,9 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->load->model('dto/OnAir12hModel');
         $this->load->model('dto/OnAir24hModel');
         $this->load->model('dto/OnAir36hModel');
+        $this->load->model('data/Dao_followUp12h_model');
+        $this->load->model('data/Dao_followUp24h_model');
+        $this->load->model('data/Dao_followUp36h_model');
         $this->load->model('bin/ConstStates');
     }
 
@@ -202,7 +205,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             //Se compara si la fecha del value es menor...
                             $d1 = Hash::getTimeStamp($value->{$d_start});
                             $d2 = Hash::getTimeStamp($v["date_start"]);
-                            if (d1 < d2) {
+                            if ($d1 < $d2) {
                                 $groups[$i]["date_start"] = $value->{$d_start};
                             }
                         } else if ($value->{$d_start}) {
@@ -347,13 +350,17 @@ class Dao_ticketOnair_model extends CI_Model {
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 $timetotal = 0;
+                $today = 0;
+                $time = 0;
                 if ($stepModel) {
                     $temp = $stepModel->updateTimeStamp($tck);
                     if ($temp) {
                         $timestamp = $temp->i_timestamp;
                         $percent = $temp->i_percent;
                         $detailState = $temp->i_state;
-                        $timetotal = $temp->i_round;
+                        $timetotal = $temp->i_timetotal;
+                        $today = $temp->today;
+                        $time = $temp->time;
                     }
 //                    $percent = $temp["percent"];
                 }
@@ -371,11 +378,12 @@ class Dao_ticketOnair_model extends CI_Model {
                     "groups" => $groups,
                     "group" => $round,
                     "actual_status" => $actual_status,
-                    "timestamp" => $timestamp,
-                    "percent" => $percent,
-                    "temp" => $temp,
-                    "detail_state" => $detailState,
-                    "time_total" => $timetotal
+                    "i_timestamp" => $timestamp,
+                    "i_timetotal" => $timetotal,
+                    "i_percent" => $percent,
+                    "i_state" => $detailState,
+                    "today" => $today,
+                    "time" => $time,
                 ];
                 $response->setData($data);
                 return $response;
@@ -400,12 +408,39 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
+
     function updateRoundTicket($id, $value) {
         try {
             $ticketOnAir = new TicketOnAirModel();
             $datos = $ticketOnAir->where("k_id_onair", "=", $id)
                     ->update(["n_round" => $value]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    function updateStatusTicket($id, $value) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                    ->update(["k_id_status_onair" => $value]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    function updateEngTicket($id, $value) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                    ->update(["i_actualEngineer" => $value]);
+
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -445,7 +480,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $exc;
         }
     }
-         
+
     public function createProrroga($request) {
         try {
             //Se obtiene el id del proceso onair...
@@ -484,18 +519,128 @@ class Dao_ticketOnair_model extends CI_Model {
                             $stepModel = new OnAir36hModel();
                             break;
                     }
-                    //Después de comprobar sobre cual estado se encuentra y 
+                    //Después de comprobar sobre cual estado se encuentra y
                     //obtener el modelo necesario simplemente actualizamos el estado
                     //para ese modelo...
                     $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                            ->where("i_group", "=", $ticket->i_group)->update([
+                            ->where("i_round", "=", $ticket->n_round)->update([
                         "i_state" => 2, //Estado prórroga.
                         "d_start_temp" => date("Y-m-d H:i:s"),
-                        "i_hours" => $hoursProrroga
+                        "i_hours" => $hoursProrroga,
                     ]);
+
+//                    echo $stepModel->getSQL();
                 }
             }
             $response = new Response(EMessages::INSERT);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    public function nextFase($request) {
+        try {
+            $id = $request->idProceso;
+            $fase = $request->fase;
+            $comment = $request->comment;
+            $ticketModel = new TicketOnAirModel();
+            //Consultamos el ticket...
+            $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
+            $response = new Response(EMessages::INSERT);
+            $idStatus = 0;
+            $detailModel = null;
+            $dateField = null;
+            if ($ticket) {
+                //Se obtiene el código del subestado...
+                switch ($fase) {
+                    case "12h":
+                        $idStatus = ConstStates::SEGUIMIENTO_12H;
+                        $detailModel = new OnAir12hModel();
+                        $dateField = "d_start12h";
+                        break;
+                    case "24h":
+                        $idStatus = ConstStates::SEGUIMIENTO_24H;
+                        $detailModel = new OnAir24hModel();
+                        $dateField = "d_start24h";
+                        break;
+                    case "36h":
+                        $idStatus = ConstStates::SEGUIMIENTO_36H;
+                        $detailModel = new OnAir36hModel();
+                        $dateField = "d_start36h";
+                        break;
+                }
+                //Actualizamos el estado de la fase...
+                /*$status_onair = DB::table("status_on_air")
+                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                        ->update([
+                    "k_id_substatus" => $idStatus
+                ]);*/
+                //Luego actualizamos o insertamos el nuevo registro de la siguiente fase.
+                $temp = $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                        ->where("i_round", "=", $ticket->n_round)
+                        ->first();
+                //Se comprueba si existe, para actualizar...
+                if ($temp) {
+                    $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_round", "=", $ticket->n_round)
+                            ->update([
+                                "i_state" => 0,
+                                $dateField => Hash::getDate()
+                    ]);
+                } else {
+                    //Se comprueba si no existe para insertarlo.
+                    $detailModel->insert([
+                        "k_id_onair" => $ticket->k_id_onair,
+                        "i_state" => 0,
+                        "n_comentario" => $comment,
+                        "i_round" => $ticket->n_round,
+                        $dateField => Hash::getDate()
+                    ]);
+
+                    if ($idStatus == 21){
+                        $follow = new FollowUp12hModel();
+                        $onair = new OnAir12hModel();
+                        $request->n_round = $ticket->n_round;
+                        $datos = $follow->insert($request->all());
+                        $response = new Response(EMessages::SUCCESS);
+                        $response->setData($datos);
+                        $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=" ,$ticket->n_round)
+                            ->update(["k_id_follow_up_12h" => $response->data->data]);
+                        $this->updateEngTicket($ticket->k_id_onair, 0);
+                        $this->updateStatusTicket($ticket->k_id_onair, 81);      
+                    }
+
+                    if ($idStatus == 22){
+                        $follow = new FollowUp24hModel();
+                        $onair = new OnAir24hModel();
+                        $request->n_round = $ticket->n_round;
+                        $datos = $follow->insert($request->all());
+                        $response = new Response(EMessages::SUCCESS);
+                        $response->setData($datos);
+                        $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=" ,$ticket->n_round)
+                            ->update(["k_id_follow_up_24h" => $response->data->data]);
+                        $this->updateEngTicket($ticket->k_id_onair, 0);
+                        $this->updateStatusTicket($ticket->k_id_onair, 82);      
+                    }
+
+                    if ($idStatus == 23){
+                        $follow = new FollowUp36hModel();
+                        $onair = new OnAir36hModel();
+                        $request->n_round = $ticket->n_round;
+                        $datos = $follow->insert($request->all());
+                        $response = new Response(EMessages::SUCCESS);
+                        $response->setData($datos);
+                        $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=" ,$ticket->n_round)
+                            ->update(["k_id_follow_up_36h" => $response->data->data]);
+                        $this->updateEngTicket($ticket->k_id_onair, 0);
+                        $this->updateStatusTicket($ticket->k_id_onair, 83);      
+                    }
+
+                }
+            } else {
+                $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
+            }
             return $response;
         } catch (ZolidException $ex) {
             return $ex;

@@ -592,6 +592,9 @@ nav {
     border: 1px solid #337ab77a;
     border-bottom: 0px;
     box-shadow: 0px 0px 3px #ccc;
+    opacity: 0.80;
+}
+.hour-step.disabled{
     opacity: 0.3;
     pointer-events: none;
 }
@@ -609,9 +612,10 @@ nav {
 .hour-step .body-step label{
     color: #525252;
     font-size: 35px;
-    line-height: 0px;    
+    line-height: 0px;
     text-shadow: 2px 1px 0 #ffffff, 4px 3px 0 rgba(0,0,0,0.15);
     margin-top: 25px;
+    cursor: pointer;
 }
 
 .hour-step .body-step .icon-step .fa{
@@ -622,17 +626,35 @@ nav {
 .hour-step .body-step .icon-step{
     margin-top: -5px;
     float: right;
-    font-size: 28px;
-    background: #24d0f4!important;
-    background: -moz-linear-gradient(top,#24d0f4 0,#007aff 100%)!important;
-    background: -webkit-linear-gradient(top,#24d0f4 0,#007aff 100%)!important;
-    background: linear-gradient(to bottom,#24d0f4 0,#007aff 100%)!important;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#24d0f4', endColorstr='#007aff', GradientType=0 )!important;
+    font-size: 28px;    
     color: #FFF;
     border-radius: 50px;
     width: 50px;
     height: 50px;
-    text-align: center;    
+    text-align: center;
+    pointer-events: none;
+    background: #1af17a !important;    
+    background: -moz-linear-gradient(top,#1af17a 0,#087132 100%)!important;
+    background: -webkit-linear-gradient(top,#1af17a 0,#087132 100%)!important;
+    background: linear-gradient(to bottom,#1af17a 0,#087132 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1af17a', endColorstr='#087132', GradientType=0 )!important;
+}
+.hour-step.disabled .body-step .icon-step{
+    background: #b7b4b4 !important;    
+    background: -moz-linear-gradient(top,#b7b4b4 0,#585858 100%)!important;
+    background: -webkit-linear-gradient(top,#b7b4b4 0,#585858 100%)!important;
+    background: linear-gradient(to bottom,#b7b4b4 0,#585858) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7b4b4', endColorstr='#585858', GradientType=0 )!important;
+}
+.hour-step.active .body-step .icon-step{
+    pointer-events: auto;
+}
+.hour-step.active .body-step .icon-step{
+    background: #24d0f4!important;    
+    background: -moz-linear-gradient(top,#24d0f4 0,#007aff 100%)!important;
+    background: -webkit-linear-gradient(top,#24d0f4 0,#007aff 100%)!important;
+    background: linear-gradient(to bottom,#24d0f4 0,#007aff 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#24d0f4', endColorstr='#007aff', GradientType=0 )!important;
 }
 .hour-step .back-progress-step{
     display: block;    
@@ -664,6 +686,7 @@ nav {
     box-shadow: 0px 0px 3px #ccc;
     border-radius: 0px 0px 3px 3px;
 }
+
 .hour-step.warning .body-step .icon-step{
     margin-top: -5px;
     float: right;
@@ -679,6 +702,31 @@ nav {
     height: 50px;
     text-align: center;
 }
+.hour-step.escalado .body-step .icon-step .fa:before {
+    content: "\f0e2";
+}
+.hour-step.prorroga .body-step .icon-step{
+    margin-top: -5px;
+    float: right;
+    font-size: 28px;
+    background: #24d0f4!important;
+    background: -moz-linear-gradient(top,#ff0069 0,#b5044d 100%)!important;
+    background: -webkit-linear-gradient(top,#ff0069    59a 0,#b5044d 100%)!important;
+    background: linear-gradient(to bottom,#ff0069 0,#b5044d 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0069', endColorstr='#b5044d', GradientType=0 )!important;
+    color: #FFF;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+.hour-step.prorroga .body-step .icon-step i:before{
+    content: "\f04c";    
+    font-size: 23px;
+    display: block;    
+    margin-top: 13px;
+}
+
 .hour-step .body-step .icon-step:hover{
     margin-top: -5px;
     float: right;
@@ -695,7 +743,7 @@ nav {
     text-align: center;
 }
 .hour-step .body-step .icon-step:hover .fa-clock-o:before {
-    content: "\f04c";
+    content: "\f04d";
 }
 .hour-step .body-step.danger .icon-step .fa-clock-o:before{
     content: "\f017";
@@ -729,6 +777,11 @@ nav {
     text-decoration: none;
     color: #333;
     background-color: #f5f5f5;
+}
+.states-modal li a.disabled{
+    pointer-events: none;
+    cursor: pointer;
+    opacity: 0.5;
 }
 .states-modal li a:hover, .states-modal li a.active{
     background-color: #FFF;
@@ -811,4 +864,7 @@ nav {
 .content-state li .input-control{
     display: block;
     width: 222px;
+}
+.hour-step .icon-step.no-action{
+    pointer-events: none !important;
 }

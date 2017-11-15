@@ -62,6 +62,29 @@
           }
         }
 
+        public function insertOnAir12($request){
+          try {
+              $follow = new OnAir12hModel();
+              $datos = $follow->insert($request->all());
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (ZolidException $ex) {
+              return $ex;
+          }
+        }
 
+        public function getOnair12ByIdOnairAndRound($id, $round){
+        try {
+          $onair12 = new OnAir12hModel();
+          $datos = $onair12->where("k_id_onair","=",$id)->where("i_round","=",$round)
+                        ->first();
+          $response = new Response(EMessages::SUCCESS);
+          $response->setData($datos);
+          return $response;
+        } catch (ZolidException $ex) {
+          return $ex;
+        }
+      }
   }
 ?>

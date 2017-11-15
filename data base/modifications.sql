@@ -114,3 +114,29 @@ DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='61';
 DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='62';
 DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='66';
 DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='67';
+
+/*==============================================================*/
+/* table: reporte_comentario                                                 */
+/*==============================================================*/
+create table reporte_comentario
+(
+   k_id_reporte        			 int not null AUTO_INCREMENT,
+   estacion          			 varchar(100),
+   bcf_wbts_id          		 varchar(100),
+   bts_id          				 varchar(100),
+   tecnologia          			 varchar(100),
+   bandas          				 varchar(100),
+   estado          				 varchar(100),
+   subestado          			 varchar(100),
+   excepciongri          		 varchar(100),
+   fechanotificacion          	 varchar(100),
+   onair          				 varchar(100),
+   tipotrabajo          		 varchar(100),
+   fechaproduccion          	 varchar(100),
+   sectoresbloqueados          	 varchar(100),
+   sectoresdesbloqueados         varchar(100),
+   primary key (k_id_reporte)
+);
+
+
+ALTER TABLE ticket_on_air modify n_estadoonair varchar(100) DEFAULT 'NO ON AIR';
