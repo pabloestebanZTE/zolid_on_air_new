@@ -200,6 +200,8 @@ class OnAir12hModel extends Model {
         } else if ($obj->i_state == 2) {
             //Prórroga...
             $this->timer($obj, "d_start_temp", $obj->i_hours);
+        } else if ($obj->i_state == 3) {
+            return $obj;
         }
 
         $state = 0;
@@ -216,18 +218,32 @@ class OnAir12hModel extends Model {
 
         if ($obj->i_state == 1) {
             $state = 1;
+            $this->updateState($obj->k_id_12h_real, $state);
         } else if ($obj->i_state == 2) {
             $state = 2;
+            $this->updateState($obj->k_id_12h_real, $state);
         }
 
-        $model = new OnAir12hModel();
-        $model->where("k_id_12h_real", "=", $obj->k_id_12h_real)->update([
-            "i_timestamp" => $obj->i_timestamp,
-            "i_state" => $state, //Cuando cambia a uno, es por que empiezan a correr las 3 horas...                
-        ]);
+        //Si es prorroga, se comprobará si se ha llegado al final, y se reiniciará el ciclo.
+        if ($obj->i_percent == 100 && $obj->i_state == 2) {
+            $state = 0;
+            $this->updateState($obj->k_id_12h_real, $state, Hash::getDate());
+            //Se realizan nuevamente los cálculos necesarios.
+            return $this->updateTimeStamp($tck);
+        }
 
         $obj->i_state = $state;
         return $obj;
+    }
+
+    private function updateState($id, $state, $date = null) {
+        $model = new OnAir12hModel();
+        $obj = [];
+        $obj["i_state"] = $state;
+        if ($date != null) {
+            $obj["d_start12h"] = $date;
+        }
+        $model->where("k_id_12h_real", "=", $id)->update($obj);
     }
 
 }
