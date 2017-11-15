@@ -244,7 +244,10 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                             <select name="k_id_status_onair" id="k_id_status_onair" class="form-control selectpicker" required>
-                                                <option value="">Seleccione el Subestado</option><option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>
+                                                <option value="">Seleccione el Subestado</option>
+                                                <option value="81">Seguimiento 12H</option>
+                                                <option value="82">Seguimiento 24H</option>
+                                                <option value="83">Seguimiento 36H</option>
                                             </select>
                                         </div>
                                     </div>

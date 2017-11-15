@@ -257,6 +257,19 @@ class TicketOnair extends CI_Controller {
             $this->json($response);
             $flag = 1;
         }
+         if ($flag == 0) {
+            if ($response->data->k_id_status_onair == 81) {
+                $track12 = new dao_onAir12h_model();
+                $follow12 = new dao_followUp12h_model();
+                $response = $track12->getOnair12ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                $this->request->i_actualEngineer = $this->request->k_id_user;
+                $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
+                $response = $follow12->update12FollowUp($this->request);
+                $response = $ticket->updatePrecheckOnair($this->request);
+                $this->json($response);
+                $flag = 1;
+            }
+        }
         if ($flag == 0) {
             if ($response->data->k_id_status_onair == 82) {
                 $track24 = new dao_onAir24h_model();

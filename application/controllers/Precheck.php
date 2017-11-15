@@ -83,7 +83,6 @@ class Precheck extends CI_Controller {
       $this->request->n_round = 1;
       $this->request->i_round = 1;
       $this->request->k_id_ticket = $this->request->k_id_onair;
-
       //print_r($response);
       //print_r($this->request);
       if($this->request->k_id_status_onair == 81){

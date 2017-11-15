@@ -59,5 +59,18 @@
               return $ex;
           }
         }
+
+        public function update12FollowUp($request){
+          try {
+              $folloUp12 = new FollowUp12hModel();
+              $datos = $folloUp12->where("k_id_follow_up_12h", "=", $request->k_id_follow_up_12h)
+                      ->update($request->all());
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (ZolidException $ex) {
+              return $ex;
+          }
+        }
     }
 ?>

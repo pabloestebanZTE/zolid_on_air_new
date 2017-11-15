@@ -51,7 +51,7 @@
 
 
         public function insertScaling($request){
-          print_r($request);
+          /*print_r($request);*/
           try {
             $scaledOnair = new ScaledOnAirMOdel();
             $datos = $scaledOnair->insert($request->all());
