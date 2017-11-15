@@ -433,7 +433,6 @@
                         text: items.status.data[j].n_name_status
                     }));
                 }
-              
             }
             
             $('#createScaling').fillForm(items);
