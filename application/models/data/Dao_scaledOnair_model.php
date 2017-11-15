@@ -54,8 +54,9 @@
           /*print_r($request);*/
           try {
             $scaledOnair = new ScaledOnAirMOdel();
+            $request->d_fecha_escalado = HASH::getDate();
             $datos = $scaledOnair->insert($request->all());
-            print_r($scaledOnair->getsql());
+//            print_r($scaledOnair->getsql());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
