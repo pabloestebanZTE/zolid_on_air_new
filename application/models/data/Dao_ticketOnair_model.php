@@ -113,7 +113,6 @@ class Dao_ticketOnair_model extends CI_Model {
 //                    $idStatusOnair = DB::table("status_on_air")
 //                            ->insert($objStatusOnair);
 //                }
-
                 //ACTUALIZANDO PREPARATION STAGE.
                 $psModel = new PreparationStageModel();
                 //COMPROBAMOS SI EXISTE
@@ -592,6 +591,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             ->where("i_round", "=", $ticket->n_round)
                             ->update([
                                 "i_state" => 0,
+                                "n_comentario" => $comment,
                                 $dateField => Hash::getDate()
                     ]);
                 } else {

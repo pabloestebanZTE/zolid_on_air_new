@@ -1,3 +1,10 @@
+<style type="text/css">
+    table td:nth-child(5){
+        width: 180px;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>
 <div class='tab-content contentPrincipal hidden' id='tab1'>
     <div class='container'>
         <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>

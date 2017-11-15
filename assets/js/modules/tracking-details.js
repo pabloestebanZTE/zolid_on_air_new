@@ -146,6 +146,7 @@ var TD = {
         var hr = parseInt(parent.attr('data-value')) + 12;
         hr = (hr > 36) ? 36 : hr;
         $('#txtTiempoProrroga').val("12");
+        $('#modalChangeState #txtObservations').val("");
         $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
         $('#modalChangeState .content-state').hide();
         $('#modalChangeState a.active').removeClass('active');
@@ -244,6 +245,7 @@ var TD = {
                 .send();
     },
     setTimers: function (obj) {
+        $('.hour-step .progress-step').css('width', '100%');
         $('.timerstamp').html('<i class="fa fa-fw fa-info-circle"></i> No definido');
         var fn = function () {
             if (TD.exec) {
@@ -283,6 +285,7 @@ var TD = {
                 $('.hour-step').removeClass('disabled').addClass('produccion');
                 break;
         }
+        $('.hour-step.disabled .progress-step').css('width', '0%');
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');

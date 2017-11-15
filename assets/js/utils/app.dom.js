@@ -159,6 +159,7 @@ var dom = {
         hms_inicio = formatDate(hms_inicio, 'HH:mm:ss');
         hms_fin = formatDate(hms_fin, 'HH:mm:ss');
         hms_referencia = formatDate(hms_referencia, 'HH:mm:ss');
+        console.log(hms_referencia);
         var h, m, s;
         //HORA INICIO.
         hms_inicio = hms_inicio.split(/[^\d]+/);
@@ -194,6 +195,7 @@ var dom = {
      * @returns {undefined}
      */
     timer: function (element, progressElement, callback, obj) {
+        console.log(element, "OBJ TIMER:", obj);
         var timeInit = obj.time;
         var time = obj.i_timestamp;
         var timeTotal = obj.i_timetotal;
@@ -202,6 +204,10 @@ var dom = {
         var today = obj.today;
 
         var interval = null;
+
+        if (typeof callback === "function" && (state == "CHANGE_FASE")) {
+            location.reload();
+        }
 
         if (state == 3) {
             progressElement.css('width', 100 + '%');
@@ -409,7 +415,7 @@ var dom = {
         getValueFromObjet(obj, "");
         return dom;
     },
-    configTable: function (data, columns) {
+    configTable: function (data, columns, onDraw) {
         return {
             data: data,
             columns: columns,
@@ -421,7 +427,8 @@ var dom = {
                     targets: 0,
                     orderable: false,
                 }],
-            order: [[1, 'asc']]
+            order: [[1, 'asc']],
+            drawCallback: onDraw
         }
     },
     refreshTable: function (tabla, data) {
