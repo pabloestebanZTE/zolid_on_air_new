@@ -174,6 +174,15 @@ var dom = {
 
         var interval = null;
 
+        if (state == 3) {
+            progressElement.css('width', 100 + '%');
+            var parent = element.parents('.hour-step');
+            parent.removeClass('prorroga').addClass('escalado');
+            parent.addClass('warning');
+            element.html('<span class="text-danger"><i class="fa fa-fw fa-undo"></i> Escalado</span>');
+            return;
+        }
+
         var parseTimer = function (time, element, progress, progressValue) {
             var diffMs = time; // Milisegundos entre la fecha y hoy.
             var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
@@ -231,8 +240,9 @@ var dom = {
 //            percentValue = (timeProgress / timeTotal) * 100;
             percentValue = Math.round(((today - timeInit) / (timeTotal - timeInit)) * 100);
             parseTimer(timeRecord, element, progressElement, percentValue);
-            timeRecord -= (1000 * 60) * 50;
-            today += (1000 * 60) * 50;
+            var mathTime = (1000 * 60);
+            timeRecord -= mathTime;
+            today += mathTime;
         };
 
         //Número de tiempos al límite...
@@ -244,7 +254,7 @@ var dom = {
         //Creamos el intervalo a un minuto...
         interval = window.setInterval(function () {
             refresh();
-        }, (1000));
+        }, (1000 * 60));
     },
     configCalendar: function (control, fechaInicio, fechaFin, fechaDefecto, btnToday) {
         control.datepicker('remove');

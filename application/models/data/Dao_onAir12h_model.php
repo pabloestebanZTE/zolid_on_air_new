@@ -62,6 +62,16 @@
           }
         }
 
-
+        public function insertOnAir12($request){
+          try {
+              $follow = new OnAir12hModel();
+              $datos = $follow->insert($request->all());
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (ZolidException $ex) {
+              return $ex;
+          }
+        }
   }
 ?>

@@ -48,6 +48,16 @@
           }
         }
 
-
+        public function insert12hFollowUp($request){
+          try {
+              $follow = new FollowUp12hModel();
+              $datos = $follow->insert($request->all());
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (ZolidException $ex) {
+              return $ex;
+          }
+        }
     }
 ?>
