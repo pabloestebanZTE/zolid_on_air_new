@@ -91,6 +91,7 @@ class Precheck extends CI_Controller {
         $this->request->k_id_follow_up_12h = $response->data->data;
         $this->request->d_start12h = Hash::getDate();
         $response = $onair12->insertOnAir12($this->request);
+        $this->request->d_finpre = Hash::getDate();
         $response = $preparation->updatePreparationStage($this->request)->data;
         $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data;//camilo
         $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data;//camilo

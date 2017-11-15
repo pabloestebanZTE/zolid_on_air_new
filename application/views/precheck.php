@@ -261,7 +261,7 @@
                                     <label class="col-md-12 control-label"></label>
                                     <div class="col-md-12">
                                         <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
-                                        <button type="button" id="btnNoexitiso" class="btn btn-primary" onclick = "location.href = '<?= URL::to('User/scaling?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
+                                        <button type="button" id="btnNoexitiso" class="btn btn-primary" onclick = "location.href = '<?= URL::to('User/trackingDetails?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
                                     </div>
                                 </div>
                             </center>

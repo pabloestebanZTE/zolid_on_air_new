@@ -66,6 +66,8 @@ class TicketOnair extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
+        $stage = new dao_preparationStage_model();
+        $assign = new dao_user_model();
         $userId = Auth::user()->k_id_user;
         $respuesta = [];
         $flag = [];
@@ -122,6 +124,13 @@ class TicketOnair extends CI_Controller {
             $ticketUser[$t]->k_id_station = $station->findById($ticketUser[$t]->k_id_station)->data; //Station
             $ticketUser[$t]->k_id_work = $work->findById($ticketUser[$t]->k_id_work)->data; //work
             $ticketUser[$t]->k_id_technology = $technology->findById($ticketUser[$t]->k_id_technology)->data; //technology
+            $ticketUser[$t]->k_id_preparation = $stage->findByIdPreparation($ticketUser[$t]->k_id_preparation)->data;//preparation
+            if ($ticketUser[$t]->i_actualEngineer != 0) {
+                $ticketUser[$t]->i_actualEngineer = $assign->findBySingleId($ticketUser[$t]->i_actualEngineer)->data; //
+                $ticketUser[$t]->i_actualEngineer = $ticketUser[$t]->i_actualEngineer->n_name_user . " " . $ticketUser[$t]->i_actualEngineer->n_last_name_user;
+            } elseif ($ticketUser[$t]->i_actualEngineer == 0) {
+                $ticketUser[$t]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+            }
         }
         $response = new Response(EMessages::QUERY);
         $response->setData($ticketUser);
