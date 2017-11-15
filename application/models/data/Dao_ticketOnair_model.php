@@ -419,6 +419,19 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    function updateStatusTicket($id, $value) {
+        try {
+            $ticketOnAir = new TicketOnAirModel();
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                    ->update(["k_id_status_onair" => $value]);
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
     public function updatePrecheckStatus($id) {
         try {
             $ticketOnAir = new TicketOnAirModel();
@@ -489,7 +502,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             $stepModel = new OnAir36hModel();
                             break;
                     }
-                    //Después de comprobar sobre cual estado se encuentra y 
+                    //Después de comprobar sobre cual estado se encuentra y
                     //obtener el modelo necesario simplemente actualizamos el estado
                     //para ese modelo...
                     $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
