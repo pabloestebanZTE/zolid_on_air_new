@@ -571,6 +571,26 @@ insert into status (k_id_status, n_name_status) values (8,'Produccion');
 insert into status (k_id_status, n_name_status) values (9,'Seguimiento FO');
 insert into status (k_id_status, n_name_status) values (10,'Temporal');
 
+insert into status (k_id_status, n_name_status) values (11,'Escalado a GRDT');
+insert into status (k_id_status, n_name_status) values (12,'Escalado a Care');
+insert into status (k_id_status, n_name_status) values (13,'Escalado a NPO');
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (91,11,1);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (92,11,2);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (93,11,3);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (94,11,4);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (95,11,5);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (96,11,6);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (97,11,8);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (98,11,10);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (99,11,11;
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (100,11,12);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (101,11,13);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (102,11,14);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (103,11,15);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (103,11,16);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (103,11,17);
+
+
 /*table substatus */
 insert into substatus (k_id_substatus, n_name_substatus) values (1,'Adyacencias Faltantes');
 insert into substatus (k_id_substatus, n_name_substatus) values (2,'Alarmas de energia');

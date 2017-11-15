@@ -626,17 +626,17 @@ nav {
 .hour-step .body-step .icon-step{
     margin-top: -5px;
     float: right;
-    font-size: 28px;    
+    font-size: 28px;
     color: #FFF;
     border-radius: 50px;
     width: 50px;
     height: 50px;
     text-align: center;
     pointer-events: none;
-    background: #1af17a !important;    
+    background: #1af17a !important;
     background: -moz-linear-gradient(top,#1af17a 0,#087132 100%)!important;
     background: -webkit-linear-gradient(top,#1af17a 0,#087132 100%)!important;
-    background: linear-gradient(to bottom,#1af17a 0,#087132 100%)!important;
+    background: linear-gradient(to bottom,#1a98f1 0,#086771 100%)!important;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1af17a', endColorstr='#087132', GradientType=0 )!important;
 }
 .hour-step.disabled .body-step .icon-step{
@@ -787,7 +787,7 @@ nav {
     background-color: #FFF;
 }
 .states-modal li a:hover .icon-state.theme1, .states-modal li a.active .icon-state.theme1{
-    background: #26c3e4 !important;    
+    background: #08c !important;
 }
 .states-modal li a:hover .icon-state.theme2, .states-modal li a.active .icon-state.theme2{
     background: #f4244f !important;    

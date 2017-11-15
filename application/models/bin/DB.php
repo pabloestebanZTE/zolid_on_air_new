@@ -81,7 +81,7 @@ class DB extends PDO {
      * @param type $field2
      */
     public function join($tablereference, $field, $condition, $field2) {
-        $this->sql .= " INNER JOIN $tablereference ON $field $condition $field2 ";
+        $this->wheres .= " INNER JOIN $tablereference ON $field $condition $field2 ";
         return $this;
     }
 
