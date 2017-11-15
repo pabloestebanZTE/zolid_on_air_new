@@ -75,5 +75,16 @@
           return $ex;
         }
       }
+      public function insertOnAir36($request){
+        try {
+            $follow = new OnAir36hModel();
+            $datos = $follow->insert($request->all());
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+      }
   }
 ?>
