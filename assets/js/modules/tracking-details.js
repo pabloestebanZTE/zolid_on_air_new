@@ -119,8 +119,11 @@ var TD = {
         $('#modalChangeState a.active').removeClass('active');
         if (parent.hasClass('prorroga')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+        } else if (parent.hasClass('escalado')) {
+            $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
         } else {
-            $('#modalChangeState .states-modal a:eq(0)').removeClass('disabled');
+            $('#modalChangeState .states-modal a').removeClass('disabled');
         }
         $('#modalChangeState').modal('show');
     },

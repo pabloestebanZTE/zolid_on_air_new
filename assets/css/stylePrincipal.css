@@ -702,6 +702,9 @@ nav {
     height: 50px;
     text-align: center;
 }
+.hour-step.escalado .body-step .icon-step .fa:before {
+    content: "\f0e2";
+}
 .hour-step.prorroga .body-step .icon-step{
     margin-top: -5px;
     float: right;

@@ -201,8 +201,9 @@ class OnAir24hModel extends Model {
         } else if ($obj->i_state == 2) {
             //Prórroga...
             $this->timer($obj, "d_start_temp", $obj->i_hours);
+        } else if ($obj->i_state == 3) {
+            return $obj;
         }
-
         $state = 0;
         //Si el timestamp es menor o igual a 0, empiezan a correr las 3 horas...
         if ($obj->i_timestamp <= 0 && $obj->i_state == 0) {

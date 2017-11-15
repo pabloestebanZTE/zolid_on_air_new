@@ -200,6 +200,8 @@ class OnAir12hModel extends Model {
         } else if ($obj->i_state == 2) {
             //Prórroga...
             $this->timer($obj, "d_start_temp", $obj->i_hours);
+        } else if ($obj->i_state == 3) {
+            return $obj;
         }
 
         $state = 0;
