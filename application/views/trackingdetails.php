@@ -592,7 +592,18 @@
                                             <option value="12h">12H</option>
                                             <option value="24h">24H</option>
                                             <option value="36h">36H</option>
-                                            <option value="prod">Producción</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;" data-action="PROD" ><span class="icon-state theme1"><i class="fa fa-fw fa-play"></i></span> Producción</a>
+                            <ul class="content-state hidden">
+                                <li>
+                                    <div class="input-control">
+                                        <select class="form-control" id="cmbEstadosProcesos">
+                                            <option>Selecione</option>
                                         </select>
                                     </div>
                                 </li>

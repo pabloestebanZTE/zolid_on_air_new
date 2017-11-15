@@ -122,6 +122,7 @@ var TD = {
         } else if (parent.hasClass('escalado')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
         } else {
             $('#modalChangeState .states-modal a').removeClass('disabled');
         }
@@ -321,6 +322,10 @@ var TD = {
             }
             content.append(clone);
         }
+    },
+    getStatesProduction: function () {
+        var cmb = $('#cmbEstadosProcesos');
+        app.post('');
     }
 };
 

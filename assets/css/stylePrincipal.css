@@ -787,7 +787,7 @@ nav {
     background-color: #FFF;
 }
 .states-modal li a:hover .icon-state.theme1, .states-modal li a.active .icon-state.theme1{
-    background: #26c3e4 !important;    
+    background: #08c !important;
 }
 .states-modal li a:hover .icon-state.theme2, .states-modal li a.active .icon-state.theme2{
     background: #f4244f !important;    

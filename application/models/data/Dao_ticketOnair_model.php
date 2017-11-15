@@ -17,6 +17,7 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->load->model('data/Dao_followUp24h_model');
         $this->load->model('data/Dao_followUp36h_model');
         $this->load->model('bin/ConstStates');
+        $this->load->model('bin/SubstatusModel');
     }
 
     public function insertTicket($request) {
@@ -640,6 +641,19 @@ class Dao_ticketOnair_model extends CI_Model {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
             return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
+    public function getStatesProduction() {
+        try {
+            $responde = new Response(EMessages::QUERY);
+            $subStatusModel = new SubstatusModel();
+            $data = $subStatusModel->join("status_on_air", "substatus.k_id_substatus", "=", "status_on_air.k_id_substatus")
+                            ->where("status_on_air.k_id_status", "=", 8)->get();
+            $responde->setData($data);
+            return $responde;
         } catch (ZolidException $ex) {
             return $ex;
         }
