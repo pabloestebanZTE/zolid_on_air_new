@@ -31,6 +31,14 @@
                             <li>
                                 <a href="<?= URL::to('index.php/User/principalView') ?>"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Home</a>
                             </li>
+
+                            <li>
+                                <?php
+                                if (Auth::getRole() == 'COORDINADOR') {
+                                   echo  " <a href=". URL::to('index.php/Reportes/reportComments')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
+                                  }  
+                                ?>
+                            </li>
                             <li>
                                 <a href="<?= URL::to('User/logout') ?>" /><i class="fa fa-fw fa-power-off"></i>&nbsp;&nbsp;Salir</a>
                             </li>
