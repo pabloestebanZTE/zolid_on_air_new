@@ -62,6 +62,9 @@ class User extends CI_Controller {
     }
 
     public function principal() {
+        if (!Auth::check()) {
+            Redirect::to(URL::base());
+        }
         $answer['user'] = Auth::user();
         $this->load->view('principal', $answer);
     }
@@ -82,21 +85,21 @@ class User extends CI_Controller {
 
     public function principalView() {
         if (!Auth::check()) {
-            Redirect::to(URL::to(""));
+            Redirect::to(URL::base());
         }
         $this->load->view('principal');
     }
 
     public function documenterStrartView($answer) {
         if (!Auth::check()) {
-            Redirect::to(URL::to(""));
+            Redirect::to(URL::base());
         }
         $this->load->view('documenterStrart', $answer);
     }
 
     public function trackingDetails() {
         if (!Auth::check()) {
-            Redirect::to(URL::to(""));
+            Redirect::to(URL::base());
         }
         $this->load->view('trackingdetails');
     }
@@ -143,7 +146,7 @@ class User extends CI_Controller {
 
     public function coordinadordetails() {
         if (!Auth::check()) {
-            Redirect::to(URL::to(""));
+            Redirect::to(URL::base());
         }
         $this->load->view('coordinadordetails');
     }
