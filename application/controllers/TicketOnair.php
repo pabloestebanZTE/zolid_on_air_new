@@ -24,6 +24,12 @@ class TicketOnair extends CI_Controller {
         $this->load->model('data/Dao_user_model');
     }
 
+    public function prueba() {
+        $tick = new Dao_ticketOnair_model();
+        $response = $tick->registerReportComment(19);
+        $this->json($response);
+    }
+
     public function listTicketOnair() {
         $ticketsOnAir = new dao_ticketOnAir_model();
         $station = new dao_station_model();
@@ -112,7 +118,7 @@ class TicketOnair extends CI_Controller {
         }
         //  print_r($respuesta);//ticket precheck+12+24+36
         for ($r = 0; $r < count($respuesta); $r++) {
-            $flag[$r] = $respuesta[$r]->k_id_onair;
+            $flag[] = $respuesta[$r]->k_id_onair;
         }
         $unique = array_unique($flag);
         $final = array_values($unique);
@@ -261,6 +267,7 @@ class TicketOnair extends CI_Controller {
         $precheck = new Dao_precheck_model();
         $ticket = new Dao_ticketOnAir_model();
         $response = $ticket->findByIdOnAir($this->request->k_id_ticket);
+        $ticketOnAirTemp = $response->data;
         $flag = 0;
         if ($response->data->k_id_status_onair == 78) {
             $response = $precheck->insertPrecheck($this->request);
@@ -310,6 +317,7 @@ class TicketOnair extends CI_Controller {
                 $flag = 1;
             }
         }
+        $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
     }
 
     public function createScaling() {

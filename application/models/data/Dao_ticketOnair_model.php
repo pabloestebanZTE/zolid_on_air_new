@@ -20,12 +20,73 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->load->model('bin/SubstatusModel');
     }
 
+    public function getTicketById($id) {
+        $ticketsOnAir = new dao_ticketOnAir_model();
+        $station = new dao_station_model();
+        $band = new dao_band_model();
+        $work = new dao_work_model();
+        $technology = new dao_technology_model();
+        $statusOnair = new dao_statusOnair_model();
+        $assign = new dao_user_model();
+        $stage = new dao_preparationStage_model();
+        $res = $ticketsOnAir->findByIdOnAir($id);
+        $res->data->k_id_status_onair = $statusOnair->findById($res->data->k_id_status_onair)->data; //Status onair
+        $res->data->k_id_station = $station->findById($res->data->k_id_station)->data; //Station
+        $res->data->k_id_band = $band->findById($res->data->k_id_band)->data; //band
+        $res->data->k_id_work = $work->findById($res->data->k_id_work)->data; //work
+        $res->data->k_id_technology = $technology->findById($res->data->k_id_technology)->data; //technology
+        $res->data->k_id_preparation = $stage->findByIdPreparation($res->data->k_id_preparation)->data; //preparation
+
+        if ($res->data->i_actualEngineer != 0) {
+            $res->data->i_actualEngineer = $assign->findBySingleId($res->data->i_actualEngineer)->data; //
+            $res->data->i_actualEngineer = $res->data->i_actualEngineer->n_name_user . " " . $res->data->i_actualEngineer->n_last_name_user;
+        } elseif ($res->data->i_actualEngineer == 0) {
+            $res->data->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+        }
+        return $res->data;
+    }
+
+    public function registerReportComment($idTicket, $comment = null) {
+        try {
+            $ticket = new TicketOnAirModel();
+            $tck = $this->getTicketById($idTicket);
+            $response = new Response(EMessages::QUERY);
+//            var_dump($tck);
+            if ($tck) {
+                //Se registra el reporte...
+                $reportCommentModel = new ReporteComentarioModel();
+                $reportCommentModel->insert([
+                    "k_id_on_air" => $tck->k_id_onair,
+                    "n_nombre_estacion_eb" => ($tck->k_id_station) ? $tck->k_id_station->n_name_station : "Indefinido",
+                    "n_tecnologia" => ($tck->k_id_technology) ? $tck->k_id_technology->n_name_technology : "Indefinido",
+                    "n_banda" => ($tck->k_id_band) ? $tck->k_id_band->n_name_band : "Indefinido",
+                    "n_tipo_trabajo" => ($tck->k_id_work) ? $tck->k_id_work->n_name_ork : "Indefinido",
+//                    "n_estado_eb_resucomen" => ($tck->k_id_status_onair) ? $tck->k_id_status_onair["k_id_substatus"]->n_name_substatus : "Indefinido",
+                    "n_estado_eb_resucomen" => ($tck->k_id_status_onair) ? $tck->k_id_status_onair["k_id_status"]->n_name_status . " - " . (($tck->k_id_status_onair) ? $tck->k_id_status_onair["k_id_substatus"]->n_name_substatus : null) : "Indefinido",
+                    "comentario_resucoment" => $comment,
+                    "hora_actualizacion_resucomen" => Hash::getDate(),
+                    "usuario_resucomen" => (Auth::check()) ? Auth::user()->n_name_user . " " . Auth::user()->n_last_name_user : "Indefinido ",
+                    "ente_ejecutor" => ($tck->k_id_preparation) ? $tck->k_id_preparation->n_enteejecutor : "Indefinido",
+                    "tipificacion_resucomen" => null,
+                    "noc" => $tck->n_noc,
+                ]);
+                $response->setData($tck);
+            } else {
+                $response = new Response(EMessages::NO_FOUND_REGISTERS);
+            }
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
     public function insertTicket($request) {
         try {
             $ticket = new TicketOnAirModel();
             $datos = $ticket->insert($request->all());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
+            $this->registerReportComment($datos->data, $request->n_comentario_doc);
             return $response;
         } catch (ZolidException $ex) {
             return $ex;

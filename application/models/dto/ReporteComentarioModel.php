@@ -2,22 +2,18 @@
 
 class ReporteComentarioModel extends Model {
 
-    protected $k_id_reporte;
-    protected $estacion;
-    protected $bcf_wbts_id;
-    protected $bts_id;
-    protected $tecnologia;
-    protected $bandas;
-    protected $estado;
-    protected $subestado;
-    protected $excepciongri;
-    protected $fechanotificacion;
-    protected $onair;
-    protected $tipotrabajo;
-    protected $fechaproduccion;
-    protected $sectoresbloqueados;
-    protected $sectoresdesbloqueados;
-    
+    protected $k_id_on_air;
+    protected $n_nombre_estacion_eb;
+    protected $n_tecnologia;
+    protected $n_banda;
+    protected $n_tipo_trabajo;
+    protected $n_estado_eb_resucomen;
+    protected $comentario_resucoment;
+    protected $hora_actualizacion_resucomen;
+    protected $usuario_resucomen;
+    protected $ente_ejecutor;
+    protected $tipificacion_resucomen;
+    protected $noc;
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "reporte_comentario";
     //Los campos que desea exculir del modelo.
@@ -27,98 +23,100 @@ class ReporteComentarioModel extends Model {
         parent::__construct($properties);
         $this->class = get_class($this);
     }
-    
-        public function setKIdReporte($k_id_reporte) {
-        $this->k_id_reporte = $k_id_reporte;
-    }
-    public function getKIdReporte() {
-        return $this->k_id_reporte;
-    }
-    public function setEstacion($estacion) {
-        $this->estacion = $estacion;
-    }
-    public function getEstacion() {
-        return $this->estacion;
-    }
-    public function setBcfWbtsId($bcf_wbts_id) {
-        $this->bcf_wbts_id = $bcf_wbts_id;
-    }
-    public function getBcfWbtsId() {
-        return $this->bcf_wbts_id;
-    }
-    public function setBtsId($bts_id) {
-        $this->bts_id = $bts_id;
-    }
-    public function getBtsId() {
-        return $this->bts_id;
-    }
-    public function setTecnologia($tecnologia) {
-        $this->tecnologia = $tecnologia;
-    }
-    public function getTecnologia() {
-        return $this->tecnologia;
-    }
-    public function setBandas($bandas) {
-        $this->bandas = $bandas;
-    }
-    public function getBandas() {
-        return $this->bandas;
-    }
-    public function setEstado($estado) {
-        $this->estado = $estado;
-    }
-    public function getEstado() {
-        return $this->estado;
-    }
-    public function setSubestado($subestado) {
-        $this->subestado = $subestado;
-    }
-    public function getSubestado() {
-        return $this->subestado;
-    }
-    public function setExcepciongri($excepciongri) {
-        $this->excepciongri = $excepciongri;
-    }
-    public function getExcepciongri() {
-        return $this->excepciongri;
-    }
-    public function setFechanotificacion($fechanotificacion) {
-        $this->fechanotificacion = $fechanotificacion;
-    }
-    public function getFechanotificacion() {
-        return $this->fechanotificacion;
-    }
-    public function setOnair($onair) {
-        $this->onair = $onair;
-    }
-    public function getOnair() {
-        return $this->onair;
-    }
-    public function setTipotrabajo($tipotrabajo) {
-        $this->tipotrabajo = $tipotrabajo;
-    }
-    public function getTipotrabajo() {
-        return $this->tipotrabajo;
-    }
-    public function setFechaproduccion($fechaproduccion) {
-        $this->fechaproduccion = $fechaproduccion;
-    }
-    public function getFechaproduccion() {
-        return $this->fechaproduccion;
-    }
-    public function setSectoresbloqueados($sectoresbloqueados) {
-        $this->sectoresbloqueados = $sectoresbloqueados;
-    }
-    public function getSectoresbloqueados() {
-        return $this->sectoresbloqueados;
-    }
-    public function setSectoresdesbloqueados($sectoresdesbloqueados) {
-        $this->sectoresdesbloqueados = $sectoresdesbloqueados;
-    }
-    public function getSectoresdesbloqueados() {
-        return $this->sectoresdesbloqueados;
+
+    public function setKIdOnAir($k_id_on_air) {
+        $this->k_id_on_air = $k_id_on_air;
     }
 
+    public function getKIdOnAir() {
+        return $this->k_id_on_air;
+    }
 
+    public function setNNombreEstacionEb($n_nombre_estacion_eb) {
+        $this->n_nombre_estacion_eb = $n_nombre_estacion_eb;
+    }
+
+    public function getNNombreEstacionEb() {
+        return $this->n_nombre_estacion_eb;
+    }
+
+    public function setNTecnologia($n_tecnologia) {
+        $this->n_tecnologia = $n_tecnologia;
+    }
+
+    public function getNTecnologia() {
+        return $this->n_tecnologia;
+    }
+
+    public function setNBanda($n_banda) {
+        $this->n_banda = $n_banda;
+    }
+
+    public function getNBanda() {
+        return $this->n_banda;
+    }
+
+    public function setNTipoTrabajo($n_tipo_trabajo) {
+        $this->n_tipo_trabajo = $n_tipo_trabajo;
+    }
+
+    public function getNTipoTrabajo() {
+        return $this->n_tipo_trabajo;
+    }
+
+    public function setNEstadoEbResucomen($n_estado_eb_resucomen) {
+        $this->n_estado_eb_resucomen = $n_estado_eb_resucomen;
+    }
+
+    public function getNEstadoEbResucomen() {
+        return $this->n_estado_eb_resucomen;
+    }
+
+    public function setComentarioResucoment($comentario_resucoment) {
+        $this->comentario_resucoment = $comentario_resucoment;
+    }
+
+    public function getComentarioResucoment() {
+        return $this->comentario_resucoment;
+    }
+
+    public function setHoraActualizacionResucomen($hora_actualizacion_resucomen) {
+        $this->hora_actualizacion_resucomen = $hora_actualizacion_resucomen;
+    }
+
+    public function getHoraActualizacionResucomen() {
+        return $this->hora_actualizacion_resucomen;
+    }
+
+    public function setUsuarioResucomen($usuario_resucomen) {
+        $this->usuario_resucomen = $usuario_resucomen;
+    }
+
+    public function getUsuarioResucomen() {
+        return $this->usuario_resucomen;
+    }
+
+    public function setEnteEjecutor($ente_ejecutor) {
+        $this->ente_ejecutor = $ente_ejecutor;
+    }
+
+    public function getEnteEjecutor() {
+        return $this->ente_ejecutor;
+    }
+
+    public function setTipificacionResucomen($tipificacion_resucomen) {
+        $this->tipificacion_resucomen = $tipificacion_resucomen;
+    }
+
+    public function getTipificacionResucomen() {
+        return $this->tipificacion_resucomen;
+    }
+
+    public function setNoc($noc) {
+        $this->noc = $noc;
+    }
+
+    public function getNoc() {
+        return $this->noc;
+    }
 }
-

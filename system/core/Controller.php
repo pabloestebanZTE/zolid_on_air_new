@@ -92,6 +92,7 @@ class CI_Controller {
         $this->load->model('bin/Session');
         $this->load->model('bin/Redirect');
         $this->load->model('bin/ObjUtil');
+        $this->load->model('dto/ReporteComentarioModel');
         $this->request = new Request();
         date_default_timezone_set("America/Bogota");
         log_message('info', 'Controller Class Initialized');
