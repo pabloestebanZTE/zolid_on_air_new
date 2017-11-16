@@ -96,7 +96,7 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getAll() {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $datos = $ticketOnAir->get();
+            $datos = $ticketOnAir->orderBy("k_id_onair", "DESC")->limit(50)->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -558,7 +558,6 @@ class Dao_ticketOnair_model extends CI_Model {
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "n_comentario_coor" => $comment
                 ]);
-                //Ahora actualizamos el estado del detalle...
                 $status_onair = DB::table("status_on_air")
                         ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
                         ->first();
@@ -616,7 +615,49 @@ class Dao_ticketOnair_model extends CI_Model {
             $idStatus = 0;
             $detailModel = null;
             $dateField = null;
+
+
             if ($ticket) {
+                //SE ACTUALIZA LA FECHA FINAL DE UNA FASE (12h,24h,36h)...
+                //Comprobamos sobre cual estado se encuentra el proceso....
+                $status_onair = DB::table("status_on_air")
+                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                        ->first();
+                if ($status_onair) {
+                    $actual_status = null;
+                    $stepIdField = null;
+                    $stepModel = null;
+                    $d_fin = null;
+                    switch ($status_onair->k_id_substatus) {
+                        case ConstStates::SEGUIMIENTO_12H:
+                            $actual_status = "12h";
+                            $stepIdField = "k_id_12h_real";
+                            $stepModel = new OnAir12hModel();
+                            $d_fin = "d_fin12h";
+                            break;
+                        case ConstStates::SEGUIMIENTO_24H:
+                            $actual_status = "24h";
+                            $stepIdField = "k_id_24h_real";
+                            $stepModel = new OnAir24hModel();
+                            $d_fin = "d_fin24h";
+                            break;
+                        case ConstStates::SEGUIMIENTO_36H:
+                            $actual_status = "36h";
+                            $stepIdField = "k_id_36h_real";
+                            $stepModel = new OnAir36hModel();
+                            $d_fin = "d_fin36h";
+                            break;
+                    }
+                    //Después de comprobar sobre cual estado se encuentra y
+                    //obtener el modelo necesario simplemente actualizamos la fecha final
+                    //de ese proceso
+                    $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_round", "=", $ticket->n_round)->update([
+                        $d_fin => date("Y-m-d H:i:s"),
+                    ]);
+                }
+
+
                 //Se obtiene el código del subestado...
                 switch ($fase) {
                     case "12h":
