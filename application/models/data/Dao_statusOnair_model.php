@@ -30,11 +30,12 @@ class Dao_statusOnair_model extends CI_Model {
 
     public function findById($tck) {
         try {
-            $id = (is_object($tck)) ? $tck->k_id_status_onair : $tck;
+            $idStatusOnAir = (is_object($tck)) ? $tck->k_id_status_onair : $tck;
+//            var_dump($tck);
             $statusOnair = new StatusOnairModel();
             $status = new StatusModel();
             $substatus = new SubstatusModel();
-            $datos = $statusOnair->where("k_id_status_onair", "=", $id)
+            $datos = $statusOnair->where("k_id_status_onair", "=", $idStatusOnAir)
                     ->first();
             $datos = new ObjUtil($datos);
             // consulto status...
@@ -50,8 +51,10 @@ class Dao_statusOnair_model extends CI_Model {
             if ($substatusObj) { //si no es vacia la consulta asigna el objeto
                 $datos->k_id_substatus = $substatusObj;
                 if (is_object($tck)) {
+//                    var_dump($substatusObj);
                     $timeGlobal = new TimerGlobal();
                     $time = $timeGlobal->updateTimeStamp($tck);
+//                    var_dump($time);
                 }
             }
             $datos->time = $time;
