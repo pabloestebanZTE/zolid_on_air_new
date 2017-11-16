@@ -77,7 +77,8 @@ class Dao_ticketOnair_model extends CI_Model {
                             "n_comentarioccial" => $comment
                 ]);
                 $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
-                    "d_actualizacion_final" => Hash::getDate()
+                    "d_actualizacion_final" => Hash::getDate(),
+                    "d_fecha_ultima_rev" => Hash::getDate()
                 ]);
                 $response->setData($tck);
             } else {
