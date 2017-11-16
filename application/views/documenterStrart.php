@@ -119,6 +119,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-8 selectContainer">
+                                    <div class="checkbox checkbox-primary" style="text-align: left; margin-left: 140px;">
+                                        <input id="checkbox2" type="checkbox" name="i_priority" >
+                                        <label for="checkbox2" class="text-bold">
+                                            Prioritario
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </fieldset>
                         <!--  fin seccion izquierda form---->
 

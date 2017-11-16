@@ -44,6 +44,12 @@ $(function () {
                     + '<a href="' + app.urlTo('Documenter/documenterFields?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Documentación"><span class="fa fa-fw fa-file-archive-o"></span></a>'
                     + '</div>';
         },
+        getButtonsRestar: function (obj) {
+            return '<div class="btn-group">'
+                    + '<a href="' + app.urlTo('Documenter/restartFields?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Reinicio"><span class="fa fa-fw fa-play"></span></a>'
+                    + '<a href="' + app.urlTo('Documenter/documenterFields?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Documentación"><span class="fa fa-fw fa-file-archive-o"></span></a>'
+                    + '</div>';
+        },
         setTimer: function (obj, style, none, settings) {
             var time = obj.k_id_status_onair.time;
             var timer = {time: time, settings: settings, idTimer: 'timer_' + obj.k_id_onair + settings.row + '-' + settings.col};
@@ -109,7 +115,7 @@ $(function () {
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
                         {title: "Encargado", data: 'i_actualEngineer'},
-                        {title: "Opciones", data: principal.getButtons},
+                        {title: "Opciones", data: principal.getButtonsRestar},
                     ], principal.runTimers
                     ));
         },

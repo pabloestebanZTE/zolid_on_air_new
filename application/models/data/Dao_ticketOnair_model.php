@@ -473,6 +473,7 @@ class Dao_ticketOnair_model extends CI_Model {
     function updateTicketScaling($request) {
         try {
             $ticketOnAir = new TicketOnAirModel();
+            $request->i_actualEngineer = 0;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
@@ -558,13 +559,16 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getPriorityRestartAndTracing() {
         try {
             $db = new DB();
-            $priority = $db->select("select a.* 
+            $restart = $db->select("select a.* 
                                     from ticket_on_air a
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
                                     inner join status c on c.k_id_status = b.k_id_status
                                     where c.n_name_status LIKE '%Escalado%' order by d_created_at desc")->limit(20)->get();
-            $tracing = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->limit(20)->get();
-            $restart = $db->select("select a.* 
+//            
+//            $tracing = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->limit(20)->get();
+            $priority = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->get();
+
+            $tracing = $db->select("select a.* 
                                     from ticket_on_air a
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
                                     inner join status c on c.k_id_status = b.k_id_status
