@@ -148,3 +148,7 @@ ALTER TABLE ticket_on_air modify i_valor_kpi4 varchar(100);
 ALTER TABLE ticket_on_air modify n_en_prorroga varchar(100) DEFAULT 'FALSE';
 ALTER TABLE ticket_on_air modify b_excpetion_gri varchar(100);
 ALTER TABLE preparation_stage modify b_vistamm varchar(100);
+
+
+/* MODIFICACIONES 16/11/2017 */
+ALTER TABLE ticket_on_air add i_priority varchar(10);

@@ -38,5 +38,6 @@ class ConstStates {
     const PENDIENTE_TESTGESTION = 28;
     const PRODUCCION = 29;
     const TEMPORAL = 30;
+    const NOTIFICACION = 31;
 
 }
