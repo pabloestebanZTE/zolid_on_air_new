@@ -118,25 +118,20 @@ DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='67';
 /*==============================================================*/
 /* table: reporte_comentario                                                 */
 /*==============================================================*/
-create table reporte_comentario
-(
-   k_id_reporte        			 int not null AUTO_INCREMENT,
-   estacion          			 varchar(100),
-   bcf_wbts_id          		 varchar(100),
-   bts_id          				 varchar(100),
-   tecnologia          			 varchar(100),
-   bandas          				 varchar(100),
-   estado          				 varchar(100),
-   subestado          			 varchar(100),
-   excepciongri          		 varchar(100),
-   fechanotificacion          	 varchar(100),
-   onair          				 varchar(100),
-   tipotrabajo          		 varchar(100),
-   fechaproduccion          	 varchar(100),
-   sectoresbloqueados          	 varchar(100),
-   sectoresdesbloqueados         varchar(100),
-   primary key (k_id_reporte)
-);
+CREATE TABLE IF NOT EXISTS `reporte_comentario` (
+  `k_id_on_air` int(11) DEFAULT NULL,
+  `n_nombre_estacion_eb` varchar(100) DEFAULT NULL,
+  `n_tecnologia` varchar(100) DEFAULT NULL,
+  `n_banda` varchar(100) DEFAULT NULL,
+  `n_tipo_trabajo` varchar(100) DEFAULT NULL,
+  `n_estado_eb_resucomen` varchar(100) DEFAULT NULL,
+  `comentario_resucoment` varchar(100) DEFAULT NULL,
+  `hora_actualizacion_resucomen` timestamp NULL DEFAULT NULL,
+  `usuario_resucomen` varchar(100) DEFAULT NULL,
+  `ente_ejecutor` varchar(100) DEFAULT NULL,
+  `tipificacion_resucomen` varchar(100) DEFAULT NULL,
+  `noc` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 ALTER TABLE ticket_on_air modify n_estadoonair varchar(100) DEFAULT 'NO ON AIR';
