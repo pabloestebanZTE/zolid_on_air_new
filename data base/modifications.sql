@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `reporte_comentario` (
   `n_banda` varchar(100) DEFAULT NULL,
   `n_tipo_trabajo` varchar(100) DEFAULT NULL,
   `n_estado_eb_resucomen` varchar(100) DEFAULT NULL,
-  `comentario_resucoment` varchar(100) DEFAULT NULL,
+  `comentario_resucoment` varchar(2000) DEFAULT NULL,
   `hora_actualizacion_resucomen` timestamp NULL DEFAULT NULL,
   `usuario_resucomen` varchar(100) DEFAULT NULL,
   `ente_ejecutor` varchar(100) DEFAULT NULL,
@@ -138,3 +138,13 @@ ALTER TABLE ticket_on_air modify n_estadoonair varchar(100) DEFAULT 'NO ON AIR';
 
 -- (15 nov 2017) se modifica el campo time_escalado
 ALTER TABLE scaled_on_air modify d_time_escalado varchar(100);
+
+ALTER TABLE preparation_stage modify n_comentarioccial varchar(1000);
+ALTER TABLE ticket_on_air modify n_kpis_degraded varchar(1000);
+ALTER TABLE ticket_on_air modify i_valor_kpi1 varchar(100);
+ALTER TABLE ticket_on_air modify i_valor_kpi2 varchar(100);
+ALTER TABLE ticket_on_air modify i_valor_kpi3 varchar(100);
+ALTER TABLE ticket_on_air modify i_valor_kpi4 varchar(100);
+ALTER TABLE ticket_on_air modify n_en_prorroga varchar(100) DEFAULT 'FALSE';
+ALTER TABLE ticket_on_air modify b_excpetion_gri varchar(100);
+ALTER TABLE preparation_stage modify b_vistamm varchar(100);
