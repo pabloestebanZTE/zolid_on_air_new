@@ -175,7 +175,7 @@
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                        <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' required>
+                                        <input type='text' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDate" required>
                                     </div>
                                 </div>
                             </div>
@@ -311,6 +311,11 @@
         </div>
 
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+        <link href="<?= URL::to("assets/plugins/select2/select2.css") ?>" rel="stylesheet" type="text/css"/>
+        <script src="<?= URL::to("assets/plugins/select2/select2.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/FormatDate.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
+        <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script type="text/javascript" src="<?= URL::to('assets/js/DataStream.js') ?>"></script>
         <script type="text/javascript" src="<?= URL::to('assets/js/msg.reader.js') ?>"></script>
         <script>
@@ -353,7 +358,11 @@
                                                                             text: info.regions.data[j].n_name_regional
                                                                         }));
                                                                     }
-                                                                })
+                                                                    $('select').select2({"width": "100%"});
+                                                                    dom.configCalendar($('#d_ingreso_on_air'));
+                                                                });
+
+
                                                                 function editTextCityRegional() {
                                                                     var estacion = $("#estacion").val();
                                                                     var info = <?php echo $respuesta; ?>;
@@ -404,7 +413,7 @@
                                                                 }
         </script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>        
         <script type="text/javascript">
                                                                 $(function () {
                                                                     dom.submit($('#assignServie2'));
