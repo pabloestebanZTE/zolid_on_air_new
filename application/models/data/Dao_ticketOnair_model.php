@@ -544,6 +544,34 @@ class Dao_ticketOnair_model extends CI_Model {
             return $exc;
         }
     }
+    
+    public function getPriorityRestartAndTracing() {
+        try {
+            $db = new DB();
+            $priority = $db->select("select a.* 
+                                    from ticket_on_air a
+                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
+                                    inner join status c on c.k_id_status = b.k_id_status
+                                    where c.n_name_status LIKE '%Escalado%'")->get();
+            $tracing = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->get();
+            $restart = $db->select("select a.* 
+                                    from ticket_on_air a
+                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
+                                    inner join status c on c.k_id_status = b.k_id_status
+                                    where c.n_name_status LIKE '%Seguimiento%'")->get();
+            //Consultamos la lista de registros ...
+            $data = [
+                "priorityList" => $priority,
+                "tracingList" => $tracing,
+                "restartList" => $restart
+            ];
+            $response = new Response(EMessages::QUERY);
+            $response->setData($data);
+            return $response;
+        } catch (ZolidException $exc) {
+            return $exc;
+        }
+    }
 
     public function createProrroga($request) {
         try {

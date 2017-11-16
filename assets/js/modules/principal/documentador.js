@@ -17,7 +17,7 @@ $(function () {
             // principal.fillTable([]);
             //Realiza la petición AJAX para traer los datos...
             var alert = dom.printAlert('Consultando registros, por favor espere.', 'loading', $('#principalAlert'));
-            app.post('TicketOnair/listTicketOnair')
+            app.post('TicketOnair/getListTicketDocumentador')
                     .complete(function () {
                         alert.hide();
                         $('.contentPrincipal').removeClass('hidden');
@@ -25,7 +25,9 @@ $(function () {
                     .success(function (response) {
                         console.log(response);
                         if (app.successResponse(response)) {
-                            principal.fillTable(response.data);
+                            principal.fillTable(response.data.tracingList);
+                            principal.fillTablePriority(response.data.priorityList);
+                            principal.fillTableRestart(response.data.restartList);
                         } else {
                             principal.fillTable([]);
                         }
@@ -55,6 +57,48 @@ $(function () {
             }
 
             principal.tablaPrincipal = $('#tablaPrincipal').DataTable(dom.configTable(data,
+                    [
+                        {title: "Estación", data: "k_id_station.n_name_station"},
+                        {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
+                        {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
+                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
+                        {title: "Tiempo", data: principal.setTimer},
+                        {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
+                        {title: "Banda", data: 'k_id_band.n_name_band'},
+                        {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                        {title: "Encargado", data: 'i_actualEngineer'},
+                        {title: "Opciones", data: principal.getButtons},
+                    ], principal.runTimers
+                    ));
+        },
+        fillTablePriority: function (data) {
+            if (principal.tablaPrioritarios) {
+                dom.refreshTable(principal.tablaPrioritarios, data);
+                return;
+            }
+
+            principal.tablaPrioritarios = $('#tablaPrioritarios').DataTable(dom.configTable(data,
+                    [
+                        {title: "Estación", data: "k_id_station.n_name_station"},
+                        {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
+                        {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
+                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
+                        {title: "Tiempo", data: principal.setTimer},
+                        {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
+                        {title: "Banda", data: 'k_id_band.n_name_band'},
+                        {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                        {title: "Encargado", data: 'i_actualEngineer'},
+                        {title: "Opciones", data: principal.getButtons},
+                    ], principal.runTimers
+                    ));
+        },
+        fillTableRestart: function (data) {
+            if (principal.tablaReinicios) {
+                dom.refreshTable(principal.tablaReinicios, data);
+                return;
+            }
+
+            principal.tablaReinicios = $('#tablaReinicios').DataTable(dom.configTable(data,
                     [
                         {title: "Estación", data: "k_id_station.n_name_station"},
                         {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},

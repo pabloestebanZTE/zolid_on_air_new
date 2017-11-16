@@ -58,6 +58,65 @@ class TicketOnair extends CI_Controller {
         $this->json($res);
     }
 
+    public function getListTicketDocumentador() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $user = new dao_user_model();
+            $array = $dao->getPriorityRestartAndTracing();
+            $array->data["priorityList"] = (is_array($array->data["priorityList"])) ? ($this->getFKRegisters($array->data["priorityList"])) : NULL;
+            $array->data["tracingList"] = (is_array($array->data["tracingList"])) ? ($this->getFKRegisters($array->data["tracingList"])) : NULL;
+            $array->data["restartList"] = (is_array($array->data["restartList"])) ? ($this->getFKRegisters($array->data["restartList"])) : NULL;
+            //asigno datos del usuario asignado
+            for ($i = 0; $i < count($array->data['priorityList']); $i++) {
+                if ($array->data['priorityList'][$i]->i_actualEngineer != 0) {
+                    $array->data['priorityList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['priorityList'][$i]->i_actualEngineer)->data;
+                    $array->data['priorityList'][$i]->i_actualEngineer->n_name_user = $array->data['priorityList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['priorityList'][$i]->i_actualEngineer->n_last_name_user;
+                } elseif ($array->data['priorityList'][$i]->i_actualEngineer == 0) {
+                    $array->data['priorityList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+                }
+            }
+            for ($i = 0; $i < count($array->data['tracingList']); $i++) {
+                if ($array->data['tracingList'][$i]->i_actualEngineer != 0) {
+                    $array->data['tracingList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['tracingList'][$i]->i_actualEngineer)->data;
+                    $array->data['tracingList'][$i]->i_actualEngineer->n_name_user = $array->data['tracingList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['tracingList'][$i]->i_actualEngineer->n_last_name_user;
+                } elseif ($array->data['tracingList'][$i]->i_actualEngineer == 0) {
+                    $array->data['tracingList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+                }
+            }
+            for ($i = 0; $i < count($array->data['restartList']); $i++) {
+                if ($array->data['restartList'][$i]->i_actualEngineer != 0) {
+                    $array->data['restartList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['restartList'][$i]->i_actualEngineer)->data;
+                    $array->data['restartList'][$i]->i_actualEngineer->n_name_user = $array->data['restartList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['restartList'][$i]->i_actualEngineer->n_last_name_user;
+                } elseif ($array->data['restartList'][$i]->i_actualEngineer == 0) {
+                    $array->data['restartList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+                }
+            }
+            $this->json($array);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getFKRegisters($res) {
+        $ticketsOnAir = new dao_ticketOnAir_model();
+        $station = new dao_station_model();
+        $band = new dao_band_model();
+        $work = new dao_work_model();
+        $technology = new dao_technology_model();
+        $statusOnair = new dao_statusOnair_model();
+        $stage = new dao_preparationStage_model();
+        for ($j = 0; $j < count($res); $j++) {
+            $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j]->k_id_status_onair)->data; //Status onair
+            $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
+            $res[$j]->k_id_band = $band->findById($res[$j]->k_id_band)->data; //band
+            $res[$j]->k_id_work = $work->findById($res[$j]->k_id_work)->data; //work
+            $res[$j]->k_id_technology = $technology->findById($res[$j]->k_id_technology)->data; //technology
+            $res[$j]->k_id_preparation = $stage->findByIdPreparation($res[$j]->k_id_preparation)->data; //preparation
+        }
+        return $res;
+    }
+
     public function ticketUser() {
         //Se comprueba si no hay sesión.
         if (!Auth::check()) {
