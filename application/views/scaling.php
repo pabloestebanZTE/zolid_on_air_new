@@ -25,27 +25,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Tipificacion solucion:</label>
+                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control" value='' >
+                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="txtUltimoSubestadoEscalamiento" class="col-md-3 control-label">Ultimo subestado de escalamiento:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_ultimo_subestado_de_escalamiento" id="n_ultimo_subestado_de_escalamiento" class="form-control" value='' >
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" style="height: 45px;"></div>
-                                
                                 <div class="form-group">
                                     <label for="txtKpi1" class="col-md-3 control-label">KPI 1:</label>
                                     <div class="col-md-8 selectContainer">
@@ -145,18 +133,6 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group" style="height: 100px;"></div>
-
                                 <div class="form-group">
                                     <label for="txtValorKpi1" class="col-md-3 control-label">Valor KPI 1:</label>
                                     <div class="col-md-8 selectContainer">
