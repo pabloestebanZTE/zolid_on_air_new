@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `reporte_comentario` (
   `n_banda` varchar(100) DEFAULT NULL,
   `n_tipo_trabajo` varchar(100) DEFAULT NULL,
   `n_estado_eb_resucomen` varchar(100) DEFAULT NULL,
-  `comentario_resucoment` varchar(100) DEFAULT NULL,
+  `comentario_resucoment` varchar(2000) DEFAULT NULL,
   `hora_actualizacion_resucomen` timestamp NULL DEFAULT NULL,
   `usuario_resucomen` varchar(100) DEFAULT NULL,
   `ente_ejecutor` varchar(100) DEFAULT NULL,
