@@ -70,7 +70,7 @@ $(function () {
         },
         setTimer: function (obj, style, none, settings) {
             var time = obj.k_id_status_onair.time;
-            var timer = {time: time, settings: settings, idTimer: 'timer_' + settings.row + '-' + settings.col};
+            var timer = {time: time, settings: settings, idTimer: 'timer_' + obj.k_id_onair + settings.row + '-' + settings.col};
             principal.timers.push(timer);
             return '<span id="' + timer.idTimer + '"><i class="fa fa-fw fa-info-circle"></i> No asignado</span>';
         },

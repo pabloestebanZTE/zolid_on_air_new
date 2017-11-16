@@ -399,6 +399,9 @@
                                                                                 text: info.statusOnAir.data[j].n_name_substatus
                                                                             }));
                                                                         }
+                                                                        if (status == 9) {
+                                                                            $('#substatus').val(97);
+                                                                        }
                                                                     }
                                                                 }
         </script>

@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dao_ticketOnair_model extends CI_Model {
 
     public function __construct() {
+        set_time_limit(-1);
         $this->load->model('dto/TicketOnAirModel');
         $this->load->model('dto/StatusModel');
         $this->load->model('dto/SubstatusModel');
@@ -69,6 +70,14 @@ class Dao_ticketOnair_model extends CI_Model {
                     "ente_ejecutor" => ($tck->k_id_preparation) ? $tck->k_id_preparation->n_enteejecutor : "Indefinido",
                     "tipificacion_resucomen" => null,
                     "noc" => $tck->n_noc,
+                ]);
+                DB::table("preparation_stage")
+                        ->where("k_id_preparation", "=", $tck->k_id_preparation->k_id_preparation)
+                        ->update([
+                            "n_comentarioccial" => $comment
+                ]);
+                $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
+                    "d_actualizacion_final" => Hash::getDate()
                 ]);
                 $response->setData($tck);
             } else {
@@ -215,6 +224,7 @@ class Dao_ticketOnair_model extends CI_Model {
     function updatePrecheckOnair($request) {
         try {
             $ticketOnAir = new TicketOnAirModel();
+            $request->k_id_status_onair = 78;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_ticket)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
@@ -530,8 +540,8 @@ class Dao_ticketOnair_model extends CI_Model {
         try {
             //Consultamos la lista de registros pendientes...
             $db = new DB();
-            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0")->get();
-            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0")->get();
+            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0 order by d_created_at desc")->get();
+            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0 order by d_created_at desc")->get();
             //Consultamos la lista de registros asignados...
             $data = [
                 "pendingList" => $pending,
@@ -544,7 +554,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $exc;
         }
     }
-    
+
     public function getPriorityRestartAndTracing() {
         try {
             $db = new DB();
@@ -552,13 +562,13 @@ class Dao_ticketOnair_model extends CI_Model {
                                     from ticket_on_air a
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
                                     inner join status c on c.k_id_status = b.k_id_status
-                                    where c.n_name_status LIKE '%Escalado%'")->get();
-            $tracing = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->get();
+                                    where c.n_name_status LIKE '%Escalado%' order by d_created_at desc")->limit(20)->get();
+            $tracing = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->limit(20)->get();
             $restart = $db->select("select a.* 
                                     from ticket_on_air a
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
                                     inner join status c on c.k_id_status = b.k_id_status
-                                    where c.n_name_status LIKE '%Seguimiento%'")->get();
+                                    where c.n_name_status LIKE '%Seguimiento%' order by d_created_at desc")->limit(20)->get();
             //Consultamos la lista de registros ...
             $data = [
                 "priorityList" => $priority,

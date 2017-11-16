@@ -107,7 +107,7 @@ class TicketOnair extends CI_Controller {
         $statusOnair = new dao_statusOnair_model();
         $stage = new dao_preparationStage_model();
         for ($j = 0; $j < count($res); $j++) {
-            $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j]->k_id_status_onair)->data; //Status onair
+            $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j])->data; //Status onair
             $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
             $res[$j]->k_id_band = $band->findById($res[$j]->k_id_band)->data; //band
             $res[$j]->k_id_work = $work->findById($res[$j]->k_id_work)->data; //work
@@ -186,7 +186,7 @@ class TicketOnair extends CI_Controller {
         for ($t = 0; $t < count($final); $t++) {
             $ticketUser[$t] = $ticketUnic->findByIdOnAir($final[$t])->data;
             $ticketUser[$t]->k_id_band = $band->findById($ticketUser[$t]->k_id_band)->data; //band
-            $ticketUser[$t]->k_id_status_onair = $statusOnair->findById($ticketUser[$t]->k_id_status_onair)->data; //Status onair
+            $ticketUser[$t]->k_id_status_onair = $statusOnair->findById($ticketUser[$t])->data; //Status onair
             $ticketUser[$t]->k_id_station = $station->findById($ticketUser[$t]->k_id_station)->data; //Station
             $ticketUser[$t]->k_id_work = $work->findById($ticketUser[$t]->k_id_work)->data; //work
             $ticketUser[$t]->k_id_technology = $technology->findById($ticketUser[$t]->k_id_technology)->data; //technology
@@ -328,7 +328,7 @@ class TicketOnair extends CI_Controller {
         $response = $ticket->findByIdOnAir($this->request->k_id_ticket);
         $ticketOnAirTemp = $response->data;
         $flag = 0;
-        if ($response->data->k_id_status_onair == 78) {
+        if ($response->data->k_id_status_onair == 97) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;
@@ -376,6 +376,7 @@ class TicketOnair extends CI_Controller {
                 $flag = 1;
             }
         }
+
         $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
     }
 
