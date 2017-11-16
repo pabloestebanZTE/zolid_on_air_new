@@ -45,14 +45,14 @@ class User extends CI_Controller {
             //Se actualiza la forma de validar los roles...
             //Podemos acceder directamente al método que comprobará un rol en especifico.
             if (Auth::isCoordinador()) {
-
+                
             }
             if (Auth::isDocumentador()) {
-
+                
             }
             //O también podemos detectar si el rol es uno personalizado...
             if (Auth::isRole("Ingeniero")) {
-
+                
             }
             Redirect::redirect(URL::to("User/principal"));
         } else {
@@ -81,14 +81,23 @@ class User extends CI_Controller {
     }
 
     public function principalView() {
+        if (!Auth::check()) {
+            Redirect::to(URL::to(""));
+        }
         $this->load->view('principal');
     }
 
     public function documenterStrartView($answer) {
+        if (!Auth::check()) {
+            Redirect::to(URL::to(""));
+        }
         $this->load->view('documenterStrart', $answer);
     }
 
     public function trackingDetails() {
+        if (!Auth::check()) {
+            Redirect::to(URL::to(""));
+        }
         $this->load->view('trackingdetails');
     }
 
@@ -133,6 +142,9 @@ class User extends CI_Controller {
     }
 
     public function coordinadordetails() {
+        if (!Auth::check()) {
+            Redirect::to(URL::to(""));
+        }
         $this->load->view('coordinadordetails');
     }
 
@@ -153,13 +165,13 @@ class User extends CI_Controller {
         $res['statusOnAir'] = $status->getAll();
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
-        /*$res['crq'] = $crq->*/
-        for($i = 0; $i < count($res['statusOnAir']->data); $i++){
-          for($j = 0; $j < count($res['status']->data); $j++){
-            if($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status){
-              $res['statusOnAir']->data[$i]->n_name_status = $res['status']->data[$j]->n_name_status;
+        /* $res['crq'] = $crq-> */
+        for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
+            for ($j = 0; $j < count($res['status']->data); $j++) {
+                if ($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status) {
+                    $res['statusOnAir']->data[$i]->n_name_status = $res['status']->data[$j]->n_name_status;
+                }
             }
-          }
             for ($j = 0; $j < count($res['substatus']->data); $j++) {
                 if ($res['statusOnAir']->data[$i]->k_id_substatus == $res['substatus']->data[$j]->k_id_substatus) {
                     $res['statusOnAir']->data[$i]->n_name_substatus = $res['substatus']->data[$j]->n_name_substatus;
