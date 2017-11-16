@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dao_ticketOnair_model extends CI_Model {
 
     public function __construct() {
+        set_time_limit(-1);
         $this->load->model('dto/TicketOnAirModel');
         $this->load->model('dto/StatusModel');
         $this->load->model('dto/SubstatusModel');
@@ -70,6 +71,15 @@ class Dao_ticketOnair_model extends CI_Model {
                     "tipificacion_resucomen" => null,
                     "noc" => $tck->n_noc,
                 ]);
+                DB::table("preparation_stage")
+                        ->where("k_id_preparation", "=", $tck->k_id_preparation->k_id_preparation)
+                        ->update([
+                            "n_comentarioccial" => $comment
+                ]);
+                $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
+                    "d_actualizacion_final" => Hash::getDate(),
+                    "d_fecha_ultima_rev" => Hash::getDate()
+                ]);
                 $response->setData($tck);
             } else {
                 $response = new Response(EMessages::NO_FOUND_REGISTERS);
@@ -96,7 +106,7 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getAll() {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $datos = $ticketOnAir->get();
+            $datos = $ticketOnAir->orderBy("k_id_onair", "DESC")->limit(50)->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -215,6 +225,7 @@ class Dao_ticketOnair_model extends CI_Model {
     function updatePrecheckOnair($request) {
         try {
             $ticketOnAir = new TicketOnAirModel();
+            $request->k_id_status_onair = 78;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_ticket)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
@@ -463,6 +474,7 @@ class Dao_ticketOnair_model extends CI_Model {
     function updateTicketScaling($request) {
         try {
             $ticketOnAir = new TicketOnAirModel();
+            $request->i_actualEngineer = 0;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
@@ -530,12 +542,43 @@ class Dao_ticketOnair_model extends CI_Model {
         try {
             //Consultamos la lista de registros pendientes...
             $db = new DB();
-            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0")->get();
-            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0")->get();
+            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0 order by d_created_at desc")->get();
+            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0 order by d_created_at desc")->get();
             //Consultamos la lista de registros asignados...
             $data = [
                 "pendingList" => $pending,
                 "assingList" => $assing
+            ];
+            $response = new Response(EMessages::QUERY);
+            $response->setData($data);
+            return $response;
+        } catch (ZolidException $exc) {
+            return $exc;
+        }
+    }
+
+    public function getPriorityRestartAndTracing() {
+        try {
+            $db = new DB();
+            $restart = $db->select("select a.* 
+                                    from ticket_on_air a
+                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
+                                    inner join status c on c.k_id_status = b.k_id_status
+                                    where c.n_name_status LIKE '%Escalado%' order by d_created_at desc")->limit(20)->get();
+//            
+//            $tracing = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->limit(20)->get();
+            $priority = $db->select("select * from ticket_on_air where i_priority IS NOT NULL")->get();
+
+            $tracing = $db->select("select a.* 
+                                    from ticket_on_air a
+                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
+                                    inner join status c on c.k_id_status = b.k_id_status
+                                    where c.n_name_status LIKE '%Seguimiento%' order by d_created_at desc")->limit(20)->get();
+            //Consultamos la lista de registros ...
+            $data = [
+                "priorityList" => $priority,
+                "tracingList" => $tracing,
+                "restartList" => $restart
             ];
             $response = new Response(EMessages::QUERY);
             $response->setData($data);
@@ -558,7 +601,6 @@ class Dao_ticketOnair_model extends CI_Model {
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "n_comentario_coor" => $comment
                 ]);
-                //Ahora actualizamos el estado del detalle...
                 $status_onair = DB::table("status_on_air")
                         ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
                         ->first();
@@ -616,7 +658,49 @@ class Dao_ticketOnair_model extends CI_Model {
             $idStatus = 0;
             $detailModel = null;
             $dateField = null;
+
+
             if ($ticket) {
+                //SE ACTUALIZA LA FECHA FINAL DE UNA FASE (12h,24h,36h)...
+                //Comprobamos sobre cual estado se encuentra el proceso....
+                $status_onair = DB::table("status_on_air")
+                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                        ->first();
+                if ($status_onair) {
+                    $actual_status = null;
+                    $stepIdField = null;
+                    $stepModel = null;
+                    $d_fin = null;
+                    switch ($status_onair->k_id_substatus) {
+                        case ConstStates::SEGUIMIENTO_12H:
+                            $actual_status = "12h";
+                            $stepIdField = "k_id_12h_real";
+                            $stepModel = new OnAir12hModel();
+                            $d_fin = "d_fin12h";
+                            break;
+                        case ConstStates::SEGUIMIENTO_24H:
+                            $actual_status = "24h";
+                            $stepIdField = "k_id_24h_real";
+                            $stepModel = new OnAir24hModel();
+                            $d_fin = "d_fin24h";
+                            break;
+                        case ConstStates::SEGUIMIENTO_36H:
+                            $actual_status = "36h";
+                            $stepIdField = "k_id_36h_real";
+                            $stepModel = new OnAir36hModel();
+                            $d_fin = "d_fin36h";
+                            break;
+                    }
+                    //Después de comprobar sobre cual estado se encuentra y
+                    //obtener el modelo necesario simplemente actualizamos la fecha final
+                    //de ese proceso
+                    $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_round", "=", $ticket->n_round)->update([
+                        $d_fin => date("Y-m-d H:i:s"),
+                    ]);
+                }
+
+
                 //Se obtiene el código del subestado...
                 switch ($fase) {
                     case "12h":

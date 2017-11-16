@@ -15,7 +15,26 @@
                     </div>
                     <div class="col col-md-12">
                         <hr/>
+                        <legend>Reinicios</legend>
                         <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
+                        <table id="tablaReinicios" class="table table-hover table-condensed table-striped"></table>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <div class="col col-md-12">
+                        <hr/>
+                        <legend>Prioritarios</legend>
+                        <table id="tablaPrioritarios" class="table table-hover table-condensed table-striped"></table>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <div class="col col-md-12">
+                        <hr/>
+                        <legend>Seguimiento</legend>
                         <table id="tablaPrincipal" class="table table-hover table-condensed table-striped"></table>
                     </div>
                 </div>

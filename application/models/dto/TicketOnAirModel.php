@@ -19,7 +19,9 @@ class TicketOnAirModel extends Model {
     protected $n_sectoresbloqueados;
     protected $n_sectoresdesbloqueados;
     protected $n_estadoonair;
+    protected $n_atribuible_nokia;
     protected $n_kpis_degraded;
+    protected $n_atribuible_nokia2;
     protected $n_kpi1;
     protected $n_kpi2;
     protected $n_kpi3;
@@ -58,8 +60,9 @@ class TicketOnAirModel extends Model {
     protected $i_precheck_realizado;
     protected $n_comentario_coor;
     protected $i_actualEngineer;
-
-    //Los campos que desea ocultar para que no se reflejen en la vista.
+    protected $i_priority;
+    
+    //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
     //Los campos que desea exculir del modelo.
     protected $exclude = ["hidden", "exclude", "table", "class", "db", "__data"];
@@ -68,7 +71,7 @@ class TicketOnAirModel extends Model {
         parent::__construct($properties);
         $this->class = get_class($this);
     }
-
+    
         public function setKIdOnair($k_id_onair) {
         $this->k_id_onair = $k_id_onair;
     }
@@ -171,23 +174,23 @@ class TicketOnAirModel extends Model {
     public function getNEstadoonair() {
         return $this->n_estadoonair;
     }
-    public function setNAtribuibleNokia($n_atribuible_nokia__) {
-        $this->n_atribuible_nokia__ = $n_atribuible_nokia__;
+    public function setNAtribuibleNokia($n_atribuible_nokia) {
+        $this->n_atribuible_nokia = $n_atribuible_nokia;
     }
     public function getNAtribuibleNokia() {
-        return $this->n_atribuible_nokia__;
+        return $this->n_atribuible_nokia;
+    }
+    public function setNKpisDegraded($n_kpis_degraded) {
+        $this->n_kpis_degraded = $n_kpis_degraded;
+    }
+    public function getNKpisDegraded() {
+        return $this->n_kpis_degraded;
     }
     public function setNAtribuibleNokia2($n_atribuible_nokia2) {
         $this->n_atribuible_nokia2 = $n_atribuible_nokia2;
     }
     public function getNAtribuibleNokia2() {
         return $this->n_atribuible_nokia2;
-    }
-    public function setNKpisDegraded($n_kpis_degraded__) {
-        $this->n_kpis_degraded__ = $n_kpis_degraded__;
-    }
-    public function getNKpisDegraded() {
-        return $this->n_kpis_degraded__;
     }
     public function setNKpi1($n_kpi1) {
         $this->n_kpi1 = $n_kpi1;
@@ -285,41 +288,41 @@ class TicketOnAirModel extends Model {
     public function getILiderCuadrilla() {
         return $this->i_lider_cuadrilla;
     }
-    public function setNImplementacionCampo($n_implementacion_campo__) {
-        $this->n_implementacion_campo__ = $n_implementacion_campo__;
+    public function setNImplementacionCampo($n_implementacion_campo) {
+        $this->n_implementacion_campo = $n_implementacion_campo;
     }
     public function getNImplementacionCampo() {
-        return $this->n_implementacion_campo__;
+        return $this->n_implementacion_campo;
     }
-    public function setNDoc($n_doc__) {
-        $this->n_doc__ = $n_doc__;
+    public function setNDoc($n_doc) {
+        $this->n_doc = $n_doc;
     }
     public function getNDoc() {
-        return $this->n_doc__;
+        return $this->n_doc;
     }
-    public function setNGestionPower($n_gestion_power__) {
-        $this->n_gestion_power__ = $n_gestion_power__;
+    public function setNGestionPower($n_gestion_power) {
+        $this->n_gestion_power = $n_gestion_power;
     }
     public function getNGestionPower() {
-        return $this->n_gestion_power__;
+        return $this->n_gestion_power;
     }
-    public function setNObraCivil($n_obra_civil__) {
-        $this->n_obra_civil__ = $n_obra_civil__;
+    public function setNObraCivil($n_obra_civil) {
+        $this->n_obra_civil = $n_obra_civil;
     }
     public function getNObraCivil() {
-        return $this->n_obra_civil__;
+        return $this->n_obra_civil;
     }
-    public function setOnAir($on_air__) {
-        $this->on_air__ = $on_air__;
+    public function setOnAir($on_air) {
+        $this->on_air = $on_air;
     }
     public function getOnAir() {
-        return $this->on_air__;
+        return $this->on_air;
     }
-    public function setFechaRft($fecha_rft__) {
-        $this->fecha_rft__ = $fecha_rft__;
+    public function setFechaRft($fecha_rft) {
+        $this->fecha_rft = $fecha_rft;
     }
     public function getFechaRft() {
-        return $this->fecha_rft__;
+        return $this->fecha_rft;
     }
     public function setDFechaCg($d_fecha_cg) {
         $this->d_fecha_cg = $d_fecha_cg;
@@ -327,41 +330,41 @@ class TicketOnAirModel extends Model {
     public function getDFechaCg() {
         return $this->d_fecha_cg;
     }
-    public function setNExclusionBajoTrafico($n_exclusion_bajo_trafico__) {
-        $this->n_exclusion_bajo_trafico__ = $n_exclusion_bajo_trafico__;
+    public function setNExclusionBajoTrafico($n_exclusion_bajo_trafico) {
+        $this->n_exclusion_bajo_trafico = $n_exclusion_bajo_trafico;
     }
     public function getNExclusionBajoTrafico() {
-        return $this->n_exclusion_bajo_trafico__;
+        return $this->n_exclusion_bajo_trafico;
     }
-    public function setNTicket($n_ticket__) {
-        $this->n_ticket__ = $n_ticket__;
+    public function setNTicket($n_ticket) {
+        $this->n_ticket = $n_ticket;
     }
     public function getNTicket() {
-        return $this->n_ticket__;
+        return $this->n_ticket;
     }
-    public function setNEstadoTicket($n_estado_ticket__) {
-        $this->n_estado_ticket__ = $n_estado_ticket__;
+    public function setNEstadoTicket($n_estado_ticket) {
+        $this->n_estado_ticket = $n_estado_ticket;
     }
     public function getNEstadoTicket() {
-        return $this->n_estado_ticket__;
+        return $this->n_estado_ticket;
     }
-    public function setNSlnModernizacion($n_sln_modernizacion__) {
-        $this->n_sln_modernizacion__ = $n_sln_modernizacion__;
+    public function setNSlnModernizacion($n_sln_modernizacion) {
+        $this->n_sln_modernizacion = $n_sln_modernizacion;
     }
     public function getNSlnModernizacion() {
-        return $this->n_sln_modernizacion__;
+        return $this->n_sln_modernizacion;
     }
-    public function setNEnProrroga($n_en_prorroga__) {
-        $this->n_en_prorroga__ = $n_en_prorroga__;
+    public function setNEnProrroga($n_en_prorroga) {
+        $this->n_en_prorroga = $n_en_prorroga;
     }
     public function getNEnProrroga() {
-        return $this->n_en_prorroga__;
+        return $this->n_en_prorroga;
     }
-    public function setNContProrrogas($n_cont_prorrogas__) {
-        $this->n_cont_prorrogas__ = $n_cont_prorrogas__;
+    public function setNContProrrogas($n_cont_prorrogas) {
+        $this->n_cont_prorrogas = $n_cont_prorrogas;
     }
     public function getNContProrrogas() {
-        return $this->n_cont_prorrogas__;
+        return $this->n_cont_prorrogas;
     }
     public function setNNoc($n_noc) {
         $this->n_noc = $n_noc;
@@ -399,7 +402,6 @@ class TicketOnAirModel extends Model {
     public function getDAsignacionFinal() {
         return $this->d_asignacion_final;
     }
-
     public function setIPrecheckRealizado($i_precheck_realizado) {
         $this->i_precheck_realizado = $i_precheck_realizado;
     }
@@ -418,5 +420,13 @@ class TicketOnAirModel extends Model {
     public function getIActualEngineer() {
         return $this->i_actualEngineer;
     }
+    public function setIPriority($i_priority) {
+        $this->i_priority = $i_priority;
+    }
+    public function getIPriority() {
+        return $this->i_priority;
+    }
+
 
 }
+

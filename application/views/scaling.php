@@ -25,27 +25,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Tipificacion solucion:</label>
+                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control" value='' >
+                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="txtUltimoSubestadoEscalamiento" class="col-md-3 control-label">Ultimo subestado de escalamiento:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_ultimo_subestado_de_escalamiento" id="n_ultimo_subestado_de_escalamiento" class="form-control" value='' >
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" style="height: 45px;"></div>
-                                
                                 <div class="form-group">
                                     <label for="txtKpi1" class="col-md-3 control-label">KPI 1:</label>
                                     <div class="col-md-8 selectContainer">
@@ -82,6 +70,16 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                             <input type='text' name="n_kpi4" id="n_kpi4" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="txtKpi4" class="col-md-3 control-label">kPIS afectados:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                                            <textarea class="form-control" name="n_kpis_degraded" id="n_kpis_degraded"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -136,18 +134,6 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group" style="height: 100px;"></div>
-
-                                <div class="form-group">
                                     <label for="txtValorKpi1" class="col-md-3 control-label">Valor KPI 1:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -186,6 +172,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="form-group" style="height: 55px;"></div>
                                 
                                 <div class="form-group">
                                     <label for="txtAlarma2" class="col-md-3 control-label">Alarma 2:</label>
@@ -426,34 +414,39 @@
                     }));
                 }
             }
-            
-            $('#createScaling').fillForm(items);
 
-            $('#n_atribuible_nokia option[value="'+items.scaledOnair.n_atribuible_nokia+'"]').attr('selected', 'selected');
-            // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
-            // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
-            $('input[name=i_cont_esc_imp]').val(items.scaledOnair.i_cont_esc_imp);
-            $('input[name=time_esc_imp]').val(items.scaledOnair.time_esc_imp);
-            $('input[name=i_cont_esc_rf]').val(items.scaledOnair.i_cont_esc_rf);
-            $('input[name=i_time_esc_rf]').val(items.scaledOnair.i_time_esc_rf);
-            $('input[name=cont_esc_npo]').val(items.scaledOnair.cont_esc_npo);
-            $('input[name=i_time_esc_npo]').val(items.scaledOnair.i_time_esc_npo);
-            $('input[name=cont_esc_care]').val(items.scaledOnair.cont_esc_care);
-            $('input[name=i_time_esc_care]').val(items.scaledOnair.i_time_esc_care);
-            $('input[name=i_cont_esc_gdrt]').val(items.scaledOnair.i_cont_esc_gdrt);
-            $('input[name=i_time_esc_gdrt]').val(items.scaledOnair.i_time_esc_gdrt);
-            $('input[name=i_cont_esc_oym]').val(items.scaledOnair.i_cont_esc_oym);
-            $('input[name=time_esc_oym]').val(items.scaledOnair.time_esc_oym);
-            $('input[name=cont_esc_calidad]').val(items.scaledOnair.cont_esc_calidad);
-            $('input[name=i_time_esc_calidad]').val(items.scaledOnair.i_time_esc_calidad);
-            $('#n_atribuible_nokia2 option[value="'+items.scaledOnair.n_atribuible_nokia2+'"]').attr('selected', 'selected');
-            $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
-            $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
-            $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
+            if (items.scaledOnair !== null) {
+                $('#createScaling').fillForm(items);
+
+                $('#n_atribuible_nokia option[value="'+items.scaledOnair.n_atribuible_nokia+'"]').attr('selected', 'selected');
+                // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
+                // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
+                $('input[name=i_cont_esc_imp]').val(items.scaledOnair.i_cont_esc_imp);
+                $('input[name=time_esc_imp]').val(items.scaledOnair.time_esc_imp);
+                $('input[name=i_cont_esc_rf]').val(items.scaledOnair.i_cont_esc_rf);
+                $('input[name=i_time_esc_rf]').val(items.scaledOnair.i_time_esc_rf);
+                $('input[name=cont_esc_npo]').val(items.scaledOnair.cont_esc_npo);
+                $('input[name=i_time_esc_npo]').val(items.scaledOnair.i_time_esc_npo);
+                $('input[name=cont_esc_care]').val(items.scaledOnair.cont_esc_care);
+                $('input[name=i_time_esc_care]').val(items.scaledOnair.i_time_esc_care);
+                $('input[name=i_cont_esc_gdrt]').val(items.scaledOnair.i_cont_esc_gdrt);
+                $('input[name=i_time_esc_gdrt]').val(items.scaledOnair.i_time_esc_gdrt);
+                $('input[name=i_cont_esc_oym]').val(items.scaledOnair.i_cont_esc_oym);
+                $('input[name=time_esc_oym]').val(items.scaledOnair.time_esc_oym);
+                $('input[name=cont_esc_calidad]').val(items.scaledOnair.cont_esc_calidad);
+                $('input[name=i_time_esc_calidad]').val(items.scaledOnair.i_time_esc_calidad);
+                $('#n_atribuible_nokia2 option[value="'+items.scaledOnair.n_atribuible_nokia2+'"]').attr('selected', 'selected');
+                $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
+                $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
+                $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
             
-            contEscStatus();
-            window.setInterval("contEscStatus()", 60000);
-            editSubstatus();
+                contEscStatus();
+                window.setInterval("contEscStatus()", 60000);
+                editSubstatus();
+            }
+            
+            
+            
           });
           
           function editSubstatus(){

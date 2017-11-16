@@ -67,7 +67,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                   <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
+                                    <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
@@ -152,23 +152,23 @@
                                 </div>
 
                                 <div class="form-group">
-                                 <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                    <label class="col-md-3 control-label">Observaciones de Creación</label>
                                     <div class="col-md-8 inputGroupContainer">
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones Creación" readonly="false"></textarea>
-                                      </div>
-                                  </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones Creación" readonly="false"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                 <label class="col-md-3 control-label">Observaciones de Asignación</label>
+                                    <label class="col-md-3 control-label">Observaciones de Asignación</label>
                                     <div class="col-md-8 inputGroupContainer">
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor" placeholder="Observaciones Coordinador"></textarea>
-                                      </div>
-                                  </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor" placeholder="Observaciones Coordinador"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </fieldset>
                             <input type='hidden' name="k_id_ticket" id="k_id_ticket" class="form-control" value='' readonly="false">
@@ -224,6 +224,18 @@
 
             })
         </script>
+        <link href="<?= URL::to("assets/plugins/select2/select2.css") ?>" rel="stylesheet" type="text/css"/>
+        <script src="<?= URL::to("assets/plugins/select2/select2.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function () {
+                dom.submit($('#assignEng'), function () {
+                    location.href = app.urlTo('User/principalView');
+                });
+                $('select').select2({width: '100%'});
+            })
+        </script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
@@ -232,16 +244,7 @@
                     location.href = app.urlTo('User/principalView');
                 });
             })
-        </script>
-        <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
-        <script type="text/javascript">
-        $(function(){
-          dom.submit($('#assignEng'), function () {
-              location.href = app.urlTo('User/principalView');
-          });
-        })
-        // , function(){location.href = app.urlTo('User/principalView');}
+            // , function(){location.href = app.urlTo('User/principalView');}
         </script>
     </body>
 </html>
