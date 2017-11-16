@@ -592,12 +592,11 @@ class Dao_ticketOnair_model extends CI_Model {
                         "d_start_temp" => date("Y-m-d H:i:s"),
                         "i_hours" => $hoursProrroga,
                     ]);
-
-//                    echo $stepModel->getSQL();
                 }
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
+            $this->registerReportComment($ticket->k_id_onair, $comment);
             $response = new Response(EMessages::INSERT);
             return $response;
         } catch (ZolidException $ex) {
@@ -703,6 +702,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $this->updateEngTicket($ticket->k_id_onair, 0);
                     $this->updateStatusTicket($ticket->k_id_onair, 83);
                 }
+                $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
@@ -741,6 +741,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "d_fechaproduccion" => Hash::getDate(),
                     "n_estadoonair" => "ON AIR"
                 ]);
+                $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
