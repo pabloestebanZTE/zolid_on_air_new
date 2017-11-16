@@ -463,6 +463,7 @@ class Dao_ticketOnair_model extends CI_Model {
     function updateTicketScaling($request) {
         try {
             $ticketOnAir = new TicketOnAirModel();
+            $request->i_actualEngineer = 0;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
