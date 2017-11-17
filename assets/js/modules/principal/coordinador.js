@@ -100,7 +100,7 @@ $(function () {
             for (var i = 0; i < max; i++) {
                 var obj = principal.timers[i];
                 if (obj.time != null) {
-                    dom.timer($('#' + obj.idTimer), null, principal.listActivities, obj.time);
+                    dom.timer($('#' + obj.idTimer), null, null, obj.time);
                 }
             }
         }
