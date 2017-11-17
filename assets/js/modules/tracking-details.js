@@ -184,13 +184,13 @@ var TD = {
         }).send();
     },
     configView: function () {
-        //dom.configCalendar($('#txtFechaIngresoOnAir'));
-        //dom.configCalendar($('#txtCorrecionPendientes'));
-        dom.configCalendar($('#txtFechaApertura'));
-        //dom.configCalendar($('#txtFechaRFT'));
-        //dom.configCalendar($('#txtFechaCG'));
-        //dom.configCalendar($('#txtFechaBloqueado'));
-        //dom.configCalendar($('#txtFechaDesBloqueado'));
+//        dom.configCalendar($('#txtFechaIngresoOnAir'));
+//        dom.configCalendar($('#txtCorrecionPendientes'));
+//        dom.configCalendar($('#txtFechaApertura'));
+//        dom.configCalendar($('#txtFechaRFT'));
+//        dom.configCalendar($('#txtFechaCG'));
+//        dom.configCalendar($('#txtFechaBloqueado'));
+//        dom.configCalendar($('#txtFechaDesBloqueado'));
 //        dom.timer($('#timeStep'), 1509706921000, $('#progressStep1'));
         $('select').select2({'width': '100%'});
     },
@@ -265,14 +265,14 @@ var TD = {
                 $('#contentDetails_12h').removeClass('hidden');
                 break;
             case "24h":
-                $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
+                $('[data-ref="#contentDetails_12h"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
                 $('[data-ref="#contentDetails_24h"]').addClass('active').removeClass('disabled');
                 dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), $('[data-ref="#contentDetails_24h"] .progress-step'), fn, obj);
                 $('#contentDetails_24h').removeClass('hidden');
                 break;
             case "36h":
-                $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
-                $('[data-ref="#contentDetails_24h"]').removeClass('disabled');
+                $('[data-ref="#contentDetails_12h"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
+                $('[data-ref="#contentDetails_24h"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
                 dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('[data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
                 $('[data-ref="#contentDetails_36h"]').addClass('active').removeClass('disabled');
                 $('#contentDetails_36h').removeClass('hidden');
