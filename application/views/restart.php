@@ -206,6 +206,7 @@
                             </div>
                         </div>
                         <input type='hidden' name="k_id_onair" id="k_id_onair" class="form-control" value="<?= $_GET['id']; ?>" >
+                        <input type='hidden' name="k_id_scaled_on_air" id="k_id_scaled_on_air" class="form-control" >
                     </fieldset>
                     <!--   fin seccion derecha---->
                 </div>
@@ -215,7 +216,7 @@
                     <div class="form-group">
                         <label class="col-md-12 control-label"></label>
                         <div class="col-md-12">
-                            <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Reiniciar <span class="fa fa-fw fa-play"></span></button>
+                            <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Reiniciar <span class="fa fa-fw fa-undo"></span></button>
                         </div>
                     </div>
                 </center>
@@ -250,6 +251,7 @@
                 $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
                 $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
+                $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
                 
                 for (var j = 0; j < fields.status.data.length; j++){
                     $('#status').append($('<option>', {
