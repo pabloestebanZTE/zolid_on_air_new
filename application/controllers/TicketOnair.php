@@ -405,7 +405,7 @@ class TicketOnair extends CI_Controller {
         $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
     }
 
-    public function createScaling() {
+    public function createScaling(){
         $scaling = new Dao_scaledOnair_model();
         $ticket = new Dao_ticketOnair_model();
         $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
