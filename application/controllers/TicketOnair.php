@@ -25,6 +25,7 @@ class TicketOnair extends CI_Controller {
     }
 
     public function prueba() {
+        
         $tick = new Dao_ticketOnair_model();
         $response = $tick->registerReportComment(19);
         $this->json($response);
@@ -260,6 +261,10 @@ class TicketOnair extends CI_Controller {
     public function insertTicketOnair() {
         $ticket = new dao_ticketOnAir_model();
         $ticketPS = new dao_preparationStage_model();
+        //camilo se envia semana actual y fecha de creacion 
+        $this->request->i_week = Hash::getDate();
+        $this->request->d_asignacion_final =  Hash::getDate();
+        $this->request->i_week = Date("W");
         $response = $ticketPS->insertPreparationStage($this->request);
         $this->request->k_id_preparation = $response->data->data;
         $this->request->i_actualEngineer = 0;
@@ -328,7 +333,9 @@ class TicketOnair extends CI_Controller {
         $response = $ticket->findByIdOnAir($this->request->k_id_ticket);
         $ticketOnAirTemp = $response->data;
         $flag = 0;
-        if ($response->data->k_id_status_onair == 97) {
+        //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
+        $this->request->n_reviewedfo =  Hash::getDate();
+        if ($response->data->k_id_status_onair == 78) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;

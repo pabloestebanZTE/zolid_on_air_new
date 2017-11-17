@@ -331,6 +331,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label for="cmbDoc" class="col-md-3 control-label">DOC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                        <select name="n_doc" id="n_doc" class="form-control selectpicker">
+                                                            <option value="ABIERTO">ABIERTO</option>
+                                                            <option value="CERRADO">CERRADO</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </fieldset>
                                         <!--  fin seccion izquierda form---->
 

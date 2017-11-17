@@ -23,7 +23,11 @@ return [
       | you may use many connections at once using the Database library.
       |
      */
+<<<<<<< HEAD
     'default' => 'mysqlLocalhost',
+=======
+    'default' => 'camilo',
+>>>>>>> ea72945f72c28d918192b534fa29d1c18ec68edd
     /*
       |--------------------------------------------------------------------------
       | Database Connections

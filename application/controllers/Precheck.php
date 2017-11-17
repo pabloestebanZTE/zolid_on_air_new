@@ -84,6 +84,7 @@ class Precheck extends CI_Controller {
         $this->request->k_id_ticket = $this->request->k_id_onair;
         //print_r($response);
         //print_r($this->request);
+        //Sirve para veriificar si va para 12
         if ($this->request->k_id_status_onair == 81) {
             $follow12h = new Dao_followUp12h_model();
             $onair12 = new Dao_onAir12h_model();
@@ -99,6 +100,7 @@ class Precheck extends CI_Controller {
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
             $this->json($response);
         }
+        // si va para 24
         if ($this->request->k_id_status_onair == 82) {
             $follow24h = new Dao_followUp24h_model();
             $onair24 = new Dao_onAir24h_model();
@@ -114,6 +116,7 @@ class Precheck extends CI_Controller {
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
             $this->json($response);
         }
+        //si va para 36
         if ($this->request->k_id_status_onair == 83) {
             $follow36h = new Dao_followUp36h_model();
             $onair36 = new Dao_onAir36h_model();
@@ -127,11 +130,14 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-
-            $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
-
             $this->json($response);
         }
+        //Actualizamos la fecha en la que se inició el precheck.
+        $temp = new TicketOnAirModel();
+        $temp->where("k_id_onair", "=", $this->request->k_id_onair)->update([
+            "d_precheck_init" => Hash::getDate()
+        ]);
+        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
         // $this->request->d_finpre = Hash::getDate();
         // $response = $preparation->updatePreparationStage($this->request)->data;
         // $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data;//camilo

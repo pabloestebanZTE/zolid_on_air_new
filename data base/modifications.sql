@@ -152,5 +152,13 @@ ALTER TABLE preparation_stage modify b_vistamm varchar(100);
 
 /* MODIFICACIONES 16/11/2017 */
 ALTER TABLE ticket_on_air add i_priority varchar(10);
-INSERT INTO `on_air`.`substatus` (`k_id_substatus`, `n_name_substatus`) VALUES ('31', 'Notificacion');
-INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_id_status`) VALUES ('91', '31', '9');
+
+/* MODIFICACIONES 16/Nov/2017 05:54 pm */
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `d_created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `i_priority`;
+
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `d_precheck_init` TIMESTAMP NULL DEFAULT NULL AFTER `i_priority`;
+
+	INSERT INTO `on_air`.`substatus` (`k_id_substatus`, `n_name_substatus`) VALUES ('31', 'Notificacion');
+	INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_id_status`) VALUES ('91', '31', '9');

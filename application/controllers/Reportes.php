@@ -110,15 +110,21 @@ class Reportes extends CI_Controller {
 
     public function reportOnair() {
         header('Content-Type: text/plain');
-        $ticketsOnAir = new dao_ticketOnAir_model();
-        $preparation = new dao_preparationStage_model();
-        $station = new dao_station_model();
-        $technology = new dao_technology_model();
-        $band = new dao_band_model();
-        $statusOnair = new dao_statusOnair_model();
-        $work = new dao_work_model();
-        $scaled = new dao_scaledOnair_model();
-        $precheck = new dao_precheck_model();
+        $ticketsOnAir = new Dao_ticketOnAir_model();
+        $preparation = new Dao_preparationStage_model();
+        $station = new Dao_station_model();
+        $technology = new Dao_technology_model();
+        $band = new Dao_band_model();
+        $statusOnair = new Dao_statusOnair_model();
+        $work = new Dao_work_model();
+        $scaled = new Dao_scaledOnair_model();
+        $precheck = new Dao_precheck_model();
+        $onair12 = new Dao_onAir12h_model();
+        $follow12 = new Dao_followUp12h_model();
+        $onair24 = new Dao_onAir24h_model();
+        $follow24 = new Dao_followUp24h_model();
+        $onair36 = new Dao_onAir36h_model();
+        $follow36 = new Dao_followUp36h_model();
         //inicio llamando todos los tickets
         $res = $ticketsOnAir->getAll()->data;
         //recorro y se van asignando foraneas
@@ -131,10 +137,19 @@ class Reportes extends CI_Controller {
             $res[$i]->k_id_work = $work->findById($res[$i]->k_id_work)->data; //work
             $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair
             $res[$i]->k_id_precheck = $precheck->getPrecheckByIdPrech($res[$i]->k_id_precheck)->data; //precheck
+            $res[$i]->onair12 = $onair12->getOnair12ByIdOnair($res[$i]->k_id_onair)->data;//onair12
+            if ($res[$i]) {
+                for ($j=0; $j <count($res[$i]) ; $j++) { 
+                    //tengo que hacer comparacion ronda mas alta
+                }
+            }
+
+
+
         }
         print_r($res);
 
-        for ($i = 0; $i < count($res); $i++) {
+        /*for ($i = 0; $i < count($res); $i++) {
             $data[$i] = [
                 "Nombre_Estación-EB" => $res[$i]->k_id_station->n_name_station,
                 "bcf_wbts_id" => $res[$i]->k_id_preparation->n_bcf_wbts_id,
@@ -256,7 +271,7 @@ class Reportes extends CI_Controller {
                 "Cont_Prorrogas" => $res[$i]->sectoresdesbloqueados,
                 "NOC" => $res[$i]->sectoresdesbloqueados,
             ];
-        }
+        }*/
     }
 
 }
