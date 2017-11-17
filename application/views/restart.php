@@ -4,7 +4,7 @@
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
-            <form class="form-horizontal well" name="basicForm" id="basicForm">
+            <form class="form-horizontal well" name="restartForm" id="restartForm" action="TicketOnair/createScaling">
 
                 <div class="panel-body">
                     <fieldset class="col-md-6 control-label">
@@ -279,6 +279,11 @@
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
-
+        <script type="text/javascript">
+            $(function () {
+                dom.submit($('#restartForm'), null, false);
+            })
+            // , function(){location.href = app.urlTo('User/principalView');}
+        </script>
     </body>
 </html>
