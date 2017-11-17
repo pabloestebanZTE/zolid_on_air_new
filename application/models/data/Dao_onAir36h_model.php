@@ -54,7 +54,7 @@
         try {
           $onair36 = new OnAir36hModel();
           $datos = $onair36->where("k_id_onair","=",$id)
-                        ->first();
+                        ->get();
           $response = new Response(EMessages::SUCCESS);
           $response->setData($datos);
           return $response;
