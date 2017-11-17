@@ -39,6 +39,20 @@ var dom = {
             content.find('.step-panel').addClass('hidden');
             stepPanel.removeClass('hidden').hide().fadeIn(500);
         });
+        //Shortcuts...
+        var keyPrev = null;
+        window.addEventListener('keydown', function (e) {
+            console.log(e);
+            var isKey = function (e, code) {
+                return e.which == code || e.keyCode == code;
+            };
+            if (keyPrev == 17) { //Tecla Control.
+                if (isKey(e, 81)) {//Q = Quit - Salir...
+                    location.href = $('#exitLink').attr('href');
+                }
+            }
+            keyPrev = (e.which) ? e.which : e.keyCode;
+        });
     },
     /**
      *
@@ -150,6 +164,10 @@ var dom = {
             var parts = time.split(':');
             var h = parts[0];
             var m = parts[1];
+            if (m == 60) {
+                h = 12;
+                m = 0;
+            }
             return ((h < 10) ? '0' + h : h) + ':' + ((m < 10) ? '0' + m : m);
         } else {
             return "00:00";
@@ -195,7 +213,6 @@ var dom = {
      * @returns {undefined}
      */
     timer: function (element, progressElement, callback, obj) {
-        console.log(element, "OBJ TIMER:", obj);
         var timeInit = obj.time;
         var time = obj.i_timestamp;
         var timeTotal = obj.i_timetotal;
@@ -209,9 +226,9 @@ var dom = {
             location.reload();
         }
 
+        var parent = element.parents('.hour-step');
         if (state == 3) {
             progressElement.css('width', 100 + '%');
-            var parent = element.parents('.hour-step');
             parent.removeClass('prorroga').addClass('escalado');
             parent.addClass('warning');
             element.html('<span class="text-danger"><i class="fa fa-fw fa-undo"></i> Escalado</span>');
@@ -228,9 +245,13 @@ var dom = {
             if (diffMins < 0) {
                 diffMins *= -1;
             }
+            var parent = element.parents('.hour-step');
             if (element) {
+                if (parent.hasClass('finish')) {
+                    window.clearInterval(interval);
+                }
                 if (state == 1) {
-                    element.parents('.hour-step').addClass('warning');
+                    parent.addClass('warning');
                 }
                 if (state != 2 && element.hasClass('prorroga')) {
                     window.clearInterval(interval);
@@ -289,8 +310,8 @@ var dom = {
 //            percentValue = (timeProgress / timeTotal) * 100;
 
             percentValue = Math.round(((today - timeInit) / (timeTotal - timeInit)) * 100);
-            parseTimer(timeRecord, element, progressElement, percentValue);
             timeRecord -= mathTime;
+            parseTimer(timeRecord, element, progressElement, percentValue);
 //            if(today)
         };
 

@@ -40,7 +40,7 @@
                                 ?>
                             </li>
                             <li>
-                                <a href="<?= URL::to('User/logout') ?>" /><i class="fa fa-fw fa-power-off"></i>&nbsp;&nbsp;Salir</a>
+                                <a id="exitLink" href="<?= URL::to('User/logout') ?>" /><i class="fa fa-fw fa-power-off"></i>&nbsp;&nbsp;Salir</a>
                             </li>
                         </ul>
                     </li>

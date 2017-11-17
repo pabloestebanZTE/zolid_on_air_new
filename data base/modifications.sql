@@ -159,3 +159,11 @@ ALTER TABLE `ticket_on_air`
 
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `d_precheck_init` TIMESTAMP NULL DEFAULT NULL AFTER `i_priority`;
+
+	INSERT INTO `on_air`.`substatus` (`k_id_substatus`, `n_name_substatus`) VALUES ('31', 'Notificacion');
+	INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_id_status`) VALUES ('91', '31', '9');
+
+
+
+	/* MODIFICACIONES 17/11/2019 */
+	ALTER TABLE ticket_on_air modify n_round integer DEFAULT '1';
