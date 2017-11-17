@@ -25,7 +25,7 @@ class TicketOnair extends CI_Controller {
     }
 
     public function prueba() {
-        
+
         $tick = new Dao_ticketOnair_model();
         $response = $tick->registerReportComment(19);
         $this->json($response);
@@ -261,7 +261,7 @@ class TicketOnair extends CI_Controller {
     public function insertTicketOnair() {
         $ticket = new dao_ticketOnAir_model();
         $ticketPS = new dao_preparationStage_model();
-        //camilo se envia semana actual y fecha de creacion 
+        //camilo se envia semana actual y fecha de creacion
         $this->request->i_week = Hash::getDate();
         $this->request->d_asignacion_final =  Hash::getDate();
         $this->request->i_week = Date("W");
@@ -335,11 +335,11 @@ class TicketOnair extends CI_Controller {
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo =  Hash::getDate();
-        if ($response->data->k_id_status_onair == 78) {
+        if ($response->data->k_id_status_onair == 97) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;
-            $response = $ticket->updatePrecheckOnair($this->request);
+            $response = $ticket->updatePrecheckOnair($this->request, 78);
             $this->json($response);
             $flag = 1;
         }
@@ -351,7 +351,7 @@ class TicketOnair extends CI_Controller {
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
                 $response = $follow12->update12FollowUp($this->request);
-                $response = $ticket->updatePrecheckOnair($this->request);
+                $response = $ticket->updatePrecheckOnair($this->request, 81);
                 $this->json($response);
                 $flag = 1;
             }
@@ -364,7 +364,7 @@ class TicketOnair extends CI_Controller {
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
                 $response = $follow24->update24FollowUp($this->request);
-                $response = $ticket->updatePrecheckOnair($this->request);
+                $response = $ticket->updatePrecheckOnair($this->request, 82);
                 $this->json($response);
                 $flag = 1;
             }
@@ -378,7 +378,7 @@ class TicketOnair extends CI_Controller {
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
                 $response = $follow36->update36FollowUp($this->request);
-                $response = $ticket->updatePrecheckOnair($this->request);
+                $response = $ticket->updatePrecheckOnair($this->request, 83);
                 $this->json($response);
                 $flag = 1;
             }
