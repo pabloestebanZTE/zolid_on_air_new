@@ -184,13 +184,13 @@ var TD = {
         }).send();
     },
     configView: function () {
-        dom.configCalendar($('#txtFechaIngresoOnAir'));
-        dom.configCalendar($('#txtCorrecionPendientes'));
-        dom.configCalendar($('#txtFechaApertura'));
-        dom.configCalendar($('#txtFechaRFT'));
-        dom.configCalendar($('#txtFechaCG'));
-        dom.configCalendar($('#txtFechaBloqueado'));
-        dom.configCalendar($('#txtFechaDesBloqueado'));
+//        dom.configCalendar($('#txtFechaIngresoOnAir'));
+//        dom.configCalendar($('#txtCorrecionPendientes'));
+//        dom.configCalendar($('#txtFechaApertura'));
+//        dom.configCalendar($('#txtFechaRFT'));
+//        dom.configCalendar($('#txtFechaCG'));
+//        dom.configCalendar($('#txtFechaBloqueado'));
+//        dom.configCalendar($('#txtFechaDesBloqueado'));
 //        dom.timer($('#timeStep'), 1509706921000, $('#progressStep1'));
         $('select').select2({'width': '100%'});
     },
