@@ -166,10 +166,10 @@ class Dao_ticketOnair_model extends CI_Model {
             if ($tempTicketOnAir) {
                 //SE BUSCA EL TK_ID_STATUS_ONAIR Y SE ACTUALIZA...
                 $status_onair = DB::table("status_on_air")->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)->first();
-                $objStatusOnair = [
-                    "k_id_status" => $request->ticket_on_air->k_id_status_onair->k_id_status,
-                    "k_id_substatus" => $request->ticket_on_air->k_id_status_onair->k_id_substatus
-                ];
+                // $objStatusOnair = [
+                //     "k_id_status" => $request->ticket_on_air->k_id_status_onair->k_id_status,
+                //     "k_id_substatus" => $request->ticket_on_air->k_id_status_onair->k_id_substatus
+                // ];
                 $idStatusOnair = 0;
                 $idPreparation = 0;
                 //ACTUALIZANDO STATUS_ONAIR
@@ -222,10 +222,10 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    function updatePrecheckOnair($request) {
+    function updatePrecheckOnair($request, $id) {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $request->k_id_status_onair = 78;
+            $request->k_id_status_onair = $id;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_ticket)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
@@ -289,7 +289,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             //Se compara si la fecha del value es Mayor...
                             $d1 = Hash::getTimeStamp($value->{$d_end});
                             $d2 = Hash::getTimeStamp($v["date_end"]);
-                            if (d1 > d2) {
+                            if ($d1 > $d2) {
                                 $groups[$i]["date_end"] = $value->{$d_end};
                             }
                         } else if ($value->{$d_end}) {
@@ -560,7 +560,7 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getPriorityRestartAndTracing() {
         try {
             $db = new DB();
-            $restart = $db->select("select a.* 
+            $restart = $db->select("select a.*
                                     from ticket_on_air a
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
                                     inner join status c on c.k_id_status = b.k_id_status
@@ -569,7 +569,7 @@ class Dao_ticketOnair_model extends CI_Model {
 //            $tracing = $db->select("select * from ticket_on_air where i_priority = '1'")->limit(20)->get();
             $priority = $db->select("select * from ticket_on_air where i_priority = '1'")->get();
 
-            $tracing = $db->select("select a.* 
+            $tracing = $db->select("select a.*
                                     from ticket_on_air a
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
                                     inner join status c on c.k_id_status = b.k_id_status
@@ -831,7 +831,7 @@ class Dao_ticketOnair_model extends CI_Model {
             }
             return $response;
         } catch (ZolidException $ex) {
-            
+
         }
     }
 

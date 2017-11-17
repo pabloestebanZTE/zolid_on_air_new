@@ -24,7 +24,10 @@ return [
       |
      */
     'default' => 'mysqlLocalhost',
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     /*
       |--------------------------------------------------------------------------
       | Database Connections
