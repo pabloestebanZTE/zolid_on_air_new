@@ -66,8 +66,8 @@ class Dao_scaledOnair_model extends CI_Model {
 
     public function updateScaling($request) {
         try {
-            $precheck = new PrecheckModel();
-            $datos = $precheck->where("k_id_scaled_on_air", "=", $request->k_id_scaled_on_air)
+            $scaledOnair = new ScaledOnAirMOdel();
+            $datos = $scaledOnair->where("k_id_scaled_on_air", "=", $request->k_id_scaled_on_air)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);

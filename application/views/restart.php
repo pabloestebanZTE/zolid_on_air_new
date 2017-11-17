@@ -4,7 +4,7 @@
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
-            <form class="form-horizontal well" name="restartForm" id="restartForm" action="TicketOnair/createScaling">
+            <form class="form-horizontal well" name="restartForm" id="restartForm" action="TicketOnair/recordRestart">
 
                 <div class="panel-body">
                     <fieldset class="col-md-6 control-label">
@@ -53,7 +53,7 @@
                             <div class="col-md-8 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                    <input type="text" name="txtFechaIngresoOnAir" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" maxlength="10" placeholder="DD/MM/AAAA">
+                                    <input type="text" name="txtFechaIngresoOnAir" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" placeholder="DD/MM/AAAA">
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
-                dom.submit($('#restartForm'), null, false);
+                dom.submit($('#restartForm'), function(){window.location = app.urlTo('User/principal');}, false);
             })
             // , function(){location.href = app.urlTo('User/principalView');}
         </script>
