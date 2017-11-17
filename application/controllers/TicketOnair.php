@@ -126,6 +126,7 @@ class TicketOnair extends CI_Controller {
     }
 
     public function ticketUser() {
+        
         //Se comprueba si no hay sesión.
         if (!Auth::check()) {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
