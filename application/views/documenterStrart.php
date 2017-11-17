@@ -175,7 +175,7 @@
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                        <input type='text' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDate" required>
+                                        <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDate" required>
                                     </div>
                                 </div>
                             </div>
@@ -359,7 +359,7 @@
                                                                         }));
                                                                     }
                                                                     $('select').select2({"width": "100%"});
-                                                                    dom.configCalendar($('#d_ingreso_on_air'));
+                                                                    //dom.configCalendar($('#d_ingreso_on_air'));
                                                                 });
 
 

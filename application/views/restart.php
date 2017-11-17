@@ -205,6 +205,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type='hidden' name="k_id_onair" id="k_id_onair" class="form-control" value="<?= $_GET['id']; ?>" >
                     </fieldset>
                     <!--   fin seccion derecha---->
                 </div>
