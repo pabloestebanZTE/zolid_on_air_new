@@ -4,7 +4,7 @@
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
-            <form class="form-horizontal well" name="restartForm" id="restartForm" action="TicketOnair/createScaling">
+            <form class="form-horizontal well" name="restartForm" id="restartForm" action="TicketOnair/recordRestart">
 
                 <div class="panel-body">
                     <fieldset class="col-md-6 control-label">
@@ -53,7 +53,7 @@
                             <div class="col-md-8 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                    <input type="text" name="txtFechaIngresoOnAir" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" maxlength="10" placeholder="DD/MM/AAAA">
+                                    <input type="text" name="txtFechaIngresoOnAir" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" placeholder="DD/MM/AAAA">
                                 </div>
                             </div>
                         </div>
@@ -206,6 +206,7 @@
                             </div>
                         </div>
                         <input type='hidden' name="k_id_onair" id="k_id_onair" class="form-control" value="<?= $_GET['id']; ?>" >
+                        <input type='hidden' name="k_id_scaled_on_air" id="k_id_scaled_on_air" class="form-control" >
                     </fieldset>
                     <!--   fin seccion derecha---->
                 </div>
@@ -215,7 +216,7 @@
                     <div class="form-group">
                         <label class="col-md-12 control-label"></label>
                         <div class="col-md-12">
-                            <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Reiniciar <span class="fa fa-fw fa-play"></span></button>
+                            <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Reiniciar <span class="fa fa-fw fa-undo"></span></button>
                         </div>
                     </div>
                 </center>
@@ -250,6 +251,7 @@
                 $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
                 $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
+                $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
                 
                 for (var j = 0; j < fields.status.data.length; j++){
                     $('#status').append($('<option>', {
@@ -281,7 +283,7 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
-                dom.submit($('#restartForm'), null, false);
+                dom.submit($('#restartForm'), function(){window.location = app.urlTo('User/principal');}, false);
             })
             // , function(){location.href = app.urlTo('User/principalView');}
         </script>

@@ -416,5 +416,13 @@ class TicketOnair extends CI_Controller {
         $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }
+    
+    public function recordRestart(){
+        $scaling = new Dao_scaledOnair_model();
+        $ticket = new Dao_ticketOnair_model();
+        $response = $scaling->updateScaling($this->request);;
+        $response = $ticket->updateTicketScaling($this->request);
+        $this->json($response);
+    }
 
 }
