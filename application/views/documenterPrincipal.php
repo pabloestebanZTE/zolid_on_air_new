@@ -211,6 +211,114 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="txtContratista" class="col-md-3 control-label">Contratista:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control " id="n_contratista" name="n_contratista" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="txtEvidenciaSL" class="col-md-3 control-label">Evidencia SL:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-file-text"></i></span>
+                                                        <input type="text" class="form-control " id="n_evidenciasl" name="n_evidenciasl" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtEvidenciaTG" class="col-md-3 control-label">Evidencia TG:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-file-text"></i></span>
+                                                        <input type="text" class="form-control " id="n_evidenciatg" name="n_evidenciatg" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtIDRFTools" class="col-md-3 control-label">ID RFTools:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-key"></i></span>
+                                                        <input type="text" class="form-control " id="id_rftools" name="id_rftools" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtLiderCambio" class="col-md-3 control-label">Líder Cambio:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control " id="i_lider_cambio" name="i_lider_cambio" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtLiderCuadrilla" class="col-md-3 control-label">Líder Cuadrilla:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control " id="i_lider_cuadrilla" name="i_lider_cuadrilla" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="txtLac" class="col-md-3 control-label">LAC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control " id="n_lac" name="n_lac" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtSac" class="col-md-3 control-label">SAC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control " id="n_sac" name="n_sac" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="txtRac" class="col-md-3 control-label">RAC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                        <input type="text" class="form-control " id="n_rac" name="n_rac" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <!--  fin seccion izquierda form---->
+
+                                        <!--  inicio seccion derecha form---->
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label for="cmbPrelaunch" class="col-md-3 control-label">Prelaunch:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                        <select name="pre_launch" id="pre_launch" class="form-control selectpicker" required>
+                                                            <option value="ABIERTO">ABIERTO</option>
+                                                            <option value="CERRADO">CERRADO</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
                                                 <label for="cmbTestGestion" class="col-md-3 control-label">Test gestión:</label>
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
@@ -279,17 +387,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label for="txtContratista" class="col-md-3 control-label">Contratista:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="n_contratista" name="n_contratista" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            
                                             <div class="form-group">
                                                 <label for="cmbIntegracionGestionTrafica" class="col-md-3 control-label">integración Gestión y Trafica:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -342,74 +440,6 @@
                                                             <option value="CERRADO">CERRADO</option>
                                                             <option value="NA">NA</option>
                                                         </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <!--  fin seccion izquierda form---->
-
-                                        <!--  inicio seccion derecha form---->
-                                        <fieldset>
-                                            <div class="form-group">
-                                                <label for="cmbPrelaunch" class="col-md-3 control-label">Prelaunch:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
-                                                        <select name="pre_launch" id="pre_launch" class="form-control selectpicker" required>
-                                                            <option value="ABIERTO">ABIERTO</option>
-                                                            <option value="CERRADO">CERRADO</option>
-                                                            <option value="NA">NA</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtEvidenciaSL" class="col-md-3 control-label">Evidencia SL:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-file-text"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="n_evidenciasl" name="n_evidenciasl" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtEvidenciaTG" class="col-md-3 control-label">Evidencia TG:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-file-text"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="n_evidenciatg" name="n_evidenciatg" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtIDRFTools" class="col-md-3 control-label">ID RFTools:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-key"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="id_rftools" name="id_rftools" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtLiderCambio" class="col-md-3 control-label">Líder Cambio:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="i_lider_cambio" name="i_lider_cambio" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtLiderCuadrilla" class="col-md-3 control-label">Líder Cuadrilla:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="i_lider_cuadrilla" name="i_lider_cuadrilla" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -478,45 +508,13 @@
                                                         <select name="n_noc" id="n_noc" class="form-control selectpicker" required>
                                                             <option value="NOKIA">NOKIA</option>
                                                             <option value="NOKIA_ZTE">NOKIA ZTE</option>
-                                                            <option value="SEGUIMIENTO_FO">SIGUIMIENTO FO</option>
                                                             <option value="ZTE">ZTE</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label for="txtLac" class="col-md-3 control-label">LAC:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="n_lac" name="n_lac" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtSac" class="col-md-3 control-label">SAC:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="n_sac" name="n_sac" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="txtRac" class="col-md-3 control-label">RAC:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" class="form-control input-sm" id="n_rac" name="n_rac" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <input type="hidden" class="form-control input-sm" id="k_id_ticket" name="k_id_ticket" value="" />
-                                            <input type="hidden" class="form-control input-sm" id="k_id_prep" name="k_id_prep" value="" />
+                                            <input type="hidden" class="form-control " id="k_id_ticket" name="k_id_ticket" value="" />
+                                            <input type="hidden" class="form-control " id="k_id_prep" name="k_id_prep" value="" />
                                         </fieldset>
                                         <!--   fin seccion derecha---->
 
