@@ -109,7 +109,7 @@ class Reportes extends CI_Controller {
     }
 
     public function reportOnair() {
-        header('Content-Type: text/plain');
+      /*  header('Content-Type: text/plain');*/
         $ticketsOnAir = new Dao_ticketOnAir_model();
         $preparation = new Dao_preparationStage_model();
         $station = new Dao_station_model();
@@ -149,7 +149,6 @@ class Reportes extends CI_Controller {
                 for ($j=0; $j <count($res[$i]->onair12) ; $j++) { 
                     $ElementoMax12[$j] = $res[$i]->onair12[$j]->i_round;                     
                 }
-                print_r(Max($ElementoMax12));
             $res[$i]->onair12 =  $onair12->getOnair12ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax12))->data;
             $res[$i]->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res[$i]->onair12->k_id_follow_up_12h)->data;//follow12
             $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
@@ -162,7 +161,6 @@ class Reportes extends CI_Controller {
                 for ($j=0; $j <count($res[$i]->onair24) ; $j++) { 
                     $ElementoMax24[$j] = $res[$i]->onair24[$j]->i_round;                     
                 }
-                print_r(Max($ElementoMax24));
             $res[$i]->onair24 =  $onair24->getOnair24ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax24))->data;
             $res[$i]->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res[$i]->onair24->k_id_follow_up_24h)->data;//follow24
             $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
@@ -175,14 +173,12 @@ class Reportes extends CI_Controller {
                 for ($j=0; $j <count($res[$i]->onair36) ; $j++) { 
                     $ElementoMax36[$j] = $res[$i]->onair36[$j]->i_round;                     
                 }
-                print_r(Max($ElementoMax36));
             $res[$i]->onair36 =  $onair36->getOnair36ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax36))->data;
             $res[$i]->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res[$i]->onair36->k_id_follow_up_36h)->data;//follow36
             $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
             }
             //fin obj onair24 
         }
-        print_r($res);
 
         $objPhpExcel = new PHPExcel();
         //Propiedades de archivo.
@@ -429,130 +425,127 @@ class Reportes extends CI_Controller {
 
         //Ahora pintamos los datos...
         for ($i = 0; $i < count($res); $i++) {
-            $objPhpExcel->getActiveSheet()->setCellValue("A" . ($i + 2), $res[$i]->$res[$i]->k_id_onair);
-            $objPhpExcel->getActiveSheet()->setCellValue("B" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("C" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("D" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("E" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("F" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("G" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("H" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("I" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("J" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("K" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("L" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("M" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("N" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("O" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("P" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("Q" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("R" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("S" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("T" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("U" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("V" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("W" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("X" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("Y" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AB" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AC" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AD" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AE" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AF" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AG" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AH" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AI" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AJ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AK" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AL" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AN" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AO" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AP" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AQ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AR" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AS" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AT" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AU" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AV" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AW" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AX" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AY" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("AZ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BA" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BB" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BC" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BD" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BE" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BG" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BH" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BI" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BJ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BK" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BL" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BM" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BN" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BO" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BP" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BQ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BR" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BS" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BT" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BU" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BV" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BW" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BX" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($i + 2), $res[$i]->); 
-            $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($i + 2), $res[$i]->); 
-            $objPhpExcel->getActiveSheet()->setCellValue("CA" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CB" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CC" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CD" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CE" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CF" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CG" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CH" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CI" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CJ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CK" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CL" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CM" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CN" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CO" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CP" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CQ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CR" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CS" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CT" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CU" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CV" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CW" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CX" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CY" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("CZ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DA" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DB" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DC" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DD" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DE" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DF" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DG" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DH" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DI" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DJ" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DK" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DL" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DM" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($i + 2), $res[$i]->);
-            $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($i + 2), $res[$i]->);
-            
-            
+            $objPhpExcel->getActiveSheet()->setCellValue("A" . ($i + 2), $res[$i]->k_id_onair);
+            $objPhpExcel->getActiveSheet()->setCellValue("B" . ($i + 2), $res[$i]->k_id_station->n_name_station);
+            $objPhpExcel->getActiveSheet()->setCellValue("C" . ($i + 2), $res[$i]->k_id_preparation->n_bcf_wbts_id);
+            $objPhpExcel->getActiveSheet()->setCellValue("D" . ($i + 2), $res[$i]->k_id_preparation->n_bts_id);
+            $objPhpExcel->getActiveSheet()->setCellValue("E" . ($i + 2), $res[$i]->k_id_technology->n_name_technology);
+            $objPhpExcel->getActiveSheet()->setCellValue("F" . ($i + 2), $res[$i]->k_id_band->n_name_band);
+            $objPhpExcel->getActiveSheet()->setCellValue("G" . ($i + 2), $res[$i]->k_id_status_onair->k_id_status->n_name_status);
+            $objPhpExcel->getActiveSheet()->setCellValue("H" . ($i + 2), $res[$i]->k_id_status_onair->k_id_substatus->n_name_substatus);
+            $objPhpExcel->getActiveSheet()->setCellValue("I" . ($i + 2), $res[$i]->b_excpetion_gri);
+            $objPhpExcel->getActiveSheet()->setCellValue("J" . ($i + 2), $res[$i]->k_id_preparation->d_ingreso_on_air);
+            $objPhpExcel->getActiveSheet()->setCellValue("K" . ($i + 2), $res[$i]->d_fecha_ultima_rev);
+            $objPhpExcel->getActiveSheet()->setCellValue("L" . ($i + 2), $res[$i]->k_id_work->n_name_ork);
+            $objPhpExcel->getActiveSheet()->setCellValue("M" . ($i + 2), $res[$i]->k_id_preparation->b_vistamm);
+            $objPhpExcel->getActiveSheet()->setCellValue("N" . ($i + 2), $res[$i]->k_id_preparation->n_enteejecutor);
+            $objPhpExcel->getActiveSheet()->setCellValue("O" . ($i + 2), $res[$i]->k_id_preparation->n_controlador);
+            $objPhpExcel->getActiveSheet()->setCellValue("P" . ($i + 2), $res[$i]->k_id_preparation->n_idcontrolador);
+            $objPhpExcel->getActiveSheet()->setCellValue("Q" . ($i + 2), $res[$i]->k_id_station->k_id_city->n_name_city);
+            $objPhpExcel->getActiveSheet()->setCellValue("R" . ($i + 2), $res[$i]->k_id_station->k_id_city->k_id_regional->n_name_regional);
+            $objPhpExcel->getActiveSheet()->setCellValue("S" . ($i + 2), $res[$i]->d_desbloqueo);
+            $objPhpExcel->getActiveSheet()->setCellValue("T" . ($i + 2), $res[$i]->d_bloqueo);
+            $objPhpExcel->getActiveSheet()->setCellValue("U" . ($i + 2), $res[$i]->n_reviewedfo);
+            $objPhpExcel->getActiveSheet()->setCellValue("V" . ($i + 2), $res[$i]->k_id_preparation->d_correccionespendientes);
+            $objPhpExcel->getActiveSheet()->setCellValue("W" . ($i + 2), $res[$i]->k_id_preparation->n_btsipaddress);
+            $objPhpExcel->getActiveSheet()->setCellValue("X" . ($i + 2), $res[$i]->k_id_preparation->n_integrador);
+            $objPhpExcel->getActiveSheet()->setCellValue("Y" . ($i + 2), $res[$i]->k_id_precheck->k_id_user->n_name_user);
+            $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($i + 2), $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user);
+            $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($i + 2), $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user);
+            $objPhpExcel->getActiveSheet()->setCellValue("AB" . ($i + 2), $res[$i]->k_id_preparation->n_wp);
+            $objPhpExcel->getActiveSheet()->setCellValue("AC" . ($i + 2), $res[$i]->k_id_preparation->n_crq);
+            $objPhpExcel->getActiveSheet()->setCellValue("AD" . ($i + 2), $res[$i]->k_id_preparation->n_testgestion);
+            $objPhpExcel->getActiveSheet()->setCellValue("AE" . ($i + 2), $res[$i]->k_id_preparation->n_sitiolimpio);
+            $objPhpExcel->getActiveSheet()->setCellValue("AF" . ($i + 2), $res[$i]->d_fechaproduccion);
+            $objPhpExcel->getActiveSheet()->setCellValue("AG" . ($i + 2), $res[$i]->k_id_preparation->n_instalacion_hw_sitio);
+            $objPhpExcel->getActiveSheet()->setCellValue("AH" . ($i + 2), $res[$i]->k_id_preparation->n_cambios_config_solicitados);
+            $objPhpExcel->getActiveSheet()->setCellValue("AI" . ($i + 2), $res[$i]->k_id_preparation->n_cambios_config_final);
+            $objPhpExcel->getActiveSheet()->setCellValue("AJ" . ($i + 2), $res[$i]->n_sectoresbloqueados);
+            $objPhpExcel->getActiveSheet()->setCellValue("AK" . ($i + 2), $res[$i]->n_sectoresdesbloqueados);
+            $objPhpExcel->getActiveSheet()->setCellValue("AL" . ($i + 2), $res[$i]->n_estadoonair);
+            $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($i + 2), $res[$i]->scaled_onair->n_atribuible_nokia);
+            $objPhpExcel->getActiveSheet()->setCellValue("AN" . ($i + 2), $res[$i]->k_id_preparation->n_contratista);
+            $objPhpExcel->getActiveSheet()->setCellValue("AO" . ($i + 2), $res[$i]->k_id_preparation->n_comentarioccial);
+            $objPhpExcel->getActiveSheet()->setCellValue("AP" . ($i + 2), $res[$i]->k_id_preparation->n_ticketremedy);
+            $objPhpExcel->getActiveSheet()->setCellValue("AQ" . ($i + 2), $res[$i]->k_id_precheck->d_finpre);
+            $objPhpExcel->getActiveSheet()->setCellValue("AR" . ($i + 2), $res[$i]->onair12->d_fin12h);
+            $objPhpExcel->getActiveSheet()->setCellValue("AS" . ($i + 2), " ");//fin48
+            $objPhpExcel->getActiveSheet()->setCellValue("AT" . ($i + 2), $res[$i]->k_id_preparation->n_lac);
+            $objPhpExcel->getActiveSheet()->setCellValue("AU" . ($i + 2), $res[$i]->k_id_preparation->n_rac);
+            $objPhpExcel->getActiveSheet()->setCellValue("AV" . ($i + 2), $res[$i]->k_id_preparation->n_sac);
+            $objPhpExcel->getActiveSheet()->setCellValue("AW" . ($i + 2), $res[$i]->k_id_preparation->n_integracion_gestion_y_trafica);
+            $objPhpExcel->getActiveSheet()->setCellValue("AX" . ($i + 2), $res[$i]->k_id_preparation->puesta_servicio_sitio_nuevo_lte);
+            $objPhpExcel->getActiveSheet()->setCellValue("AY" . ($i + 2), $res[$i]->k_id_preparation->n_instalacion_hw_4g_sitio);
+            $objPhpExcel->getActiveSheet()->setCellValue("AZ" . ($i + 2), $res[$i]->k_id_preparation->pre_launch);
+            $objPhpExcel->getActiveSheet()->setCellValue("BA" . ($i + 2), $res[$i]->d_actualizacion_final);
+            $objPhpExcel->getActiveSheet()->setCellValue("BB" . ($i + 2), $res[$i]->d_asignacion_final);
+            $objPhpExcel->getActiveSheet()->setCellValue("BC" . ($i + 2), " ");//identificador
+            $objPhpExcel->getActiveSheet()->setCellValue("BD" . ($i + 2), $res[$i]->k_id_preparation->n_evidenciasl);
+            $objPhpExcel->getActiveSheet()->setCellValue("BE" . ($i + 2), $res[$i]->k_id_preparation->n_evidenciatg);
+            $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($i + 2), $res[$i]->scaled_onair->d_time_escalado);
+            $objPhpExcel->getActiveSheet()->setCellValue("BG" . ($i + 2), $res[$i]->scaled_onair->d_fecha_escalado);
+            $objPhpExcel->getActiveSheet()->setCellValue("BH" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_imp);
+            $objPhpExcel->getActiveSheet()->setCellValue("BI" . ($i + 2), $res[$i]->scaled_onair->time_esc_imp);
+            $objPhpExcel->getActiveSheet()->setCellValue("BJ" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_rf);
+            $objPhpExcel->getActiveSheet()->setCellValue("BK" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_rf);
+            $objPhpExcel->getActiveSheet()->setCellValue("BL" . ($i + 2), $res[$i]->scaled_onair->cont_esc_npo);
+            $objPhpExcel->getActiveSheet()->setCellValue("BM" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_npo);
+            $objPhpExcel->getActiveSheet()->setCellValue("BN" . ($i + 2), $res[$i]->scaled_onair->cont_esc_care);
+            $objPhpExcel->getActiveSheet()->setCellValue("BO" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_care);
+            $objPhpExcel->getActiveSheet()->setCellValue("BP" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_gdrt);
+            $objPhpExcel->getActiveSheet()->setCellValue("BQ" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_gdrt);
+            $objPhpExcel->getActiveSheet()->setCellValue("BR" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_oym);
+            $objPhpExcel->getActiveSheet()->setCellValue("BS" . ($i + 2), $res[$i]->scaled_onair->time_esc_oym);
+            $objPhpExcel->getActiveSheet()->setCellValue("BT" . ($i + 2), $res[$i]->scaled_onair->cont_esc_calidad);
+            $objPhpExcel->getActiveSheet()->setCellValue("BU" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_calidad);
+            $objPhpExcel->getActiveSheet()->setCellValue("BV" . ($i + 2), $res[$i]->k_id_preparation->i_week);
+            $objPhpExcel->getActiveSheet()->setCellValue("BW" . ($i + 2), " ");//t_from_notif
+            $objPhpExcel->getActiveSheet()->setCellValue("BX" . ($i + 2), " ");//t_from_asign
+            $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($i + 2), $res[$i]->scaled_onair->n_atribuible_nokia2); 
+            $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($i + 2), $res[$i]->n_kpis_degraded); 
+            $objPhpExcel->getActiveSheet()->setCellValue("CA" . ($i + 2), $res[$i]->k_id_preparation->id_notificacion);
+            $objPhpExcel->getActiveSheet()->setCellValue("CB" . ($i + 2), $res[$i]->k_id_preparation->id_documentacion);
+            $objPhpExcel->getActiveSheet()->setCellValue("CC" . ($i + 2), $res[$i]->k_id_preparation->id_rftools);
+            $objPhpExcel->getActiveSheet()->setCellValue("CD" . ($i + 2), $res[$i]->scaled_onair->n_tipificacion_solucion);
+            $objPhpExcel->getActiveSheet()->setCellValue("CE" . ($i + 2), $res[$i]->n_kpi1);
+            $objPhpExcel->getActiveSheet()->setCellValue("CF" . ($i + 2), $res[$i]->i_valor_kpi1);
+            $objPhpExcel->getActiveSheet()->setCellValue("CG" . ($i + 2), $res[$i]->n_kpi2);
+            $objPhpExcel->getActiveSheet()->setCellValue("CH" . ($i + 2), $res[$i]->i_valor_kpi2);
+            $objPhpExcel->getActiveSheet()->setCellValue("CI" . ($i + 2), $res[$i]->n_kpi3);
+            $objPhpExcel->getActiveSheet()->setCellValue("CJ" . ($i + 2), $res[$i]->i_valor_kpi3);
+            $objPhpExcel->getActiveSheet()->setCellValue("CK" . ($i + 2), $res[$i]->n_kpi4);
+            $objPhpExcel->getActiveSheet()->setCellValue("CL" . ($i + 2), $res[$i]->i_valor_kpi4);
+            $objPhpExcel->getActiveSheet()->setCellValue("CM" . ($i + 2), $res[$i]->n_alarma1);
+            $objPhpExcel->getActiveSheet()->setCellValue("CN" . ($i + 2), $res[$i]->n_alarma2);
+            $objPhpExcel->getActiveSheet()->setCellValue("CO" . ($i + 2), $res[$i]->n_alarma3);
+            $objPhpExcel->getActiveSheet()->setCellValue("CP" . ($i + 2), $res[$i]->n_alarma4);
+            $objPhpExcel->getActiveSheet()->setCellValue("CQ" . ($i + 2), $res[$i]->i_cont_total_escalamiento);
+            $objPhpExcel->getActiveSheet()->setCellValue("CR" . ($i + 2), $res[$i]->i_time_total_escalamiento);
+            $objPhpExcel->getActiveSheet()->setCellValue("CS" . ($i + 2), " ");//OLA
+            $objPhpExcel->getActiveSheet()->setCellValue("CT" . ($i + 2), " ");//OLA extendido
+            $objPhpExcel->getActiveSheet()->setCellValue("CU" . ($i + 2), $res[$i]->scaled_onair->n_detalle_solucion);
+            $objPhpExcel->getActiveSheet()->setCellValue("CV" . ($i + 2), $res[$i]->i_lider_cambio);
+            $objPhpExcel->getActiveSheet()->setCellValue("CW" . ($i + 2), $res[$i]->i_lider_cuadrilla);
+            $objPhpExcel->getActiveSheet()->setCellValue("CX" . ($i + 2), "");//OLA_Areas
+            $objPhpExcel->getActiveSheet()->setCellValue("CY" . ($i + 2), "");//OLA_Areas_Excedido
+            $objPhpExcel->getActiveSheet()->setCellValue("CZ" . ($i + 2), $res[$i]->scaled_onair->n_ultimo_subestado_de_escalamiento);
+            $objPhpExcel->getActiveSheet()->setCellValue("DA" . ($i + 2), $res[$i]->onair24->d_fin24h);
+            $objPhpExcel->getActiveSheet()->setCellValue("DB" . ($i + 2), $res[$i]->onair36->d_fin36h);
+            $objPhpExcel->getActiveSheet()->setCellValue("DC" . ($i + 2), $res[$i]->n_implementacion_campo);
+            $objPhpExcel->getActiveSheet()->setCellValue("DD" . ($i + 2), " ");//implementacion_remota
+            $objPhpExcel->getActiveSheet()->setCellValue("DE" . ($i + 2), $res[$i]->n_gestion_power);
+            $objPhpExcel->getActiveSheet()->setCellValue("DF" . ($i + 2), $res[$i]->n_obra_civil);
+            $objPhpExcel->getActiveSheet()->setCellValue("DG" . ($i + 2), $res[$i]->on_air);
+            $objPhpExcel->getActiveSheet()->setCellValue("DH" . ($i + 2), $res[$i]->fecha_rft);
+            $objPhpExcel->getActiveSheet()->setCellValue("DI" . ($i + 2), $res[$i]->d_fecha_cg);
+            $objPhpExcel->getActiveSheet()->setCellValue("DJ" . ($i + 2), $res[$i]->n_exclusion_bajo_trafico);
+            $objPhpExcel->getActiveSheet()->setCellValue("DK" . ($i + 2), $res[$i]->n_ticket);
+            $objPhpExcel->getActiveSheet()->setCellValue("DL" . ($i + 2), $res[$i]->n_estado_ticket);
+            $objPhpExcel->getActiveSheet()->setCellValue("DM" . ($i + 2), $res[$i]->n_sln_modernizacion);
+            $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($i + 2), $res[$i]->n_en_prorroga);
+            $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($i + 2), $res[$i]->n_cont_prorrogas);
+            $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($i + 2), $res[$i]->n_noc);    
         }
-
         //Ponemos un nombre a la hoja.
         $objPhpExcel->getActiveSheet()->setTitle('Reporte ONAIR');
         //Hacemos la hoja activa...
@@ -563,130 +556,7 @@ class Reportes extends CI_Controller {
         $objWriter->save($filename);
         Redirect::to(URL::to($filename));
 
-        
-        for ($i = 0; $i < count($res); $i++) {
-            $data[$i] = [
-                "" => $res[$i]->k_id_station->n_name_station,
-                "bcf_wbts_id" => $res[$i]->k_id_preparation->n_bcf_wbts_id,
-                "BTS_ID" => $res[$i]->bts_id,
-                "Tecnologia" => $res[$i]->tecnologia,
-                "Banda" => $res[$i]->bandas,
-                "Estado" => $res[$i]->estado,
-                "Subestado" => $res[$i]->subestado,
-                "excepcion GRI" => $res[$i]->excepciongri,
-                "Fecha ingreso On Air" => $res[$i]->fechanotificacion,
-                "Fechaultimarev" => $res[$i]->onair,
-                "" => $res[$i]->tipotrabajo,
-                "vistamm" => $res[$i]->fechaproduccion,
-                "enteejecutor" => $res[$i]->sectoresbloqueados,
-                "controlador" => $res[$i]->sectoresdesbloqueados,
-                "idcontrolador" => $res[$i]->sectoresdesbloqueados,
-                "Ciudad" => $res[$i]->sectoresdesbloqueados,
-                "Regional" => $res[$i]->sectoresdesbloqueados,
-                "desbloqueo" => $res[$i]->sectoresdesbloqueados,
-                "bloqueado" => $res[$i]->sectoresdesbloqueados,
-                "reviewedfo" => $res[$i]->sectoresdesbloqueados,
-                "correccionpendientes" => $res[$i]->sectoresdesbloqueados,
-                "btsipaddress" => $res[$i]->sectoresdesbloqueados,
-                "integrador" => $res[$i]->sectoresdesbloqueados,
-                "ingenieroprecheck" => $res[$i]->sectoresdesbloqueados,
-                "ingenierofinal12horas" => $res[$i]->sectoresdesbloqueados,
-                "ingenierogarantia" => $res[$i]->sectoresdesbloqueados,
-                "WP" => $res[$i]->sectoresdesbloqueados,
-                "CRQ" => $res[$i]->sectoresdesbloqueados,
-                "testgestion" => $res[$i]->sectoresdesbloqueados,
-                "sitiolimpio" => $res[$i]->sectoresdesbloqueados,
-                "fechaproduccion" => $res[$i]->sectoresdesbloqueados,
-                "Instalacion_HW_Sitio" => $res[$i]->sectoresdesbloqueados,
-                "Cambios_Config_Solicitados" => $res[$i]->sectoresdesbloqueados,
-                "Cambios_Config_Final" => $res[$i]->sectoresdesbloqueados,
-                "sectoresbloqueados" => $res[$i]->sectoresdesbloqueados,
-                "sectoresdesbloqueados" => $res[$i]->sectoresdesbloqueados,
-                "estadoonair" => $res[$i]->sectoresdesbloqueados,
-                "Atribuible_Nokia" => $res[$i]->sectoresdesbloqueados,
-                "contratista" => $res[$i]->sectoresdesbloqueados,
-                "comentarioccial" => $res[$i]->sectoresdesbloqueados,
-                "ticketremedy" => $res[$i]->sectoresdesbloqueados,
-                "FinPre" => $res[$i]->sectoresdesbloqueados,
-                "Fin12H" => $res[$i]->sectoresdesbloqueados,
-                "Fin48H" => $res[$i]->sectoresdesbloqueados,
-                "LAC" => $res[$i]->sectoresdesbloqueados,
-                "RAC" => $res[$i]->sectoresdesbloqueados,
-                "SAC" => $res[$i]->sectoresdesbloqueados,
-                "Integracion_Gestion_y_Trafica" => $res[$i]->sectoresdesbloqueados,
-                "Puesta_Servicio_Sitio_Nuevo_LTE" => $res[$i]->sectoresdesbloqueados,
-                "Instalacion_HW_4G_Sitio" => $res[$i]->sectoresdesbloqueados,
-                "Prelaunch" => $res[$i]->sectoresdesbloqueados,
-                "Actualizacion_Final" => $res[$i]->sectoresdesbloqueados,
-                "Asignacion_Final" => $res[$i]->sectoresdesbloqueados,
-                "identificador" => $res[$i]->sectoresdesbloqueados,
-                "EvidenciaSL" => $res[$i]->sectoresdesbloqueados,
-                "EvidenciaTG" => $res[$i]->sectoresdesbloqueados,
-                "Time_Escalado" => $res[$i]->sectoresdesbloqueados,
-                "Fecha_Escalado" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_Imp" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_Imp" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_RF" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_RF" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_NPO" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_NPO" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_Care" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_Care" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_GDRT" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_GDRT" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_OyM" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_OyM" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Esc_Calidad" => $res[$i]->sectoresdesbloqueados,
-                "Time_Esc_Calidad" => $res[$i]->sectoresdesbloqueados,
-                "WEEK" => $res[$i]->sectoresdesbloqueados,
-                "T_From_Notif" => $res[$i]->sectoresdesbloqueados,
-                "T_From_Asign" => $res[$i]->sectoresdesbloqueados,
-                "Atribuible_Nokia2" => $res[$i]->sectoresdesbloqueados,
-                "Kpis_Degraded" => $res[$i]->sectoresdesbloqueados,
-                "Id_Notificacion" => $res[$i]->sectoresdesbloqueados,
-                "Id_Documentacion" => $res[$i]->sectoresdesbloqueados,
-                "ID_RFTools" => $res[$i]->sectoresdesbloqueados,
-                "Tipificacion_Solucion" => $res[$i]->sectoresdesbloqueados,
-                "KPI1" => $res[$i]->sectoresdesbloqueados,
-                "Valor_KPI1" => $res[$i]->sectoresdesbloqueados,
-                "KPI2" => $res[$i]->sectoresdesbloqueados,
-                "Valor_KPI2" => $res[$i]->sectoresdesbloqueados,
-                "KPI3" => $res[$i]->sectoresdesbloqueados,
-                "Valor_KPI3" => $res[$i]->sectoresdesbloqueados,
-                "KPI4" => $res[$i]->sectoresdesbloqueados,
-                "Valor_KPI4" => $res[$i]->sectoresdesbloqueados,
-                "Alarma1" => $res[$i]->sectoresdesbloqueados,
-                "Alarma2" => $res[$i]->sectoresdesbloqueados,
-                "Alarma3" => $res[$i]->sectoresdesbloqueados,
-                "Alarma4" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Total_Escalamiento" => $res[$i]->sectoresdesbloqueados,
-                "Time_Total_Escalamiento" => $res[$i]->sectoresdesbloqueados,
-                "OLA" => $res[$i]->sectoresdesbloqueados,
-                "OLA_Excedido" => $res[$i]->sectoresdesbloqueados,
-                "Detalle_Solucion" => $res[$i]->sectoresdesbloqueados,
-                "Lider_Cambio" => $res[$i]->sectoresdesbloqueados,
-                "Lider_Cuadrilla" => $res[$i]->sectoresdesbloqueados,
-                "OLA_Areas" => $res[$i]->sectoresdesbloqueados,
-                "OLA_Areas_Excedido" => $res[$i]->sectoresdesbloqueados,
-                "Ultimo Subestado De Escalamiento" => $res[$i]->sectoresdesbloqueados,
-                "Fin_24H" => $res[$i]->sectoresdesbloqueados,
-                "Fin_36H" => $res[$i]->sectoresdesbloqueados,
-                "Implementacion_Campo" => $res[$i]->sectoresdesbloqueados,
-                "Implementacion_Remota" => $res[$i]->sectoresdesbloqueados,
-                "Gestion_Power" => $res[$i]->sectoresdesbloqueados,
-                "Obra_Civil" => $res[$i]->sectoresdesbloqueados,
-                "On_AIR" => $res[$i]->sectoresdesbloqueados,
-                "Fecha_RFT" => $res[$i]->sectoresdesbloqueados,
-                "Fecha_CG" => $res[$i]->sectoresdesbloqueados,
-                "Exclusion_Bajo_Trafico" => $res[$i]->sectoresdesbloqueados,
-                "Ticket" => $res[$i]->sectoresdesbloqueados,
-                "Estado_Ticket" => $res[$i]->sectoresdesbloqueados,
-                "SLN_Modernizacion" => $res[$i]->sectoresdesbloqueados,
-                "En_Prorroga" => $res[$i]->sectoresdesbloqueados,
-                "Cont_Prorrogas" => $res[$i]->sectoresdesbloqueados,
-                "NOC" => $res[$i]->sectoresdesbloqueados,
-            ];
-        }
     }
+
 
 }
