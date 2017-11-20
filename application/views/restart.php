@@ -83,7 +83,34 @@
                             <div class="col-md-8 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                    <input type='text' name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control" value='' >
+                                    <select name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control selectpicker" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="Actualización de DF">Actualización de DF</option>
+                                        <option value="Ajuste cableado OVP">Ajuste cableado OVP</option>
+                                        <option value="Ajuste de Sistema Radiante">Ajuste de Sistema Radiante</option>
+                                        <option value="ajuste fisico RF">Ajuste fisico RF</option>
+                                        <option value="Aval RF">Aval RF</option>
+                                        <option value="Cambio de HW">Cambio de HW</option>
+                                        <option value="Cambio de Jumper">Cambio de Jumper</option>
+                                        <option value="Cambio de Parámetros">Cambio de Parámetros</option>
+                                        <option value="Cambio de RET">Cambio de RET</option>
+                                        <option value="Comportamiento Esperado Handover">Comportamiento Esperado Handover</option>
+                                        <option value="Corrección de Parámetros">Corrección de Parámetros</option>
+                                        <option value="Corrección de Políticas">Corrección de Políticas</option>
+                                        <option value="Corrección física de transporte">Corrección física de transporte</option>
+                                        <option value="Corrección Lógica Transporte">Corrección Lógica Transporte</option>
+                                        <option value="Correción de Parámetros">Correción de Parámetros</option>
+                                        <option value="Culminación de Actividades">Culminación de Actividades</option>
+                                        <option value="Envio de Evidencias">Envio de Evidencias</option>
+                                        <option value="Excepción GRI">Excepción GRI</option>
+                                        <option value="No hay solución del Ejecutor">No hay solución del Ejecutor</option>
+                                        <option value="Optimización Física RF">Optimización Física RF</option>
+                                        <option value="Optimizacion logica RF">Optimizacion logica RF</option>
+                                        <option value="Recomisionamiento">Recomisionamiento</option>
+                                        <option value="Reinicio RF Module">Reinicio RF Module</option>
+                                        <option value="Se corrige DF">Se corrige DF</option>
+                                        <option value="Solución de Fallas de Energía">Solución de Fallas de Energía</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +120,7 @@
                             <div class="col-md-8 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                    <input type='text' name="n_ultimo_subestado_de_escalamiento" id="n_ultimo_subestado_de_escalamiento" class="form-control" value='' >
+                                    <input type='text' name="n_ultimo_subestado_de_escalamiento" id="n_ultimo_subestado_de_escalamiento" class="form-control" value='' readonly>
                                 </div>
                             </div>
                         </div>
@@ -187,9 +214,11 @@
                             <div class="col-md-8 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                    <select class="form-control" id="status" name=k_id_status" onchange="editSubstatus()" required>
-                                        <!--<option value="">Seleccione</option>-->
-                                    </select>
+                                    <input type="text" name="txtStatus" id="txtStatus" class="form-control" value="Seguimiento FO" readonly="false">
+                                    <input type="hidden" name="k_id_status" id="status" value="9" >
+<!--                                    <select class="form-control" id="status" name="k_id_status" onchange="editSubstatus()" required>
+                                        <option value="">Seleccione</option>
+                                    </select>-->
                                 </div>
                             </div>
                         </div>
@@ -201,6 +230,8 @@
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                     <select class="form-control" id="substatus" name="k_id_status_onair" required>
                                         <option value="">Seleccione</option>
+                                        <option value="20">Reinicio Precheck</option>
+                                        <option value="21">Seguimiento 12H</option>
                                     </select>
                                 </div>
                             </div>
@@ -235,6 +266,14 @@
                 var fields = <?php echo $fields; ?>;
                 
                 console.log(fields);
+                
+                for (var j = 0; j < fields.status.data.length; j++){
+                    $('#status').append($('<option>', {
+                        value: fields.status.data[j].k_id_status,
+                        text: fields.status.data[j].n_name_status
+                    }));
+                }
+//                editSubstatus();
                                 
                 $('input[name=n_name_station]').val(fields.k_id_station.n_name_station);
                 $('input[name=n_name_band]').val(fields.k_id_band.n_name_band);
@@ -251,13 +290,12 @@
                 $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
                 $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
-                $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
-                
-                for (var j = 0; j < fields.status.data.length; j++){
-                    $('#status').append($('<option>', {
-                        value: fields.status.data[j].k_id_status,
-                        text: fields.status.data[j].n_name_status
-                    }));
+                $('input[name=n_ultimo_subestado_de_escalamiento]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
+//                $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
+                if (fields.i_precheck_realizado === null) {
+                    $('#substatus option[value="20"]').attr('selected', 'selected');
+                } else {
+                    $('#substatus option[value="21"]').attr('selected', 'selected');
                 }
 
             });
