@@ -39,6 +39,7 @@ class TicketOnAirModel extends Model {
     protected $i_lider_cambio;
     protected $i_lider_cuadrilla;
     protected $n_implementacion_campo;
+    protected $n_implementacion_remota;
     protected $n_doc;
     protected $n_gestion_power;
     protected $n_obra_civil;
@@ -63,7 +64,7 @@ class TicketOnAirModel extends Model {
     protected $i_priority;
     protected $d_precheck_init;
     protected $d_created_at;
-    //Los campos que desea ocultar para que no se reflejen en la vista.    
+    //Los campos que desea ocultar para que no se reflejen en la vista.
     protected $table = "ticket_on_air";
     //Los campos que desea exculir del modelo.
     protected $exclude = ["hidden", "exclude", "table", "class", "db", "__data"];
@@ -367,6 +368,14 @@ class TicketOnAirModel extends Model {
 
     public function getNImplementacionCampo() {
         return $this->n_implementacion_campo;
+    }
+
+    public function setNImplementacionRemota($n_implementacion_remota) {
+        $this->n_implementacion_remota = $n_implementacion_remota;
+    }
+
+    public function getNImplementacionRemota() {
+        return $this->n_implementacion_remota;
     }
 
     public function setNDoc($n_doc) {

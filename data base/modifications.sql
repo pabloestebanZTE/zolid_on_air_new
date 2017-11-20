@@ -130,7 +130,8 @@ CREATE TABLE IF NOT EXISTS `reporte_comentario` (
   `usuario_resucomen` varchar(100) DEFAULT NULL,
   `ente_ejecutor` varchar(100) DEFAULT NULL,
   `tipificacion_resucomen` varchar(100) DEFAULT NULL,
-  `noc` varchar(100) DEFAULT NULL
+  `noc` varchar(100) DEFAULT NULL,
+	primary key (k_id_on_air)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -167,3 +168,11 @@ ALTER TABLE `ticket_on_air`
 
 	/* MODIFICACIONES 17/11/2019 */
 	ALTER TABLE ticket_on_air modify n_round integer DEFAULT '1';
+
+/* Modificaciones 19/11/2017 */
+ALTER TABLE ticket_on_air add n_implementacion_remota varchar(100);
+INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_id_status`) VALUES ('98', '8', '9');
+
+/*ALTER TABLE preparation_stage AUTO_INCREMENT = 1;
+ALTER TABLE ticket_on_air AUTO_INCREMENT = 1;
+ALTER TABLE precheck AUTO_INCREMENT = 1;*/

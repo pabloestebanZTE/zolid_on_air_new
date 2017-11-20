@@ -219,7 +219,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="txtEvidenciaSL" class="col-md-3 control-label">Evidencia SL:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -269,7 +269,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="txtLac" class="col-md-3 control-label">LAC:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -317,7 +317,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="cmbTestGestion" class="col-md-3 control-label">Test gestión:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -387,7 +387,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="cmbIntegracionGestionTrafica" class="col-md-3 control-label">integración Gestión y Trafica:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -452,12 +452,24 @@
                                                         <select name="n_implementacion_campo" id="n_implementacion_campo" class="form-control selectpicker" required>
                                                             <option value="ABIERTO">ABIERTO</option>
                                                             <option value="CERRADO">CERRADO</option>
-                                                            <option value="NA">NA</option>                                                            <option value="TAREA">TAREA</option>
+                                                            <option value="NA">NA</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="form-group">
+                                                <label for="cmbImplementacionCampo" class="col-md-3 control-label">Implementación Remota:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                        <select name="n_implementacion_remota" id="n_implementacion_remota" class="form-control selectpicker" required>
+                                                            <option value="ABIERTO">ABIERTO</option>
+                                                            <option value="CERRADO">CERRADO</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="cmbGestionPower" class="col-md-3 control-label">Gestión Power:</label>
                                                 <div class="col-md-8 selectContainer">

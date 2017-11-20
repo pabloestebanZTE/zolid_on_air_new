@@ -45,14 +45,14 @@ class User extends CI_Controller {
             //Se actualiza la forma de validar los roles...
             //Podemos acceder directamente al método que comprobará un rol en especifico.
             if (Auth::isCoordinador()) {
-                
+
             }
             if (Auth::isDocumentador()) {
-                
+
             }
             //O también podemos detectar si el rol es uno personalizado...
             if (Auth::isRole("Ingeniero")) {
-                
+
             }
             Redirect::redirect(URL::to("User/principal"));
         } else {
@@ -204,7 +204,7 @@ class User extends CI_Controller {
         $response->data->k_id_work = $work->findById($response->data->k_id_work)->data;
         $response->data->k_id_status_onair = $status->findById($response->data->k_id_status_onair)->data;
         $answer['ticket'] = json_encode($response->data);
-        $answer['users'] = json_encode($users->getAll());
+        $answer['users'] = json_encode($users->getAllEngineers());
         $answer['status'] = $status->getAllStatus();
         $answer['substatus'] = $status->getAllSubstatus();
         $answer['statusOnAir'] = $status->getAll();
