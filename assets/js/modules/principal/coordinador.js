@@ -54,7 +54,7 @@ $(function () {
             return '<div class="btn-group">'
                     + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
                     + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ir al Detalle"><span class="fa fa-fw fa-search"></span></a>'
-                    + '<a href="' + app.urlTo('User/assignEngineer?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar"><span class="fa fa-fw fa-sign-in"></span></a>'
+                    + '<a href="' + app.urlTo('User/assignEngineer?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar"><span class="fa fa-fw fa-tag"></span></a>'
                     + '</div>';
         },
         getButtonsAssing: function (obj) {
