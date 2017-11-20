@@ -354,6 +354,7 @@ class TicketOnair extends CI_Controller {
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo = Hash::getDate();
+        $this->request->d_precheck_init = Hash::getDate();
         if ($response->data->k_id_status_onair == 97) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
