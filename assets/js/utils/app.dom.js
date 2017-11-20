@@ -267,7 +267,7 @@ var dom = {
                 } else {
                     progressValue = 100;
                     element.parents('.hour-step').addClass('warning');
-//                    element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+                    element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
                     if (interval != null) {
                         window.clearInterval(interval);
                         interval = null;
@@ -311,7 +311,6 @@ var dom = {
             percentValue = Math.round(((today - timeInit) / (timeTotal - timeInit)) * 100);
             timeRecord -= mathTime;
             parseTimer(timeRecord, element, progressElement, percentValue);
-//            if(today)
         };
 
         //Número de tiempos al límite...
