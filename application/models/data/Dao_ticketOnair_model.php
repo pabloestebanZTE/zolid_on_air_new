@@ -99,8 +99,9 @@ class Dao_ticketOnair_model extends CI_Model {
             $datos = $ticket->insert($request->all());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
-            if($datos->data <= 0){
+            if ($datos->data <= 0) {
                 $response = new Response(EMessages::ERROR_INSERT);
+                $response->setData($ticket->getSQL());
             }
             $this->registerReportComment($datos->data, $request->n_comentario_doc);
             return $response;
@@ -546,11 +547,20 @@ class Dao_ticketOnair_model extends CI_Model {
 
     public function getAssign() {
         try {
-            //Consultamos la lista de registros pendientes...
+            //CONSULTAMOS LA LISTA DE REGISTROS PENDIENTES...
             $db = new DB();
-            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0 order by d_created_at desc")->get();
-            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0 order by d_created_at desc")->get();
-            //Consultamos la lista de registros asignados...
+            $pending = $db->select("select * from ticket_on_air "
+                            . "where i_actualEngineer = 0 "
+                            . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) "
+                            . "and MONTH(d_created_at) = MONTH(CURRENT_DATE) "
+                            . "order by d_created_at desc")->get();
+
+            //CONSULTAMOS LA LISTA DE REGISTROS ASIGNADOS...
+            $assing = $db->select("select * from ticket_on_air "
+                            . "where i_actualEngineer != 0 "
+                            . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) "
+                            . "and MONTH(d_created_at) = MONTH(CURRENT_DATE) "
+                            . "order by d_created_at desc")->get();
             $data = [
                 "pendingList" => $pending,
                 "assingList" => $assing

@@ -176,3 +176,8 @@ INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_
 /*ALTER TABLE preparation_stage AUTO_INCREMENT = 1;
 ALTER TABLE ticket_on_air AUTO_INCREMENT = 1;
 ALTER TABLE precheck AUTO_INCREMENT = 1;*/
+
+
+-- Modificaciones Lunes, 20 de Noviembre de 2017.
+ALTER TABLE `ticket_on_air`
+	CHANGE COLUMN `d_created_at` `d_created_at` TIMESTAMP NULL DEFAULT NULL AFTER `d_precheck_init`;
