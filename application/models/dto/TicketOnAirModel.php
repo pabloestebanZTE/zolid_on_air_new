@@ -63,6 +63,7 @@ class TicketOnAirModel extends Model {
     protected $i_priority;
     protected $d_precheck_init;
     protected $d_created_at;
+    protected $n_implementacion_remota;
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
     //Los campos que desea exculir del modelo.
@@ -559,6 +560,14 @@ class TicketOnAirModel extends Model {
 
     public function getDCreatedAt() {
         return $this->d_created_at;
+    }
+
+    public function setNImplementacionRemota($n_implementacion_remota) {
+        $this->n_implementacion_remota = $n_implementacion_remota;
+    }
+
+    public function getNImplementacionRemota() {
+        return $this->n_implementacion_remota;
     }
 
 }

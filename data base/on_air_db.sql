@@ -352,14 +352,19 @@ create table ticket_on_air
 /*==============================================================*/
 /* table: user                                                  */
 /*==============================================================*/
-create table user
-(
-   k_id_user            int not null,
-   n_name_user          varchar(150) not null,
-   n_last_name_user     varchar(150) not null,
-   n_username_user      varchar(100) not null,
-   primary key (k_id_user)
-);
+-- Volcando estructura para tabla on_air.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `k_id_user` int(11) NOT NULL,
+  `n_name_user` varchar(150) NOT NULL,
+  `n_last_name_user` varchar(150) NOT NULL,
+  `n_username_user` varchar(100) NOT NULL,
+  `n_mail_user` varchar(100) DEFAULT NULL,
+  `i_phone_user` int(11) DEFAULT NULL,
+  `i_cellphone_user` int(11) DEFAULT NULL,
+  `n_password` varchar(30) DEFAULT NULL,
+  `n_role_user` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`k_id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*==============================================================*/
 /* table: work                                                  */

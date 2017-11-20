@@ -25,6 +25,18 @@
           }
         }
 
+        public function getAllEngineers(){
+          try {
+            $user = new UserModel();
+            $datos = $user->where("n_role_user","=","Ingeniero")->get();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+          } catch (ZolidException $ex) {
+            return $ex;
+          }
+        }
+
         public function findByUsername($request){
           try {
             $user = new UserModel();
