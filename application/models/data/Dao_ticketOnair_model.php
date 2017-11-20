@@ -31,6 +31,9 @@ class Dao_ticketOnair_model extends CI_Model {
         $assign = new dao_user_model();
         $stage = new dao_preparationStage_model();
         $res = $ticketsOnAir->findByIdOnAir($id);
+        if ($res->data == null) {
+            return null;
+        }
         $res->data->k_id_status_onair = $statusOnair->findById($res->data->k_id_status_onair)->data; //Status onair
         $res->data->k_id_station = $station->findById($res->data->k_id_station)->data; //Station
         $res->data->k_id_band = $band->findById($res->data->k_id_band)->data; //band
@@ -96,6 +99,10 @@ class Dao_ticketOnair_model extends CI_Model {
             $datos = $ticket->insert($request->all());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
+            if ($datos->data <= 0) {
+                $response = new Response(EMessages::ERROR_INSERT);
+                $response->setData($ticket->getSQL());
+            }
             $this->registerReportComment($datos->data, $request->n_comentario_doc);
             return $response;
         } catch (ZolidException $ex) {
@@ -224,7 +231,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
     function updatePrecheckOnair($request, $id) {
         try {
-            $ticketOnAir = new TicketOnAirModel();
+            $ticketOnAir = new TicketOnAirModel();            
             $request->k_id_status_onair = $id;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_ticket)
                     ->update($request->all());
@@ -540,11 +547,20 @@ class Dao_ticketOnair_model extends CI_Model {
 
     public function getAssign() {
         try {
-            //Consultamos la lista de registros pendientes...
+            //CONSULTAMOS LA LISTA DE REGISTROS PENDIENTES...
             $db = new DB();
-            $pending = $db->select("select * from ticket_on_air where i_actualEngineer = 0 order by d_created_at desc")->get();
-            $assing = $db->select("select * from ticket_on_air where i_actualEngineer != 0 order by d_created_at desc")->get();
-            //Consultamos la lista de registros asignados...
+            $pending = $db->select("select * from ticket_on_air "
+                            . "where i_actualEngineer = 0 "
+                            . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) "
+                            . "and MONTH(d_created_at) = MONTH(CURRENT_DATE) "
+                            . "order by d_created_at desc")->get();
+
+            //CONSULTAMOS LA LISTA DE REGISTROS ASIGNADOS...
+            $assing = $db->select("select * from ticket_on_air "
+                            . "where i_actualEngineer != 0 "
+                            . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) "
+                            . "and MONTH(d_created_at) = MONTH(CURRENT_DATE) "
+                            . "order by d_created_at desc")->get();
             $data = [
                 "pendingList" => $pending,
                 "assingList" => $assing
@@ -568,12 +584,12 @@ class Dao_ticketOnair_model extends CI_Model {
                                     where c.n_name_status LIKE '%Escalado%' 
                                     and YEAR(d_created_at) = YEAR(CURRENT_DATE) 
                                     and MONTH(d_created_at) = MONTH(CURRENT_DATE) 
-                                    order by d_created_at desc")->get();
+                                    order by d_created_at desc LIMIT 55")->get();
 //            
 //            $tracing = $db->select("select * from ticket_on_air where i_priority = '1'")->limit(20)->get();
             $priority = $db->select("select * from ticket_on_air where i_priority = '1' "
                             . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) 
-                                    and MONTH(d_created_at) = MONTH(CURRENT_DATE)")->get();
+                                    and MONTH(d_created_at) = MONTH(CURRENT_DATE) LIMIT 55")->get();
 
             $tracing = $db->select("select a.*
                                     from ticket_on_air a
@@ -582,7 +598,7 @@ class Dao_ticketOnair_model extends CI_Model {
                                     where c.n_name_status LIKE '%Seguimiento%' 
                                     and YEAR(d_created_at) = YEAR(CURRENT_DATE) 
                                     and MONTH(d_created_at) = MONTH(CURRENT_DATE) 
-                                    order by d_created_at desc")->get();
+                                    order by d_created_at desc LIMIT 55")->get();
             //Consultamos la lista de registros ...
             $data = [
                 "priorityList" => $priority,

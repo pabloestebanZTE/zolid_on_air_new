@@ -77,6 +77,7 @@ class Process {
         $content = str_replace("NAME_TABLE", $name_table, $content);
         $content = str_replace("GETTERANDSETTERS", $getterandsetters, $content);
         $file->write($content);
+        echo $content;
         echo $className . " --> Creado correctamente.";
     }
 

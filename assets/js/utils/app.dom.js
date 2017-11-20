@@ -42,7 +42,6 @@ var dom = {
         //Shortcuts...
         var keyPrev = null;
         window.addEventListener('keydown', function (e) {
-            console.log(e);
             var isKey = function (e, code) {
                 return e.which == code || e.keyCode == code;
             };
@@ -165,7 +164,7 @@ var dom = {
             var h = parts[0];
             var m = parts[1];
             if (m == 60) {
-                h = 12;
+                h = parseInt(h) + 1;
                 m = 0;
             }
             return ((h < 10) ? '0' + h : h) + ':' + ((m < 10) ? '0' + m : m);

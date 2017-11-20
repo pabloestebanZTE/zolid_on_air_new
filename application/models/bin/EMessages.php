@@ -16,7 +16,7 @@ class EMessages {
     const NOT_ALLOWED = -12;
     const ERROR_CONNECTION = -6;
     const ERROR_QUERY = -5;
-    const ERROR_INSERT = -6;
+    const ERROR_INSERT = -14;
     const ERROR_UPDATE = -7;
     const ERROR_DELETE = -8;
     const ERROR_ACTION = -9;
@@ -45,7 +45,7 @@ class EMessages {
             case EMessages::ERROR_QUERY:
                 return new Response(-1, "Error al consultar.");
             case EMessages::ERROR_INSERT:
-                return new Response(-1, "Error al insertar.");
+                return new Response(-1, "Error al registrar.");
             case EMessages::ERROR_UPDATE:
                 return new Response(-1, "Error al actualizar.");
             case EMessages::ERROR_DELETE:
