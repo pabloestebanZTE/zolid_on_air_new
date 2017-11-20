@@ -181,3 +181,7 @@ ALTER TABLE precheck AUTO_INCREMENT = 1;*/
 -- Modificaciones Lunes, 20 de Noviembre de 2017.
 ALTER TABLE `ticket_on_air`
 	CHANGE COLUMN `d_created_at` `d_created_at` TIMESTAMP NULL DEFAULT NULL AFTER `d_precheck_init`;
+
+ALTER TABLE `user`
+	ADD COLUMN `n_code_user` VARCHAR(5) NULL DEFAULT NULL AFTER `k_id_user`,
+	ADD UNIQUE INDEX `n_code_user` (`n_code_user`);

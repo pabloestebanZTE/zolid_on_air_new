@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <?php $this->load->view('parts/generic/head'); ?>
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
@@ -198,11 +198,10 @@
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
                 var users = <?php echo $users; ?>;
-
                 for (var j = 0; j < users.data.length; j++) {
                     $('#k_id_user').append($('<option>', {
                         value: users.data[j].k_id_user,
-                        text: users.data[j].n_name_user + " " + users.data[j].n_last_name_user
+                        text: users.data[j].n_name_user + " " + users.data[j].n_last_name_user + " (" + users.data[j].n_code_user + ") "
                     }));
                 }
                 console.log(ticket);
