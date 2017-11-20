@@ -190,7 +190,7 @@ class Reportes extends CI_Controller {
         //Seleccionamos la página.
         $objPhpExcel->setActiveSheetIndex(0);
         //Aplicamos estilos a las celdas.
-        $objPhpExcel->getActiveSheet()->getStyle('A1:DO')->applyFromArray(
+        $objPhpExcel->getActiveSheet()->getStyle('A1:DP1')->applyFromArray(
                 array(
                     'font' => array(
                         'bold' => true
@@ -203,6 +203,8 @@ class Reportes extends CI_Controller {
                         'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
                     )
         ));
+
+        
 
         //Escribir cabecearas.
         $objPhpExcel->getActiveSheet()->setCellValue("A1", "Id-On Air");
@@ -327,225 +329,303 @@ class Reportes extends CI_Controller {
         $objPhpExcel->getActiveSheet()->setCellValue("DP1", "NOC");
          
         //Aplicamos las dimenciones a las celdas...
-        $objPhpExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
         $objPhpExcel->getActiveSheet()->getColumnDimension('B')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('G')->setWidth(40);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('G')->setWidth(35);
         $objPhpExcel->getActiveSheet()->getColumnDimension('H')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('I')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('J')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('K')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('J')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('K')->setWidth(22);
         $objPhpExcel->getActiveSheet()->getColumnDimension('L')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('M')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('N')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('O')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('P')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('R')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('S')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('T')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('M')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('N')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('O')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('P')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('R')->setWidth(25);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('S')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('T')->setWidth(22);
         $objPhpExcel->getActiveSheet()->getColumnDimension('U')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('V')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('W')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('X')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AE')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AF')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AG')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AH')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AI')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AJ')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('V')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('W')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('X')->setWidth(45);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(45);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(45);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AA')->setWidth(45);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AB')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AC')->setWidth(25);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AD')->setWidth(12);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AE')->setWidth(12);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AF')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AG')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AH')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AI')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AJ')->setWidth(20);
         $objPhpExcel->getActiveSheet()->getColumnDimension('AK')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AL')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AM')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AN')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AO')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AP')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AQ')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AR')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AS')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AT')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AL')->setWidth(15);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AM')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AN')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AO')->setWidth(80);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AP')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AQ')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AR')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AS')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AT')->setWidth(20);
         $objPhpExcel->getActiveSheet()->getColumnDimension('AU')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AV')->setWidth(40);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AV')->setWidth(20);
         $objPhpExcel->getActiveSheet()->getColumnDimension('AW')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AX')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AY')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('AZ')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BA')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BB')->setWidth(40);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AX')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AY')->setWidth(25);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AZ')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BA')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BB')->setWidth(22);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BC')->setWidth(30);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BD')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BE')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BF')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BG')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BH')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BI')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BJ')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BE')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BF')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BG')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BH')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BI')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BJ')->setWidth(20);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BK')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BL')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BM')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BL')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BM')->setWidth(20);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BN')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BO')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BP')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BQ')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BR')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BS')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BT')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BO')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BP')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BQ')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BR')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BS')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BT')->setWidth(20);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BU')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BV')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BW')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('BX')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BV')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BW')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('BX')->setWidth(22);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BY')->setWidth(30);
         $objPhpExcel->getActiveSheet()->getColumnDimension('BZ')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DA')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DB')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DC')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DD')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DE')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DF')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DG')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DH')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DI')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DJ')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DK')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DL')->setWidth(40);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DM')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DN')->setWidth(20);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DO')->setWidth(30);
-        $objPhpExcel->getActiveSheet()->getColumnDimension('DP')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('AZ')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CA')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CB')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CC')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CD')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CE')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CF')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CG')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CH')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CI')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CJ')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CK')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CL')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CM')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CN')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CO')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CP')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CQ')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CR')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CS')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CT')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CU')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CV')->setWidth(40);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CW')->setWidth(40);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CX')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CY')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('CZ')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DA')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DB')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DC')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DD')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DE')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DF')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DG')->setWidth(30);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DH')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DI')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DJ')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DK')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DL')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DM')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DN')->setWidth(22);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DO')->setWidth(20);
+        $objPhpExcel->getActiveSheet()->getColumnDimension('DP')->setWidth(15);
+
+
+
            
 
         //Ahora pintamos los datos...
-        for ($i = 0; $i < count($res); $i++) {
-            $objPhpExcel->getActiveSheet()->setCellValue("A" . ($i + 2), $res[$i]->k_id_onair);
-            $objPhpExcel->getActiveSheet()->setCellValue("B" . ($i + 2), $res[$i]->k_id_station->n_name_station);
-            $objPhpExcel->getActiveSheet()->setCellValue("C" . ($i + 2), $res[$i]->k_id_preparation->n_bcf_wbts_id);
-            $objPhpExcel->getActiveSheet()->setCellValue("D" . ($i + 2), $res[$i]->k_id_preparation->n_bts_id);
-            $objPhpExcel->getActiveSheet()->setCellValue("E" . ($i + 2), $res[$i]->k_id_technology->n_name_technology);
-            $objPhpExcel->getActiveSheet()->setCellValue("F" . ($i + 2), $res[$i]->k_id_band->n_name_band);
-            $objPhpExcel->getActiveSheet()->setCellValue("G" . ($i + 2), $res[$i]->k_id_status_onair->k_id_status->n_name_status);
-            $objPhpExcel->getActiveSheet()->setCellValue("H" . ($i + 2), $res[$i]->k_id_status_onair->k_id_substatus->n_name_substatus);
-            $objPhpExcel->getActiveSheet()->setCellValue("I" . ($i + 2), $res[$i]->b_excpetion_gri);
-            $objPhpExcel->getActiveSheet()->setCellValue("J" . ($i + 2), $res[$i]->k_id_preparation->d_ingreso_on_air);
-            $objPhpExcel->getActiveSheet()->setCellValue("K" . ($i + 2), $res[$i]->d_fecha_ultima_rev);
-            $objPhpExcel->getActiveSheet()->setCellValue("L" . ($i + 2), $res[$i]->k_id_work->n_name_ork);
-            $objPhpExcel->getActiveSheet()->setCellValue("M" . ($i + 2), $res[$i]->k_id_preparation->b_vistamm);
-            $objPhpExcel->getActiveSheet()->setCellValue("N" . ($i + 2), $res[$i]->k_id_preparation->n_enteejecutor);
-            $objPhpExcel->getActiveSheet()->setCellValue("O" . ($i + 2), $res[$i]->k_id_preparation->n_controlador);
-            $objPhpExcel->getActiveSheet()->setCellValue("P" . ($i + 2), $res[$i]->k_id_preparation->n_idcontrolador);
-            $objPhpExcel->getActiveSheet()->setCellValue("Q" . ($i + 2), $res[$i]->k_id_station->k_id_city->n_name_city);
-            $objPhpExcel->getActiveSheet()->setCellValue("R" . ($i + 2), $res[$i]->k_id_station->k_id_city->k_id_regional->n_name_regional);
-            $objPhpExcel->getActiveSheet()->setCellValue("S" . ($i + 2), $res[$i]->d_desbloqueo);
-            $objPhpExcel->getActiveSheet()->setCellValue("T" . ($i + 2), $res[$i]->d_bloqueo);
-            $objPhpExcel->getActiveSheet()->setCellValue("U" . ($i + 2), $res[$i]->n_reviewedfo);
-            $objPhpExcel->getActiveSheet()->setCellValue("V" . ($i + 2), $res[$i]->k_id_preparation->d_correccionespendientes);
-            $objPhpExcel->getActiveSheet()->setCellValue("W" . ($i + 2), $res[$i]->k_id_preparation->n_btsipaddress);
-            $objPhpExcel->getActiveSheet()->setCellValue("X" . ($i + 2), $res[$i]->k_id_preparation->n_integrador);
-            $objPhpExcel->getActiveSheet()->setCellValue("Y" . ($i + 2), $res[$i]->k_id_precheck->k_id_user->n_name_user);
-            $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($i + 2), $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user);
-            $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($i + 2), $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user);
-            $objPhpExcel->getActiveSheet()->setCellValue("AB" . ($i + 2), $res[$i]->k_id_preparation->n_wp);
-            $objPhpExcel->getActiveSheet()->setCellValue("AC" . ($i + 2), $res[$i]->k_id_preparation->n_crq);
-            $objPhpExcel->getActiveSheet()->setCellValue("AD" . ($i + 2), $res[$i]->k_id_preparation->n_testgestion);
-            $objPhpExcel->getActiveSheet()->setCellValue("AE" . ($i + 2), $res[$i]->k_id_preparation->n_sitiolimpio);
-            $objPhpExcel->getActiveSheet()->setCellValue("AF" . ($i + 2), $res[$i]->d_fechaproduccion);
-            $objPhpExcel->getActiveSheet()->setCellValue("AG" . ($i + 2), $res[$i]->k_id_preparation->n_instalacion_hw_sitio);
-            $objPhpExcel->getActiveSheet()->setCellValue("AH" . ($i + 2), $res[$i]->k_id_preparation->n_cambios_config_solicitados);
-            $objPhpExcel->getActiveSheet()->setCellValue("AI" . ($i + 2), $res[$i]->k_id_preparation->n_cambios_config_final);
-            $objPhpExcel->getActiveSheet()->setCellValue("AJ" . ($i + 2), $res[$i]->n_sectoresbloqueados);
-            $objPhpExcel->getActiveSheet()->setCellValue("AK" . ($i + 2), $res[$i]->n_sectoresdesbloqueados);
-            $objPhpExcel->getActiveSheet()->setCellValue("AL" . ($i + 2), $res[$i]->n_estadoonair);
-            $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($i + 2), $res[$i]->scaled_onair->n_atribuible_nokia);
-            $objPhpExcel->getActiveSheet()->setCellValue("AN" . ($i + 2), $res[$i]->k_id_preparation->n_contratista);
-            $objPhpExcel->getActiveSheet()->setCellValue("AO" . ($i + 2), $res[$i]->k_id_preparation->n_comentarioccial);
-            $objPhpExcel->getActiveSheet()->setCellValue("AP" . ($i + 2), $res[$i]->k_id_preparation->n_ticketremedy);
-            $objPhpExcel->getActiveSheet()->setCellValue("AQ" . ($i + 2), $res[$i]->k_id_precheck->d_finpre);
-            $objPhpExcel->getActiveSheet()->setCellValue("AR" . ($i + 2), $res[$i]->onair12->d_fin12h);
-            $objPhpExcel->getActiveSheet()->setCellValue("AS" . ($i + 2), " ");//fin48
-            $objPhpExcel->getActiveSheet()->setCellValue("AT" . ($i + 2), $res[$i]->k_id_preparation->n_lac);
-            $objPhpExcel->getActiveSheet()->setCellValue("AU" . ($i + 2), $res[$i]->k_id_preparation->n_rac);
-            $objPhpExcel->getActiveSheet()->setCellValue("AV" . ($i + 2), $res[$i]->k_id_preparation->n_sac);
-            $objPhpExcel->getActiveSheet()->setCellValue("AW" . ($i + 2), $res[$i]->k_id_preparation->n_integracion_gestion_y_trafica);
-            $objPhpExcel->getActiveSheet()->setCellValue("AX" . ($i + 2), $res[$i]->k_id_preparation->puesta_servicio_sitio_nuevo_lte);
-            $objPhpExcel->getActiveSheet()->setCellValue("AY" . ($i + 2), $res[$i]->k_id_preparation->n_instalacion_hw_4g_sitio);
-            $objPhpExcel->getActiveSheet()->setCellValue("AZ" . ($i + 2), $res[$i]->k_id_preparation->pre_launch);
-            $objPhpExcel->getActiveSheet()->setCellValue("BA" . ($i + 2), $res[$i]->d_actualizacion_final);
-            $objPhpExcel->getActiveSheet()->setCellValue("BB" . ($i + 2), $res[$i]->d_asignacion_final);
-            $objPhpExcel->getActiveSheet()->setCellValue("BC" . ($i + 2), " ");//identificador
-            $objPhpExcel->getActiveSheet()->setCellValue("BD" . ($i + 2), $res[$i]->k_id_preparation->n_evidenciasl);
-            $objPhpExcel->getActiveSheet()->setCellValue("BE" . ($i + 2), $res[$i]->k_id_preparation->n_evidenciatg);
-            $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($i + 2), $res[$i]->scaled_onair->d_time_escalado);
-            $objPhpExcel->getActiveSheet()->setCellValue("BG" . ($i + 2), $res[$i]->scaled_onair->d_fecha_escalado);
-            $objPhpExcel->getActiveSheet()->setCellValue("BH" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_imp);
-            $objPhpExcel->getActiveSheet()->setCellValue("BI" . ($i + 2), $res[$i]->scaled_onair->time_esc_imp);
-            $objPhpExcel->getActiveSheet()->setCellValue("BJ" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_rf);
-            $objPhpExcel->getActiveSheet()->setCellValue("BK" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_rf);
-            $objPhpExcel->getActiveSheet()->setCellValue("BL" . ($i + 2), $res[$i]->scaled_onair->cont_esc_npo);
-            $objPhpExcel->getActiveSheet()->setCellValue("BM" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_npo);
-            $objPhpExcel->getActiveSheet()->setCellValue("BN" . ($i + 2), $res[$i]->scaled_onair->cont_esc_care);
-            $objPhpExcel->getActiveSheet()->setCellValue("BO" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_care);
-            $objPhpExcel->getActiveSheet()->setCellValue("BP" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_gdrt);
-            $objPhpExcel->getActiveSheet()->setCellValue("BQ" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_gdrt);
-            $objPhpExcel->getActiveSheet()->setCellValue("BR" . ($i + 2), $res[$i]->scaled_onair->i_cont_esc_oym);
-            $objPhpExcel->getActiveSheet()->setCellValue("BS" . ($i + 2), $res[$i]->scaled_onair->time_esc_oym);
-            $objPhpExcel->getActiveSheet()->setCellValue("BT" . ($i + 2), $res[$i]->scaled_onair->cont_esc_calidad);
-            $objPhpExcel->getActiveSheet()->setCellValue("BU" . ($i + 2), $res[$i]->scaled_onair->i_time_esc_calidad);
-            $objPhpExcel->getActiveSheet()->setCellValue("BV" . ($i + 2), $res[$i]->k_id_preparation->i_week);
-            $objPhpExcel->getActiveSheet()->setCellValue("BW" . ($i + 2), " ");//t_from_notif
-            $objPhpExcel->getActiveSheet()->setCellValue("BX" . ($i + 2), " ");//t_from_asign
-            $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($i + 2), $res[$i]->scaled_onair->n_atribuible_nokia2); 
-            $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($i + 2), $res[$i]->n_kpis_degraded); 
-            $objPhpExcel->getActiveSheet()->setCellValue("CA" . ($i + 2), $res[$i]->k_id_preparation->id_notificacion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CB" . ($i + 2), $res[$i]->k_id_preparation->id_documentacion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CC" . ($i + 2), $res[$i]->k_id_preparation->id_rftools);
-            $objPhpExcel->getActiveSheet()->setCellValue("CD" . ($i + 2), $res[$i]->scaled_onair->n_tipificacion_solucion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CE" . ($i + 2), $res[$i]->n_kpi1);
-            $objPhpExcel->getActiveSheet()->setCellValue("CF" . ($i + 2), $res[$i]->i_valor_kpi1);
-            $objPhpExcel->getActiveSheet()->setCellValue("CG" . ($i + 2), $res[$i]->n_kpi2);
-            $objPhpExcel->getActiveSheet()->setCellValue("CH" . ($i + 2), $res[$i]->i_valor_kpi2);
-            $objPhpExcel->getActiveSheet()->setCellValue("CI" . ($i + 2), $res[$i]->n_kpi3);
-            $objPhpExcel->getActiveSheet()->setCellValue("CJ" . ($i + 2), $res[$i]->i_valor_kpi3);
-            $objPhpExcel->getActiveSheet()->setCellValue("CK" . ($i + 2), $res[$i]->n_kpi4);
-            $objPhpExcel->getActiveSheet()->setCellValue("CL" . ($i + 2), $res[$i]->i_valor_kpi4);
-            $objPhpExcel->getActiveSheet()->setCellValue("CM" . ($i + 2), $res[$i]->n_alarma1);
-            $objPhpExcel->getActiveSheet()->setCellValue("CN" . ($i + 2), $res[$i]->n_alarma2);
-            $objPhpExcel->getActiveSheet()->setCellValue("CO" . ($i + 2), $res[$i]->n_alarma3);
-            $objPhpExcel->getActiveSheet()->setCellValue("CP" . ($i + 2), $res[$i]->n_alarma4);
-            $objPhpExcel->getActiveSheet()->setCellValue("CQ" . ($i + 2), $res[$i]->i_cont_total_escalamiento);
-            $objPhpExcel->getActiveSheet()->setCellValue("CR" . ($i + 2), $res[$i]->i_time_total_escalamiento);
-            $objPhpExcel->getActiveSheet()->setCellValue("CS" . ($i + 2), " ");//OLA
-            $objPhpExcel->getActiveSheet()->setCellValue("CT" . ($i + 2), " ");//OLA extendido
-            $objPhpExcel->getActiveSheet()->setCellValue("CU" . ($i + 2), $res[$i]->scaled_onair->n_detalle_solucion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CV" . ($i + 2), $res[$i]->i_lider_cambio);
-            $objPhpExcel->getActiveSheet()->setCellValue("CW" . ($i + 2), $res[$i]->i_lider_cuadrilla);
-            $objPhpExcel->getActiveSheet()->setCellValue("CX" . ($i + 2), "");//OLA_Areas
-            $objPhpExcel->getActiveSheet()->setCellValue("CY" . ($i + 2), "");//OLA_Areas_Excedido
-            $objPhpExcel->getActiveSheet()->setCellValue("CZ" . ($i + 2), $res[$i]->scaled_onair->n_ultimo_subestado_de_escalamiento);
-            $objPhpExcel->getActiveSheet()->setCellValue("DA" . ($i + 2), $res[$i]->onair24->d_fin24h);
-            $objPhpExcel->getActiveSheet()->setCellValue("DB" . ($i + 2), $res[$i]->onair36->d_fin36h);
-            $objPhpExcel->getActiveSheet()->setCellValue("DC" . ($i + 2), $res[$i]->n_implementacion_campo);
-            $objPhpExcel->getActiveSheet()->setCellValue("DD" . ($i + 2), " ");//implementacion_remota
-            $objPhpExcel->getActiveSheet()->setCellValue("DE" . ($i + 2), $res[$i]->n_gestion_power);
-            $objPhpExcel->getActiveSheet()->setCellValue("DF" . ($i + 2), $res[$i]->n_obra_civil);
-            $objPhpExcel->getActiveSheet()->setCellValue("DG" . ($i + 2), $res[$i]->on_air);
-            $objPhpExcel->getActiveSheet()->setCellValue("DH" . ($i + 2), $res[$i]->fecha_rft);
-            $objPhpExcel->getActiveSheet()->setCellValue("DI" . ($i + 2), $res[$i]->d_fecha_cg);
-            $objPhpExcel->getActiveSheet()->setCellValue("DJ" . ($i + 2), $res[$i]->n_exclusion_bajo_trafico);
-            $objPhpExcel->getActiveSheet()->setCellValue("DK" . ($i + 2), $res[$i]->n_ticket);
-            $objPhpExcel->getActiveSheet()->setCellValue("DL" . ($i + 2), $res[$i]->n_estado_ticket);
-            $objPhpExcel->getActiveSheet()->setCellValue("DM" . ($i + 2), $res[$i]->n_sln_modernizacion);
-            $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($i + 2), $res[$i]->n_en_prorroga);
-            $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($i + 2), $res[$i]->n_cont_prorrogas);
-            $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($i + 2), $res[$i]->n_noc);    
-        }
+          /*  print_r($res);*/
+        for ($r = 0; $r < count($res); $r++) {
+                $objPhpExcel->getActiveSheet()->setCellValue("A" . ($r + 2), $res[$r]->k_id_onair);
+                $objPhpExcel->getActiveSheet()->setCellValue("I" . ($r + 2), $res[$r]->b_excpetion_gri);
+                $objPhpExcel->getActiveSheet()->setCellValue("K" . ($r + 2), $res[$r]->d_fecha_ultima_rev);
+                $objPhpExcel->getActiveSheet()->setCellValue("S" . ($r + 2), $res[$r]->d_desbloqueo);
+                $objPhpExcel->getActiveSheet()->setCellValue("T" . ($r + 2), $res[$r]->d_bloqueo);
+                $objPhpExcel->getActiveSheet()->setCellValue("U" . ($r + 2), $res[$r]->n_reviewedfo);
+                $objPhpExcel->getActiveSheet()->setCellValue("AJ" . ($r + 2), $res[$r]->n_sectoresbloqueados);
+                $objPhpExcel->getActiveSheet()->setCellValue("AK" . ($r + 2), $res[$r]->n_sectoresdesbloqueados);
+                $objPhpExcel->getActiveSheet()->setCellValue("AL" . ($r + 2), $res[$r]->n_estadoonair);
+                $objPhpExcel->getActiveSheet()->setCellValue("AS" . ($r + 2), " ");//fin48
+                $objPhpExcel->getActiveSheet()->setCellValue("BA" . ($r + 2), $res[$r]->d_actualizacion_final);
+                $objPhpExcel->getActiveSheet()->setCellValue("BB" . ($r + 2), $res[$r]->d_asignacion_final);
+                $objPhpExcel->getActiveSheet()->setCellValue("BC" . ($r + 2), " ");//identificador
+                $objPhpExcel->getActiveSheet()->setCellValue("BW" . ($r + 2), " ");//t_from_notif
+                $objPhpExcel->getActiveSheet()->setCellValue("BX" . ($r + 2), " ");//t_from_asign
+                $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($r + 2), $res[$r]->n_kpis_degraded); 
+                $objPhpExcel->getActiveSheet()->setCellValue("CE" . ($r + 2), $res[$r]->n_kpi1);
+                $objPhpExcel->getActiveSheet()->setCellValue("CF" . ($r + 2), $res[$r]->i_valor_kpi1);
+                $objPhpExcel->getActiveSheet()->setCellValue("CG" . ($r + 2), $res[$r]->n_kpi2);
+                $objPhpExcel->getActiveSheet()->setCellValue("CH" . ($r + 2), $res[$r]->i_valor_kpi2);
+                $objPhpExcel->getActiveSheet()->setCellValue("CI" . ($r + 2), $res[$r]->n_kpi3);
+                $objPhpExcel->getActiveSheet()->setCellValue("CJ" . ($r + 2), $res[$r]->i_valor_kpi3);
+                $objPhpExcel->getActiveSheet()->setCellValue("CK" . ($r + 2), $res[$r]->n_kpi4);
+                $objPhpExcel->getActiveSheet()->setCellValue("CL" . ($r + 2), $res[$r]->i_valor_kpi4);
+                $objPhpExcel->getActiveSheet()->setCellValue("CM" . ($r + 2), $res[$r]->n_alarma1);
+                $objPhpExcel->getActiveSheet()->setCellValue("CN" . ($r + 2), $res[$r]->n_alarma2);
+                $objPhpExcel->getActiveSheet()->setCellValue("CO" . ($r + 2), $res[$r]->n_alarma3);
+                $objPhpExcel->getActiveSheet()->setCellValue("CP" . ($r + 2), $res[$r]->n_alarma4);
+                $objPhpExcel->getActiveSheet()->setCellValue("CQ" . ($r + 2), $res[$r]->i_cont_total_escalamiento);
+                $objPhpExcel->getActiveSheet()->setCellValue("CR" . ($r + 2), $res[$r]->i_time_total_escalamiento);
+                $objPhpExcel->getActiveSheet()->setCellValue("CS" . ($r + 2), " ");//OLA
+                $objPhpExcel->getActiveSheet()->setCellValue("CT" . ($r + 2), " ");//OLA extendido
+                $objPhpExcel->getActiveSheet()->setCellValue("CV" . ($r + 2), $res[$r]->i_lider_cambio);
+                $objPhpExcel->getActiveSheet()->setCellValue("CW" . ($r + 2), $res[$r]->i_lider_cuadrilla);
+                $objPhpExcel->getActiveSheet()->setCellValue("CX" . ($r + 2), "");//OLA_Areas
+                $objPhpExcel->getActiveSheet()->setCellValue("CY" . ($r + 2), "");//OLA_Areas_Excedido
+                $objPhpExcel->getActiveSheet()->setCellValue("DC" . ($r + 2), $res[$r]->n_implementacion_campo);
+                $objPhpExcel->getActiveSheet()->setCellValue("DD" . ($r + 2), " ");//implementacion_remota
+                $objPhpExcel->getActiveSheet()->setCellValue("DE" . ($r + 2), $res[$r]->n_gestion_power);
+                $objPhpExcel->getActiveSheet()->setCellValue("DF" . ($r + 2), $res[$r]->n_obra_civil);
+                $objPhpExcel->getActiveSheet()->setCellValue("DG" . ($r + 2), $res[$r]->on_air);
+                $objPhpExcel->getActiveSheet()->setCellValue("DH" . ($r + 2), $res[$r]->fecha_rft);
+                $objPhpExcel->getActiveSheet()->setCellValue("DI" . ($r + 2), $res[$r]->d_fecha_cg);
+                $objPhpExcel->getActiveSheet()->setCellValue("DJ" . ($r + 2), $res[$r]->n_exclusion_bajo_trafico);
+                $objPhpExcel->getActiveSheet()->setCellValue("DK" . ($r + 2), $res[$r]->n_ticket);
+                $objPhpExcel->getActiveSheet()->setCellValue("DL" . ($r + 2), $res[$r]->n_estado_ticket);
+                $objPhpExcel->getActiveSheet()->setCellValue("DM" . ($r + 2), $res[$r]->n_sln_modernizacion);
+                $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($r + 2), $res[$r]->n_en_prorroga);
+                $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($r + 2), $res[$r]->n_cont_prorrogas);
+                $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($r + 2), $res[$r]->n_noc);   
+
+
+            if ($res[$r]->k_id_station) {
+                $objPhpExcel->getActiveSheet()->setCellValue("B" . ($r + 2), $res[$r]->k_id_station->n_name_station);
+                if ($res[$r]->k_id_station->k_id_city) {
+                    $objPhpExcel->getActiveSheet()->setCellValue("Q" . ($r + 2), $res[$r]->k_id_station->k_id_city->n_name_city);
+                    if ($res[$r]->k_id_station->k_id_city->k_id_regional) {
+                        $objPhpExcel->getActiveSheet()->setCellValue("R" . ($r + 2), $res[$r]->k_id_station->k_id_city->k_id_regional->n_name_regional);
+                    }
+                }
+            }
+            if ($res[$r]->k_id_preparation) {
+                $objPhpExcel->getActiveSheet()->setCellValue("C" . ($r + 2), $res[$r]->k_id_preparation->n_bcf_wbts_id);
+                $objPhpExcel->getActiveSheet()->setCellValue("D" . ($r + 2), $res[$r]->k_id_preparation->n_bts_id);
+                $objPhpExcel->getActiveSheet()->setCellValue("J" . ($r + 2), $res[$r]->k_id_preparation->d_ingreso_on_air);
+                $objPhpExcel->getActiveSheet()->setCellValue("M" . ($r + 2), $res[$r]->k_id_preparation->b_vistamm);
+                $objPhpExcel->getActiveSheet()->setCellValue("N" . ($r + 2), $res[$r]->k_id_preparation->n_enteejecutor);
+                $objPhpExcel->getActiveSheet()->setCellValue("O" . ($r + 2), $res[$r]->k_id_preparation->n_controlador);
+                $objPhpExcel->getActiveSheet()->setCellValue("P" . ($r + 2), $res[$r]->k_id_preparation->n_idcontrolador);
+                $objPhpExcel->getActiveSheet()->setCellValue("V" . ($r + 2), $res[$r]->k_id_preparation->d_correccionespendientes);
+                $objPhpExcel->getActiveSheet()->setCellValue("W" . ($r + 2), $res[$r]->k_id_preparation->n_btsipaddress);
+                $objPhpExcel->getActiveSheet()->setCellValue("X" . ($r + 2), $res[$r]->k_id_preparation->n_integrador);
+                $objPhpExcel->getActiveSheet()->setCellValue("AB" . ($r + 2), $res[$r]->k_id_preparation->n_wp);
+                $objPhpExcel->getActiveSheet()->setCellValue("AC" . ($r + 2), $res[$r]->k_id_preparation->n_crq);
+                $objPhpExcel->getActiveSheet()->setCellValue("AD" . ($r + 2), $res[$r]->k_id_preparation->n_testgestion);
+                $objPhpExcel->getActiveSheet()->setCellValue("AE" . ($r + 2), $res[$r]->k_id_preparation->n_sitiolimpio);
+                $objPhpExcel->getActiveSheet()->setCellValue("AF" . ($r + 2), $res[$r]->d_fechaproduccion);
+                $objPhpExcel->getActiveSheet()->setCellValue("AG" . ($r + 2), $res[$r]->k_id_preparation->n_instalacion_hw_sitio);
+                $objPhpExcel->getActiveSheet()->setCellValue("AH" . ($r + 2), $res[$r]->k_id_preparation->n_cambios_config_solicitados);
+                $objPhpExcel->getActiveSheet()->setCellValue("AI" . ($r + 2), $res[$r]->k_id_preparation->n_cambios_config_final);
+                $objPhpExcel->getActiveSheet()->setCellValue("AN" . ($r + 2), $res[$r]->k_id_preparation->n_contratista);
+                $objPhpExcel->getActiveSheet()->setCellValue("AO" . ($r + 2), $res[$r]->k_id_preparation->n_comentarioccial);
+                $objPhpExcel->getActiveSheet()->setCellValue("AP" . ($r + 2), $res[$r]->k_id_preparation->n_ticketremedy);
+                $objPhpExcel->getActiveSheet()->setCellValue("AT" . ($r + 2), $res[$r]->k_id_preparation->n_lac);
+                $objPhpExcel->getActiveSheet()->setCellValue("AU" . ($r + 2), $res[$r]->k_id_preparation->n_rac);
+                $objPhpExcel->getActiveSheet()->setCellValue("AV" . ($r + 2), $res[$r]->k_id_preparation->n_sac);
+                $objPhpExcel->getActiveSheet()->setCellValue("AW" . ($r + 2), $res[$r]->k_id_preparation->n_integracion_gestion_y_trafica);
+                $objPhpExcel->getActiveSheet()->setCellValue("AX" . ($r + 2), $res[$r]->k_id_preparation->puesta_servicio_sitio_nuevo_lte);
+                $objPhpExcel->getActiveSheet()->setCellValue("AY" . ($r + 2), $res[$r]->k_id_preparation->n_instalacion_hw_4g_sitio);
+                $objPhpExcel->getActiveSheet()->setCellValue("AZ" . ($r + 2), $res[$r]->k_id_preparation->pre_launch);
+                $objPhpExcel->getActiveSheet()->setCellValue("BD" . ($r + 2), $res[$r]->k_id_preparation->n_evidenciasl);
+                $objPhpExcel->getActiveSheet()->setCellValue("BE" . ($r + 2), $res[$r]->k_id_preparation->n_evidenciatg);
+                $objPhpExcel->getActiveSheet()->setCellValue("BV" . ($r + 2), $res[$r]->k_id_preparation->i_week);
+                $objPhpExcel->getActiveSheet()->setCellValue("CA" . ($r + 2), $res[$r]->k_id_preparation->id_notificacion);
+                $objPhpExcel->getActiveSheet()->setCellValue("CB" . ($r + 2), $res[$r]->k_id_preparation->id_documentacion);
+                $objPhpExcel->getActiveSheet()->setCellValue("CC" . ($r + 2), $res[$r]->k_id_preparation->id_rftools);
+            }
+            if ($res[$r]->k_id_precheck) {
+                $objPhpExcel->getActiveSheet()->setCellValue("AQ" . ($r + 2), $res[$r]->k_id_precheck->d_finpre);
+                if ($res[$r]->k_id_precheck->k_id_user) {
+                    $objPhpExcel->getActiveSheet()->setCellValue("Y" . ($r + 2), $res[$r]->k_id_precheck->k_id_user->n_name_user." ".$res[$r]->k_id_precheck->k_id_user->n_last_name_user);
+                }
+            }
+            if ($res[$r]->k_id_band) {
+                $objPhpExcel->getActiveSheet()->setCellValue("F" . ($r + 2), $res[$r]->k_id_band->n_name_band);
+            }
+            if ($res[$r]->k_id_technology) {
+                $objPhpExcel->getActiveSheet()->setCellValue("E" . ($r + 2), $res[$r]->k_id_technology->n_name_technology);
+            }
+            if ($res[$r]->k_id_status_onair) {
+                if ($res[$r]->k_id_status_onair['k_id_status']) {
+                    $objPhpExcel->getActiveSheet()->setCellValue("G" . ($r + 2), $res[$r]->k_id_status_onair['k_id_status']->n_name_status);
+                }
+                if ($res[$r]->k_id_status_onair['k_id_substatus']) {
+                    $objPhpExcel->getActiveSheet()->setCellValue("H" . ($r + 2), $res[$r]->k_id_status_onair['k_id_substatus']->n_name_substatus);
+                }
+            }
+            if ($res[$r]->k_id_work) {
+                $objPhpExcel->getActiveSheet()->setCellValue("L" . ($r + 2), $res[$r]->k_id_work->n_name_ork);
+            }
+            if ($res[$r]->onair12) {
+                if ($res[$r]->onair12->k_id_follow_up_12h) {
+                    if ($res[$r]->onair12->k_id_follow_up_12h->k_id_user) {
+                        $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($r + 2), $res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user);         
+                    }
+                }
+                $objPhpExcel->getActiveSheet()->setCellValue("AR" . ($r + 2), $res[$r]->onair12->d_fin12h);
+            }
+            if ($res[$r]->onair36) {
+                if ($res[$r]->onair36->k_id_follow_up_36h) {
+                    if ($res[$r]->onair36->k_id_follow_up_36h->k_id_user) {
+                        $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($r + 2), $res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user);         
+                    }
+                }
+                $objPhpExcel->getActiveSheet()->setCellValue("DB" . ($r + 2), $res[$r]->onair36->d_fin36h);
+            }
+            if ($res[$r]->scaled_onair) {
+                $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($r + 2), $res[$r]->scaled_onair->n_atribuible_nokia);               
+                $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($r + 2), $res[$r]->scaled_onair->d_time_escalado);                       
+                $objPhpExcel->getActiveSheet()->setCellValue("BG" . ($r + 2), $res[$r]->scaled_onair->d_fecha_escalado);
+                $objPhpExcel->getActiveSheet()->setCellValue("BH" . ($r + 2), $res[$r]->scaled_onair->i_cont_esc_imp);
+                $objPhpExcel->getActiveSheet()->setCellValue("BI" . ($r + 2), $res[$r]->scaled_onair->time_esc_imp);
+                $objPhpExcel->getActiveSheet()->setCellValue("BJ" . ($r + 2), $res[$r]->scaled_onair->i_cont_esc_rf);
+                $objPhpExcel->getActiveSheet()->setCellValue("BK" . ($r + 2), $res[$r]->scaled_onair->i_time_esc_rf);
+                $objPhpExcel->getActiveSheet()->setCellValue("BL" . ($r + 2), $res[$r]->scaled_onair->cont_esc_npo);
+                $objPhpExcel->getActiveSheet()->setCellValue("BM" . ($r + 2), $res[$r]->scaled_onair->i_time_esc_npo);
+                $objPhpExcel->getActiveSheet()->setCellValue("BN" . ($r + 2), $res[$r]->scaled_onair->cont_esc_care);
+                $objPhpExcel->getActiveSheet()->setCellValue("BO" . ($r + 2), $res[$r]->scaled_onair->i_time_esc_care);
+                $objPhpExcel->getActiveSheet()->setCellValue("BP" . ($r + 2), $res[$r]->scaled_onair->i_cont_esc_gdrt);
+                $objPhpExcel->getActiveSheet()->setCellValue("BQ" . ($r + 2), $res[$r]->scaled_onair->i_time_esc_gdrt);
+                $objPhpExcel->getActiveSheet()->setCellValue("BR" . ($r + 2), $res[$r]->scaled_onair->i_cont_esc_oym);
+                $objPhpExcel->getActiveSheet()->setCellValue("BS" . ($r + 2), $res[$r]->scaled_onair->time_esc_oym);
+                $objPhpExcel->getActiveSheet()->setCellValue("BT" . ($r + 2), $res[$r]->scaled_onair->cont_esc_calidad);
+                $objPhpExcel->getActiveSheet()->setCellValue("BU" . ($r + 2), $res[$r]->scaled_onair->i_time_esc_calidad);
+                $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($r + 2), $res[$r]->scaled_onair->n_atribuible_nokia2); 
+                $objPhpExcel->getActiveSheet()->setCellValue("CU" . ($r + 2), $res[$r]->scaled_onair->n_detalle_solucion);
+                $objPhpExcel->getActiveSheet()->setCellValue("CZ" . ($r + 2), $res[$r]->scaled_onair->n_ultimo_subestado_de_escalamiento);
+                $objPhpExcel->getActiveSheet()->setCellValue("CD" . ($r + 2), $res[$r]->scaled_onair->n_tipificacion_solucion);
+            } 
+            if ($res[$r]->onair24) {
+                $objPhpExcel->getActiveSheet()->setCellValue("DA" . ($r + 2), $res[$r]->onair24->d_fin24h);
+            }
+
+            $objPhpExcel->getActiveSheet()->getStyle("AO".($r + 2))->getAlignment()->setWrapText(true);
+            //$objPhpExcel->getActiveSheet()->getHighestRow();
+        }       
+        //$objPhpExcel->getActiveSheet()->getStyle('AO'.$objPhpExcel->getActiveSheet()->getHighestRow())
+        //->getAlignment()->setWrapText(true); 
         //Ponemos un nombre a la hoja.
         $objPhpExcel->getActiveSheet()->setTitle('Reporte ONAIR');
         //Hacemos la hoja activa...

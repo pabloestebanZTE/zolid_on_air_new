@@ -106,7 +106,7 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getAll() {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $datos = $ticketOnAir->orderBy("k_id_onair", "DESC")->limit(50)->get();
+            $datos = $ticketOnAir->orderBy("k_id_onair", "DESC")->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
