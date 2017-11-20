@@ -119,14 +119,14 @@ class TicketOnair extends CI_Controller {
                 $res[$j]->i_actualEngineer = $assign->findBySingleId($res[$j]->i_actualEngineer)->data; //
                 $res[$j]->i_actualEngineer = $res[$j]->i_actualEngineer->n_name_user . " " . $res[$j]->i_actualEngineer->n_last_name_user;
             } elseif ($res[$j]->i_actualEngineer == 0) {
-              $res[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+                $res[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
             }
         }
         return $res;
     }
 
     public function ticketUser() {
-        
+
         //Se comprueba si no hay sesión.
         if (!Auth::check()) {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
@@ -281,11 +281,12 @@ class TicketOnair extends CI_Controller {
         $ticketPS = new dao_preparationStage_model();
         //camilo se envia semana actual y fecha de creacion
         $this->request->i_week = Hash::getDate();
-        $this->request->d_asignacion_final =  Hash::getDate();
+        $this->request->d_asignacion_final = Hash::getDate();
         $this->request->i_week = Date("W");
         $response = $ticketPS->insertPreparationStage($this->request);
         $this->request->k_id_preparation = $response->data->data;
         $this->request->i_actualEngineer = 0;
+        $this->request->d_created_at = Hash::getDate();
         $response = $ticket->insertTicket($this->request);
         $this->json($response);
     }
@@ -352,7 +353,7 @@ class TicketOnair extends CI_Controller {
         $ticketOnAirTemp = $response->data;
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
-        $this->request->n_reviewedfo =  Hash::getDate();
+        $this->request->n_reviewedfo = Hash::getDate();
         if ($response->data->k_id_status_onair == 97) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
@@ -405,7 +406,7 @@ class TicketOnair extends CI_Controller {
         $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
     }
 
-    public function createScaling(){
+    public function createScaling() {
         $scaling = new Dao_scaledOnair_model();
         $ticket = new Dao_ticketOnair_model();
         $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
@@ -416,11 +417,12 @@ class TicketOnair extends CI_Controller {
         $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }
-    
-    public function recordRestart(){
+
+    public function recordRestart() {
         $scaling = new Dao_scaledOnair_model();
         $ticket = new Dao_ticketOnair_model();
-        $response = $scaling->updateScaling($this->request);;
+        $response = $scaling->updateScaling($this->request);
+        ;
         $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }

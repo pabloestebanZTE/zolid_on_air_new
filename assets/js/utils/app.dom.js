@@ -42,7 +42,6 @@ var dom = {
         //Shortcuts...
         var keyPrev = null;
         window.addEventListener('keydown', function (e) {
-            console.log(e);
             var isKey = function (e, code) {
                 return e.which == code || e.keyCode == code;
             };
