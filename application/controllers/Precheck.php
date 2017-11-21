@@ -29,32 +29,37 @@ class Precheck extends CI_Controller {
         $this->load->model('data/Dao_user_model');
     }
 
-    public function getListPrecheckCoordinador() {
+    public function prueba() {
+        $db = new DB();
+        $obj = $db->select("select count(k_id_onair) as count from ticket_on_air")->first();
+        var_dump($obj->count);
+    }
+
+    public function getPendingList() {
         $response = null;
         if (Auth::check()) {
-            /*            $dao = new dao_precheck_model();
-             */
             $dao = new dao_ticketOnAir_model();
-            $user = new dao_user_model();
-            /*            $array = $dao->getPrecheckByIdUser();
-             */ $array = $dao->getAssign();
-            $array->data["pendingList"] = (is_array($array->data["pendingList"])) ? ($this->getFKRegisters($array->data["pendingList"])) : NULL;
-            $array->data["assingList"] = (is_array($array->data["assingList"])) ? ($this->getFKRegisters($array->data["assingList"])) : NULL;
-            //asigno datos del usuario asignado
-            for ($i = 0; $i < count($array->data['assingList']); $i++) {
-                $array->data['assingList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['assingList'][$i]->i_actualEngineer)->data;
-                $array->data['assingList'][$i]->i_actualEngineer->n_name_user = $array->data['assingList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['assingList'][$i]->i_actualEngineer->n_last_name_user;
-            }
-            for ($j = 0; $j < count($array->data['pendingList']); $j++) {
-                $array->data['pendingList'][$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
-            }
-            $this->json($array);
+            $array = $dao->getPendingList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
 
-    public function getFKRegisters($res) {
+    public function getAssignList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getAssignList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getFKRegisters(&$res) {
         $ticketsOnAir = new dao_ticketOnAir_model();
         $station = new dao_station_model();
         $band = new dao_band_model();
@@ -62,6 +67,7 @@ class Precheck extends CI_Controller {
         $technology = new dao_technology_model();
         $statusOnair = new dao_statusOnair_model();
         $stage = new dao_preparationStage_model();
+        $assign = new dao_user_model();
         for ($j = 0; $j < count($res); $j++) {
             $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j])->data; //Status onair
             $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
@@ -69,6 +75,12 @@ class Precheck extends CI_Controller {
             $res[$j]->k_id_work = $work->findById($res[$j]->k_id_work)->data; //work
             $res[$j]->k_id_technology = $technology->findById($res[$j]->k_id_technology)->data; //technology
             $res[$j]->k_id_preparation = $stage->findByIdPreparation($res[$j]->k_id_preparation)->data; //preparation
+            if ($res[$j]->i_actualEngineer != 0) {
+                $res[$j]->i_actualEngineer = $assign->findBySingleId($res[$j]->i_actualEngineer)->data; //
+//                $res[$j]->i_actualEngineer = $res[$j]->i_actualEngineer->n_name_user . " " . $res[$j]->i_actualEngineer->n_last_name_user;
+            } elseif ($res[$j]->i_actualEngineer == 0) {
+                $res[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+            }
         }
         return $res;
     }
