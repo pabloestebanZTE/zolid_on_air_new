@@ -27,8 +27,42 @@ class Reportes extends CI_Controller {
     }
 
     public function reportComments() {
-        $reporte = new Dao_reporte_comentario_model();
-        $respuesta = $reporte->getAll()->data;
+/*         header('Content-Type: text/plain');
+*/       $reporte = new Dao_reporte_comentario_model();
+       $filename = "Reporte_Comentarios_".date("Y-m-d").".xls";
+       header("Content-Disposition: attachment; filename=\"$filename\"");
+       header("Content-Type: application/vnd.ms-excel; charset=utf-8");
+ header('default_charset', 'utf-8');
+       $respuesta = $reporte->getAll()->data;
+/*       print_r($respuesta);
+*/         for ($i=0; $i <count($respuesta) ; $i++) { 
+             $data[$i] = [
+              "Id-On Air" =>utf8_decode($respuesta[$i]->k_id_on_air),
+              "Nombre_Estación-EB" => utf8_decode($respuesta[$i]->n_nombre_estacion_eb),
+              "Tecnología" => utf8_decode($respuesta[$i]->n_tecnologia),
+              "Banda" => utf8_decode($respuesta[$i]->n_banda),
+              "tipo De trabajo" => utf8_decode($respuesta[$i]->n_tipo_trabajo),
+              "Estado EB-ResuComen" => utf8_decode($respuesta[$i]->n_estado_eb_resucomen),
+              "Comentario-ResuComen" => utf8_decode($respuesta[$i]->comentario_resucoment),
+              "Hora Actualizacion ResuComen" => utf8_decode($respuesta[$i]->hora_actualizacion_resucomen),
+              "Usuario-ResuComen" => utf8_decode($respuesta[$i]->usuario_resucomen),
+              "Ente-Ejecutor" => utf8_decode($respuesta[$i]->ente_ejecutor),
+              "Tipificación-ResuComen" => utf8_decode($respuesta[$i]->tipificacion_resucomen),
+              "NOC" => utf8_decode($respuesta[$i]->noc),
+             ];            
+         }
+         $flag = false;
+         foreach($data as $row) {
+           if(!$flag) {
+             // display field/column names as first row
+             echo implode("\t", array_keys($row)) . "\r\n";
+             $flag = true;
+           }
+           echo implode("\t", array_values($row)) . "\r\n";
+         }
+         exit;
+     
+/*
         $objPhpExcel = new PHPExcel();
         //Propiedades de archivo.
         $objPhpExcel->getProperties()->setCreator("ZTE");
@@ -106,6 +140,8 @@ class Reportes extends CI_Controller {
         $filename = 'Reporte Comentarios - (' . date("Y-m-d") . ').xlsx';
         $objWriter->save($filename);
         Redirect::to(URL::to($filename));
+
+   */     
     }
 
     public function reportOnair() {
