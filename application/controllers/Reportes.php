@@ -6,7 +6,7 @@ class Reportes extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('bin/PHPExcel-1.8/Classes/PHPExcel');
+        $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
         $this->load->model('data/Dao_reporte_comentario_model');
         $this->load->model('data/Dao_ticketOnair_model');
         $this->load->model('data/Dao_station_model');
