@@ -119,6 +119,7 @@ DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='67';
 /* table: reporte_comentario                                                 */
 /*==============================================================*/
 CREATE TABLE IF NOT EXISTS `reporte_comentario` (
+	`k_id_primary` int not null AUTO_INCREMENT,
   `k_id_on_air` int(11) DEFAULT NULL,
   `n_nombre_estacion_eb` varchar(100) DEFAULT NULL,
   `n_tecnologia` varchar(100) DEFAULT NULL,
@@ -131,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `reporte_comentario` (
   `ente_ejecutor` varchar(100) DEFAULT NULL,
   `tipificacion_resucomen` varchar(100) DEFAULT NULL,
   `noc` varchar(100) DEFAULT NULL,
-	primary key (k_id_on_air)
+	primary key (k_id_primary)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
