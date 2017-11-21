@@ -34,7 +34,7 @@ class Reportes extends CI_Controller {
        header("Content-Type: application/vnd.ms-excel; charset=utf-8");
        $respuesta = $reporte->getAll()->data;
 /*       print_r($respuesta);
-*/         for ($i=0; $i <count($respuesta) ; $i++) { 
+*/         for ($i=0; $i <count($respuesta) ; $i++) {
              $data[$i] = [
               "Id-On Air" =>utf8_decode($respuesta[$i]->k_id_on_air),
               "Nombre_Estación-EB" => utf8_decode($respuesta[$i]->n_nombre_estacion_eb),
@@ -48,7 +48,7 @@ class Reportes extends CI_Controller {
               "Ente-Ejecutor" => utf8_decode($respuesta[$i]->ente_ejecutor),
               "Tipificación-ResuComen" => utf8_decode($respuesta[$i]->tipificacion_resucomen),
               "NOC" => utf8_decode($respuesta[$i]->noc),
-             ];            
+             ];
          }
          $flag = false;
          foreach($data as $row) {
@@ -60,7 +60,7 @@ class Reportes extends CI_Controller {
            echo implode("\t", array_values($row)) . "\r\n";
          }
          exit;
-     
+
 /*
         $objPhpExcel = new PHPExcel();
         //Propiedades de archivo.
@@ -140,7 +140,7 @@ class Reportes extends CI_Controller {
         $objWriter->save($filename);
         Redirect::to(URL::to($filename));
 
-   */     
+   */
     }
 
     public function reportOnair() {
@@ -178,14 +178,14 @@ class Reportes extends CI_Controller {
             $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair
             $res[$i]->k_id_precheck = $precheck->getPrecheckByIdPrech($res[$i]->k_id_precheck)->data; //precheck
             if ($res[$i]->k_id_precheck) {
-                $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr                
+                $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
             }
             //creacion obj onair 12
             $res[$i]->onair12 = $onair12->getOnair12ByIdOnair($res[$i]->k_id_onair)->data;//onair12
             //filtracion ronda maxima onair12
-            if ($res[$i]->onair12) {                
-                for ($j=0; $j <count($res[$i]->onair12) ; $j++) { 
-                    $ElementoMax12[$j] = $res[$i]->onair12[$j]->i_round;                     
+            if ($res[$i]->onair12) {
+                for ($j=0; $j <count($res[$i]->onair12) ; $j++) {
+                    $ElementoMax12[$j] = $res[$i]->onair12[$j]->i_round;
                 }
             $res[$i]->onair12 =  $onair12->getOnair12ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax12))->data;
             $res[$i]->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res[$i]->onair12->k_id_follow_up_12h)->data;//follow12
@@ -195,9 +195,9 @@ class Reportes extends CI_Controller {
             //creacion obj onair 24
             $res[$i]->onair24 = $onair24->getOnair24ByIdOnair($res[$i]->k_id_onair)->data;//onair24
             //filtracion ronda maxima onair24
-            if ($res[$i]->onair24) {                
-                for ($j=0; $j <count($res[$i]->onair24) ; $j++) { 
-                    $ElementoMax24[$j] = $res[$i]->onair24[$j]->i_round;                     
+            if ($res[$i]->onair24) {
+                for ($j=0; $j <count($res[$i]->onair24) ; $j++) {
+                    $ElementoMax24[$j] = $res[$i]->onair24[$j]->i_round;
                 }
             $res[$i]->onair24 =  $onair24->getOnair24ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax24))->data;
             $res[$i]->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res[$i]->onair24->k_id_follow_up_24h)->data;//follow24
@@ -207,137 +207,147 @@ class Reportes extends CI_Controller {
             //creacion obj onair 36
             $res[$i]->onair36 = $onair36->getOnair36ByIdOnair($res[$i]->k_id_onair)->data;//onair36
             //filtracion ronda maxima onair36
-            if ($res[$i]->onair36) {                
-                for ($j=0; $j <count($res[$i]->onair36) ; $j++) { 
-                    $ElementoMax36[$j] = $res[$i]->onair36[$j]->i_round;                     
+            if ($res[$i]->onair36) {
+                for ($j=0; $j <count($res[$i]->onair36) ; $j++) {
+                    $ElementoMax36[$j] = $res[$i]->onair36[$j]->i_round;
                 }
             $res[$i]->onair36 =  $onair36->getOnair36ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax36))->data;
             $res[$i]->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res[$i]->onair36->k_id_follow_up_36h)->data;//follow36
             $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
             }
-            //fin obj onair24 
+            //fin obj onair24
         }
 
-            if (!$res[$r]->k_id_station) {
-                $res[$r]->k_id_station->n_name_station = "";
-                if (!$res[$r]->k_id_station->k_id_city) {
-                    $res[$r]->k_id_station->k_id_city->n_name_city = "";
-                    if (!$res[$r]->k_id_station->k_id_city->k_id_regional) {
-                        $res[$r]->k_id_station->k_id_city->k_id_regional->n_name_regional = "";
-                    }
-                }
-            }
-            if (!$res[$r]->k_id_preparation) {
-               $res[$r]->k_id_preparation->n_bcf_wbts_id = "";
-               $res[$r]->k_id_preparation->n_bts_id = "";
-               $res[$r]->k_id_preparation->d_ingreso_on_air = "";
-               $res[$r]->k_id_preparation->b_vistamm = "";
-               $res[$r]->k_id_preparation->n_enteejecutor = "";
-               $res[$r]->k_id_preparation->n_controlador = "";
-               $res[$r]->k_id_preparation->n_idcontrolador = "";
-               $res[$r]->k_id_preparation->d_correccionespendientes = "";
-               $res[$r]->k_id_preparation->n_btsipaddress = "";
-               $res[$r]->k_id_preparation->n_integrador = "";
-               $res[$r]->k_id_preparation->n_wp = "";
-               $res[$r]->k_id_preparation->n_crq = "";
-               $res[$r]->k_id_preparation->n_testgestion = "";
-               $res[$r]->k_id_preparation->n_sitiolimpio = "";
-               $res[$r]->d_fechaproduccion = "";
-               $res[$r]->k_id_preparation->n_instalacion_hw_sitio = "";
-               $res[$r]->k_id_preparation->n_cambios_config_solicitados = "";
-               $res[$r]->k_id_preparation->n_cambios_config_final = "";
-               $res[$r]->k_id_preparation->n_contratista = "";
-               $res[$r]->k_id_preparation->n_comentarioccial = "";
-               $res[$r]->k_id_preparation->n_ticketremedy = "";
-               $res[$r]->k_id_preparation->n_lac = "";
-               $res[$r]->k_id_preparation->n_rac = "";
-               $res[$r]->k_id_preparation->n_sac = "";
-               $res[$r]->k_id_preparation->n_integracion_gestion_y_trafica = "";
-               $res[$r]->k_id_preparation->puesta_servicio_sitio_nuevo_lte = "";
-               $res[$r]->k_id_preparation->n_instalacion_hw_4g_sitio = "";
-               $res[$r]->k_id_preparation->pre_launch = "";
-               $res[$r]->k_id_preparation->n_evidenciasl = "";
-               $res[$r]->k_id_preparation->n_evidenciatg = "";
-               $res[$r]->k_id_preparation->i_week = "";
-               $res[$r]->k_id_preparation->id_notificacion = "";
-               $res[$r]->k_id_preparation->id_documentacion = "";
-               $res[$r]->k_id_preparation->id_rftools = "";
-            }
-            if (!$res[$r]->k_id_precheck) {
-                $res[$r]->k_id_precheck->d_finpre = "";
-                if (!$res[$r]->k_id_precheck->k_id_user) {
-                   $res[$r]->k_id_precheck->k_id_user->n_name_user = "";
-                   $res[$r]->k_id_precheck->k_id_user->n_last_name_user = "";
-                }
-            }
 
-            if (!$res[$r]->k_id_band) {
-                $res[$r]->k_id_band->n_name_band = "";
-            }
-            if (!$res[$r]->k_id_technology) {
-                $res[$r]->k_id_technology->n_name_technology = "";
-            }
-            if (!$res[$r]->k_id_status_onair) {
-                if (!$res[$r]->k_id_status_onair['k_id_status']) {
-                    $res[$r]->k_id_status_onair['k_id_status']->n_name_status = "";
-                }
-                if (!$res[$r]->k_id_status_onair['k_id_substatus']) {
-                    $res[$r]->k_id_status_onair['k_id_substatus']->n_name_substatus = "";
-                }
-            }
-            if (!$res[$r]->k_id_work) {
-                $res[$r]->k_id_work->n_name_ork = "";
-            }
+        for ($f=0; $f <count($res) ; $f++) {
 
-            if (!$res[$r]->onair12) {
-                if (!$res[$r]->onair12->k_id_follow_up_12h) {
-                    if (!$res[$r]->onair12->k_id_follow_up_12h->k_id_user) {
-                        $res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
-                        $res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";         
-                    }
-                }
-                $res[$r]->onair12->d_fin12h = "";
-            }
 
-            if (!$res[$r]->onair36) {
-                if (!$res[$r]->onair36->k_id_follow_up_36h) {
-                    if (!$res[$r]->onair36->k_id_follow_up_36h->k_id_user) {
-                        $res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = "";
-                        $res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = "";
-                    }
-                }
-                $res[$r]->onair36->d_fin36h = "";
-            }
 
-            if (!$res[$r]->scaled_onair) {
-                $res[$r]->scaled_onair->n_atribuible_nokia = "";
-                $res[$r]->scaled_onair->d_time_escalado;
-                $res[$r]->scaled_onair->d_fecha_escalado = "";
-                $res[$r]->scaled_onair->i_cont_esc_imp = "";
-                $res[$r]->scaled_onair->time_esc_imp = "";
-                $res[$r]->scaled_onair->i_cont_esc_rf = "";
-                $res[$r]->scaled_onair->i_time_esc_rf = "";
-                $res[$r]->scaled_onair->cont_esc_npo = "";
-                $res[$r]->scaled_onair->i_time_esc_npo = "";
-                $res[$r]->scaled_onair->cont_esc_care = "";
-                $res[$r]->scaled_onair->i_time_esc_care = "";
-                $res[$r]->scaled_onair->i_cont_esc_gdrt = "";
-                $res[$r]->scaled_onair->i_time_esc_gdrt = "";
-                $res[$r]->scaled_onair->i_cont_esc_oym = "";
-                $res[$r]->scaled_onair->time_esc_oym = "";
-                $res[$r]->scaled_onair->cont_esc_calidad = "";
-                $res[$r]->scaled_onair->i_time_esc_calidad = "";
-                $res[$r]->scaled_onair->n_atribuible_nokia2 = "";
-                $res[$r]->scaled_onair->n_detalle_solucion = "";
-                $res[$r]->scaled_onair->n_ultimo_subestado_de_escalamiento = "";
-                $res[$r]->scaled_onair->n_tipificacion_solucion = "";
-            } 
 
-            if (!$res[$r]->onair24) {
-                $res[$r]->onair24->d_fin24h = "";
-            }
 
-        for ($f=0; $f <count($res) ; $f++) { 
+                      if (!$res[$f]->k_id_station) {
+                          $res[$f]->k_id_station->n_name_station = "";
+                          if (!$res[$f]->k_id_station->k_id_city) {
+                              $res[$f]->k_id_station->k_id_city->n_name_city = "";
+                              if (!$res[$f]->k_id_station->k_id_city->k_id_regional) {
+                                  $res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional = "";
+                              }
+                          }
+                      }
+                      if (!$res[$f]->k_id_preparation) {
+                         $res[$f]->k_id_preparation->n_bcf_wbts_id = "";
+                         $res[$f]->k_id_preparation->n_bts_id = "";
+                         $res[$f]->k_id_preparation->d_ingreso_on_air = "";
+                         $res[$f]->k_id_preparation->b_vistamm = "";
+                         $res[$f]->k_id_preparation->n_enteejecutor = "";
+                         $res[$f]->k_id_preparation->n_controlador = "";
+                         $res[$f]->k_id_preparation->n_idcontrolador = "";
+                         $res[$f]->k_id_preparation->d_correccionespendientes = "";
+                         $res[$f]->k_id_preparation->n_btsipaddress = "";
+                         $res[$f]->k_id_preparation->n_integrador = "";
+                         $res[$f]->k_id_preparation->n_wp = "";
+                         $res[$f]->k_id_preparation->n_crq = "";
+                         $res[$f]->k_id_preparation->n_testgestion = "";
+                         $res[$f]->k_id_preparation->n_sitiolimpio = "";
+                         $res[$f]->d_fechaproduccion = "";
+                         $res[$f]->k_id_preparation->n_instalacion_hw_sitio = "";
+                         $res[$f]->k_id_preparation->n_cambios_config_solicitados = "";
+                         $res[$f]->k_id_preparation->n_cambios_config_final = "";
+                         $res[$f]->k_id_preparation->n_contratista = "";
+                         $res[$f]->k_id_preparation->n_comentarioccial = "";
+                         $res[$f]->k_id_preparation->n_ticketremedy = "";
+                         $res[$f]->k_id_preparation->n_lac = "";
+                         $res[$f]->k_id_preparation->n_rac = "";
+                         $res[$f]->k_id_preparation->n_sac = "";
+                         $res[$f]->k_id_preparation->n_integracion_gestion_y_trafica = "";
+                         $res[$f]->k_id_preparation->puesta_servicio_sitio_nuevo_lte = "";
+                         $res[$f]->k_id_preparation->n_instalacion_hw_4g_sitio = "";
+                         $res[$f]->k_id_preparation->pre_launch = "";
+                         $res[$f]->k_id_preparation->n_evidenciasl = "";
+                         $res[$f]->k_id_preparation->n_evidenciatg = "";
+                         $res[$f]->k_id_preparation->i_week = "";
+                         $res[$f]->k_id_preparation->id_notificacion = "";
+                         $res[$f]->k_id_preparation->id_documentacion = "";
+                         $res[$f]->k_id_preparation->id_rftools = "";
+                      }
+                      if (!$res[$f]->k_id_precheck) {
+                        $res[$f]->k_id_precheck = new \stdClass();
+                        $res[$f]->k_id_precheck->d_finpre = "";
+                        $res[$f]->k_id_precheck->k_id_user = new \stdClass();
+                        $res[$f]->k_id_precheck->k_id_user->n_name_user = "";
+                        $res[$f]->k_id_precheck->k_id_user->n_last_name_user = "";
+                      }
+
+                      if (!$res[$f]->k_id_band) {
+                          $res[$f]->k_id_band->n_name_band = "";
+                      }
+                      if (!$res[$f]->k_id_technology) {
+                          $res[$f]->k_id_technology->n_name_technology = "";
+                      }
+                      if (!$res[$f]->k_id_status_onair) {
+                          if (!$res[$f]->k_id_status_onair['k_id_status']) {
+                              $res[$f]->k_id_status_onair['k_id_status']->n_name_status = "";
+                          }
+                          if (!$res[$f]->k_id_status_onair['k_id_substatus']) {
+                              $res[$f]->k_id_status_onair['k_id_substatus']->n_name_substatus = "";
+                          }
+                      }
+                      if (!$res[$f]->k_id_work) {
+                          $res[$f]->k_id_work->n_name_ork = "";
+                      }
+
+                      if (!$res[$f]->onair12) {
+                          $res[$f]->onair12 = new \stdClass();
+                          $res[$f]->onair12->k_id_follow_up_12h = new \stdClass();
+                          $res[$f]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                          $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
+                          $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";
+                          $res[$f]->onair12->d_fin12h = "";
+                      }
+
+                      if (!$res[$f]->onair36) {
+                          $res[$f]->onair36 = new \stdClass();
+                          $res[$f]->onair36->k_id_follow_up_36h = new \stdClass();
+                          $res[$f]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                          $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = "";
+                          $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = "";
+                          $res[$f]->onair36->d_fin36h = "";
+                      }
+
+                      if (!$res[$f]->scaled_onair) {
+                        $res[$f]->scaled_onair = new \stdClass();
+                          $res[$f]->scaled_onair->n_atribuible_nokia = "";
+                          $res[$f]->scaled_onair->d_time_escalado = "";
+                          $res[$f]->scaled_onair->d_fecha_escalado = "";
+                          $res[$f]->scaled_onair->i_cont_esc_imp = "";
+                          $res[$f]->scaled_onair->time_esc_imp = "";
+                          $res[$f]->scaled_onair->i_cont_esc_rf = "";
+                          $res[$f]->scaled_onair->i_time_esc_rf = "";
+                          $res[$f]->scaled_onair->cont_esc_npo = "";
+                          $res[$f]->scaled_onair->i_time_esc_npo = "";
+                          $res[$f]->scaled_onair->cont_esc_care = "";
+                          $res[$f]->scaled_onair->i_time_esc_care = "";
+                          $res[$f]->scaled_onair->i_cont_esc_gdrt = "";
+                          $res[$f]->scaled_onair->i_time_esc_gdrt = "";
+                          $res[$f]->scaled_onair->i_cont_esc_oym = "";
+                          $res[$f]->scaled_onair->time_esc_oym = "";
+                          $res[$f]->scaled_onair->cont_esc_calidad = "";
+                          $res[$f]->scaled_onair->i_time_esc_calidad = "";
+                          $res[$f]->scaled_onair->n_atribuible_nokia2 = "";
+                          $res[$f]->scaled_onair->n_detalle_solucion = "";
+                          $res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento = "";
+                          $res[$f]->scaled_onair->n_tipificacion_solucion = "";
+                      }
+
+                      if (!$res[$f]->onair24) {
+                        $res[$f]->onair24 = new \stdClass();
+                          $res[$f]->onair24->d_fin24h = "";
+                      }
+
+
+
+
+
              $data[$f] = [
               "Id-On Air" =>utf8_decode($res[$f]->k_id_onair),
               "Nombre_Estación-EB" => utf8_decode($res[$f]->k_id_station->n_name_station),
@@ -349,117 +359,117 @@ class Reportes extends CI_Controller {
               "Subestado" => utf8_decode($res[$f]->k_id_status_onair['k_id_substatus']->n_name_substatus),//h
               "excepcion GRI" => utf8_decode($res[$f]->b_excpetion_gri),//i
               "Fecha ingreso On Air" => utf8_decode($res[$f]->k_id_preparation->d_ingreso_on_air),//j
-              "Fechaultimarev" => utf8_decode($res[$f]->d_fecha_ultima_rev),//k
-              "tipo De trabajo" => utf8_decode($res[$f]->k_id_work->n_name_ork),///////107+//l
-              "vistamm" => utf8_decode($res[$f]->k_id_preparation->b_vistamm),//m
-              "enteejecutor" => utf8_decode($res[$f]->k_id_preparation->n_enteejecutor),//n
-              "controlador" => utf8_decode($res[$f]->k_id_preparation->n_controlador),//o
-              "idcontrolador" => utf8_decode($res[$f]->k_id_preparation->n_idcontrolador),//p
-              "Ciudad" => utf8_decode($res[$f]->k_id_station->k_id_city->n_name_city),//q
-              "Regional" => utf8_decode($res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional),//r
-              "desbloqueo" => utf8_decode($res[$f]->d_desbloqueo),//s
-              "bloqueado" => utf8_decode($res[$f]->d_bloqueo),//t
-              "reviewedfo" => utf8_decode($res[$f]->n_reviewedfo),//u
-              "correccionpendientes" => utf8_decode($res[$f]->k_id_preparation->d_correccionespendientes),//v
-              "btsipaddress" => utf8_decode($res[$f]->k_id_preparation->n_btsipaddress),//w
-              "integrador" => utf8_decode($res[$f]->k_id_preparation->n_integrador),//x
-              "ingenieroprecheck" => utf8_decode($res[$f]->k_id_precheck->k_id_user->n_name_user." ".$res[$r]->k_id_precheck->k_id_user->n_last_name_user),//y
-              "ingenierofinal12horas" => utf8_decode($res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user),//z
-              "ingenierogarantia" => utf8_decode($res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user),//aa
-              "WP" => utf8_decode($res[$f]->k_id_preparation->n_wp),//ab
-              "CRQ" => utf8_decode($res[$f]->k_id_preparation->n_crq),//ac
-              "testgestion" => utf8_decode($res[$f]->k_id_preparation->n_testgestion),//ad
-              "sitiolimpio" => utf8_decode($res[$f]->k_id_preparation->n_sitiolimpio),//ae
-              "fechaproduccion" => utf8_decode($res[$f]->d_fechaproduccion),//af
-              "Instalacion_HW_Sitio" => utf8_decode($res[$f]->k_id_preparation->n_instalacion_hw_sitio),//ag
-              "Cambios_Config_Solicitados" => utf8_decode($res[$f]->k_id_preparation->n_cambios_config_solicitados),//ah
-              "Cambios_Config_Final" => utf8_decode($res[$f]->k_id_preparation->n_cambios_config_final),//ai
-              "sectoresbloqueados" => utf8_decode($res[$f]->n_sectoresbloqueados),//aj
-              "sectoresdesbloqueados" => utf8_decode($res[$f]->n_sectoresdesbloqueados),//ak
-              "estadoonair" => utf8_decode($res[$f]->n_estadoonair),//al
-              "Atribuible_Nokia" => utf8_decode($res[$f]->scaled_onair->n_atribuible_nokia),//am
-              "contratista" => utf8_decode($res[$f]->k_id_preparation->n_contratista),//an
-              "comentarioccial" => utf8_decode($res[$f]->k_id_preparation->n_comentarioccial),//ao
-              "ticketremedy" => utf8_decode($res[$f]->k_id_preparation->n_ticketremedy),//ap
-              "FinPre" => utf8_decode($res[$f]->k_id_precheck->d_finpre),//aq
-              "Fin12H" => utf8_decode($res[$f]->onair12->d_fin12h),//ar
-              "Fin48H" => utf8_decode(" "),//as
-              "LAC" => utf8_decode($res[$f]->k_id_preparation->n_lac),//at
-              "RAC" => utf8_decode($res[$f]->k_id_preparation->n_rac),//au
-              "SAC" => utf8_decode($res[$f]->k_id_preparation->n_sac),//av
-              "Integracion_Gestion_y_Trafica" => utf8_decode($res[$f]->k_id_preparation->n_integracion_gestion_y_trafica),//aw
-              "Puesta_Servicio_Sitio_Nuevo_LTE" => utf8_decode($res[$f]->k_id_preparation->puesta_servicio_sitio_nuevo_lte),//ax
-              "Instalacion_HW_4G_Sitio" => utf8_decode($res[$f]->k_id_preparation->n_instalacion_hw_4g_sitio),//ay
-              "Prelaunch" => utf8_decode($res[$f]->k_id_preparation->pre_launch),//az
-              "Actualizacion_Final" => utf8_decode($res[$f]->d_actualizacion_final),//BA
-              "Asignacion_Final" => utf8_decode($res[$f]->d_asignacion_final),//BB
-              "identificador" => utf8_decode(" "),//BC
-              "EvidenciaSL" => utf8_decode($res[$f]->k_id_preparation->n_evidenciasl),//BD
-              "EvidenciaTG" => utf8_decode($res[$f]->k_id_preparation->n_evidenciatg),//BE
-              "Time_Escalado" => utf8_decode($res[$f]->scaled_onair->d_time_escalado),//BF
-              "Fecha_Escalado" => utf8_decode($res[$f]->scaled_onair->d_fecha_escalado),//BG
-              "Cont_Esc_Imp" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_imp),//BH
-              "Time_Esc_Imp" => utf8_decode($res[$f]->scaled_onair->time_esc_imp),//BI
-              "Cont_Esc_RF" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_rf),//BJ
-              "Time_Esc_RF" => utf8_decode($res[$f]->scaled_onair->i_time_esc_rf),//BK
-              "Cont_Esc_NPO" => utf8_decode($res[$f]->scaled_onair->cont_esc_npo),//BL
-              "Time_Esc_NPO" => utf8_decode($res[$f]->scaled_onair->i_time_esc_npo),//BM
-              "Cont_Esc_Care" => utf8_decode($res[$f]->scaled_onair->cont_esc_care),//BN
-              "Time_Esc_Care" => utf8_decode($res[$f]->scaled_onair->i_time_esc_care),//BO
-              "Cont_Esc_GDRT" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_gdrt),//BP
-              "Time_Esc_GDRT" => utf8_decode($res[$f]->scaled_onair->i_time_esc_gdrt),//BQ
-              "Cont_Esc_OyM" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_oym),//BR
-              "Time_Esc_OyM" => utf8_decode($res[$f]->scaled_onair->time_esc_oym),//BS
-              "Cont_Esc_Calidad" => utf8_decode($res[$f]->scaled_onair->cont_esc_calidad),//BT
-              "Time_Esc_Calidad" => utf8_decode($res[$f]->scaled_onair->i_time_esc_calidad),//BU
-              "WEEK" => utf8_decode($res[$f]->k_id_preparation->i_week),//BV
-              "T_From_Notif" => utf8_decode(" "),//BW
-              "T_From_Asign" => utf8_decode(" "),//BX
-              "Atribuible_Nokia2" => utf8_decode($res[$f]->scaled_onair->n_atribuible_nokia2),//BY
-              "Kpis_Degraded" => utf8_decode($res[$f]->n_kpis_degraded),//BZ
-              "Id_Notificacion" => utf8_decode($res[$f]->k_id_preparation->id_notificacion),//CA
-              "Id_Documentacion" => utf8_decode($res[$f]->k_id_preparation->id_documentacion),//CB
-              "ID_RFTools" => utf8_decode($res[$f]->k_id_preparation->id_rftools),//CC
-              "Tipificacion_Solucion" => utf8_decode($res[$f]->scaled_onair->n_tipificacion_solucion),//CD
-              "KPI1" => utf8_decode($res[$f]->n_kpi1),//CE
-              "Valor_KPI1" => utf8_decode($res[$f]->i_valor_kpi1),//CF
-              "KPI2" => utf8_decode($res[$f]->n_kpi2),//CG
-              "Valor_KPI2" => utf8_decode($res[$f]->i_valor_kpi2),//CH
-              "KPI3" => utf8_decode($res[$f]->n_kpi3),//CI
-              "Valor_KPI3" => utf8_decode($res[$f]->i_valor_kpi3),//CJ
-              "KPI4" => utf8_decode($res[$f]->n_kpi4),//CK
-              "Valor_KPI4" => utf8_decode($res[$f]->i_valor_kpi4),//CL
-              "Alarma1" => utf8_decode($res[$f]->n_alarma1),//CM
-              "Alarma2" => utf8_decode($res[$f]->n_alarma2),//CN
-              "Alarma3" => utf8_decode($res[$f]->n_alarma3),//CO
-              "Alarma4" => utf8_decode($res[$f]->n_alarma4),//CP
-              "Cont_Total_Escalamiento" => utf8_decode($res[$f]->i_cont_total_escalamiento),//CQ
-              "Time_Total_Escalamiento" => utf8_decode($res[$f]->i_time_total_escalamiento),//CR
-              "OLA" => utf8_decode(" "),//CS
-              "OLA_Excedido" => utf8_decode(" "),//CT
-              "Detalle_Solucion" => utf8_decode($res[$f]->scaled_onair->n_detalle_solucion),//CU
-              "Lider_Cambio" => utf8_decode($res[$f]->i_lider_cambio),//CV
-              "Lider_Cuadrilla" => utf8_decode($res[$f]->i_lider_cuadrilla),//CW
-              "OLA_Areas" => utf8_decode(""),//CX
-              "OLA_Areas_Excedido" => utf8_decode(""),//CY
-              "Ultimo Subestado De Escalamiento" => utf8_decode($res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento),//CZ
-              "Fin_24H" => utf8_decode($res[$f]->onair24->d_fin24h),//DA
-              "Fin_36H" => utf8_decode($res[$f]->onair36->d_fin36h),//DB
-              "Implementacion_Campo" => utf8_decode($res[$f]->n_implementacion_campo),//DC
-              "Implementacion_Remota" => utf8_decode(" "),//DD
-              "Gestion_Power" => utf8_decode($res[$f]->n_gestion_power),//DE
-              "Obra_Civil" => utf8_decode($res[$f]->n_obra_civil),//DF
-              "On_AIR" => utf8_decode($res[$f]->on_air),//DG
-              "Fecha_RFT" => utf8_decode($res[$f]->fecha_rft),//DH
-              "Fecha_CG" => utf8_decode($res[$f]->d_fecha_cg),//DI
-              "Exclusion_Bajo_Trafico" => utf8_decode($res[$f]->n_exclusion_bajo_trafico),//DJ
-              "Ticket" => utf8_decode($res[$f]->n_ticket),//DK
-              "Estado_Ticket" => utf8_decode($res[$f]->n_estado_ticket),//DL
-              "SLN_Modernizacion" => utf8_decode($res[$f]->n_sln_modernizacion),//DM
-              "En_Prorroga" => utf8_decode($res[$f]->n_en_prorroga),//DN
-              "Cont_Prorrogas" => utf8_decode($res[$f]->n_cont_prorrogas),//DO
-              "NOC" => utf8_decode($res[$f]->n_noc),//DP
-             ];            
+              // "Fechaultimarev" => utf8_decode($res[$f]->d_fecha_ultima_rev),//k
+              // "tipo De trabajo" => utf8_decode($res[$f]->k_id_work->n_name_ork),///////107+//l
+              // "vistamm" => utf8_decode($res[$f]->k_id_preparation->b_vistamm),//m
+              // "enteejecutor" => utf8_decode($res[$f]->k_id_preparation->n_enteejecutor),//n
+              // "controlador" => utf8_decode($res[$f]->k_id_preparation->n_controlador),//o
+              // "idcontrolador" => utf8_decode($res[$f]->k_id_preparation->n_idcontrolador),//p
+              // "Ciudad" => utf8_decode($res[$f]->k_id_station->k_id_city->n_name_city),//q
+              // "Regional" => utf8_decode($res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional),//r
+              // "desbloqueo" => utf8_decode($res[$f]->d_desbloqueo),//s
+              // "bloqueado" => utf8_decode($res[$f]->d_bloqueo),//t
+              // "reviewedfo" => utf8_decode($res[$f]->n_reviewedfo),//u
+              // "correccionpendientes" => utf8_decode($res[$f]->k_id_preparation->d_correccionespendientes),//v
+              // "btsipaddress" => utf8_decode($res[$f]->k_id_preparation->n_btsipaddress),//w
+              // "integrador" => utf8_decode($res[$f]->k_id_preparation->n_integrador),//x
+              // "ingenieroprecheck" => utf8_decode($res[$f]->k_id_precheck->k_id_user->n_name_user." ".$res[$f]->k_id_precheck->k_id_user->n_last_name_user),//y
+              // "ingenierofinal12horas" => utf8_decode($res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user),//z
+              // "ingenierogarantia" => utf8_decode($res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user),//aa
+              // "WP" => utf8_decode($res[$f]->k_id_preparation->n_wp),//ab
+              // "CRQ" => utf8_decode($res[$f]->k_id_preparation->n_crq),//ac
+              // "testgestion" => utf8_decode($res[$f]->k_id_preparation->n_testgestion),//ad
+              // "sitiolimpio" => utf8_decode($res[$f]->k_id_preparation->n_sitiolimpio),//ae
+              // "fechaproduccion" => utf8_decode($res[$f]->d_fechaproduccion),//af
+              // "Instalacion_HW_Sitio" => utf8_decode($res[$f]->k_id_preparation->n_instalacion_hw_sitio),//ag
+              // "Cambios_Config_Solicitados" => utf8_decode($res[$f]->k_id_preparation->n_cambios_config_solicitados),//ah
+              // "Cambios_Config_Final" => utf8_decode($res[$f]->k_id_preparation->n_cambios_config_final),//ai
+              // "sectoresbloqueados" => utf8_decode($res[$f]->n_sectoresbloqueados),//aj
+              // "sectoresdesbloqueados" => utf8_decode($res[$f]->n_sectoresdesbloqueados),//ak
+              // "estadoonair" => utf8_decode($res[$f]->n_estadoonair),//al
+              // "Atribuible_Nokia" => utf8_decode($res[$f]->scaled_onair->n_atribuible_nokia),//am
+              // "contratista" => utf8_decode($res[$f]->k_id_preparation->n_contratista),//an
+              // "comentarioccial" => utf8_decode($res[$f]->k_id_preparation->n_comentarioccial),//ao
+              // "ticketremedy" => utf8_decode($res[$f]->k_id_preparation->n_ticketremedy),//ap
+              // "FinPre" => utf8_decode($res[$f]->k_id_precheck->d_finpre),//aq
+              // "Fin12H" => utf8_decode($res[$f]->onair12->d_fin12h),//ar
+              // "Fin48H" => utf8_decode(" "),//as
+              // "LAC" => utf8_decode($res[$f]->k_id_preparation->n_lac),//at
+              // "RAC" => utf8_decode($res[$f]->k_id_preparation->n_rac),//au
+              // "SAC" => utf8_decode($res[$f]->k_id_preparation->n_sac),//av
+              // "Integracion_Gestion_y_Trafica" => utf8_decode($res[$f]->k_id_preparation->n_integracion_gestion_y_trafica),//aw
+              // "Puesta_Servicio_Sitio_Nuevo_LTE" => utf8_decode($res[$f]->k_id_preparation->puesta_servicio_sitio_nuevo_lte),//ax
+              // "Instalacion_HW_4G_Sitio" => utf8_decode($res[$f]->k_id_preparation->n_instalacion_hw_4g_sitio),//ay
+              // "Prelaunch" => utf8_decode($res[$f]->k_id_preparation->pre_launch),//az
+              // "Actualizacion_Final" => utf8_decode($res[$f]->d_actualizacion_final),//BA
+              // "Asignacion_Final" => utf8_decode($res[$f]->d_asignacion_final),//BB
+              // "identificador" => utf8_decode(" "),//BC
+              // "EvidenciaSL" => utf8_decode($res[$f]->k_id_preparation->n_evidenciasl),//BD
+              // "EvidenciaTG" => utf8_decode($res[$f]->k_id_preparation->n_evidenciatg),//BE
+              // "Time_Escalado" => utf8_decode($res[$f]->scaled_onair->d_time_escalado),//BF
+              // "Fecha_Escalado" => utf8_decode($res[$f]->scaled_onair->d_fecha_escalado),//BG
+              // "Cont_Esc_Imp" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_imp),//BH
+              // "Time_Esc_Imp" => utf8_decode($res[$f]->scaled_onair->time_esc_imp),//BI
+              // "Cont_Esc_RF" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_rf),//BJ
+              // "Time_Esc_RF" => utf8_decode($res[$f]->scaled_onair->i_time_esc_rf),//BK
+              // "Cont_Esc_NPO" => utf8_decode($res[$f]->scaled_onair->cont_esc_npo),//BL
+              // "Time_Esc_NPO" => utf8_decode($res[$f]->scaled_onair->i_time_esc_npo),//BM
+              // "Cont_Esc_Care" => utf8_decode($res[$f]->scaled_onair->cont_esc_care),//BN
+              // "Time_Esc_Care" => utf8_decode($res[$f]->scaled_onair->i_time_esc_care),//BO
+              // "Cont_Esc_GDRT" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_gdrt),//BP
+              // "Time_Esc_GDRT" => utf8_decode($res[$f]->scaled_onair->i_time_esc_gdrt),//BQ
+              // "Cont_Esc_OyM" => utf8_decode($res[$f]->scaled_onair->i_cont_esc_oym),//BR
+              // "Time_Esc_OyM" => utf8_decode($res[$f]->scaled_onair->time_esc_oym),//BS
+              // "Cont_Esc_Calidad" => utf8_decode($res[$f]->scaled_onair->cont_esc_calidad),//BT
+              // "Time_Esc_Calidad" => utf8_decode($res[$f]->scaled_onair->i_time_esc_calidad),//BU
+              // "WEEK" => utf8_decode($res[$f]->k_id_preparation->i_week),//BV
+              // "T_From_Notif" => utf8_decode(" "),//BW
+              // "T_From_Asign" => utf8_decode(" "),//BX
+              // "Atribuible_Nokia2" => utf8_decode($res[$f]->scaled_onair->n_atribuible_nokia2),//BY
+              // "Kpis_Degraded" => utf8_decode($res[$f]->n_kpis_degraded),//BZ
+              // "Id_Notificacion" => utf8_decode($res[$f]->k_id_preparation->id_notificacion),//CA
+              // "Id_Documentacion" => utf8_decode($res[$f]->k_id_preparation->id_documentacion),//CB
+              // "ID_RFTools" => utf8_decode($res[$f]->k_id_preparation->id_rftools),//CC
+              // "Tipificacion_Solucion" => utf8_decode($res[$f]->scaled_onair->n_tipificacion_solucion),//CD
+              // "KPI1" => utf8_decode($res[$f]->n_kpi1),//CE
+              // "Valor_KPI1" => utf8_decode($res[$f]->i_valor_kpi1),//CF
+              // "KPI2" => utf8_decode($res[$f]->n_kpi2),//CG
+              // "Valor_KPI2" => utf8_decode($res[$f]->i_valor_kpi2),//CH
+              // "KPI3" => utf8_decode($res[$f]->n_kpi3),//CI
+              // "Valor_KPI3" => utf8_decode($res[$f]->i_valor_kpi3),//CJ
+              // "KPI4" => utf8_decode($res[$f]->n_kpi4),//CK
+              // "Valor_KPI4" => utf8_decode($res[$f]->i_valor_kpi4),//CL
+              // "Alarma1" => utf8_decode($res[$f]->n_alarma1),//CM
+              // "Alarma2" => utf8_decode($res[$f]->n_alarma2),//CN
+              // "Alarma3" => utf8_decode($res[$f]->n_alarma3),//CO
+              // "Alarma4" => utf8_decode($res[$f]->n_alarma4),//CP
+              // "Cont_Total_Escalamiento" => utf8_decode($res[$f]->i_cont_total_escalamiento),//CQ
+              // "Time_Total_Escalamiento" => utf8_decode($res[$f]->i_time_total_escalamiento),//CR
+              // "OLA" => utf8_decode(" "),//CS
+              // "OLA_Excedido" => utf8_decode(" "),//CT
+              // "Detalle_Solucion" => utf8_decode($res[$f]->scaled_onair->n_detalle_solucion),//CU
+              // "Lider_Cambio" => utf8_decode($res[$f]->i_lider_cambio),//CV
+              // "Lider_Cuadrilla" => utf8_decode($res[$f]->i_lider_cuadrilla),//CW
+              // "OLA_Areas" => utf8_decode(""),//CX
+              // "OLA_Areas_Excedido" => utf8_decode(""),//CY
+              // "Ultimo Subestado De Escalamiento" => utf8_decode($res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento),//CZ
+              // "Fin_24H" => utf8_decode($res[$f]->onair24->d_fin24h),//DA
+              // "Fin_36H" => utf8_decode($res[$f]->onair36->d_fin36h),//DB
+              // "Implementacion_Campo" => utf8_decode($res[$f]->n_implementacion_campo),//DC
+              // "Implementacion_Remota" => utf8_decode(" "),//DD
+              // "Gestion_Power" => utf8_decode($res[$f]->n_gestion_power),//DE
+              // "Obra_Civil" => utf8_decode($res[$f]->n_obra_civil),//DF
+              // "On_AIR" => utf8_decode($res[$f]->on_air),//DG
+              // "Fecha_RFT" => utf8_decode($res[$f]->fecha_rft),//DH
+              // "Fecha_CG" => utf8_decode($res[$f]->d_fecha_cg),//DI
+              // "Exclusion_Bajo_Trafico" => utf8_decode($res[$f]->n_exclusion_bajo_trafico),//DJ
+              // "Ticket" => utf8_decode($res[$f]->n_ticket),//DK
+              // "Estado_Ticket" => utf8_decode($res[$f]->n_estado_ticket),//DL
+              // "SLN_Modernizacion" => utf8_decode($res[$f]->n_sln_modernizacion),//DM
+              // "En_Prorroga" => utf8_decode($res[$f]->n_en_prorroga),//DN
+              // "Cont_Prorrogas" => utf8_decode($res[$f]->n_cont_prorrogas),//DO
+              // "NOC" => utf8_decode($res[$f]->n_noc),//DP
+             ];
          }
          $flag = false;
          foreach($data as $row) {
@@ -501,7 +511,7 @@ class Reportes extends CI_Controller {
                     )
         ));
 
-        
+
 
         //Escribir cabecearas.
         $objPhpExcel->getActiveSheet()->setCellValue("A1", "Id-On Air");
@@ -624,7 +634,7 @@ class Reportes extends CI_Controller {
         $objPhpExcel->getActiveSheet()->setCellValue("DN1", "En_Prorroga");
         $objPhpExcel->getActiveSheet()->setCellValue("DO1", "Cont_Prorrogas");
         $objPhpExcel->getActiveSheet()->setCellValue("DP1", "NOC");
-         
+
         //Aplicamos las dimenciones a las celdas...
         $objPhpExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
         $objPhpExcel->getActiveSheet()->getColumnDimension('B')->setWidth(40);
@@ -750,7 +760,7 @@ class Reportes extends CI_Controller {
 
 
 
-           
+
 
         //Ahora pintamos los datos...
         for ($r = 0; $r < count($res); $r++) {
@@ -769,7 +779,7 @@ class Reportes extends CI_Controller {
                 $objPhpExcel->getActiveSheet()->setCellValue("BC" . ($r + 2), " ");//identificador
                 $objPhpExcel->getActiveSheet()->setCellValue("BW" . ($r + 2), " ");//t_from_notif
                 $objPhpExcel->getActiveSheet()->setCellValue("BX" . ($r + 2), " ");//t_from_asign
-                $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($r + 2), $res[$r]->n_kpis_degraded); 
+                $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($r + 2), $res[$r]->n_kpis_degraded);
                 $objPhpExcel->getActiveSheet()->setCellValue("CE" . ($r + 2), $res[$r]->n_kpi1);
                 $objPhpExcel->getActiveSheet()->setCellValue("CF" . ($r + 2), $res[$r]->i_valor_kpi1);
                 $objPhpExcel->getActiveSheet()->setCellValue("CG" . ($r + 2), $res[$r]->n_kpi2);
@@ -803,7 +813,7 @@ class Reportes extends CI_Controller {
                 $objPhpExcel->getActiveSheet()->setCellValue("DM" . ($r + 2), $res[$r]->n_sln_modernizacion);
                 $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($r + 2), $res[$r]->n_en_prorroga);
                 $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($r + 2), $res[$r]->n_cont_prorrogas);
-                $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($r + 2), $res[$r]->n_noc);   
+                $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($r + 2), $res[$r]->n_noc);
 
 
             if ($res[$r]->k_id_station) {
@@ -877,7 +887,7 @@ class Reportes extends CI_Controller {
             if ($res[$r]->onair12) {
                 if ($res[$r]->onair12->k_id_follow_up_12h) {
                     if ($res[$r]->onair12->k_id_follow_up_12h->k_id_user) {
-                        $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($r + 2), $res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user);         
+                        $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($r + 2), $res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$r]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user);
                     }
                 }
                 $objPhpExcel->getActiveSheet()->setCellValue("AR" . ($r + 2), $res[$r]->onair12->d_fin12h);
@@ -885,14 +895,14 @@ class Reportes extends CI_Controller {
             if ($res[$r]->onair36) {
                 if ($res[$r]->onair36->k_id_follow_up_36h) {
                     if ($res[$r]->onair36->k_id_follow_up_36h->k_id_user) {
-                        $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($r + 2), $res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user);         
+                        $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($r + 2), $res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$r]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user);
                     }
                 }
                 $objPhpExcel->getActiveSheet()->setCellValue("DB" . ($r + 2), $res[$r]->onair36->d_fin36h);
             }
             if ($res[$r]->scaled_onair) {
-                $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($r + 2), $res[$r]->scaled_onair->n_atribuible_nokia);               
-                $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($r + 2), $res[$r]->scaled_onair->d_time_escalado);                       
+                $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($r + 2), $res[$r]->scaled_onair->n_atribuible_nokia);
+                $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($r + 2), $res[$r]->scaled_onair->d_time_escalado);
                 $objPhpExcel->getActiveSheet()->setCellValue("BG" . ($r + 2), $res[$r]->scaled_onair->d_fecha_escalado);
                 $objPhpExcel->getActiveSheet()->setCellValue("BH" . ($r + 2), $res[$r]->scaled_onair->i_cont_esc_imp);
                 $objPhpExcel->getActiveSheet()->setCellValue("BI" . ($r + 2), $res[$r]->scaled_onair->time_esc_imp);
@@ -908,20 +918,20 @@ class Reportes extends CI_Controller {
                 $objPhpExcel->getActiveSheet()->setCellValue("BS" . ($r + 2), $res[$r]->scaled_onair->time_esc_oym);
                 $objPhpExcel->getActiveSheet()->setCellValue("BT" . ($r + 2), $res[$r]->scaled_onair->cont_esc_calidad);
                 $objPhpExcel->getActiveSheet()->setCellValue("BU" . ($r + 2), $res[$r]->scaled_onair->i_time_esc_calidad);
-                $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($r + 2), $res[$r]->scaled_onair->n_atribuible_nokia2); 
+                $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($r + 2), $res[$r]->scaled_onair->n_atribuible_nokia2);
                 $objPhpExcel->getActiveSheet()->setCellValue("CU" . ($r + 2), $res[$r]->scaled_onair->n_detalle_solucion);
                 $objPhpExcel->getActiveSheet()->setCellValue("CZ" . ($r + 2), $res[$r]->scaled_onair->n_ultimo_subestado_de_escalamiento);
                 $objPhpExcel->getActiveSheet()->setCellValue("CD" . ($r + 2), $res[$r]->scaled_onair->n_tipificacion_solucion);
-            } 
+            }
             if ($res[$r]->onair24) {
                 $objPhpExcel->getActiveSheet()->setCellValue("DA" . ($r + 2), $res[$r]->onair24->d_fin24h);
             }
 
             $objPhpExcel->getActiveSheet()->getStyle("AO".($r + 2))->getAlignment()->setWrapText(true);
             //$objPhpExcel->getActiveSheet()->getHighestRow();
-        }       
+        }
         //$objPhpExcel->getActiveSheet()->getStyle('AO'.$objPhpExcel->getActiveSheet()->getHighestRow())
-        //->getAlignment()->setWrapText(true); 
+        //->getAlignment()->setWrapText(true);
         //Ponemos un nombre a la hoja.
         $objPhpExcel->getActiveSheet()->setTitle('Reporte ONAIR');
         //Hacemos la hoja activa...
