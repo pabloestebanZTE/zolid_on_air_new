@@ -439,7 +439,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+<!--                                            <div class="form-group">
                                                 <label for="cmbDoc" class="col-md-3 control-label">DOC:</label>
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
@@ -452,7 +452,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                             <div class="form-group">
                                                 <label for="cmbImplementacionCampo" class="col-md-3 control-label">Implementación en Campo:</label>

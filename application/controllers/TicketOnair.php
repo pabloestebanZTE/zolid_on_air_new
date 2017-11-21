@@ -355,7 +355,7 @@ class TicketOnair extends CI_Controller {
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo = Hash::getDate();
         $this->request->d_precheck_init = Hash::getDate();
-        if ($response->data->k_id_status_onair == 97 || $response->data->k_id_status_onair == 20) {
+        if ($response->data->k_id_status_onair == 97 || $response->data->k_id_status_onair == 80) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;
@@ -364,7 +364,7 @@ class TicketOnair extends CI_Controller {
             $flag = 1;
         }
         if ($flag == 0) {
-            if ($response->data->k_id_status_onair == 81 || $response->data->k_id_status_onair == 21) {
+            if ($response->data->k_id_status_onair == 81 || $response->data->k_id_status_onair == 79) {
                 $track12 = new dao_onAir12h_model();
                 $follow12 = new dao_followUp12h_model();
                 $response = $track12->getOnair12ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
@@ -422,8 +422,12 @@ class TicketOnair extends CI_Controller {
     public function recordRestart() {
         $scaling = new Dao_scaledOnair_model();
         $ticket = new Dao_ticketOnair_model();
-        $response = $scaling->updateScaling($this->request);
-        ;
+        if ($this->request->k_id_scaled_on_air != null) {
+            $response = $scaling->updateScaling($this->request);
+        } else {
+            $response = $scaling->insertScaling($this->request);
+        }
+        
         $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }
