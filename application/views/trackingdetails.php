@@ -420,7 +420,7 @@
                                                     </select>-->
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+<!--                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtTicket">Ticket:</label>
                                                     <input type="text" class="form-control input-sm" id="txtTicket" placeholder="Ticket" name="ticket_on_air.n_ticket"/>
@@ -435,7 +435,7 @@
                                                         <option value="Cerrado">Cerrado</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbSLNModernizacion">SLN Modernización:</label>

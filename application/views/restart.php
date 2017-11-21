@@ -124,6 +124,16 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
+                            <div class="col-md-8 selectContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                                    <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
                     </fieldset>
                     <!--  fin seccion izquierda form---->
 
@@ -230,8 +240,8 @@
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                     <select class="form-control" id="substatus" name="k_id_status_onair" required>
                                         <option value="">Seleccione</option>
-                                        <option value="20">Reinicio Precheck</option>
-                                        <option value="21">Seguimiento 12H</option>
+                                        <option value="80">Reinicio Precheck</option>
+                                        <option value="79">Reinicio 12H</option>
                                     </select>
                                 </div>
                             </div>
@@ -291,11 +301,14 @@
                 $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
                 $('input[name=n_ultimo_subestado_de_escalamiento]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
-//                $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
+                if (fields.scaledOnair !== null) {
+                    $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
+                }
+                
                 if (fields.i_precheck_realizado === null) {
-                    $('#substatus option[value="20"]').attr('selected', 'selected');
+                    $('#substatus option[value="80"]').attr('selected', 'selected');
                 } else {
-                    $('#substatus option[value="21"]').attr('selected', 'selected');
+                    $('#substatus option[value="79"]').attr('selected', 'selected');
                 }
 
             });

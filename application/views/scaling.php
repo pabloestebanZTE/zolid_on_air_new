@@ -9,7 +9,7 @@
                         <form class="well form-horizontal" action="TicketOnair/createScaling" method="post"  id="createScaling" name="createScaling">
                             <legend>Escalar Actividad</legend>
                             <fieldset class="col-md-6 control-label">
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label for="txtAtribuibleNokia" class="col-md-3 control-label">Atribuible a nokia:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -22,14 +22,37 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                             <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="form-group">
+                                    <label for="txtTicket" class="col-md-3 control-label">Ticket:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                                            <input type='text' name="n_ticket" id="txtTicket" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cmbEstadoTicket" class="col-md-3 control-label">Estado Ticket:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
+                                            <select class="form-control" id="cmbEstadoTicket" name="n_estado_ticket">
+                                                <option value="">Seleccione</option>
+                                                <option value="Abierto">Abierto</option>
+                                                <option value="Cerrado">Cerrado</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +141,9 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
+                                <div class="form-group" style="height: 40px;"></div>
+                                
+<!--                                <div class="form-group">
                                     <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Atribuible a nokia 2:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -131,7 +156,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 
                                 <div class="form-group">
                                     <label for="txtValorKpi1" class="col-md-3 control-label">Valor KPI 1:</label>
