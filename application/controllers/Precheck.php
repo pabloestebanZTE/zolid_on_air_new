@@ -33,7 +33,8 @@ class Precheck extends CI_Controller {
         $response = null;
         if (Auth::check()) {
             /*            $dao = new dao_precheck_model();
-             */ $dao = new dao_ticketOnAir_model();
+             */
+            $dao = new dao_ticketOnAir_model();
             $user = new dao_user_model();
             /*            $array = $dao->getPrecheckByIdUser();
              */ $array = $dao->getAssign();
