@@ -553,14 +553,14 @@ class Dao_ticketOnair_model extends CI_Model {
                             . "where i_actualEngineer = 0 "
                             . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) "
                             . "and MONTH(d_created_at) = MONTH(CURRENT_DATE) "
-                            . "order by d_created_at desc")->get();
+                            . "order by d_created_at desc limit 50")->get();
 
             //CONSULTAMOS LA LISTA DE REGISTROS ASIGNADOS...
             $assing = $db->select("select * from ticket_on_air "
                             . "where i_actualEngineer != 0 "
                             . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) "
                             . "and MONTH(d_created_at) = MONTH(CURRENT_DATE) "
-                            . "order by d_created_at desc")->get();
+                            . "order by d_created_at desc limit 50")->get();
             $data = [
                 "pendingList" => $pending,
                 "assingList" => $assing
