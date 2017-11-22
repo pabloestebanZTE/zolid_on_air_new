@@ -484,6 +484,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $request->i_actualEngineer = 0;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
+            echo $ticketOnAir->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -566,6 +567,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station 
                         INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
                         WHERE 
+                        s.k_id_status <> 1 and s.k_id_status <> 3 and s.k_id_status <> 4 and s.k_id_status <> 5 and s.k_id_status <> 6 and s.k_id_status <> 7 and s.k_id_status <> 8
                         t.n_name_technology LIKE '%$request->searchValue%' 
                         OR s.n_name_status LIKE '%$request->searchValue%' 
                         OR sb.n_name_substatus LIKE '%$request->searchValue%' 
