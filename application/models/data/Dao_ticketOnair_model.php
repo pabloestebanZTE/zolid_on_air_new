@@ -217,7 +217,9 @@ class Dao_ticketOnair_model extends CI_Model {
                 $ticketOnAir = new TicketOnAirModel();
                 $res = $ticketOnAir->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
                         ->update($request->ticket_on_air->all());
+                DB::runSQL($ticketOnAir->getSQL());
                 $response = new Response(EMessages::UPDATE);
+                $response->setData($ticketOnAir->getSQL());
             } else {
                 $response = new Response(EMessages::ERROR);
                 $response->setMessage("El ticket solicitado no existe.");
@@ -949,7 +951,66 @@ class Dao_ticketOnair_model extends CI_Model {
             $comment = $request->comment;
             $ticketModel = new TicketOnAirModel();
             $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
+
+
             if ($ticket) {
+                //Detectar el estado actual...
+                //SE AGREGA EL COMENTARIO A LA FASE (12h,24h,36h)...
+                //Comprobamos sobre cual estado se encuentra el proceso....
+                $status_onair = DB::table("status_on_air")
+                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                        ->first();
+                if ($status_onair) {
+                    $actual_status = null;
+                    $stepIdField = null;
+                    $stepModel = null;
+                    $d_fin = null;
+                    switch ($status_onair->k_id_substatus) {
+                        case ConstStates::SEGUIMIENTO_12H:
+                            $actual_status = "12h";
+                            $stepIdField = "k_id_12h_real";
+                            $stepModel = new OnAir12hModel();
+                            $d_fin = "d_fin12h";
+                            break;
+                        case ConstStates::SEGUIMIENTO_24H:
+                            $actual_status = "24h";
+                            $stepIdField = "k_id_24h_real";
+                            $stepModel = new OnAir24hModel();
+                            $d_fin = "d_fin24h";
+                            break;
+                        case ConstStates::SEGUIMIENTO_36H:
+                            $actual_status = "36h";
+                            $stepIdField = "k_id_36h_real";
+                            $stepModel = new OnAir36hModel();
+                            $d_fin = "d_fin36h";
+                            break;
+                    }
+                    //Después de comprobar sobre cual estado se encuentra y
+                    //obtener el modelo necesario simplemente actualizamos la fecha final
+                    //de ese proceso
+                    $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                    ->where("i_round", "=", $ticket->n_round)->first();
+
+                    if ($temp) {
+                        $commentEdit = $temp->n_comentario;
+                        if ($commentEdit) {
+                            $commentEdit = json_decode($commentEdit, true);
+                        } else {
+                            $commentEdit = [
+                                "comment" => $comment,
+                                "date" => Hash::getDate()
+                            ];
+                        }
+                        $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                ->where("i_round", "=", $ticket->n_round)->update([
+                            $d_fin => Hash::getDate(),
+                            "n_comentario" => $commentEdit
+                        ]);
+                    }
+                }
+
+
+
                 //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "k_id_status_onair" => $idStatus,

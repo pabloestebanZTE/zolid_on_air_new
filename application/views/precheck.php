@@ -80,23 +80,23 @@
                                 </div>
 
                                 <div class="form-group">
-                                 <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                    <label class="col-md-3 control-label">Observaciones de Creación</label>
                                     <div class="col-md-8 inputGroupContainer">
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
-                                      </div>
-                                  </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                 <label class="col-md-3 control-label">Observaciones de Asignacion</label>
-                                  <div class="col-md-8 inputGroupContainer">
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
-                                      </div>
-                                  </div>
+                                    <label class="col-md-3 control-label">Observaciones de Asignacion</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -219,13 +219,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                 <label class="col-md-3 control-label">Observaciones Precheck</label>
+                                    <label class="col-md-3 control-label">Observaciones Precheck</label>
                                     <div class="col-md-8 inputGroupContainer">
-                                      <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
-                                      </div>
-                                  </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Próximo Estado:</label>
@@ -233,7 +233,9 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                             <select name="k_id_status" id="k_id_status" class="form-control selectpicker" required>
-                                                <option value="" >Seleccione el Estado</option><option value = "0">Seguimiento FO</option>
+                                                <option value="" >Seleccione el Estado</option>
+                                                <option value="0">Seguimiento FO</option>
+                                                <option value="8">Producción</option>
                                             </select>
                                         </div>
                                     </div>
@@ -245,10 +247,60 @@
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                             <select name="k_id_status_onair" id="k_id_status_onair" class="form-control selectpicker" required>
                                                 <option value="">Seleccione el Subestado</option>
-                                                <option value="81">Seguimiento 12H</option>
-                                                <option value="82">Seguimiento 24H</option>
-                                                <option value="83">Seguimiento 36H</option>
                                             </select>
+                                        </div>
+                                        <div class="display-block hidden" id="divAnottations">
+                                            <label class="display-block m-t-15">Anotaciones:</label>
+                                            <div class="checkbox checkbox-primary display-block p-l-25" id="productionList">
+                                                <div class="display-block">
+                                                    <input id="chk_p_1" type="checkbox">
+                                                    <label for="chk_p_1" class="text-bold">
+                                                        Activación Cuarta Portadora.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_2" type="checkbox">
+                                                    <label for="chk_p_2" class="text-bold">
+                                                        Pendiente ID RF Tools
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_3" type="checkbox">
+                                                    <label for="chk_p_3" class="text-bold">
+                                                        Pendiente Sitio Limpio.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_4" type="checkbox">
+                                                    <label for="chk_p_4" class="text-bold">
+                                                        Activación Cuarta Portadora.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_5" type="checkbox">
+                                                    <label for="chk_p_5" class="text-bold">
+                                                        Pendiente Testgestión.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_6" type="checkbox">
+                                                    <label for="chk_p_6" class="text-bold">
+                                                        Pendiente Pruebas Alarmas.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_7" type="checkbox">
+                                                    <label for="chk_p_7" class="text-bold">
+                                                        Error de instalación.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_8" type="checkbox">
+                                                    <label for="chk_p_8" class="text-bold">
+                                                        Pendiente Evidencias.
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -308,6 +360,16 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
+                var opciones = {
+                    '0': '<option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>',
+                    '8': '<option value="87">Pendiente Tareas Remedy</option><option value="89">Producción</option>'
+                }
+                $('#k_id_status').on('change', function () {
+                    $('#k_id_status_onair').html('<option value="">Seleccione el Subestado</option>' + opciones[$(this).val()]);
+                    if ($(this).val() == 8) {
+                        $('#divAnottations').removeClass('hidden').hide().slideDown(500);
+                    }
+                });
                 dom.submit($('#precheckForm'), function () {
                     location.href = app.urlTo('User/principalView');
                 });

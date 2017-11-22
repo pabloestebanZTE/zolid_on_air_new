@@ -251,6 +251,18 @@ class DB extends PDO {
         $sth->execute();
     }
 
+    static function runSQL($sql) {
+        $db = new DB();
+        $db->runSQLPrivate($sql);
+    }
+
+    private function runSQLPrivate($sql) {
+        $this->sql = $sql;
+        $sth = $this->prepare($this->sql);
+        $this->query = $this->sql;
+        $sth->execute();
+    }
+
     function getSql() {
         return $this->query;
     }
