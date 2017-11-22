@@ -484,7 +484,6 @@ class Dao_ticketOnair_model extends CI_Model {
             $request->i_actualEngineer = 0;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
-            echo $ticketOnAir->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
