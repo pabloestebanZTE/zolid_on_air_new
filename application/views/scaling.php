@@ -595,7 +595,7 @@
             }).then((willDelete) => {
                 if (willDelete) {
                     dom.submitDirect($('#createScaling'),null, false);
-                    window.location = app.urlTo('User/principal');
+//                    window.location = app.urlTo('User/principal');
                 }
             });
           }
