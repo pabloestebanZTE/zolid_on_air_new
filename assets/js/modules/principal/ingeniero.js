@@ -40,7 +40,7 @@ $(function () {
         getButtons: function (obj) {
 
             var m = "";
-            if (obj.i_precheck_realizado) {
+            if (obj.i_precheck_realizado == 1) {
                 m = "style= 'display: none'";
             }
             return '<div class="btn-group">'

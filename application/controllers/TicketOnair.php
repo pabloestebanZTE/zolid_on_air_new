@@ -404,6 +404,9 @@ class TicketOnair extends CI_Controller {
                 $track12 = new dao_onAir12h_model();
                 $follow12 = new dao_followUp12h_model();
                 $response = $track12->getOnair12ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                if ($response->data = ""){
+                    
+                }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
                 $response = $follow12->update12FollowUp($this->request);

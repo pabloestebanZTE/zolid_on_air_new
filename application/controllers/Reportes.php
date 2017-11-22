@@ -349,8 +349,12 @@ class Reportes extends CI_Controller {
                       }
 
 
-
-
+                      if(!$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user){
+                        $res[$f]->onair12->k_id_follow_up_12h = new \stdClass();
+                        $res[$f]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                        $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
+                        $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";
+                      }
 
              $data[$f] = [
                "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_onair)),

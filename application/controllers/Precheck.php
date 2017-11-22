@@ -94,6 +94,7 @@ class Precheck extends CI_Controller {
         $this->request->k_id_user = $response->data->i_actualEngineer;
         $this->request->n_round = 1;
         $this->request->i_round = 1;
+        $this->request->i_actualEngineer = 0;
         $this->request->k_id_ticket = $this->request->k_id_onair;
         //print_r($response);
         //print_r($this->request);
