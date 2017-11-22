@@ -58,6 +58,9 @@
                                         <select name="k_id_station" id="estacion" class="form-control selectpicker" onchange="editTextCityRegional()" required>
                                             <option value="" >Seleccione la estación</option>
                                         </select>
+                                        <div class="input-group-btn">
+                                            <button type="button" id="copyToClipBoard" class="btn btn-primary" title="Copiar al portapapeles"><i class="fa fa-fw fa-copy"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

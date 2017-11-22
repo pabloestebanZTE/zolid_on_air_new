@@ -420,22 +420,22 @@
                                                     </select>-->
                                                 </div>
                                             </div>
-<!--                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtTicket">Ticket:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtTicket" placeholder="Ticket" name="ticket_on_air.n_ticket"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="cmbEstadoTicket">Estado Ticket:</label>
-                                                    <select class="form-control input-sm" id="cmbEstadoTicket" name="ticket_on_air.n_estado_ticket">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="Abierto">Abierto</option>
-                                                        <option value="Cerrado">Cerrado</option>
-                                                    </select>
-                                                </div>
-                                            </div>-->
+                                            <!--                                            <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtTicket">Ticket:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtTicket" placeholder="Ticket" name="ticket_on_air.n_ticket"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="cmbEstadoTicket">Estado Ticket:</label>
+                                                                                                <select class="form-control input-sm" id="cmbEstadoTicket" name="ticket_on_air.n_estado_ticket">
+                                                                                                    <option value="">Seleccione</option>
+                                                                                                    <option value="Abierto">Abierto</option>
+                                                                                                    <option value="Cerrado">Cerrado</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>-->
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbSLNModernizacion">SLN Modernización:</label>
@@ -604,9 +604,63 @@
                             <ul class="content-state hidden">
                                 <li>
                                     <div class="input-control">
-                                        <select class="form-control" id="cmbEstadosProcesos">
-                                            <option>Selecione</option>
-                                        </select>
+                                        <div class="row">
+                                            <select class="form-control" id="cmbEstadosProcesos">
+                                                <option value="">Selecione</option>
+                                                <option value="87">Pendiente Tareas Remedy</option>
+                                                <option value="89">Producción</option>
+                                            </select>
+                                            <div class="checkbox checkbox-primary" id="productionList">
+                                                <div class="display-block">
+                                                    <input id="chk_p_1" type="checkbox" >
+                                                    <label for="chk_p_1" class="text-bold">
+                                                        Activación Cuarta Portadora.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_2" type="checkbox" >
+                                                    <label for="chk_p_2" class="text-bold">
+                                                        Pendiente ID RF Tools
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_3" type="checkbox" >
+                                                    <label for="chk_p_3" class="text-bold">
+                                                        Pendiente Sitio Limpio.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_4" type="checkbox" >
+                                                    <label for="chk_p_4" class="text-bold">
+                                                        Activación Cuarta Portadora.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_5" type="checkbox" >
+                                                    <label for="chk_p_5" class="text-bold">
+                                                        Pendiente Testgestión.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_6" type="checkbox" >
+                                                    <label for="chk_p_6" class="text-bold">
+                                                        Pendiente Pruebas Alarmas.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_7" type="checkbox" >
+                                                    <label for="chk_p_7" class="text-bold">
+                                                        Error de instalación.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_8" type="checkbox" >
+                                                    <label for="chk_p_8" class="text-bold">
+                                                        Pendiente Evidencias.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -638,6 +692,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.1') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.3') ?>" type="text/javascript"></script>
 </body>
 </html>

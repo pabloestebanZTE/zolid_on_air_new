@@ -50,10 +50,15 @@ var TD = {
             swal("Error", "El tiempo asignado para la prórroga es inválido.", "error");
             return;
         }
+        var joinText = "";
+        var joinItems = $('#productionList').find('input:checked');
+        for (var i = 0; i < joinItems.length; i++) {
+            joinText += $(joinItems[i]).next('label').text() + ((i < (joinItems.length - 1)) ? ", " : "");
+        }
         var obj = {
             idProceso: $('#idProceso').val(),
             idStatus: cmbProduccion.val(),
-            comment: $('#modalChangeState #txtObservations').val()
+            comment: joinItems + "-----\n" + $('#modalChangeState #txtObservations').val()
         };
         app.post('TicketOnair/toProduction', obj)
                 .success(function (response) {
@@ -370,17 +375,17 @@ var TD = {
         }
     },
     getStatesProduction: function () {
-        var cmb = $('#cmbEstadosProcesos');
-        app.post('TicketOnair/getStatesProduction')
-                .success(function (response) {
-                    console.log(response);
-                    var datos = app.parseResponse(response);
-                    if (datos) {
-                        dom.llenarCombo(cmb, datos, {text: "n_name_substatus", value: "k_id_status_onair"});
-                    }
-                }).error(function (e) {
-            dom.comboVacio(cmb);
-        }).send();
+//        var cmb = $('#cmbEstadosProcesos');
+//        app.post('TicketOnair/getStatesProduction')
+//                .success(function (response) {
+//                    console.log(response);
+//                    var datos = app.parseResponse(response);
+//                    if (datos) {
+//                        dom.llenarCombo(cmb, datos, {text: "n_name_substatus", value: "k_id_status_onair"});
+//                    }
+//                }).error(function (e) {
+//            dom.comboVacio(cmb);
+//        }).send();
     }
 };
 
