@@ -96,6 +96,8 @@ class Precheck extends CI_Controller {
         $this->request->i_round = 1;
         $this->request->i_actualEngineer = 0;
         $this->request->k_id_ticket = $this->request->k_id_onair;
+        $response1 = $ticket->updateEngTicket($this->request->idOnair, 0)->data; //camilo
+
         //print_r($response);
         //print_r($this->request);
         //Sirve para veriificar si va para 12
