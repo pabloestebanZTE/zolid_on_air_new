@@ -558,7 +558,9 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology 
                         INNER JOIN `status` s 
                         INNER JOIN substatus sb 
-                        INNER JOIN status_on_air sa ON sa.k_id_status = s.k_id_status 
+                        INNER JOIN status_on_air sa ON                         
+                        sa.k_id_status_onair = tk.k_id_status_onair 
+                        AND sa.k_id_status = s.k_id_status 
                         AND sb.k_id_substatus = sa.k_id_substatus 
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band 
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station 
@@ -570,15 +572,17 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR bd.n_name_band LIKE '%$request->searchValue%' 
                         OR st.n_name_station LIKE '%$request->searchValue%' 
                         OR w.n_name_ork LIKE '%$request->searchValue%' 
-                        AND i_actualEngineer $condition 0 
+                        AND $condition 
                         group by tk.k_id_onair 
                         order by d_created_at desc limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk 
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology 
-                        INNER JOIN `status` s 
+                         INNER JOIN `status` s 
                         INNER JOIN substatus sb 
-                        INNER JOIN status_on_air sa ON sa.k_id_status = s.k_id_status 
+                        INNER JOIN status_on_air sa ON                         
+                        sa.k_id_status_onair = tk.k_id_status_onair 
+                        AND sa.k_id_status = s.k_id_status 
                         AND sb.k_id_substatus = sa.k_id_substatus 
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band 
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station 
@@ -590,15 +594,19 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR bd.n_name_band LIKE '%$request->searchValue%' 
                         OR st.n_name_station LIKE '%$request->searchValue%' 
                         OR w.n_name_ork LIKE '%$request->searchValue%' 
-                        AND i_actualEngineer $condition 0 
+                        AND $condition 
                         group by tk.k_id_onair 
                         order by d_created_at desc";
             } else {
-                $sql = "select * from ticket_on_air "
-                        . "where i_actualEngineer $condition 0 "
+                $sql = "select * from ticket_on_air a "
+                        . "inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
+                                    inner join status s on s.k_id_status = b.k_id_status "
+                        . "where $condition "
                         . "order by d_created_at desc limit $request->start, $request->length";
-                $sqlCount = "select count(k_id_onair) as count from ticket_on_air "
-                        . "where i_actualEngineer $condition 0 "
+                $sqlCount = "select count(k_id_onair) as count from ticket_on_air a "
+                        . "inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
+                                    inner join status s on s.k_id_status = b.k_id_status "
+                        . "where $condition "
                         . "order by d_created_at desc";
             }
 
@@ -622,13 +630,31 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    //Coordinador...
     public function getPendingList($request) {
-        return $this->getListTicket($request, "=");
+        return $this->getListTicket($request, "i_actualEngineer = 0");
     }
 
     public function getAssignList($request) {
-        return $this->getListTicket($request, "!=");
+        return $this->getListTicket($request, "i_actualEngineer != 0");
     }
+
+    //Fin Coordinador...
+    //Documentador...
+    public function getPriorityList($request) {
+        return $this->getListTicket($request, "i_priority = '1'");
+    }
+
+    public function getTracingList($request) {
+        return $this->getListTicket($request, "s.n_name_status LIKE '%Seguimiento%'");
+    }
+
+    public function getRestartList($request) {
+        return $this->getListTicket($request, "s.n_name_status LIKE '%Escalado%'");
+    }
+
+    //Fin documentador...
+
 
     public function getAssign() {
         try {
@@ -658,8 +684,7 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    public function
-    getPriorityRestartAndTracing() {
+    public function getPriorityRestartAndTracing() {
         try {
             $db = new DB();
             $restart = $db->select("select a.* 
@@ -667,9 +692,7 @@ class Dao_ticketOnair_model extends CI_Model {
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
                                     inner join status c on c.k_id_status = b.k_id_status 
                                     where c.n_name_status LIKE '%Escalado%' 
-                                    and YEAR(d_created_at) = YEAR(CURRENT_DATE) 
-                                    and MONTH(d_created_at) = MONTH(CURRENT_DATE) 
-                                    order by d_created_at desc LIMIT 55")->get();
+                                    order by d_created_at desc")->get();
 //            
 //            $tracing = $db->select("select * from ticket_on_air where i_priority = '1'")->limit(20)->get();
             $priority = $db->select("select * from ticket_on_air where i_priority = '1' "
@@ -681,8 +704,6 @@ class Dao_ticketOnair_model extends CI_Model {
                                     inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
                                     inner join status c on c.k_id_status = b.k_id_status 
                                     where c.n_name_status LIKE '%Seguimiento%' 
-                                    and YEAR(d_created_at) = YEAR(CURRENT_DATE) 
-                                    and MONTH(d_created_at) = MONTH(CURRENT_DATE) 
                                     order by d_created_at desc LIMIT 55")->get();
             //Consultamos la lista de registros ...
             $data = [
