@@ -176,7 +176,15 @@ INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_
 
 /*ALTER TABLE preparation_stage AUTO_INCREMENT = 1;
 ALTER TABLE ticket_on_air AUTO_INCREMENT = 1;
-ALTER TABLE precheck AUTO_INCREMENT = 1;*/
+ALTER TABLE scaled_on_air AUTO_INCREMENT = 1;
+ALTER TABLE scaled AUTO_INCREMENT = 1;
+ALTER TABLE precheck AUTO_INCREMENT = 1;
+ALTER TABLE on_air_36h AUTO_INCREMENT = 1;
+ALTER TABLE on_air_12h AUTO_INCREMENT = 1;
+ALTER TABLE on_air24h AUTO_INCREMENT = 1;
+ALTER TABLE follow_up_36h AUTO_INCREMENT = 1;
+ALTER TABLE follow_up_24h AUTO_INCREMENT = 1;
+ALTER TABLE follow_up_12h AUTO_INCREMENT = 1;*/
 
 
 -- Modificaciones Lunes, 20 de Noviembre de 2017.
