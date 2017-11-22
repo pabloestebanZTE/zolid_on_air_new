@@ -268,9 +268,6 @@
                                                     <input type="text" class="form-control input-sm" placeholder="BTS IP Address" id="txtBtsIpAddress" name="preparation_stage.n_btsipaddress" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 p-t-20">
-                                                <button type="button" class="btn btn-primary"><i class="fa fa-fw fa-check"></i> Revisado</button>
-                                            </div>
                                             <!--ingenieroPrecheck y FinPre los generará el sistema.-->
                                         </div>
                                     </div>
@@ -279,12 +276,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtCorrecionPendientes">Correción pendientes:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>                                                       
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -352,23 +344,13 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaBloqueado">Bloqueado:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaDesBloqueado">Desbloqueado:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -392,23 +374,13 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaRFT">Fecha RFT:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaRFT" placeholder="DD/MM/YYYY" name="ticket_on_air.fecha_rft" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaRFT" placeholder="DD/MM/YYYY" name="ticket_on_air.fecha_rft" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaCG">Fecha CG:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaCG" placeholder="DD/MM/YYYY" name="ticket_on_air.d_fecha_cg" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button"  class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaCG" placeholder="DD/MM/YYYY" name="ticket_on_air.d_fecha_cg" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -435,19 +407,7 @@
                                                                                                     <option value="Cerrado">Cerrado</option>
                                                                                                 </select>
                                                                                             </div>
-                                                                                        </div>-->
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="cmbSLNModernizacion">SLN Modernización:</label>
-                                                    <select class="form-control input-sm" id="cmbSLNModernizacion" name="ticket_on_air.n_sln_modernizacion">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="1">Concurrente</option>
-                                                        <option value="2">Dedicadas Sencillas</option>
-                                                        <option value="3">RF Sharing Dedicado</option>
-                                                        <option value="4">RF Diversity Sharihg</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                                                                        </div>-->                                            
                                         </div>
                                     </div>
                                     <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>

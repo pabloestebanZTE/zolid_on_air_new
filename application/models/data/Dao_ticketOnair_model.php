@@ -214,10 +214,20 @@ class Dao_ticketOnair_model extends CI_Model {
                 //asignando los valores correspondientes...
                 $request->ticket_on_air->k_id_status_onair = $idStatusOnair;
                 $request->k_id_preparation = $idPreparation;
-                $ticketOnAir = new TicketOnAirModel();
-                $res = $ticketOnAir->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
-                        ->update($request->ticket_on_air->all());
-                DB::runSQL($ticketOnAir->getSQL());
+                DB::table("ticket_on_air")
+                        ->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
+                        ->update([
+                            "d_bloqueo" => $request->ticket_on_air->d_bloqueo,
+                            "d_desbloqueo" => $request->ticket_on_air->d_desbloqueo,
+                            "n_sectoresbloqueados" => $request->ticket_on_air->n_sectoresbloqueados,
+                            "n_sectoresdesbloqueados" => $request->ticket_on_air->n_sectoresdesbloqueados,
+                            "fecha_rft" => $request->ticket_on_air->fecha_rft,
+                            "d_fecha_cg" => $request->ticket_on_air->d_fecha_cg,
+                            "n_exclusion_bajo_trafico" => $request->ticket_on_air->n_exclusion_bajo_trafico,
+                ]);
+//                $res = $ticketOnAir->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
+//                        ->update($request->ticket_on_air->all());
+//                DB::runSQL($ticketOnAir->getSQL());
                 $response = new Response(EMessages::UPDATE);
                 $response->setData($ticketOnAir->getSQL());
             } else {
