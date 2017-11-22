@@ -96,6 +96,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-3 control-label">Fecha Ingreso On-Air:</label>
+                                <div class="col-md-8 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
+                                        <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-3 control-label">CRQ / CHG:</label>
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
@@ -137,6 +146,24 @@
 
                         <!--  inicio seccion derecha form---->
                         <fieldset >
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="txtSectoresBloqueados">Sectores bloqueados:</label>
+                                <div class="col-md-8 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+                                        <input type="text" class="form-control" id="txtSectoresBloqueados" placeholder="Ej: A,B,1, etc" name="n_sectoresbloqueados" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="txtSectoresDesBloqueados">Sectores desbloqueados:</label>
+                                <div class="col-md-8 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                        <input type="text" class="form-control" id="txtSectoresDesBloqueados" placeholder="Ej: A,B,1, etc" name="n_sectoresbloqueados" />
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Tecnologia:</label>
@@ -172,16 +199,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Fecha Ingreso On-Air:</label>
-                                <div class="col-md-8 selectContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                        <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' required>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>                            
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Estado:</label>
                                 <div class="col-md-8 selectContainer">
@@ -423,12 +441,24 @@
         <script type="text/javascript">
                                                                 $(function () {
                                                                     dom.submit($('#assignServie2'));
-                                                                })
-                                                                $(function () {
                                                                     dom.submit($('#stationForm'), function () {
                                                                         location.href = app.urlTo('User/createTicketOnair');
                                                                     });
-                                                                })
+
+                                                                    $('#copyToClipBoard').on('click', function () {
+                                                                        var temp = document.getElementById('inputForClipBoard');
+                                                                        temp = document.createElement('input');
+                                                                        temp.id = 'inputForClipBoard';
+                                                                        temp.style.opacity = '0';
+                                                                        temp.style.position = 'absolute';
+                                                                        temp.style.bottom = '0';
+                                                                        document.body.appendChild(temp);
+                                                                        temp.value = $('select#estacion option:selected').text();
+                                                                        temp.select();
+                                                                        document.execCommand("Copy");
+                                                                        temp.remove();
+                                                                    });
+                                                                });
         </script>
         <?php
         if (isset($error)) {
