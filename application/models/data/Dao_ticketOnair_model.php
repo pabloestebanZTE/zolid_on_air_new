@@ -507,11 +507,20 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    function updateStatusTicket($id, $value) {
+    function updateStatusTicket($id, $value, $request = null) {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
-                    ->update(["k_id_status_onair" => $value]);
+            if ($request == null) {
+                $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                        ->update(["k_id_status_onair" => $value]);
+            } else {
+                $datos = $ticketOnAir->where("k_id_onair", "=", $id)
+                        ->update([
+                    "k_id_status_onair" => $value,
+                    "d_fechaproduccion" => Hash::getDate(),
+                    "n_estadoonair" => "ON AIR"
+                ]);
+            }
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -731,9 +740,9 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
             if ($ticket) {
                 //Se actualiza el comentario del ticket...|
-                $ticketModel->where("k_id_onair", "=", $id)->update([
-                    "n_comentario_coor" => $comment
-                ]);
+//                $ticketModel->where("k_id_onair", "=", $id)->update([
+//                    "n_comentario_coor" => $comment
+//                ]);
                 $status_onair = DB::table("status_on_air")
                         ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
                         ->first();
@@ -761,11 +770,30 @@ class Dao_ticketOnair_model extends CI_Model {
                     //Después de comprobar sobre cual estado se encuentra y
                     //obtener el modelo necesario simplemente actualizamos el estado
                     //para ese modelo...
+                    $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                    ->where("i_round", "=", $ticket->n_round)->first();
+
+                    $commentEdit = null;
+                    if ($temp) {
+                        $commentEdit = $temp->n_comentario;
+                        $tempComment = [
+                            "comment" => $comment,
+                            "date" => Hash::getDate()
+                        ];
+
+                        if ($commentEdit) {
+                            $commentEdit = json_decode($commentEdit, true);
+                            $commentEdit[] = $tempComment;
+                        } else {
+                            $commentEdit = [$tempComment];
+                        }
+                    }
                     $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
                             ->where("i_round", "=", $ticket->n_round)->update([
                         "i_state" => 2, //Estado prórroga.
                         "d_start_temp" => date("Y-m-d H:i:s"),
                         "i_hours" => $hoursProrroga,
+                        "n_comentario" => json_encode($commentEdit, true)
                     ]);
                 }
             } else {
@@ -862,13 +890,33 @@ class Dao_ticketOnair_model extends CI_Model {
                 $temp = $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
                         ->where("i_round", "=", $ticket->n_round)
                         ->first();
+
+                $commentEdit = null;
+                $tempComment = [
+                    "comment" => $comment,
+                    "date" => Hash::getDate()
+                ];
+                if ($temp) {
+                    $commentEdit = $temp->n_comentario;
+
+                    if ($commentEdit) {
+                        $commentEdit = json_decode($commentEdit, true);
+                        $commentEdit[] = $tempComment;
+                    } else {
+                        $commentEdit = [$tempComment];
+                    }
+                } else {
+                    $commentEdit = [$tempComment];
+                }
+
+
                 //Se comprueba si existe, para actualizar...
                 if ($temp) {
                     $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
                             ->where("i_round", "=", $ticket->n_round)
                             ->update([
                                 "i_state" => 0,
-                                "n_comentario" => $comment,
+                                "n_comentario" => json_encode($commentEdit, true),
                                 $dateField => Hash::getDate()
                     ]);
                 } else {
@@ -876,7 +924,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $detailModel->insert([
                         "k_id_onair" => $ticket->k_id_onair,
                         "i_state" => 0,
-                        "n_comentario" => $comment,
+                        "n_comentario" => json_encode($commentEdit, true),
                         "i_round" => $ticket->n_round,
                         $dateField => Hash::getDate()
                     ]);
@@ -952,7 +1000,6 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketModel = new TicketOnAirModel();
             $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
 
-
             if ($ticket) {
                 //Detectar el estado actual...
                 //SE AGREGA EL COMENTARIO A LA FASE (12h,24h,36h)...
@@ -991,31 +1038,32 @@ class Dao_ticketOnair_model extends CI_Model {
                     $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
                                     ->where("i_round", "=", $ticket->n_round)->first();
 
+                    $commentEdit = null;
+                    $tempComment = [
+                        "comment" => $comment,
+                        "date" => Hash::getDate()
+                    ];
                     if ($temp) {
                         $commentEdit = $temp->n_comentario;
                         if ($commentEdit) {
                             $commentEdit = json_decode($commentEdit, true);
+                            $commentEdit[] = $tempComment;
                         } else {
-                            $commentEdit = [
-                                "comment" => $comment,
-                                "date" => Hash::getDate()
-                            ];
+                            $commentEdit = [$tempComment];
                         }
-                        $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                                ->where("i_round", "=", $ticket->n_round)->update([
-                            $d_fin => Hash::getDate(),
-                            "n_comentario" => $commentEdit
-                        ]);
                     }
+                    $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_round", "=", $ticket->n_round)->update([
+                        $d_fin => Hash::getDate(),
+                        "n_comentario" => $commentEdit
+                    ]);
                 }
-
-
 
                 //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "k_id_status_onair" => $idStatus,
                     "d_fechaproduccion" => Hash::getDate(),
-                    "n_estadoonair" => "ON AIR"
+                    "n_estadoonair" => "ON AIR",
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {

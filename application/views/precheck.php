@@ -368,11 +368,31 @@
                     $('#k_id_status_onair').html('<option value="">Seleccione el Subestado</option>' + opciones[$(this).val()]);
                     if ($(this).val() == 8) {
                         $('#divAnottations').removeClass('hidden').hide().slideDown(500);
+                    } else {
+                        $('#divAnottations').slideUp(500);
                     }
                 });
-                dom.submit($('#precheckForm'), function () {
-                    location.href = app.urlTo('User/principalView');
-                });
+                var form = $('#precheckForm');
+                form.validate();
+                var onSubmitForm = function (e) {
+                    if (e.isDefaultPrevented())
+                    {
+                        return;
+                    }
+                    app.stopEvent(e);
+                    var form = $(this);
+                    dom.controlSubmit(form, function () {
+                        location.href = app.urlTo('User/principalView');
+                    }).before(function () {
+                        var joinText = "";
+                        var joinItems = $('#productionList').find('input:checked');
+                        for (var i = 0; i < joinItems.length; i++) {
+                            joinText += $(joinItems[i]).next('label').text() + ((i < (joinItems.length - 1)) ? ", " : "");
+                        }
+                        $('#n_comentario_ing').val(joinText + "-----\n" + $('#n_comentario_ing').val());
+                    }).send();
+                };
+                form.on('submit', onSubmitForm);
             })
             // , function(){location.href = app.urlTo('User/principalView');}
         </script>

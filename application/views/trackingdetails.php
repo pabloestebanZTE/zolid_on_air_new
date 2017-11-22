@@ -475,7 +475,7 @@
                             </div>
                         </div>
                         <div class="display-block">
-                            <div class="hour-step active" data-ref="#contentDetails_12h" data-value="12">
+                            <div class="hour-step active" data-ref="#contentDetails_12h_content" data-value="12">
                                 <div class="body-step">
                                     <label>12H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -487,7 +487,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_24h" data-value="24">
+                            <div class="hour-step" data-ref="#contentDetails_24h_content" data-value="24">
                                 <div class="body-step">
                                     <label>24H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -499,7 +499,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_36h" data-value="36">
+                            <div class="hour-step" data-ref="#contentDetails_36h_content" data-value="36">
                                 <div class="body-step">
                                     <label>36H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -513,44 +513,50 @@
                             </div>
                         </div>
                         <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
-                            <div id="modelWiget" class="hidden">
+                            <div id="modelWiget" class="hidden form-group row wiget-comment">
                                 <div class="col-md-3 wiget-list">
                                     <div class="item-wiget">
                                         <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
                                         <div class="details-wiget">
-                                            <span class="title display-block">Fecha Inicio: </span>
+                                            <span class="title display-block">Fecha: </span>
                                             <span class="text display-block" id="d_start">{d_start}</span>
-                                        </div>
-                                    </div>
-                                    <div class="item-wiget">
-                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
-                                        <div class="details-wiget">
-                                            <span class="title display-block">Fecha Fin: </span>
-                                            <span class="text display-block" id="d_end">{d_end}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
+                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
                                 </div>
-                                <div class="col-md-4 wiget-list p-l-25 users">
-                                    <div class="item-wiget">
-                                        <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
-                                        <div class="details-wiget">
-                                            <span class="title display-block">{user_name}</span>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="item-wiget hidden" id="wigetUser">
+                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                <div class="details-wiget">
+                                    <span class="title display-block">Ningún usuario asignado</span>
                                 </div>
                             </div>
                             <div class="well m-b-0 p-t-5 p-b-5">
-                                <div class="row wiget" id="contentDetails_12h">
-
+                                <div class="row content-wiget" id="contentDetails_12h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_12h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_12h_users">
+                                        <div class="wiget-list p-l-25 users">                                            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row wiget hidden" id="contentDetails_24h">
-
+                                <div class="row content-wiget hidden" id="contentDetails_24h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_24h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_24h_users">
+                                        <div class="wiget-list p-l-25 users">                                            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row wiget hidden" id="contentDetails_36h">
-
+                                <div class="row content-wiget hidden" id="contentDetails_36h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_36h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_36h_users">
+                                        <div class="wiget-list p-l-25 users">                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -692,6 +698,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.3') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.4') ?>" type="text/javascript"></script>
 </body>
 </html>

@@ -194,3 +194,14 @@ ALTER TABLE `ticket_on_air`
 ALTER TABLE `user`
 	ADD COLUMN `n_code_user` VARCHAR(5) NULL DEFAULT NULL AFTER `k_id_user`,
 	ADD UNIQUE INDEX `n_code_user` (`n_code_user`);
+
+
+-- Actualizaciones Miércoles, 22 de Noviembre 2017.
+ALTER TABLE `on_air_12h`
+	CHANGE COLUMN `n_comentario` `n_comentario` LONGTEXT NULL DEFAULT NULL AFTER `d_fin12h`;
+
+ALTER TABLE `on_air24h`
+	CHANGE COLUMN `n_comentario` `n_comentario` LONGTEXT NULL DEFAULT NULL AFTER `d_fin24h`;
+
+ALTER TABLE `on_air_36h`
+	CHANGE COLUMN `n_comentario` `n_comentario` LONGTEXT NULL DEFAULT NULL AFTER `d_fin36h`;

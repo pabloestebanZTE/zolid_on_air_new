@@ -82,7 +82,7 @@ class TicketOnair extends CI_Controller {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
-    
+
     public function getRestartList() {
         $response = null;
         if (Auth::check()) {
@@ -390,8 +390,9 @@ class TicketOnair extends CI_Controller {
                 $track12 = new dao_onAir12h_model();
                 $follow12 = new dao_followUp12h_model();
                 $response = $track12->getOnair12ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
-                if ($response->data = ""){
-                    
+                if (!$response->data) {
+                    $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                    return;
                 }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
@@ -406,6 +407,10 @@ class TicketOnair extends CI_Controller {
                 $track24 = new dao_onAir24h_model();
                 $follow24 = new dao_followUp24h_model();
                 $response = $track24->getOnair24ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                if (!$response->data) {
+                    $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                    return;
+                }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
                 $response = $follow24->update24FollowUp($this->request);
@@ -420,6 +425,10 @@ class TicketOnair extends CI_Controller {
                 $track36 = new dao_onAir36h_model();
                 $follow36 = new dao_followUp36h_model();
                 $response = $track36->getOnair36ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                if (!$response->data) {
+                    $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                    return;
+                }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
                 $response = $follow36->update36FollowUp($this->request);
