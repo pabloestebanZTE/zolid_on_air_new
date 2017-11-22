@@ -59,6 +59,42 @@ class TicketOnair extends CI_Controller {
         $this->json($res);
     }
 
+    public function getPriorityList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getPriorityList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getTracingList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getTracingList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+    
+    public function getRestartList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getRestartList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
     public function getListTicketDocumentador() {
         $response = null;
         if (Auth::check()) {
@@ -69,30 +105,30 @@ class TicketOnair extends CI_Controller {
             $array->data["tracingList"] = (is_array($array->data["tracingList"])) ? ($this->getFKRegisters($array->data["tracingList"])) : NULL;
             $array->data["restartList"] = (is_array($array->data["restartList"])) ? ($this->getFKRegisters($array->data["restartList"])) : NULL;
             //asigno datos del usuario asignado
-            for ($i = 0; $i < count($array->data['priorityList']); $i++) {
-                if ($array->data['priorityList'][$i]->i_actualEngineer != 0) {
-                    $array->data['priorityList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['priorityList'][$i]->i_actualEngineer)->data;
-                    $array->data['priorityList'][$i]->i_actualEngineer->n_name_user = $array->data['priorityList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['priorityList'][$i]->i_actualEngineer->n_last_name_user;
-                } elseif ($array->data['priorityList'][$i]->i_actualEngineer == 0) {
-                    $array->data['priorityList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
-                }
-            }
-            for ($i = 0; $i < count($array->data['tracingList']); $i++) {
-                if ($array->data['tracingList'][$i]->i_actualEngineer != 0) {
-                    $array->data['tracingList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['tracingList'][$i]->i_actualEngineer)->data;
-                    $array->data['tracingList'][$i]->i_actualEngineer->n_name_user = $array->data['tracingList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['tracingList'][$i]->i_actualEngineer->n_last_name_user;
-                } elseif ($array->data['tracingList'][$i]->i_actualEngineer == 0) {
-                    $array->data['tracingList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
-                }
-            }
-            for ($i = 0; $i < count($array->data['restartList']); $i++) {
-                if ($array->data['restartList'][$i]->i_actualEngineer != 0) {
-                    $array->data['restartList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['restartList'][$i]->i_actualEngineer)->data;
-                    $array->data['restartList'][$i]->i_actualEngineer->n_name_user = $array->data['restartList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['restartList'][$i]->i_actualEngineer->n_last_name_user;
-                } elseif ($array->data['restartList'][$i]->i_actualEngineer == 0) {
-                    $array->data['restartList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
-                }
-            }
+//            for ($i = 0; $i < count($array->data['priorityList']); $i++) {
+//                if ($array->data['priorityList'][$i]->i_actualEngineer != 0) {
+//                    $array->data['priorityList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['priorityList'][$i]->i_actualEngineer)->data;
+//                    $array->data['priorityList'][$i]->i_actualEngineer->n_name_user = $array->data['priorityList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['priorityList'][$i]->i_actualEngineer->n_last_name_user;
+//                } elseif ($array->data['priorityList'][$i]->i_actualEngineer == 0) {
+//                    $array->data['priorityList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+//                }
+//            }
+//            for ($i = 0; $i < count($array->data['tracingList']); $i++) {
+//                if ($array->data['tracingList'][$i]->i_actualEngineer != 0) {
+//                    $array->data['tracingList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['tracingList'][$i]->i_actualEngineer)->data;
+//                    $array->data['tracingList'][$i]->i_actualEngineer->n_name_user = $array->data['tracingList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['tracingList'][$i]->i_actualEngineer->n_last_name_user;
+//                } elseif ($array->data['tracingList'][$i]->i_actualEngineer == 0) {
+//                    $array->data['tracingList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+//                }
+//            }
+//            for ($i = 0; $i < count($array->data['restartList']); $i++) {
+//                if ($array->data['restartList'][$i]->i_actualEngineer != 0) {
+//                    $array->data['restartList'][$i]->i_actualEngineer = $user->findBySingleId($array->data['restartList'][$i]->i_actualEngineer)->data;
+//                    $array->data['restartList'][$i]->i_actualEngineer->n_name_user = $array->data['restartList'][$i]->i_actualEngineer->n_name_user . " " . $array->data['restartList'][$i]->i_actualEngineer->n_last_name_user;
+//                } elseif ($array->data['restartList'][$i]->i_actualEngineer == 0) {
+//                    $array->data['restartList'][$i]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+//                }
+//            }
             $this->json($array);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -427,7 +463,7 @@ class TicketOnair extends CI_Controller {
         } else {
             $response = $scaling->insertScaling($this->request);
         }
-        
+
         $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }

@@ -1,9 +1,118 @@
 $(function () {
-    principal = {
+    vista = {
         timers: [],
         init: function () {
-            principal.events();
-            principal.listActivities();
+            vista.events();
+            $('.contentPrincipal').removeClass('hidden');
+            vista.getPriorityList();
+            vista.getTracingList();
+            vista.getRestartList();
+//            vista.listActivities();
+        },
+        getPriorityList: function () {
+            $('#tablaPrioritarios').DataTable({
+                columns: [
+                    {title: "Estación", data: "k_id_station.n_name_station"},
+                    {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
+                    {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
+                    {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
+                    {title: "Tiempo", data: vista.setTimer},
+                    {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
+                    {title: "Banda", data: 'k_id_band.n_name_band'},
+                    {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                    {title: "Encargado", data: 'i_actualEngineer'},
+                    {title: "Opciones", data: vista.getButtons},
+                ],
+                "language": {
+                    "url": app.urlbase + "assets/plugins/datatables/lang/es.json"
+                },
+                columnDefs: [{
+                        defaultContent: "",
+                        targets: 0,
+                        orderable: false,
+                    }],
+                order: [[1, 'asc']],
+                "bProcessing": true,
+                "serverSide": true,
+                drawCallback: vista.runTimers,
+                "ajax": {
+                    url: app.urlTo("TicketOnair/getPriorityList"), // json datasource
+                    type: "get", // type of method  , by default would be get
+                    error: function () {  // error handling code
+                        $("#employee_grid_processing").css("display", "none");
+                    }
+                }
+            });
+        },
+        getTracingList: function () {
+            $('#tablaPrincipal').DataTable({
+                columns: [
+                    {title: "Estación", data: "k_id_station.n_name_station"},
+                    {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
+                    {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
+                    {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
+                    {title: "Tiempo", data: vista.setTimer},
+                    {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
+                    {title: "Banda", data: 'k_id_band.n_name_band'},
+                    {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                    {title: "Encargado", data: 'i_actualEngineer'},
+                    {title: "Opciones", data: vista.getButtons},
+                ],
+                "language": {
+                    "url": app.urlbase + "assets/plugins/datatables/lang/es.json"
+                },
+                columnDefs: [{
+                        defaultContent: "",
+                        targets: 0,
+                        orderable: false,
+                    }],
+                order: [[1, 'asc']],
+                "bProcessing": true,
+                "serverSide": true,
+                drawCallback: vista.runTimers,
+                "ajax": {
+                    url: app.urlTo("TicketOnair/getTracingList"), // json datasource
+                    type: "get", // type of method  , by default would be get
+                    error: function () {  // error handling code
+                        $("#employee_grid_processing").css("display", "none");
+                    }
+                }
+            });
+        },
+        getRestartList: function () {
+            $('#tablaReinicios').DataTable({
+                columns: [
+                    {title: "Estación", data: "k_id_station.n_name_station"},
+                    {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
+                    {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
+                    {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
+                    {title: "Tiempo", data: vista.setTimer},
+                    {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
+                    {title: "Banda", data: 'k_id_band.n_name_band'},
+                    {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                    {title: "Encargado", data: 'i_actualEngineer'},
+                    {title: "Opciones", data: vista.getButtonsRestar},
+                ],
+                "language": {
+                    "url": app.urlbase + "assets/plugins/datatables/lang/es.json"
+                },
+                columnDefs: [{
+                        defaultContent: "",
+                        targets: 0,
+                        orderable: false,
+                    }],
+                order: [[1, 'asc']],
+                "bProcessing": true,
+                "serverSide": true,
+                drawCallback: vista.runTimers,
+                "ajax": {
+                    url: app.urlTo("TicketOnair/getRestartList"), // json datasource
+                    type: "get", // type of method  , by default would be get
+                    error: function () {  // error handling code
+                        $("#employee_grid_processing").css("display", "none");
+                    }
+                }
+            });
         },
         //Eventos de la ventana.
         events: function () {
@@ -25,11 +134,11 @@ $(function () {
                     .success(function (response) {
                         console.log(response);
                         if (app.successResponse(response)) {
-                            principal.fillTable(response.data.tracingList);
-                            principal.fillTablePriority(response.data.priorityList);
-                            principal.fillTableRestart(response.data.restartList);
+                            vista.fillTable(response.data.tracingList);
+                            vista.fillTablePriority(response.data.priorityList);
+                            vista.fillTableRestart(response.data.restartList);
                         } else {
-                            principal.fillTable([]);
+                            vista.fillTable([]);
                         }
                     }).error(function (e) {
                 console.error(e);
@@ -52,84 +161,86 @@ $(function () {
         },
         setTimer: function (obj, style, none, settings) {
             var time = obj.k_id_status_onair.time;
-            var timer = {time: time, settings: settings, idTimer: 'timer_' + obj.k_id_onair + settings.row + '-' + settings.col};
-            principal.timers.push(timer);
+            var timeStamp = (new Date()).getTime();
+            var timer = {time: time, settings: settings, idTimer: 'timer_' + timeStamp + obj.k_id_onair + settings.row + '-' + settings.col};
+            vista.timers.push(timer);
             return '<span id="' + timer.idTimer + '"><i class="fa fa-fw fa-clock-o"></i> No asignado</span>';
         },
         fillTable: function (data) {
-            if (principal.tablaPrincipal) {
-                dom.refreshTable(principal.tablaPrincipal, data);
+            if (vista.tablaPrincipal) {
+                dom.refreshTable(vista.tablaPrincipal, data);
                 return;
             }
 
-            principal.tablaPrincipal = $('#tablaPrincipal').DataTable(dom.configTable(data,
+            vista.tablaPrincipal = $('#tablaPrincipal').DataTable(dom.configTable(data,
                     [
                         {title: "Estación", data: "k_id_station.n_name_station"},
                         {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
                         {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
                         {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
-                        {title: "Tiempo", data: principal.setTimer},
+                        {title: "Tiempo", data: vista.setTimer},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
                         {title: "Encargado", data: 'i_actualEngineer'},
-                        {title: "Opciones", data: principal.getButtons},
-                    ], principal.runTimers
+                        {title: "Opciones", data: vista.getButtons},
+                    ], vista.runTimers
                     ));
         },
         fillTablePriority: function (data) {
-            if (principal.tablaPrioritarios) {
-                dom.refreshTable(principal.tablaPrioritarios, data);
+            if (vista.tablaPrioritarios) {
+                dom.refreshTable(vista.tablaPrioritarios, data);
                 return;
             }
 
-            principal.tablaPrioritarios = $('#tablaPrioritarios').DataTable(dom.configTable(data,
+            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(dom.configTable(data,
                     [
                         {title: "Estación", data: "k_id_station.n_name_station"},
                         {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
                         {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
                         {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
-                        {title: "Tiempo", data: principal.setTimer},
+                        {title: "Tiempo", data: vista.setTimer},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
                         {title: "Encargado", data: 'i_actualEngineer'},
-                        {title: "Opciones", data: principal.getButtons},
-                    ], principal.runTimers
+                        {title: "Opciones", data: vista.getButtons},
+                    ], vista.runTimers
                     ));
         },
         fillTableRestart: function (data) {
-            if (principal.tablaReinicios) {
-                dom.refreshTable(principal.tablaReinicios, data);
+            if (vista.tablaReinicios) {
+                dom.refreshTable(vista.tablaReinicios, data);
                 return;
             }
 
-            principal.tablaReinicios = $('#tablaReinicios').DataTable(dom.configTable(data,
+            vista.tablaReinicios = $('#tablaReinicios').DataTable(dom.configTable(data,
                     [
                         {title: "Estación", data: "k_id_station.n_name_station"},
                         {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
                         {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
                         {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
-                        {title: "Tiempo", data: principal.setTimer},
+                        {title: "Tiempo", data: vista.setTimer},
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
                         {title: "Encargado", data: 'i_actualEngineer'},
-                        {title: "Opciones", data: principal.getButtonsRestar},
-                    ], principal.runTimers
+                        {title: "Opciones", data: vista.getButtonsRestar},
+                    ], vista.runTimers
                     ));
         },
         runTimers: function () {
-            var max = principal.timers.length;
+            var max = vista.timers.length;
             for (var i = 0; i < max; i++) {
-                var obj = principal.timers[i];
+                var obj = vista.timers[i];
                 if (obj.time != null) {
                     dom.timer($('#' + obj.idTimer), null, null, obj.time);
                 }
             }
+            vista.timers = [];
         }
     };
 
 
-    principal.init();
+    vista.init();
 });

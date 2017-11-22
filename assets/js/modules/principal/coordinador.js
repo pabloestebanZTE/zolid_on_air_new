@@ -33,7 +33,7 @@ $(function () {
                 order: [[1, 'asc']],
                 "bProcessing": true,
                 "serverSide": true,
-                drawCallback: vista.runTimers(),
+                drawCallback: vista.runTimers,
                 "ajax": {
                     url: app.urlTo("Precheck/getPendingList"), // json datasource
                     type: "get", // type of method  , by default would be get
@@ -69,7 +69,7 @@ $(function () {
                 order: [[1, 'asc']],
                 "bProcessing": true,
                 "serverSide": true,
-                drawCallback: vista.runTimers(),
+                drawCallback: vista.runTimers,
                 "ajax": {
                     url: app.urlTo("Precheck/getAssignList"), // json datasource
                     type: "get", // type of method  , by default would be get
