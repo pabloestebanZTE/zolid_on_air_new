@@ -113,12 +113,11 @@ class CI_Controller {
     public function json($response) {
         if (is_string($response) || is_numeric($response)) {
             echo $response;
-        } else
-        if (get_class($response) === 'Response') {
-            echo $response->json();
         } else if (is_object($response) || is_array($response)) {
             $r = new Response();
             echo $r->json($response);
+        } if (is_callable($response) && get_class($response) === 'Response') {
+            echo $response->json();
         }
     }
 

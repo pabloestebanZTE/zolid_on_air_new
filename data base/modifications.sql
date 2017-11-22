@@ -119,6 +119,7 @@ DELETE FROM `on_air`.`status_on_air` WHERE `k_id_status_onair`='67';
 /* table: reporte_comentario                                                 */
 /*==============================================================*/
 CREATE TABLE IF NOT EXISTS `reporte_comentario` (
+	`k_id_primary` int not null AUTO_INCREMENT,
   `k_id_on_air` int(11) DEFAULT NULL,
   `n_nombre_estacion_eb` varchar(100) DEFAULT NULL,
   `n_tecnologia` varchar(100) DEFAULT NULL,
@@ -131,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `reporte_comentario` (
   `ente_ejecutor` varchar(100) DEFAULT NULL,
   `tipificacion_resucomen` varchar(100) DEFAULT NULL,
   `noc` varchar(100) DEFAULT NULL,
-	primary key (k_id_on_air)
+	primary key (k_id_primary)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -175,7 +176,15 @@ INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_
 
 /*ALTER TABLE preparation_stage AUTO_INCREMENT = 1;
 ALTER TABLE ticket_on_air AUTO_INCREMENT = 1;
-ALTER TABLE precheck AUTO_INCREMENT = 1;*/
+ALTER TABLE scaled_on_air AUTO_INCREMENT = 1;
+ALTER TABLE scaled AUTO_INCREMENT = 1;
+ALTER TABLE precheck AUTO_INCREMENT = 1;
+ALTER TABLE on_air_36h AUTO_INCREMENT = 1;
+ALTER TABLE on_air_12h AUTO_INCREMENT = 1;
+ALTER TABLE on_air24h AUTO_INCREMENT = 1;
+ALTER TABLE follow_up_36h AUTO_INCREMENT = 1;
+ALTER TABLE follow_up_24h AUTO_INCREMENT = 1;
+ALTER TABLE follow_up_12h AUTO_INCREMENT = 1;*/
 
 
 -- Modificaciones Lunes, 20 de Noviembre de 2017.

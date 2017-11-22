@@ -238,6 +238,11 @@ var dom = {
             var diffMs = time; // Milisegundos entre la fecha y hoy.
             var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
             var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+            if (element.length == 0) {
+                window.clearInterval(interval);
+                interval = null;
+                return;
+            }
             if (diffHrs < 0) {
                 diffHrs *= -1;
             }
