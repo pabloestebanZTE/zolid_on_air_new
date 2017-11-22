@@ -366,7 +366,7 @@ var dom = {
     scrollTop: function () {
         $("html, body").animate({scrollTop: 0}, "slow");
     },
-    submitDirect: function (form, callback, clearForm) {
+    controlSubmit: function (form, callback, clearForm) {
         form.find('fieldset').prop('disabled', true);
         form.find('button[type="submit"] i.fa-save').attr('class', 'fa fa-fw fa-refresh fa-spin');
         var obj = form.getFormData();
@@ -392,7 +392,11 @@ var dom = {
         }).error(function (e) {
             console.error(e);
             dom.alertError(form.find('.alert'));
-        }).send();
+        });
+        return ajax;
+    },
+    submitDirect: function (form, callback, clearForm) {
+        dom.controlSubmit(form, callback, clearForm).send();
     },
     /**
      * 
