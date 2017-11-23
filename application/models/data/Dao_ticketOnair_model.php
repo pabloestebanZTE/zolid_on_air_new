@@ -1094,6 +1094,27 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    public function updateTicketDetails($request) {
+        try {
+            $response = new Response(EMessages::UPDATE);
+            $model = new TicketOnAirModel();
+            $ticket = $model->where("k_id_onair", "=", $request->idOnAir)->first();
+            if ($ticket) {
+                $model2 = new PreparationStageModel();
+                $model2->where("k_id_preparation", "=", $ticket->k_id_preparation)->update([
+                    "n_wp" => $request->k_id_preparation->n_wp,
+                    "n_bcf_wbts_id" => $request->k_id_preparation->n_bcf_wbts_id,
+                    "n_enteejecutor" => $request->k_id_preparation->n_enteejecutor,
+                ]);
+                return $response;
+            } else {
+                return new Response(EMessages::ERROR, "El ticket no existe.");
+            }
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+
 }
 
 ?>

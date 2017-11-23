@@ -101,6 +101,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
                                         <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' required>
+                                        <div class="input-group-btn">
+                                            <button type="button" id="btnTodayDate" class="btn btn-primary" title="Fecha Actual"><i class="fa fa-fw fa-calendar-check-o"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +148,7 @@
                         <!--  fin seccion izquierda form---->
 
                         <!--  inicio seccion derecha form---->
-                        <fieldset >
+                        <fieldset class="col-md-6">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="txtSectoresBloqueados">Sectores bloqueados:</label>
                                 <div class="col-md-8 selectContainer">
@@ -443,6 +446,17 @@
                                                                     dom.submit($('#assignServie2'));
                                                                     dom.submit($('#stationForm'), function () {
                                                                         location.href = app.urlTo('User/createTicketOnair');
+                                                                    });
+
+                                                                    $('#btnTodayDate').on('click', function () {
+                                                                        app.get('Utils/getActualDate')
+                                                                                .success(function (response) {
+                                                                                    console.log(response);
+                                                                                    if (response.code > 0) {
+                                                                                        $('#d_ingreso_on_air').val(formatDate(response.data, "yyyy-MM-ddThh:mm", "yyyy-MM-dd HH:mm"));
+                                                                                    }
+                                                                                })
+                                                                                .send();
                                                                     });
 
                                                                     $('#copyToClipBoard').on('click', function () {

@@ -99,6 +99,11 @@ class Precheck extends CI_Controller {
         $response1 = $ticket->updateEngTicket($this->request->idOnair, 0)->data; //camilo
         //Sirve para veriificar si va para 12
         $requestProduction = null;
+        $standByHours = 0;
+        //Se detecta si se desea hacer un Stand By...
+        if ($this->request->k_id_status_onair == 0) {
+            $standByHours = $this->request->standByHours;
+        }
         if ($this->request->k_id_status_onair >= 87) {
             $requestProduction = "TO_PRODUCCTION";
             $comment = $this->request->n_comentario_ing;
@@ -165,7 +170,8 @@ class Precheck extends CI_Controller {
         //Actualizamos la fecha en la que se inició el precheck.
         $temp = new TicketOnAirModel();
         $temp->where("k_id_onair", "=", $this->request->k_id_onair)->update([
-            "d_precheck_init" => Hash::getDate()
+            "d_precheck_init" => Hash::getDate(),
+            "i_stand_by_hours" => $standByHours,
         ]);
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
         $this->json($response);

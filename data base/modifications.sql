@@ -205,3 +205,8 @@ ALTER TABLE `on_air24h`
 
 ALTER TABLE `on_air_36h`
 	CHANGE COLUMN `n_comentario` `n_comentario` LONGTEXT NULL DEFAULT NULL AFTER `d_fin36h`;
+
+
+-- Actualizaciones 23, de Noviembre 2017.
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `i_stand_by_hours` INT NOT NULL DEFAULT '0' AFTER `d_precheck_init`;

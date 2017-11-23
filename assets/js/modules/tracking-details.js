@@ -8,6 +8,7 @@ var TD = {
         TD.listCombox();
         TD.getDetails();
         TD.getStatesProduction();
+        dom.submit($('#formDetallesBasicos'), null, false);
         dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
@@ -216,6 +217,7 @@ var TD = {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
                         $('#formDetallesBasicos').fillForm(response.data);
+                        $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');
                         form.fillForm(objTemp);

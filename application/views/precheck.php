@@ -236,6 +236,7 @@
                                                 <option value="" >Seleccione el Estado</option>
                                                 <option value="0">Seguimiento FO</option>
                                                 <option value="8">Producción</option>
+                                                <option value="9">Stand By</option>
                                             </select>
                                         </div>
                                     </div>
@@ -302,8 +303,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="display-block form-group hidden m-t-15" id="standByContent">
+                                            <label class="col-md-4 control-label">Tiempo Stand By:</label>
+                                            <div class="col-md-8 selectContainer">
+                                                <input type="number" class="form-control" name="standByHours" id="numStandBy" placeholder="0" value="0" />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </div>                                
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
                             <input type='hidden' name="k_id_precheck" id="k_id_precheck" class="form-control" value='' required>
@@ -361,15 +368,24 @@
         <script type="text/javascript">
             $(function () {
                 var opciones = {
-                    '0': '<option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>',
-                    '8': '<option value="87">Pendiente Tareas Remedy</option><option value="89">Producción</option>'
+                    '0': '<option value="">Seleccione el Subestado</option><option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>',
+                    '8': '<option value="">Seleccione el Subestado</option><option value="87">Pendiente Tareas Remedy</option><option value="89">Producción</option>',
+                    '9': '<option value="0">Stand By</option>'
                 }
                 $('#k_id_status').on('change', function () {
-                    $('#k_id_status_onair').html('<option value="">Seleccione el Subestado</option>' + opciones[$(this).val()]);
+                    $('#k_id_status_onair').html(opciones[$(this).val()]);
                     if ($(this).val() == 8) {
                         $('#divAnottations').removeClass('hidden').hide().slideDown(500);
-                    } else {
+                        $('#standByContent').slideUp(500);
+                        $('#numStandBy').val("0").prop("disabled", true);
+                    } else if ($(this).val() == 9) {
+                        $('#standByContent').removeClass('hidden').hide().slideDown(500);
                         $('#divAnottations').slideUp(500);
+                        $('#numStandBy').val("12").prop("disabled", false);
+                    } else {
+                        $('#standByContent').slideUp(500);
+                        $('#divAnottations').slideUp(500);
+                        $('#numStandBy').val("0").prop("disabled", true);
                     }
                 });
                 var form = $('#precheckForm');
@@ -381,6 +397,10 @@
                     }
                     app.stopEvent(e);
                     var form = $(this);
+                    if ($('#numStandBy').val() <= 0) {
+                        swal("Error", "El tiempo de Stand By debe ser mayor a 0", "error");
+                        return;
+                    }
                     dom.controlSubmit(form, function () {
                         location.href = app.urlTo('User/principalView');
                     }).before(function () {

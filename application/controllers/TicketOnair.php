@@ -83,6 +83,12 @@ class TicketOnair extends CI_Controller {
         }
     }
 
+    public function updateTicketDetails() {
+        $dao = new Dao_ticketOnair_model();
+        $response = $dao->updateTicketDetails($this->request);
+        $this->json($response);
+    }
+
     public function getRestartList() {
         $response = null;
         if (Auth::check()) {
