@@ -587,14 +587,13 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station 
                         INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
                         WHERE 
-                        t.n_name_technology LIKE '%$request->searchValue%' 
+                        (t.n_name_technology LIKE '%$request->searchValue%' 
                         OR s.n_name_status LIKE '%$request->searchValue%' 
                         OR sb.n_name_substatus LIKE '%$request->searchValue%' 
                         OR bd.n_name_band LIKE '%$request->searchValue%' 
                         OR st.n_name_station LIKE '%$request->searchValue%' 
-                        OR w.n_name_ork LIKE '%$request->searchValue%' 
-                        AND $condition 
-                        AND s.k_id_status <> 1 and s.k_id_status <> 3 and s.k_id_status <> 4 and s.k_id_status <> 5 and s.k_id_status <> 6 and s.k_id_status <> 7 and s.k_id_status <> 8
+                        OR w.n_name_ork LIKE '%$request->searchValue%') 
+                        AND $condition                         
                         group by tk.k_id_onair 
                         order by d_created_at desc limit $request->start, $request->length";
 
@@ -610,27 +609,29 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station 
                         INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
                         WHERE 
-                        t.n_name_technology LIKE '%$request->searchValue%' 
+                        (t.n_name_technology LIKE '%$request->searchValue%' 
                         OR s.n_name_status LIKE '%$request->searchValue%' 
                         OR sb.n_name_substatus LIKE '%$request->searchValue%' 
                         OR bd.n_name_band LIKE '%$request->searchValue%' 
                         OR st.n_name_station LIKE '%$request->searchValue%' 
-                        OR w.n_name_ork LIKE '%$request->searchValue%' 
+                        OR w.n_name_ork LIKE '%$request->searchValue%')  
                         AND $condition 
                         group by tk.k_id_onair 
                         order by d_created_at desc";
             } else {
-                $sql = "select * from ticket_on_air a "
-                        . "inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
-                                    inner join status s on s.k_id_status = b.k_id_status "
+                $sql = "select * from ticket_on_air tk "
+                        . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair 
+                                    inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
                         . "order by d_created_at desc limit $request->start, $request->length";
-                $sqlCount = "select count(k_id_onair) as count from ticket_on_air a "
-                        . "inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
-                                    inner join status s on s.k_id_status = b.k_id_status "
+                $sqlCount = "select count(k_id_onair) as count from ticket_on_air tk "
+                        . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair 
+                                    inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
                         . "order by d_created_at desc";
             }
+
+//            echo $sql;
 
             $pending = $db->select($sql)->get();
 
@@ -654,7 +655,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
     //Coordinador...
     public function getPendingList($request) {
-        return $this->getListTicket($request, "i_actualEngineer = 0");
+        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0");
     }
 
     public function getAssignList($request) {
