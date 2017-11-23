@@ -1047,31 +1047,33 @@ class Dao_ticketOnair_model extends CI_Model {
                             $d_fin = "d_fin36h";
                             break;
                     }
-                    //Después de comprobar sobre cual estado se encuentra y
-                    //obtener el modelo necesario simplemente actualizamos la fecha final
-                    //de ese proceso
-                    $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                                    ->where("i_round", "=", $ticket->n_round)->first();
+                    if ($stepModel) {
+                        //Después de comprobar sobre cual estado se encuentra y
+                        //obtener el modelo necesario simplemente actualizamos la fecha final
+                        //de ese proceso
+                        $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                        ->where("i_round", "=", $ticket->n_round)->first();
 
-                    $commentEdit = null;
-                    $tempComment = [
-                        "comment" => $comment,
-                        "date" => Hash::getDate()
-                    ];
-                    if ($temp) {
-                        $commentEdit = $temp->n_comentario;
-                        if ($commentEdit) {
-                            $commentEdit = json_decode($commentEdit, true);
-                            $commentEdit[] = $tempComment;
-                        } else {
-                            $commentEdit = [$tempComment];
+                        $commentEdit = null;
+                        $tempComment = [
+                            "comment" => $comment,
+                            "date" => Hash::getDate()
+                        ];
+                        if ($temp) {
+                            $commentEdit = $temp->n_comentario;
+                            if ($commentEdit) {
+                                $commentEdit = json_decode($commentEdit, true);
+                                $commentEdit[] = $tempComment;
+                            } else {
+                                $commentEdit = [$tempComment];
+                            }
                         }
+                        $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                ->where("i_round", "=", $ticket->n_round)->update([
+                            $d_fin => Hash::getDate(),
+                            "n_comentario" => json_encode($commentEdit, true)
+                        ]);
                     }
-                    $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                            ->where("i_round", "=", $ticket->n_round)->update([
-                        $d_fin => Hash::getDate(),
-                        "n_comentario" => $commentEdit
-                    ]);
                 }
 
                 //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
@@ -1087,7 +1089,7 @@ class Dao_ticketOnair_model extends CI_Model {
             }
             return $response;
         } catch (ZolidException $ex) {
-            
+            return $ex;
         }
     }
 
