@@ -69,7 +69,7 @@ class Dao_scaledOnair_model extends CI_Model {
             $scaledOnair = new ScaledOnAirMOdel();
             $datos = $scaledOnair->where("k_id_scaled_on_air", "=", $request->k_id_scaled_on_air)
                     ->update($request->all());
-            echo $scaledOnair->getSQL();
+            //echo $scaledOnair->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;

@@ -845,11 +845,13 @@ nav {
 .wiget .wiget-list.users .icon-wiget{
     border-radius: 100%;
     background-color: #af5d91;
+    float: left;
 }
 .wiget .wiget-list.users .item-wiget{padding: 9px 0px;margin-bottom: 0px;}
 
 .wiget .wiget-list.users .item-wiget .details-wiget{
     padding: 8px 7px;
+    max-width: 80%;
 }
 .wiget .wiget-list.users .item-wiget .title{
     font-size: 15px;    
@@ -870,4 +872,14 @@ nav {
 }
 table td{
     vertical-align: middle !important;
+}
+.wiget-comment{
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #cccccc63;
+    margin-bottom: 15px;
+}
+.wiget-comment:last-child{
+    padding-bottom: 0px;
+    border-bottom: none;
+    margin-bottom: 0px;
 }
