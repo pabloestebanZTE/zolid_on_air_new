@@ -19,11 +19,12 @@
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <form class="form-horizontal well" id="formDetallesBasicos">
+                                <form class="form-horizontal well" id="formDetallesBasicos" action="TicketOnair/updateTicketDetails">
+                                    <input type="hidden" name="idOnAir" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" />
                                     <div class="alert alert-success alert-dismissable hidden">
                                         <a href="#" class="close" >&times;</a>
                                         <p class="p-b-0" id="text"></p>
-                                    </div>
+                                    </div>                                    
                                     <div class="panel-body">
                                         <fieldset class="col-md-6 control-label">
                                             <div class="form-group">
@@ -71,7 +72,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                                        <input type="text" name="k_id_preparation.d_ingreso_on_air" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" maxlength="10" placeholder="DD/MM/AAAA">
+                                                        <input type="text" name="k_id_preparation.d_ingreso_on_air" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" placeholder="DD/MM/AAAA">
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,17 +92,16 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_wp" id="txtWP" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="k_id_preparation.n_wp" id="txtWP" class="form-control" value="" >
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_bcf_wbts_id" id="k_id_preparation.n_bcf_wbts_id" class="form-control" value="" readonly="false">
+                                                        <input type="text" name="k_id_preparation.n_bcf_wbts_id" id="k_id_preparation.n_bcf_wbts_id" class="form-control" value="" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,15 +141,16 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="txtEnteEjecutor" class="col-md-3 control-label">Ente Ejecutor:</label>
+                                                <label class="col-md-3 control-label">Ente Ejecutor:</label>
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_enteejecutor" id="txtEnteEjecuto" class="form-control" value="" readonly="false">
+                                                        <select name="k_id_preparation.n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker" required>
+                                                            <option value="" >Seleccione</option><option value="Claro" >Claro</option><option value="Nokia" >Nokia</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="txtEstado" class="col-md-3 control-label">Estado:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -188,10 +189,16 @@
                                                         <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         </fieldset>
+                                        <div class="form-group">
+                                            <hr/>
+                                            <div class="col-xs-12 text-center">
+                                                <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>                                    
+                                            </div>
+                                        </div>
                                         <!--   fin seccion derecha---->
-                                    </div>
+                                    </div>                                    
                                 </form>
                             </div>
                         </div>
@@ -658,6 +665,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.5') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.7') ?>" type="text/javascript"></script>
 </body>
 </html>

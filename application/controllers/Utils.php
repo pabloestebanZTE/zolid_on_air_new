@@ -22,6 +22,13 @@ class Utils extends CI_Controller {
         $this->json($x);
     }
 
+    public function getActualDate() {
+        $x = date("Y-m-d H:i:s");
+        $response = new Response(EMessages::CORRECT);
+        $response->setData($x);
+        $this->json($response);
+    }
+
     public function existSession() {
         $response = new Response(EMessages::SESSION_ACTIVE);
         if (!Auth::check()) {
