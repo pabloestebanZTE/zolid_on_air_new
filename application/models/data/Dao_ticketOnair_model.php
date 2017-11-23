@@ -1115,6 +1115,110 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    public function toStandBy($tck, $request) {
+        if (!is_object($tck) && $tck > 0) {
+            //Consultamos el ticket...
+            $ticket = new TicketOnAirModel();
+            $tck = $ticket->where("k_id_onair", "=", $tck)->first();
+            if (!$tck) {
+                return new Response(EMessages::ERROR, "El ticket no existe.");
+            }
+        } else if ($tck == null) {
+            return new Response(EMessages::ERROR, "Ticket no referido.");
+        }
+
+        $comment = "Se escala a StandBy --- $request->comment";
+
+        //Se deja el proceso en stand by...
+        //Empezamos guardando toda la configuración del estado actual del proceso, tiempos, etc, etc...
+        //DETECTAMOS EL SEGUIMIENTO ACTUAL...
+        $status_onair = DB::table("status_on_air")
+                ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
+                ->first();
+        if ($status_onair) {
+            $actual_status = null;
+            $stepIdField = null;
+            $stepModel = null;
+            $d_fin = null;
+            switch ($status_onair->k_id_substatus) {
+                case ConstStates::SEGUIMIENTO_12H:
+                    $actual_status = "12h";
+                    $stepIdField = "k_id_12h_real";
+                    $stepModel = new OnAir12hModel();
+                    $d_fin = "d_fin12h";
+                    break;
+                case ConstStates::SEGUIMIENTO_24H:
+                    $actual_status = "24h";
+                    $stepIdField = "k_id_24h_real";
+                    $stepModel = new OnAir24hModel();
+                    $d_fin = "d_fin24h";
+                    break;
+                case ConstStates::SEGUIMIENTO_36H:
+                    $actual_status = "36h";
+                    $stepIdField = "k_id_36h_real";
+                    $stepModel = new OnAir36hModel();
+                    $d_fin = "d_fin36h";
+                    break;
+            }
+            //Esto por si hay un seguimiento actual...
+            if ($stepModel) {
+                //Después de comprobar sobre cual estado se encuentra y
+                //obtener el modelo necesario simplemente actualizamos la fecha final
+                //de ese proceso
+                $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                ->where("i_round", "=", $ticket->n_round)->first();
+
+                $commentEdit = null;
+                $tempComment = [
+                    "comment" => $comment,
+                    "date" => Hash::getDate()
+                ];
+                if ($temp) {
+                    $commentEdit = $temp->n_comentario;
+                    if ($commentEdit) {
+                        $commentEdit = json_decode($commentEdit, true);
+                        $commentEdit[] = $tempComment;
+                    } else {
+                        $commentEdit = [$tempComment];
+                    }
+                }
+                //Se actualiza el comentario del seguimiento actual...
+                $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                        ->where("i_round", "=", $ticket->n_round)->update([
+                    "n_comentario" => json_encode($commentEdit, true)
+                ]);
+            } else {
+                //Esto generalmente por si está en precheck...
+                $actual_status = "precheck";
+            }
+            //Se obtiene el tiempo que lleva...
+            $timeGlobal = new TimerGlobal();
+            $time = $timeGlobal->updateTimeStamp($tck);
+            if ($time) {
+                $time_elapsed = $time->i_timetotal - $time->i_timestamp;
+            } else {
+                $time_elapsed = 0;
+            }
+
+            //Lo que vamos a hacer, es que cuando haya un proceso, se guarda la fecha en la que inició dicho proceso en el json 
+            //junto al tiempo que faltaba para terminar el proceso, así luego se 
+            //podrá reestablecer y actualizar las fechas de esos procesos a la fecha actual menos 
+            //el tiempo que restaba cuando se pasó a standby...
+
+            $json = [
+                "k_id_status_onair" => $tck->k_id_status_onair,
+                "actual_status" => $actual_status, //Precheck, 12h, 24h, 36h.
+                "time_elapsed" => $time_elapsed, //Tiempo que faltaba...
+            ];
+
+            $ticket = new TicketOnAirModel();
+            $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
+                "k_id_status_onair" => 100,
+                "data_standby" => json_encode($json, true)
+            ]);
+        }
+    }
+
 }
 
 ?>
