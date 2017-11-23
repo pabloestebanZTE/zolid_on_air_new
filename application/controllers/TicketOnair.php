@@ -82,7 +82,7 @@ class TicketOnair extends CI_Controller {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
-    
+
     public function getRestartList() {
         $response = null;
         if (Auth::check()) {
@@ -293,20 +293,6 @@ class TicketOnair extends CI_Controller {
         $res->k_id_technology = $technology->findById($res->k_id_technology)->data; //technology
         $res->scaledOnair = $scaledOnair->getScaledByTicket($res->k_id_onair)->data; //scaledOnair nuevo elemento
         $res->k_id_precheck = $precheck->getPrecheckByIdPrech($res->k_id_precheck)->data; //precheck
-        //Listamos los procesos onair...
-//        $res->onair12 = $onair12->getOnair12ByIdOnair($res->k_id_onair)->data; //onair12 nuevo elemento
-//        if ($res->onair12) {
-//            $res->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res->onair12->k_id_follow_up_12h)->data; //follow up 12
-//        }
-//        $res->onair24 = $onair24->getOnair24ByIdOnair($res->k_id_onair)->data; //onair24 nuevo elemento
-//        if ($res->onair24) {
-//            $res->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res->onair24->k_id_follow_up_24h)->data; //follow up 24
-//        }
-//        $res->onair36 = $onair36->getOnair36ByIdOnair($res->k_id_onair)->data; //onair24 nuevo elemento
-//        if ($res->onair36) {
-//            $res->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res->onair36->k_id_follow_up_36h)->data; //follow up 24
-//        }
-
         $response = new Response(EMessages::QUERY);
         $response->setData($res);
         $this->json($response);
@@ -404,6 +390,10 @@ class TicketOnair extends CI_Controller {
                 $track12 = new dao_onAir12h_model();
                 $follow12 = new dao_followUp12h_model();
                 $response = $track12->getOnair12ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                if (!$response->data) {
+                    $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                    return;
+                }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
                 $response = $follow12->update12FollowUp($this->request);
@@ -417,6 +407,10 @@ class TicketOnair extends CI_Controller {
                 $track24 = new dao_onAir24h_model();
                 $follow24 = new dao_followUp24h_model();
                 $response = $track24->getOnair24ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                if (!$response->data) {
+                    $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                    return;
+                }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
                 $response = $follow24->update24FollowUp($this->request);
@@ -431,6 +425,10 @@ class TicketOnair extends CI_Controller {
                 $track36 = new dao_onAir36h_model();
                 $follow36 = new dao_followUp36h_model();
                 $response = $track36->getOnair36ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+                if (!$response->data) {
+                    $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                    return;
+                }
                 $this->request->i_actualEngineer = $this->request->k_id_user;
                 $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
                 $response = $follow36->update36FollowUp($this->request);

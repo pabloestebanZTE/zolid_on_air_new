@@ -268,9 +268,6 @@
                                                     <input type="text" class="form-control input-sm" placeholder="BTS IP Address" id="txtBtsIpAddress" name="preparation_stage.n_btsipaddress" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 p-t-20">
-                                                <button type="button" class="btn btn-primary"><i class="fa fa-fw fa-check"></i> Revisado</button>
-                                            </div>
                                             <!--ingenieroPrecheck y FinPre los generará el sistema.-->
                                         </div>
                                     </div>
@@ -279,12 +276,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtCorrecionPendientes">Correción pendientes:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  data-callback="dom.formatDate" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>                                                       
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -352,29 +344,19 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaBloqueado">Bloqueado:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" data-callback="dom.formatDate" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaDesBloqueado">Desbloqueado:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" data-callback="dom.formatDate" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtSectoresBloqueados">Sectores bloqueados:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSectoresBloqueados" placeholder="Ej: A,B,1, etc" />
+                                                    <input type="text" class="form-control input-sm" id="txtSectoresBloqueados" placeholder="Ej: A,B,1, etc" name="ticket_on_air.n_sectoresbloqueados"/>
 <!--                                                    <select class="form-control input-sm" id="cmbSectoresBloqueados">
                                                         <option value="">Seleccione</option>
                                                     </select>-->
@@ -383,7 +365,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtSectoresDesbloqueados">Sectores desbloqueados:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSectoresDesbloqueados" placeholder="Ej: A,B,1, etc" />
+                                                    <input type="text" class="form-control input-sm" id="txtSectoresDesbloqueados" placeholder="Ej: A,B,1, etc" name="ticket_on_air.n_sectoresdesbloqueados"/>
 <!--                                                    <select class="form-control input-sm" id="cmbSectoresDesloqueados">
                                                         <option value="">Seleccione</option>
                                                     </select>-->
@@ -392,23 +374,13 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaRFT">Fecha RFT:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaRFT" placeholder="DD/MM/YYYY" name="ticket_on_air.fecha_rft" data-callback="dom.formatDate" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaRFT" placeholder="DD/MM/YYYY" name="ticket_on_air.fecha_rft" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaCG">Fecha CG:</label>
-                                                    <div class="input-group">
-                                                        <input type="datetime-local" class="form-control input-sm" id="txtFechaCG" placeholder="DD/MM/YYYY" name="ticket_on_air.d_fecha_cg" data-callback="dom.formatDate" style="width: 189px;"/>
-                                                        <div class="input-group-btn">
-                                                            <button type="button"  class="btn btn-default btn-sm"><i class="fa fa-fw fa-calendar"></i></button>
-                                                        </div>
-                                                    </div>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaCG" placeholder="DD/MM/YYYY" name="ticket_on_air.d_fecha_cg" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -420,34 +392,22 @@
                                                     </select>-->
                                                 </div>
                                             </div>
-<!--                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtTicket">Ticket:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtTicket" placeholder="Ticket" name="ticket_on_air.n_ticket"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="cmbEstadoTicket">Estado Ticket:</label>
-                                                    <select class="form-control input-sm" id="cmbEstadoTicket" name="ticket_on_air.n_estado_ticket">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="Abierto">Abierto</option>
-                                                        <option value="Cerrado">Cerrado</option>
-                                                    </select>
-                                                </div>
-                                            </div>-->
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="cmbSLNModernizacion">SLN Modernización:</label>
-                                                    <select class="form-control input-sm" id="cmbSLNModernizacion" name="ticket_on_air.n_sln_modernizacion">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="1">Concurrente</option>
-                                                        <option value="2">Dedicadas Sencillas</option>
-                                                        <option value="3">RF Sharing Dedicado</option>
-                                                        <option value="4">RF Diversity Sharihg</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            <!--                                            <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtTicket">Ticket:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtTicket" placeholder="Ticket" name="ticket_on_air.n_ticket"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="cmbEstadoTicket">Estado Ticket:</label>
+                                                                                                <select class="form-control input-sm" id="cmbEstadoTicket" name="ticket_on_air.n_estado_ticket">
+                                                                                                    <option value="">Seleccione</option>
+                                                                                                    <option value="Abierto">Abierto</option>
+                                                                                                    <option value="Cerrado">Cerrado</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>-->                                            
                                         </div>
                                     </div>
                                     <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
@@ -475,7 +435,7 @@
                             </div>
                         </div>
                         <div class="display-block">
-                            <div class="hour-step active" data-ref="#contentDetails_12h" data-value="12">
+                            <div class="hour-step active" data-ref="#contentDetails_12h_content" data-value="12">
                                 <div class="body-step">
                                     <label>12H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -487,7 +447,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_24h" data-value="24">
+                            <div class="hour-step" data-ref="#contentDetails_24h_content" data-value="24">
                                 <div class="body-step">
                                     <label>24H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -499,7 +459,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_36h" data-value="36">
+                            <div class="hour-step" data-ref="#contentDetails_36h_content" data-value="36">
                                 <div class="body-step">
                                     <label>36H</label>
                                     <span class="icon-step"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -513,44 +473,50 @@
                             </div>
                         </div>
                         <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
-                            <div id="modelWiget" class="hidden">
+                            <div id="modelWiget" class="hidden form-group row wiget-comment">
                                 <div class="col-md-3 wiget-list">
                                     <div class="item-wiget">
                                         <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
                                         <div class="details-wiget">
-                                            <span class="title display-block">Fecha Inicio: </span>
+                                            <span class="title display-block">Fecha: </span>
                                             <span class="text display-block" id="d_start">{d_start}</span>
-                                        </div>
-                                    </div>
-                                    <div class="item-wiget">
-                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
-                                        <div class="details-wiget">
-                                            <span class="title display-block">Fecha Fin: </span>
-                                            <span class="text display-block" id="d_end">{d_end}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
+                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
                                 </div>
-                                <div class="col-md-4 wiget-list p-l-25 users">
-                                    <div class="item-wiget">
-                                        <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
-                                        <div class="details-wiget">
-                                            <span class="title display-block">{user_name}</span>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="item-wiget hidden" id="wigetUser">
+                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                <div class="details-wiget">
+                                    <span class="title display-block">Ningún usuario asignado</span>
                                 </div>
                             </div>
                             <div class="well m-b-0 p-t-5 p-b-5">
-                                <div class="row wiget" id="contentDetails_12h">
-
+                                <div class="row content-wiget" id="contentDetails_12h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_12h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_12h_users">
+                                        <div class="wiget-list p-l-25 users">                                            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row wiget hidden" id="contentDetails_24h">
-
+                                <div class="row content-wiget hidden" id="contentDetails_24h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_24h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_24h_users">
+                                        <div class="wiget-list p-l-25 users">                                            
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row wiget hidden" id="contentDetails_36h">
-
+                                <div class="row content-wiget hidden" id="contentDetails_36h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_36h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_36h_users">
+                                        <div class="wiget-list p-l-25 users">                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -604,9 +570,63 @@
                             <ul class="content-state hidden">
                                 <li>
                                     <div class="input-control">
-                                        <select class="form-control" id="cmbEstadosProcesos">
-                                            <option>Selecione</option>
-                                        </select>
+                                        <div class="row">
+                                            <select class="form-control" id="cmbEstadosProcesos">
+                                                <option value="">Selecione</option>
+                                                <option value="87">Pendiente Tareas Remedy</option>
+                                                <option value="89">Producción</option>
+                                            </select>
+                                            <div class="checkbox checkbox-primary" id="productionList">
+                                                <div class="display-block">
+                                                    <input id="chk_p_1" type="checkbox" >
+                                                    <label for="chk_p_1" class="text-bold">
+                                                        Activación Cuarta Portadora.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_2" type="checkbox" >
+                                                    <label for="chk_p_2" class="text-bold">
+                                                        Pendiente ID RF Tools
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_3" type="checkbox" >
+                                                    <label for="chk_p_3" class="text-bold">
+                                                        Pendiente Sitio Limpio.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_4" type="checkbox" >
+                                                    <label for="chk_p_4" class="text-bold">
+                                                        Activación Cuarta Portadora.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_5" type="checkbox" >
+                                                    <label for="chk_p_5" class="text-bold">
+                                                        Pendiente Testgestión.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_6" type="checkbox" >
+                                                    <label for="chk_p_6" class="text-bold">
+                                                        Pendiente Pruebas Alarmas.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_7" type="checkbox" >
+                                                    <label for="chk_p_7" class="text-bold">
+                                                        Error de instalación.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_8" type="checkbox" >
+                                                    <label for="chk_p_8" class="text-bold">
+                                                        Pendiente Evidencias.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -638,6 +658,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.1') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.4') ?>" type="text/javascript"></script>
 </body>
 </html>

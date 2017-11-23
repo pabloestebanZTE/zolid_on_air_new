@@ -41,7 +41,9 @@ $(function () {
 
             var m = "";
             if (obj.i_precheck_realizado) {
-                m = "style= 'display: none'";
+                if(obj.i_precheck_realizado == 1){
+                  m = "style= 'display: none'";
+                }
             }
             return '<div class="btn-group">'
                     + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Seguimiento"><span class="fa fa-fw fa-history"></span></a>'

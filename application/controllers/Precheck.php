@@ -94,56 +94,73 @@ class Precheck extends CI_Controller {
         $this->request->k_id_user = $response->data->i_actualEngineer;
         $this->request->n_round = 1;
         $this->request->i_round = 1;
+        $this->request->i_actualEngineer = 0;
         $this->request->k_id_ticket = $this->request->k_id_onair;
-        //print_r($response);
-        //print_r($this->request);
+        $response1 = $ticket->updateEngTicket($this->request->idOnair, 0)->data; //camilo
         //Sirve para veriificar si va para 12
-        if ($this->request->k_id_status_onair == 81) {
+        $requestProduction = null;
+        if ($this->request->k_id_status_onair >= 87) {
+            $requestProduction = "TO_PRODUCCTION";
+            $comment = $this->request->n_comentario_ing;
+            $tempComment = [[
+            "comment" => $comment,
+            "date" => Hash::getDate()
+            ]];
+            $commentEdit = json_encode($tempComment, true);
+            $this->request->n_comentario = $commentEdit;
+        }
+        if ($this->request->k_id_status_onair == 81 || $this->request->k_id_status_onair >= 87) {
             $follow12h = new Dao_followUp12h_model();
             $onair12 = new Dao_onAir12h_model();
             $response = $follow12h->insert12hFollowUp($this->request);
             $this->request->k_id_follow_up_12h = $response->data->data;
             $this->request->d_start12h = Hash::getDate();
+            if ($this->request->k_id_status_onair >= 87) {
+                $this->request->d_fin12h = Hash::getDate();
+            }
             $response = $onair12->insertOnAir12($this->request);
             $this->request->d_finpre = Hash::getDate();
             $response = $preparation->updatePreparationStage($this->request)->data;
-            $response1 = $ticket->updateStatusTicket($this->request->idOnair, 81)->data;
+            $response1 = $ticket->updateStatusTicket($this->request->idOnair, $this->request->k_id_status_onair, $requestProduction)->data;
             $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-            $this->json($response);
         }
         // si va para 24
-        if ($this->request->k_id_status_onair == 82) {
+        if ($this->request->k_id_status_onair == 82 || $this->request->k_id_status_onair >= 87) {
             $follow24h = new Dao_followUp24h_model();
             $onair24 = new Dao_onAir24h_model();
             $response = $follow24h->insert24hFollowUp($this->request);
             $this->request->k_id_follow_up_24h = $response->data->data;
             $this->request->d_start24h = Hash::getDate();
+            if ($this->request->k_id_status_onair >= 87) {
+                $this->request->d_fin24h = Hash::getDate();
+            }
             $response = $onair24->insertOnAir24($this->request);
             $this->request->d_finpre = Hash::getDate();
             $response = $preparation->updatePreparationStage($this->request)->data;
-            $response1 = $ticket->updateStatusTicket($this->request->idOnair, 82)->data;
+            $response1 = $ticket->updateStatusTicket($this->request->idOnair, $this->request->k_id_status_onair, $requestProduction)->data;
             $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-            $this->json($response);
         }
         //si va para 36
-        if ($this->request->k_id_status_onair == 83) {
+        if ($this->request->k_id_status_onair == 83 || $this->request->k_id_status_onair >= 87) {
             $follow36h = new Dao_followUp36h_model();
             $onair36 = new Dao_onAir36h_model();
             $response = $follow36h->insert36hFollowUp($this->request);
             $this->request->k_id_follow_up_36h = $response->data->data;
             $this->request->d_start36h = Hash::getDate();
+            if ($this->request->k_id_status_onair >= 87) {
+                $this->request->d_fin36h = Hash::getDate();
+            }
             $response = $onair36->insertOnAir36($this->request);
             $this->request->d_finpre = Hash::getDate();
             $response = $preparation->updatePreparationStage($this->request)->data;
-            $response1 = $ticket->updateStatusTicket($this->request->idOnair, 83)->data;
+            $response1 = $ticket->updateStatusTicket($this->request->idOnair, $this->request->k_id_status_onair, $requestProduction)->data;
             $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-            $this->json($response);
         }
         //Actualizamos la fecha en la que se inició el precheck.
         $temp = new TicketOnAirModel();
@@ -151,6 +168,7 @@ class Precheck extends CI_Controller {
             "d_precheck_init" => Hash::getDate()
         ]);
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
+        $this->json($response);
         // $this->request->d_finpre = Hash::getDate();
         // $response = $preparation->updatePreparationStage($this->request)->data;
         // $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data;//camilo

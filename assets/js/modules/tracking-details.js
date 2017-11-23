@@ -23,9 +23,10 @@ var TD = {
         $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
     },
     onClickHourStep: function () {
+        TD.resizeWigets();
         $hourStep = $(this);
-        $('.row.wiget').addClass('hidden');
-        $($hourStep.attr('data-ref')).removeClass('hidden');
+        $('.row.content-wiget').addClass('hidden');
+        $($hourStep.attr('data-ref')).removeClass('hidden').hide().fadeIn(500);
         $('.hour-step').removeClass('active');
         $hourStep.addClass('active');
     },
@@ -47,13 +48,18 @@ var TD = {
         var cmbProduccion = $('#cmbEstadosProcesos');
         //Validamos...
         if (cmbProduccion.val().trim() === "" || cmbProduccion.val() == -1) {
-            swal("Error", "El tiempo asignado para la prórroga es inválido.", "error");
+            swal("Error", "Seleccione un subestado para pasar el proceso a producción.", "error");
             return;
+        }
+        var joinText = "";
+        var joinItems = $('#productionList').find('input:checked');
+        for (var i = 0; i < joinItems.length; i++) {
+            joinText += $(joinItems[i]).next('label').text() + ((i < (joinItems.length - 1)) ? ", " : "");
         }
         var obj = {
             idProceso: $('#idProceso').val(),
             idStatus: cmbProduccion.val(),
-            comment: $('#modalChangeState #txtObservations').val()
+            comment: joinText + "-----\n" + $('#modalChangeState #txtObservations').val()
         };
         app.post('TicketOnair/toProduction', obj)
                 .success(function (response) {
@@ -255,37 +261,38 @@ var TD = {
             TD.exec = true;
         };
         $('.hour-step').removeClass('active').addClass('disabled');
-        $('.row.wiget').addClass('hidden');
+        $('.row.content-wiget').addClass('hidden');
         $('.hour-step').removeClass('active');
 
         switch (obj.actual_status) {
             case "12h":
-                $('[data-ref="#contentDetails_12h"]').addClass('active').removeClass('disabled');
-                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), $('[data-ref="#contentDetails_12h"] .progress-step'), fn, obj);
-                $('#contentDetails_12h').removeClass('hidden');
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_12h_content"] #timeStep'), $('[data-ref="#contentDetails_12h_content"] .progress-step'), fn, obj);
+                $('#contentDetails_12h_content').removeClass('hidden');
                 break;
             case "24h":
-                $('[data-ref="#contentDetails_12h"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
-                $('[data-ref="#contentDetails_24h"]').addClass('active').removeClass('disabled');
-                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), $('[data-ref="#contentDetails_24h"] .progress-step'), fn, obj);
-                $('#contentDetails_24h').removeClass('hidden');
+                $('[data-ref="#contentDetails_12h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
+                $('[data-ref="#contentDetails_24h_content"]').addClass('active').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_24h_content"] #timeStep'), $('[data-ref="#contentDetails_24h_content"] .progress-step'), fn, obj);
+                $('#contentDetails_24h_content').removeClass('hidden');
                 break;
             case "36h":
-                $('[data-ref="#contentDetails_12h"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
-                $('[data-ref="#contentDetails_24h"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
-                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('[data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
-                $('[data-ref="#contentDetails_36h"]').addClass('active').removeClass('disabled');
-                $('#contentDetails_36h').removeClass('hidden');
+                $('[data-ref="#contentDetails_12h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
+                $('[data-ref="#contentDetails_24h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
+                dom.timer($('[data-ref="#contentDetails_36h_content"] #timeStep'), $('[data-ref="#contentDetails_36h_content"] .progress-step'), fn, obj);
+                $('[data-ref="#contentDetails_36h_content"]').addClass('active').removeClass('disabled');
+                $('#contentDetails_36h_content_content').removeClass('hidden');
                 break;
             default :
-                $('[data-ref="#contentDetails_12h"]').addClass('active').removeClass('disabled');
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-play-circle"></i> En producción');
                 $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h').removeClass('hidden');
+                $('#contentDetails_12h_content').removeClass('hidden');
                 $('.hour-step').removeClass('disabled').addClass('produccion');
                 break;
         }
         $('.hour-step.disabled .progress-step').css('width', '0%');
+        TD.resizeWigets();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');
@@ -304,83 +311,130 @@ var TD = {
     listDetails: function (details) {
         //List 12h...
         var content = $('#contentDetails_12h');
+        var users = $('#contentDetails_12h_users');
         content.html('');
         var model = $('#modelWiget');
-        var clone = model.clone().removeClass('hidden').removeAttr('id');
+        var modelUser = $('#wigetUser');
         for (var i = 0, dat; dat = details["12h"][i], i < details["12h"].length; i++) {
-            clone.find('#d_start').html(dom.formatDate(dat.d_start12h, 'month'));
-            clone.find('#d_end').html(dom.formatDate(dat.d_fin12h, 'month'));
-            clone.find('#n_comentario').html(dat.n_comentario, 'month');
-            //Listamos los usuarios...
-            var ctx = clone.find('.users');
-            var item = ctx.find('.item-wiget').clone();
+//            Listamos los usuarios...
+            var ctx = users.find('.users');
+            var item = modelUser;
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_12h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_12h[j], j < dat.k_id_follow_up_12h.length; j++) {
-                    var cln = item.clone();
+                    var cln = item.clone().removeClass('hidden').removeAttr('id');
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);
                 }
             }
-            content.append(clone);
+
+            //Listamos los comentarios...
+            //- Primero detectamos si hay un JSON de comentarios...
+            if (dat.n_comentario) {
+                var cmns = JSON.parse(dat.n_comentario);
+                for (var k = (cmns.length - 1); k >= 0; k--) {
+                    var clone = model.clone().removeClass('hidden').removeAttr('id');
+                    clone.find('#d_start').html(dom.formatDate(cmns[k].date, 'month'));
+                    clone.find('#n_comentario').html(cmns[k].comment);
+                    content.append(clone);
+                }
+            }
         }
         //List 24h...
         var content = $('#contentDetails_24h');
         content.html('');
         var model = $('#modelWiget');
+        var users = $('#contentDetails_24h_users');
         var clone = model.clone().removeClass('hidden').removeAttr('id');
         for (var i = 0, dat; dat = details["24h"][i], i < details["24h"].length; i++) {
-            clone.find('#d_start').html(dom.formatDate(dat.d_start24h, 'month'));
-            clone.find('#d_end').html(dom.formatDate(dat.d_fin24h, 'month'));
-            clone.find('#n_comentario').html(dat.n_comentario, 'month');
             //Listamos los usuarios...
-            var ctx = clone.find('.users');
-            var item = ctx.find('.item-wiget').clone();
+            var ctx = users.find('.users');
+            var item = modelUser;
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_24h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_24h[j], j < dat.k_id_follow_up_24h.length; j++) {
-                    var cln = item.clone();
+                    var cln = item.clone().removeClass('hidden').removeAttr('id');
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);
                 }
             }
-            content.append(clone);
+
+            //Listamos los comentarios...
+            //- Primero detectamos si hay un JSON de comentarios...
+            if (dat.n_comentario) {
+                var cmns = JSON.parse(dat.n_comentario);
+                for (var k = (cmns.length - 1); k >= 0; k--) {
+                    var clone = model.clone().removeClass('hidden').removeAttr('id');
+                    clone.find('#d_start').html(dom.formatDate(cmns[k].date, 'month'));
+                    clone.find('#n_comentario').html(cmns[k].comment);
+                    content.append(clone);
+                }
+            }
         }
         //List 36h
         var content = $('#contentDetails_36h');
         content.html('');
         var model = $('#modelWiget');
+        var users = $('#contentDetails_36h_users');
         var clone = model.clone().removeClass('hidden').removeAttr('id');
         for (var i = 0, dat; dat = details["36h"][i], i < details["36h"].length; i++) {
-            clone.find('#d_start').html(dom.formatDate(dat.d_start36h, 'month'));
-            clone.find('#d_end').html(dom.formatDate(dat.d_fin36h, 'month'));
-            clone.find('#n_comentario').html(dat.n_comentario, 'month');
             //Listamos los usuarios...
-            var ctx = clone.find('.users');
-            var item = ctx.find('.item-wiget').clone();
+            var ctx = users.find('.users');
+            var item = modelUser;
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_36h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_36h[j], j < dat.k_id_follow_up_36h.length; j++) {
-                    var cln = item.clone();
+                    var cln = item.clone().removeClass('hidden').removeAttr('id');
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);
                 }
             }
-            content.append(clone);
+
+            //Listamos los comentarios...
+            //- Primero detectamos si hay un JSON de comentarios...
+            if (dat.n_comentario) {
+                var cmns = JSON.parse(dat.n_comentario);
+                for (var k = (cmns.length - 1); k >= 0; k--) {
+                    var clone = model.clone().removeClass('hidden').removeAttr('id');
+                    clone.find('#d_start').html(dom.formatDate(cmns[k].date, 'month'));
+                    clone.find('#n_comentario').html(cmns[k].comment);
+                    content.append(clone);
+                }
+            }
         }
+
+        //Configuramos las alturas de las secciones...
+        TD.resizeWigets();
+    },
+    resizeWigets: function () {
+        window.setTimeout(function () {
+            console.log("RESIZE$ WGG");
+            var cw = $('.content-wiget');
+            for (var i = 0, w; w = $(cw[i]), i < cw.length; i++) {
+                var ws = w.find('.wiget');
+                if (ws.length == 2) {
+                    var hEsMayor = $(ws[0])[0].offsetHeight > $(ws[1])[0].offsetHeight;
+                    if (hEsMayor) {
+                        $(ws[1]).css('min-height', $(ws[0])[0].offsetHeight + 'px');
+                    } else {
+                        $(ws[0]).css('min-height', $(ws[1])[0].offsetHeight + 'px');
+                    }
+                }
+            }
+        }, 5);
     },
     getStatesProduction: function () {
-        var cmb = $('#cmbEstadosProcesos');
-        app.post('TicketOnair/getStatesProduction')
-                .success(function (response) {
-                    console.log(response);
-                    var datos = app.parseResponse(response);
-                    if (datos) {
-                        dom.llenarCombo(cmb, datos, {text: "n_name_substatus", value: "k_id_status_onair"});
-                    }
-                }).error(function (e) {
-            dom.comboVacio(cmb);
-        }).send();
+//        var cmb = $('#cmbEstadosProcesos');
+//        app.post('TicketOnair/getStatesProduction')
+//                .success(function (response) {
+//                    console.log(response);
+//                    var datos = app.parseResponse(response);
+//                    if (datos) {
+//                        dom.llenarCombo(cmb, datos, {text: "n_name_substatus", value: "k_id_status_onair"});
+//                    }
+//                }).error(function (e) {
+//            dom.comboVacio(cmb);
+//        }).send();
     }
 };
 
