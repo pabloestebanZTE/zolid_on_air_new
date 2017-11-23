@@ -349,11 +349,24 @@ class Reportes extends CI_Controller {
                       }
 
 
-                      if(!$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user){
+                      if(!$res[$f]->onair12->k_id_follow_up_12h->k_id_user){
                         $res[$f]->onair12->k_id_follow_up_12h = new \stdClass();
                         $res[$f]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
                         $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
                         $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";
+                      }
+
+                      if(!$res[$f]->onair12->k_id_follow_up_36h->k_id_user){
+                        $res[$f]->onair12->k_id_follow_up_36h = new \stdClass();
+                        $res[$f]->onair12->k_id_follow_up_36h->k_id_user = new \stdClass();
+                        $res[$f]->onair12->k_id_follow_up_36h->k_id_user->n_name_user = "";
+                        $res[$f]->onair12->k_id_follow_up_36h->k_id_user->n_last_name_user = "";
+                      }
+
+                      if(!$res[$f]->k_id_preparation){
+                        $res[$f]->k_id_preparation = new \stdClass();
+                        $res[$f]->k_id_preparation->n_enteejecutor = "";
+                        $res[$f]->k_id_preparation->n_idcontrolador = "";
                       }
 
              $data[$f] = [
