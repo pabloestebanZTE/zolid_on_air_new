@@ -807,10 +807,14 @@ class Dao_ticketOnair_model extends CI_Model {
                         "n_comentario" => json_encode($commentEdit, true)
                     ]);
                 }
+                //Se deja el ticket para volver a reasignar por parte del coordinador.
+                $ticketModel->where("k_id_onair", "=", $id)->update([
+                    "i_actualEngineer" => 0
+                ]);
+                $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
-            $this->registerReportComment($ticket->k_id_onair, $comment);
             $response = new Response(EMessages::INSERT);
             return $response;
         } catch (ZolidException $ex) {
@@ -1075,6 +1079,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "k_id_status_onair" => $idStatus,
                     "d_fechaproduccion" => Hash::getDate(),
                     "n_estadoonair" => "ON AIR",
+                    "i_actualEngineer" => 0
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
