@@ -148,10 +148,10 @@ class Reportes extends CI_Controller {
     public function reportOnair() {
 
 
-               $filename = "Reporte_ONAIR_".date("Y-m-d").".xls";
+        $filename = "Reporte_ONAIR_".date("Y-m-d").".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
-      /*  header('Content-Type: text/plain');*/
+       /* header('Content-Type: text/plain');*/
         $ticketsOnAir = new Dao_ticketOnAir_model();
         $preparation = new Dao_preparationStage_model();
         $station = new Dao_station_model();
@@ -179,11 +179,45 @@ class Reportes extends CI_Controller {
             $res[$i]->k_id_band = $band->findById($res[$i]->k_id_band)->data; //band
             $res[$i]->k_id_status_onair = $statusOnair->findById($res[$i]->k_id_status_onair)->data; //Status onair
             $res[$i]->k_id_work = $work->findById($res[$i]->k_id_work)->data; //work
-            $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair
+            $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair                
+            
+            if (!$res[$i]->scaled_onair) {
+                  $res[$i]->scaled_onair = new \stdClass();
+                  $res[$i]->scaled_onair->n_atribuible_nokia = "";
+                  $res[$i]->scaled_onair->d_time_escalado = "";
+                  $res[$i]->scaled_onair->d_fecha_escalado = "";
+                  $res[$i]->scaled_onair->i_cont_esc_imp = "";
+                  $res[$i]->scaled_onair->time_esc_imp = "";
+                  $res[$i]->scaled_onair->i_cont_esc_rf = "";
+                  $res[$i]->scaled_onair->i_time_esc_rf = "";
+                  $res[$i]->scaled_onair->cont_esc_npo = "";
+                  $res[$i]->scaled_onair->i_time_esc_npo = "";
+                  $res[$i]->scaled_onair->cont_esc_care = "";
+                  $res[$i]->scaled_onair->i_time_esc_care = "";
+                  $res[$i]->scaled_onair->i_cont_esc_gdrt = "";
+                  $res[$i]->scaled_onair->i_time_esc_gdrt = "";
+                  $res[$i]->scaled_onair->i_cont_esc_oym = "";
+                  $res[$i]->scaled_onair->time_esc_oym = "";
+                  $res[$i]->scaled_onair->cont_esc_calidad = "";
+                  $res[$i]->scaled_onair->i_time_esc_calidad = "";
+                  $res[$i]->scaled_onair->n_atribuible_nokia2 = "";
+                  $res[$i]->scaled_onair->n_detalle_solucion = "";
+                  $res[$i]->scaled_onair->n_ultimo_subestado_de_escalamiento = "";
+                  $res[$i]->scaled_onair->n_tipificacion_solucion = "";
+
+            }
+
             $res[$i]->k_id_precheck = $precheck->getPrecheckByIdPrech($res[$i]->k_id_precheck)->data; //precheck
             if ($res[$i]->k_id_precheck) {
                 $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
+            }else{
+                $res[$i]->k_id_precheck = new \stdClass();
+                $res[$i]->k_id_precheck->k_id_user = new \stdClass();                
+                $res[$i]->k_id_precheck->k_id_user->n_name_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " "; 
+                $res[$i]->k_id_precheck->d_finpre = " ";     
             }
+
             //creacion obj onair 12
             $res[$i]->onair12 = $onair12->getOnair12ByIdOnair($res[$i]->k_id_onair)->data;//onair12
             //filtracion ronda maxima onair12
@@ -192,10 +226,62 @@ class Reportes extends CI_Controller {
                     $ElementoMax12[$j] = $res[$i]->onair12[$j]->i_round;
                 }
             $res[$i]->onair12 =  $onair12->getOnair12ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax12))->data;
-            $res[$i]->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res[$i]->onair12->k_id_follow_up_12h)->data;//follow12
-            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
+                if ($res[$i]->onair12) {
+                    $res[$i]->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res[$i]->onair12->k_id_follow_up_12h)->data;//follow12
+                    if ($res[$i]->onair12->k_id_follow_up_12h) {
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
+                        if (!$res[$i]->onair12->k_id_follow_up_12h->k_id_user) {
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
+                        }                     
+                    }else{
+                        $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
+                    }
+                    
+                }else{
+                $res[$i]->onair12 = new \stdClass();
+                $res[$i]->onair12->k_id_12h_real = " ";
+                $res[$i]->onair12->k_id_onair = " ";
+                $res[$i]->onair12->d_start12h = " ";
+                $res[$i]->onair12->d_start_temp = " ";
+                $res[$i]->onair12->d_fin12h = " ";
+                $res[$i]->onair12->n_comentario = " ";
+                $res[$i]->onair12->i_timestamp = " ";
+                $res[$i]->onair12->i_round = " ";
+                $res[$i]->onair12->i_percent = " ";
+                $res[$i]->onair12->i_state = " ";
+                $res[$i]->onair12->i_hours = " ";
+                $res[$i]->onair12->d_created_at = " ";
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();                
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
+            }
+            }else{
+                $res[$i]->onair12 = new \stdClass();
+                $res[$i]->onair12->k_id_12h_real = " ";
+                $res[$i]->onair12->k_id_onair = " ";
+                $res[$i]->onair12->d_start12h = " ";
+                $res[$i]->onair12->d_start_temp = " ";
+                $res[$i]->onair12->d_fin12h = " ";
+                $res[$i]->onair12->n_comentario = " ";
+                $res[$i]->onair12->i_timestamp = " ";
+                $res[$i]->onair12->i_round = " ";
+                $res[$i]->onair12->i_percent = " ";
+                $res[$i]->onair12->i_state = " ";
+                $res[$i]->onair12->i_hours = " ";
+                $res[$i]->onair12->d_created_at = " ";
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();                
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
             }
             //fin obj onair12
+
             //creacion obj onair 24
             $res[$i]->onair24 = $onair24->getOnair24ByIdOnair($res[$i]->k_id_onair)->data;//onair24
             //filtracion ronda maxima onair24
@@ -204,10 +290,62 @@ class Reportes extends CI_Controller {
                     $ElementoMax24[$j] = $res[$i]->onair24[$j]->i_round;
                 }
             $res[$i]->onair24 =  $onair24->getOnair24ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax24))->data;
-            $res[$i]->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res[$i]->onair24->k_id_follow_up_24h)->data;//follow24
-            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
+                if ($res[$i]->onair24) {
+                    $res[$i]->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res[$i]->onair24->k_id_follow_up_24h)->data;//follow24
+                    if ($res[$i]->onair24->k_id_follow_up_24h) {
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
+                        if (!$res[$i]->onair24->k_id_follow_up_24h->k_id_user) {
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
+                        }                     
+                    }else{
+                        $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
+                    }
+                    
+                }else{
+                $res[$i]->onair24 = new \stdClass();
+                $res[$i]->onair24->k_id_24h_real = " ";
+                $res[$i]->onair24->k_id_onair = " ";
+                $res[$i]->onair24->d_start24h = " ";
+                $res[$i]->onair24->d_start_temp = " ";
+                $res[$i]->onair24->d_fin24h = " ";
+                $res[$i]->onair24->n_comentario = " ";
+                $res[$i]->onair24->i_timestamp = " ";
+                $res[$i]->onair24->i_round = " ";
+                $res[$i]->onair24->i_percent = " ";
+                $res[$i]->onair24->i_state = " ";
+                $res[$i]->onair24->i_hours = " ";
+                $res[$i]->onair24->d_created_at = " ";
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();                
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
+            }
+            }else{
+                $res[$i]->onair24 = new \stdClass();
+                $res[$i]->onair24->k_id_24h_real = " ";
+                $res[$i]->onair24->k_id_onair = " ";
+                $res[$i]->onair24->d_start24h = " ";
+                $res[$i]->onair24->d_start_temp = " ";
+                $res[$i]->onair24->d_fin24h = " ";
+                $res[$i]->onair24->n_comentario = " ";
+                $res[$i]->onair24->i_timestamp = " ";
+                $res[$i]->onair24->i_round = " ";
+                $res[$i]->onair24->i_percent = " ";
+                $res[$i]->onair24->i_state = " ";
+                $res[$i]->onair24->i_hours = " ";
+                $res[$i]->onair24->d_created_at = " ";
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();                
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
             }
             //fin obj onair24
+
             //creacion obj onair 36
             $res[$i]->onair36 = $onair36->getOnair36ByIdOnair($res[$i]->k_id_onair)->data;//onair36
             //filtracion ronda maxima onair36
@@ -216,18 +354,70 @@ class Reportes extends CI_Controller {
                     $ElementoMax36[$j] = $res[$i]->onair36[$j]->i_round;
                 }
             $res[$i]->onair36 =  $onair36->getOnair36ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax36))->data;
-            $res[$i]->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res[$i]->onair36->k_id_follow_up_36h)->data;//follow36
-            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
+                if ($res[$i]->onair36) {
+                    $res[$i]->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res[$i]->onair36->k_id_follow_up_36h)->data;//follow36
+                    if ($res[$i]->onair36->k_id_follow_up_36h) {
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
+                        if (!$res[$i]->onair36->k_id_follow_up_36h->k_id_user) {
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
+                        }                     
+                    }else{
+                        $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
+                    }
+                    
+                }else{
+                $res[$i]->onair36 = new \stdClass();
+                $res[$i]->onair36->k_id_36h_real = " ";
+                $res[$i]->onair36->k_id_onair = " ";
+                $res[$i]->onair36->d_start36h = " ";
+                $res[$i]->onair36->d_start_temp = " ";
+                $res[$i]->onair36->d_fin36h = " ";
+                $res[$i]->onair36->n_comentario = " ";
+                $res[$i]->onair36->i_timestamp = " ";
+                $res[$i]->onair36->i_round = " ";
+                $res[$i]->onair36->i_percent = " ";
+                $res[$i]->onair36->i_state = " ";
+                $res[$i]->onair36->i_hours = " ";
+                $res[$i]->onair36->d_created_at = " ";
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();                
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
             }
-            //fin obj onair24
+            }else{
+                $res[$i]->onair36 = new \stdClass();
+                $res[$i]->onair36->k_id_36h_real = " ";
+                $res[$i]->onair36->k_id_onair = " ";
+                $res[$i]->onair36->d_start36h = " ";
+                $res[$i]->onair36->d_start_temp = " ";
+                $res[$i]->onair36->d_fin36h = " ";
+                $res[$i]->onair36->n_comentario = " ";
+                $res[$i]->onair36->i_timestamp = " ";
+                $res[$i]->onair36->i_round = " ";
+                $res[$i]->onair36->i_percent = " ";
+                $res[$i]->onair36->i_state = " ";
+                $res[$i]->onair36->i_hours = " ";
+                $res[$i]->onair36->d_created_at = " ";
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();                
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
+            }
+            //fin obj onair36
         }
 
+        /*print_r($res);*/
 
         for ($f=0; $f <count($res) ; $f++) {
 
 
 
-
+/*
 
                       if (!$res[$f]->k_id_station) {
                           $res[$f]->k_id_station->n_name_station = "";
@@ -354,7 +544,7 @@ class Reportes extends CI_Controller {
                         $res[$f]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
                         $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
                         $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";
-                      }
+                      }*/
 
              $data[$f] = [
                "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_onair)),
@@ -382,8 +572,8 @@ class Reportes extends CI_Controller {
               "btsipaddress" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_btsipaddress)),//w
               "integrador" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_integrador)),//x
               "ingenieroprecheck" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_precheck->k_id_user->n_name_user." ".$res[$f]->k_id_precheck->k_id_user->n_last_name_user)),//y
-              "ingenierofinal12horas" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user)),//z
-              "ingenierogarantia" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user)),//aa
+ /*daño aca*/             "ingenierofinal12horas" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user)),//z
+/*DAÑO ACA*/              "ingenierogarantia" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user)),//aa
               "WP" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_wp)),//ab
               "CRQ" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_crq)),//ac
               "testgestion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_testgestion)),//ad
@@ -479,6 +669,7 @@ class Reportes extends CI_Controller {
               "NOC" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_noc)),//DP
              ];
          }
+         /*print_r($data);*/
          $flag = false;
          foreach($data as $row) {
            if(!$flag) {
@@ -490,8 +681,8 @@ class Reportes extends CI_Controller {
          }
          exit;
 
-
-
+//================================================================================================//
+//================================================================================================//
 
 
 /*
