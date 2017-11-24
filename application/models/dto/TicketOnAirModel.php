@@ -62,9 +62,10 @@ class TicketOnAirModel extends Model {
     protected $i_actualEngineer;
     protected $i_priority;
     protected $d_precheck_init;
-    protected $i_stand_by_hours;
+    protected $i_prorroga_hours;
     protected $d_created_at;
     protected $n_implementacion_remota;
+    protected $data_standby;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
@@ -436,11 +437,11 @@ class TicketOnAirModel extends Model {
     public function getDPrecheckInit() {
         return $this->d_precheck_init;
     }
-    public function setIStandByHours($i_stand_by_hours) {
-        $this->i_stand_by_hours = $i_stand_by_hours;
+    public function setIProrrogaHours($i_prorroga_hours) {
+        $this->i_prorroga_hours = $i_prorroga_hours;
     }
-    public function getIStandByHours() {
-        return $this->i_stand_by_hours;
+    public function getIProrrogaHours() {
+        return $this->i_prorroga_hours;
     }
     public function setDCreatedAt($d_created_at) {
         $this->d_created_at = $d_created_at;
@@ -453,6 +454,12 @@ class TicketOnAirModel extends Model {
     }
     public function getNImplementacionRemota() {
         return $this->n_implementacion_remota;
+    }
+    public function setDataStandby($data_standby) {
+        $this->data_standby = $data_standby;
+    }
+    public function getDataStandby() {
+        return $this->data_standby;
     }
 
 

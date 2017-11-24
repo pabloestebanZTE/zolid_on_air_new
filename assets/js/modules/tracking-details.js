@@ -43,7 +43,56 @@ var TD = {
             case "PROD":
                 TD.toProduction();
                 break;
+            case "STANDBY":
+                TD.toStandBy();
+                break;
+            case "QUITSTANDBY":
+                TD.quitStandBy();
+                break;
         }
+    },
+    quitStandBy: function () {
+        app.post("TicketOnair/quitStandBy", {
+            'idTicket': $('#idProceso').val(),
+            'comment': $('#txtObservations').val(),
+        }).success(function (response) {
+            if (response.code > 0) {
+                swal({
+                    title: "Actualizado",
+                    text: "Se ha acutalizado el proceso correctamente.",
+                    icon: "success",
+                    button: "Aceptar"
+                }).then(function () {
+                    location.reload();
+                });
+            } else {
+                swal("Error", response.message, "error");
+            }
+        }).error(function () {
+            swal("Error", "Se ha producido un error inesperado.", "error");
+        }).send();
+    },
+    toStandBy: function () {
+        app.post("TicketOnair/toStandBy", {
+            'idTicket': $('#idProceso').val(),
+            'comment': $('#txtObservations').val(),
+        })
+                .success(function (response) {
+                    if (response.code > 0) {
+                        swal({
+                            title: "Actualizado",
+                            text: "Se ha acutalizado el proceso correctamente.",
+                            icon: "success",
+                            button: "Aceptar"
+                        }).then(function () {
+                            location.reload();
+                        });
+                    } else {
+                        swal("Error", response.message, "success");
+                    }
+                }).error(function () {
+            swal("Error", "Se ha producido un error inesperado.", "error");
+        }).send();
     },
     toProduction: function () {
         var cmbProduccion = $('#cmbEstadosProcesos');
@@ -174,6 +223,13 @@ var TD = {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
+        } else if (parent.hasClass('standby')) {
+            $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
+            var item = $('#modalChangeState .states-modal a:eq(3)').removeClass('disabled');
+            item.html('<span class="icon-state theme2"><i class="fa fa-fw fa-play-circle"></i></span> Detener Stand By');
+            item.attr('data-action', 'QUITSTANDBY');
         } else {
             $('#modalChangeState .states-modal a').removeClass('disabled');
         }
@@ -291,6 +347,13 @@ var TD = {
                 dom.timer($('[data-ref="#contentDetails_36h_content"] #timeStep'), $('[data-ref="#contentDetails_36h_content"] .progress-step'), fn, obj);
                 $('[data-ref="#contentDetails_36h_content"]').addClass('active').removeClass('disabled');
                 $('#contentDetails_36h_content_content').removeClass('hidden');
+                break;
+            case "32": //Substatus => Standby...
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-stop-circle"></i> Stand By');
+                $('.progress-step').css('width', 100 + '%');
+                $('#contentDetails_12h_content').removeClass('hidden');
+                $('.hour-step').removeClass('disabled').addClass('standby');
                 break;
             default :
                 $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
