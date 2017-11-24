@@ -65,6 +65,7 @@ class TicketOnAirModel extends Model {
     protected $i_prorroga_hours;
     protected $d_created_at;
     protected $n_implementacion_remota;
+    protected $data_standby;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
@@ -453,6 +454,12 @@ class TicketOnAirModel extends Model {
     }
     public function getNImplementacionRemota() {
         return $this->n_implementacion_remota;
+    }
+    public function setDataStandby($data_standby) {
+        $this->data_standby = $data_standby;
+    }
+    public function getDataStandby() {
+        return $this->data_standby;
     }
 
 

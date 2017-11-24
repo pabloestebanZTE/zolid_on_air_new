@@ -35,6 +35,11 @@ class Hash {
         return strtotime($date) * 1000;
     }
 
+    public static function timeStampToDate($timestamp) {
+        $date = Hash::getTimeStamp(Hash::getDate());
+        return date("Y-m-d H:i:s", $timestamp / 1000);
+    }
+
     public static function getDate() {
         return date("Y-m-d H:i:s");
     }
