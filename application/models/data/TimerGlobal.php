@@ -98,7 +98,12 @@ class TimerGlobal {
         //Suponiendo que ya conocemos el estado, lo que haremos será arrancar el cronómetro...
         $obj = $this->getObjectModel();
         $obj->d_precheck_init = $tck->d_precheck_init;
-        $this->timer($obj, "d_precheck_init", 3);
+        //Detectamos si está en stand by...
+        $time = 3;
+        if ($tck->i_stand_by_hours > 0) {
+            $time = 12;
+        }
+        $this->timer($obj, "d_precheck_init", $time);
         return $obj;
     }
 

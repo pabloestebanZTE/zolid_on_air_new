@@ -9,7 +9,7 @@ $(function () {
         },
         getPendingList: function () {
             $('.contentPrincipal').removeClass('hidden');
-            $('#tablaPendientes').DataTable({
+            vista.tablaPendientes = $('#tablaPendientes').DataTable({
                 columns: [
                     {title: "Estación", data: "k_id_station.n_name_station"},
                     {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
@@ -45,7 +45,7 @@ $(function () {
         },
         getAssignList: function () {
             $('.contentPrincipal').removeClass('hidden');
-            $('#tablaAsignados').DataTable({
+            vista.tablaAsignados = $('#tablaAsignados').DataTable({
                 columns: [
                     {title: "Estación", data: "k_id_station.n_name_station"},
                     {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
@@ -81,17 +81,17 @@ $(function () {
         },
         //Eventos de la ventana.
         events: function () {
-            $('#tab1default').on('click', '.btn-preview', vista.onClickPreviewBtn);
+            $('table').off('click', '.btn-preview', vista.onClickPreviewBtn);
+            $('table').on('click', '.btn-preview', vista.onClickPreviewBtn);
         },
         onClickPreviewBtn: function () {
-            console.log("Click preview");
             var btn = $(this);
             var tr = btn.parents('tr');
-            if (!vista.tablaAsignados) {
+            var table = vista[btn.attr('data-table')];
+            if (!table) {
                 return;
             }
-            console.log("TR", tr);
-            var record = vista.tablaPendientes.row(tr).data();
+            var record = table.row(tr).data();
             console.log(tr, record);
             $('#formDetallesBasicos').fillForm(record);
             $('#modalPreview').modal('show');
@@ -102,14 +102,16 @@ $(function () {
         },
         getButtonsPending: function (obj) {
             return '<div class="btn-group">'
-                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
+                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" data-table="tablaPendientes" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
                     + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ir al Detalle"><span class="fa fa-fw fa-search"></span></a>'
                     + '<a href="' + app.urlTo('User/assignEngineer?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar"><span class="fa fa-fw fa-tag"></span></a>'
                     + '</div>';
         },
         getButtonsAssing: function (obj) {
             return '<div class="btn-group">'
-                    + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Detalle"><span class="fa fa-fw fa-eye"></span></a>'
+                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" data-table="tablaAsignados" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
+                    + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ir al Detalle"><span class="fa fa-fw fa-search"></span></a>'
+                    + '<a href="' + app.urlTo('User/assignEngineer?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Reasignar"><span class="fa fa-fw fa-tag"></span></a>'
                     + '</div>';
         },
         setTimer: function (obj, style, none, settings) {

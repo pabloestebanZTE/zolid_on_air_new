@@ -148,10 +148,10 @@ class Reportes extends CI_Controller {
     public function reportOnair() {
 
 
-               $filename = "Reporte_ONAIR_".date("Y-m-d").".xls";
+        $filename = "Reporte_ONAIR_".date("Y-m-d").".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
-      /*  header('Content-Type: text/plain');*/
+       /* header('Content-Type: text/plain');*/
         $ticketsOnAir = new Dao_ticketOnAir_model();
         $preparation = new Dao_preparationStage_model();
         $station = new Dao_station_model();
@@ -180,10 +180,44 @@ class Reportes extends CI_Controller {
             $res[$i]->k_id_status_onair = $statusOnair->findById($res[$i]->k_id_status_onair)->data; //Status onair
             $res[$i]->k_id_work = $work->findById($res[$i]->k_id_work)->data; //work
             $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair
+
+            if (!$res[$i]->scaled_onair) {
+                  $res[$i]->scaled_onair = new \stdClass();
+                  $res[$i]->scaled_onair->n_atribuible_nokia = "";
+                  $res[$i]->scaled_onair->d_time_escalado = "";
+                  $res[$i]->scaled_onair->d_fecha_escalado = "";
+                  $res[$i]->scaled_onair->i_cont_esc_imp = "";
+                  $res[$i]->scaled_onair->time_esc_imp = "";
+                  $res[$i]->scaled_onair->i_cont_esc_rf = "";
+                  $res[$i]->scaled_onair->i_time_esc_rf = "";
+                  $res[$i]->scaled_onair->cont_esc_npo = "";
+                  $res[$i]->scaled_onair->i_time_esc_npo = "";
+                  $res[$i]->scaled_onair->cont_esc_care = "";
+                  $res[$i]->scaled_onair->i_time_esc_care = "";
+                  $res[$i]->scaled_onair->i_cont_esc_gdrt = "";
+                  $res[$i]->scaled_onair->i_time_esc_gdrt = "";
+                  $res[$i]->scaled_onair->i_cont_esc_oym = "";
+                  $res[$i]->scaled_onair->time_esc_oym = "";
+                  $res[$i]->scaled_onair->cont_esc_calidad = "";
+                  $res[$i]->scaled_onair->i_time_esc_calidad = "";
+                  $res[$i]->scaled_onair->n_atribuible_nokia2 = "";
+                  $res[$i]->scaled_onair->n_detalle_solucion = "";
+                  $res[$i]->scaled_onair->n_ultimo_subestado_de_escalamiento = "";
+                  $res[$i]->scaled_onair->n_tipificacion_solucion = "";
+
+            }
+
             $res[$i]->k_id_precheck = $precheck->getPrecheckByIdPrech($res[$i]->k_id_precheck)->data; //precheck
             if ($res[$i]->k_id_precheck) {
                 $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
+            }else{
+                $res[$i]->k_id_precheck = new \stdClass();
+                $res[$i]->k_id_precheck->k_id_user = new \stdClass();
+                $res[$i]->k_id_precheck->k_id_user->n_name_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " ";
+                $res[$i]->k_id_precheck->d_finpre = " ";
             }
+
             //creacion obj onair 12
             $res[$i]->onair12 = $onair12->getOnair12ByIdOnair($res[$i]->k_id_onair)->data;//onair12
             //filtracion ronda maxima onair12
@@ -192,10 +226,62 @@ class Reportes extends CI_Controller {
                     $ElementoMax12[$j] = $res[$i]->onair12[$j]->i_round;
                 }
             $res[$i]->onair12 =  $onair12->getOnair12ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax12))->data;
-            $res[$i]->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res[$i]->onair12->k_id_follow_up_12h)->data;//follow12
-            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
+                if ($res[$i]->onair12) {
+                    $res[$i]->onair12->k_id_follow_up_12h = $follow12->getfollow12ByIdFollow($res[$i]->onair12->k_id_follow_up_12h)->data;//follow12
+                    if ($res[$i]->onair12->k_id_follow_up_12h) {
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
+                        if (!$res[$i]->onair12->k_id_follow_up_12h->k_id_user) {
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
+                        }
+                    }else{
+                        $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
+                    }
+
+                }else{
+                $res[$i]->onair12 = new \stdClass();
+                $res[$i]->onair12->k_id_12h_real = " ";
+                $res[$i]->onair12->k_id_onair = " ";
+                $res[$i]->onair12->d_start12h = " ";
+                $res[$i]->onair12->d_start_temp = " ";
+                $res[$i]->onair12->d_fin12h = " ";
+                $res[$i]->onair12->n_comentario = " ";
+                $res[$i]->onair12->i_timestamp = " ";
+                $res[$i]->onair12->i_round = " ";
+                $res[$i]->onair12->i_percent = " ";
+                $res[$i]->onair12->i_state = " ";
+                $res[$i]->onair12->i_hours = " ";
+                $res[$i]->onair12->d_created_at = " ";
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
+            }
+            }else{
+                $res[$i]->onair12 = new \stdClass();
+                $res[$i]->onair12->k_id_12h_real = " ";
+                $res[$i]->onair12->k_id_onair = " ";
+                $res[$i]->onair12->d_start12h = " ";
+                $res[$i]->onair12->d_start_temp = " ";
+                $res[$i]->onair12->d_fin12h = " ";
+                $res[$i]->onair12->n_comentario = " ";
+                $res[$i]->onair12->i_timestamp = " ";
+                $res[$i]->onair12->i_round = " ";
+                $res[$i]->onair12->i_percent = " ";
+                $res[$i]->onair12->i_state = " ";
+                $res[$i]->onair12->i_hours = " ";
+                $res[$i]->onair12->d_created_at = " ";
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
             }
             //fin obj onair12
+
             //creacion obj onair 24
             $res[$i]->onair24 = $onair24->getOnair24ByIdOnair($res[$i]->k_id_onair)->data;//onair24
             //filtracion ronda maxima onair24
@@ -204,10 +290,62 @@ class Reportes extends CI_Controller {
                     $ElementoMax24[$j] = $res[$i]->onair24[$j]->i_round;
                 }
             $res[$i]->onair24 =  $onair24->getOnair24ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax24))->data;
-            $res[$i]->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res[$i]->onair24->k_id_follow_up_24h)->data;//follow24
-            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
+                if ($res[$i]->onair24) {
+                    $res[$i]->onair24->k_id_follow_up_24h = $follow24->getfollow24ByIdFollow($res[$i]->onair24->k_id_follow_up_24h)->data;//follow24
+                    if ($res[$i]->onair24->k_id_follow_up_24h) {
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
+                        if (!$res[$i]->onair24->k_id_follow_up_24h->k_id_user) {
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
+                        }
+                    }else{
+                        $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
+                    }
+
+                }else{
+                $res[$i]->onair24 = new \stdClass();
+                $res[$i]->onair24->k_id_24h_real = " ";
+                $res[$i]->onair24->k_id_onair = " ";
+                $res[$i]->onair24->d_start24h = " ";
+                $res[$i]->onair24->d_start_temp = " ";
+                $res[$i]->onair24->d_fin24h = " ";
+                $res[$i]->onair24->n_comentario = " ";
+                $res[$i]->onair24->i_timestamp = " ";
+                $res[$i]->onair24->i_round = " ";
+                $res[$i]->onair24->i_percent = " ";
+                $res[$i]->onair24->i_state = " ";
+                $res[$i]->onair24->i_hours = " ";
+                $res[$i]->onair24->d_created_at = " ";
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
+            }
+            }else{
+                $res[$i]->onair24 = new \stdClass();
+                $res[$i]->onair24->k_id_24h_real = " ";
+                $res[$i]->onair24->k_id_onair = " ";
+                $res[$i]->onair24->d_start24h = " ";
+                $res[$i]->onair24->d_start_temp = " ";
+                $res[$i]->onair24->d_fin24h = " ";
+                $res[$i]->onair24->n_comentario = " ";
+                $res[$i]->onair24->i_timestamp = " ";
+                $res[$i]->onair24->i_round = " ";
+                $res[$i]->onair24->i_percent = " ";
+                $res[$i]->onair24->i_state = " ";
+                $res[$i]->onair24->i_hours = " ";
+                $res[$i]->onair24->d_created_at = " ";
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
             }
             //fin obj onair24
+
             //creacion obj onair 36
             $res[$i]->onair36 = $onair36->getOnair36ByIdOnair($res[$i]->k_id_onair)->data;//onair36
             //filtracion ronda maxima onair36
@@ -216,145 +354,66 @@ class Reportes extends CI_Controller {
                     $ElementoMax36[$j] = $res[$i]->onair36[$j]->i_round;
                 }
             $res[$i]->onair36 =  $onair36->getOnair36ByIdOnairAndRound($res[$i]->k_id_onair,Max($ElementoMax36))->data;
-            $res[$i]->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res[$i]->onair36->k_id_follow_up_36h)->data;//follow36
-            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
+                if ($res[$i]->onair36) {
+                    $res[$i]->onair36->k_id_follow_up_36h = $follow36->getfollow36ByIdFollow($res[$i]->onair36->k_id_follow_up_36h)->data;//follow36
+                    if ($res[$i]->onair36->k_id_follow_up_36h) {
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
+                        if (!$res[$i]->onair36->k_id_follow_up_36h->k_id_user) {
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
+                        }
+                    }else{
+                        $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
+                    }
+
+                }else{
+                $res[$i]->onair36 = new \stdClass();
+                $res[$i]->onair36->k_id_36h_real = " ";
+                $res[$i]->onair36->k_id_onair = " ";
+                $res[$i]->onair36->d_start36h = " ";
+                $res[$i]->onair36->d_start_temp = " ";
+                $res[$i]->onair36->d_fin36h = " ";
+                $res[$i]->onair36->n_comentario = " ";
+                $res[$i]->onair36->i_timestamp = " ";
+                $res[$i]->onair36->i_round = " ";
+                $res[$i]->onair36->i_percent = " ";
+                $res[$i]->onair36->i_state = " ";
+                $res[$i]->onair36->i_hours = " ";
+                $res[$i]->onair36->d_created_at = " ";
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
             }
-            //fin obj onair24
+            }else{
+                $res[$i]->onair36 = new \stdClass();
+                $res[$i]->onair36->k_id_36h_real = " ";
+                $res[$i]->onair36->k_id_onair = " ";
+                $res[$i]->onair36->d_start36h = " ";
+                $res[$i]->onair36->d_start_temp = " ";
+                $res[$i]->onair36->d_fin36h = " ";
+                $res[$i]->onair36->n_comentario = " ";
+                $res[$i]->onair36->i_timestamp = " ";
+                $res[$i]->onair36->i_round = " ";
+                $res[$i]->onair36->i_percent = " ";
+                $res[$i]->onair36->i_state = " ";
+                $res[$i]->onair36->i_hours = " ";
+                $res[$i]->onair36->d_created_at = " ";
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
+            }
+            //fin obj onair36
         }
 
+        /*print_r($res);*/
 
         for ($f=0; $f <count($res) ; $f++) {
-
-
-
-
-
-                      if (!$res[$f]->k_id_station) {
-                          $res[$f]->k_id_station->n_name_station = "";
-                          if (!$res[$f]->k_id_station->k_id_city) {
-                              $res[$f]->k_id_station->k_id_city->n_name_city = "";
-                              if (!$res[$f]->k_id_station->k_id_city->k_id_regional) {
-                                  $res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional = "";
-                              }
-                          }
-                      }
-                      if (!$res[$f]->k_id_preparation) {
-                         $res[$f]->k_id_preparation->n_bcf_wbts_id = "";
-                         $res[$f]->k_id_preparation->n_bts_id = "";
-                         $res[$f]->k_id_preparation->d_ingreso_on_air = "";
-                         $res[$f]->k_id_preparation->b_vistamm = "";
-                         $res[$f]->k_id_preparation->n_enteejecutor = "";
-                         $res[$f]->k_id_preparation->n_controlador = "";
-                         $res[$f]->k_id_preparation->n_idcontrolador = "";
-                         $res[$f]->k_id_preparation->d_correccionespendientes = "";
-                         $res[$f]->k_id_preparation->n_btsipaddress = "";
-                         $res[$f]->k_id_preparation->n_integrador = "";
-                         $res[$f]->k_id_preparation->n_wp = "";
-                         $res[$f]->k_id_preparation->n_crq = "";
-                         $res[$f]->k_id_preparation->n_testgestion = "";
-                         $res[$f]->k_id_preparation->n_sitiolimpio = "";
-                         $res[$f]->d_fechaproduccion = "";
-                         $res[$f]->k_id_preparation->n_instalacion_hw_sitio = "";
-                         $res[$f]->k_id_preparation->n_cambios_config_solicitados = "";
-                         $res[$f]->k_id_preparation->n_cambios_config_final = "";
-                         $res[$f]->k_id_preparation->n_contratista = "";
-                         $res[$f]->k_id_preparation->n_comentarioccial = "";
-                         $res[$f]->k_id_preparation->n_ticketremedy = "";
-                         $res[$f]->k_id_preparation->n_lac = "";
-                         $res[$f]->k_id_preparation->n_rac = "";
-                         $res[$f]->k_id_preparation->n_sac = "";
-                         $res[$f]->k_id_preparation->n_integracion_gestion_y_trafica = "";
-                         $res[$f]->k_id_preparation->puesta_servicio_sitio_nuevo_lte = "";
-                         $res[$f]->k_id_preparation->n_instalacion_hw_4g_sitio = "";
-                         $res[$f]->k_id_preparation->pre_launch = "";
-                         $res[$f]->k_id_preparation->n_evidenciasl = "";
-                         $res[$f]->k_id_preparation->n_evidenciatg = "";
-                         $res[$f]->k_id_preparation->i_week = "";
-                         $res[$f]->k_id_preparation->id_notificacion = "";
-                         $res[$f]->k_id_preparation->id_documentacion = "";
-                         $res[$f]->k_id_preparation->id_rftools = "";
-                      }
-                      if (!$res[$f]->k_id_precheck) {
-                        $res[$f]->k_id_precheck = new \stdClass();
-                        $res[$f]->k_id_precheck->d_finpre = "";
-                        $res[$f]->k_id_precheck->k_id_user = new \stdClass();
-                        $res[$f]->k_id_precheck->k_id_user->n_name_user = "";
-                        $res[$f]->k_id_precheck->k_id_user->n_last_name_user = "";
-                      }
-
-                      if (!$res[$f]->k_id_band) {
-                          $res[$f]->k_id_band->n_name_band = "";
-                      }
-                      if (!$res[$f]->k_id_technology) {
-                          $res[$f]->k_id_technology->n_name_technology = "";
-                      }
-                      if (!$res[$f]->k_id_status_onair) {
-                          if (!$res[$f]->k_id_status_onair['k_id_status']) {
-                              $res[$f]->k_id_status_onair['k_id_status']->n_name_status = "";
-                          }
-                          if (!$res[$f]->k_id_status_onair['k_id_substatus']) {
-                              $res[$f]->k_id_status_onair['k_id_substatus']->n_name_substatus = "";
-                          }
-                      }
-                      if (!$res[$f]->k_id_work) {
-                          $res[$f]->k_id_work->n_name_ork = "";
-                      }
-
-                      if (!$res[$f]->onair12) {
-                          $res[$f]->onair12 = new \stdClass();
-                          $res[$f]->onair12->k_id_follow_up_12h = new \stdClass();
-                          $res[$f]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
-                          $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
-                          $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";
-                          $res[$f]->onair12->d_fin12h = "";
-                      }
-
-                      if (!$res[$f]->onair36) {
-                          $res[$f]->onair36 = new \stdClass();
-                          $res[$f]->onair36->k_id_follow_up_36h = new \stdClass();
-                          $res[$f]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
-                          $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = "";
-                          $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = "";
-                          $res[$f]->onair36->d_fin36h = "";
-                      }
-
-                      if (!$res[$f]->scaled_onair) {
-                        $res[$f]->scaled_onair = new \stdClass();
-                          $res[$f]->scaled_onair->n_atribuible_nokia = "";
-                          $res[$f]->scaled_onair->d_time_escalado = "";
-                          $res[$f]->scaled_onair->d_fecha_escalado = "";
-                          $res[$f]->scaled_onair->i_cont_esc_imp = "";
-                          $res[$f]->scaled_onair->time_esc_imp = "";
-                          $res[$f]->scaled_onair->i_cont_esc_rf = "";
-                          $res[$f]->scaled_onair->i_time_esc_rf = "";
-                          $res[$f]->scaled_onair->cont_esc_npo = "";
-                          $res[$f]->scaled_onair->i_time_esc_npo = "";
-                          $res[$f]->scaled_onair->cont_esc_care = "";
-                          $res[$f]->scaled_onair->i_time_esc_care = "";
-                          $res[$f]->scaled_onair->i_cont_esc_gdrt = "";
-                          $res[$f]->scaled_onair->i_time_esc_gdrt = "";
-                          $res[$f]->scaled_onair->i_cont_esc_oym = "";
-                          $res[$f]->scaled_onair->time_esc_oym = "";
-                          $res[$f]->scaled_onair->cont_esc_calidad = "";
-                          $res[$f]->scaled_onair->i_time_esc_calidad = "";
-                          $res[$f]->scaled_onair->n_atribuible_nokia2 = "";
-                          $res[$f]->scaled_onair->n_detalle_solucion = "";
-                          $res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento = "";
-                          $res[$f]->scaled_onair->n_tipificacion_solucion = "";
-                      }
-
-                      if (!$res[$f]->onair24) {
-                        $res[$f]->onair24 = new \stdClass();
-                          $res[$f]->onair24->d_fin24h = "";
-                      }
-
-
-                      if(!$res[$f]->onair12->k_id_follow_up_12h->k_id_user){
-                        $res[$f]->onair12->k_id_follow_up_12h = new \stdClass();
-                        $res[$f]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
-                        $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = "";
-                        $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = "";
-                      }
 
                       if(!$res[$f]->onair12->k_id_follow_up_36h->k_id_user){
                         $res[$f]->onair12->k_id_follow_up_36h = new \stdClass();
@@ -370,128 +429,129 @@ class Reportes extends CI_Controller {
                       }
 
              $data[$f] = [
-               "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_onair)),
-               "Nombre_Estación-EB" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_station->n_name_station)),
-               "bcf_wbts_id" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_bcf_wbts_id)),
-               "BTS_ID" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_bts_id)),//d
-              "Tecnologia" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_technology->n_name_technology)),//e
-              "Banda" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_band->n_name_band)),//f
-              "Estado" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_status_onair['k_id_status']->n_name_status)),//g
-              "Subestado" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_status_onair['k_id_substatus']->n_name_substatus)),//h
-              "excepcion GRI" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->b_excpetion_gri)),//i
-              "Fecha ingreso On Air" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->d_ingreso_on_air)),//j
-              "Fechaultimarev" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_fecha_ultima_rev)),//k
-              "tipo De trabajo" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_work->n_name_ork)),///////10)7+//l9
-              "vistamm" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->b_vistamm)),//m
-              "enteejecutor" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_enteejecutor)),//n
-              "controlador" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_controlador)),//o
-              "idcontrolador" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_idcontrolador)),//p
-              "Ciudad" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_station->k_id_city->n_name_city)),//q
-              "Regional" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional)),//r
-              "desbloqueo" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_desbloqueo)),//s
-              "bloqueado" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_bloqueo)),//t
-              "reviewedfo" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_reviewedfo)),//u
-              "correccionpendientes" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->d_correccionespendientes)),//v
-              "btsipaddress" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_btsipaddress)),//w
-              "integrador" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_integrador)),//x
-              "ingenieroprecheck" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_precheck->k_id_user->n_name_user." ".$res[$f]->k_id_precheck->k_id_user->n_last_name_user)),//y
-              "ingenierofinal12horas" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user)),//z
-              "ingenierogarantia" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user)),//aa
-              "WP" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_wp)),//ab
-              "CRQ" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_crq)),//ac
-              "testgestion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_testgestion)),//ad
-              "sitiolimpio" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_sitiolimpio)),//ae
-              "fechaproduccion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_fechaproduccion)),//af
-              "Instalacion_HW_Sitio" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_instalacion_hw_sitio)),//ag
-              "Cambios_Config_Solicitados" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_cambios_config_solicitados)),//ah
-              "Cambios_Config_Final" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_cambios_config_final)),//ai
-              "sectoresbloqueados" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_sectoresbloqueados)),//aj
-              "sectoresdesbloqueados" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_sectoresdesbloqueados)),//ak
-              "estadoonair" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_estadoonair)),//al
-              "Atribuible_Nokia" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->n_atribuible_nokia)),//am
-              "contratista" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_contratista)),//an
-              "comentarioccial" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_comentarioccial)),//ao
-              "ticketremedy" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_ticketremedy)),//ap
-              "FinPre" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_precheck->d_finpre)),//aq
-              "Fin12H" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair12->d_fin12h)),//ar
-              "Fin48H" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//as
-              "LAC" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_lac)),//at
-              "RAC" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_rac)),//au
-              "SAC" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_sac)),//av
-              "Integracion_Gestion_y_Trafica" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_integracion_gestion_y_trafica)),//aw
-              "Puesta_Servicio_Sitio_Nuevo_LTE" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->puesta_servicio_sitio_nuevo_lte)),//ax
-              "Instalacion_HW_4G_Sitio" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_instalacion_hw_4g_sitio)),//ay
-              "Prelaunch" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->pre_launch)),//az
-              "Actualizacion_Final" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_actualizacion_final)),//BA
-              "Asignacion_Final" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_asignacion_final)),//BB
-              "identificador" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//BC
-              "EvidenciaSL" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_evidenciasl)),//BD
-              "EvidenciaTG" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->n_evidenciatg)),//BE
-              "Time_Escalado" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->d_time_escalado)),//BF
-              "Fecha_Escalado" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->d_fecha_escalado)),//BG
-              "Cont_Esc_Imp" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_cont_esc_imp)),//BH
-              "Time_Esc_Imp" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->time_esc_imp)),//BI
-              "Cont_Esc_RF" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_cont_esc_rf)),//BJ
-              "Time_Esc_RF" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_time_esc_rf)),//BK
-              "Cont_Esc_NPO" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->cont_esc_npo)),//BL
-              "Time_Esc_NPO" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_time_esc_npo)),//BM
-              "Cont_Esc_Care" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->cont_esc_care)),//BN
-              "Time_Esc_Care" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_time_esc_care)),//BO
-              "Cont_Esc_GDRT" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_cont_esc_gdrt)),//BP
-              "Time_Esc_GDRT" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_time_esc_gdrt)),//BQ
-              "Cont_Esc_OyM" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_cont_esc_oym)),//BR
-              "Time_Esc_OyM" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->time_esc_oym)),//BS
-              "Cont_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->cont_esc_calidad)),//BT
-              "Time_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->i_time_esc_calidad)),//BU
-              "WEEK" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->i_week)),//BV
-              "T_From_Notif" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//BW
-              "T_From_Asign" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//BX
-              "Atribuible_Nokia2" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->n_atribuible_nokia2)),//BY
-              "Kpis_Degraded" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_kpis_degraded)),//BZ
-              "Id_Notificacion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->id_notificacion)),//CA
-              "Id_Documentacion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->id_documentacion)),//CB
-              "ID_RFTools" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->k_id_preparation->id_rftools)),//CC
-              "Tipificacion_Solucion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->n_tipificacion_solucion)),//CD
-              "KPI1" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_kpi1)),//CE
-              "Valor_KPI1" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_valor_kpi1)),//CF
-              "KPI2" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_kpi2)),//CG
-              "Valor_KPI2" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_valor_kpi2)),//CH
-              "KPI3" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_kpi3)),//CI
-              "Valor_KPI3" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_valor_kpi3)),//CJ
-              "KPI4" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_kpi4)),//CK
-              "Valor_KPI4" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_valor_kpi4)),//CL
-              "Alarma1" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_alarma1)),//CM
-              "Alarma2" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_alarma2)),//CN
-              "Alarma3" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_alarma3)),//CO
-              "Alarma4" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_alarma4)),//CP
-              "Cont_Total_Escalamiento" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_cont_total_escalamiento)),//CQ
-              "Time_Total_Escalamiento" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_time_total_escalamiento)),//CR
-              "OLA" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//CS
-              "OLA_Excedido" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//CT
-              "Detalle_Solucion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->n_detalle_solucion)),//CU
-              "Lider_Cambio" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_lider_cambio)),//CV
-              "Lider_Cuadrilla" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->i_lider_cuadrilla)),//CW
-              "OLA_Areas" => utf8_decode( str_replace(array("\n", "\r"), '', "")),//CX
-              "OLA_Areas_Excedido" => utf8_decode( str_replace(array("\n", "\r"), '', "")),//CY
-              "Ultimo Subestado De Escalamiento" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento)),//CZ
-              "Fin_24H" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair24->d_fin24h)),//DA
-              "Fin_36H" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->onair36->d_fin36h)),//DB
-              "Implementacion_Campo" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_implementacion_campo)),//DC
-              "Implementacion_Remota" => utf8_decode( str_replace(array("\n", "\r"), '', " ")),//DD
-              "Gestion_Power" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_gestion_power)),//DE
-              "Obra_Civil" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_obra_civil)),//DF
-              "On_AIR" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->on_air)),//DG
-              "Fecha_RFT" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->fecha_rft)),//DH
-              "Fecha_CG" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->d_fecha_cg)),//DI
-              "Exclusion_Bajo_Trafico" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_exclusion_bajo_trafico)),//DJ
-              "Ticket" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_ticket)),//DK
-              "Estado_Ticket" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_estado_ticket)),//DL
-              "SLN_Modernizacion" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_sln_modernizacion)),//DM
-              "En_Prorroga" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_en_prorroga)),//DN
-              "Cont_Prorrogas" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_cont_prorrogas)),//DO
-              "NOC" => utf8_decode( str_replace(array("\n", "\r"), '', $res[$f]->n_noc)),//DP
+               "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_onair)),
+               "Nombre_Estación-EB" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_station->n_name_station)),
+               "bcf_wbts_id" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_bcf_wbts_id)),
+               "BTS_ID" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_bts_id)),//d
+              "Tecnologia" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_technology->n_name_technology)),//e
+              "Banda" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_band->n_name_band)),//f
+              "Estado" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_status_onair['k_id_status']->n_name_status)),//g
+              "Subestado" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_status_onair['k_id_substatus']->n_name_substatus)),//h
+              "excepcion GRI" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->b_excpetion_gri)),//i
+              "Fecha ingreso On Air" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->d_ingreso_on_air)),//j
+              "Fechaultimarev" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_fecha_ultima_rev)),//k
+              "tipo De trabajo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_work->n_name_ork)),///////10)7+//l9
+              "vistamm" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->b_vistamm)),//m
+              "enteejecutor" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_enteejecutor)),//n
+              "controlador" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_controlador)),//o
+              "idcontrolador" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_idcontrolador)),//p
+              "Ciudad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_station->k_id_city->n_name_city)),//q
+              "Regional" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional)),//r
+              "desbloqueo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_desbloqueo)),//s
+              "bloqueado" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_bloqueo)),//t
+              "reviewedfo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_reviewedfo)),//u
+              "correccionpendientes" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->d_correccionespendientes)),//v
+              "btsipaddress" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_btsipaddress)),//w
+              "integrador" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_integrador)),//x
+              "ingenieroprecheck" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_precheck->k_id_user->n_name_user." ".$res[$f]->k_id_precheck->k_id_user->n_last_name_user)),//y
+              "ingenierofinal12horas" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_name_user." ".$res[$f]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user)),//z
+              "ingenierogarantia" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_name_user."".$res[$f]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user)),//aa
+              "WP" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_wp)),//ab
+              "CRQ" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_crq)),//ac
+              "testgestion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_testgestion)),//ad
+              "sitiolimpio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_sitiolimpio)),//ae
+              "fechaproduccion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_fechaproduccion)),//af
+              "Instalacion_HW_Sitio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_instalacion_hw_sitio)),//ag
+              "Cambios_Config_Solicitados" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_cambios_config_solicitados)),//ah
+              "Cambios_Config_Final" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_cambios_config_final)),//ai
+              "sectoresbloqueados" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_sectoresbloqueados)),//aj
+              "sectoresdesbloqueados" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_sectoresdesbloqueados)),//ak
+              "estadoonair" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_estadoonair)),//al
+              "Atribuible_Nokia" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_atribuible_nokia)),//am
+              "contratista" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_contratista)),//an
+              "comentarioccial" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_comentarioccial)),//ao
+              "ticketremedy" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_ticketremedy)),//ap
+              "FinPre" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_precheck->d_finpre)),//aq
+              "Fin12H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair12->d_fin12h)),//ar
+              "Fin48H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//as
+              "LAC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_lac)),//at
+              "RAC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_rac)),//au
+              "SAC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_sac)),//av
+              "Integracion_Gestion_y_Trafica" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_integracion_gestion_y_trafica)),//aw
+              "Puesta_Servicio_Sitio_Nuevo_LTE" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->puesta_servicio_sitio_nuevo_lte)),//ax
+              "Instalacion_HW_4G_Sitio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_instalacion_hw_4g_sitio)),//ay
+              "Prelaunch" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->pre_launch)),//az
+              "Actualizacion_Final" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_actualizacion_final)),//BA
+              "Asignacion_Final" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_asignacion_final)),//BB
+              "identificador" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//BC
+              "EvidenciaSL" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_evidenciasl)),//BD
+              "EvidenciaTG" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_evidenciatg)),//BE
+              "Time_Escalado" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->d_time_escalado)),//BF
+              "Fecha_Escalado" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->d_fecha_escalado)),//BG
+              "Cont_Esc_Imp" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_cont_esc_imp)),//BH
+              "Time_Esc_Imp" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->time_esc_imp)),//BI
+              "Cont_Esc_RF" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_cont_esc_rf)),//BJ
+              "Time_Esc_RF" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_time_esc_rf)),//BK
+              "Cont_Esc_NPO" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->cont_esc_npo)),//BL
+              "Time_Esc_NPO" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_time_esc_npo)),//BM
+              "Cont_Esc_Care" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->cont_esc_care)),//BN
+              "Time_Esc_Care" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_time_esc_care)),//BO
+              "Cont_Esc_GDRT" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_cont_esc_gdrt)),//BP
+              "Time_Esc_GDRT" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_time_esc_gdrt)),//BQ
+              "Cont_Esc_OyM" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_cont_esc_oym)),//BR
+              "Time_Esc_OyM" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->time_esc_oym)),//BS
+              "Cont_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->cont_esc_calidad)),//BT
+              "Time_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_time_esc_calidad)),//BU
+              "WEEK" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->i_week)),//BV
+              "T_From_Notif" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//BW
+              "T_From_Asign" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//BX
+              "Atribuible_Nokia2" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_atribuible_nokia2)),//BY
+              "Kpis_Degraded" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_kpis_degraded)),//BZ
+              "Id_Notificacion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->id_notificacion)),//CA
+              "Id_Documentacion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->id_documentacion)),//CB
+              "ID_RFTools" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->id_rftools)),//CC
+              "Tipificacion_Solucion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_tipificacion_solucion)),//CD
+              "KPI1" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_kpi1)),//CE
+              "Valor_KPI1" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_valor_kpi1)),//CF
+              "KPI2" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_kpi2)),//CG
+              "Valor_KPI2" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_valor_kpi2)),//CH
+              "KPI3" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_kpi3)),//CI
+              "Valor_KPI3" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_valor_kpi3)),//CJ
+              "KPI4" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_kpi4)),//CK
+              "Valor_KPI4" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_valor_kpi4)),//CL
+              "Alarma1" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_alarma1)),//CM
+              "Alarma2" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_alarma2)),//CN
+              "Alarma3" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_alarma3)),//CO
+              "Alarma4" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_alarma4)),//CP
+              "Cont_Total_Escalamiento" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_cont_total_escalamiento)),//CQ
+              "Time_Total_Escalamiento" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_time_total_escalamiento)),//CR
+              "OLA" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//CS
+              "OLA_Excedido" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//CT
+              "Detalle_Solucion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_detalle_solucion)),//CU
+              "Lider_Cambio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_lider_cambio)),//CV
+              "Lider_Cuadrilla" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_lider_cuadrilla)),//CW
+              "OLA_Areas" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', "")),//CX
+              "OLA_Areas_Excedido" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', "")),//CY
+              "Ultimo Subestado De Escalamiento" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento)),//CZ
+              "Fin_24H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair24->d_fin24h)),//DA
+              "Fin_36H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair36->d_fin36h)),//DB
+              "Implementacion_Campo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_implementacion_campo)),//DC
+              "Implementacion_Remota" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//DD
+              "Gestion_Power" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_gestion_power)),//DE
+              "Obra_Civil" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_obra_civil)),//DF
+              "On_AIR" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->on_air)),//DG
+              "Fecha_RFT" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->fecha_rft)),//DH
+              "Fecha_CG" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_fecha_cg)),//DI
+              "Exclusion_Bajo_Trafico" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_exclusion_bajo_trafico)),//DJ
+              "Ticket" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_ticket)),//DK
+              "Estado_Ticket" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_estado_ticket)),//DL
+              "SLN_Modernizacion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_sln_modernizacion)),//DM
+              "En_Prorroga" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_en_prorroga)),//DN
+              "Cont_Prorrogas" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_cont_prorrogas)),//DO
+              "NOC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_noc)),//DP
              ];
          }
+         /*print_r($data);*/
          $flag = false;
          foreach($data as $row) {
            if(!$flag) {
@@ -503,8 +563,8 @@ class Reportes extends CI_Controller {
          }
          exit;
 
-
-
+//================================================================================================//
+//================================================================================================//
 
 
 /*

@@ -8,6 +8,7 @@ var TD = {
         TD.listCombox();
         TD.getDetails();
         TD.getStatesProduction();
+        dom.submit($('#formDetallesBasicos'), null, false);
         dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
@@ -65,7 +66,14 @@ var TD = {
                 .success(function (response) {
                     console.log(response);
                     if (response.code > 0) {
-                        swal("Actualizado", "Se ha actualizado el proceso correctamente.", "success");
+                        swal({
+                            title: "Actualizado",
+                            text: "Se ha acutalizado el proceso correctamente.",
+                            icon: "success",
+                            button: "Aceptar"
+                        }).then(function () {
+                            location.reload();
+                        });
                     } else {
                         swal("Información", response.message, "warning");
                     }
@@ -209,6 +217,7 @@ var TD = {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
                         $('#formDetallesBasicos').fillForm(response.data);
+                        $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');
                         form.fillForm(objTemp);
@@ -268,7 +277,7 @@ var TD = {
             case "12h":
                 $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
                 dom.timer($('[data-ref="#contentDetails_12h_content"] #timeStep'), $('[data-ref="#contentDetails_12h_content"] .progress-step'), fn, obj);
-                $('#contentDetails_12h_content').removeClass('hidden');
+                $('#contentDetails_12h_content').removeClass('hidden').hide().fadeIn(500);
                 break;
             case "24h":
                 $('[data-ref="#contentDetails_12h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
@@ -408,7 +417,6 @@ var TD = {
     },
     resizeWigets: function () {
         window.setTimeout(function () {
-            console.log("RESIZE$ WGG");
             var cw = $('.content-wiget');
             for (var i = 0, w; w = $(cw[i]), i < cw.length; i++) {
                 var ws = w.find('.wiget');
@@ -421,7 +429,7 @@ var TD = {
                     }
                 }
             }
-        }, 5);
+        }, 1000);
     },
     getStatesProduction: function () {
 //        var cmb = $('#cmbEstadosProcesos');
