@@ -187,6 +187,26 @@ ALTER TABLE follow_up_24h AUTO_INCREMENT = 1;
 ALTER TABLE follow_up_12h AUTO_INCREMENT = 1;*/
 
 
+/*use on_air;
+delete from on_air_12h where k_id_12h_real > 0;
+delete from on_air24h where k_id_24h_real > 0;
+delete from on_air_36h where k_id_36h_real > 0;
+
+delete from follow_up_12h where k_id_follow_up_12h > 0;
+delete from follow_up_24h where k_id_follow_up_24h > 0;
+delete from follow_up_36h where k_id_follow_up_36h > 0;
+
+delete from scaled where k_id_sacled > 0;
+delete from scaled_on_air where k_id_scaled_on_air > 0;
+
+delete from ticket_on_air where k_id_onair > 0;
+
+delete from preparation_stage where k_id_preparation > 0;
+delete from precheck where k_id_precheck > 0;
+
+delete from reporte_comentario where k_id_primary > 0;
+*/
+
 -- Modificaciones Lunes, 20 de Noviembre de 2017.
 ALTER TABLE `ticket_on_air`
 	CHANGE COLUMN `d_created_at` `d_created_at` TIMESTAMP NULL DEFAULT NULL AFTER `d_precheck_init`;
