@@ -231,6 +231,13 @@ ALTER TABLE `on_air_36h`
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `i_stand_by_hours` INT NOT NULL DEFAULT '0' AFTER `d_precheck_init`;
 
+ALTER TABLE `ticket_on_air`
+	CHANGE COLUMN `i_stand_by_hours` `i_prorroga_hours` INT(11) NOT NULL DEFAULT '0' AFTER `d_precheck_init`;
+
+INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_id_status`) VALUES ('100', '32', '9');
+
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `data_standby` VARCHAR(500) NULL AFTER `n_implementacion_remota`;
 
 	/* 24 de nov 2017 */
 	ALTER TABLE scaled_on_air add n_comentario_esc varchar(2000);

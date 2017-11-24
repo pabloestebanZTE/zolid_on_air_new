@@ -22,6 +22,11 @@ class Utils extends CI_Controller {
         $this->json($x);
     }
 
+    public function prueba() {
+        $date = Hash::getTimeStamp(Hash::getDate());
+        echo date("Y-m-d H:i:s", $date / 1000);
+    }
+
     public function getActualDate() {
         $x = date("Y-m-d H:i:s");
         $response = new Response(EMessages::CORRECT);

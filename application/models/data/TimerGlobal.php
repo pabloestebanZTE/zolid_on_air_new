@@ -100,8 +100,8 @@ class TimerGlobal {
         $obj->d_precheck_init = $tck->d_precheck_init;
         //Detectamos si está en stand by...
         $time = 3;
-        if ($tck->i_stand_by_hours > 0) {
-            $time = 12;
+        if ($tck->i_prorroga_hours > 0) {
+            $time = $tck->i_prorroga_hours;
         }
         $this->timer($obj, "d_precheck_init", $time);
         return $obj;
