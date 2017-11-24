@@ -230,3 +230,7 @@ ALTER TABLE `on_air_36h`
 -- Actualizaciones 23, de Noviembre 2017.
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `i_stand_by_hours` INT NOT NULL DEFAULT '0' AFTER `d_precheck_init`;
+
+
+	/* 24 de nov 2017 */
+	ALTER TABLE scaled_on_air add n_comentario_esc varchar(2000);

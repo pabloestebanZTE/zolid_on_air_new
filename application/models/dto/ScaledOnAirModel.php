@@ -27,7 +27,7 @@ class ScaledOnAirModel extends Model {
     protected $n_round;
     protected $n_atribuible_nokia2;
     protected $n_atribuible_nokia;
-
+    protected $n_comentario_esc;
     //Los campos que desea ocultar para que no se reflejen en la vista.
     protected $table = "scaled_on_air";
     //Los campos que desea exculir del modelo.
@@ -187,6 +187,13 @@ class ScaledOnAirModel extends Model {
     }
     public function getNAtribuibleNokia2() {
         return $this->n_atribuible_nokia2;
+    }
+
+    public function setnComentarioEsc($n_comentario_esc) {
+        $this->n_comentario_esc = $n_comentario_esc;
+    }
+    public function getnComentarioEsc() {
+        return $this->n_comentario_esc;
     }
 
 }

@@ -310,7 +310,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
                             <input type='hidden' name="k_id_precheck" id="k_id_precheck" class="form-control" value='' required>
@@ -397,10 +397,10 @@
                     }
                     app.stopEvent(e);
                     var form = $(this);
-                    if ($('#numStandBy').val() <= 0) {
-                        swal("Error", "El tiempo de Stand By debe ser mayor a 0", "error");
-                        return;
-                    }
+                    // if ($('#numStandBy').val() <= 0) {
+                    //     swal("Error", "El tiempo de Stand By debe ser mayor a 0", "error");
+                    //     return;
+                    // }
                     dom.controlSubmit(form, function () {
                         location.href = app.urlTo('User/principalView');
                     }).before(function () {

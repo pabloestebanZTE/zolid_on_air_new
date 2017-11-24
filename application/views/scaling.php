@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtKpi2" class="col-md-3 control-label">KPI 2:</label>
                                     <div class="col-md-8 selectContainer">
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtKpi3" class="col-md-3 control-label">KPI 3:</label>
                                     <div class="col-md-8 selectContainer">
@@ -86,7 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtKpi4" class="col-md-3 control-label">KPI 4:</label>
                                     <div class="col-md-8 selectContainer">
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtKpi4" class="col-md-3 control-label">kPIS afectados:</label>
                                     <div class="col-md-8 selectContainer">
@@ -106,7 +106,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtAlarma1" class="col-md-3 control-label">Alarma 1:</label>
                                     <div class="col-md-8 selectContainer">
@@ -116,7 +116,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtAlarma3" class="col-md-3 control-label">Alarma 3:</label>
                                     <div class="col-md-8 selectContainer">
@@ -140,9 +140,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group" style="height: 40px;"></div>
-                                
+
 <!--                                <div class="form-group">
                                     <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Atribuible a nokia 2:</label>
                                     <div class="col-md-8 selectContainer">
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>
                                 </div>-->
-                                
+
                                 <div class="form-group">
                                     <label for="txtValorKpi1" class="col-md-3 control-label">Valor KPI 1:</label>
                                     <div class="col-md-8 selectContainer">
@@ -167,7 +167,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtValorKpi2" class="col-md-3 control-label">Valor KPI 2:</label>
                                     <div class="col-md-8 selectContainer">
@@ -177,7 +177,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtValorKpi3" class="col-md-3 control-label">Valor KPI 3:</label>
                                     <div class="col-md-8 selectContainer">
@@ -187,7 +187,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtValorKpi4" class="col-md-3 control-label">Valor KPI 4:</label>
                                     <div class="col-md-8 selectContainer">
@@ -197,9 +197,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group" style="height: 55px;"></div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtAlarma2" class="col-md-3 control-label">Alarma 2:</label>
                                     <div class="col-md-8 selectContainer">
@@ -209,7 +209,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtAlarma4" class="col-md-3 control-label">Alarma 4:</label>
                                     <div class="col-md-8 selectContainer">
@@ -222,7 +222,7 @@
                                 <input type='hidden' name="k_id_onair" id="k_id_onair" class="form-control" value="<?= $_GET['id']; ?>" >
                             </fieldset>
                             <!--   fin seccion derecha parte superior---->
-                            
+
                             <!--  inicio seccion derecha form parte media---->
                             <legend>&nbsp;&nbsp;</legend>
                             <fieldset class="col-md-6 control-label">
@@ -265,7 +265,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtContEscOym" class="col-md-3 control-label">Cont esc OyM:</label>
                                     <div class="col-md-8 selectContainer">
@@ -275,7 +275,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtContEscGDRT" class="col-md-3 control-label">Cont esc GDRT:</label>
                                     <div class="col-md-8 selectContainer">
@@ -285,7 +285,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtContEscCalidad" class="col-md-3 control-label">Cont esc calidad:</label>
                                     <div class="col-md-8 selectContainer">
@@ -309,7 +309,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtTimeEscRF" class="col-md-3 control-label">Time esc RF:</label>
                                     <div class="col-md-8 selectContainer">
@@ -319,7 +319,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtTimeEscNpo" class="col-md-3 control-label">Time Esc NPO:</label>
                                     <div class="col-md-8 selectContainer">
@@ -329,7 +329,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtTimeEscCare" class="col-md-3 control-label">Time esc care:</label>
                                     <div class="col-md-8 selectContainer">
@@ -339,7 +339,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtTimeEscOym" class="col-md-3 control-label">Time esc OyM:</label>
                                     <div class="col-md-8 selectContainer">
@@ -349,7 +349,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="txtTimeEscGdrt" class="col-md-3 control-label">Time Esc GDRT:</label>
                                     <div class="col-md-8 selectContainer">
@@ -359,7 +359,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="form-group">
                                     <label for="txtTimeEscCalidad" class="col-md-3 control-label">Time esc calidad:</label>
@@ -372,7 +372,7 @@
                                 </div>
                             </fieldset>
                             <!--  fin seccion derecha form parte media---->
-                            
+
                             <!--  inicio seccion derecha form parte baja---->
                             <legend>&nbsp;&nbsp;</legend>
                             <fieldset class="col-md-6 control-label">
@@ -381,7 +381,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <select class="form-control" id="status" name=k_id_status" onchange="editSubstatus()" required>
+                                            <select class="form-control" id="status" name="k_id_status" onchange="editSubstatus()" required>
                                                 <!--<option value="">Seleccione</option>-->
                                             </select>
                                         </div>
@@ -403,6 +403,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Observaciones de Escalamiento</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" name="n_comentario_esc" id="n_comentario_esc" placeholder="Observaciones Coordinador"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </fieldset>
                             <!--  fin seccion derecha form parte baja---->
 
@@ -420,7 +430,7 @@
             </div>
         </div>
         <!--footer Section -->
-        <div class="for-full-back" id="footer">        
+        <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
         </div>
         <?php $this->load->view('parts/generic/scripts'); ?>
@@ -430,7 +440,7 @@
           $(function () {
             var items = <?php echo $items; ?>;
             console.log(items);
-            
+
             for (var j = 0; j < items.status.data.length; j++){
                 if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7' || items.status.data[j].k_id_status === '11' || items.status.data[j].k_id_status === '12' || items.status.data[j].k_id_status === '13') {
                     $('#status').append($('<option>', {
@@ -464,16 +474,16 @@
                 $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
                 $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
                 $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
-            
+
                 contEscStatus();
                 window.setInterval("contEscStatus()", 60000);
                 editSubstatus();
             }
-            
-            
-            
+
+
+
           });
-          
+
           function editSubstatus(){
             var status = $( "#status" ).val();
             console.log(status);
@@ -488,7 +498,7 @@
               }
             }
           }
-          
+
           function contEscStatus(){
             var status = "";
             var info = <?php echo $items; ?>;
@@ -498,7 +508,7 @@
                   status = info.statusOnAir.data[j].k_id_status;
               }
             }
-            
+
             switch(status) {
                 case "3":
                     accountant("cont_esc_calidad");
@@ -529,26 +539,26 @@
                     timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_npo");
                     break;
             }
-            
+
             $('input[name=d_time_escalado]').val(timeEscalado(info));
           }
-          
+
           function accountant(id){
             var cont = $("#"+id).val();
             cont++;
             $("#"+id).val(cont);
           }
-          
+
           function timeEscStatus(date1, date2, id){
             var start_actual_time = new Date(date1);
             var end_actual_time = new Date(date2);
-            
+
             var diff = end_actual_time - start_actual_time;
-            var dias = Math.floor(diff / (1000 * 60 * 60 * 24)); 
+            var dias = Math.floor(diff / (1000 * 60 * 60 * 24));
             var diffSeconds = diff/1000;
             var HH = Math.floor(diffSeconds/3600);
             var MM = Math.trunc(Math.floor(diffSeconds%3600)/60);
-            
+
             if (dias > 0) {
                 var HH1 = (HH * 60) - (720 * dias);
                 MM = MM + HH1;
@@ -557,11 +567,11 @@
             var formatted = ((MM < 10)?("0" + MM):MM);
             $("#"+id).val(formatted);
           }
-          
+
           function GetTodayDate() {
               var tdate = new Date();
-              var dd = tdate.getDate(); 
-              var MM = tdate.getMonth(); 
+              var dd = tdate.getDate();
+              var MM = tdate.getMonth();
               var yyyy = tdate.getFullYear();
               var hh = tdate.getHours();
               var min = tdate.getMinutes();
@@ -569,7 +579,7 @@
               var currentDate= yyyy + "-" +( MM+1) + "-" + dd + " " + hh + ":" + min + ":" + ss;
               return currentDate;
           }
-          
+
           function timeEscalado() {
               var time1 = $("#time_esc_imp").val();
               var time2 = $("#i_time_esc_rf").val();
@@ -582,7 +592,7 @@
 //              console.log(timeEscalado);
               return timeEscalado;
           }
-          
+
           function confirmar(){
             swal({
                 title: "¿Está seguro que desea escalar el ticket?",
@@ -594,7 +604,9 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    dom.submitDirect($('#createScaling'),null, false);
+                    dom.submitDirect($('#createScaling'),function () {
+                        location.href = app.urlTo('User/principalView');
+                    });
 //                    window.location = app.urlTo('User/principal');
                 }
             });
