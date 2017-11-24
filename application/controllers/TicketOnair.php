@@ -391,11 +391,16 @@ class TicketOnair extends CI_Controller {
         $ticket = new Dao_ticketOnAir_model();
         $response = $ticket->findByIdOnAir($this->request->k_id_ticket);
         $ticketOnAirTemp = $response->data;
+
+        if (!$ticketOnAirTemp) {
+            return $this->json(new Response(EMessages::ERROR, "El ticket no existe."));
+        }
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo = Hash::getDate();
-        $this->request->d_precheck_init = Hash::getDate();
-        if ($response->data->k_id_status_onair == 97 || $response->data->k_id_status_onair == 80) {
+        //Se cormprueba si es reinicio precheck...
+        $this->request->d_precheck_init = ($ticketOnAirTemp->k_id_status_onair == 79) ? null : Hash::getDate();
+        if ($ticketOnAirTemp->k_id_status_onair == 97 || $ticketOnAirTemp->k_id_status_onair == 80) {
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;
@@ -403,27 +408,12 @@ class TicketOnair extends CI_Controller {
             $this->json($response);
             $flag = 1;
         }
-        if ($flag == 0 && $response->data->k_id_status_onair == 81 || $response->data->k_id_status_onair == 79) {
-            $track12 = new dao_onAir12h_model();
-            $follow12 = new dao_followUp12h_model();
-            $response = $track12->getOnair12ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
-            if (!$response->data) {
-                $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
-                return;
-            }
-            $this->request->i_actualEngineer = $this->request->k_id_user;
-            $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
-            $response = $follow12->update12FollowUp($this->request);
-            $response = $ticket->updatePrecheckOnair($this->request, 81);
-            $this->json($response);
-            $flag = 1;
-        }
 
 
-
-        if ($flag == 0 && $response->data->k_id_status_onair == 78) {
+        //Precheck.
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 78) {
             $ticketModel = new TicketOnAirModel();
-            $ticketModel->where("k_id_onair", "=", $response->data->k_id_onair)
+            $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
                     ->update([
                         "i_actualEngineer" => $this->request->k_id_user
             ]);
@@ -431,54 +421,73 @@ class TicketOnair extends CI_Controller {
             $flag = 1;
         }
 
-
-        if ($flag == 0 && $response->data->k_id_status_onair == 82) {
-            $track24 = new dao_onAir24h_model();
-            $follow24 = new dao_followUp24h_model();
-            $response = $track24->getOnair24ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+        //12h
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 81 || $ticketOnAirTemp->k_id_status_onair == 79) {
+            $track12 = new dao_onAir12h_model();
+            $follow12 = new dao_followUp12h_model();
+            $response = $track12->getOnair12ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
             if (!$response->data) {
                 $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
                 return;
             }
+            $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
+            $response = $follow12->update12FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
+            $response = $ticket->updatePrecheckOnair($this->request, 81);
+            $this->json($response);
+            $flag = 1;
+        }
+
+        //24h
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 82) {
+            $track24 = new dao_onAir24h_model();
+            $follow24 = new dao_followUp24h_model();
+            $response = $track24->getOnair24ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
+            if (!$response->data) {
+                $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
+                return;
+            }
             $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
             $response = $follow24->update24FollowUp($this->request);
+            $this->request->i_actualEngineer = $this->request->k_id_user;
             $response = $ticket->updatePrecheckOnair($this->request, 82);
             $this->json($response);
             $flag = 1;
         }
 
-        if ($flag == 0 && $response->data->k_id_status_onair == 83) {
+        //36h
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 83) {
             $track36 = new dao_onAir36h_model();
             $follow36 = new dao_followUp36h_model();
-            $response = $track36->getOnair36ByIdOnairAndRound($response->data->k_id_onair, $response->data->n_round);
+            $response = $track36->getOnair36ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
             if (!$response->data) {
                 $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
                 return;
             }
-            $this->request->i_actualEngineer = $this->request->k_id_user;
             $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
             $response = $follow36->update36FollowUp($this->request);
+            $this->request->i_actualEngineer = $this->request->k_id_user;
             $response = $ticket->updatePrecheckOnair($this->request, 83);
             $this->json($response);
             $flag = 1;
         }
 
         //STAND BY...
-        if ($flag == 0 && $response->data->k_id_status_onair == 100) {
-            $ticket->stopStandBy($response->data, $this->request);
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 100) {
+            $ticket->stopStandBy($ticketOnAirTemp, $this->request);
             //Detectamos el estado actual...
-            $obj = $ticket->getStepModel($response->data);
+            $obj = $ticket->getStepModel($ticketOnAirTemp);
             if ($obj) {
                 $step = $obj->stepModel
-                                ->where("k_id_onair", "=", $response->data->k_id_onair)
-                                ->where("i_hours", "=", $response->data->i_hours)->first();
+                                ->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
+                                ->where("i_hours", "=", $ticketOnAirTemp->i_hours)->first();
                 if ($step) {
                     $idFollow = $step->{$obj->k_id_follow};
                     $idUser = $this->request->k_id_user;
-                    $ticket->updateFollow($response->data, $idFollow, $idUser);
+                    $ticket->updateFollow($ticketOnAirTemp, $idFollow, $idUser);
                 }
             }
+            $this->request->n_comentario_coor = "Se detiene el Stand By --- " . $this->request->n_comentario_coor;
             $this->json(new Response(EMessages::SUCCESS, "Se ha asignado y detenido el Stand by correctamente."));
             $flag = 1;
         }
@@ -487,7 +496,9 @@ class TicketOnair extends CI_Controller {
             $this->json(new Response(EMessages::ERROR, "Verifique el estado del proceso ya que no se puede realizar una asignación."));
         }
 
-        $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
+        if ($flag == 1) {
+            $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
+        }
     }
 
     public function createScaling() {
@@ -510,7 +521,9 @@ class TicketOnair extends CI_Controller {
         } else {
             $response = $scaling->insertScaling($this->request);
         }
-
+        $this->request->d_precheck_init = "NULL";
+        $this->request->i_prorroga_hours = 0;
+        $this->request->i_precheck_realizado = "NULL";
         $response = $ticket->updateTicketScaling($this->request);
         $this->json($response);
     }
