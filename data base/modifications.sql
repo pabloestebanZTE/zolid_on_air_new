@@ -218,3 +218,4 @@ INSERT INTO `on_air`.`status_on_air` (`k_id_status_onair`, `k_id_substatus`, `k_
 
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `data_standby` VARCHAR(500) NULL AFTER `n_implementacion_remota`;
+

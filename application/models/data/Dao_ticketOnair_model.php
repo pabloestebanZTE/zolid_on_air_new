@@ -55,7 +55,6 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticket = new TicketOnAirModel();
             $tck = $this->getTicketById($idTicket);
             $response = new Response(EMessages::QUERY);
-//            var_dump($tck);
             if ($tck) {
                 //Se registra el reporte...
                 $reportCommentModel = new ReporteComentarioModel();
@@ -1012,6 +1011,102 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    public function updateFollow($ticket, $idFollow = null, $idUser = null) {
+        $status_onair = DB::table("status_on_air")
+                ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                ->first();
+        if ($status_onair) {
+            $followIdField = null;
+            $followModel = null;
+            $d_fin = null;
+            switch ($status_onair->k_id_substatus) {
+                case ConstStates::SEGUIMIENTO_12H:
+                    $followIdField = "k_id_follow_up_12h";
+                    $followModel = new FollowUp12hModel();
+                    break;
+                case ConstStates::SEGUIMIENTO_24H:
+                    $followIdField = "k_id_follow_up_24h";
+                    $followModel = new FollowUp24hModel();
+                    break;
+                case ConstStates::SEGUIMIENTO_36H:
+                    $followIdField = "k_id_follow_up_36h";
+                    $followModel = new FollowUp36hModel();
+                    break;
+            }
+            if ($followModel) {
+                $obj = new ObjUtil([
+                    "followModel" => $followModel,
+                    "followIdField" => $followIdField,
+                ]);
+
+                //Actualizamos si viene el id del usuario...
+                if ($idFollow) {
+                    //Actualizamos el usuario...
+                    $followModel->where($followIdField, "=", $idFollow)->update([
+                        "k_id_user" => $idUser,
+                    ]);
+                    //Actualizamos el usuario actual del onair...
+                    $ticketModel = new TicketOnAirModel();
+                    $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->update([
+                                "i_actualEngineer" => $idUser
+                    ]);
+                }
+
+                return $obj;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function getStepModel($ticket) {
+        $status_onair = DB::table("status_on_air")
+                ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                ->first();
+        if ($status_onair) {
+            $actual_status = null;
+            $stepIdField = null;
+            $stepModel = null;
+            $k_id_follow = null;
+            $d_fin = null;
+            switch ($status_onair->k_id_substatus) {
+                case ConstStates::SEGUIMIENTO_12H:
+                    $actual_status = "12h";
+                    $stepIdField = "k_id_12h_real";
+                    $stepModel = new OnAir12hModel();
+                    $k_id_follow = "k_id_follow_up_12h";
+                    $d_fin = "d_fin12h";
+                    break;
+                case ConstStates::SEGUIMIENTO_24H:
+                    $actual_status = "24h";
+                    $stepIdField = "k_id_24h_real";
+                    $stepModel = new OnAir24hModel();
+                    $k_id_follow = "k_id_follow_up_24h";
+                    $d_fin = "d_fin24h";
+                    break;
+                case ConstStates::SEGUIMIENTO_36H:
+                    $actual_status = "36h";
+                    $stepIdField = "k_id_36h_real";
+                    $k_id_follow = "k_id_follow_up_36h";
+                    $stepModel = new OnAir36hModel();
+                    $d_fin = "d_fin36h";
+                    break;
+            }
+            if ($stepModel) {
+                $obj = new ObjUtil([
+                    "stepModel" => $stepModel,
+                    "stepIdField" => $stepIdField,
+                    "d_fin" => $d_fin,
+                    "k_id_follow" => $k_id_follow
+                ]);
+                return $obj;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public function toProduction($request) {
         try {
             $response = new Response(EMessages::INSERT);
@@ -1121,7 +1216,7 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    public function stopStandBy($tck, $request) {
+    public function stopStandBy($tck, $request, $idIng = null) {
         if (!is_object($tck) && $tck > 0) {
             //Consultamos el ticket...
             $ticket = new TicketOnAirModel();
@@ -1132,19 +1227,13 @@ class Dao_ticketOnair_model extends CI_Model {
         } else if ($tck == null) {
             return new Response(EMessages::ERROR, "Ticket no referido.");
         }
-
-//        $json = [
-//            "k_id_status_onair" => $tck->k_id_status_onair,
-//            "actual_status" => $actual_status, //Precheck, 12h, 24h, 36h.
-//            "time_elapsed" => $time_elapsed, //Tiempo que faltaba...
-//        ];
         //Se detiene el stand by...
         //Primero, lo primero, verificamos el estado actual del ticket...
         if ($tck->k_id_status_onair == 100) {
             $json = null;
             //Si se encuentra en Stand By obtenemos el objeto JSON...
             if ($tck->data_standby) {
-                $json = json_encode($tck->data_standby);
+                $json = json_decode($tck->data_standby, true);
             } else {
                 //Si el objeto no tiene nada se dejará en precheck...
                 $json = [
@@ -1153,6 +1242,8 @@ class Dao_ticketOnair_model extends CI_Model {
                     "time_elapsed" => 0, //Tiempo transcurrido.....
                 ];
             }
+//            var_dump($json);
+            //Parceamos el objeto a un objeto que podamos acceder sin ningún problema...
             $json = new ObjUtil($json);
             //Ahora vamos a las tablas...
             $date = (Hash::getTimeStamp(Hash::getDate()) - $json->time_elapsed);
@@ -1160,36 +1251,68 @@ class Dao_ticketOnair_model extends CI_Model {
             if ($json->actual_status == "precheck") {
                 //Lo ponemos en seguimiento precheck...
                 $ticketModel = new TicketOnAirModel();
-                $ticket->where("k_id_onair", "=", $tck->k_id_onair)
+                $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
                         ->update([
                             "k_id_status_onair" => $json->k_id_status_onair,
                             "d_precheck_init" => $date,
                 ]);
+                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "12h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
-                $ticket->where("k_id_onair", "=", $tck->k_id_onair)
+                $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
                         ->update([
                             "k_id_status_onair" => $json->k_id_status_onair,
                 ]);
                 //Actualizmos el detalle de 12h...
-                $comment = "Se levanta el Stand By --- $request->comment";
+                $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir12hModel();
-                $this->insertCommentDetail($stepModel, $ticket, [
+                $this->insertCommentDetail($seguimientoModel, $tck, [
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
+                $this->registerReportComment($tck->k_id_onair, $comment);
+            } else if ($json->actual_status == "24h") {
+                //Lo ponemos en seguimiento 12h...
+                $ticketModel = new TicketOnAirModel();
+                $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->update([
+                            "k_id_status_onair" => $json->k_id_status_onair,
+                ]);
+                //Actualizmos el detalle de 12h...
+                $comment = "Se detiene el Stand By --- $request->comment";
+                $seguimientoModel = new OnAir24hModel();
+                $this->insertCommentDetail($seguimientoModel, $tck, [
+                    "n_comentario" => $comment,
+                    "d_start12h" => $date,
+                ]);
+                $this->registerReportComment($tck->k_id_onair, $comment);
+            } else if ($json->actual_status == "36h") {
+                //Lo ponemos en seguimiento 12h...
+                $ticketModel = new TicketOnAirModel();
+                $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->update([
+                            "k_id_status_onair" => $json->k_id_status_onair,
+                ]);
+                //Actualizmos el detalle de 12h...
+                $comment = "Se detiene el Stand By --- $request->comment";
+                $seguimientoModel = new OnAir36hModel();
+                $this->insertCommentDetail($seguimientoModel, $tck, [
+                    "n_comentario" => $comment,
+                    "d_start12h" => $date,
+                ]);
+                $this->registerReportComment($tck->k_id_onair, $comment);
             }
+            return new Response(EMessages::CORRECT, "Se ha detenido correctamente el Stand By.");
         } else {
             return new Response(EMessages::ERROR, "El ticket no se encuentra en Stand By.");
         }
     }
 
-    private function insertCommentDetail($stepModel, $ticket, $obj) {
+    private function insertCommentDetail($stepModel, $tck, $obj) {
         //Insetamos el comentario...
-        $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                        ->where("i_round", "=", $ticket->n_round)->first();
-
+        $temp = $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->where("i_round", "=", $tck->n_round)->first();
         $commentEdit = null;
         $tempComment = [
             "comment" => $obj["n_comentario"],
@@ -1206,8 +1329,8 @@ class Dao_ticketOnair_model extends CI_Model {
         }
         $obj["n_comentario"] = json_encode($commentEdit, true);
         //Se actualiza el comentario del seguimiento actual...
-        $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                ->where("i_round", "=", $ticket->n_round)->update($obj);
+        $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
+                ->where("i_round", "=", $tck->n_round)->update($obj);
     }
 
     public function toStandBy($tck, $request) {
@@ -1222,11 +1345,12 @@ class Dao_ticketOnair_model extends CI_Model {
             return new Response(EMessages::ERROR, "Ticket no referido.");
         }
 
-        $comment = "Se escala a StandBy --- $request->comment";
 
-        //Se deja el proceso en stand by...
-        //Empezamos guardando toda la configuración del estado actual del proceso, tiempos, etc, etc...
-        //DETECTAMOS EL SEGUIMIENTO ACTUAL...
+        $comment = "Se escala a StandBy --- $request->comment";
+//
+//        //Se deja el proceso en stand by...
+//        //Empezamos guardando toda la configuración del estado actual del proceso, tiempos, etc, etc...
+//        //DETECTAMOS EL SEGUIMIENTO ACTUAL...
         $status_onair = DB::table("status_on_air")
                 ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
                 ->first();
@@ -1255,40 +1379,44 @@ class Dao_ticketOnair_model extends CI_Model {
                     $d_fin = "d_fin36h";
                     break;
             }
-            //Esto por si hay un seguimiento actual...
+////            //Esto por si hay un seguimiento actual...
             if ($stepModel) {
-                $this->insertCommentDetail($stepModel, $ticket, [
+                $this->insertCommentDetail($stepModel, $tck, [
                     "n_comentario" => $comment
                 ]);
             } else {
                 //Esto generalmente por si está en precheck...
                 $actual_status = "precheck";
             }
-            //Se obtiene el tiempo que lleva...
+////            //Se obtiene el tiempo que lleva...
             $timeGlobal = new TimerGlobal();
             $time = $timeGlobal->updateTimeStamp($tck);
             if ($time) {
-                $time_elapsed = $time["i_timetotal"] - $time["i_timestamp"];
+                $time_elapsed = $time["today"] - $time["time"];
             } else {
                 $time_elapsed = 0;
             }
-
-            //Lo que vamos a hacer, es que cuando haya un proceso, se guarda la fecha en la que inició dicho proceso en el json 
-            //junto al tiempo que faltaba para terminar el proceso, así luego se 
-            //podrá reestablecer y actualizar las fechas de esos procesos a la fecha actual menos 
-            //el tiempo que restaba cuando se pasó a standby...
-
+//
+//            //Lo que vamos a hacer, es que cuando haya un proceso, se guarda la fecha en la que inició dicho proceso en el json 
+//            //junto al tiempo que faltaba para terminar el proceso, así luego se 
+//            //podrá reestablecer y actualizar las fechas de esos procesos a la fecha actual menos 
+//            //el tiempo que restaba cuando se pasó a standby...
+//
             $json = [
                 "k_id_status_onair" => $tck->k_id_status_onair,
                 "actual_status" => $actual_status, //Precheck, 12h, 24h, 36h.
                 "time_elapsed" => $time_elapsed, //Tiempo transcurrido...
             ];
-
+//
             $ticket = new TicketOnAirModel();
             $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
                 "k_id_status_onair" => 100,
                 "data_standby" => json_encode($json, true)
             ]);
+            $this->registerReportComment($tck->k_id_onair, $comment);
+            return new Response(EMessages::SUCCESS, "Se ha actualizado el estado del proceso correctamente.");
+        } else {
+            return new Response(EMessages::ERROR, "No se pudo actualizar el estaod del proceso.");
         }
     }
 

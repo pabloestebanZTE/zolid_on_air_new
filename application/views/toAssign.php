@@ -7,6 +7,10 @@
             <div class='tab-content' id='tab3'><brt><br>
                     <div class="container">
                         <form class="well form-horizontal" action="TicketOnair/assignTicket" method="post"  id="assignEng" name="assignEng">
+                            <div class="alert alert-success alert-dismissable hidden">
+                                <a href="#" class="close" >&times;</a>
+                                <p class="p-b-0" id="text"></p>
+                            </div>
                             <legend>Asignar Actividad</legend>
                             <fieldset class="col-md-6 control-label">
                                 <div class="form-group">

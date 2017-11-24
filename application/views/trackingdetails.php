@@ -639,6 +639,9 @@
                             </ul>
                         </li>
                         <li>
+                            <a href="javascript:;" data-action="STANDBY"><span class="icon-state theme2"><i class="fa fa-fw fa-stop-circle"></i></span> Stand By</a>
+                        </li>
+                        <li>
                             <a href="<?= URL::to("User/scaling?id=" . $_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar Proceso</a>
                         </li>
                     </ul>
@@ -665,6 +668,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.7') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=1.8') ?>" type="text/javascript"></script>
 </body>
 </html>
