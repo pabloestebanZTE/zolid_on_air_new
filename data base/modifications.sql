@@ -241,3 +241,14 @@ ALTER TABLE `ticket_on_air`
 
 	/* 24 de nov 2017 */
 	ALTER TABLE scaled_on_air add n_comentario_esc varchar(2000);
+
+/*======================25 11 2017=============================*/
+ALTER TABLE ticket_on_air	ADD  d_t_from_notif varchar(50);
+ALTER TABLE ticket_on_air	ADD  d_t_from_asign varchar(50);
+ALTER TABLE ticket_on_air	ADD  n_ola varchar(100);
+ALTER TABLE ticket_on_air	ADD  n_ola_excedido varchar(100);
+ALTER TABLE ticket_on_air	ADD  n_ola_areas varchar(100);
+ALTER TABLE ticket_on_air	ADD  n_ola_areas_excedido varchar(100);
+
+
+
