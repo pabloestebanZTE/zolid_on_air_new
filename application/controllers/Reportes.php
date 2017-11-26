@@ -29,8 +29,8 @@ class Reportes extends CI_Controller {
     }
 
     public function reportComments() {
-/*         header('Content-Type: text/plain');
-*/       $reporte = new Dao_reporte_comentario_model();
+        /* header('Content-Type: text/plain');*/
+       $reporte = new Dao_reporte_comentario_model();
        $filename = "Reporte_Comentarios_".date("Y-m-d").".xls";
        header("Content-Disposition: attachment; filename=\"$filename\"");
        header("Content-Type: application/vnd.ms-excel; charset=utf-8");
@@ -38,18 +38,18 @@ class Reportes extends CI_Controller {
 /*       print_r($respuesta);
 */         for ($i=0; $i <count($respuesta) ; $i++) {
              $data[$i] = [
-              "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->k_id_on_air)),
-              "Nombre_Estación-EB" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->n_nombre_estacion_eb)),
-              "Tecnología" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->n_tecnologia)),
-              "Banda" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->n_banda)),
-              "tipo De trabajo" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->n_tipo_trabajo)),
-              "Estado EB-ResuComen" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->n_estado_eb_resucomen)),
-              "Comentario-ResuComen" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->comentario_resucoment)),
-              "Hora Actualizacion ResuComen" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->hora_actualizacion_resucomen)),
-              "Usuario-ResuComen" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->usuario_resucomen)),
-              "Ente-Ejecutor" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->ente_ejecutor)),
-              "Tipificación-ResuComen" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->tipificacion_resucomen)),
-              "NOC" => utf8_decode( str_replace(array("\n", "\r"), '', $respuesta[$i]->noc)),
+              "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->k_id_on_air)),
+              "Nombre_Estación-EB" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_nombre_estacion_eb)),
+              "Tecnología" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_tecnologia)),
+              "Banda" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_banda)),
+              "tipo De trabajo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_tipo_trabajo)),
+              "Estado EB-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_estado_eb_resucomen)),
+              "Comentario-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->comentario_resucoment)),
+              "Hora Actualizacion ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->hora_actualizacion_resucomen)),
+              "Usuario-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->usuario_resucomen)),
+              "Ente-Ejecutor" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->ente_ejecutor)),
+              "Tipificación-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->tipificacion_resucomen)),
+              "NOC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->noc)),
              ];
          }
          $flag = false;
@@ -151,7 +151,7 @@ class Reportes extends CI_Controller {
         $filename = "Reporte_ONAIR_".date("Y-m-d").".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
-       /* header('Content-Type: text/plain');*/
+        /*header('Content-Type: text/plain');*/
         $ticketsOnAir = new Dao_ticketOnAir_model();
         $preparation = new Dao_preparationStage_model();
         $station = new Dao_station_model();
@@ -179,8 +179,8 @@ class Reportes extends CI_Controller {
             $res[$i]->k_id_band = $band->findById($res[$i]->k_id_band)->data; //band
             $res[$i]->k_id_status_onair = $statusOnair->findById($res[$i]->k_id_status_onair)->data; //Status onair
             $res[$i]->k_id_work = $work->findById($res[$i]->k_id_work)->data; //work
-            $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair
-
+            $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair                
+            
             if (!$res[$i]->scaled_onair) {
                   $res[$i]->scaled_onair = new \stdClass();
                   $res[$i]->scaled_onair->n_atribuible_nokia = "";
@@ -212,10 +212,10 @@ class Reportes extends CI_Controller {
                 $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
             }else{
                 $res[$i]->k_id_precheck = new \stdClass();
-                $res[$i]->k_id_precheck->k_id_user = new \stdClass();
+                $res[$i]->k_id_precheck->k_id_user = new \stdClass();                
                 $res[$i]->k_id_precheck->k_id_user->n_name_user = " ";
-                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " ";
-                $res[$i]->k_id_precheck->d_finpre = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " "; 
+                $res[$i]->k_id_precheck->d_finpre = " ";     
             }
 
             //creacion obj onair 12
@@ -231,17 +231,17 @@ class Reportes extends CI_Controller {
                     if ($res[$i]->onair12->k_id_follow_up_12h) {
                         $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
                         if (!$res[$i]->onair12->k_id_follow_up_12h->k_id_user) {
-                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
                             $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                             $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
-                        }
+                        }                     
                     }else{
                         $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
-                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
                         $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                         $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
                     }
-
+                    
                 }else{
                 $res[$i]->onair12 = new \stdClass();
                 $res[$i]->onair12->k_id_12h_real = " ";
@@ -256,8 +256,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair12->i_state = " ";
                 $res[$i]->onair12->i_hours = " ";
                 $res[$i]->onair12->d_created_at = " ";
-                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
-                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();                
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
             }
@@ -275,8 +275,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair12->i_state = " ";
                 $res[$i]->onair12->i_hours = " ";
                 $res[$i]->onair12->d_created_at = " ";
-                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
-                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();                
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
             }
@@ -295,17 +295,17 @@ class Reportes extends CI_Controller {
                     if ($res[$i]->onair24->k_id_follow_up_24h) {
                         $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
                         if (!$res[$i]->onair24->k_id_follow_up_24h->k_id_user) {
-                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
                             $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                             $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
-                        }
+                        }                     
                     }else{
                         $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
-                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
                         $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                         $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
                     }
-
+                    
                 }else{
                 $res[$i]->onair24 = new \stdClass();
                 $res[$i]->onair24->k_id_24h_real = " ";
@@ -320,8 +320,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair24->i_state = " ";
                 $res[$i]->onair24->i_hours = " ";
                 $res[$i]->onair24->d_created_at = " ";
-                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
-                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();                
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
             }
@@ -339,8 +339,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair24->i_state = " ";
                 $res[$i]->onair24->i_hours = " ";
                 $res[$i]->onair24->d_created_at = " ";
-                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
-                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();                
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
             }
@@ -359,17 +359,17 @@ class Reportes extends CI_Controller {
                     if ($res[$i]->onair36->k_id_follow_up_36h) {
                         $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
                         if (!$res[$i]->onair36->k_id_follow_up_36h->k_id_user) {
-                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
                             $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                             $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
-                        }
+                        }                     
                     }else{
                         $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
-                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
                         $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                         $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
                     }
-
+                    
                 }else{
                 $res[$i]->onair36 = new \stdClass();
                 $res[$i]->onair36->k_id_36h_real = " ";
@@ -384,8 +384,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair36->i_state = " ";
                 $res[$i]->onair36->i_hours = " ";
                 $res[$i]->onair36->d_created_at = " ";
-                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
-                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();                
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
             }
@@ -403,30 +403,104 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair36->i_state = " ";
                 $res[$i]->onair36->i_hours = " ";
                 $res[$i]->onair36->d_created_at = " ";
-                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
-                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();                
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
             }
             //fin obj onair36
+            if ($res[$i]->k_id_preparation->d_ingreso_on_air == "0000-00-00 00:00:00" || $res[$i]->k_id_preparation->d_ingreso_on_air == "1900-01-00 00:00:00") {
+              $res[$i]->k_id_preparation->d_ingreso_on_air = " ";
+            }
+            if ($res[$i]->k_id_preparation->d_correccionespendientes == "0000-00-00 00:00:00" || $res[$i]->k_id_preparation->d_correccionespendientes == "1900-01-00 00:00:00") {
+              $res[$i]->k_id_preparation->d_correccionespendientes = " ";
+            }
+            if ($res[$i]->k_id_precheck->d_finpre == "0000-00-00 00:00:00" || $res[$i]->k_id_precheck->d_finpre == "1900-01-00 00:00:00") {
+              $res[$i]->k_id_precheck->d_finpre = " ";
+            }
+            if ($res[$i]->d_fecha_ultima_rev == "0000-00-00 00:00:00" || $res[$i]->d_fecha_ultima_rev == "1900-01-00 00:00:00") {
+              $res[$i]->d_fecha_ultima_rev = " ";
+            }
+            if ($res[$i]->d_desbloqueo == "0000-00-00 00:00:00" || $res[$i]->d_desbloqueo == "1900-01-00 00:00:00") {
+              $res[$i]->d_desbloqueo = " ";
+            }
+            if ($res[$i]->d_bloqueo == "0000-00-00 00:00:00" || $res[$i]->d_bloqueo == "1900-01-00 00:00:00") {
+              $res[$i]->d_bloqueo = " ";
+            }
+            if ($res[$i]->d_fechaproduccion == "0000-00-00 00:00:00" || $res[$i]->d_fechaproduccion == "1900-01-00 00:00:00") {
+              $res[$i]->d_fechaproduccion = " ";
+            }
+            if ($res[$i]->fecha_rft == "0000-00-00 00:00:00" || $res[$i]->fecha_rft == "1900-01-00 00:00:00") {
+              $res[$i]->fecha_rft = " ";
+            }
+            if ($res[$i]->d_fecha_cg == "0000-00-00 00:00:00" || $res[$i]->d_fecha_cg == "1900-01-00 00:00:00") {
+              $res[$i]->d_fecha_cg = " ";
+            }
+            if ($res[$i]->d_finish == "0000-00-00 00:00:00" || $res[$i]->d_finish == "1900-01-00 00:00:00") {
+              $res[$i]->d_finish = " ";
+            }
+            if ($res[$i]->d_temporal == "0000-00-00 00:00:00" || $res[$i]->d_temporal == "1900-01-00 00:00:00") {
+              $res[$i]->d_temporal = " ";
+            }
+            if ($res[$i]->d_actualizacion_final == "0000-00-00 00:00:00" || $res[$i]->d_actualizacion_final == "1900-01-00 00:00:00") {
+              $res[$i]->d_actualizacion_final = " ";
+            }
+            if ($res[$i]->d_asignacion_final == "0000-00-00 00:00:00" || $res[$i]->d_asignacion_final == "1900-01-00 00:00:00") {
+              $res[$i]->d_asignacion_final = " ";
+            }
+            if ($res[$i]->d_precheck_init == "0000-00-00 00:00:00" || $res[$i]->d_precheck_init == "1900-01-00 00:00:00") {
+              $res[$i]->d_precheck_init = " ";
+            }
+            if ($res[$i]->d_created_at == "0000-00-00 00:00:00" || $res[$i]->d_created_at == "1900-01-00 00:00:00") {
+              $res[$i]->d_created_at = " ";
+            }
+            if ($res[$i]->scaled_onair->d_time_escalado == "0000-00-00 00:00:00" || $res[$i]->scaled_onair->d_time_escalado == "1900-01-00 00:00:00") {
+              $res[$i]->scaled_onair->d_time_escalado = " ";
+            }
+            if ($res[$i]->scaled_onair->d_fecha_escalado == "0000-00-00 00:00:00" || $res[$i]->scaled_onair->d_fecha_escalado == "1900-01-00 00:00:00") {
+              $res[$i]->scaled_onair->d_fecha_escalado = " ";
+            }
+            if ($res[$i]->onair12->d_start12h == "0000-00-00 00:00:00" || $res[$i]->onair12->d_start12h == "1900-01-00 00:00:00") {
+              $res[$i]->onair12->d_start12h = " ";
+            }
+            if ($res[$i]->onair12->d_start_temp == "0000-00-00 00:00:00" || $res[$i]->onair12->d_start_temp == "1900-01-00 00:00:00") {
+              $res[$i]->onair12->d_start_temp = " ";
+            }
+            if ($res[$i]->onair12->d_fin12h == "0000-00-00 00:00:00" || $res[$i]->onair12->d_fin12h == "1900-01-00 00:00:00") {
+              $res[$i]->onair12->d_fin12h = " ";
+            }
+            if ($res[$i]->onair12->d_created_at == "0000-00-00 00:00:00" || $res[$i]->onair12->d_created_at == "1900-01-00 00:00:00") {
+              $res[$i]->onair12->d_created_at = " ";
+            }
+            if ($res[$i]->onair24->d_start24h == "0000-00-00 00:00:00" || $res[$i]->onair24->d_start24h == "1900-01-00 00:00:00") {
+              $res[$i]->onair24->d_start24h = " ";
+            }
+            if ($res[$i]->onair24->d_start_temp == "0000-00-00 00:00:00" || $res[$i]->onair24->d_start_temp == "1900-01-00 00:00:00") {
+              $res[$i]->onair24->d_start_temp = " ";
+            }
+            if ($res[$i]->onair24->d_fin24h == "0000-00-00 00:00:00" || $res[$i]->onair24->d_fin24h == "1900-01-00 00:00:00") {
+              $res[$i]->onair24->d_fin24h = " ";
+            }
+            if ($res[$i]->onair24->d_created_at == "0000-00-00 00:00:00" || $res[$i]->onair24->d_created_at == "1900-01-00 00:00:00") {
+              $res[$i]->onair24->d_created_at = " ";
+            }
+            if ($res[$i]->onair36->d_start36h == "0000-00-00 00:00:00" || $res[$i]->onair36->d_start36h == "1900-01-00 00:00:00") {
+              $res[$i]->onair36->d_start36h = " ";
+            }
+            if ($res[$i]->onair36->d_start_temp == "0000-00-00 00:00:00" || $res[$i]->onair36->d_start_temp == "1900-01-00 00:00:00") {
+              $res[$i]->onair36->d_start_temp = " ";
+            }
+            if ($res[$i]->onair36->d_fin36h == "0000-00-00 00:00:00" || $res[$i]->onair36->d_fin36h == "1900-01-00 00:00:00") {
+              $res[$i]->onair36->d_fin36h = " ";
+            }
+            if ($res[$i]->onair36->d_created_at == "0000-00-00 00:00:00" || $res[$i]->onair36->d_created_at == "1900-01-00 00:00:00") {
+              $res[$i]->onair36->d_created_at = " ";
+            }
+
         }
-
-        /*print_r($res);*/
-
-        for ($f=0; $f <count($res) ; $f++) {
-
-                      if(!$res[$f]->onair12->k_id_follow_up_36h->k_id_user){
-                        $res[$f]->onair12->k_id_follow_up_36h = new \stdClass();
-                        $res[$f]->onair12->k_id_follow_up_36h->k_id_user = new \stdClass();
-                        $res[$f]->onair12->k_id_follow_up_36h->k_id_user->n_name_user = "";
-                        $res[$f]->onair12->k_id_follow_up_36h->k_id_user->n_last_name_user = "";
-                      }
-
-                      if(!$res[$f]->k_id_preparation){
-                        $res[$f]->k_id_preparation = new \stdClass();
-                        $res[$f]->k_id_preparation->n_enteejecutor = "";
-                        $res[$f]->k_id_preparation->n_idcontrolador = "";
-                      }
+      /*  print_r($res);*/
+        $data=[];
+        for ($f=0; $f <count($res) ; $f++) {                      
 
              $data[$f] = [
                "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_onair)),

@@ -520,7 +520,32 @@ var dom = {
         } else {
             return "Indefinido";
         }
-    }
+    },
+    confirmar: function (texto, callbackconfirm, callbackcancel, close) {
+        swal({
+            title: "Confirmar",
+            text: texto,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            closeOnConfirm: ((close === false) ? false : true),
+            closeOnCancel: ((close === false) ? false : true)
+        }).then(function (isConfirm) {
+            if (isConfirm.value) {
+                if (typeof callbackconfirm === "function") {
+                    callbackconfirm();
+                }
+            } else {
+                if (typeof callbackcancel === "function") {
+                    callbackcancel();
+                }
+            }
+        });
+    },
 };
 $(function () {
     dom.init();

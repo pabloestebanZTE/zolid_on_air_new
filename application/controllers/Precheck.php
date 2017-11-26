@@ -85,24 +85,46 @@ class Precheck extends CI_Controller {
         return $res;
     }
 
+    public function runPrecheck() {
+        try {
+            $ticketModel = new TicketOnAirModel();
+            $ticketModel->where("k_id_onair", "=", $this->request->idOnAir)
+                    ->update([
+                        "k_id_status_onair" => 78, //Reinicio Precheck.
+                        "d_precheck_init" => Hash::getDate()
+            ]);
+            $this->json(new Response(EMessages::UPDATE));
+        } catch (ZolidException $ex) {
+            $this->json($ex);
+        }
+    }
+
     public function doPrecheck() {
         $preparation = new Dao_preparationStage_model();
         $ticket = new Dao_ticketOnair_model();
         $precheck = new Dao_precheck_model();
         $response = $ticket->findByIdOnAir($this->request->idOnair);
+        $ticketOnAir = $response->data;
         $this->request->k_id_onair = $this->request->idOnair;
         $this->request->k_id_user = $response->data->i_actualEngineer;
         $this->request->n_round = 1;
         $this->request->i_round = 1;
         $this->request->i_actualEngineer = 0;
+        $this->request->d_precheck_init = 1;
         $this->request->k_id_ticket = $this->request->k_id_onair;
-        $response1 = $ticket->updateEngTicket($this->request->idOnair, 0)->data; //camilo
+        $response1 = $ticket->updateEngTicket($this->request->idOnair, (($ticketOnAir->k_id_status_onair == 79) ? Auth::user()->k_id_user : 0))->data; //camilo
         //Sirve para veriificar si va para 12
         $requestProduction = null;
         $prorrogaHours = 0;
-        //Se detecta si se desea hacer un Stand By...
+        //Se detecta si se desea hacer una prórroga para el precheck...
         if ($this->request->k_id_status_onair == 0) {
             $prorrogaHours = $this->request->prorrogaHours;
+            //Actualizamos la fecha en la que se inició el precheck.
+            $temp = new TicketOnAirModel();
+            $temp->where("k_id_onair", "=", $this->request->k_id_onair)->update([
+                "d_precheck_init" => Hash::getDate(),
+                "i_prorroga_hours" => $prorrogaHours,
+            ]);
         }
         //Se detecta si va para Stand By...
         if ($this->request->k_id_status_onair == 10) {
@@ -112,6 +134,7 @@ class Precheck extends CI_Controller {
             $this->json($response);
             return;
         }
+        //Para producción.
         if ($this->request->k_id_status_onair >= 87) {
             $requestProduction = "TO_PRODUCCTION";
             $comment = $this->request->n_comentario_ing;
@@ -122,6 +145,7 @@ class Precheck extends CI_Controller {
             $commentEdit = json_encode($tempComment, true);
             $this->request->n_comentario = $commentEdit;
         }
+        //Para 12h o para producción
         if ($this->request->k_id_status_onair == 81 || $this->request->k_id_status_onair >= 87) {
             $follow12h = new Dao_followUp12h_model();
             $onair12 = new Dao_onAir12h_model();
@@ -139,7 +163,7 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
-        // si va para 24
+        // si va para 24 o para producción
         if ($this->request->k_id_status_onair == 82 || $this->request->k_id_status_onair >= 87) {
             $follow24h = new Dao_followUp24h_model();
             $onair24 = new Dao_onAir24h_model();
@@ -157,7 +181,7 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
-        //si va para 36
+        //si va para 36 o para producción
         if ($this->request->k_id_status_onair == 83 || $this->request->k_id_status_onair >= 87) {
             $follow36h = new Dao_followUp36h_model();
             $onair36 = new Dao_onAir36h_model();
@@ -175,12 +199,7 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
-        //Actualizamos la fecha en la que se inició el precheck.
-        $temp = new TicketOnAirModel();
-        $temp->where("k_id_onair", "=", $this->request->k_id_onair)->update([
-            "d_precheck_init" => Hash::getDate(),
-            "i_prorroga_hours" => $prorrogaHours,
-        ]);
+
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
         $this->json($response);
         // $this->request->d_finpre = Hash::getDate();

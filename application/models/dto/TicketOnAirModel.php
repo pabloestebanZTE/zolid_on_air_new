@@ -66,6 +66,12 @@ class TicketOnAirModel extends Model {
     protected $d_created_at;
     protected $n_implementacion_remota;
     protected $data_standby;
+    protected $d_t_from_notif;
+    protected $d_t_from_asign;
+    protected $n_ola;
+    protected $n_ola_excedido;
+    protected $n_ola_areas;
+    protected $n_ola_areas_excedido;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
@@ -462,6 +468,43 @@ class TicketOnAirModel extends Model {
         return $this->data_standby;
     }
 
+
+    public function setDTFromNotif($d_t_from_notif) {
+        $this->d_t_from_notif = $d_t_from_notif;
+    }
+    public function getDTFromNotif() {
+        return $this->d_t_from_notif;
+    }
+    public function setDTFromAsign($d_t_from_asign) {
+        $this->d_t_from_asign = $d_t_from_asign;
+    }
+    public function getDTFromAsign() {
+        return $this->d_t_from_asign;
+    }
+    public function setNOla($n_ola) {
+        $this->n_ola = $n_ola;
+    }
+    public function getNOla() {
+        return $this->n_ola;
+    }
+    public function setNOlaExcedido($n_ola_excedido) {
+        $this->n_ola_excedido = $n_ola_excedido;
+    }
+    public function getNOlaExcedido() {
+        return $this->n_ola_excedido;
+    }
+    public function setNOlaAreas($n_ola_areas) {
+        $this->n_ola_areas = $n_ola_areas;
+    }
+    public function getNOlaAreas() {
+        return $this->n_ola_areas;
+    }
+    public function setNOlaAreasExcedido($n_ola_areas_excedido) {
+        $this->n_ola_areas_excedido = $n_ola_areas_excedido;
+    }
+    public function getNOlaAreasExcedido() {
+        return $this->n_ola_areas_excedido;
+    }
 
 }
 

@@ -60,7 +60,7 @@ var TD = {
                 swal({
                     title: "Actualizado",
                     text: "Se ha acutalizado el proceso correctamente.",
-                    icon: "success",
+                    type: "success",
                     button: "Aceptar"
                 }).then(function () {
                     location.reload();
@@ -82,7 +82,7 @@ var TD = {
                         swal({
                             title: "Actualizado",
                             text: "Se ha acutalizado el proceso correctamente.",
-                            icon: "success",
+                            type: "success",
                             button: "Aceptar"
                         }).then(function () {
                             location.reload();
@@ -118,7 +118,7 @@ var TD = {
                         swal({
                             title: "Actualizado",
                             text: "Se ha acutalizado el proceso correctamente.",
-                            icon: "success",
+                            type: "success",
                             button: "Aceptar"
                         }).then(function () {
                             location.reload();
@@ -355,6 +355,53 @@ var TD = {
                 $('#contentDetails_12h_content').removeClass('hidden');
                 $('.hour-step').removeClass('disabled').addClass('standby');
                 break;
+            case "18":
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-check"></i> En Precheck');
+                $('.progress-step').css('width', 100 + '%');
+                $('#contentDetails_12h_content').removeClass('hidden');
+                $('.hour-step').removeClass('disabled').addClass('produccion');
+                break;
+            case "19":
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 12H');
+                $('.progress-step').css('width', 100 + '%');
+                $('.hour-step').removeClass('disabled').addClass('produccion');
+                $('#contentDetails_12h_content').removeClass('hidden');
+                $('#alertReinicio12h').removeClass('hidden');
+                TD.contentFases.addClass('hidden').hide();
+                $('#btnRunActividad').on('click', function () {
+                    dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
+                        app.post('TicketOnair/restart12h', {
+                            idTicket: $('#idProceso').val()
+                        }).success(function (response) {
+                            if (response.code > 0) {
+                                swal({
+                                    title: "Iniciado",
+                                    type: "success",
+                                    text: "Se ha iniciado el proceso correctamente.",
+                                    button: "Aceptar"
+                                }).then(function () {
+                                    location.reload();
+                                });
+                            } else {
+                                swal("Error", response.message);
+                            }
+                        }).error(function (e) {
+                            swal("Error", "Se ha producido un error inesperado.", "error");
+                        }).send();
+                    }, function () {
+                        swal("Cancelado", "Se ha cancelado la operación", "error");
+                    });
+                });
+                break
+            case "20":
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio Precheck');
+                $('.progress-step').css('width', 100 + '%');
+                $('#contentDetails_12h_content').removeClass('hidden');
+                $('.hour-step').removeClass('disabled').addClass('produccion');
+                break
             default :
                 $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-play-circle"></i> En producción');

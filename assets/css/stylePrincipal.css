@@ -75,15 +75,6 @@ h1 {
 h2 {
     color: #207be5;
 }
-h2:after {
-    display: block;
-    content: "";
-    height: 2px;
-    width: 150px;
-    background:  #207be5 ;
-    margin: 10px auto 40px;
-
-}
 
 
 h3 {

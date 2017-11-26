@@ -103,6 +103,9 @@ class TimerGlobal {
         if ($tck->i_prorroga_hours > 0) {
             $time = $tck->i_prorroga_hours;
         }
+        if ($tck->d_precheck_init == null) {
+            return null;
+        }
         $this->timer($obj, "d_precheck_init", $time);
         return $obj;
     }

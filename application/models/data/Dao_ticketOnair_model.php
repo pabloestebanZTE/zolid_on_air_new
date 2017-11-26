@@ -248,6 +248,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
+            $response->setMessage("Se ha actualizado el precheck correctamente");
             return $response;
         } catch (ZolidException $ex) {
             return $ex;
@@ -266,7 +267,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 a INNER JOIN $table1 b
                 ON a.$field = b.$field
                 INNER JOIN user c
-                ON c.k_id_user = a.k_id_user WHERE b.k_id_onair = $id_onair";
+                ON c.k_id_user = a.k_id_user WHERE b.k_id_onair = $id_onair GROUP BY c.k_id_user";
 //        echo $sql;
         $data = (new DB())->select($sql)->get();
         return $data;
@@ -495,6 +496,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $request->i_actualEngineer = 0;
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
+//            echo $ticketOnAir->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -1417,6 +1419,32 @@ class Dao_ticketOnair_model extends CI_Model {
             return new Response(EMessages::SUCCESS, "Se ha actualizado el estado del proceso correctamente.");
         } else {
             return new Response(EMessages::ERROR, "No se pudo actualizar el estaod del proceso.");
+        }
+    }
+
+    public function restart12h($request) {
+        try {
+            $ticketModel = new TicketOnAirModel();
+            $tck = $ticketModel->where("k_id_onair", "=", $request->idTicket)->first();
+            if (!$tck) {
+                return new Response(EMessages::ERROR, "El Ticket no existe o no es válido.");
+            }
+            $response = new Response(EMessages::UPDATE);
+            $ticketModel->where("k_id_onair", "=", $request->idTicket)->update([
+                "k_id_status_onair" => 81,
+            ]);
+            //Ahora actualizamos la fecha Start de el registro 12h...
+            $onAir12h = new OnAir12hModel();
+
+            $this->insertCommentDetail($onAir12h, $tck, [
+                "d_start12h" => Hash::getDate(),
+                "i_hours" => 0,
+                "n_comentario" => "Se inicia el proceso después de pasar por un Reinicio12h."
+            ]);
+
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
         }
     }
 
