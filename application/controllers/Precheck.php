@@ -90,6 +90,7 @@ class Precheck extends CI_Controller {
             $ticketModel = new TicketOnAirModel();
             $ticketModel->where("k_id_onair", "=", $this->request->idOnAir)
                     ->update([
+                        "k_id_status_onair" => 78, //Reinicio Precheck.
                         "d_precheck_init" => Hash::getDate()
             ]);
             $this->json(new Response(EMessages::UPDATE));
@@ -109,6 +110,7 @@ class Precheck extends CI_Controller {
         $this->request->n_round = 1;
         $this->request->i_round = 1;
         $this->request->i_actualEngineer = 0;
+        $this->request->d_precheck_init = 1;
         $this->request->k_id_ticket = $this->request->k_id_onair;
         $response1 = $ticket->updateEngTicket($this->request->idOnair, (($ticketOnAir->k_id_status_onair == 79) ? Auth::user()->k_id_user : 0))->data; //camilo
         //Sirve para veriificar si va para 12

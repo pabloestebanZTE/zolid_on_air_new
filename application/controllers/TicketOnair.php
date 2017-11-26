@@ -399,12 +399,17 @@ class TicketOnair extends CI_Controller {
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo = Hash::getDate();
         //Se cormprueba si es reinicio precheck...
-        $this->request->d_precheck_init = ($ticketOnAirTemp->k_id_status_onair == 79) ? null : Hash::getDate();
+        //Reinicio Precheck = 80 && Reinicio 12H = 79
         if ($ticketOnAirTemp->k_id_status_onair == 97 || $ticketOnAirTemp->k_id_status_onair == 80) {
+            $this->request->d_precheck_init = ($ticketOnAirTemp->k_id_status_onair == 79) ? null : Hash::getDate();
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;
-            $response = $ticket->updatePrecheckOnair($this->request, 78);
+            $idStatus = 78;
+            if ($ticketOnAirTemp->k_id_status_onair == 80) {
+                $idStatus = 80;
+            }
+            $response = $ticket->updatePrecheckOnair($this->request, $idStatus);
             $this->json($response);
             $flag = 1;
         }
@@ -433,7 +438,11 @@ class TicketOnair extends CI_Controller {
             $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
             $response = $follow12->update12FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
-            $response = $ticket->updatePrecheckOnair($this->request, 81);
+            $idStatus = 81;
+            if ($ticketOnAirTemp->k_id_status_onair == 79) {
+                $idStatus = 79;
+            }
+            $response = $ticket->updatePrecheckOnair($this->request, $idStatus);
             $this->json($response);
             $flag = 1;
         }
@@ -533,10 +542,18 @@ class TicketOnair extends CI_Controller {
         } else {
             $response = $scaling->insertScaling($this->request);
         }
-        $this->request->d_precheck_init = "NULL";
+        $this->request->d_precheck_init = DB::NULLED;
         $this->request->i_prorroga_hours = 0;
-        $this->request->i_precheck_realizado = "NULL";
+        if ($this->request->k_id_status_onair == 80) {
+            $this->request->i_precheck_realizado = DB::NULLED;
+        }
         $response = $ticket->updateTicketScaling($this->request);
+        $this->json($response);
+    }
+
+    public function restart12h() {
+        $ticketOnAirDAO = new Dao_ticketOnair_model();
+        $response = $ticketOnAirDAO->restart12h($this->request);
         $this->json($response);
     }
 
