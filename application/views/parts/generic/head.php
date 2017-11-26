@@ -14,5 +14,5 @@
     <link rel="stylesheet" href="<?= URL::to('assets/css/helper-class.css') ?>">
     <link href="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="<?= URL::to('assets/css/stylePrincipal.css?v=1.0') ?>" />
-    <link rel="stylesheet" href="<?= URL::to('assets/plugins/sweetalert-master/dist/sweetalert.css') ?>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.min.css" />
 </head>

@@ -7,7 +7,7 @@
             <div class='tab-content' id='tab3'><brt><br>
                     <div class="container">
                         <form class="well form-horizontal" action="Precheck/doPrecheck" method="post"  id="precheckForm" name="precheckForm">
-                            <legend>Confirmar precheck</legend>
+                            <legend class="p-b-15">Confirmar precheck<button type="button" class="display-block hidden btn btn-primary m-t-10" id="runPrecheck" title="Iniciar Precheck"><i class="fa fa-fw fa-play"></i> Iniciar Precheck</button></legend>
                             <fieldset class="col-md-6 control-label">
                                 <div class="form-group">
                                     <label for="txtEstacion" class="col-md-3 control-label">Estacion:</label>
@@ -104,7 +104,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_controlador" id="n_controlador" class="form-control" value='' required>
+                                            <input type='text' name="n_controlador" id="n_controlador" class="form-control disabledchange" disabled="" value='' required>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_idcontrolador" id="n_idcontrolador" class="form-control" value='' required>
+                                            <input type='text' name="n_idcontrolador" id="n_idcontrolador" class="form-control disabledchange" disabled="" value='' required>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_btsipaddress" id="n_btsipaddress" class="form-control" value='' required>
+                                            <input type='text' name="n_btsipaddress" id="n_btsipaddress" class="form-control disabledchange" disabled="" value='' required>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_bcf_wbts_id" id="n_bcf_wbts_id" class="form-control" value='' required>
+                                            <input type='text' name="n_bcf_wbts_id" id="n_bcf_wbts_id" class="form-control disabledchange" disabled="" value='' required>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_bts_id" id="n_bts_id" class="form-control" value='' required>
+                                            <input type='text' name="n_bts_id" id="n_bts_id" class="form-control disabledchange" disabled="" value='' required>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                            <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker" required>
+                                            <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker disabledchange" disabled="" required>
                                                 <option value="1" >TRUE</option><option value="0" >FALSE</option>
                                             </select>
                                         </div>
@@ -223,7 +223,7 @@
                                     <div class="col-md-8 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            <textarea class="form-control" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
+                                            <textarea class="form-control disabledchange" disabled="" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <select name="k_id_status" id="k_id_status" class="form-control selectpicker" required>
+                                            <select name="k_id_status" id="k_id_status" class="form-control selectpicker disabledchange" disabled="" required>
                                                 <option value="" >Seleccione el Estado</option>
                                                 <option value="0">Seguimiento FO</option>
                                                 <option value="8">Producción</option>
@@ -247,7 +247,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <select name="k_id_status_onair" id="k_id_status_onair" class="form-control selectpicker" required>
+                                            <select name="k_id_status_onair" id="k_id_status_onair" class="form-control selectpicker disabledchange" disabled="" required>
                                                 <option value="">Seleccione el Subestado</option>
                                             </select>
                                         </div>
@@ -315,7 +315,7 @@
                             </fieldset>
                             <input type='hidden' name="k_id_preparation" id="k_id_preparation" class="form-control" value='' required>
                             <input type='hidden' name="k_id_precheck" id="k_id_precheck" class="form-control" value='' required>
-                            <input type="hidden" class="form-control input-sm" id="<?= $_GET['idOnair']; ?>" name="idOnair" value="<?= $_GET['idOnair']; ?>" />
+                            <input type="hidden" class="form-control input-sm" id="idOnair" name="idOnair" value="<?= $_GET['idOnair']; ?>" />
                             <!--   fin seccion derecha---->
 
                             <!-- Button -->
@@ -323,8 +323,8 @@
                                 <div class="form-group">
                                     <label class="col-md-12 control-label"></label>
                                     <div class="col-md-12">
-                                        <button type="submit" id="btnAsignar" class="btn btn-success" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
-                                        <button type="button" id="btnNoexitiso" class="btn btn-primary" onclick = "location.href = '<?= URL::to('User/scaling?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
+                                        <button type="submit" id="btnAsignar" class="btn btn-success disabledchange" disabled="" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
+                                        <button type="button" id="btnNoexitiso" class="btn btn-primary disabledchange" disabled="" onclick = "location.href = '<?= URL::to('User/scaling?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
                                     </div>
                                 </div>
                             </center>
@@ -341,7 +341,11 @@
         <script>
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
-
+                if (ticket.d_precheck_init == null) {
+                    $('#runPrecheck').removeClass('hidden');
+                } else {
+                    $('.disabledchange').prop('disabled', false);
+                }
                 $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
                 $('input[name=txtBanda]').val(ticket.k_id_band.n_name_band);
                 $('input[name=txtRegional]').val(ticket.k_id_station.k_id_city.k_id_regional.n_name_regional);
@@ -415,6 +419,30 @@
                     }).send();
                 };
                 form.on('submit', onSubmitForm);
+
+
+
+                $('#runPrecheck').on('click', function () {
+                    dom.confirmar("Se iniciará el proceso de precheck, ¿está seguro de continuar con esta operación?", function () {
+                        app.post('Precheck/runPrecheck', {
+                            idOnAir: $('#idOnair').val()
+                        })
+                                .success(function (response) {
+                                    if (response.code > 0) {
+                                        swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
+                                        $('.disabledchange').prop('disabled', false);
+                                    } else {
+                                        swal("Iniciado", "No se pudo iniciar el precheck.", "error");
+                                    }
+                                })
+                                .error(function () {
+                                    swal("Error", "Se ha producido un error inesperado al iniciar el precheck.");
+                                })
+                                .send();
+                    }, function () {
+                        swal("Cancelado", "Se ha cancelado la operación", "error");
+                    });
+                });
             })
             // , function(){location.href = app.urlTo('User/principalView');}
         </script>
