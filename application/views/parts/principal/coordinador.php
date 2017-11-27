@@ -14,6 +14,9 @@
                         <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
                         <br/>
                         <div class="row">
+                            <div class="col col-md-12 p-b-20" style="text-align: right;">
+                                <a class="btn btn-primary" href="<?= URL::to('User/getAllTickets') ?>"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;&nbsp;Ver todo</a>
+                            </div>
                             <div class="col-md-12">
                                 <div class="panel with-nav-tabs panel-primary">
                                     <div class="panel-heading">
