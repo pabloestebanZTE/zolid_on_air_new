@@ -36,17 +36,14 @@ class Reportes extends CI_Controller {
        header("Content-Type: application/vnd.ms-excel; charset=utf-8");
        $respuesta = $reporte->getAll()->data;
 /*       print_r($respuesta);
-
-*/
-        if ($respuesta[$i]->hora_actualizacion_resucomen == "0000-00-00 00:00:00" || $respuesta[$i]->hora_actualizacion_resucomen == "1900-01-00 00:00:00") {
-          $res[$i]->onair36->d_created_at = " ";
-        }
-
-         for ($i=0; $i <count($respuesta) ; $i++) {
-             $data[$i] = [
+*/         for ($i=0; $i <count($respuesta) ; $i++) {
+              if ($respuesta[$i]->hora_actualizacion_resucomen == "0000-00-00 00:00:00" || $respuesta[$i]->hora_actualizacion_resucomen == "1900-01-00 00:00:00") {
+                $respuesta[$i]->hora_actualizacion_resucomen = " ";
+              }
+              $data[$i] = [
               "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->k_id_on_air)),
-              "Nombre_Estación-EB" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_nombre_estacion_eb)),
-              "Tecnología" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_tecnologia)),
+              "Nombre_Estacion-EB" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_nombre_estacion_eb)),
+              "Tecnologia" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_tecnologia)),
               "Banda" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_banda)),
               "tipo De trabajo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_tipo_trabajo)),
               "Estado EB-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_estado_eb_resucomen)),
@@ -54,7 +51,7 @@ class Reportes extends CI_Controller {
               "Hora Actualizacion ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->hora_actualizacion_resucomen)),
               "Usuario-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->usuario_resucomen)),
               "Ente-Ejecutor" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->ente_ejecutor)),
-              "Tipificación-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->tipificacion_resucomen)),
+              "Tipificacion-ResuComen" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->tipificacion_resucomen)),
               "NOC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->noc)),
              ];
          }
