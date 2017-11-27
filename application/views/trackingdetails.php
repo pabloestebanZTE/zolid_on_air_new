@@ -428,7 +428,15 @@
                         <a href="#" class="close">&times;</a>
                         <p id="text" class="m-b-0 p-b-0"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultado, por favor espere...</p>
                     </div>
-                    <div id="contentFases" class="hidden">
+                    <div class="hidden" id="alertReinicio12h">
+                        <div class="row">
+                            <div class="col-xs-12 p-l-25 p-r-25">
+                                <p class="m-t-0 m-b-0">La actividad actual se encuentra en estado: <b>Reinicio 12h</b> haga clic en el siguiente botón si desea iniciarla.</p>
+                                <button class="btn btn-primary" id="btnRunActividad"><i class="fa fa-fw fa-play"></i> Iniciar Actividad</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contentFases" class="hidden">                        
                         <div class="col-xs-12 text-right">
                             <div class="display-block pull-right" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">

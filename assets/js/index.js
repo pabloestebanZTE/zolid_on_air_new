@@ -27,7 +27,7 @@ $(function () {
                 $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();
             } else if (isKey(e, 73)) {//I = Ingeniero...
-                $('[name="username"]').val("javalbuenav");
+                $('[name="username"]').val("jdgómezs");
                 $('[name="password"]').val("abc123");
                 $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();

@@ -341,7 +341,8 @@
         <script>
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
-                if (ticket.d_precheck_init == null) {
+                console.log(ticket);
+                if (ticket.k_id_status_onair.k_id_status_onair == 80) {
                     $('#runPrecheck').removeClass('hidden');
                 } else {
                     $('.disabledchange').prop('disabled', false);
@@ -431,6 +432,7 @@
                                     if (response.code > 0) {
                                         swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
                                         $('.disabledchange').prop('disabled', false);
+                                        $('#runPrecheck').remove();
                                     } else {
                                         swal("Iniciado", "No se pudo iniciar el precheck.", "error");
                                     }
