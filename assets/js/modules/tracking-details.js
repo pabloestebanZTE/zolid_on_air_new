@@ -22,6 +22,54 @@ var TD = {
             cmb.trigger('change.select2');
         });
         $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
+        $('#btnEditarSectores').on('click', TD.onClickEditarSectores);
+        $('#btnAceptarModalSectores').on('click', TD.onClickAceptarModalSectores);
+    },
+    onClickAceptarModalSectores: function () {
+        var sectores = [];
+        var sectoresBloqueados = "";
+        var sectoresDesbloqueados = "";
+        var inputs = $('#tblSectores').find('input:checked');
+        for (var i = 0; i < inputs.length; i++) {
+            var input = $(inputs[i]);
+            var tr = input.parents('tr');
+            var temp = {
+                id: tr.attr('data-id'),
+                name: tr.attr('data-name'),
+                state: input.val() //1 = Bloqueado, 0 = Desbloqueado
+            };
+            sectores.push(temp);
+            if (input.val() == 1) {
+                sectoresBloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+            } else if (input.val() == 0) {
+                sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+            }
+        }
+        $('#jsonSectores').val(JSON.stringify(sectores));
+        $('#sectoresBloqueados').val(sectoresBloqueados);
+        $('#sectoresDebloqueados').val(sectoresDesbloqueados);
+        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + sectores.length + ') Sectores agregados');
+    },
+    onClickEditarSectores: function () {
+        $('#modalSectores').modal('show');
+    },
+    fillTableSectores: function (data) {
+        data = JSON.parse(data.n_json_sectores);
+        if (data && data.length > 0) {
+            $('#jsonSectores').val(data.n_json_sectores);
+            $('#sectoresBloqueados').val(data.n_sectoresbloqueados);
+            $('#sectoresDebloqueados').val(data.n_sectoresdesbloqueados);
+            var table = $('#tblSectores tbody');
+            table.html('');
+            //Llenamos la tabla sectores...
+            for (var i = 0; i < data.length; i++) {
+                var dat = data[i];
+                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="radio radio-primary" style=""><input ' + ((dat.state == 1) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="radio" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Bloqueado</label></div></td><td><div class="radio radio-primary" style=""><input ' + ((dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_desblock_{id}" type="radio" name="check_{id}" value="0"><label for="checkbox_desblock_{id}" class="text-bold">Desbloqueado</label></div></td></tr>', dat));
+            }
+            $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + data.length + ') Sectores agregados');
+        } else {
+            $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+        }
     },
     onClickHourStep: function () {
         TD.resizeWigets();
@@ -277,6 +325,12 @@ var TD = {
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');
                         form.fillForm(objTemp);
+                        try {
+                            if (response.data.n_json_sectores) {
+                                TD.fillTableSectores(response.data);
+                            }
+                        } catch (e) {
+                        }
                         objTemp = {preparation_stage: response.data.k_id_preparation};
                         form.fillForm(objTemp);
                         form.find('#cmbEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_status.k_id_status);

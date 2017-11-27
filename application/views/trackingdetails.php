@@ -361,23 +361,13 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
+                                                <input type="hidden" name="ticket_on_air.n_sectoresbloqueados" id="sectoresBloqueados" />
+                                                <input type="hidden" name="ticket_on_air.n_sectoresdesbloqueados" id="sectoresDebloqueados"/>
+                                                <input type="hidden" name="ticket_on_air.n_json_sectores" id="jsonSectores" />
                                                 <div class="form-group">
-                                                    <label for="txtSectoresBloqueados">Sectores bloqueados:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSectoresBloqueados" placeholder="Ej: A,B,1, etc" name="ticket_on_air.n_sectoresbloqueados"/>
-<!--                                                    <select class="form-control input-sm" id="cmbSectoresBloqueados">
-                                                        <option value="">Seleccione</option>
-                                                    </select>-->
+                                                    <button type="button" id="btnEditarSectores" class="btn btn-primary m-t-20" title="Ver y editar sectores"><i class="fa fa-fw fa-check-square-o"></i> (0) Sectores agregados</button>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtSectoresDesbloqueados">Sectores desbloqueados:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSectoresDesbloqueados" placeholder="Ej: A,B,1, etc" name="ticket_on_air.n_sectoresdesbloqueados"/>
-<!--                                                    <select class="form-control input-sm" id="cmbSectoresDesloqueados">
-                                                        <option value="">Seleccione</option>
-                                                    </select>-->
-                                                </div>
-                                            </div>
+                                            </div>                                            
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaRFT">Fecha RFT:</label>
@@ -671,6 +661,40 @@
         Zolid By ZTE Colombia | All Right Reserved
     </div>
     <!--End footer Section -->
+
+
+    <!--MODAL SECTORES-->
+    <div id="modalSectores" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
+                </div>
+                <div class="modal-body">                    
+                    <div class="row p-t-15">
+                        <div class="col-xs-12">
+                            <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
+                                <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
+                                    <thead><tr><th>Sector</th><th>Bloqueado</th><th>Desbloqueado</th></tr></thead>
+                                    <tbody>
+                                        <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAceptarModalSectores">Aceptar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--FIN MODAL SECTORES-->
 
     <?php $this->load->view('parts/generic/scripts'); ?>
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
