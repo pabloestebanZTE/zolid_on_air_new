@@ -519,7 +519,9 @@ class TicketOnair extends CI_Controller {
         $this->request->n_round = $this->request->n_round + 1;
         $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
         $response = $ticket->updateTicketScaling($this->request);
+        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_esc);
         $this->json($response);
+
     }
 
     public function recordRestart() {
@@ -548,6 +550,7 @@ class TicketOnair extends CI_Controller {
             $this->request->i_precheck_realizado = DB::NULLED;
         }
         $response = $ticket->updateTicketScaling($this->request);
+        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_detalle_solucion);
         $this->json($response);
     }
 

@@ -6,7 +6,7 @@ class Reportes extends CI_Controller {
 
     function __construct() {
         ini_set("memory_limit",-1);
-        ini_set('max_execution_time', 0);
+        ini_set('max_execution_time', -1);
         parent::__construct();
         $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
         $this->load->model('data/Dao_reporte_comentario_model');
@@ -179,8 +179,8 @@ class Reportes extends CI_Controller {
             $res[$i]->k_id_band = $band->findById($res[$i]->k_id_band)->data; //band
             $res[$i]->k_id_status_onair = $statusOnair->findById($res[$i]->k_id_status_onair)->data; //Status onair
             $res[$i]->k_id_work = $work->findById($res[$i]->k_id_work)->data; //work
-            $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair                
-            
+            $res[$i]->scaled_onair = $scaled->getScaledByTicket($res[$i]->k_id_onair)->data; //scaled onair
+
             if (!$res[$i]->scaled_onair) {
                   $res[$i]->scaled_onair = new \stdClass();
                   $res[$i]->scaled_onair->n_atribuible_nokia = "";
@@ -212,10 +212,10 @@ class Reportes extends CI_Controller {
                 $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
             }else{
                 $res[$i]->k_id_precheck = new \stdClass();
-                $res[$i]->k_id_precheck->k_id_user = new \stdClass();                
+                $res[$i]->k_id_precheck->k_id_user = new \stdClass();
                 $res[$i]->k_id_precheck->k_id_user->n_name_user = " ";
-                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " "; 
-                $res[$i]->k_id_precheck->d_finpre = " ";     
+                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " ";
+                $res[$i]->k_id_precheck->d_finpre = " ";
             }
 
             //creacion obj onair 12
@@ -231,17 +231,17 @@ class Reportes extends CI_Controller {
                     if ($res[$i]->onair12->k_id_follow_up_12h) {
                         $res[$i]->onair12->k_id_follow_up_12h->k_id_user = $user->findBySingleId($res[$i]->onair12->k_id_follow_up_12h->k_id_user)->data;//user12
                         if (!$res[$i]->onair12->k_id_follow_up_12h->k_id_user) {
-                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                            $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
                             $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                             $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
-                        }                     
+                        }
                     }else{
                         $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
-                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                        $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
                         $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                         $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
                     }
-                    
+
                 }else{
                 $res[$i]->onair12 = new \stdClass();
                 $res[$i]->onair12->k_id_12h_real = " ";
@@ -256,8 +256,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair12->i_state = " ";
                 $res[$i]->onair12->i_hours = " ";
                 $res[$i]->onair12->d_created_at = " ";
-                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();                
-                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
             }
@@ -275,8 +275,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair12->i_state = " ";
                 $res[$i]->onair12->i_hours = " ";
                 $res[$i]->onair12->d_created_at = " ";
-                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();                
-                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();                    
+                $res[$i]->onair12->k_id_follow_up_12h = new \stdClass();
+                $res[$i]->onair12->k_id_follow_up_12h->k_id_user = new \stdClass();
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_name_user = " ";
                 $res[$i]->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user = " ";
             }
@@ -295,17 +295,17 @@ class Reportes extends CI_Controller {
                     if ($res[$i]->onair24->k_id_follow_up_24h) {
                         $res[$i]->onair24->k_id_follow_up_24h->k_id_user = $user->findBySingleId($res[$i]->onair24->k_id_follow_up_24h->k_id_user)->data;//user24
                         if (!$res[$i]->onair24->k_id_follow_up_24h->k_id_user) {
-                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                            $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
                             $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                             $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
-                        }                     
+                        }
                     }else{
                         $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
-                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                        $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
                         $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                         $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
                     }
-                    
+
                 }else{
                 $res[$i]->onair24 = new \stdClass();
                 $res[$i]->onair24->k_id_24h_real = " ";
@@ -320,8 +320,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair24->i_state = " ";
                 $res[$i]->onair24->i_hours = " ";
                 $res[$i]->onair24->d_created_at = " ";
-                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();                
-                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
             }
@@ -339,8 +339,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair24->i_state = " ";
                 $res[$i]->onair24->i_hours = " ";
                 $res[$i]->onair24->d_created_at = " ";
-                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();                
-                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();                    
+                $res[$i]->onair24->k_id_follow_up_24h = new \stdClass();
+                $res[$i]->onair24->k_id_follow_up_24h->k_id_user = new \stdClass();
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_name_user = " ";
                 $res[$i]->onair24->k_id_follow_up_24h->k_id_user->n_last_name_user = " ";
             }
@@ -359,17 +359,17 @@ class Reportes extends CI_Controller {
                     if ($res[$i]->onair36->k_id_follow_up_36h) {
                         $res[$i]->onair36->k_id_follow_up_36h->k_id_user = $user->findBySingleId($res[$i]->onair36->k_id_follow_up_36h->k_id_user)->data;//user36
                         if (!$res[$i]->onair36->k_id_follow_up_36h->k_id_user) {
-                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                            $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
                             $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                             $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
-                        }                     
+                        }
                     }else{
                         $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
-                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                        $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
                         $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                         $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
                     }
-                    
+
                 }else{
                 $res[$i]->onair36 = new \stdClass();
                 $res[$i]->onair36->k_id_36h_real = " ";
@@ -384,8 +384,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair36->i_state = " ";
                 $res[$i]->onair36->i_hours = " ";
                 $res[$i]->onair36->d_created_at = " ";
-                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();                
-                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
             }
@@ -403,8 +403,8 @@ class Reportes extends CI_Controller {
                 $res[$i]->onair36->i_state = " ";
                 $res[$i]->onair36->i_hours = " ";
                 $res[$i]->onair36->d_created_at = " ";
-                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();                
-                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();                    
+                $res[$i]->onair36->k_id_follow_up_36h = new \stdClass();
+                $res[$i]->onair36->k_id_follow_up_36h->k_id_user = new \stdClass();
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_name_user = " ";
                 $res[$i]->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user = " ";
             }
@@ -466,7 +466,7 @@ class Reportes extends CI_Controller {
             if ($res[$i]->onair12->d_start_temp == "0000-00-00 00:00:00" || $res[$i]->onair12->d_start_temp == "1900-01-00 00:00:00") {
               $res[$i]->onair12->d_start_temp = " ";
             }
-            if ($res[$i]->onair12->d_fin12h == "0000-00-00 00:00:00" || $res[$i]->onair12->d_fin12h == "1900-01-00 00:00:00") {
+            if ($res[$i]->onair12->d_fin12h == "0000-00-00 00:00:00" || $res[$i]->onair12->d_fin12h == "1900-01-00 00:00:00" || $res[$i]->onair12->d_fin12h == "1900-01-00") {
               $res[$i]->onair12->d_fin12h = " ";
             }
             if ($res[$i]->onair12->d_created_at == "0000-00-00 00:00:00" || $res[$i]->onair12->d_created_at == "1900-01-00 00:00:00") {
@@ -500,7 +500,7 @@ class Reportes extends CI_Controller {
         }
       /*  print_r($res);*/
         $data=[];
-        for ($f=0; $f <count($res) ; $f++) {                      
+        for ($f=0; $f <count($res) ; $f++) {
 
              $data[$f] = [
                "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_onair)),
@@ -577,8 +577,8 @@ class Reportes extends CI_Controller {
               "Cont_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->cont_esc_calidad)),//BT
               "Time_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_time_esc_calidad)),//BU
               "WEEK" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->i_week)),//BV
-              "T_From_Notif" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//BW
-              "T_From_Asign" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//BX
+              "T_From_Notif" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_t_from_notif)),//BW
+              "T_From_Asign" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_t_from_asign)),//BX
               "Atribuible_Nokia2" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_atribuible_nokia2)),//BY
               "Kpis_Degraded" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_kpis_degraded)),//BZ
               "Id_Notificacion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->id_notificacion)),//CA
@@ -599,13 +599,13 @@ class Reportes extends CI_Controller {
               "Alarma4" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_alarma4)),//CP
               "Cont_Total_Escalamiento" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_cont_total_escalamiento)),//CQ
               "Time_Total_Escalamiento" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_time_total_escalamiento)),//CR
-              "OLA" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//CS
-              "OLA_Excedido" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//CT
+              "OLA" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_ola)),//CS
+              "OLA_Excedido" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_ola_excedido)),//CT
               "Detalle_Solucion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_detalle_solucion)),//CU
               "Lider_Cambio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_lider_cambio)),//CV
               "Lider_Cuadrilla" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->i_lider_cuadrilla)),//CW
-              "OLA_Areas" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', "")),//CX
-              "OLA_Areas_Excedido" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', "")),//CY
+              "OLA_Areas" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_ola_areas)),//CX
+              "OLA_Areas_Excedido" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_ola_areas_excedido)),//CY
               "Ultimo Subestado De Escalamiento" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->n_ultimo_subestado_de_escalamiento)),//CZ
               "Fin_24H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair24->d_fin24h)),//DA
               "Fin_36H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair36->d_fin36h)),//DB

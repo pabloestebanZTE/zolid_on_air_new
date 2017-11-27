@@ -576,57 +576,57 @@ class Dao_ticketOnair_model extends CI_Model {
             $sqlCount = "";
             if ($request->search->value) {
                 $request->searchValue = $request->search->value;
-                $sql = "SELECT tk.* FROM ticket_on_air tk 
-                        INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology 
-                        INNER JOIN `status` s 
-                        INNER JOIN substatus sb 
-                        INNER JOIN status_on_air sa ON                         
-                        sa.k_id_status_onair = tk.k_id_status_onair 
-                        AND sa.k_id_status = s.k_id_status 
-                        AND sb.k_id_substatus = sa.k_id_substatus 
-                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band 
-                        INNER JOIN station st ON st.k_id_station = tk.k_id_station 
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
-                        WHERE 
-                        (t.n_name_technology LIKE '%$request->searchValue%' 
-                        OR s.n_name_status LIKE '%$request->searchValue%' 
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
-                        OR bd.n_name_band LIKE '%$request->searchValue%' 
-                        OR st.n_name_station LIKE '%$request->searchValue%' 
-                        OR w.n_name_ork LIKE '%$request->searchValue%') 
-                        AND $condition                         
-                        group by tk.k_id_onair 
+                $sql = "SELECT tk.* FROM ticket_on_air tk
+                        INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
+                        INNER JOIN `status` s
+                        INNER JOIN substatus sb
+                        INNER JOIN status_on_air sa ON
+                        sa.k_id_status_onair = tk.k_id_status_onair
+                        AND sa.k_id_status = s.k_id_status
+                        AND sb.k_id_substatus = sa.k_id_substatus
+                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
+                        INNER JOIN station st ON st.k_id_station = tk.k_id_station
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        WHERE
+                        (t.n_name_technology LIKE '%$request->searchValue%'
+                        OR s.n_name_status LIKE '%$request->searchValue%'
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
+                        OR bd.n_name_band LIKE '%$request->searchValue%'
+                        OR st.n_name_station LIKE '%$request->searchValue%'
+                        OR w.n_name_ork LIKE '%$request->searchValue%')
+                        AND $condition
+                        group by tk.k_id_onair
                         order by d_created_at desc limit $request->start, $request->length";
 
-                $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk 
-                        INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology 
-                         INNER JOIN `status` s 
-                        INNER JOIN substatus sb 
-                        INNER JOIN status_on_air sa ON                         
-                        sa.k_id_status_onair = tk.k_id_status_onair 
-                        AND sa.k_id_status = s.k_id_status 
-                        AND sb.k_id_substatus = sa.k_id_substatus 
-                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band 
-                        INNER JOIN station st ON st.k_id_station = tk.k_id_station 
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
-                        WHERE 
-                        (t.n_name_technology LIKE '%$request->searchValue%' 
-                        OR s.n_name_status LIKE '%$request->searchValue%' 
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
-                        OR bd.n_name_band LIKE '%$request->searchValue%' 
-                        OR st.n_name_station LIKE '%$request->searchValue%' 
-                        OR w.n_name_ork LIKE '%$request->searchValue%')  
-                        AND $condition 
-                        group by tk.k_id_onair 
+                $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
+                        INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
+                         INNER JOIN `status` s
+                        INNER JOIN substatus sb
+                        INNER JOIN status_on_air sa ON
+                        sa.k_id_status_onair = tk.k_id_status_onair
+                        AND sa.k_id_status = s.k_id_status
+                        AND sb.k_id_substatus = sa.k_id_substatus
+                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
+                        INNER JOIN station st ON st.k_id_station = tk.k_id_station
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        WHERE
+                        (t.n_name_technology LIKE '%$request->searchValue%'
+                        OR s.n_name_status LIKE '%$request->searchValue%'
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
+                        OR bd.n_name_band LIKE '%$request->searchValue%'
+                        OR st.n_name_station LIKE '%$request->searchValue%'
+                        OR w.n_name_ork LIKE '%$request->searchValue%')
+                        AND $condition
+                        group by tk.k_id_onair
                         order by d_created_at desc";
             } else {
                 $sql = "select * from ticket_on_air tk "
-                        . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair 
+                        . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
                         . "order by d_created_at desc limit $request->start, $request->length";
                 $sqlCount = "select count(k_id_onair) as count from ticket_on_air tk "
-                        . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair 
+                        . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
                         . "order by d_created_at desc";
@@ -711,23 +711,23 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getPriorityRestartAndTracing() {
         try {
             $db = new DB();
-            $restart = $db->select("select a.* 
-                                    from ticket_on_air a 
-                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
-                                    inner join status c on c.k_id_status = b.k_id_status 
-                                    where c.n_name_status LIKE '%Escalado%' 
+            $restart = $db->select("select a.*
+                                    from ticket_on_air a
+                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
+                                    inner join status c on c.k_id_status = b.k_id_status
+                                    where c.n_name_status LIKE '%Escalado%'
                                     order by d_created_at desc")->get();
-//            
+//
 //            $tracing = $db->select("select * from ticket_on_air where i_priority = '1'")->limit(20)->get();
             $priority = $db->select("select * from ticket_on_air where i_priority = '1' "
-                            . "and YEAR(d_created_at) = YEAR(CURRENT_DATE) 
+                            . "and YEAR(d_created_at) = YEAR(CURRENT_DATE)
                                     and MONTH(d_created_at) = MONTH(CURRENT_DATE) LIMIT 55")->get();
 
             $tracing = $db->select("select a.*
                                     from ticket_on_air a
-                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair 
-                                    inner join status c on c.k_id_status = b.k_id_status 
-                                    where c.n_name_status LIKE '%Seguimiento%' 
+                                    inner join status_on_air b on b.k_id_status_onair = a.k_id_status_onair
+                                    inner join status c on c.k_id_status = b.k_id_status
+                                    where c.n_name_status LIKE '%Seguimiento%'
                                     order by d_created_at desc LIMIT 55")->get();
             //Consultamos la lista de registros ...
             $data = [
@@ -823,6 +823,7 @@ class Dao_ticketOnair_model extends CI_Model {
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
+            $this->registerReportComment($id, $comment);
             $response = new Response(EMessages::INSERT);
             return $response;
         } catch (ZolidException $ex) {
@@ -1399,9 +1400,9 @@ class Dao_ticketOnair_model extends CI_Model {
                 $time_elapsed = 0;
             }
 //
-//            //Lo que vamos a hacer, es que cuando haya un proceso, se guarda la fecha en la que inició dicho proceso en el json 
-//            //junto al tiempo que faltaba para terminar el proceso, así luego se 
-//            //podrá reestablecer y actualizar las fechas de esos procesos a la fecha actual menos 
+//            //Lo que vamos a hacer, es que cuando haya un proceso, se guarda la fecha en la que inició dicho proceso en el json
+//            //junto al tiempo que faltaba para terminar el proceso, así luego se
+//            //podrá reestablecer y actualizar las fechas de esos procesos a la fecha actual menos
 //            //el tiempo que restaba cuando se pasó a standby...
 //
             $json = [
@@ -1441,6 +1442,8 @@ class Dao_ticketOnair_model extends CI_Model {
                 "i_hours" => 0,
                 "n_comentario" => "Se inicia el proceso después de pasar por un Reinicio12h."
             ]);
+            $comentario = "Se inicia el proceso después de pasar por un Reinicio12h.";
+            $this->registerReportComment($request->idTicket, $comentario);
 
             return $response;
         } catch (ZolidException $ex) {

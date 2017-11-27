@@ -250,5 +250,4 @@ ALTER TABLE ticket_on_air	ADD  n_ola_excedido varchar(100);
 ALTER TABLE ticket_on_air	ADD  n_ola_areas varchar(100);
 ALTER TABLE ticket_on_air	ADD  n_ola_areas_excedido varchar(100);
 
-
-
+ALTER TABLE reporte_comentario modify comentario_resucoment varchar(5000);
