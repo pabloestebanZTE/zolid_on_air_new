@@ -157,7 +157,7 @@ var TD = {
         var obj = {
             idProceso: $('#idProceso').val(),
             idStatus: cmbProduccion.val(),
-            comment: joinText + "-----\n" + $('#modalChangeState #txtObservations').val()
+            comment: (joinText + "-----\n" + $('#modalChangeState #txtObservations').val()).trim()
         };
         app.post('TicketOnair/toProduction', obj)
                 .success(function (response) {
@@ -271,6 +271,7 @@ var TD = {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(3)').addClass('disabled');
         } else if (parent.hasClass('standby')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
