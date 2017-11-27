@@ -36,7 +36,13 @@ class Reportes extends CI_Controller {
        header("Content-Type: application/vnd.ms-excel; charset=utf-8");
        $respuesta = $reporte->getAll()->data;
 /*       print_r($respuesta);
-*/         for ($i=0; $i <count($respuesta) ; $i++) {
+
+*/
+        if ($respuesta[$i]->hora_actualizacion_resucomen == "0000-00-00 00:00:00" || $respuesta[$i]->hora_actualizacion_resucomen == "1900-01-00 00:00:00") {
+          $res[$i]->onair36->d_created_at = " ";
+        }
+
+         for ($i=0; $i <count($respuesta) ; $i++) {
              $data[$i] = [
               "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->k_id_on_air)),
               "Nombre_Estación-EB" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $respuesta[$i]->n_nombre_estacion_eb)),
