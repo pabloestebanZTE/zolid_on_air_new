@@ -10,7 +10,7 @@
         <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>
             <fieldset>
                 <div class="row contentPrincipal hidden">
-                    <div class="col col-md-12 p-t-40">
+                    <div class="col col-md-12 p-t-0">
                         <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
                         <br/>
                         <div class="row">
@@ -242,4 +242,4 @@
 </div>
 <!--Fin Modal Preveiw Detalle-->
 <?php $this->load->view('parts/generic/scripts'); ?>
-<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/coordinador.js") ?>"></script>
+<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/coordinador.js?v=1.0") ?>"></script>

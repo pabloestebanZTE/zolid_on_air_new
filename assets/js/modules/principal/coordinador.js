@@ -5,7 +5,6 @@ $(function () {
             vista.events();
             vista.getPendingList();
             vista.getAssignList();
-//            vista.listActivities();
         },
         getPendingList: function () {
             $('.contentPrincipal').removeClass('hidden');
@@ -19,6 +18,7 @@ $(function () {
                     {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                     {title: "Banda", data: 'k_id_band.n_name_band'},
                     {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                    {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                     {title: "Encargado", data: 'i_actualEngineer'},
                     {title: "Opciones", data: vista.getButtonsPending},
                 ],
@@ -55,6 +55,7 @@ $(function () {
                     {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                     {title: "Banda", data: 'k_id_band.n_name_band'},
                     {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                    {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                     {title: "Encargado", data: 'i_actualEngineer.n_name_user'},
                     {title: "Opciones", data: vista.getButtonsAssing},
                 ],
