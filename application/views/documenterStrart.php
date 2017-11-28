@@ -148,22 +148,15 @@
                         <!--  fin seccion izquierda form---->
 
                         <!--  inicio seccion derecha form---->
-                        <fieldset class="col-md-6">
+                        <fieldset class="col-md-6">                            
                             <div class="form-group">
-                                <label class="col-md-3 control-label" for="txtSectoresBloqueados">Sectores bloqueados:</label>
+                                <label class="col-md-3 control-label">Tipo de trabajo:</label>
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
-                                        <input type="text" class="form-control" id="txtSectoresBloqueados" placeholder="Ej: A,B,1, etc" name="n_sectoresbloqueados" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label" for="txtSectoresDesBloqueados">Sectores desbloqueados:</label>
-                                <div class="col-md-8 selectContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
-                                        <input type="text" class="form-control" id="txtSectoresDesBloqueados" placeholder="Ej: A,B,1, etc" name="n_sectoresbloqueados" />
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" required>
+                                            <option value="" >Seleccione el tipo de trabajo</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +166,7 @@
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                        <select name="k_id_technology" id="tecnologia" class="form-control selectpicker" required>
+                                        <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia" required>
                                             <option value="" >Seleccione la tecnologia</option>
                                         </select>
                                     </div>
@@ -185,24 +178,22 @@
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                        <select name="k_id_band" id="banda" class="form-control selectpicker" required>
+                                        <select name="k_id_band" id="banda" class="form-control selectpicker select-banda" required>
                                             <option value="" >Seleccione la banda</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Select Basic -->
+                            <input type="hidden" name="n_sectoresbloqueados" id="sectoresBloqueados" />
+                            <input type="hidden" name="n_sectoresdesbloqueados" id="sectoresDebloqueados"/>
+                            <input type="hidden" name="n_json_sectores" id="jsonSectores" />
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Tipo de trabajo:</label>
+                                <label class="col-md-3 control-label">Sectores:</label>
                                 <div class="col-md-8 selectContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                        <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker" required>
-                                            <option value="" >Seleccione el tipo de trabajo</option>
-                                        </select>
-                                    </div>
+                                    <button type="button" id="btnCheckSectores" class="btn btn-primary btn-block"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar Sectores</button>
                                 </div>
-                            </div>                            
+                            </div>
+                            <!-- Select Basic -->                            
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Estado:</label>
                                 <div class="col-md-8 selectContainer">
@@ -321,8 +312,7 @@
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
-        </div>
-        <?php $this->load->view('parts/generic/scripts'); ?>
+        </div>        
         <!-- CUSTOM SCRIPT   -->
 
 
@@ -335,31 +325,34 @@
         </div>
 
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-        <link href="<?= URL::to("assets/plugins/select2/select2.css") ?>" rel="stylesheet" type="text/css"/>
-        <script src="<?= URL::to("assets/plugins/select2/select2.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/FormatDate.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
-        <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
-        <script type="text/javascript" src="<?= URL::to('assets/js/DataStream.js') ?>"></script>
-        <script type="text/javascript" src="<?= URL::to('assets/js/msg.reader.js') ?>"></script>
-        <script>
+        <script src="<?= URL::to("assets/js/utils/app.global.js?v=1.0") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/js/utils/app.dom.js?v=1.0") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to('assets/plugins/bootstrap/js/bootstrap.min.js') ?>" /></script>
+    <link href="<?= URL::to("assets/plugins/select2/select2.css") ?>" rel="stylesheet" type="text/css"/>
+    <script src="<?= URL::to("assets/plugins/select2/select2.js") ?>" type="text/javascript"></script>
+    <script src="<?= URL::to("assets/plugins/FormatDate.js") ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
+    <script type="text/javascript" src="<?= URL::to('assets/js/DataStream.js') ?>"></script>
+    <script type="text/javascript" src="<?= URL::to('assets/js/msg.reader.js') ?>"></script>
+    <script>
                                                                 $(function () {
                                                                     var info = <?php echo $respuesta; ?>;
                                                                     console.log(info);
                                                                     for (var j = 0; j < info.bands.data.length; j++) {
-                                                                        $('#banda').append($('<option>', {
+                                                                        $('.select-banda').append($('<option>', {
                                                                             value: info.bands.data[j].k_id_band,
                                                                             text: info.bands.data[j].n_name_band
                                                                         }));
                                                                     }
                                                                     for (var j = 0; j < info.technologies.data.length; j++) {
-                                                                        $('#tecnologia').append($('<option>', {
+                                                                        $('.select-tecnologia').append($('<option>', {
                                                                             value: info.technologies.data[j].k_id_technology,
                                                                             text: info.technologies.data[j].n_name_technology
                                                                         }));
                                                                     }
                                                                     for (var j = 0; j < info.works.data.length; j++) {
-                                                                        $('#tipotrabajo').append($('<option>', {
+                                                                        $('.select-tipotrabajo').append($('<option>', {
                                                                             value: info.works.data[j].k_id_work,
                                                                             text: info.works.data[j].n_name_ork
                                                                         }));
@@ -438,12 +431,16 @@
                                                                         }
                                                                     }
                                                                 }
-        </script>
-        <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
-        <script type="text/javascript">
+    </script>
+    <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
+    <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
+    <script type="text/javascript">
                                                                 $(function () {
-                                                                    dom.submit($('#assignServie2'));
+                                                                    dom.submit($('#assignServie2'), function (response) {
+                                                                        if (response.code > 0) {
+                                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
+                                                                        }
+                                                                    });
                                                                     dom.submit($('#stationForm'), function () {
                                                                         location.href = app.urlTo('User/createTicketOnair');
                                                                     });
@@ -472,14 +469,170 @@
                                                                         document.execCommand("Copy");
                                                                         temp.remove();
                                                                     });
+
+
+                                                                    function getSectores() {
+                                                                        var obj = {
+                                                                            idTipoTrabajo: $('#tipotrabajo').val(),
+                                                                            idTecnologia: $('#tecnologia').val(),
+                                                                            idBanda: $('#banda').val()
+                                                                        };
+                                                                        var valid = 0;
+                                                                        if (obj.idTipoTrabajo.trim() == "") {
+                                                                            valid--;
+                                                                        }
+                                                                        if (obj.idTecnologia.trim() == "") {
+                                                                            valid--;
+                                                                        }
+                                                                        if (obj.idBanda.trim() == "") {
+                                                                            valid--;
+                                                                        }
+                                                                        if (valid != 0) {
+                                                                            return;
+                                                                        }
+
+                                                                        $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultando...</td></tr>');
+                                                                        app.post('TicketOnair/getSectores', obj)
+                                                                                .success(function (response) {
+                                                                                    var data = app.parseResponse(response);
+                                                                                    if (data && data.length > 0) {
+                                                                                        var tabla = $('#tblSectores tbody');
+                                                                                        tabla.html('');
+                                                                                        //Llenamos la tabla sectores...
+                                                                                        for (var i = 0; i < data.length; i++) {
+                                                                                            var dat = data[i];
+                                                                                            tabla.append(dom.fillString('<tr data-id="{k_id_sector}" data-name="{name}"><td>{name}</td><td><div class="radio radio-primary" style=""><input id="checkbox_block_{k_id_sector}" type="radio" name="check_{k_id_sector}" value="1" ><label for="checkbox_block_{k_id_sector}" class="text-bold">Bloqueado</label></div></td><td><div class="radio radio-primary" style=""><input id="checkbox_desblock_{k_id_sector}" type="radio" name="check_{k_id_sector}" value="0"><label for="checkbox_desblock_{k_id_sector}" class="text-bold">Desbloqueado</label></div></td></tr>', dat));
+                                                                                        }
+                                                                                    } else {
+                                                                                        $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+                                                                                    }
+                                                                                }).error(function () {
+                                                                            swal("Error", "Se ha producido un error inesperado y no se pudo consultar los sectores.", "error");
+                                                                        }).send();
+                                                                    }
+
+
+                                                                    $('#btnCheckSectores').on('click', function () {
+                                                                        $('#modalSectores').modal('show');
+                                                                    });
+
+                                                                    $('.select-tipotrabajo').on('change', function () {
+                                                                        $('.select-tipotrabajo').val($(this).val()).trigger('change.select2');
+                                                                        getSectores();
+                                                                    });
+
+                                                                    $('.select-tecnologia').on('change', function () {
+                                                                        $('.select-tecnologia').val($(this).val()).trigger('change.select2');
+                                                                        getSectores();
+                                                                    });
+
+                                                                    $('.select-banda').on('change', function () {
+                                                                        $('.select-banda').val($(this).val()).trigger('change.select2');
+                                                                        getSectores();
+                                                                    });
+
+                                                                    $('#btnAceptarModalSectores').on('click', function () {
+                                                                        var sectores = [];
+                                                                        var sectoresBloqueados = "";
+                                                                        var sectoresDesbloqueados = "";
+                                                                        var inputs = $('#tblSectores').find('input:checked');
+                                                                        for (var i = 0; i < inputs.length; i++) {
+                                                                            var input = $(inputs[i]);
+                                                                            var tr = input.parents('tr');
+                                                                            var temp = {
+                                                                                id: tr.attr('data-id'),
+                                                                                name: tr.attr('data-name'),
+                                                                                state: input.val() //1 = Bloqueado, 0 = Desbloqueado
+                                                                            };
+                                                                            sectores.push(temp);
+                                                                            if (input.val() == 1) {
+                                                                                sectoresBloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+                                                                            } else if (input.val() == 0) {
+                                                                                sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+                                                                            }
+                                                                        }
+                                                                        $('#jsonSectores').val(JSON.stringify(sectores));
+                                                                        $('#sectoresBloqueados').val(sectoresBloqueados);
+                                                                        $('#sectoresDebloqueados').val(sectoresDesbloqueados);
+                                                                        $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + sectores.length + ') Sectores agregados');
+                                                                    });
                                                                 });
-        </script>
-        <?php
-        if (isset($error)) {
-            echo '<script type="text/javascript">showMessage();</script>';
-        }
-        ?>
-        <!--   ANIMACION DE LOGIN   -->
-        <script src="<?= URL::to('assets/js/index.js') ?>"></script>
-    </body>
+    </script>
+    <?php
+    if (isset($error)) {
+        echo '<script type="text/javascript">showMessage();</script>';
+    }
+    ?>
+    <!--MODAL SECTORES-->
+    <div id="modalSectores" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <div class="selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <select id="tipoTrabajoModal" class="form-control selectpicker select-tipotrabajo" required>
+                                            <option value="" >Seleccione el tipo de trabajo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
+                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia" required>
+                                            <option value="" >Seleccione la tecnología</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
+                                        <select id="bandaModal" class="form-control selectpicker select-banda" required>
+                                            <option value="" >Seleccione la banda</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-all-0"/>
+                    <div class="row p-t-15">
+                        <div class="col-xs-12">
+                            <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
+                                <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
+                                    <thead><tr><th>Sector</th><th>Bloqueado</th><th>Desbloqueado</th></tr></thead>
+                                    <tbody>
+                                        <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAceptarModalSectores">Aceptar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--FIN MODAL SECTORES-->
+</body>
 </html>

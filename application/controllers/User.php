@@ -241,6 +241,10 @@ class User extends CI_Controller {
 
         $this->precheck($answer);
     }
+    
+    public function getAllTickets() {
+        $this->load->view('getAllTickets');
+    }
 
 }
 

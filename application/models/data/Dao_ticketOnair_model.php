@@ -220,6 +220,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             "d_desbloqueo" => $request->ticket_on_air->d_desbloqueo,
                             "n_sectoresbloqueados" => $request->ticket_on_air->n_sectoresbloqueados,
                             "n_sectoresdesbloqueados" => $request->ticket_on_air->n_sectoresdesbloqueados,
+                            "n_json_sectores" => $request->ticket_on_air->n_json_sectores,
                             "fecha_rft" => $request->ticket_on_air->fecha_rft,
                             "d_fecha_cg" => $request->ticket_on_air->d_fecha_cg,
                             "n_exclusion_bajo_trafico" => $request->ticket_on_air->n_exclusion_bajo_trafico,
@@ -679,7 +680,10 @@ class Dao_ticketOnair_model extends CI_Model {
 
     //Fin documentador...
 
-
+    public function getAllTickets($request) {
+        return $this->getListTicket($request, "1 = 1");
+    }
+    
     public function getAssign() {
         try {
             //CONSULTAMOS LA LISTA DE REGISTROS PENDIENTES...
@@ -1448,6 +1452,22 @@ class Dao_ticketOnair_model extends CI_Model {
             return $response;
         } catch (ZolidException $ex) {
             return $ex;
+        }
+    }
+
+    public function getSectores($request) {
+        try {
+            $resposne = new Response(EMessages::QUERY);
+            $db = new DB();
+            $sql = "SELECT s.* FROM sectores s INNER JOIN sectores_on_air sa 
+                    inner JOIN `work` w 
+                    ON s.k_id_sector = sa.k_id_sector WHERE sa.k_id_tecnology = $request->idTecnologia 
+                    AND sa.k_id_band = $request->idBanda AND w.k_id_work = $request->idTipoTrabajo AND w.b_aplica_bloqueo = 1 group by s.k_id_sector ";
+            $data = $db->select($sql)->get();
+            $resposne->setData($data);
+            return $resposne;
+        } catch (ZolidException $exc) {
+            return $ext;
         }
     }
 
