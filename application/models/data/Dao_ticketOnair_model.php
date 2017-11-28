@@ -680,7 +680,10 @@ class Dao_ticketOnair_model extends CI_Model {
 
     //Fin documentador...
 
-
+    public function getAllTickets($request) {
+        return $this->getListTicket($request, "1 = 1");
+    }
+    
     public function getAssign() {
         try {
             //CONSULTAMOS LA LISTA DE REGISTROS PENDIENTES...

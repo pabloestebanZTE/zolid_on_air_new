@@ -58,6 +58,18 @@ class Precheck extends CI_Controller {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
+    
+    public function getAllTickets() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getAllTickets($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
 
     public function getFKRegisters(&$res) {
         $ticketsOnAir = new dao_ticketOnAir_model();
