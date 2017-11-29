@@ -256,3 +256,6 @@ ALTER TABLE reporte_comentario modify comentario_resucoment varchar(5000);
 -- Actualizaciones Lunes, 27 de noviembre de 2017.
 ALTER TABLE `work`
 	ADD COLUMN `b_aplica_bloqueo` BIT NULL DEFAULT b'0' AFTER `n_name_ork`;
+
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `n_json_sectores` VARCHAR(100) NULL DEFAULT NULL AFTER `n_sectoresdesbloqueados`;

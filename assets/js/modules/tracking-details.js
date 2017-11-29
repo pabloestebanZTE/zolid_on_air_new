@@ -133,7 +133,8 @@ var TD = {
                             type: "success",
                             button: "Aceptar"
                         }).then(function () {
-                            location.reload();
+                            location.href = app.urlTo("User/principal");
+//                            location.reload();
                         });
                     } else {
                         swal("Error", response.message, "success");

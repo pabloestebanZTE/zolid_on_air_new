@@ -683,7 +683,7 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getAllTickets($request) {
         return $this->getListTicket($request, "1 = 1");
     }
-    
+
     public function getAssign() {
         try {
             //CONSULTAMOS LA LISTA DE REGISTROS PENDIENTES...
@@ -1403,22 +1403,18 @@ class Dao_ticketOnair_model extends CI_Model {
             } else {
                 $time_elapsed = 0;
             }
-//
-//            //Lo que vamos a hacer, es que cuando haya un proceso, se guarda la fecha en la que inició dicho proceso en el json
-//            //junto al tiempo que faltaba para terminar el proceso, así luego se
-//            //podrá reestablecer y actualizar las fechas de esos procesos a la fecha actual menos
-//            //el tiempo que restaba cuando se pasó a standby...
-//
+
             $json = [
                 "k_id_status_onair" => $tck->k_id_status_onair,
                 "actual_status" => $actual_status, //Precheck, 12h, 24h, 36h.
                 "time_elapsed" => $time_elapsed, //Tiempo transcurrido...
             ];
-//
+            
             $ticket = new TicketOnAirModel();
             $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
                 "k_id_status_onair" => 100,
-                "data_standby" => json_encode($json, true)
+                "data_standby" => json_encode($json, true),
+                "i_actualEngineer" => 0
             ]);
             $this->registerReportComment($tck->k_id_onair, $comment);
             return new Response(EMessages::SUCCESS, "Se ha actualizado el estado del proceso correctamente.");
