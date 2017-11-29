@@ -9,6 +9,7 @@ class Hash {
      * @param string $salt The salt (This should be the same throughout the system probably)
      * @return string The hashed/salted data
      */
+
     public static function create($algorithm, $data, $salt) {
 
         $context = hash_init($algorithm, HASH_HMAC, $salt);
@@ -30,6 +31,7 @@ class Hash {
     }
 
     public static function getTimeStamp($date) {
+        date_default_timezone_set("America/Bogota");
         $date = date_create($date);
         $date = date_format($date, "Y-m-d H:i:s");
         return strtotime($date) * 1000;
@@ -41,6 +43,7 @@ class Hash {
     }
 
     public static function getDate() {
+        date_default_timezone_set("America/Bogota");
         return date("Y-m-d H:i:s");
     }
 

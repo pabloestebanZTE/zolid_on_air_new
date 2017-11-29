@@ -148,7 +148,7 @@
                         <!--  fin seccion izquierda form---->
 
                         <!--  inicio seccion derecha form---->
-                        <fieldset class="col-md-6">                            
+                        <fieldset class="col-md-6">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Tipo de trabajo:</label>
                                 <div class="col-md-8 selectContainer">
@@ -193,7 +193,7 @@
                                     <button type="button" id="btnCheckSectores" class="btn btn-primary btn-block"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar Sectores</button>
                                 </div>
                             </div>
-                            <!-- Select Basic -->                            
+                            <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Estado:</label>
                                 <div class="col-md-8 selectContainer">
@@ -312,7 +312,7 @@
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
-        </div>        
+        </div>
         <!-- CUSTOM SCRIPT   -->
 
 
@@ -421,10 +421,12 @@
                                                                     $('#substatus').empty();
                                                                     for (var j = 0; j < info.statusOnAir.data.length; j++) {
                                                                         if (status == info.statusOnAir.data[j].k_id_status) {
+                                                                          if(info.statusOnAir.data[j].k_id_status_onair != 78){
                                                                             $('#substatus').append($('<option>', {
                                                                                 value: info.statusOnAir.data[j].k_id_status_onair,
                                                                                 text: info.statusOnAir.data[j].n_name_substatus
                                                                             }));
+                                                                          }
                                                                         }
                                                                         if (status == 9) {
                                                                             $('#substatus').val(97);
