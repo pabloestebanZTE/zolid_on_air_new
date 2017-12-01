@@ -131,7 +131,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                     <!--<input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" >-->
-                                    <textarea class="form-control" name="n_detalle_solucion" id="n_detalle_solucion"></textarea>
+                                    <textarea class="form-control" name="n_detalle_solucion" id="n_detalle_solucion" required></textarea>
                                 </div>
                             </div>
                         </div>

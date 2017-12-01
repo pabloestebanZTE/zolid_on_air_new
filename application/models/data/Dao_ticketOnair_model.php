@@ -530,7 +530,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         ->update([
                     "k_id_status_onair" => $value,
                     "d_fechaproduccion" => Hash::getDate(),
-                    "n_estadoonair" => "ON AIR"
+                    "n_estadoonair" => "ON_AIR"
                 ]);
             }
             $response = new Response(EMessages::SUCCESS);
@@ -1189,7 +1189,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "k_id_status_onair" => $idStatus,
                     "d_fechaproduccion" => Hash::getDate(),
-                    "n_estadoonair" => "ON AIR",
+                    "n_estadoonair" => "ON_AIR",
                     "i_actualEngineer" => 0
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
