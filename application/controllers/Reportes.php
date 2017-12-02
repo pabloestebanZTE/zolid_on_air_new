@@ -499,6 +499,12 @@ class Reportes extends CI_Controller {
             if ($res[$i]->onair36->d_created_at == "0000-00-00 00:00:00" || $res[$i]->onair36->d_created_at == "1900-01-00 00:00:00") {
               $res[$i]->onair36->d_created_at = " ";
             }
+            if ($res[$i]->k_id_preparation->b_vistamm == "0") {
+              $res[$i]->k_id_preparation->b_vistamm = "FALSE";
+            }
+            if ($res[$i]->k_id_preparation->b_vistamm == "1") {
+              $res[$i]->k_id_preparation->b_vistamm = "VERDADERO";
+            }
 
         }
       /*  print_r($res);*/
