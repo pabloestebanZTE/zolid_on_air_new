@@ -597,7 +597,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
                         group by tk.k_id_onair
-                        order by d_created_at desc limit $request->start, $request->length";
+                        order by d_fecha_ultima_rev desc limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
@@ -619,7 +619,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
                         group by tk.k_id_onair
-                        order by d_created_at desc";
+                        order by d_fecha_ultima_rev desc";
             } else {
                 $sql = "select * from ticket_on_air tk "
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
@@ -630,7 +630,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
-                        . "order by d_created_at desc";
+                        . "order by d_fecha_ultima_rev desc";
             }
 
 //            echo $sql;
