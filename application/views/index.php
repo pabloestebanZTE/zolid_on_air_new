@@ -56,7 +56,7 @@
 </div>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="<?= URL::to('assets/plugins/HelperForm.js')?>" ></script>
+<script type="text/javascript" src="<?= URL::to('assets/plugins/HelperForm.js?v=1.0')?>" ></script>
 <script type="text/javascript" src="<?= URL::to('assets/js/utils/app.global.js'); ?>" ></script>
 <script type="text/javascript" src="<?= URL::to('assets/js/utils/app.dom.js?v=1.1'); ?>" ></script>
 <script type="text/javascript" src="<?= URL::to('assets/plugins/jquery.validate.min.js'); ?>" ></script>

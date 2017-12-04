@@ -435,7 +435,7 @@
                                                                 }
     </script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
+    <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
     <script type="text/javascript">
                                                                 $(function () {
                                                                     dom.submit($('#assignServie2'), function (response) {
