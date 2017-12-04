@@ -1325,6 +1325,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             "k_id_status_onair" => $json->k_id_status_onair,
                             "d_precheck_init" => $date,
                 ]);
+                $comment = "Se detiene el Stand By --- $request->comment";
                 $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "12h") {
                 //Lo ponemos en seguimiento 12h...

@@ -214,7 +214,7 @@ class Reportes extends CI_Controller {
 
             if ($res[$i]->k_id_precheck) {
               if ($res[$i]->k_id_precheck->k_id_user) {
-                $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr                
+                $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
               }else{
                 $res[$i]->k_id_precheck->k_id_user = new \stdClass();
                 $res[$i]->k_id_precheck->k_id_user->k_id_user = " ";
@@ -523,11 +523,25 @@ class Reportes extends CI_Controller {
               $res[$i]->onair36->d_created_at = " ";
             }
             if ($res[$i]->k_id_preparation->b_vistamm == "0") {
-              $res[$i]->k_id_preparation->b_vistamm = "FALSE";
+              $res[$i]->k_id_preparation->b_vistamm = "FALSO";
             }
             if ($res[$i]->k_id_preparation->b_vistamm == "1") {
               $res[$i]->k_id_preparation->b_vistamm = "VERDADERO";
             }
+            if ($res[$i]->k_id_preparation->b_vistamm == "TRUE") {
+              $res[$i]->k_id_preparation->b_vistamm = "VERDADERO";
+            }
+            if ($res[$i]->k_id_preparation->b_vistamm == "FALSE") {
+              $res[$i]->k_id_preparation->b_vistamm = "FALSO";
+            }            
+            if ($res[$f]->b_excpetion_gri == "FALSE") {
+              $res[$f]->b_excpetion_gri = "FALSO";
+            }
+            if ($res[$f]->b_excpetion_gri == "TRUE") {
+              $res[$f]->b_excpetion_gri = "VERDADERO";
+            }
+
+
 
         }
         /*print_r($res);*/
