@@ -130,6 +130,7 @@ var TD = {
         $('.row.content-wiget').addClass('hidden');
         $($hourStep.attr('data-ref')).removeClass('hidden').hide().fadeIn(500);
         $('.hour-step').removeClass('active');
+        $('.comment-step').removeClass('active');
         $hourStep.addClass('active');
     },
     onClickAceptarModal: function () {

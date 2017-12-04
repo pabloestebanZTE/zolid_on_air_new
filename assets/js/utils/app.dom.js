@@ -201,6 +201,18 @@ var dom = {
             return s_referencia >= s_inicio || s_referencia <= s_fin;
         }
     },
+    mathTimer: function (time) {
+        var diffMs = time; // Milisegundos entre la fecha y hoy.
+        var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
+        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+        if (diffHrs < 0) {
+            diffHrs *= -1;
+        }
+        if (diffMins < 0) {
+            diffMins *= -1;
+        }
+        return diffHrs + ":" + diffMins;
+    },
     timesInLimit: 0,
     timeForNotifyLimit: 1,
     /**
@@ -232,20 +244,12 @@ var dom = {
         }
 
         var parseTimer = function (time, element, progress, progressValue) {
-            var diffMs = time; // Milisegundos entre la fecha y hoy.
-            var diffHrs = Math.floor(Math.abs(diffMs) / 36e5); // hours
-            var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
             if (element.length == 0) {
                 window.clearInterval(interval);
                 interval = null;
                 return;
             }
-            if (diffHrs < 0) {
-                diffHrs *= -1;
-            }
-            if (diffMins < 0) {
-                diffMins *= -1;
-            }
+
             var parent = element.parents('.hour-step');
             if (element) {
                 if (parent.hasClass('finish')) {
@@ -265,11 +269,11 @@ var dom = {
                     parent.removeClass('warning').addClass('prorroga');
                 }
                 if (progressValue < 100) {
-                    element.html('<i class="fa fa-fw fa-clock-o"></i> -' + dom.parseTime(diffHrs + ":" + diffMins));
+                    element.html('<i class="fa fa-fw fa-clock-o"></i> -' + dom.parseTime(dom.mathTimer(time)));
                 } else {
                     progressValue = 100;
                     element.parents('.hour-step').addClass('warning');
-                    element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+                    element.html('<span class="text-danger" title="Excedido"><i class="fa fa-fw fa-warning"></i> ' + dom.parseTime(dom.mathTimer(obj.i_timeexceeded)) + '</span>');
                     if (interval != null) {
                         window.clearInterval(interval);
                         interval = null;

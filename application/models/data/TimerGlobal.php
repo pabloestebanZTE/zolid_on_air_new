@@ -81,6 +81,7 @@ class TimerGlobal {
             "i_state" => 0,
             "i_timestamp" => 0,
             "i_timetotal" => 0,
+            "i_timeexceeded" => 0,
             "time" => 0,
             "today" => 0
         ]);
@@ -113,6 +114,7 @@ class TimerGlobal {
     private function timer(&$obj, $field, $timeMath) {
         $timestamp = 0;
         $percent = 0;
+        $timeexceeded = 0;
 
         $time = Hash::getTimeStamp($obj->{$field});
         $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
@@ -148,10 +150,15 @@ class TimerGlobal {
         //Obtenemos el porcentaje...
         $percent = round((($today - $time) / ($timeFinal - $time)) * 100);
 
+        if ($percent >= 100) {
+            $timeexceeded = $today - $timeFinal;
+        }
+
         $obj->time = $time;
         $obj->i_timestamp = $timestamp;
         $obj->i_timetotal = $timeFinal;
         $obj->i_percent = $percent;
+        $obj->i_timeexceeded = $timeexceeded;
         $obj->today = $today;
     }
 

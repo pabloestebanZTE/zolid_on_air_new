@@ -464,7 +464,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 }
 
                 $groups = [];
-
+//
                 if ($haveDetails > 0) {
                     $groups = $this->getGroups($tck->k_id_onair);
                 }
@@ -1490,8 +1490,8 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $comments = new ReporteComentarioModel();
             $data = $comments
-//                    ->join("user u", "reporte_comentario.usuario_resucomen", "=", "u.k_id_user")
                     ->where("k_id_on_air", "=", $request->idTicket)
+                    ->orderBy("hora_actualizacion_resucomen", "desc")
                     ->get();
 //            echo $comments->getSQL();
             $response->setData($data);

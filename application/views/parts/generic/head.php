@@ -5,7 +5,7 @@
     <!--   ICONO PAGINA    -->
     <link rel="icon" href="http://cellaron.com/media/wysiwyg/zte-mwc-2015-8-l-124x124.png">
     <!--   BOOTSTRAP    -->
-    <link rel="stylesheet" href="<?= URL::to('assets/plugins/bootstrap/css/bootstrap.min.css') ?>"/>->
+    <link rel="stylesheet" href="<?= URL::to('assets/plugins/bootstrap/css/bootstrap.min.css') ?>"/>
     <link rel="stylesheet" href="<?= URL::to('assets/plugins/font-awesome/css/font-awesome.min.css') ?>"/>
     <!--   CSS ESTILOS PRINCIPAL    -->
     <link rel='stylesheet' type='text/css'  href='http://fonts.googleapis.com/css?family=Open+Sans'/>
@@ -13,6 +13,6 @@
     <link rel="stylesheet" href="<?= URL::to('assets/plugins/datatables/css/dataTables.bootstrap.min.css?v=1.0') ?>">
     <link rel="stylesheet" href="<?= URL::to('assets/css/helper-class.css') ?>">
     <link href="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="<?= URL::to('assets/css/stylePrincipal.css?v=1.0') ?>" />
+    <link rel="stylesheet" href="<?= URL::to('assets/css/stylePrincipal.css?v=1.1') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.min.css" />
 </head>
