@@ -1409,7 +1409,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 "actual_status" => $actual_status, //Precheck, 12h, 24h, 36h.
                 "time_elapsed" => $time_elapsed, //Tiempo transcurrido...
             ];
-            
+
             $ticket = new TicketOnAirModel();
             $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
                 "k_id_status_onair" => 100,
@@ -1434,6 +1434,9 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketModel->where("k_id_onair", "=", $request->idTicket)->update([
                 "k_id_status_onair" => 81,
             ]);
+            $ticketModel->where("k_id_onair", "=", $request->idTicket)->update([
+                "i_actualEngineer" => 0,
+            ]);
             //Ahora actualizamos la fecha Start de el registro 12h...
             $onAir12h = new OnAir12hModel();
 
@@ -1455,9 +1458,9 @@ class Dao_ticketOnair_model extends CI_Model {
         try {
             $resposne = new Response(EMessages::QUERY);
             $db = new DB();
-            $sql = "SELECT s.* FROM sectores s INNER JOIN sectores_on_air sa 
-                    inner JOIN `work` w 
-                    ON s.k_id_sector = sa.k_id_sector WHERE sa.k_id_tecnology = $request->idTecnologia 
+            $sql = "SELECT s.* FROM sectores s INNER JOIN sectores_on_air sa
+                    inner JOIN `work` w
+                    ON s.k_id_sector = sa.k_id_sector WHERE sa.k_id_tecnology = $request->idTecnologia
                     AND sa.k_id_band = $request->idBanda AND w.k_id_work = $request->idTipoTrabajo AND w.b_aplica_bloqueo = 1 group by s.k_id_sector ";
             $data = $db->select($sql)->get();
             $resposne->setData($data);
