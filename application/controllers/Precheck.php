@@ -171,7 +171,7 @@ class Precheck extends CI_Controller {
             $this->request->d_finpre = Hash::getDate();
             $response = $preparation->updatePreparationStage($this->request)->data;
             $response1 = $ticket->updateStatusTicket($this->request->idOnair, $this->request->k_id_status_onair, $requestProduction)->data;
-            $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
+            $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
@@ -189,7 +189,7 @@ class Precheck extends CI_Controller {
             $this->request->d_finpre = Hash::getDate();
             $response = $preparation->updatePreparationStage($this->request)->data;
             $response1 = $ticket->updateStatusTicket($this->request->idOnair, $this->request->k_id_status_onair, $requestProduction)->data;
-            $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
+            $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
@@ -207,7 +207,7 @@ class Precheck extends CI_Controller {
             $this->request->d_finpre = Hash::getDate();
             $response = $preparation->updatePreparationStage($this->request)->data;
             $response1 = $ticket->updateStatusTicket($this->request->idOnair, $this->request->k_id_status_onair, $requestProduction)->data;
-            $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data; //camilo
+            $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
@@ -216,7 +216,7 @@ class Precheck extends CI_Controller {
         $this->json($response);
         // $this->request->d_finpre = Hash::getDate();
         // $response = $preparation->updatePreparationStage($this->request)->data;
-        // $response1 = $ticket->updatePrecheckStatus($this->request->k_id_preparation)->data;//camilo
+        // $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data;//camilo
         // $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data;//camilo
         // $repsonse2 = $precheck->updatePrecheckCom($this->request)->data;//camilo
         // $this->json($response);

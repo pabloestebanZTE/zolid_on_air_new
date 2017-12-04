@@ -85,7 +85,7 @@ class Dao_precheck_model extends CI_Model {
       try {
         $precheck = new PrecheckModel();
         $datos = $precheck->insert($request->all());
-        print_r($precheck->getSQL());
+//        print_r($precheck->getSQL());
         $response = new Response(EMessages::SUCCESS);
         $response->setData($datos);
         $response->setMessage("Se ha insertado el precheck correctamente");

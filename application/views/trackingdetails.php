@@ -10,7 +10,7 @@
             </div>
             <!-- TRACKING DETAILS FORM -->
             <div class="col-md-12 hidden" id="trackingDetails">
-                <div class="panel-group m-b-5" id="accordion">
+                <div class="panel-group m-b-5 m-t-15" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -42,7 +42,10 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                        <input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">
+                                                        <select class="form-control" id="cmbBanda" name="k_id_band.k_id_band">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                        <!--<input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,7 +118,10 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">
+                                                        <select class="form-control" id="cmbTecnologia" name="k_id_technology.k_id_technology">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+<!--                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,11 +131,13 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                        <input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">
+                                                        <select class="form-control" id="cmbTipoTrabajo" name="k_id_work.k_id_work">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                        <!--<input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">-->
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="txtciudad" class="col-md-3 control-label">Ciudad:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -528,7 +536,7 @@
                                     </div>
                                 </div>
                                 <div class="row content-wiget hidden" id="contentComments">
-                                    <div class="col-xs-12 p-t-15">
+                                    <div class="col-xs-12 p-t-0">
                                         <div id="alertComments" class="alert alert-success alert-dismissable hidden"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p id="text" class="m-b-0 p-b-0"></div>
                                     </div>
                                     <div class="col-xs-12 wiget">

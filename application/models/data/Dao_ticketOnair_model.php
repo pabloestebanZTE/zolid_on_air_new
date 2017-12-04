@@ -153,9 +153,15 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $statusModel = new StatusModel();
             $subStatusModel = new SubstatusModel();
+            $workModel = new WorkModel();
+            $bandModel = new BandModel();
+            $technologyModel = new TechnologyModel();
             $data = array();
             $data["states"] = $statusModel->get();
             $data["substates"] = $subStatusModel->get();
+            $data["bands"] = $bandModel->get();
+            $data["technologies"] = $technologyModel->get();
+            $data["works"] = $workModel->get();
             $response->setData($data);
             return $response;
         } catch (ZolidException $ex) {
@@ -573,7 +579,7 @@ class Dao_ticketOnair_model extends CI_Model {
     public function updatePrecheckStatus($id) {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $datos = $ticketOnAir->where("k_id_preparation", "=", $id)
+            $datos = $ticketOnAir->where("k_id_onair", "=", $id)
                     ->update(["i_precheck_realizado" => 1]);
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
@@ -1200,12 +1206,48 @@ class Dao_ticketOnair_model extends CI_Model {
                     }
                 }
 
+
+                //Se pasan todos los sectores bloqueados a desbloqueados...
+
+                $sectores = $ticket->n_json_sectores;
+                $sectoresDesbloqueados = "";
+                if ($sectores) {
+                    $finalSectores = [];
+                    $sectores = json_decode($sectores, true);
+                    $i = 0;
+                    if (is_array($sectores) || is_object($sectores)) {
+                        $count = count($sectores);
+                        foreach ($sectores as $value) {
+                            $obj = [
+                                "id" => $value["id"],
+                                "name" => $value["name"],
+                                "state" => 0, //Desbloqueado...
+                            ];
+                            $finalSectores[] = $obj;
+                            $sectoresDesbloqueados .= $value["name"] . (($i < ($count - 1) ? ", " : ""));
+                            $i++;
+                        }
+                        $sectores = $finalSectores;
+                        $sectores = json_encode($sectores, true);
+                    } else {
+                        $sectores = DB::NULLED;
+                    }
+                } else {
+                    $sectores = DB::NULLED;
+                }
+
+//                echo $sectoresDesbloqueados;
+//                echo "<br/>";
+//                echo $sectores;
                 //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "k_id_status_onair" => $idStatus,
                     "d_fechaproduccion" => Hash::getDate(),
                     "n_estadoonair" => "ON_AIR",
-                    "i_actualEngineer" => 0
+                    "i_actualEngineer" => 0,
+                    "n_json_sectores" => $sectores,
+                    "n_sectoresbloqueados" => DB::NULLED,
+                    "n_sectoresdesbloqueados" => $sectoresDesbloqueados,
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
@@ -1223,11 +1265,16 @@ class Dao_ticketOnair_model extends CI_Model {
             $model = new TicketOnAirModel();
             $ticket = $model->where("k_id_onair", "=", $request->idOnAir)->first();
             if ($ticket) {
+                $model->where("k_id_onair", "=", $request->idOnAir)->update([
+                    "k_id_technology" => $request->k_id_technology->k_id_technology,
+                    "k_id_band" => $request->k_id_band->k_id_band,
+                    "k_id_work" => $request->k_id_work->k_id_work
+                ]);
                 $model2 = new PreparationStageModel();
                 $model2->where("k_id_preparation", "=", $ticket->k_id_preparation)->update([
                     "n_wp" => $request->k_id_preparation->n_wp,
                     "n_bcf_wbts_id" => $request->k_id_preparation->n_bcf_wbts_id,
-                    "n_enteejecutor" => $request->k_id_preparation->n_enteejecutor,
+                    "n_enteejecutor" => $request->k_id_preparation->n_enteejecutor
                 ]);
                 return $response;
             } else {

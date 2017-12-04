@@ -31,6 +31,19 @@ $.fn.fillForm = function (data) {
                     if (callback) {
                         val = eval(callback + '("' + val + '", "fillForm")');
                     }
+                    if ($el.is('select')) {
+                        $el.attr('data-valuehf', val);
+                        $el.on('select2fill', function () {
+                            var $el = $(this);
+                            $el.val($el.attr('data-valuehf'));
+                            window.setTimeout(function () {
+                                $el.trigger('change.select2');
+                            }, 25);
+                            if ($el.hasClass('exec-change')) {
+                                $el.trigger('change');
+                            }
+                        });
+                    }
                     $el.val(val);
             }
         };

@@ -346,12 +346,22 @@ var TD = {
     listStates: function () {
         var cmbStatus = $('#cmbEstadosTD');
         var cmbSubStatus = $('#cmbSubEstadosTD');
+        var cmbWorks = $('#cmbTipoTrabajo');
+        var cmbTechnolgies = $('#cmbTecnologia');
+        var cmbBands = $('#cmbBanda');
         app.post('TicketOnair/getAllStates').success(function (response) {
             if (response.code > 0) {
                 dom.llenarCombo(cmbStatus, response.data["states"], {text: 'n_name_status', value: 'k_id_status'});
                 dom.llenarCombo(cmbSubStatus, response.data["substates"], {text: 'n_name_substatus', value: 'k_id_substatus'});
+                dom.llenarCombo(cmbTechnolgies, response.data["technologies"], {text: 'n_name_technology', value: 'k_id_technology'});
+                dom.llenarCombo(cmbWorks, response.data["works"], {text: 'n_name_ork', value: 'k_id_work'});
+                dom.llenarCombo(cmbBands, response.data["bands"], {text: 'n_name_band', value: 'k_id_band'});
             } else {
                 dom.comboVacio(cmbStatus);
+                dom.comboVacio(cmbSubStatus);
+                dom.comboVacio(cmbTechnolgies);
+                dom.comboVacio(cmbBands);
+                dom.comboVacio(cmbWorks);
             }
         }).error(function (e) {
             console.error(e);
@@ -369,6 +379,10 @@ var TD = {
 //        dom.timer($('#timeStep'), 1509706921000, $('#progressStep1'));
         $('select').select2({'width': '100%'});
     },
+    /**
+     * Básicamente llenará los formuarios de los dos paneles principales del acordión.
+     * @returns {undefined}
+     */
     getDetail: function () {
         var alert = dom.printAlert('Consultando detalles, por favor espere...', 'loading', $('#principalAlert'));
         //Consultamos...
