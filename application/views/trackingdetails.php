@@ -62,7 +62,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" name="txtIngeniero" id="txtIngeniero" class="form-control" value="<?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?>" readonly="false">
+                                                        <input type="text" name="i_actualEngineer" id="txtIngeniero" class="form-control" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -723,6 +723,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.1') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.2') ?>" type="text/javascript"></script>
 </body>
 </html>

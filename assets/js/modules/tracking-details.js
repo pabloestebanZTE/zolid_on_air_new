@@ -130,6 +130,7 @@ var TD = {
         $('.row.content-wiget').addClass('hidden');
         $($hourStep.attr('data-ref')).removeClass('hidden').hide().fadeIn(500);
         $('.hour-step').removeClass('active');
+        $('.comment-step').removeClass('active');
         $hourStep.addClass('active');
     },
     onClickAceptarModal: function () {
@@ -376,7 +377,8 @@ var TD = {
                     if (response.code > 0) {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
-                        $('#formDetallesBasicos').fillForm(response.data);
+                        var form = $('#formDetallesBasicos');
+                        form.fillForm(response.data);
                         $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');

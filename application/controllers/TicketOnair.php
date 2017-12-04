@@ -299,6 +299,7 @@ class TicketOnair extends CI_Controller {
         $follow36 = new dao_followUp36h_model();
         $ticket = $this->request->id;
         $res = $ticketsOnAir->findByIdOnAir($ticket)->data;
+        $assign = new dao_user_model();
         if (!$res) {
             $this->json(new Response(EMessages::NO_FOUND_REGISTERS));
             return;
@@ -311,6 +312,16 @@ class TicketOnair extends CI_Controller {
         $res->k_id_technology = $technology->findById($res->k_id_technology)->data; //technology
         $res->scaledOnair = $scaledOnair->getScaledByTicket($res->k_id_onair)->data; //scaledOnair nuevo elemento
         $res->k_id_precheck = $precheck->getPrecheckByIdPrech($res->k_id_precheck)->data; //precheck
+
+        if ($res->i_actualEngineer != 0) {
+            $res->i_actualEngineer = $assign->findBySingleId($res->i_actualEngineer)->data; //
+            $res->i_actualEngineer = $res->i_actualEngineer->n_name_user . " " . $res->i_actualEngineer->n_last_name_user;
+        } elseif ($res->i_actualEngineer == 0) {
+            $res->i_actualEngineer = "PENDIENTE POR ASIGNAR";
+        }
+
+
+
         $response = new Response(EMessages::QUERY);
         $response->setData($res);
         $this->json($response);
