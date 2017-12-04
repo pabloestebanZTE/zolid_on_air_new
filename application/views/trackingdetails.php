@@ -24,7 +24,7 @@
                                     <div class="alert alert-success alert-dismissable hidden">
                                         <a href="#" class="close" >&times;</a>
                                         <p class="p-b-0" id="text"></p>
-                                    </div>                                    
+                                    </div>
                                     <div class="panel-body">
                                         <fieldset class="col-md-6 control-label">
                                             <div class="form-group">
@@ -189,16 +189,16 @@
                                                         <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
                                                     </div>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                         </fieldset>
                                         <div class="form-group">
                                             <hr/>
                                             <div class="col-xs-12 text-center">
-                                                <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>                                    
+                                                <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>
                                             </div>
                                         </div>
                                         <!--   fin seccion derecha---->
-                                    </div>                                    
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtCorrecionPendientes">Correción pendientes:</label>
-                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>                                                       
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -367,7 +367,7 @@
                                                 <div class="form-group">
                                                     <button type="button" id="btnEditarSectores" class="btn btn-primary m-t-20" title="Ver y editar sectores"><i class="fa fa-fw fa-check-square-o"></i> (0) Sectores agregados</button>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaRFT">Fecha RFT:</label>
@@ -404,7 +404,7 @@
                                                                                                     <option value="Cerrado">Cerrado</option>
                                                                                                 </select>
                                                                                             </div>
-                                                                                        </div>-->                                            
+                                                                                        </div>-->
                                         </div>
                                     </div>
                                     <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
@@ -426,7 +426,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="contentFases" class="hidden">                        
+                    <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
                             <div class="display-block pull-right" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
@@ -507,7 +507,7 @@
                                     <div class="col-md-8 wiget" id="contentDetails_12h">
                                     </div>
                                     <div class="col-md-4 wiget" id="contentDetails_12h_users">
-                                        <div class="wiget-list p-l-25 users">                                            
+                                        <div class="wiget-list p-l-25 users">
                                         </div>
                                     </div>
                                 </div>
@@ -515,7 +515,7 @@
                                     <div class="col-md-8 wiget" id="contentDetails_24h">
                                     </div>
                                     <div class="col-md-4 wiget" id="contentDetails_24h_users">
-                                        <div class="wiget-list p-l-25 users">                                            
+                                        <div class="wiget-list p-l-25 users">
                                         </div>
                                     </div>
                                 </div>
@@ -523,7 +523,7 @@
                                     <div class="col-md-8 wiget" id="contentDetails_36h">
                                     </div>
                                     <div class="col-md-4 wiget" id="contentDetails_36h_users">
-                                        <div class="wiget-list p-l-25 users">                                            
+                                        <div class="wiget-list p-l-25 users">
                                         </div>
                                     </div>
                                 </div>
@@ -535,6 +535,17 @@
 
                                     </div>
                                 </div>
+
+                                <div class="row content-wiget hidden" id="contentDetails_36h_content">
+                                    <div class="col-md-8 wiget" id="contentDetails_36h">
+                                    </div>
+                                    <div class="col-md-4 wiget" id="contentDetails_36h_users">
+                                        <div class="wiget-list p-l-25 users">
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -572,7 +583,7 @@
                             <ul class="content-state hidden">
                                 <li>
                                     <label class="display-block" for="cmbSiguienteFase"><i class="fa fa-fw fa-forward"></i> Seleccione la fase:</label>
-                                    <div class="input-control">                                        
+                                    <div class="input-control">
                                         <select id="cmbSiguienteFase" class="form-control">
                                             <option value="12h">12H</option>
                                             <option value="24h">24H</option>
@@ -666,7 +677,7 @@
 
         </div>
     </div>
-    <!--MODAL CHANGE STATE-->  
+    <!--MODAL CHANGE STATE-->
 
     <!--footer Section -->
     <div class="for-full-back" id="footer">
@@ -684,7 +695,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
                 </div>
-                <div class="modal-body">                    
+                <div class="modal-body">
                     <div class="row p-t-15">
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
