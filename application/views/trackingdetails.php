@@ -476,6 +476,10 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
+                            <div class="comment-step">
+                                <i class="fa fa-fw fa-comments"></i>
+                                <label>Comentarios</label>
+                            </div>
                         </div>
                         <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
                             <div id="modelWiget" class="hidden form-group row wiget-comment">
@@ -521,6 +525,14 @@
                                     <div class="col-md-4 wiget" id="contentDetails_36h_users">
                                         <div class="wiget-list p-l-25 users">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row content-wiget hidden" id="contentComments">
+                                    <div class="col-xs-12 p-t-15">
+                                        <div id="alertComments" class="alert alert-success alert-dismissable hidden"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p id="text" class="m-b-0 p-b-0"></div>
+                                    </div>
+                                    <div class="col-xs-12 wiget">
+
                                     </div>
                                 </div>
 
@@ -711,6 +723,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.0') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.1') ?>" type="text/javascript"></script>
 </body>
 </html>

@@ -564,4 +564,10 @@ class TicketOnair extends CI_Controller {
         $this->json($response);
     }
 
+    public function getCommentsTicket() {
+        $ticketOnAirDAO = new Dao_ticketOnair_model();
+        $response = $ticketOnAirDAO->getCommentsTicket($this->request);
+        $this->json($response);
+    }
+
 }
