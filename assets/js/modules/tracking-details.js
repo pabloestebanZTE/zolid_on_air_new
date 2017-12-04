@@ -377,7 +377,8 @@ var TD = {
                     if (response.code > 0) {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
-                        $('#formDetallesBasicos').fillForm(response.data);
+                        var form = $('#formDetallesBasicos');
+                        form.fillForm(response.data);
                         $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');

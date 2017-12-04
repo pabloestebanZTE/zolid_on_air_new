@@ -62,7 +62,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" name="txtIngeniero" id="txtIngeniero" class="form-control" value="<?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?>" readonly="false">
+                                                        <input type="text" name="i_actualEngineer" id="txtIngeniero" class="form-control" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>

@@ -366,14 +366,17 @@ var dom = {
     },
     controlSubmit: function (form, callback, clearForm) {
         form.find('fieldset').prop('disabled', true);
-        form.find('button[type="submit"] i.fa-save').attr('class', 'fa fa-fw fa-refresh fa-spin');
+        btnSubmit = form.find('button[type="submit"]');
+        btnSubmit.prop('disabled', true);
+        btnSubmit.find('.fa-save').attr('class', 'fa fa-fw fa-refresh fa-spin');
         var obj = form.getFormData();
         var ajax = null;
         dom.printAlert("Enviando, por favor espere...", 'loading', form.find('.alert'));
         ajax = app.post(form.attr('action'), obj);
         ajax.complete(function () {
             form.find('fieldset').prop('disabled', false);
-            form.find('button[type="submit"] i.fa-refresh.fa-spin').attr('class', 'fa fa-fw fa-save');
+            btnSubmit.prop('disabled', false);
+            form.find('button[type="submit"] .fa-refresh.fa-spin').attr('class', 'fa fa-fw fa-save');
         }).success(function (response) {
             if (app.successResponse(response)) {
                 dom.printAlert(response.message, 'success', form.find('.alert'));
