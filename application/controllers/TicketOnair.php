@@ -529,6 +529,7 @@ class TicketOnair extends CI_Controller {
             $response = $scaling->updateScaling($this->request);
             $follow12h = new Dao_followUp12h_model();
             $onair12 = new Dao_onAir12h_model();
+            $ticket = new Dao_ticketOnair_model();
             $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
             $this->request->n_round = $response->n_round;
             $this->request->i_round = $response->n_round;
