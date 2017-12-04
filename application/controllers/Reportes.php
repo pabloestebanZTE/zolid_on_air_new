@@ -211,15 +211,38 @@ class Reportes extends CI_Controller {
             }
 
             $res[$i]->k_id_precheck = $precheck->getPrecheckByIdPrech($res[$i]->k_id_precheck)->data; //precheck
+
             if ($res[$i]->k_id_precheck) {
-                $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr
+              if ($res[$i]->k_id_precheck->k_id_user) {
+                $res[$i]->k_id_precheck->k_id_user = $user->findBySingleId($res[$i]->k_id_precheck->k_id_user)->data;//user pr                
+              }else{
+                $res[$i]->k_id_precheck->k_id_user = new \stdClass();
+                $res[$i]->k_id_precheck->k_id_user->k_id_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_code_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_name_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_username_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_mail_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->i_phone_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->i_cellphone_user = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_password = " ";
+                $res[$i]->k_id_precheck->k_id_user->n_role_user = " ";
+              }
             }else{
                 $res[$i]->k_id_precheck = new \stdClass();
+                $res[$i]->k_id_precheck->k_id_precheck = " ";
+                $res[$i]->k_id_precheck->d_finpre = " ";
+                $res[$i]->k_id_precheck->n_comentario_ing = " ";
+
                 $res[$i]->k_id_precheck->k_id_user = new \stdClass();
                 $res[$i]->k_id_precheck->k_id_user->n_name_user = " ";
                 $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " ";
-                $res[$i]->k_id_precheck->d_finpre = " ";
             }
+
+
+
+
+
 
             //creacion obj onair 12
             $res[$i]->onair12 = $onair12->getOnair12ByIdOnair($res[$i]->k_id_onair)->data;//onair12
@@ -507,7 +530,7 @@ class Reportes extends CI_Controller {
             }
 
         }
-      /*  print_r($res);*/
+        /*print_r($res);*/
         $data=[];
         for ($f=0; $f <count($res) ; $f++) {
 
