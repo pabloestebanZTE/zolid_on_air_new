@@ -154,7 +154,7 @@ class Reportes extends CI_Controller {
         $filename = "Reporte_ONAIR_".date("Y-m-d").".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
-        /*header('Content-Type: text/plain');*/
+       /* header('Content-Type: text/plain');*/
         $ticketsOnAir = new Dao_ticketOnAir_model();
         $preparation = new Dao_preparationStage_model();
         $station = new Dao_station_model();
@@ -534,12 +534,77 @@ class Reportes extends CI_Controller {
             if ($res[$i]->k_id_preparation->b_vistamm == "FALSE") {
               $res[$i]->k_id_preparation->b_vistamm = "FALSO";
             }            
-            if ($res[$f]->b_excpetion_gri == "FALSE") {
-              $res[$f]->b_excpetion_gri = "FALSO";
+            if ($res[$i]->b_excpetion_gri == "FALSE") {
+              $res[$i]->b_excpetion_gri = "FALSO";
             }
-            if ($res[$f]->b_excpetion_gri == "TRUE") {
-              $res[$f]->b_excpetion_gri = "VERDADERO";
+            if ($res[$i]->b_excpetion_gri == "TRUE") {
+              $res[$i]->b_excpetion_gri = "VERDADERO";
             }
+
+            if ($res[$i]->n_en_prorroga == "FALSE" || $res[$i]->n_en_prorroga == "") {
+              $res[$i]->n_en_prorroga = "FALSO";
+            }
+            if ($res[$i]->scaled_onair->i_cont_esc_imp == "") {
+              $res[$i]->scaled_onair->i_cont_esc_imp = 0;
+            }
+            if ($res[$i]->scaled_onair->time_esc_imp == "") {
+              $res[$i]->scaled_onair->time_esc_imp = 0;
+            }
+            if ($res[$i]->scaled_onair->i_cont_esc_rf == "") {
+              $res[$i]->scaled_onair->i_cont_esc_rf = 0;
+            }
+            if ($res[$i]->scaled_onair->i_time_esc_rf == "") {
+              $res[$i]->scaled_onair->i_time_esc_rf = 0;
+            }
+            if ($res[$i]->scaled_onair->cont_esc_npo == "") {
+              $res[$i]->scaled_onair->cont_esc_npo = 0;
+            }
+            if ($res[$i]->scaled_onair->i_time_esc_npo == "") {
+              $res[$i]->scaled_onair->i_time_esc_npo = 0;
+            }
+            if ($res[$i]->scaled_onair->cont_esc_care == "") {
+              $res[$i]->scaled_onair->cont_esc_care = 0;
+            }
+            if ($res[$i]->scaled_onair->i_time_esc_care == "") {
+              $res[$i]->scaled_onair->i_time_esc_care = 0;
+            }
+            if ($res[$i]->scaled_onair->i_cont_esc_gdrt == "") {
+              $res[$i]->scaled_onair->i_cont_esc_gdrt = 0;
+            }
+            if ($res[$i]->scaled_onair->i_time_esc_gdrt == "") {
+              $res[$i]->scaled_onair->i_time_esc_gdrt = 0;
+            }
+            if ($res[$i]->scaled_onair->i_cont_esc_oym == "") {
+              $res[$i]->scaled_onair->i_cont_esc_oym = 0;
+            }
+            if ($res[$i]->scaled_onair->time_esc_oym == "") {
+              $res[$i]->scaled_onair->time_esc_oym = 0;
+            }
+            if ($res[$i]->scaled_onair->cont_esc_calidad == "") {
+              $res[$i]->scaled_onair->cont_esc_calidad = 0;
+            }
+            if ($res[$i]->scaled_onair->i_time_esc_calidad == "") {
+              $res[$i]->scaled_onair->i_time_esc_calidad = 0;
+            }
+
+            if ($res[$i]->k_id_status_onair['k_id_status']->n_name_status == "Produccion") {
+              $res[$i]->n_sectoresdesbloqueados = $res[$i]->n_sectoresdesbloqueados." ".$res[$i]->n_sectoresbloqueados;
+              $res[$i]->n_sectoresbloqueados = " ";
+            }
+             //"Cont_Esc_Imp" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->scaled_onair->i_cont_esc_imp)),//BH
+              //"Time_Esc_Imp" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->time_esc_imp)),//BI
+             // "Cont_Esc_RF" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_cont_esc_rf)),//BJ
+              //"Time_Esc_RF" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_time_esc_rf)),//BK
+              //"Cont_Esc_NPO" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->cont_esc_npo)),//BL
+              //"Time_Esc_NPO" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_time_esc_npo)),//BM
+              //"Cont_Esc_Care" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->cont_esc_care)),//BN
+              //"Time_Esc_Care" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_time_esc_care)),//BO
+              //"Cont_Esc_GDRT" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_cont_esc_gdrt)),//BP
+              //"Time_Esc_GDRT" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_time_esc_gdrt)),//BQ
+              //"Cont_Esc_OyM" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_cont_esc_oym)),//BR
+             // "Time_Esc_OyM" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->time_esc_oym)),//BS
+             // "Cont_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->cont_esc_calidad)),//BT
+              //"Time_Esc_Calidad" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->scaled_onair->i_time_esc_calidad)),//BU
 
 
 
