@@ -874,3 +874,41 @@ table td{
     border-bottom: none;
     margin-bottom: 0px;
 }
+
+
+/*Comment step...*/
+.comment-step *{
+    pointer-events: none;
+}
+.comment-step{
+    display: inline-table;
+    background-color: #ffffff;
+    color: #636363;
+    vertical-align: bottom;
+    border-radius: 3px 3px 0px 0px;
+    padding: 10px 25px;
+    text-align: center;
+    border: 1px solid #5433b77a;    
+    border-bottom: 0px;
+    box-shadow: 0px 0px 3px #ccc;
+    position: relative;
+    background-color: #4b3c65;
+    color: #FFF;
+}
+.comment-step:hover, .comment-step.active{
+    background-color: #673AB7;
+    color: #FFF;
+    cursor:pointer;
+}
+.comment-step i{
+    text-shadow: 2px 1px 0 #ffffff, 4px 3px 0 rgba(0,0,0,0.15);
+    font-size: 40px;
+    position: absolute;
+    top: 4px;
+    left: 15px;
+}
+.comment-step label{
+    font-size: 15px;
+    margin-left: 47px;
+    margin-top: 5px;
+}

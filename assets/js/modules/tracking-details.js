@@ -24,6 +24,59 @@ var TD = {
         $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
         $('#btnEditarSectores').on('click', TD.onClickEditarSectores);
         $('#btnAceptarModalSectores').on('click', TD.onClickAceptarModalSectores);
+        $('.comment-step').on('click', TD.onClickCommentStep);
+    },
+    onClickCommentStep: function () {
+        $('.row.content-wiget').addClass('hidden');
+        $('.hour-step').removeClass('active');
+        $(this).addClass('active');
+        $('#contentComments').removeClass('hidden');
+        TD.getComments();
+    },
+    getComments: function () {
+        var idTicket = $('#idProceso').val();
+        var content = $('#contentComments .wiget');
+        var alert = dom.printAlert('Consultando...', 'loading', $('#alertComments'));
+        app.post('TicketOnair/getCommentsTicket', {
+            idTicket: idTicket
+        }).success(function (response) {
+            var data = app.parseResponse(response);
+            if (data && data.length > 0) {
+                content.show();
+                content.html('');
+                for (var i = 0; i < data.length; i++) {
+                    var dat = data[i];
+                    alert.hide();
+                    var comment = '<div class="form-group row wiget-comment">'
+                            + '<div class="col-md-3 wiget-list">'
+                            + '<div class="item-wiget">'
+                            + '<div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>'
+                            + '<div class="details-wiget">'
+                            + '<span class="title display-block">Fecha: </span>'
+                            + '<span class="text display-block" id="d_start">{hora_actualizacion_resucomen}</span>'
+                            + '</div>'
+                            + '</div>'
+                            + '</div>'
+                            + '<div class="col-md-5">'
+                            + '<p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{comentario_resucoment}</span></p>'
+                            + '</div>'
+                            + '<div class="wiget-list p-l-25 users"><div class="item-wiget">'
+                            + '<div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>'
+                            + '<div class="details-wiget">'
+                            + '<span class="title display-block">{usuario_resucomen}</span>'
+                            + ' </div>'
+                            + '</div></div>'
+                            + '</div>';
+                    content.append(dom.fillString(comment, dat));
+                }
+            } else {
+                alert.print("No se encontraron comentarios.", "warning");
+                content.hide();
+            }
+        }).error(function (e) {
+            alert.print("Se ha producido un error inesperado.", "danger");
+            content.hide();
+        }).send();
     },
     onClickAceptarModalSectores: function () {
         var sectores = [];
@@ -268,6 +321,7 @@ var TD = {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
+            $('#modalChangeState .states-modal a:eq(3)').addClass('disabled');
         } else if (parent.hasClass('produccion')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
@@ -458,6 +512,13 @@ var TD = {
                 $('#contentDetails_12h_content').removeClass('hidden');
                 $('.hour-step').removeClass('disabled').addClass('produccion');
                 break
+            case "escalado":
+                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Escalado');
+                $('.progress-step').css('width', 100 + '%');
+                $('#contentDetails_12h_content').removeClass('hidden');
+                $('.hour-step').removeClass('disabled').addClass('escalado');
+                break;
             default :
                 $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-play-circle"></i> En producción');
