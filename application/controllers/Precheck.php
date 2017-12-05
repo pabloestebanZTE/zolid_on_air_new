@@ -58,7 +58,67 @@ class Precheck extends CI_Controller {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
-    
+
+    public function getPrecheckList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getPrecheckList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getNotificationList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getNotificationList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getSeguimiento12hList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getSeguimiento12hList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getSeguimiento24hList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getSeguimiento24hList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getSeguimiento36hList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getSeguimiento36hhList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
     public function getAllTickets() {
         $response = null;
         if (Auth::check()) {

@@ -21,8 +21,13 @@
                                 <div class="panel with-nav-tabs panel-primary">
                                     <div class="panel-heading">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#tab1default" data-toggle="tab">Pendientes</a></li>
-                                            <li><a href="#tab2default" data-toggle="tab">Ya asignados</a></li>
+                                            <li class="active"><a href="#tab1default" data-toggle="tab"><i class="fa fa-fw fa-tag"></i> Pendientes</a></li>
+                                            <li><a href="#tab2default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-check-square-o"></i> Ya asignados</a></li>
+                                            <li><a href="#tabNotificacion" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-bell"></i> Notificación</a></li>
+                                            <li><a href="#tabPrecheck" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Precheck</a></li>
+                                            <li><a href="#tab12H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Seg. 12h</a></li>
+                                            <li><a href="#tab24H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Seg. 24h</a></li>
+                                            <li><a href="#tab36H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Seg. 36h</a></li>
                                         </ul>
                                     </div>
                                     <div class="panel-body">
@@ -34,6 +39,26 @@
                                             <div class="tab-pane fade" id="tab2default">
                                                 <h1 class="m-t-0">Ya asignados</h1>
                                                 <table id="tablaAsignados" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="tabNotificacion">
+                                                <h1 class="m-t-0">Notificación</h1>
+                                                <table id="tablaNotification" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="tabPrecheck">
+                                                <h1 class="m-t-0">Precheck</h1>
+                                                <table id="tablaPrecheck" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="tab12H">
+                                                <h1 class="m-t-0">Seguimiento 12h</h1>
+                                                <table id="tablaSeguimiento12h" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="tab24H">
+                                                <h1 class="m-t-0">Seguimiento 24h</h1>
+                                                <table id="tablaSeguimiento24h" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="tab36H">
+                                                <h1 class="m-t-0">Seguimiento 36h</h1>
+                                                <table id="tablaSeguimiento36h" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                         </div>
                                     </div>
