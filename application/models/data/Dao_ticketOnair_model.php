@@ -247,10 +247,12 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    function updatePrecheckOnair($request, $id) {
+    function updatePrecheckOnair($request, $id = null) {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $request->k_id_status_onair = $id;
+            if ($id) {
+                $request->k_id_status_onair = $id;
+            }
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_ticket)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
