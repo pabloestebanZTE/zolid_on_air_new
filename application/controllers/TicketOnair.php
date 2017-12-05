@@ -412,11 +412,12 @@ class TicketOnair extends CI_Controller {
         //Se cormprueba si es reinicio precheck...
         //Reinicio Precheck = 80 && Reinicio 12H = 79
         if ($ticketOnAirTemp->k_id_status_onair == 97 || $ticketOnAirTemp->k_id_status_onair == 80) {
-            $this->request->d_precheck_init = ($ticketOnAirTemp->k_id_status_onair == 79) ? null : Hash::getDate();
+//            $this->request->d_precheck_init = ($ticketOnAirTemp->k_id_status_onair == 79) ? null : Hash::getDate();
+            $this->request->d_precheck_init = null;
             $response = $precheck->insertPrecheck($this->request);
             $this->request->k_id_precheck = $response->data->data;
             $this->request->i_actualEngineer = $this->request->k_id_user;
-            $idStatus = 78;
+            $idStatus = 97;
             if ($ticketOnAirTemp->k_id_status_onair == 80) {
                 $idStatus = 80;
             }

@@ -102,7 +102,7 @@ class Precheck extends CI_Controller {
             $ticketModel = new TicketOnAirModel();
             $ticketModel->where("k_id_onair", "=", $this->request->idOnAir)
                     ->update([
-                        "k_id_status_onair" => 78, //Reinicio Precheck.
+                        "k_id_status_onair" => 78, //Precheck.
                         "d_precheck_init" => Hash::getDate()
             ]);
             $this->json(new Response(EMessages::UPDATE));

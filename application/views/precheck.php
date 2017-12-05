@@ -342,7 +342,7 @@
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
                 console.log(ticket);
-                if (ticket.k_id_status_onair.k_id_status_onair == 80) {
+                if (ticket.k_id_status_onair.k_id_status_onair == 80 || ticket.k_id_status_onair.k_id_status_onair == 97) {
                     $('#runPrecheck').removeClass('hidden');
                 } else {
                     $('.disabledchange').prop('disabled', false);
