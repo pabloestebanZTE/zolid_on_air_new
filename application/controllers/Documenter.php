@@ -1,9 +1,6 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Documenter extends CI_Controller {
-
     function __construct() {
         parent::__construct();
         $this->load->model('data/Dao_ticketOnair_model');
@@ -16,7 +13,6 @@ class Documenter extends CI_Controller {
         $this->load->model('data/Dao_precheck_model');
         $this->load->model('data/Dao_scaledOnair_model');
     }
-
     public function documenterFields() {
         // header('Content-Type: text/plain');
         $ticketOnair = new dao_ticketOnAir_model();
@@ -43,7 +39,6 @@ class Documenter extends CI_Controller {
         $answer['fields'] = json_encode($res);
         $this->load->view('documenterPrincipal', $answer);
     }
-
     public function restartFields() {
         // header('Content-Type: text/plain');
         $ticketOnair = new dao_ticketOnAir_model();
@@ -85,13 +80,12 @@ class Documenter extends CI_Controller {
         $answer['fields'] = json_encode($res);
         $this->load->view('restart', $answer);
     }
-
     public function updateDetails() {
         $ticket = new dao_ticketOnAir_model();
         $preparation = new dao_preparationStage_model();
+        $response = $ticket->updatePrecheckOnair($this->request);
         $this->request->k_id_preparation = $this->request->k_id_prep;
         $response = $preparation->updatePreparationStage($this->request);
         $this->json($response);
     }
-
 }

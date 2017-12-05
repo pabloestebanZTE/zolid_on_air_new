@@ -247,10 +247,12 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    function updatePrecheckOnair($request, $id) {
+    function updatePrecheckOnair($request, $id = null) {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            $request->k_id_status_onair = $id;
+            if ($id) {
+                $request->k_id_status_onair = $id;
+            }
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_ticket)
                     ->update($request->all());
             $response = new Response(EMessages::SUCCESS);
@@ -618,7 +620,7 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
                         group by tk.k_id_onair
-                        order by d_fecha_ultima_rev desc limit $request->start, $request->length";
+                        order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
@@ -640,18 +642,18 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
                         group by tk.k_id_onair
-                        order by d_fecha_ultima_rev desc";
+                        order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc";
             } else {
                 $sql = "select * from ticket_on_air tk "
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
-                        . "order by d_created_at desc limit $request->start, $request->length";
+                        . "order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc limit $request->start, $request->length";
                 $sqlCount = "select count(k_id_onair) as count from ticket_on_air tk "
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
-                        . "order by d_fecha_ultima_rev desc";
+                        . "order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc";
             }
 
 //            echo $sql;
@@ -683,6 +685,26 @@ class Dao_ticketOnair_model extends CI_Model {
 
     public function getAssignList($request) {
         return $this->getListTicket($request, "i_actualEngineer != 0");
+    }
+
+    public function getNotificationList($request) {
+        return $this->getListTicket($request, "tk.k_id_status_onair = 97 and i_actualEngineer = 0");
+    }
+
+    public function getPrecheckList($request) {
+        return $this->getListTicket($request, "tk.k_id_status_onair = 78 and i_actualEngineer = 0");
+    }
+
+    public function getSeguimiento12hList($request) {
+        return $this->getListTicket($request, "tk.k_id_status_onair = 81 and i_actualEngineer = 0");
+    }
+
+    public function getSeguimiento24hList($request) {
+        return $this->getListTicket($request, "tk.k_id_status_onair = 82 and i_actualEngineer = 0");
+    }
+
+    public function getSeguimiento36hhList($request) {
+        return $this->getListTicket($request, "tk.k_id_status_onair = 83 and i_actualEngineer = 0");
     }
 
     //Fin Coordinador...
