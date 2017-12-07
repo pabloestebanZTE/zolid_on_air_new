@@ -253,8 +253,14 @@ var vista = {
                     console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
-                        swal("Guardado", "Se ha registrado la prórroga éxitosamente.", "success");
-                        vista.getDetails();
+                        swal({
+                            title: "Guardado",
+                            text: "Se ha registrado la prórroga éxitosamente.",
+                            type: "success",
+                            button: "Aceptar"
+                        }).then(function () {
+                            location.reload();
+                        });
                     } else {
                         swal("Atención", "No se pudo registrar la prórroga.", "warning");
                     }
@@ -264,7 +270,6 @@ var vista = {
         }).send();
     },
     nextFase: function () {
-        console.log("SIGUIENTE FASE");
         var cmb = $('#cmbSiguienteFase');
         if (cmb.val().trim() === "") {
             swal("Error", "La fase seleccionada es inválida.", "error");

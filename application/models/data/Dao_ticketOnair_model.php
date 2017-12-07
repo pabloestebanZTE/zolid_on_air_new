@@ -6,6 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dao_ticketOnair_model extends CI_Model {
 
+    var $request;
+
     public function __construct() {
         set_time_limit(-1);
         $this->load->model('dto/TicketOnAirModel');
@@ -883,7 +885,104 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    private function changeFase($obj, $ticket, $stepModel, $followModel, $type) {
+        //Actualizamos o insertamos el nuevo registro de la siguiente fase.
+        $this->createProcess($stepModel, $ticket, $obj->d_start, $obj->d_end, $obj->comment, $type);
+        if ($type == "START") {
+            $request = $this->request;
+            $request->n_round = $ticket->n_round;
+            $idFollow = $followModel->insert($request->all())->data;
+            $objTemp = [
+                $obj->fieldIdFollow => $idFollow
+            ];
+
+            $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                    ->where("i_round", "=", $ticket->n_round)
+                    ->update($objTemp);
+            $this->updateEngTicket($ticket->k_id_onair, 0);
+            $this->updateStatusTicket($ticket->k_id_onair, $obj->state);
+        }
+    }
+
+    private function finishFase($ticket, $cog12, $cog24, $cog36) {
+        $status_onair = DB::table("status_on_air")
+                ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
+                ->first();
+        $faseActual = null;
+        if ($status_onair) {
+            switch ($status_onair->k_id_substatus) {
+                case ConstStates::SEGUIMIENTO_12H:
+                    $faseActual = "12h";
+                    $stepModel = new OnAir12hModel();
+                    $followModel = new FollowUp12hModel();
+                    $obj = new ObjUtil($cog12);
+                    //Finalizo el 12h...
+                    $this->changeFase($obj, $ticket, $stepModel, $followModel, "END");
+                    break;
+                case ConstStates::SEGUIMIENTO_24H:
+                    $faseActual = "24h";
+                    $stepModel = new OnAir24hModel();
+                    $followModel = new FollowUp24hModel();
+                    $obj = new ObjUtil($cog24);
+                    //Finalizo el 24h...
+                    $this->changeFase($obj, $ticket, $stepModel, $followModel, "END");
+                    break;
+                case ConstStates::SEGUIMIENTO_36H:
+                    $faseActual = "36h";
+                    $stepModel = new OnAir36hModel();
+                    $followModel = new FollowUp36hModel;
+                    $obj = new ObjUtil($cog36);
+                    //Finalizo el 36h...
+                    $this->changeFase($obj, $ticket, $stepModel, $followModel, "END");
+                    break;
+            }
+        }
+        return $faseActual;
+    }
+
+    private function toFase($fase, $ticket, $cog12, $cog24, $cog36, $faseActual) {
+        switch ($fase) {
+            case "12h":
+                $stepModel = new OnAir12hModel();
+                $followModel = new FollowUp12hModel();
+                $obj = new ObjUtil($cog12);
+                //Inicio el 12h...
+                $this->changeFase($obj, $ticket, $stepModel, $followModel, "START");
+                break;
+            case "24h":
+                $stepModel = new OnAir24hModel();
+                $followModel = new FollowUp24hModel();
+                $obj = new ObjUtil($cog24);
+                //Inicio el 24h...
+                $this->changeFase($obj, $ticket, $stepModel, $followModel, "START");
+                break;
+            case "36h":
+                //Aquí comprobaremos si la fase anterior se encontraba en 12h,
+                //con el fin de actualizar el 24h...
+                if ($faseActual == "12h") {
+                    $stepModel = new OnAir24hModel();
+                    $followModel = new FollowUp24hModel();
+                    $obj = new ObjUtil($cog24);
+                    //Finalizo el 24h...
+                    $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                                    ->where("i_round", "=", $ticket->n_round)->first();
+                    if ($temp) {
+                        $this->changeFase($obj, $ticket, $stepModel, $followModel, "END");
+                    } else {
+                        $this->changeFase($obj, $ticket, $stepModel, $followModel, "CREATE");
+                    }
+                }
+                $stepModel = new OnAir36hModel();
+                $followModel = new FollowUp36hModel();
+                $obj = new ObjUtil($cog36);
+                //Inicio el 36h...
+                $this->changeFase($obj, $ticket, $stepModel, $followModel, "START");
+                break;
+        }
+    }
+
     public function nextFase($request) {
+        $this->request = $request;
         try {
             $id = $request->idProceso;
             $fase = $request->fase;
@@ -896,154 +995,39 @@ class Dao_ticketOnair_model extends CI_Model {
             $detailModel = null;
             $dateField = null;
 
+            $cog12 = [
+                "state" => 81,
+                "d_start" => "d_start12h",
+                "d_end" => "d_fin12h",
+                "fieldIdFollow" => "k_id_follow_up_12h",
+                "comment" => $comment,
+            ];
+
+            $cog24 = [
+                "state" => 82,
+                "d_start" => "d_start24h",
+                "d_end" => "d_fin24h",
+                "fieldIdFollow" => "k_id_follow_up_24h",
+                "comment" => $comment,
+            ];
+
+            $cog36 = [
+                "state" => 83,
+                "d_start" => "d_start36h",
+                "d_end" => "d_fin36h",
+                "fieldIdFollow" => "k_id_follow_up_36h",
+                "comment" => $comment,
+            ];
 
             if ($ticket) {
-                //SE ACTUALIZA LA FECHA FINAL DE UNA FASE (12h,24h,36h)...
-                //Comprobamos sobre cual estado se encuentra el proceso....
-                $status_onair = DB::table("status_on_air")
-                        ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
-                        ->first();
-                if ($status_onair) {
-                    $actual_status = null;
-                    $stepIdField = null;
-                    $stepModel = null;
-                    $d_fin = null;
-                    switch ($status_onair->k_id_substatus) {
-                        case ConstStates::SEGUIMIENTO_12H:
-                            $actual_status = "12h";
-                            $stepIdField = "k_id_12h_real";
-                            $stepModel = new OnAir12hModel();
-                            $d_fin = "d_fin12h";
-                            break;
-                        case ConstStates::SEGUIMIENTO_24H:
-                            $actual_status = "24h";
-                            $stepIdField = "k_id_24h_real";
-                            $stepModel = new OnAir24hModel();
-                            $d_fin = "d_fin24h";
-                            break;
-                        case ConstStates::SEGUIMIENTO_36H:
-                            $actual_status = "36h";
-                            $stepIdField = "k_id_36h_real";
-                            $stepModel = new OnAir36hModel();
-                            $d_fin = "d_fin36h";
-                            break;
-                    }
-                    //Después de comprobar sobre cual estado se encuentra y
-                    //obtener el modelo necesario simplemente actualizamos la fecha final
-                    //de ese proceso
-                    $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                            ->where("i_round", "=", $ticket->n_round)->update([
-                        $d_fin => date("Y-m-d H:i:s"),
-                    ]);
-                }
+                //Finalizamos la fase actual...
+                $faseActual = $this->finishFase($ticket, $cog12, $cog24, $cog36);
 
+                //Pasamos a la siguiente fase...
+                $this->toFase($fase, $ticket, $cog12, $cog24, $cog36, $faseActual);
 
-                //Se obtiene el código del subestado...
-                switch ($fase) {
-                    case "12h":
-                        $idStatus = ConstStates::SEGUIMIENTO_12H;
-                        $detailModel = new OnAir12hModel();
-                        $dateField = "d_start12h";
-                        break;
-                    case "24h":
-                        $idStatus = ConstStates::SEGUIMIENTO_24H;
-                        $detailModel = new OnAir24hModel();
-                        $dateField = "d_start24h";
-                        break;
-                    case "36h":
-                        $idStatus = ConstStates::SEGUIMIENTO_36H;
-                        $detailModel = new OnAir36hModel();
-                        $dateField = "d_start36h";
-                        break;
-                }
-                //Actualizamos el estado de la fase...
-                /* $status_onair = DB::table("status_on_air")
-                  ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
-                  ->update([
-                  "k_id_substatus" => $idStatus
-                  ]); */
-                //Luego actualizamos o insertamos el nuevo registro de la siguiente fase.
-                $temp = $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                        ->where("i_round", "=", $ticket->n_round)
-                        ->first();
-
-                $commentEdit = null;
-                $tempComment = [
-                    "comment" => $comment,
-                    "date" => Hash::getDate()
-                ];
-                if ($temp) {
-                    $commentEdit = $temp->n_comentario;
-
-                    if ($commentEdit) {
-                        $commentEdit = json_decode($commentEdit, true);
-                        $commentEdit[] = $tempComment;
-                    } else {
-                        $commentEdit = [$tempComment];
-                    }
-                } else {
-                    $commentEdit = [$tempComment];
-                }
-
-
-                //Se comprueba si existe, para actualizar...
-                if ($temp) {
-                    $detailModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                            ->where("i_round", "=", $ticket->n_round)
-                            ->update([
-                                "i_state" => 0,
-                                "n_comentario" => json_encode($commentEdit, true),
-                                $dateField => Hash::getDate()
-                    ]);
-                } else {
-                    //Se comprueba si no existe para insertarlo.
-                    $detailModel->insert([
-                        "k_id_onair" => $ticket->k_id_onair,
-                        "i_state" => 0,
-                        "n_comentario" => json_encode($commentEdit, true),
-                        "i_round" => $ticket->n_round,
-                        $dateField => Hash::getDate()
-                    ]);
-                }
-                if ($idStatus == ConstStates::SEGUIMIENTO_12H) {
-                    $follow = new FollowUp12hModel();
-                    $onair = new OnAir12hModel();
-                    $request->n_round = $ticket->n_round;
-                    $datos = $follow->insert($request->all());
-                    $response = new Response(EMessages::SUCCESS);
-                    $response->setData($datos);
-                    $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)
-                            ->update(["k_id_follow_up_12h" => $response->data->data]);
-                    $this->updateEngTicket($ticket->k_id_onair, 0);
-                    $this->updateStatusTicket($ticket->k_id_onair, 81);
-                }
-
-                if ($idStatus == ConstStates::SEGUIMIENTO_24H) {
-                    $follow = new FollowUp24hModel();
-                    $onair = new OnAir24hModel();
-                    $request->n_round = $ticket->n_round;
-                    $datos = $follow->insert($request->all());
-                    $response = new Response(EMessages::SUCCESS);
-                    $response->setData($datos);
-                    $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)
-                            ->update(["k_id_follow_up_24h" => $response->data->data]);
-                    $this->updateEngTicket($ticket->k_id_onair, 0);
-                    $this->updateStatusTicket($ticket->k_id_onair, 82);
-                }
-
-                if ($idStatus == ConstStates::SEGUIMIENTO_36H) {
-                    $follow = new FollowUp36hModel();
-                    $onair = new OnAir36hModel();
-                    $request->n_round = $ticket->n_round;
-                    $datos = $follow->insert($request->all());
-                    $response = new Response(EMessages::SUCCESS);
-                    $response->setData($datos);
-                    $datos = $onair->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)
-                            ->update(["k_id_follow_up_36h" => $response->data->data]);
-                    $this->updateEngTicket($ticket->k_id_onair, 0);
-                    $this->updateStatusTicket($ticket->k_id_onair, 83);
-                }
                 $this->registerReportComment($ticket->k_id_onair, $comment);
+                $response = new Response(EMessages::SUCCESS);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
@@ -1162,7 +1146,7 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    private function createProcess($stepModel, $ticket, $d_start, $d_end, $comment) {
+    private function createProcess($stepModel, $ticket, $d_start, $d_end, $comment, $type = "CREATE") {
         if ($stepModel) {
             $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
                             ->where("i_round", "=", $ticket->n_round)->first();
@@ -1180,23 +1164,37 @@ class Dao_ticketOnair_model extends CI_Model {
                 } else {
                     $commentEdit = [$tempComment];
                 }
-                $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                        ->where("i_round", "=", $ticket->n_round)->update([
-                    $d_start => Hash::getDate(),
-                    $d_end => Hash::getDate(),
+                $obj = [
                     "i_state" => 0,
                     "n_comentario" => json_encode($commentEdit, true)
-                ]);
+                ];
+                if ($type == "CREATE") {
+                    $obj[$d_start] = Hash::getDate();
+                    $obj[$d_end] = Hash::getDate();
+                } else if ($type == "START") {
+                    $obj[$d_start] = Hash::getDate();
+                } else if ($type == "END") {
+                    $obj[$d_end] = Hash::getDate();
+                }
+                $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                        ->where("i_round", "=", $ticket->n_round)->update($obj);
             } else {
                 $commentEdit = $tempComment;
-                $stepModel->insert([
+                $obj = [
                     "k_id_onair" => $ticket->k_id_onair,
                     "i_round" => $ticket->n_round,
-                    $d_start => Hash::getDate(),
-                    $d_end => Hash::getDate(),
                     "n_comentario" => json_encode($commentEdit, true),
                     "i_state" => 0,
-                ]);
+                ];
+                if ($type == "CREATE") {
+                    $obj[$d_start] = Hash::getDate();
+                    $obj[$d_end] = Hash::getDate();
+                } else if ($type == "START") {
+                    $obj[$d_start] = Hash::getDate();
+                } else if ($type == "END") {
+                    $obj[$d_end] = Hash::getDate();
+                }
+                $stepModel->insert($obj);
             }
         }
     }

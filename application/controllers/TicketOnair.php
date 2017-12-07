@@ -442,9 +442,9 @@ class TicketOnair extends CI_Controller {
             $this->json(new Response(EMessages::ERROR, "Verifique el estado del proceso ya que no se puede realizar una asignación."));
         }
 
-        if ($flag == 1) {
-            $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
-        }
+//        if ($flag == 1) {
+//            $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
+//        }
     }
 
     public function createScaling() {
