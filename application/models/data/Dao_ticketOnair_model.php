@@ -219,6 +219,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 //asignando los valores correspondientes...
                 $request->ticket_on_air->k_id_status_onair = $idStatusOnair;
                 $request->k_id_preparation = $idPreparation;
+                //print_r($request->ticket_on_air);
                 DB::table("ticket_on_air")
                         ->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
                         ->update([
