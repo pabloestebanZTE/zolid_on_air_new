@@ -290,13 +290,13 @@
                                         <div class="row form-xs">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtCorrecionPendientes">Correción pendientes:</label>
+                                                    <label for="txtCorrecionPendientes">Corrección pendientes:</label>
                                                     <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtTicketTremedy">Ticket Tremedy:</label>
+                                                    <label for="txtTicketTremedy">Ticket Remedy:</label>
                                                     <input type="text" class="form-control input-sm" id="txtTicketTremedy" placeholder="Tiecket Tremedy" name="preparation_stage.n_ticketremedy" />
                                                 </div>
                                             </div>

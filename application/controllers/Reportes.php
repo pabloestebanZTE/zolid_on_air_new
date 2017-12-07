@@ -239,11 +239,6 @@ class Reportes extends CI_Controller {
                 $res[$i]->k_id_precheck->k_id_user->n_last_name_user = " ";
             }
 
-
-
-
-
-
             //creacion obj onair 12
             $res[$i]->onair12 = $onair12->getOnair12ByIdOnair($res[$i]->k_id_onair)->data;//onair12
             //filtracion ronda maxima onair12
@@ -721,7 +716,7 @@ class Reportes extends CI_Controller {
               "Fin_24H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair24->d_fin24h)),//DA
               "Fin_36H" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->onair36->d_fin36h)),//DB
               "Implementacion_Campo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_implementacion_campo)),//DC
-              "Implementacion_Remota" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//DD
+              "Implementacion_Remota" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_implementacion_remota)),//DD
               "Gestion_Power" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_gestion_power)),//DE
               "Obra_Civil" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_obra_civil)),//DF
               "On_AIR" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->on_air)),//DG
@@ -735,7 +730,7 @@ class Reportes extends CI_Controller {
               "Cont_Prorrogas" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_cont_prorrogas)),//DO
               "NOC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_noc)),//DP
              ];
-         }
+        }
          /*print_r($data);*/
          $flag = false;
          foreach($data as $row) {
@@ -1209,6 +1204,144 @@ class Reportes extends CI_Controller {
         Redirect::to(URL::to($filename));
 */
     }
+
+   /* public function reporteEmpyDoc() {
+      $filename = "Reporte_Documentador_".date("Y-m-d").".xls";
+      header("Content-Disposition: attachment; filename=\"$filename\"");
+      header("Content-Type: application/vnd.ms-excel; charset=utf-8");
+      header('Content-Type: text/plain');
+   $ticketsOnAir = new Dao_ticketOnAir_model();
+      $preparation = new Dao_preparationStage_model();
+      //inicio llamando todos los tickets
+      $res = $ticketsOnAir->getAll()->data;
+      $data=[];
+      //recorro y se van asignando foraneas
+      $flag = 0;
+      for ($i = 0; $i < count($res); $i++) {
+          $res[$i]->k_id_preparation = $preparation->findByIdPreparation($res[$i]->k_id_preparation)->data; //preparation
+
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          if (str_replace(array("\n", "\r", "\t", " "), '',$res[$i]->k_id_preparation->n_integrador == "") {
+            $flag = 1;
+          }
+          
+
+
+        if ($res[$i]->k_id_preparation->n_integrador == "" || $res[$i]->k_id_preparation->n_integrador == "" || $res[$i]->k_id_preparation->n_testgestion == "" || $res[$i]->k_id_preparation->n_sitiolimpio == "" || $res[$i]->k_id_preparation->n_instalacion_hw_sitio == "" || $res[$i]->k_id_preparation->n_cambios_config_solicitados == "" ||  $res[$i]->k_id_preparation->n_cambios_config_final == "" || $res[$i]->k_id_preparation->n_contratista == "" || $res[$i]->k_id_preparation->n_lac == "" || $res[$i]->k_id_preparation->n_rac == "" || $res[$i]->k_id_preparation->n_sac == "" || $res[$i]->k_id_preparation->n_integracion_gestion_y_trafica == "" || $res[$i]->k_id_preparation->puesta_servicio_sitio_nuevo_lte == "" || $res[$i]->k_id_preparation->n_instalacion_hw_4g_sitio == "" || $res[$i]->k_id_preparation->pre_launch == "" || $res[$i]->k_id_preparation->n_evidenciasl == "" || $res[$i]->k_id_preparation->n_evidenciatg == "" || $res[$i]->k_id_preparation->id_rftools == "" || $res[$i]->i_lider_cambio == "" || $res[$i]->n_implementacion_campo == "" || $res[$i]->n_gestion_power == "" || $res[$i]->n_obra_civil == "" || $res[$i]->on_air || $res[$i]->n_noc == "") {
+
+          $data[$i] = [
+            "Id-On Air" =>utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_onair)),
+            "integrador" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_integrador)),//x
+            "testgestion" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_testgestion)),//ad
+           "sitiolimpio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_sitiolimpio)),//ae
+            "Instalacion_HW_Sitio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_instalacion_hw_sitio)),//ag
+            "Cambios_Config_Solicitados" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_cambios_config_solicitados)),//ah
+            "Cambios_Config_Final" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_cambios_config_final)),//ai
+            "contratista" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_contratista)),//an
+            "LAC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_lac)),//at
+            "RAC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_rac)),//au
+            "SAC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_sac)),//av
+            "Integracion_Gestion_y_Trafica" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_integracion_gestion_y_trafica)),//aw
+            "Puesta_Servicio_Sitio_Nuevo_LTE" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->puesta_servicio_sitio_nuevo_lte)),//ax
+            "Instalacion_HW_4G_Sitio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_instalacion_hw_4g_sitio)),//ay
+            "Prelaunch" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->pre_launch)),//az
+            "EvidenciaSL" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_evidenciasl)),//BD
+            "EvidenciaTG" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->n_evidenciatg)),//BE          
+            "ID_RFTools" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->k_id_preparation->id_rftools)),//CC
+            "Lider_Cambio" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->i_lider_cambio)),//CV
+            "Implementacion_Campo" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->n_implementacion_campo)),//DC
+            //"Implementacion_Remota" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', " ")),//DD
+            "Gestion_Power" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->n_gestion_power)),//DE
+            "Obra_Civil" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->n_obra_civil)),//DF
+            "On_AIR" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->on_air)),//DG
+            "NOC" => utf8_decode( str_replace(array("\n", "\r", "\t"), '', $res[$i]->n_noc)),//DP
+          ];           
+        }
+      }
+      print_r($res);
+       $flag = false;
+         foreach($data as $row) {
+           if(!$flag) {
+             // display field/column names as first row
+             echo implode("\t", array_keys($row)) . "\r\n";
+             $flag = true;
+           }
+           echo implode("\t", array_values($row)) . "\r\n";
+         }
+         exit;
+
+    }*/
 
 
 }
