@@ -45,14 +45,14 @@ class User extends CI_Controller {
             //Se actualiza la forma de validar los roles...
             //Podemos acceder directamente al método que comprobará un rol en especifico.
             if (Auth::isCoordinador()) {
-
+                
             }
             if (Auth::isDocumentador()) {
-
+                
             }
             //O también podemos detectar si el rol es uno personalizado...
             if (Auth::isRole("Ingeniero")) {
-
+                
             }
             Redirect::redirect(URL::to("User/principal"));
         } else {
@@ -186,6 +186,9 @@ class User extends CI_Controller {
     }
 
     public function assignEngineer() {
+        if (!Auth::check()) {
+            return Redirect::to(URL::base());
+        }
         // header('Content-Type: text/plain');
         $id = $this->request->idOnair;
         $ticketOnAir = new dao_ticketOnAir_model();
@@ -233,20 +236,20 @@ class User extends CI_Controller {
         $response->data->k_id_work = $work->findById($response->data->k_id_work)->data;
         $response->data->k_id_status_onair = $status->findById($response->data->k_id_status_onair)->data;
         $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($response->data->k_id_precheck)->data;
-        if(!$response->data->k_id_precheck){
-          $this->request->d_precheck_init = Hash::getDate();
-          $this->request->d_finpre = Hash::getDate();
-          $this->request->k_id_user = 1000;
-          $response2 = $precheck->insertPrecheck($this->request);
-          $this->request->k_id_precheck = $response2->data->data;
-          $this->request->k_id_ticket = $id;
-          $this->request->i_actualEngineer = $this->request->k_id_user;
-          $this->request->i_precheck_realizado = 1;
-          $response3 = $ticketOnAir->updatePrecheckOnair($this->request, $response->data->k_id_status_onair['k_id_status_onair']);
-          $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($this->request->k_id_precheck)->data;
+        if (!$response->data->k_id_precheck) {
+            $this->request->d_precheck_init = Hash::getDate();
+            $this->request->d_finpre = Hash::getDate();
+            $this->request->k_id_user = 1000;
+            $response2 = $precheck->insertPrecheck($this->request);
+            $this->request->k_id_precheck = $response2->data->data;
+            $this->request->k_id_ticket = $id;
+            $this->request->i_actualEngineer = $this->request->k_id_user;
+            $this->request->i_precheck_realizado = 1;
+            $response3 = $ticketOnAir->updatePrecheckOnair($this->request, $response->data->k_id_status_onair['k_id_status_onair']);
+            $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($this->request->k_id_precheck)->data;
         }
-        if($response->data->k_id_precheck->k_id_user){
-          $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
+        if ($response->data->k_id_precheck->k_id_user) {
+            $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
         }
         $answer['ticket'] = json_encode($response->data);
         $answer['statusOnAir'] = json_encode($status->getAll()->data);

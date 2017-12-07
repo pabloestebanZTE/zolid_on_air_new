@@ -168,101 +168,21 @@ class TicketOnair extends CI_Controller {
     }
 
     public function ticketUser() {
-
         //Se comprueba si no hay sesión.
         if (!Auth::check()) {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
             return;
         }
-        $ticket = new TicketOnAirModel();
-        $data = $ticket->Where("i_actualEngineer", "=", Auth::user()->k_id_user)->get();
-        $data = $this->getFKRegisters($data);
-        $response = new Response(EMessages::QUERY);
-        $response->setData($data);
-        $this->json($response);
-        // $precheck = new dao_precheck_model();
-        // $ticket = new dao_ticketOnair_model();
-        // $ticketsOnAir = new dao_ticketOnAir_model();
-        // $station = new dao_station_model();
-        // $band = new dao_band_model();
-        // $work = new dao_work_model();
-        // $technology = new dao_technology_model();
-        // $statusOnair = new dao_statusOnair_model();
-        // $stage = new dao_preparationStage_model();
-        // $assign = new dao_user_model();
-        // $userId = Auth::user()->k_id_user;
-        // $respuesta = [];
-        // $res = [];
-        // $flag = [];
-        //
-        //
-        //
-        //
-        // $precheckId = $precheck->getPrecheckById($userId)->data;
-        // for ($j = 0; $j < count($precheckId); $j++) {
-        //     $res = $ticket->findByIdPrecheck($precheckId[$j]->k_id_precheck);
-        //     // $res->data->k_id_band = $band->findById($res->data->k_id_band)->data;//band
-        //     // $res->data->k_id_status_onair = $statusOnair->findById($res->data->k_id_status_onair)->data;//Status onair
-        //     // $res->data->k_id_station = $station->findById($res->data->k_id_station)->data;//Station
-        //     // $res->data->k_id_work = $work->findById($res->data->k_id_work)->data;//work
-        //     // $res->data->k_id_technology = $technology->findById($res->data->k_id_technology)->data;//technology
-        //     $respuesta[$j] = $res->data;
-        // }
-        // // print_r($respuesta);//ticket precheck
-        // $follow12 = new dao_followUp12h_model();
-        // $onair12 = new dao_onAir12h_model();
-        // $ticket12 = new dao_ticketOnAir_model();
-        // $res2 = $follow12->getfollow12ById($userId)->data;
-        // for ($i = 0; $i < count($res2); $i++) {
-        //     $res2[$i] = $onair12->getOnair12ByFollow($res2[$i]->k_id_follow_up_12h)->data;
-        //     $res = $ticket12->findByIdOnAir($res2[$i]->k_id_onair);
-        //     $respuesta[$j + $i] = $res->data;
-        // }
-        // // print_r($respuesta);//ticket prechek+12h
-        // $follow24 = new dao_followUp24h_model();
-        // $onair24 = new dao_onAir24h_model();
-        // $ticket24 = new dao_ticketOnAir_model();
-        // $res24 = $follow24->getfollow24ById($userId)->data;
-        // for ($f = 0; $f < count($res24); $f++) {
-        //     $resp[$f] = $onair24->getOnair24ByFollow($res24[$f]->k_id_follow_up_24h)->data;
-        //     $respuesta[$j + $i + $f] = $res->data;
-        // }
-        // // print_r($respuesta);//ticket precheck+12+24
-        // $follow36 = new dao_followUp36h_model();
-        // $onair36 = new dao_onAir36h_model();
-        // $ticket36 = new dao_ticketOnAir_model();
-        // $res36 = $follow36->getfollow36ById($userId)->data;
-        // for ($g = 0; $g < count($res36); $g++) {
-        //     $respu[$g] = $onair36->getOnair36ByFollow($res36[$g]->k_id_follow_up_36h)->data;
-        //     $respuesta[$j + $i + $f + $g] = $res->data;
-        // }
-        // //  print_r($respuesta);//ticket precheck+12+24+36
-        // for ($r = 0; $r < count($respuesta); $r++) {
-        //     $flag[] = $respuesta[$r]->k_id_onair;
-        // }
-        // $unique = array_unique($flag);
-        // $final = array_values($unique);
-        // $ticketUnic = new dao_ticketOnAir_model();
-        // $ticketUser = [];
-        // for ($t = 0; $t < count($final); $t++) {
-        //     $ticketUser[$t] = $ticketUnic->findByIdOnAir($final[$t])->data;
-        //     $ticketUser[$t]->k_id_band = $band->findById($ticketUser[$t]->k_id_band)->data; //band
-        //     $ticketUser[$t]->k_id_status_onair = $statusOnair->findById($ticketUser[$t])->data; //Status onair
-        //     $ticketUser[$t]->k_id_station = $station->findById($ticketUser[$t]->k_id_station)->data; //Station
-        //     $ticketUser[$t]->k_id_work = $work->findById($ticketUser[$t]->k_id_work)->data; //work
-        //     $ticketUser[$t]->k_id_technology = $technology->findById($ticketUser[$t]->k_id_technology)->data; //technology
-        //     $ticketUser[$t]->k_id_preparation = $stage->findByIdPreparation($ticketUser[$t]->k_id_preparation)->data; //preparation
-        //     if ($ticketUser[$t]->i_actualEngineer != 0) {
-        //         $ticketUser[$t]->i_actualEngineer = $assign->findBySingleId($ticketUser[$t]->i_actualEngineer)->data; //
-        //         $ticketUser[$t]->i_actualEngineer = $ticketUser[$t]->i_actualEngineer->n_name_user . " " . $ticketUser[$t]->i_actualEngineer->n_last_name_user;
-        //     } elseif ($ticketUser[$t]->i_actualEngineer == 0) {
-        //         $ticketUser[$t]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
-        //     }
-        // }
-        // $response = new Response(EMessages::QUERY);
-        // $response->setData($ticketUser);
-        // $this->json($response);
-        // header('Content-Type: text/plain');
+
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getIngenerList($this->request);
+            $this->getFKRegisters($array->data["data"]);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
     }
 
     public function toStandBy() {
@@ -508,6 +428,11 @@ class TicketOnair extends CI_Controller {
                     $ticket->updateFollow($ticketOnAirTemp, $idFollow, $idUser);
                 }
             }
+            $ticketModel = new TicketOnAirModel();
+            $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
+                    ->update([
+                        "i_actualEngineer" => $this->request->k_id_user
+            ]);
             $this->request->n_comentario_coor = "Se detiene el Stand By --- " . $this->request->n_comentario_coor;
             $this->json(new Response(EMessages::SUCCESS, "Se ha asignado y detenido el Stand by correctamente."));
             $flag = 1;

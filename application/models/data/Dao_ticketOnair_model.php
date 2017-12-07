@@ -691,6 +691,10 @@ class Dao_ticketOnair_model extends CI_Model {
         return $this->getListTicket($request, "tk.k_id_status_onair = 97 and i_actualEngineer = 0");
     }
 
+    public function getIngenerList($request) {
+        return $this->getListTicket($request, "tk.i_actualEngineer = " . Auth::user()->k_id_user);
+    }
+
     public function getPrecheckList($request) {
         return $this->getListTicket($request, "tk.k_id_status_onair = 78 and i_actualEngineer = 0");
     }
@@ -1157,80 +1161,90 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    private function createProcess($stepModel, $ticket, $d_start, $d_end, $comment) {
+        if ($stepModel) {
+            $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                            ->where("i_round", "=", $ticket->n_round)->first();
+            $commentEdit = null;
+            $tempComment = [
+                "comment" => $comment,
+                "date" => Hash::getDate()
+            ];
+            //Comprobar si existe el proceso (12h, 24h, 36h) y agrego el comentario...
+            if ($temp) {
+                $commentEdit = $temp->n_comentario;
+                if ($commentEdit) {
+                    $commentEdit = json_decode($commentEdit, true);
+                    $commentEdit[] = $tempComment;
+                } else {
+                    $commentEdit = [$tempComment];
+                }
+                $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
+                        ->where("i_round", "=", $ticket->n_round)->update([
+                    $d_start => Hash::getDate(),
+                    $d_end => Hash::getDate(),
+                    "i_state" => 0,
+                    "n_comentario" => json_encode($commentEdit, true)
+                ]);
+            } else {
+                $commentEdit = $tempComment;
+                $stepModel->insert([
+                    "k_id_onair" => $ticket->k_id_onair,
+                    "i_round" => $ticket->n_round,
+                    $d_start => Hash::getDate(),
+                    $d_end => Hash::getDate(),
+                    "n_comentario" => json_encode($commentEdit, true),
+                    "i_state" => 0,
+                ]);
+            }
+        }
+    }
+
     public function toProduction($request) {
         try {
             $response = new Response(EMessages::INSERT);
             //Variables...
             $id = $request->idProceso;
+            //El estado del combobox: Pendiente tareas remedy y producción...
             $idStatus = $request->idStatus;
             $comment = $request->comment;
             $ticketModel = new TicketOnAirModel();
             $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
-
             if ($ticket) {
                 //Detectar el estado actual...
                 //SE AGREGA EL COMENTARIO A LA FASE (12h,24h,36h)...
-                //Comprobamos sobre cual estado se encuentra el proceso....
+                //Comprobamos sobre cual estado se encuentra el proceso...
                 $status_onair = DB::table("status_on_air")
                         ->where("k_id_status_onair", "=", $ticket->k_id_status_onair)
                         ->first();
+
                 if ($status_onair) {
                     $actual_status = null;
                     $stepIdField = null;
                     $stepModel = null;
-                    $d_fin = null;
-                    switch ($status_onair->k_id_substatus) {
-                        case ConstStates::SEGUIMIENTO_12H:
-                            $actual_status = "12h";
-                            $stepIdField = "k_id_12h_real";
-                            $stepModel = new OnAir12hModel();
-                            $d_fin = "d_fin12h";
-                            break;
-                        case ConstStates::SEGUIMIENTO_24H:
-                            $actual_status = "24h";
-                            $stepIdField = "k_id_24h_real";
-                            $stepModel = new OnAir24hModel();
-                            $d_fin = "d_fin24h";
-                            break;
-                        case ConstStates::SEGUIMIENTO_36H:
-                            $actual_status = "36h";
-                            $stepIdField = "k_id_36h_real";
-                            $stepModel = new OnAir36hModel();
-                            $d_fin = "d_fin36h";
-                            break;
-                    }
-                    if ($stepModel) {
-                        //Después de comprobar sobre cual estado se encuentra y
-                        //obtener el modelo necesario simplemente actualizamos la fecha final
-                        //de ese proceso
-                        $temp = $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                                        ->where("i_round", "=", $ticket->n_round)->first();
+                    $d_start = null;
+                    $d_end = null;
+                    //Creamos el proceso 12H
+                    $stepModel = new OnAir12hModel();
+                    $d_start = "d_start12h";
+                    $d_end = "d_fin12h";
+                    $this->createProcess($stepModel, $ticket, $d_start, $d_end, $comment);
 
-                        $commentEdit = null;
-                        $tempComment = [
-                            "comment" => $comment,
-                            "date" => Hash::getDate()
-                        ];
-                        if ($temp) {
-                            $commentEdit = $temp->n_comentario;
-                            if ($commentEdit) {
-                                $commentEdit = json_decode($commentEdit, true);
-                                $commentEdit[] = $tempComment;
-                            } else {
-                                $commentEdit = [$tempComment];
-                            }
-                        }
-                        $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                                ->where("i_round", "=", $ticket->n_round)->update([
-                            $d_fin => Hash::getDate(),
-                            "n_comentario" => json_encode($commentEdit, true)
-                        ]);
-                    }
+                    //Creamos el proceso 24H
+                    $stepModel = new OnAir24hModel();
+                    $d_start = "d_start24h";
+                    $d_end = "d_fin24h";
+                    $this->createProcess($stepModel, $ticket, $d_start, $d_end, $comment);
+
+                    //Creamos el proceso 36H
+                    $stepModel = new OnAir36hModel();
+                    $d_start = "d_start36h";
+                    $d_end = "d_fin36h";
+                    $this->createProcess($stepModel, $ticket, $d_start, $d_end, $comment);
                 }
 
 
                 //Se pasan todos los sectores bloqueados a desbloqueados...
-
                 $sectores = $ticket->n_json_sectores;
                 $sectoresDesbloqueados = "";
                 if ($sectores) {
@@ -1258,9 +1272,6 @@ class Dao_ticketOnair_model extends CI_Model {
                     $sectores = DB::NULLED;
                 }
 
-//                echo $sectoresDesbloqueados;
-//                echo "<br/>";
-//                echo $sectores;
                 //Se actualiza el estado a producción y se establece la fecha en la que inició la producción...
                 $ticketModel->where("k_id_onair", "=", $id)->update([
                     "k_id_status_onair" => $idStatus,

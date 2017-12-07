@@ -21,7 +21,7 @@
                                 <div class="panel with-nav-tabs panel-primary">
                                     <div class="panel-heading">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#tab1default" data-toggle="tab"><i class="fa fa-fw fa-tag"></i> Pendientes</a></li>
+                                            <li class="active"><a href="#tab1default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Pendientes</a></li>
                                             <li><a href="#tab2default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-check-square-o"></i> Ya asignados</a></li>
                                             <li><a href="#tabNotificacion" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-bell"></i> Notificación</a></li>
                                             <li><a href="#tabPrecheck" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Precheck</a></li>

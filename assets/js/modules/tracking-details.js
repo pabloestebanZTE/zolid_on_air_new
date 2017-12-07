@@ -1,37 +1,37 @@
-var TD = {
+var vista = {
     contentFases: $('#contentFases'),
     exec: false,
     init: function () {
-        TD.events();
-        TD.configView();
-        TD.getDetail();
-        TD.listCombox();
-        TD.getDetails();
-        TD.getStatesProduction();
+        vista.events();
+        vista.configView();
+        vista.getDetail();
+        vista.listCombox();
+        vista.getDetails();
+        vista.getStatesProduction();
         dom.submit($('#formDetallesBasicos'), null, false);
         dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
-        $('#btnDetails').on('click', TD.onClickDetails);
-        $('.hour-step .icon-step').on('click', TD.onClickIconStep);
-        $('.hour-step').on('click', TD.onClickHourStep);
-        $('.states-modal li a').on('click', TD.onClickItemState);
+        $('#btnDetails').on('click', vista.onClickDetails);
+        $('.hour-step .icon-step').on('click', vista.onClickIconStep);
+        $('.hour-step').on('click', vista.onClickHourStep);
+        $('.states-modal li a').on('click', vista.onClickItemState);
         $('.select-fill').on('select2fill', function () {
             var cmb = $(this);
             cmb.val(cmb.attr('data-value'));
             cmb.trigger('change.select2');
         });
-        $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
-        $('#btnEditarSectores').on('click', TD.onClickEditarSectores);
-        $('#btnAceptarModalSectores').on('click', TD.onClickAceptarModalSectores);
-        $('.comment-step').on('click', TD.onClickCommentStep);
+        $('#btnAceptarModal').on('click', vista.onClickAceptarModal);
+        $('#btnEditarSectores').on('click', vista.onClickEditarSectores);
+        $('#btnAceptarModalSectores').on('click', vista.onClickAceptarModalSectores);
+        $('.comment-step').on('click', vista.onClickCommentStep);
     },
     onClickCommentStep: function () {
         $('.row.content-wiget').addClass('hidden');
         $('.hour-step').removeClass('active');
         $(this).addClass('active');
         $('#contentComments').removeClass('hidden');
-        TD.getComments();
+        vista.getComments();
     },
     getComments: function () {
         var idTicket = $('#idProceso').val();
@@ -125,7 +125,7 @@ var TD = {
         }
     },
     onClickHourStep: function () {
-        TD.resizeWigets();
+        vista.resizeWigets();
         $hourStep = $(this);
         $('.row.content-wiget').addClass('hidden');
         $($hourStep.attr('data-ref')).removeClass('hidden').hide().fadeIn(500);
@@ -137,19 +137,19 @@ var TD = {
         var action = $('.states-modal a.active').attr('data-action');
         switch (action) {
             case "PROR":
-                TD.createProrroga();
+                vista.createProrroga();
                 break;
             case "NEXT":
-                TD.nextFase();
+                vista.nextFase();
                 break;
             case "PROD":
-                TD.toProduction();
+                vista.toProduction();
                 break;
             case "STANDBY":
-                TD.toStandBy();
+                vista.toStandBy();
                 break;
             case "QUITSTANDBY":
-                TD.quitStandBy();
+                vista.quitStandBy();
                 break;
         }
     },
@@ -254,7 +254,7 @@ var TD = {
                     var v = app.validResponse(response);
                     if (v) {
                         swal("Guardado", "Se ha registrado la prórroga éxitosamente.", "success");
-                        TD.getDetails();
+                        vista.getDetails();
                     } else {
                         swal("Atención", "No se pudo registrar la prórroga.", "warning");
                     }
@@ -281,7 +281,7 @@ var TD = {
                     var v = app.validResponse(response);
                     if (v) {
                         swal("Guardado", "Se ha terminado la fase correctamente.", "success");
-                        TD.getDetails();
+                        vista.getDetails();
                     } else {
                         swal("Atención", response.message, "warning");
                     }
@@ -341,7 +341,7 @@ var TD = {
         $('#modalChangeState').modal('show');
     },
     listCombox: function () {
-        TD.listStates();
+        vista.listStates();
     },
     listStates: function () {
         var cmbStatus = $('#cmbEstadosTD');
@@ -399,7 +399,7 @@ var TD = {
                         form.fillForm(objTemp);
                         try {
                             if (response.data.n_json_sectores) {
-                                TD.fillTableSectores(response.data);
+                                vista.fillTableSectores(response.data);
                             }
                         } catch (e) {
                         }
@@ -428,11 +428,11 @@ var TD = {
                     if (response.code > 0) {
                         $('#contentFases').removeClass('hidden').hide().fadeIn(500);
                         //Listamos los grupos...
-                        if (!TD.exec) {
-                            TD.listGroups(response.data.groups, response.data.group);
-                            TD.listDetails(response.data.details);
+                        if (!vista.exec) {
+                            vista.listGroups(response.data.groups, response.data.group);
+                            vista.listDetails(response.data.details);
                         }
-                        TD.setTimers(response.data);
+                        vista.setTimers(response.data);
                     }
                 })
                 .error(function (e) {
@@ -445,11 +445,11 @@ var TD = {
         $('.hour-step .progress-step').css('width', '100%');
         $('.timerstamp').html('<i class="fa fa-fw fa-info-circle"></i> No definido');
         var fn = function () {
-            if (TD.exec) {
+            if (vista.exec) {
                 return true;
             }
-            TD.getDetails();
-            TD.exec = true;
+            vista.getDetails();
+            vista.exec = true;
         };
         $('.hour-step').removeClass('active').addClass('disabled');
         $('.row.content-wiget').addClass('hidden');
@@ -495,7 +495,7 @@ var TD = {
                 $('.hour-step').removeClass('disabled').addClass('produccion');
                 $('#contentDetails_12h_content').removeClass('hidden');
                 $('#alertReinicio12h').removeClass('hidden');
-                TD.contentFases.addClass('hidden').hide();
+                vista.contentFases.addClass('hidden').hide();
                 $('#btnRunActividad').on('click', function () {
                     dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
                         app.post('TicketOnair/restart12h', {
@@ -544,7 +544,7 @@ var TD = {
                 break;
         }
         $('.hour-step.disabled .progress-step').css('width', '0%');
-        TD.resizeWigets();
+        vista.resizeWigets();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');
@@ -656,7 +656,7 @@ var TD = {
         }
 
         //Configuramos las alturas de las secciones...
-        TD.resizeWigets();
+        vista.resizeWigets();
     },
     resizeWigets: function () {
         window.setTimeout(function () {
@@ -690,5 +690,5 @@ var TD = {
 };
 
 $(function () {
-    TD.init();
+    vista.init();
 })
