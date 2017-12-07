@@ -1167,6 +1167,9 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketModel = new TicketOnAirModel();
             $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
 
+            
+            
+            
             if ($ticket) {
                 //Detectar el estado actual...
                 //SE AGREGA EL COMENTARIO A LA FASE (12h,24h,36h)...
@@ -1191,6 +1194,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             $stepIdField = "k_id_24h_real";
                             $stepModel = new OnAir24hModel();
                             $d_fin = "d_fin24h";
+
                             break;
                         case ConstStates::SEGUIMIENTO_36H:
                             $actual_status = "36h";

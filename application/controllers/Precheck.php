@@ -234,7 +234,16 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-        }
+      
+            $comment = $this->request->n_comentario_ing;
+            $tempComment = [[
+            "comment" => $comment,
+            "date" => Hash::getDate()
+            ]];
+            $commentEdit = json_encode($tempComment, true);
+            $this->request->n_comentario = $commentEdit;
+            
+            }
         // si va para 24, 36 o para producción
         if ($this->request->k_id_status_onair == 82 || $this->request->k_id_status_onair >= 87 || $this->request->k_id_status_onair >= 83) {
             $follow24h = new Dao_followUp24h_model();
@@ -252,7 +261,16 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-        }
+      
+            $comment = $this->request->n_comentario_ing;
+            $tempComment = [[
+            "comment" => $comment,
+            "date" => Hash::getDate()
+            ]];
+            $commentEdit = json_encode($tempComment, true);
+            $this->request->n_comentario = $commentEdit;
+            
+            }
         //si va para 36 o para producción
         if ($this->request->k_id_status_onair == 83 || $this->request->k_id_status_onair >= 87) {
             $follow36h = new Dao_followUp36h_model();
@@ -270,7 +288,16 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-        }
+
+            $comment = $this->request->n_comentario_ing;
+            $tempComment = [[
+            "comment" => $comment,
+            "date" => Hash::getDate()
+            ]];
+            $commentEdit = json_encode($tempComment, true);
+            $this->request->n_comentario = $commentEdit;
+            
+            }
 
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
         $this->json($response);
