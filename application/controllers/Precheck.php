@@ -217,8 +217,8 @@ class Precheck extends CI_Controller {
             $commentEdit = json_encode($tempComment, true);
             $this->request->n_comentario = $commentEdit;
         }
-        //Para 12h o para producción
-        if ($this->request->k_id_status_onair == 81 || $this->request->k_id_status_onair >= 87) {
+        //Para 12h, 24h, 36 o para producción
+        if ($this->request->k_id_status_onair == 81 || $this->request->k_id_status_onair >= 87 || $this->request->k_id_status_onair >= 82 || $this->request->k_id_status_onair >= 83) {
             $follow12h = new Dao_followUp12h_model();
             $onair12 = new Dao_onAir12h_model();
             $response = $follow12h->insert12hFollowUp($this->request);
@@ -235,8 +235,8 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
         }
-        // si va para 24 o para producción
-        if ($this->request->k_id_status_onair == 82 || $this->request->k_id_status_onair >= 87) {
+        // si va para 24, 36 o para producción
+        if ($this->request->k_id_status_onair == 82 || $this->request->k_id_status_onair >= 87 || $this->request->k_id_status_onair >= 83) {
             $follow24h = new Dao_followUp24h_model();
             $onair24 = new Dao_onAir24h_model();
             $response = $follow24h->insert24hFollowUp($this->request);
