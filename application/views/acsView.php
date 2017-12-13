@@ -9,7 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
                         <div class="list-group">
-                            <a href="#" class="list-group-item text-center">
+                            <a href="#" class="list-group-item active text-center">
                                 <h4 class="glyphicon glyphicon-plane"></h4><br/>Creación de Ventanas
                             </a>
                             <a href="#" class="list-group-item text-center">
@@ -18,7 +18,7 @@
                             <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-home"></h4><br/>Punto de Control
                             </a>
-                            <a class="list-group-item active text-center">
+                            <a class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
                         </div>
@@ -26,7 +26,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
 
                         <!-- creacion ventana section -->
-                        <div class="bhoechie-tab-content" id="contentTab1">
+                        <div class="bhoechie-tab-content active" id="contentTab1">
                             <center>
                                 <form class="well form-horizontal" action="" method="post"  id="assignEng" name="assignEng">
                                     <fieldset class="col-md-6 control-label">
@@ -629,7 +629,7 @@
                         </div>
 
                         <!-- cierre VM section -->
-                        <div class="bhoechie-tab-content active" id="contentTab4">
+                        <div class="bhoechie-tab-content" id="contentTab4">
                             <center>
                                 <form class="well form-horizontal" action="" method="post">
                                     <div class="form-group row">
