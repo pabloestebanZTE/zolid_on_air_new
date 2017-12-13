@@ -8,23 +8,23 @@
                 <a href="#" class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
-            <?php
-            if (Auth::isCoordinador()) {
-                $this->load->view('parts/principal/coordinador');
-            }
-            if (Auth::isDocumentador()) {
-                $this->load->view('parts/principal/documentador');
-            }
-            if (Auth::isIngeniero()) {
-                $this->load->view('parts/principal/ingeniero');
-            }
-            ?>
+            <div class="well">
+                <a href="<?= URL::to("asc/acsview") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
+                <hr/>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table id="tablaVm" class="table table-hover table-condensed table-striped" width='100%'></table>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
         </div>        
         <!-- CUSTOM SCRIPT   -->
-        <script scr="<?= URL::to("assets/plugins/sweetalert-master/dist/sweetalert.min.js") ?>" ></script>
+        <?php $this->load->view('parts/generic/scripts'); ?>
+        <script src="<?= URL::to("assets/js/modules/acs.js"); ?>" type = "text/javascript"></script>
     </body>
 </html>

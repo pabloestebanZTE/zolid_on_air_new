@@ -9,14 +9,14 @@ class Acs extends CI_Controller {
     }
 
     public function principal() {
-        if (Auth::check()) {
+        if (!Auth::check()) {
             Redirect::to(URL::base());
         }
         $this->load->view('principalvm');
     }
 
     public function acsview() {
-        if (Auth::check()) {
+        if (!Auth::check()) {
             Redirect::to(URL::base());
         }
         $this->load->view('acsView');
