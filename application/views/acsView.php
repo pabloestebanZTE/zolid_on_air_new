@@ -18,7 +18,7 @@
                             <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-home"></h4><br/>Punto de Control
                             </a>
-                            <a class="list-group-item text-center">
+                            <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
                         </div>
