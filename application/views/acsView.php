@@ -29,7 +29,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
 
                         <!-- creacion ventana section -->
-                        <div class="bhoechie-tab-content" id="contentTab1">
+                        <div class="bhoechie-tab-content active" id="contentTab1">
                             <center>
                                 <form class="well form-horizontal" action="" method="post">
                                     <div class="form-group row">
@@ -154,7 +154,7 @@
                         </div>
 
                         <!-- apertura VM section -->
-                        <div class="bhoechie-tab-content active" id="contentTab2">
+                        <div class="bhoechie-tab-content" id="contentTab2">
                             <center>
                                 <form class="well form-horizontal" action="" method="post">
                                     <div class="form-group row">
