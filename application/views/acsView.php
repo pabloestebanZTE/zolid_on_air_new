@@ -195,111 +195,214 @@
                         <div class="bhoechie-tab-content" id="contentTab2">
                             <center>
                                 <form class="well form-horizontal" action="" method="post">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">ID ZTE:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="000" disabled="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Estación:</span></label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Banda:</span></label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                    
                                     <div class="form-group">
-                                        <label for="cmbRiesgoId" class="col-sm-2 control-label">Riesgo</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
+                                        <div class="col-sm-10 p-r-30">
+                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtTipoActividad" class="col-sm-2 control-label">Tipo de Actividad</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="txtTipoActividad" name="txtTipoActividad">
+                                    </div>    
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Estado VM:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTipoEventoNivel1" class="col-sm-2 control-label">Tipo de evento (nivel 1)</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="txtTipoEventoNivel1" name="txtTipoEventoNivel1">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTipoEventoNivel2" class="col-sm-2 control-label">Tipo de evento (nivel 2)</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="txtTipoEventoNivel2" name="txtTipoEventoNivel2">
-                                        </div>
-                                    </div>
-                                    <div id="contenedorCausas">
-                                        <div class="form-inline form-group">
-                                            <label for="txtCausa" class="col-sm-2 control-label">Causa</label>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Motivo:</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="txtCausa" name="txtCausa[]" style="width: 93%;">
-                                                <button type="button" class="btn btn-success" onclick="AgregarCausas()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Factor de riesgo</label>
-                                        <div class="col-sm-10">
+                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Ingeniero:</label>
+                                        <div class="col-sm-10 p-r-30">
                                             <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="cmbProbabilidad" class="col-sm-2 control-label">Probabilidad</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="cmbProbabilidad" name="cmbProbabilidad">
-                                                <option value="">Seleccione</option>
-                                            </select>
+                                    <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
+                                        <div class="bg-white widget bg-gray p-l-25 p-r-25">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <label>DATOS SITE ACCESS:</label>
+                                                    <input type="text" class="form-control" value="12341324"/>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="form-group">
+                                                        <label class="col-md-5 text-right">Inicio Programado SA:</label>
+                                                        <div class="col-md-7">
+                                                            <input type="datetime-local" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-b-0">
+                                                        <label class="col-md-5 text-right">Fin Programado SA:</label>
+                                                        <div class="col-md-7">
+                                                            <input type="datetime-local" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix m-t-20"></div>
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Tecnologías Afectadas:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Bandas afectadas:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Persona que solicita la VMLC:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Ente Ejecutor:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">FM Nokia:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">FM Claro:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Teléfono FM:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">WP:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">CRQ:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">ID_RF TOOL:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">BSC_Name:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">RNC_Name:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Servidor MSS:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Integrador y/o Backoffice:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="cmbSoporteProbabilidad" class="col-sm-2 control-label">Soporte Probabilidad</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="cmbSoporteProbabilidad" name="cmbSoporteProbabilidad" onchange="cambiarSoporteImpacto()">
-                                                <option value="">Seleccione</option>
-                                                <option value="1">Eventualidad que no es probable o es muy poco probable (una vez al año)</option>
-                                                <option value="2">Eventualidad poco común  o relativa frecuencia (dos veces al año).</option>
-                                                <option value="3">Puede ocurrir en algún momento. Eventualidad con frecuencia moderada. (doce veces al año)</option>
-                                                <option value="4">Hay buenas razones para creer que se verificará o sucederá el riesgo en muchas circunstancias. Eventualidad de frecuencia alta. (cuarenta y ocho  veces al año)</option>
-                                                <option value="5">Se espera que el riesgo ocurra en la mayoría de las circunstancias. Eventualidad frecuente. (Trescientos sesenta y cinco veces al año)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cmbImpacto" class="col-sm-2 control-label">Impacto</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="cmbImpacto" name="cmbImpacto">
-                                                <option value="">Seleccione</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cmbSoporteImpacto1" class="col-sm-2 control-label">Soporte Impacto</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="cmbSoporteImpacto1" name="cmbSoporteImpacto1">
-                                                <option value="">Seleccione</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cmbSoporteImpacto2" class="col-sm-2 control-label">Soporte Impacto</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="cmbSoporteImpacto2" name="cmbSoporteImpacto2">
-                                                <option value="">Seleccione</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--                                    <div class="form-group">
-                                                                            <label for="txtConsecuencia" class="col-sm-2 control-label">Consecuencia</label>
-                                                                            <div class="col-sm-10">
-                                                                                <input type="text" class="form-control" id="txtConsecuencia" name="txtConsecuencia">
-                                                                            </div>
-                                                                        </div>-->
-                                    <div class="form-group">
-                                        <label for="txtSeveridadRiesgoInherente" class="col-sm-2 control-label">Severidad del Riesgo Inherente</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="txtSeveridadRiesgoInherente" name="txtSeveridadRiesgoInherente">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Guardar</button>
+                                        <div class="col-sm-offset-2 col-sm-10 text-left p-r-30">
+                                            <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
                                         </div>
                                     </div>
                                 </form>

@@ -7,7 +7,12 @@ and open the template in the editor.
     Created on : 21-dic-2016, 16:46:25
     Author     : johnv
 */
-
+.widget{    
+    box-shadow: #333 0px 0px 1px;
+    box-shadow: #333 0px 0px 1px;
+    border-radius: 5px;
+    padding: 15px;
+}
 /*BEGIN:: HELPER CLASS*/
 /*MARGIN*/
 .m-all-0{
@@ -285,10 +290,10 @@ a.link-normal:hover{
     padding: 5px 5px 0 5px;
 }
 .panel.with-nav-tabs .nav-tabs{
-	border-bottom: none;
+    border-bottom: none;
 }
 .panel.with-nav-tabs .nav-justified{
-	margin-bottom: -1px;
+    margin-bottom: -1px;
 }
 .with-nav-tabs.panel-primary .nav-tabs > li > a,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
@@ -300,17 +305,17 @@ a.link-normal:hover{
 .with-nav-tabs.panel-primary .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
-	color: #fff;
-	background-color: #3071a9;
-	border-color: transparent;
+    color: #fff;
+    background-color: #3071a9;
+    border-color: transparent;
 }
 .with-nav-tabs.panel-primary .nav-tabs > li.active > a,
 .with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
-	color: #428bca;
-	background-color: #fff;
-	border-color: #428bca;
-	border-bottom-color: transparent;
+    color: #428bca;
+    background-color: #fff;
+    border-color: #428bca;
+    border-bottom-color: transparent;
 }
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu {
     background-color: #428bca;
@@ -327,4 +332,10 @@ a.link-normal:hover{
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
     background-color: #4a9fe9;
+}
+.bg-white{
+    background-color:  #FFF;
+}
+.bg-gray{
+    background-color: #f9f9f9;
 }
