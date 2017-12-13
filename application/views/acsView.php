@@ -9,7 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
                         <div class="list-group">
-                            <a href="#" class="list-group-item active text-center">
+                            <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-plane"></h4><br/>Creación de Ventanas
                             </a>
                             <a href="#" class="list-group-item text-center">
@@ -18,7 +18,7 @@
                             <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-home"></h4><br/>Punto de Control
                             </a>
-                            <a class="list-group-item text-center">
+                            <a class="list-group-item active text-center">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
                         </div>
@@ -26,7 +26,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
 
                         <!-- creacion ventana section -->
-                        <div class="bhoechie-tab-content active" id="contentTab1">
+                        <div class="bhoechie-tab-content" id="contentTab1">
                             <center>
                                 <form class="well form-horizontal" action="TicketOnair/assignTicket" method="post"  id="assignEng" name="assignEng">
                                     <fieldset class="col-md-6 control-label">
@@ -229,15 +229,15 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Estación:</span></label>
-                                            <div class="col-sm-10">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
+                                            <div class="col-sm-9">
                                                 <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group">
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
@@ -247,17 +247,17 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Banda:</span></label>
-                                            <div class="col-sm-10">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
+                                            <div class="col-sm-9">
                                                 <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>                                    
-                                    <div class="form-group">
+                                    <div class="form-group p-l-10 p-r-10">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
-                                        <div class="col-sm-10 p-r-30">
+                                        <div class="col-sm-10 ">
                                             <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
@@ -273,23 +273,24 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Motivo:</span></label>
-                                            <div class="col-sm-10">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Motivo:</span></label>
+                                            <div class="col-sm-9">
                                                 <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group p-l-10 p-r-10">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Ingeniero:</label>
-                                        <div class="col-sm-10 p-r-30">
+                                        <div class="col-sm-10 ">
                                             <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
+
+                                    <div class="">
                                         <div class="bg-white widget bg-gray p-l-25 p-r-25">
                                             <div class="row">
                                                 <div class="col-md-5">
@@ -313,121 +314,173 @@
                                             </div>
                                         </div>
                                         <div class="clearfix m-t-20"></div>
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Tecnologías Afectadas:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="cmbTecnologiasAfectadas" class="col-sm-4 control-label">Tecnologías Afectadas:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" id="cmbTecnologiasAfectadas" name="cmbFactorRiesgo">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Bandas afectadas:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Persona que solicita la VMLC:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Ente Ejecutor:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">FM Nokia:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">FM Claro:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Teléfono FM:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">WP:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">CRQ:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">ID_RF TOOL:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">BSC_Name:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">RNC_Name:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
+                                            <div class="col-md-6">
+                                                <label for="cmbBandasAfectadas" class="col-sm-3 control-label">Bandas afectadas:</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="cmbBandasAfectadas">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Servidor MSS:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
-                                                </select>
+                                        <div class="form-group p-l-10 p-r-10">
+                                            <label for="txtPersonaQueSolicitaLaVMLC" class="col-sm-2 control-label text-right">Persona que solicita la VMLC:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="txtPersonaQueSolicitaLaVMLC" />
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Integrador y/o Backoffice:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
-                                                    <option value="">Seleccione</option>
+                                        <!--                                        <div class="form-group">
+                                                                                    <label for="cmbEnteEjecutor" class="col-sm-4 control-label">Ente Ejecutor:</label>
+                                                                                    <div class="col-sm-8 ">
+                                                                                        <select class="form-control" id="cmbEnteEjecutor" name="cmbEnteEjecutor">
+                                                                                            <option value="">Seleccione</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>    -->
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="cmbFMNokia" class="col-sm-4 control-label">FM Nokia:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" id="cmbFMNokia" name="cmbFMNokia">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cmbFMClaro" class="col-sm-3 control-label">FM Claro:</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="cmbFMClaro" name="cmbFMClaro">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                                           
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="txtTelefonoFM" class="col-sm-4 control-label">Teléfono FM:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="txtTelefonoFM" />
+                                                </div>
+                                            </div>    
+                                            <div class="col-md-6">
+                                                <label for="txtWP" class="col-sm-3 control-label">WP:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="txtWP" />
+                                                </div>
+                                            </div>
+                                        </div>                                            
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="txtCRQ" class="col-sm-4 control-label">CRQ:</label>
+                                                <div class="col-sm-8 ">
+                                                    <input class="form-control" id="txtCRQ" name="txtCRQ" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="txtIDRFTOOL" class="col-sm-3 control-label">ID_RF TOOL:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="txtIDRFTOOL" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="txtbsc_name" class="col-sm-4 control-label">BSC_Name:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="txtbsc_name" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="txtRNCName" class="col-sm-3 control-label">RNC_Name:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="txtRNCName" />
+                                                </div>
+                                            </div>
+                                        </div>                                            
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Servidor MSS:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cmbFactorRiesgo" class="col-sm-3 control-label">Regional Cluster:</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group p-l-10 p-r-10">
+                                            <label for="txtIntegradorBackoffice" class="col-sm-2 control-label text-right">Integrador y/o Backoffice:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="txtIntegradorBackoffice" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group p-l-10 p-r-10">
+                                            <label for="txtLiderCuadrillaVM" class="col-sm-2 control-label text-right">Lider de cuadrilla VM:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="txtLiderCuadrillaVM" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="txtTelefonoLiderCuadrilla" class="col-sm-4 control-label">Teléfono Líder de Cuadrilla:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtTelefonoLiderCuadrilla" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cmbVistasMM" class="col-sm-4 control-label">VISTAS MM:</label>
+                                                <div class="col-sm-8 ">
+                                                    <select class="form-control" id="cmbVistasMM" name="cmbVistasMM">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="">SI</option>
+                                                        <option value="">NO</option>
+                                                        <option value="">N/A</option>
+                                                    </select>
+                                                </div>  
+                                            </div>
+                                        </div>                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Hora Atención VM:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="datetime" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Hora Inicio Real VM:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="datetime" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group p-l-10 p-r-10">
+                                            <label for="cmbContratista" class="col-sm-2 control-label">Contratista:</label>
+                                            <div class="col-sm-10">
+                                                <select name="" id="cmbContratista" class="form-control">
+                                                    <option>Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10 text-left p-r-30">
+                                        <div class="col-sm-offset-2 col-sm-10 text-left ">
+                                            <hr/>
                                             <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
                                         </div>
                                     </div>
@@ -458,24 +511,246 @@
                         </div>
 
                         <!-- cierre VM section -->
-                        <div class="bhoechie-tab-content" id="contentTab4">
+                        <div class="bhoechie-tab-content active" id="contentTab4">
                             <center>
-                                <!--<div class="row form-md">-->
                                 <form class="well form-horizontal" action="" method="post">
-                                    <div id="contenedorControles">
-                                        <div class="form-inline form-group" >
-                                            <label for="cmbControles" class="col-sm-2 control-label">Control</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control" id="cmbControles" name="cmbControles[]" style="width: 93%;">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">ID ZTE:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="000" disabled="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
-                                                <button type="button" class="btn btn-success" onclick="AgregarControles()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div class="form-group p-l-10 p-r-10">
+                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
+                                        <div class="col-sm-10 ">
+                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                <option value="">Seleccione</option>
+                                            </select>
+                                        </div>
+                                    </div>    
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Estado VM:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Motivo:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">RET:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">VERDADERO</option>
+                                                    <option value="">FALSO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Ampliación Dualbeam:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">VERDADERO</option>
+                                                    <option value="">FALSO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Sectores Dualbeam:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">VERDADERO</option>
+                                                    <option value="">FALSO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Tipo de solución:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Teléfono líder cambio:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="txtTelefonoLiderCambio" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estado de VM:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">Abierto</option>
+                                                    <option value="">Cerrado</option>
+                                                    <option value="">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbSubEstado" class="col-sm-4 control-label">Sub-Estado:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbSubEstado">
+                                                    <option>Seleccione</option>
+                                                    <option>Abierto</option>
+                                                    <option>Cerrado</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="txtAlIniciarVMSeEncontro" class="col-sm-3 control-label"><span class="display-block">Al iniciar VM se encontró:</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="txtAlIniciarVMSeEncontro" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">¿Presentó falla final?:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">SI</option>
+                                                    <option value="">NO</option>
+                                                    <option value="">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Tipo de Falla Final:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">Rollback</option>
+                                                    <option value="">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">VISTAS MM:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">SI</option>
+                                                    <option value="">NO</option>
+                                                    <option value="">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estado Notificación:</span></label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="">N/A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group p-l-10 p-r-10">
+                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Ingeniero Cierre:</label>
+                                        <div class="col-sm-10 ">
+                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                <option value="">Seleccione</option>
+                                            </select>
+                                        </div>
+                                    </div>  
+
+
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbSubEstado" class="col-sm-4 control-label">Hora de atención cierre:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="txtHoraAtencionCierre" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="txtAlIniciarVMSeEncontro" class="col-sm-3 control-label"><span class="display-block">Hora de cierre confirmado:</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="txtAlIniciarVMSeEncontro" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group p-l-10 p-r-10">                                        
+                                        <label class="col-xs-12 text-left m-t-15" for="txtcomentarioCierre">Comentarios Cierre:</label>
+                                        <div class="col-xs-12">
+                                            <textarea class="form-control" placeholder="Comentario..." id="txtcomentarioCierre"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10 text-left ">
+                                            <hr/>
+                                            <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                        </div>
+                                    </div>
                                 </form>
-                                <!--</div>-->
                             </center>
                         </div>
                     </div>
