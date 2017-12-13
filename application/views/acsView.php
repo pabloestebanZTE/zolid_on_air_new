@@ -21,12 +21,15 @@
                             <a class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
+                            <a class="list-group-item text-center">
+                                <h4 class="glyphicon glyphicon-compressed"></h4><br/>Archivos
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
 
                         <!-- creacion ventana section -->
-                        <div class="bhoechie-tab-content active" id="contentTab1">
+                        <div class="bhoechie-tab-content" id="contentTab1">
                             <center>
                                 <form class="well form-horizontal" action="" method="post"  id="assignEng" name="assignEng">
                                     <fieldset class="col-md-6 control-label">
@@ -192,7 +195,7 @@
                         </div>
 
                         <!-- apertura VM section -->
-                        <div class="bhoechie-tab-content" id="contentTab2">
+                        <div class="bhoechie-tab-content active" id="contentTab2">
                             <center>
                                 <form class="well form-horizontal" action="" method="post">
                                     <div class="form-group row">
@@ -451,6 +454,40 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <!--CHECKLIST APERTURA-->
+                                        <div class="widget bg-gray text-left m-t-25 display-block">
+                                            <h2 class="h4"><i class="fa fa-fw fa-check-square-o"></i> CheckList</h2>
+                                            <p class="muted m-b-0">Por favor, verifique los procesos a continuación y complete el checklist según sea el caso.</p>
+                                            <div class="widget bg-white">
+                                                <div class="checkbox checkbox-primary text-left" id="productionList">
+                                                    <div class="display-block">
+                                                        <input id="chk_p_1" type="checkbox">
+                                                        <label for="chk_p_1" class="text-bold">
+                                                            Se crea word evidencias.
+                                                        </label>
+                                                    </div>
+                                                    <div class="display-block">
+                                                        <input id="chk_p_2" type="checkbox">
+                                                        <label for="chk_p_2" class="text-bold">
+                                                            Se crea Excel Precheck.
+                                                        </label>
+                                                    </div>
+                                                    <div class="display-block">
+                                                        <input id="chk_p_3" type="checkbox">
+                                                        <label for="chk_p_3" class="text-bold">
+                                                            Se crea solicitud ID Access.
+                                                        </label>
+                                                    </div>
+                                                    <div class="display-block">
+                                                        <input id="chk_p_4" type="checkbox">
+                                                        <label for="chk_p_4" class="text-bold">
+                                                            Se adjunta documento excel (gestión de calidad).
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--FIN CHECK LIST APERTURA-->
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10 text-left ">
@@ -870,6 +907,39 @@
                                     </div>
                                 </form>
                             </center>
+                        </div>
+
+                        <!--Historíco archivos-->
+                        <div class="bhoechie-tab-content" id="contentTab4">
+                            <div class="well m-b-0 p-t-5 p-b-5">
+                                <h2 class="h3"><i class="fa fa-fw fa-file-zip-o"></i> Lista de archivos</h2>
+                                <?php for ($i = 0; $i < 10; $i++) { ?>
+                                    <div class="row content-wiget" >
+                                        <div class="col-md-12 wiget" id="contentDetails_12h" style="min-height: 88px;"><div class="form-group row wiget-comment">
+                                                <div class="col-md-4 wiget-list">
+                                                    <div class="item-wiget">
+                                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                                        <div class="details-wiget">
+                                                            <span class="title display-block">Fecha: </span>
+                                                            <span class="text display-block" id="d_start">13/Dic/2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5">Nombre archivo:</b><span id="n_comentario"><a href="#" ><i class="fa fa-fw fa-download"></i> Archivo 1.0</a></span></p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="icon-wiget-user"><i class="fa fa-fw fa-user"></i></div>
+                                                    <div class="details-wiget">                     
+                                                        <span class="muted m-l-10">Subido por:</span>
+                                                        <span class="wiget-user-name display-block">GÓMEZ SIERRA  (JDG)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
