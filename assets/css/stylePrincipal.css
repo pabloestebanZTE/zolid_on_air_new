@@ -816,6 +816,21 @@ nav {
     height: 40px;
     border-radius: 3px;
 }
+.icon-wiget-user{
+    border-radius: 100%;
+    background-color: #af5d91;
+    float: left;
+    color: #FFF;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+.icon-wiget-user .fa{
+    display: block;
+    margin: 0 auto;
+    margin-top: 8px;
+}
 .wiget .wiget-list .item-wiget .icon-wiget .fa{
     display: block;
     margin: 0 auto;
@@ -911,4 +926,9 @@ table td{
     font-size: 15px;
     margin-left: 47px;
     margin-top: 5px;
+}
+.wiget-user-name{
+    font-weight: bold;
+    display: block;
+    margin-left: 50px;
 }
