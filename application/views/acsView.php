@@ -33,7 +33,7 @@
                                         <div class="col-md-6">
                                             <label for="txtFechaSolicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
                                             <div class="col-sm-8">
-                                                <input type='datetime-local' name="txtFechaSolicitud" id="txtFechaSolicitud" class="form-control" style="width: 230px;">
+                                                <input type='datetime-local' name="txtFechaSolicitud" id="txtFechaSolicitud" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -136,6 +136,30 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
+                                        <div class="clearfix m-t-20"></div>
+                                        <div class="form-group">
+                                            <label for="cmbIngenieroControl" class="col-sm-4 control-label">ID Site Access coinside:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <input type="checkbox" class="form-check-input">
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="cmbHoraRevision" class="col-sm-4 control-label">CRQ Remedy coinside:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <input type="checkbox" class="form-check-input">
+                                            </div>
+                                        </div>    
+                                        <div class="form-group">
+                                            <label for="txtComentarioPuntoControl" class="col-sm-4 control-label">Evidencias PrePost:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <input type="checkbox" class="form-check-input"> texto
+                                                <input type="checkbox" class="form-check-input"> texto
+                                                <input type="checkbox" class="form-check-input"> texto
+                                            </div>
+                                        </div>    
                                     </div>
                                     <!-- Button -->
                                     <center>
