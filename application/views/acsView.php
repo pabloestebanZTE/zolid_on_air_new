@@ -140,29 +140,50 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
-                                        <div class="clearfix m-t-20"></div>
-                                        <div class="form-group">
-                                            <label for="cmbIngenieroControl" class="col-sm-4 control-label">ID Site Access coinside:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <input type="checkbox" class="form-check-input">
+
+                                    <div class="widget bg-gray text-left m-t-25 display-block">
+                                        <h2 class="h4"><i class="fa fa-fw fa-check-square-o"></i> CheckList</h2>
+                                        <p class="muted m-b-0">Por favor, verifique los procesos a continuación y complete el checklist según sea el caso.</p>
+                                        <div class="widget bg-white">
+                                            <div class="checkbox checkbox-primary text-left" id="productionList">
+                                                <div class="display-block">
+                                                    <input id="chk_p_1" type="checkbox">
+                                                    <label for="chk_p_1" class="text-bold">
+                                                        ID site access Correcto.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_2" type="checkbox">
+                                                    <label for="chk_p_2" class="text-bold">
+                                                        CRQ Remedy Correcto.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_3" type="checkbox">
+                                                    <label for="chk_p_3" class="text-bold">
+                                                        Snapshot Liviano UMTS.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_4" type="checkbox">
+                                                    <label for="chk_p_4" class="text-bold">
+                                                        Log Alarmas historico UMTS.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_p_5" type="checkbox">
+                                                    <label for="chk_p_5" class="text-bold">
+                                                        Reporte Radiante Pre.
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="cmbHoraRevision" class="col-sm-4 control-label">CRQ Remedy coinside:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <input type="checkbox" class="form-check-input">
+                                            <div class="display-block m-t-15">
+                                                <label for="txtComentario" class="text-bold">
+                                                    Comentario.
+                                                </label>
+                                                <textarea class="form-control" id="txtComentario" name="txtComentario"></textarea>
                                             </div>
-                                        </div>    
-                                        <div class="form-group">
-                                            <label for="txtComentarioPuntoControl" class="col-sm-4 control-label">Evidencias PrePost:</label>
-                                            <div class="col-sm-8 p-r-30">
-                                                <input type="checkbox" class="form-check-input"> texto
-                                                <input type="checkbox" class="form-check-input"> texto
-                                                <input type="checkbox" class="form-check-input"> texto
-                                            </div>
-                                        </div>    
+                                        </div>
                                     </div>
                                     <!-- Button -->
                                     <center>
