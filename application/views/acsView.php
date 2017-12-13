@@ -18,7 +18,7 @@
                             <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-home"></h4><br/>Punto de Control
                             </a>
-                            <a class="list-group-item text-center">
+                            <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
                             <a class="list-group-item text-center">
@@ -31,162 +31,121 @@
                         <!-- creacion ventana section -->
                         <div class="bhoechie-tab-content" id="contentTab1">
                             <center>
-                                <form class="well form-horizontal" action="" method="post"  id="assignEng" name="assignEng">
-                                    <fieldset class="col-md-6 control-label">
-                                        <div class="form-group">
+                                <form class="well form-horizontal" action="" method="post">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
                                             <label for="txtFechaSolicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                                    <input type='datetime-local' name="txtFechaSolicitud" id="txtFechaSolicitud" class="form-control" style="width: 230px;">
-                                                </div>
+                                            <div class="col-sm-8">
+                                                <input type='datetime-local' name="txtFechaSolicitud" id="txtFechaSolicitud" class="form-control" style="width: 230px;">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbEstacion" class="col-md-3 control-label">Estacion:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbEstacion" name="cmbEstacion">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbEstacion" class="col-md-3 control-label">ID Site Access :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="txtIdSiteAccess" id="txtIdSiteAccess" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbBanda" class="col-md-3 control-label">Banda:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbBanda" name="cmbBanda">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="txtFechaSolicitud" class="col-md-3 control-label">Estacion :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" id="cmbEstacion" name="cmbEstacion">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbEnteEjecutor" class="col-md-3 control-label">Ente Ejecutor:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                                    <select class="form-control selectpicker" name="cmbEnteEjecutor" id="cmbEnteEjecutor">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="txtNombreGrupoSkype" class="col-md-3 control-label">Nombre Grupo Skype:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                                    <input type='text' name="txtNombreGrupoSkype" id="txtNombreGrupoSkype" class="form-control"  >
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="txtHoraAperturaGrupo" class="col-md-3 control-label">Hora Apertura Grupo:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                                    <input type='text' name="txtHoraAperturaGrupo" id="txtHoraAperturaGrupo" class="form-control"  >
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbIncidente" class="col-md-3 control-label">Incidente:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                    <select class="form-control selectpicker" name="cmbIncidente" id="cmbIncidente">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!--  fin seccion izquierda form---->
-
-                                    <!--  inicio seccion derecha form---->
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label for="txtIdSiteAccess" class="col-md-3 control-label">ID Site Access :</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                    <input type='text' name="txtIdSiteAccess" id="txtIdSiteAccess" class="form-control"  >
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <label for="cmbTecnologia" class="col-md-3 control-label">Tecnologia:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbTecnologia" name="cmbTecnologia">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" id="cmbTecnologia" name="cmbTecnologia">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbTipoTrabajo" class="col-md-3 control-label">Tipo de Trabajo:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbTipoTrabajo" name="cmbTipoTrabajo">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbBanda" class="col-md-3 control-label">Banda :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" id="cmbBanda" name="cmbBanda">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="txtPersonaSolicita" class="col-md-3 control-label">Persona que Solicita:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                                    <input type='text' name="txtPersonaSolicita" id="txtPersonaSolicita" class="form-control"  >
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbTipoTrabajo" class="col-md-3 control-label">Tipo de Trabajo :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" id="cmbTipoTrabajo" name="cmbTipoTrabajo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbRegionalSkype" class="col-md-3 control-label">Regional Skype:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbRegionalSkype" name="cmbRegionalSkype">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbEnteEjecutor" class="col-md-3 control-label">Ente Ejecutor :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" name="cmbEnteEjecutor" id="cmbEnteEjecutor">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbIngCreadorGrupo" class="col-md-3 control-label">Ingeniero Creador Grupo:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbIngCreadorGrupo" name="cmbIngCreadorGrupo">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="txtPersonaSolicita" class="col-md-3 control-label">Persona que Solicita :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="txtPersonaSolicita" id="txtPersonaSolicita" class="form-control">
                                             </div>
                                         </div>
-                                    </fieldset>
-                                    <!--   fin seccion derecha---->
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="txtNombreGrupoSkype" class="col-md-3 control-label">Nombre Grupo Skype :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="txtNombreGrupoSkype" id="txtNombreGrupoSkype" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRegionalSkype" class="col-md-3 control-label">Regional Skype :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" id="cmbRegionalSkype" name="cmbRegionalSkype">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="txtHoraAperturaGrupo" class="col-md-3 control-label">Hora Apertura Grupo :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="txtHoraAperturaGrupo" id="txtHoraAperturaGrupo" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbIngCreadorGrupo" class="col-md-3 control-label">Ingeniero Creador Grupo :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" id="cmbIngCreadorGrupo" name="cmbIngCreadorGrupo">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbIncidente" class="col-md-3 control-label">Incidente:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker" name="cmbIncidente" id="cmbIncidente">
+                                                    <option value="">Seleccione</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Button -->
                                     <center>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" id="btnGuardar" class="btn btn-success" onclick = "">Guardar <span class="fa fa-fw fa-save"></span></button>
+                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
                                             </div>
                                         </div>
                                     </center>
@@ -502,162 +461,95 @@
                         <!-- punto de control section -->
                         <div class="bhoechie-tab-content" id="contentTab3">
                             <center>
-                                <form class="well form-horizontal" action="" method="post"  id="assignEng" name="assignEng">
-                                    <fieldset class="col-md-6 control-label">
-                                        <div class="form-group">
-                                            <label for="txtFechaSolicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                                    <input type='datetime-local' name="txtFechaSolicitud" id="txtFechaSolicitud" class="form-control" style="width: 230px;">
-                                                </div>
+                                <form class="well form-horizontal" action="" method="post">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">ID ZTE:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="000" disabled="" />
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbEstacion" class="col-md-3 control-label">Estacion:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbEstacion" name="cmbEstacion">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Estación:</span></label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbBanda" class="col-md-3 control-label">Banda:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbBanda" name="cmbBanda">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="cmbEnteEjecutor" class="col-md-3 control-label">Ente Ejecutor:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                                    <select class="form-control selectpicker" name="cmbEnteEjecutor" id="cmbEnteEjecutor">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Banda:</span></label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="txtNombreGrupoSkype" class="col-md-3 control-label">Nombre Grupo Skype:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                                    <input type='text' name="txtNombreGrupoSkype" id="txtNombreGrupoSkype" class="form-control"  >
-                                                </div>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
+                                        <div class="col-sm-10 p-r-30">
+                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                <option value="">Seleccione</option>
+                                            </select>
+                                        </div>
+                                    </div>    
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Estado VM:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="txtHoraAperturaGrupo" class="col-md-3 control-label">Hora Apertura Grupo:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                                    <input type='text' name="txtHoraAperturaGrupo" id="txtHoraAperturaGrupo" class="form-control"  >
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Motivo:</span></label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
+                                        <div class="clearfix m-t-20"></div>
                                         <div class="form-group">
-                                            <label for="cmbIncidente" class="col-md-3 control-label">Incidente:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                    <select class="form-control selectpicker" name="cmbIncidente" id="cmbIncidente">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                            <label for="cmbIngenieroControl" class="col-sm-4 control-label">Ingeniero Control:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <select class="form-control" id="cmbIngenieroControl" name="cmbIngenieroControl">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
-                                        </div>
-                                    </fieldset>
-                                    <!--  fin seccion izquierda form---->
-
-                                    <!--  inicio seccion derecha form---->
-                                    <fieldset>
+                                        </div>    
                                         <div class="form-group">
-                                            <label for="txtIdSiteAccess" class="col-md-3 control-label">ID Site Access :</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                    <input type='text' name="txtIdSiteAccess" id="txtIdSiteAccess" class="form-control"  >
-                                                </div>
+                                            <label for="cmbHoraRevision" class="col-sm-4 control-label">Hora revisión:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <input type="text" class="form-control" id="cmbHoraRevision" name="cmbHoraRevision">
                                             </div>
-                                        </div>
-
+                                        </div>    
                                         <div class="form-group">
-                                            <label for="cmbTecnologia" class="col-md-3 control-label">Tecnologia:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbTecnologia" name="cmbTecnologia">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
+                                            <label for="txtComentarioPuntoControl" class="col-sm-4 control-label">Comentario Punto de Control:</label>
+                                            <div class="col-sm-8 p-r-30">
+                                                <textarea class="form-control" id="txtComentarioPuntoControl" name="txtComentarioPuntoControl"></textarea>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbTipoTrabajo" class="col-md-3 control-label">Tipo de Trabajo:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbTipoTrabajo" name="cmbTipoTrabajo">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="txtPersonaSolicita" class="col-md-3 control-label">Persona que Solicita:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                                    <input type='text' name="txtPersonaSolicita" id="txtPersonaSolicita" class="form-control"  >
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbRegionalSkype" class="col-md-3 control-label">Regional Skype:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbRegionalSkype" name="cmbRegionalSkype">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="cmbIngCreadorGrupo" class="col-md-3 control-label">Ingeniero Creador Grupo:</label>
-                                            <div class="col-md-8 selectContainer">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                    <select class="form-control selectpicker" id="cmbIngCreadorGrupo" name="cmbIngCreadorGrupo">
-                                                        <option value="">Seleccione</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!--   fin seccion derecha---->
-                                    <!-- Button -->
+                                        </div>    
+                                    </div>
                                     <center>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" id="btnGuardar" class="btn btn-success" onclick = "">Guardar <span class="fa fa-fw fa-save"></span></button>
+                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Control</button>
                                             </div>
                                         </div>
                                     </center>
