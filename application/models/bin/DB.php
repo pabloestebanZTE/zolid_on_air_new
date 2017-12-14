@@ -87,6 +87,18 @@ class DB extends PDO {
         return $this;
     }
 
+    public function isNull($key) {
+        $this->wheres .= (strpos($this->wheres, "WHERE")) ? " OR " : " WHERE ";
+        $this->wheres .= "$key is NULL";
+        return $this;
+    }
+
+    public function isNotNull($key) {
+        $this->wheres .= (strpos($this->wheres, "WHERE")) ? " OR " : " WHERE ";
+        $this->wheres .= "$key is NOT NULL";
+        return $this;
+    }
+
     public function where($key, $condition, $value) {
         $this->wheres .= (strpos($this->wheres, "WHERE")) ? " AND " : " WHERE ";
         $this->wheres .= "$key $condition " . ((is_string($value)) ? "\"$value\"" : $value) . " ";

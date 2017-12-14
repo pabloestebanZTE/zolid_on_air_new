@@ -24,6 +24,16 @@ class Crud {
         return $this;
     }
 
+    public function isNull($key) {
+        $this->init();
+        return $this->db->isNull($key);
+    }
+
+    public function isNotNull($key) {
+        $this->init();
+        return $this->db->isNotNull($key);
+    }
+
     public function where($key, $condition, $value) {
         $this->init();
         $this->db->where($key, $condition, $value);
