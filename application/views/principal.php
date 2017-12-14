@@ -8,7 +8,7 @@
                 <a href="#" class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
-            <?php            
+            <?php
             if (Auth::isCoordinador()) {
                 $this->load->view('parts/principal/coordinador');
             }
@@ -17,6 +17,10 @@
             }
             if (Auth::isIngeniero()) {
                 $this->load->view('parts/principal/ingeniero');
+            }    
+            //::Evaluador
+            if (Auth::isEvaluador()) {
+                $this->load->view('parts/principal/evaluador', ["stadistics" => $stadistics]);
             }
             ?>
         </div>

@@ -16,6 +16,7 @@ class User extends CI_Controller {
         $this->load->model('data/Dao_precheck_model');
         $this->load->model('data/Dao_statusOnair_model');
         $this->load->model('data/Dao_scaledOnair_model');
+        $this->load->model('data/Dao_evaluador_model');
     }
 
     private function validUser($request) {
@@ -66,6 +67,10 @@ class User extends CI_Controller {
             Redirect::to(URL::base());
         }
         $answer['user'] = Auth::user();
+        if (Auth::isEvaluador()) {
+            $daoEvaluador = new Dao_evaluador_model();
+            $answer["stadistics"] = $daoEvaluador->getAllStadistics()->data;
+        }
         $this->load->view('principal', $answer);
     }
 
@@ -87,7 +92,12 @@ class User extends CI_Controller {
         if (!Auth::check()) {
             Redirect::to(URL::base());
         }
-        $this->load->view('principal');
+        if (Auth::isEvaluador()) {
+            $daoEvaluador = new Dao_evaluador_model();
+            $this->load->view('principal', ["stadistics" => $daoEvaluador->getAllStadistics()->data]);
+        } else {
+            $this->load->view('principal');
+        }
     }
 
     public function documenterStrartView($answer) {

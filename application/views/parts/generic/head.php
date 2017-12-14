@@ -11,8 +11,8 @@
     <link rel='stylesheet' type='text/css'  href='http://fonts.googleapis.com/css?family=Open+Sans'/>
     <!-- CSS BOOTSTRAP-TABLE-->
     <link rel="stylesheet" href="<?= URL::to('assets/plugins/datatables/css/dataTables.bootstrap.min.css?v=1.0') ?>">
-    <link rel="stylesheet" href="<?= URL::to('assets/css/helper-class.css') ?>">
+    <link rel="stylesheet" href="<?= URL::to('assets/css/helper-class.css?v=1.0') ?>">
     <link href="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="<?= URL::to('assets/css/stylePrincipal.css?v=1.1') ?>" />
+    <link rel="stylesheet" href="<?= URL::to('assets/css/stylePrincipal.css?v=1.2') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.min.css" />
 </head>
