@@ -1,82 +1,29 @@
-var vista = {
+var TD = {
     contentFases: $('#contentFases'),
     exec: false,
     init: function () {
-        vista.events();
-        vista.configView();
-        vista.getDetail();
-        vista.listCombox();
-        vista.getDetails();
-        vista.getStatesProduction();
+        TD.events();
+        TD.configView();
+        TD.getDetail();
+        TD.listCombox();
+        TD.getDetails();
+        TD.getStatesProduction();
         dom.submit($('#formDetallesBasicos'), null, false);
         dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
-        $('#btnDetails').on('click', vista.onClickDetails);
-        $('.hour-step .icon-step').on('click', vista.onClickIconStep);
-        $('.hour-step').on('click', vista.onClickHourStep);
-        $('.states-modal li a').on('click', vista.onClickItemState);
+        $('#btnDetails').on('click', TD.onClickDetails);
+        $('.hour-step .icon-step').on('click', TD.onClickIconStep);
+        $('.hour-step').on('click', TD.onClickHourStep);
+        $('.states-modal li a').on('click', TD.onClickItemState);
         $('.select-fill').on('select2fill', function () {
             var cmb = $(this);
             cmb.val(cmb.attr('data-value'));
             cmb.trigger('change.select2');
         });
-        $('#btnAceptarModal').on('click', vista.onClickAceptarModal);
-        $('#btnEditarSectores').on('click', vista.onClickEditarSectores);
-        $('#btnAceptarModalSectores').on('click', vista.onClickAceptarModalSectores);
-        $('.comment-step').on('click', vista.onClickCommentStep);
-    },
-    onClickCommentStep: function () {
-        $('.row.content-wiget').addClass('hidden');
-        $('.hour-step').removeClass('active');
-        $(this).addClass('active');
-        $('#contentComments').removeClass('hidden');
-        vista.getComments();
-    },
-    getComments: function () {
-        var idTicket = $('#idProceso').val();
-        var content = $('#contentComments .wiget');
-        var alert = dom.printAlert('Consultando...', 'loading', $('#alertComments'));
-        app.post('TicketOnair/getCommentsTicket', {
-            idTicket: idTicket
-        }).success(function (response) {
-            var data = app.parseResponse(response);
-            if (data && data.length > 0) {
-                content.show();
-                content.html('');
-                for (var i = 0; i < data.length; i++) {
-                    var dat = data[i];
-                    alert.hide();
-                    var comment = '<div class="form-group row wiget-comment">'
-                            + '<div class="col-md-3 wiget-list">'
-                            + '<div class="item-wiget">'
-                            + '<div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>'
-                            + '<div class="details-wiget">'
-                            + '<span class="title display-block">Fecha: </span>'
-                            + '<span class="text display-block" id="d_start">{hora_actualizacion_resucomen}</span>'
-                            + '</div>'
-                            + '</div>'
-                            + '</div>'
-                            + '<div class="col-md-5">'
-                            + '<p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{comentario_resucoment}</span></p>'
-                            + '</div>'
-                            + '<div class="wiget-list p-l-25 users"><div class="item-wiget">'
-                            + '<div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>'
-                            + '<div class="details-wiget">'
-                            + '<span class="title display-block">{usuario_resucomen}</span>'
-                            + ' </div>'
-                            + '</div></div>'
-                            + '</div>';
-                    content.append(dom.fillString(comment, dat));
-                }
-            } else {
-                alert.print("No se encontraron comentarios.", "warning");
-                content.hide();
-            }
-        }).error(function (e) {
-            alert.print("Se ha producido un error inesperado.", "danger");
-            content.hide();
-        }).send();
+        $('#btnAceptarModal').on('click', TD.onClickAceptarModal);
+        $('#btnEditarSectores').on('click', TD.onClickEditarSectores);
+        $('#btnAceptarModalSectores').on('click', TD.onClickAceptarModalSectores);
     },
     onClickAceptarModalSectores: function () {
         var sectores = [];
@@ -125,31 +72,30 @@ var vista = {
         }
     },
     onClickHourStep: function () {
-        vista.resizeWigets();
+        TD.resizeWigets();
         $hourStep = $(this);
         $('.row.content-wiget').addClass('hidden');
         $($hourStep.attr('data-ref')).removeClass('hidden').hide().fadeIn(500);
         $('.hour-step').removeClass('active');
-        $('.comment-step').removeClass('active');
         $hourStep.addClass('active');
     },
     onClickAceptarModal: function () {
         var action = $('.states-modal a.active').attr('data-action');
         switch (action) {
             case "PROR":
-                vista.createProrroga();
+                TD.createProrroga();
                 break;
             case "NEXT":
-                vista.nextFase();
+                TD.nextFase();
                 break;
             case "PROD":
-                vista.toProduction();
+                TD.toProduction();
                 break;
             case "STANDBY":
-                vista.toStandBy();
+                TD.toStandBy();
                 break;
             case "QUITSTANDBY":
-                vista.quitStandBy();
+                TD.quitStandBy();
                 break;
         }
     },
@@ -253,14 +199,8 @@ var vista = {
                     console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
-                        swal({
-                            title: "Guardado",
-                            text: "Se ha registrado la prórroga éxitosamente.",
-                            type: "success",
-                            button: "Aceptar"
-                        }).then(function () {
-                            location.reload();
-                        });
+                        swal("Guardado", "Se ha registrado la prórroga éxitosamente.", "success");
+                        TD.getDetails();
                     } else {
                         swal("Atención", "No se pudo registrar la prórroga.", "warning");
                     }
@@ -270,6 +210,7 @@ var vista = {
         }).send();
     },
     nextFase: function () {
+        console.log("SIGUIENTE FASE");
         var cmb = $('#cmbSiguienteFase');
         if (cmb.val().trim() === "") {
             swal("Error", "La fase seleccionada es inválida.", "error");
@@ -286,7 +227,7 @@ var vista = {
                     var v = app.validResponse(response);
                     if (v) {
                         swal("Guardado", "Se ha terminado la fase correctamente.", "success");
-                        vista.getDetails();
+                        TD.getDetails();
                     } else {
                         swal("Atención", response.message, "warning");
                     }
@@ -327,7 +268,6 @@ var vista = {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(2)').addClass('disabled');
-            $('#modalChangeState .states-modal a:eq(3)').addClass('disabled');
         } else if (parent.hasClass('produccion')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
             $('#modalChangeState .states-modal a:eq(1)').addClass('disabled');
@@ -346,27 +286,17 @@ var vista = {
         $('#modalChangeState').modal('show');
     },
     listCombox: function () {
-        vista.listStates();
+        TD.listStates();
     },
     listStates: function () {
         var cmbStatus = $('#cmbEstadosTD');
         var cmbSubStatus = $('#cmbSubEstadosTD');
-        var cmbWorks = $('#cmbTipoTrabajo');
-        var cmbTechnolgies = $('#cmbTecnologia');
-        var cmbBands = $('#cmbBanda');
         app.post('TicketOnair/getAllStates').success(function (response) {
             if (response.code > 0) {
                 dom.llenarCombo(cmbStatus, response.data["states"], {text: 'n_name_status', value: 'k_id_status'});
                 dom.llenarCombo(cmbSubStatus, response.data["substates"], {text: 'n_name_substatus', value: 'k_id_substatus'});
-                dom.llenarCombo(cmbTechnolgies, response.data["technologies"], {text: 'n_name_technology', value: 'k_id_technology'});
-                dom.llenarCombo(cmbWorks, response.data["works"], {text: 'n_name_ork', value: 'k_id_work'});
-                dom.llenarCombo(cmbBands, response.data["bands"], {text: 'n_name_band', value: 'k_id_band'});
             } else {
                 dom.comboVacio(cmbStatus);
-                dom.comboVacio(cmbSubStatus);
-                dom.comboVacio(cmbTechnolgies);
-                dom.comboVacio(cmbBands);
-                dom.comboVacio(cmbWorks);
             }
         }).error(function (e) {
             console.error(e);
@@ -384,10 +314,6 @@ var vista = {
 //        dom.timer($('#timeStep'), 1509706921000, $('#progressStep1'));
         $('select').select2({'width': '100%'});
     },
-    /**
-     * Básicamente llenará los formuarios de los dos paneles principales del acordión.
-     * @returns {undefined}
-     */
     getDetail: function () {
         var alert = dom.printAlert('Consultando detalles, por favor espere...', 'loading', $('#principalAlert'));
         //Consultamos...
@@ -396,15 +322,14 @@ var vista = {
                     if (response.code > 0) {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
-                        var form = $('#formDetallesBasicos');
-                        form.fillForm(response.data);
+                        $('#formDetallesBasicos').fillForm(response.data);
                         $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');
                         form.fillForm(objTemp);
                         try {
                             if (response.data.n_json_sectores) {
-                                vista.fillTableSectores(response.data);
+                                TD.fillTableSectores(response.data);
                             }
                         } catch (e) {
                         }
@@ -433,11 +358,11 @@ var vista = {
                     if (response.code > 0) {
                         $('#contentFases').removeClass('hidden').hide().fadeIn(500);
                         //Listamos los grupos...
-                        if (!vista.exec) {
-                            vista.listGroups(response.data.groups, response.data.group);
-                            vista.listDetails(response.data.details);
+                        if (!TD.exec) {
+                            TD.listGroups(response.data.groups, response.data.group);
+                            TD.listDetails(response.data.details);
                         }
-                        vista.setTimers(response.data);
+                        TD.setTimers(response.data);
                     }
                 })
                 .error(function (e) {
@@ -450,11 +375,11 @@ var vista = {
         $('.hour-step .progress-step').css('width', '100%');
         $('.timerstamp').html('<i class="fa fa-fw fa-info-circle"></i> No definido');
         var fn = function () {
-            if (vista.exec) {
+            if (TD.exec) {
                 return true;
             }
-            vista.getDetails();
-            vista.exec = true;
+            TD.getDetails();
+            TD.exec = true;
         };
         $('.hour-step').removeClass('active').addClass('disabled');
         $('.row.content-wiget').addClass('hidden');
@@ -500,7 +425,7 @@ var vista = {
                 $('.hour-step').removeClass('disabled').addClass('produccion');
                 $('#contentDetails_12h_content').removeClass('hidden');
                 $('#alertReinicio12h').removeClass('hidden');
-                vista.contentFases.addClass('hidden').hide();
+                TD.contentFases.addClass('hidden').hide();
                 $('#btnRunActividad').on('click', function () {
                     dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
                         app.post('TicketOnair/restart12h', {
@@ -533,13 +458,6 @@ var vista = {
                 $('#contentDetails_12h_content').removeClass('hidden');
                 $('.hour-step').removeClass('disabled').addClass('produccion');
                 break
-            case "escalado":
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Escalado');
-                $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('.hour-step').removeClass('disabled').addClass('escalado');
-                break;
             default :
                 $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-play-circle"></i> En producción');
@@ -549,7 +467,7 @@ var vista = {
                 break;
         }
         $('.hour-step.disabled .progress-step').css('width', '0%');
-        vista.resizeWigets();
+        TD.resizeWigets();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');
@@ -661,7 +579,7 @@ var vista = {
         }
 
         //Configuramos las alturas de las secciones...
-        vista.resizeWigets();
+        TD.resizeWigets();
     },
     resizeWigets: function () {
         window.setTimeout(function () {
@@ -695,5 +613,5 @@ var vista = {
 };
 
 $(function () {
-    vista.init();
+    TD.init();
 })

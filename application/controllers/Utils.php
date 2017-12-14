@@ -10,6 +10,7 @@ class Utils extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->model('data/TimerGlobal');
     }
 
     public function getCurrentTimeStamp() {
@@ -45,6 +46,15 @@ class Utils extends CI_Controller {
     public function time() {
         $x = date("Y-m-d H:i:s");
         $this->json($x);
+    }
+
+    public function nextDate() {
+        $date = Hash::getDate();
+        $timer = new TimerGlobal();
+        $obj = $timer->getObjectModel();
+        $obj->d_precheck_start = $date;
+        $timer->nextDate($obj, "d_precheck_start", 3);
+        echo Hash::timeStampToDate($obj->next_date);
     }
 
 }

@@ -131,7 +131,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                     <!--<input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" >-->
-                                    <textarea class="form-control" name="n_detalle_solucion" id="n_detalle_solucion" required></textarea>
+                                    <textarea class="form-control" name="n_detalle_solucion" id="n_detalle_solucion"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -332,7 +332,7 @@
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
                 dom.submit($('#restartForm'), function(){window.location = app.urlTo('User/principal');}, false);

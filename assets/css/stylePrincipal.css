@@ -67,15 +67,9 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
-    margin-top:320px;
-    text-transform:uppercase;
-
-}
 h2 {
     color: #207be5;
 }
-
 
 h3 {
     line-height:30px;
@@ -816,21 +810,6 @@ nav {
     height: 40px;
     border-radius: 3px;
 }
-.icon-wiget-user{
-    border-radius: 100%;
-    background-color: #af5d91;
-    float: left;
-    color: #FFF;
-    font-size: 20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-}
-.icon-wiget-user .fa{
-    display: block;
-    margin: 0 auto;
-    margin-top: 8px;
-}
 .wiget .wiget-list .item-wiget .icon-wiget .fa{
     display: block;
     margin: 0 auto;
@@ -890,29 +869,26 @@ table td{
     margin-bottom: 0px;
 }
 
-
 /*Comment step...*/
 .comment-step *{
     pointer-events: none;
 }
 .comment-step{
     display: inline-table;
-    background-color: #ffffff;
-    color: #636363;
+    background-color: #673AB7;
+    color: #FFF;
     vertical-align: bottom;
     border-radius: 3px 3px 0px 0px;
     padding: 10px 25px;
     text-align: center;
-    border: 1px solid #5433b77a;    
+    border: 1px solid #33b73e7a;
+    opacity: 0.5;
     border-bottom: 0px;
     box-shadow: 0px 0px 3px #ccc;
     position: relative;
-    background-color: #4b3c65;
-    color: #FFF;
 }
 .comment-step:hover, .comment-step.active{
-    background-color: #673AB7;
-    color: #FFF;
+    opacity: 1;
     cursor:pointer;
 }
 .comment-step i{
@@ -927,8 +903,109 @@ table td{
     margin-left: 47px;
     margin-top: 5px;
 }
-.wiget-user-name{
-    font-weight: bold;
-    display: block;
-    margin-left: 50px;
+.ibox-content {
+    clear: both;
+}
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+}
+
+
+/*  bhoechie tab */
+div.bhoechie-tab-container{
+    z-index: 10;
+    background-color: #efeeee;
+    padding: 0 !important;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    border:1px solid #ddd;
+    margin-top: 20px;
+    margin-left: 0px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    background-clip: padding-box;
+    opacity: 0.97;
+    filter: alpha(opacity=97);
+}
+div.bhoechie-tab-menu{
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+div.bhoechie-tab-menu div.list-group{
+    margin-bottom: 0;
+}
+div.bhoechie-tab-menu div.list-group>a{
+    margin-bottom: 0;
+}
+div.bhoechie-tab-menu div.list-group>a .glyphicon,
+div.bhoechie-tab-menu div.list-group>a .fa {
+    color: #207be5;
+}
+div.bhoechie-tab-menu div.list-group>a:first-child{
+    border-top-right-radius: 0;
+    -moz-border-top-right-radius: 0;
+}
+div.bhoechie-tab-menu div.list-group>a:last-child{
+    border-bottom-right-radius: 0;
+    -moz-border-bottom-right-radius: 0;
+}
+div.bhoechie-tab-menu div.list-group>a.active,
+div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
+div.bhoechie-tab-menu div.list-group>a.active .fa{
+    background-color: #207be5;
+    background-image: #207be5;
+    color: #ffffff;
+}
+div.bhoechie-tab-menu div.list-group>a.active:after{
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: -13px;
+    border-left: 0;
+    border-bottom: 13px solid transparent;
+    border-top: 13px solid transparent;
+    border-left: 10px solid #207be5;
+}
+
+div.bhoechie-tab-content{
+    /* background-color: #ffffff; */
+    /* border: 1px solid #eeeeee; */
+    /* padding-left: 20px; */
+    /* padding-top: 10px; */
+    border-left: 1px solid #dedede;
+}
+
+div.bhoechie-tab div.bhoechie-tab-content:not(.active){
+    display: none;
+}
+.list-group-item{
+    border-bottom: 0px;
+    background-color: #efeded;
+}
+.list-group-item:hover{
+    background-color: #FFF !important;
+}
+.list-group-item.active{
+    background-color: #277fe6 !important;
+}
+.list-group-item .fa{
+    color: #5a5a5a !important;
+}
+.list-group-item.active .fa{
+    color: #FFF !important;
+}
+.list-group-item:last-child{
+    border-bottom: 1px solid #dddddd;
+}
+body{
+    background-color: #FFF !important;
 }

@@ -11,64 +11,10 @@ var TD = {
     events: function () {
         $('#btnDetails').on('click', TD.onClickDetails);
         $('.hour-step').on('click', TD.onClickHourStep);
-        $('.comment-step').on('click', TD.onClickCommentStep);
-    },
-    onClickCommentStep: function () {
-        $('.row.content-wiget').addClass('hidden');
-        $('.hour-step').removeClass('active');
-        $(this).addClass('active');
-        $('#contentComments').removeClass('hidden');
-        TD.getComments();
-    },
-    getComments: function () {
-        var idTicket = $('#idProceso').val();
-        var content = $('#contentComments .wiget');
-        var alert = dom.printAlert('Consultando...', 'loading', $('#alertComments'));
-        app.post('TicketOnair/getCommentsTicket', {
-            idTicket: idTicket
-        }).success(function (response) {
-            var data = app.parseResponse(response);
-            if (data && data.length > 0) {
-                content.show();
-                content.html('');
-                for (var i = 0; i < data.length; i++) {
-                    var dat = data[i];
-                    alert.hide();
-                    var comment = '<div class="form-group row wiget-comment">'
-                            + '<div class="col-md-3 wiget-list">'
-                            + '<div class="item-wiget">'
-                            + '<div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>'
-                            + '<div class="details-wiget">'
-                            + '<span class="title display-block">Fecha: </span>'
-                            + '<span class="text display-block" id="d_start">{hora_actualizacion_resucomen}</span>'
-                            + '</div>'
-                            + '</div>'
-                            + '</div>'
-                            + '<div class="col-md-5">'
-                            + '<p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{comentario_resucoment}</span></p>'
-                            + '</div>'
-                            + '<div class="wiget-list p-l-25 users"><div class="item-wiget">'
-                            + '<div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>'
-                            + '<div class="details-wiget">'
-                            + '<span class="title display-block">{usuario_resucomen}</span>'
-                            + ' </div>'
-                            + '</div></div>'
-                            + '</div>';
-                    content.append(dom.fillString(comment, dat));
-                }
-            } else {
-                alert.print("No se encontraron comentarios.", "warning");
-                content.hide();
-            }
-        }).error(function (e) {
-            alert.print("Se ha producido un error inesperado.", "danger");
-            content.hide();
-        }).send();
     },
     onClickHourStep: function () {
         $hourStep = $(this);
         $('.row.wiget').addClass('hidden');
-        $('.row.content-wiget').addClass('hidden');
         $($hourStep.attr('data-ref')).removeClass('hidden');
         $('.hour-step').removeClass('active');
         $hourStep.addClass('active');
@@ -119,100 +65,70 @@ var TD = {
     listDetails: function (details) {
         //List 12h...
         var content = $('#contentDetails_12h');
-        var users = $('#contentDetails_12h_users');
         content.html('');
         var model = $('#modelWiget');
-        var modelUser = $('#wigetUser');
+        var clone = model.clone().removeClass('hidden').removeAttr('id');
         for (var i = 0, dat; dat = details["12h"][i], i < details["12h"].length; i++) {
-//            Listamos los usuarios...
-            var ctx = users.find('.users');
-            var item = modelUser;
+            clone.find('#d_start').html(dom.formatDate(dat.d_start12h, 'month'));
+            clone.find('#d_end').html(dom.formatDate(dat.d_fin12h, 'month'));
+            clone.find('#n_comentario').html(dat.n_comentario, 'month');
+            //Listamos los usuarios...
+            var ctx = clone.find('.users');
+            var item = ctx.find('.item-wiget').clone();
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_12h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_12h[j], j < dat.k_id_follow_up_12h.length; j++) {
-                    var cln = item.clone().removeClass('hidden').removeAttr('id');
+                    var cln = item.clone();
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);
                 }
             }
-
-            //Listamos los comentarios...
-            //- Primero detectamos si hay un JSON de comentarios...
-            if (dat.n_comentario) {
-                var cmns = JSON.parse(dat.n_comentario);
-                for (var k = (cmns.length - 1); k >= 0; k--) {
-                    var clone = model.clone().removeClass('hidden').removeAttr('id');
-                    clone.find('#d_start').html(dom.formatDate(cmns[k].date, 'month'));
-                    clone.find('#n_comentario').html(cmns[k].comment);
-                    content.append(clone);
-                }
-            }
+            content.append(clone);
         }
         //List 24h...
         var content = $('#contentDetails_24h');
         content.html('');
         var model = $('#modelWiget');
-        var users = $('#contentDetails_24h_users');
         var clone = model.clone().removeClass('hidden').removeAttr('id');
         for (var i = 0, dat; dat = details["24h"][i], i < details["24h"].length; i++) {
+            clone.find('#d_start').html(dom.formatDate(dat.d_start24h, 'month'));
+            clone.find('#d_end').html(dom.formatDate(dat.d_fin24h, 'month'));
+            clone.find('#n_comentario').html(dat.n_comentario, 'month');
             //Listamos los usuarios...
-            var ctx = users.find('.users');
-            var item = modelUser;
+            var ctx = clone.find('.users');
+            var item = ctx.find('.item-wiget').clone();
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_24h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_24h[j], j < dat.k_id_follow_up_24h.length; j++) {
-                    var cln = item.clone().removeClass('hidden').removeAttr('id');
+                    var cln = item.clone();
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);
                 }
             }
-
-            //Listamos los comentarios...
-            //- Primero detectamos si hay un JSON de comentarios...
-            if (dat.n_comentario) {
-                var cmns = JSON.parse(dat.n_comentario);
-                for (var k = (cmns.length - 1); k >= 0; k--) {
-                    var clone = model.clone().removeClass('hidden').removeAttr('id');
-                    clone.find('#d_start').html(dom.formatDate(cmns[k].date, 'month'));
-                    clone.find('#n_comentario').html(cmns[k].comment);
-                    content.append(clone);
-                }
-            }
+            content.append(clone);
         }
         //List 36h
         var content = $('#contentDetails_36h');
         content.html('');
         var model = $('#modelWiget');
-        var users = $('#contentDetails_36h_users');
         var clone = model.clone().removeClass('hidden').removeAttr('id');
         for (var i = 0, dat; dat = details["36h"][i], i < details["36h"].length; i++) {
+            clone.find('#d_start').html(dom.formatDate(dat.d_start36h, 'month'));
+            clone.find('#d_end').html(dom.formatDate(dat.d_fin36h, 'month'));
+            clone.find('#n_comentario').html(dat.n_comentario, 'month');
             //Listamos los usuarios...
-            var ctx = users.find('.users');
-            var item = modelUser;
+            var ctx = clone.find('.users');
+            var item = ctx.find('.item-wiget').clone();
             ctx.html('');
             if (Array.isArray(dat.k_id_follow_up_36h)) {
                 for (var j = 0, dt; dt = dat.k_id_follow_up_36h[j], j < dat.k_id_follow_up_36h.length; j++) {
-                    var cln = item.clone().removeClass('hidden').removeAttr('id');
+                    var cln = item.clone();
                     cln.find('.title').html(dt.n_last_name_user + ' (' + dt.n_username_user + ')');
                     ctx.append(cln);
                 }
             }
-
-            //Listamos los comentarios...
-            //- Primero detectamos si hay un JSON de comentarios...
-            if (dat.n_comentario) {
-                var cmns = JSON.parse(dat.n_comentario);
-                for (var k = (cmns.length - 1); k >= 0; k--) {
-                    var clone = model.clone().removeClass('hidden').removeAttr('id');
-                    clone.find('#d_start').html(dom.formatDate(cmns[k].date, 'month'));
-                    clone.find('#n_comentario').html(cmns[k].comment);
-                    content.append(clone);
-                }
-            }
+            content.append(clone);
         }
-
-        //Configuramos las alturas de las secciones...
-        TD.resizeWigets();
     },
     getInfoForms: function () {
         var alert = dom.printAlert('Consultando detalles, por favor espere...', 'loading', $('#principalAlert'));
@@ -232,22 +148,6 @@ var TD = {
             console.error(error);
         }).send();
     },
-    resizeWigets: function () {
-        window.setTimeout(function () {
-            var cw = $('.content-wiget');
-            for (var i = 0, w; w = $(cw[i]), i < cw.length; i++) {
-                var ws = w.find('.wiget');
-                if (ws.length == 2) {
-                    var hEsMayor = $(ws[0])[0].offsetHeight > $(ws[1])[0].offsetHeight;
-                    if (hEsMayor) {
-                        $(ws[1]).css('min-height', $(ws[0])[0].offsetHeight + 'px');
-                    } else {
-                        $(ws[0]).css('min-height', $(ws[1])[0].offsetHeight + 'px');
-                    }
-                }
-            }
-        }, 1000);
-    },
     fillNA: function () {
         return "Indefinido";
     },
@@ -266,7 +166,6 @@ var TD = {
                 ]));
     },
     setTimers: function (obj) {
-        $('.hour-step .progress-step').css('width', '100%');
         $('.timerstamp').html('<i class="fa fa-fw fa-info-circle"></i> No definido');
         var fn = function () {
             if (TD.exec) {
@@ -276,99 +175,29 @@ var TD = {
             TD.exec = true;
         };
         $('.hour-step').removeClass('active').addClass('disabled');
-        $('.row.content-wiget').addClass('hidden');
+        $('.row.wiget').addClass('hidden');
         $('.hour-step').removeClass('active');
 
         switch (obj.actual_status) {
             case "12h":
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                dom.timer($('[data-ref="#contentDetails_12h_content"] #timeStep'), $('[data-ref="#contentDetails_12h_content"] .progress-step'), fn, obj);
-                $('#contentDetails_12h_content').removeClass('hidden').hide().fadeIn(500);
+                $('[data-ref="#contentDetails_12h"]').addClass('active').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_12h"] #timeStep'), $('[data-ref="#contentDetails_12h"] .progress-step'), fn, obj);
+                $('#contentDetails_12h').removeClass('hidden');
                 break;
             case "24h":
-                $('[data-ref="#contentDetails_12h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
-                $('[data-ref="#contentDetails_24h_content"]').addClass('active').removeClass('disabled');
-                dom.timer($('[data-ref="#contentDetails_24h_content"] #timeStep'), $('[data-ref="#contentDetails_24h_content"] .progress-step'), fn, obj);
-                $('#contentDetails_24h_content').removeClass('hidden');
+                $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
+                $('[data-ref="#contentDetails_24h"]').addClass('active').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_24h"] #timeStep'), $('[data-ref="#contentDetails_24h"] .progress-step'), fn, obj);
+                $('#contentDetails_24h').removeClass('hidden');
                 break;
             case "36h":
-                $('[data-ref="#contentDetails_12h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
-                $('[data-ref="#contentDetails_24h_content"]').removeClass('disabled').addClass('finish').find('#timeStep').html('<i class="fa fa-fw fa-flag-checkered"></i> Finalizado');
-                dom.timer($('[data-ref="#contentDetails_36h_content"] #timeStep'), $('[data-ref="#contentDetails_36h_content"] .progress-step'), fn, obj);
-                $('[data-ref="#contentDetails_36h_content"]').addClass('active').removeClass('disabled');
-                $('#contentDetails_36h_content_content').removeClass('hidden');
-                break;
-            case "32": //Substatus => Standby...
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-stop-circle"></i> Stand By');
-                $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('.hour-step').removeClass('disabled').addClass('standby');
-                break;
-            case "18":
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-check"></i> En Precheck');
-                $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('.hour-step').removeClass('disabled').addClass('produccion');
-                break;
-            case "19":
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 12H');
-                $('.progress-step').css('width', 100 + '%');
-                $('.hour-step').removeClass('disabled').addClass('produccion');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('#alertReinicio12h').removeClass('hidden');
-                TD.contentFases.addClass('hidden').hide();
-                $('#btnRunActividad').on('click', function () {
-                    dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
-                        app.post('TicketOnair/restart12h', {
-                            idTicket: $('#idProceso').val()
-                        }).success(function (response) {
-                            if (response.code > 0) {
-                                swal({
-                                    title: "Iniciado",
-                                    type: "success",
-                                    text: "Se ha iniciado el proceso correctamente.",
-                                    button: "Aceptar"
-                                }).then(function () {
-                                    location.reload();
-                                });
-                            } else {
-                                swal("Error", response.message);
-                            }
-                        }).error(function (e) {
-                            swal("Error", "Se ha producido un error inesperado.", "error");
-                        }).send();
-                    }, function () {
-                        swal("Cancelado", "Se ha cancelado la operación", "error");
-                    });
-                });
-                break
-            case "20":
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio Precheck');
-                $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('.hour-step').removeClass('disabled').addClass('produccion');
-                break
-            case "escalado":
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Escalado');
-                $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('.hour-step').removeClass('disabled').addClass('escalado');
-                break;
-            default :
-                $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
-                $('.timerstamp').html('<i class="fa fa-fw fa-play-circle"></i> En producción');
-                $('.progress-step').css('width', 100 + '%');
-                $('#contentDetails_12h_content').removeClass('hidden');
-                $('.hour-step').removeClass('disabled').addClass('produccion');
+                $('[data-ref="#contentDetails_12h"]').removeClass('disabled');
+                $('[data-ref="#contentDetails_24h"]').removeClass('disabled');
+                dom.timer($('[data-ref="#contentDetails_36h"] #timeStep'), $('data-ref="#contentDetails_36h"] .progress-step'), fn, obj);
+                $('[data-ref="#contentDetails_36h"]').addClass('active').removeClass('disabled');
+                $('#contentDetails_36h').removeClass('hidden');
                 break;
         }
-        $('.hour-step.disabled .progress-step').css('width', '0%');
-        TD.resizeWigets();
     },
 }
 

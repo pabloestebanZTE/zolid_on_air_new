@@ -26,6 +26,11 @@ $(function () {
                 $('[name="password"]').val("abc123");
                 $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();
+            } else if (isKey(e, 66)) {//E = Evaluador...
+                $('[name="username"]').val("admin");
+                $('[name="password"]').val("abc123");
+                $('[name="projectList"]').val("On Air");
+                $('#formu button[type="submit"]').click();
             } else if (isKey(e, 73)) {//I = Ingeniero...
                 $('[name="username"]').val("jdgómezs");
                 $('[name="password"]').val("abc123");

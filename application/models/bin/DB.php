@@ -93,6 +93,11 @@ class DB extends PDO {
         return $this;
     }
 
+    public function setWheres($wheres) {
+        $this->wheres = $wheres;
+        return $this;
+    }
+
     /**
      *
      * @param type $key
@@ -149,6 +154,18 @@ class DB extends PDO {
         return $this;
     }
 
+    public function isNull($key) {
+        $this->wheres .= (strpos($this->wheres, "WHERE")) ? " OR " : " WHERE ";
+        $this->wheres .= "$key is NULL";
+        return $this;
+    }
+
+    public function isNotNull($key) {
+        $this->wheres .= (strpos($this->wheres, "WHERE")) ? " OR " : " WHERE ";
+        $this->wheres .= "$key is NOT NULL";
+        return $this;
+    }
+
     public function groupBy($key) {
         $this->others .= " GROUP BY `$key` ";
         return $this;
@@ -166,7 +183,7 @@ class DB extends PDO {
             $sth->execute();
             return $sth->fetchAll(($fech != null) ? $fech : $this->cogs["fetch"]);
         } catch (Exception $ex) {
-            throw (new DeplynException(EMessages::ERROR_QUERY))
+            throw (new ZolidException(EMessages::ERROR_QUERY))
                     ->setOriginalMessage($exc->getMessage());
         }
     }
@@ -193,7 +210,7 @@ class DB extends PDO {
     public function insert($obj) {
         try {
             if (trim($this->table) == "") {
-                return (new DeplynException(EMessages::ERROR_INSERT))
+                return (new ZolidException(EMessages::ERROR_INSERT))
                                 ->setMessage("Debe invocarse el método table antes que el método insert()");
             }
             $fieldNames = implode('`, `', array_keys($obj));
@@ -203,7 +220,7 @@ class DB extends PDO {
             $id = $this->lastInsertId();
             return $id;
         } catch (Exception $exc) {
-            throw (new DeplynException(EMessages::ERROR_INSERT))
+            throw (new ZolidException(EMessages::ERROR_INSERT))
                     ->setOriginalMessage($exc->getMessage());
         }
     }
@@ -211,7 +228,7 @@ class DB extends PDO {
     public function update($obj) {
         try {
             if (trim($this->table) == "") {
-                throw (new DeplynException(EMessages::ERROR_UPDATE))
+                throw (new ZolidException(EMessages::ERROR_UPDATE))
                         ->setMessage("Debe invocarse el método table antes que el método insert()");
             }
             $fieldDetails = null;
@@ -223,7 +240,7 @@ class DB extends PDO {
             $this->run($obj);
             return true;
         } catch (Exception $exc) {
-            throw (new DeplynException(EMessages::ERROR_UPDATE))
+            throw (new ZolidException(EMessages::ERROR_UPDATE))
                     ->setOriginalMessage($exc->getMessage());
         }
     }
@@ -231,14 +248,14 @@ class DB extends PDO {
     public function delete() {
         try {
             if (trim($this->table) == "") {
-                return (new DeplynException(EMessages::ERROR_DELETE))
+                return (new ZolidException(EMessages::ERROR_DELETE))
                                 ->setMessage("Debe invocarse el método table antes que el método insert()");
             }
             $this->sql = "DELETE FROM $this->table $this->wheres";
             $result = $this->exec($this->sql);
             return true;
         } catch (Exception $exc) {
-            throw (new DeplynException(EMessages::ERROR_DELETE))
+            throw (new ZolidException(EMessages::ERROR_DELETE))
                     ->setOriginalMessage($exc->getMessage());
         }
     }
@@ -253,6 +270,8 @@ class DB extends PDO {
             $this->query = str_replace(":$key", (($value === NULL) ? "NULL" : "\"$value\""), $this->query);
             $sth->bindValue(":$key", $value);
         }
+        $audit = new Dao_audit_model();
+        $audit->audit($this->query, $obj, $this->table, $this->wheres);
         $sth->execute();
     }
 

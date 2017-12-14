@@ -20,15 +20,7 @@ $(function () {
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                        {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
-                        {title: "Encargado", data: function (obj) {
-                              if (typeof obj.i_actualEngineer === "object") {
-                                    return obj.i_actualEngineer.n_name_user + " " + obj.i_actualEngineer.n_last_name_user;
-                              } else {
-                                return obj.i_actualEngineer;
-                              }
-                            }
-                         },
+                        {title: "Encargado", data: 'i_actualEngineer'},
                         {title: "Opciones", data: vista.getButtons},
                     ],
                 "language": {

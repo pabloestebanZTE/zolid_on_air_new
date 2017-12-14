@@ -538,10 +538,3 @@ INSERT INTO `sectores_on_air` (`k_id_sector_on_air`, `k_id_sector`, `k_id_tecnol
 	(175, 43, 3, 5),
 	(176, 44, 3, 5),
 	(177, 45, 3, 5);
-
-
-
-
--- Actualizaciones Lunes, 4 de Diciembre de 2017.
-ALTER TABLE `ticket_on_air`
-	CHANGE COLUMN `n_json_sectores` `n_json_sectores` LONGTEXT NULL DEFAULT NULL AFTER `n_sectoresdesbloqueados`;
