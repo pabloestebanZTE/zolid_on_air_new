@@ -20,7 +20,6 @@ $(function () {
                     {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                     {title: "Banda", data: 'k_id_band.n_name_band'},
                     {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                    {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                     {title: "Encargado", data: 'i_actualEngineer'},
                     {title: "Opciones", data: vista.getButtons},
                 ],
@@ -56,7 +55,6 @@ $(function () {
                     {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                     {title: "Banda", data: 'k_id_band.n_name_band'},
                     {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                    {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                     {title: "Encargado", data: 'i_actualEngineer'},
                     {title: "Opciones", data: vista.getButtons},
                 ],
@@ -92,7 +90,6 @@ $(function () {
                     {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                     {title: "Banda", data: 'k_id_band.n_name_band'},
                     {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                    {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                     {title: "Encargado", data: 'i_actualEngineer'},
                     {title: "Opciones", data: vista.getButtonsRestar},
                 ],
@@ -185,7 +182,6 @@ $(function () {
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                        {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                         {title: "Encargado", data: 'i_actualEngineer'},
                         {title: "Opciones", data: vista.getButtons},
                     ], vista.runTimers
@@ -207,7 +203,6 @@ $(function () {
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                        {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                         {title: "Encargado", data: 'i_actualEngineer'},
                         {title: "Opciones", data: vista.getButtons},
                     ], vista.runTimers
@@ -229,7 +224,6 @@ $(function () {
                         {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                         {title: "Banda", data: 'k_id_band.n_name_band'},
                         {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                        {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
                         {title: "Encargado", data: 'i_actualEngineer'},
                         {title: "Opciones", data: vista.getButtonsRestar},
                     ], vista.runTimers

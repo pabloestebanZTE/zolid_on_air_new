@@ -25,8 +25,7 @@ return [
      */
     //Por favor, Seguir subiendo la configuración de sus localhost y no la del servidor
     //que el único que apunte a el servidor mysql sea quíen suba el proyecto con nuevos cambios...
-    'default' => 'mysqlLocalhost',
-
+    'default' => 'jj',
     /*
       |--------------------------------------------------------------------------
       | Database Connections
@@ -47,7 +46,7 @@ return [
             'driver' => 'mysql',
             'host' => 'zte-col.cws6f2qsxddy.us-west-2.rds.amazonaws.com',
             'port' => '3306',
-            'database' => 'on_air_test',
+            'database' => 'on_air',
             'username' => 'AdminZTE',
             'password' => 'a4b3c2d1',
             'charset' => 'utf8',
@@ -75,19 +74,6 @@ return [
             'port' => '3306',
             'database' => 'on_air',
             'username' => 'root',
-            'password' => 'a4b3c2d1',
-            'charset' => 'utf8',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'strict' => true,
-            'engine' => null,
-        ],
-        'test' => [
-            'driver' => 'mysql',
-            'host' => 'zte-col.cws6f2qsxddy.us-west-2.rds.amazonaws.com',
-            'port' => '3306',
-            'database' => 'on_air_test',
-            'username' => 'AdminZTE',
             'password' => 'a4b3c2d1',
             'charset' => 'utf8',
             'collation' => 'utf8mb4_unicode_ci',

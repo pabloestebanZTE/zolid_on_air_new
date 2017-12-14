@@ -10,7 +10,7 @@
             </div>
             <!-- TRACKING DETAILS FORM -->
             <div class="col-md-12 hidden" id="trackingDetails">
-                <div class="panel-group m-b-5 m-t-15" id="accordion">
+                <div class="panel-group m-b-5" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -24,7 +24,7 @@
                                     <div class="alert alert-success alert-dismissable hidden">
                                         <a href="#" class="close" >&times;</a>
                                         <p class="p-b-0" id="text"></p>
-                                    </div>
+                                    </div>                                    
                                     <div class="panel-body">
                                         <fieldset class="col-md-6 control-label">
                                             <div class="form-group">
@@ -42,10 +42,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                        <select class="form-control" id="cmbBanda" name="k_id_band.k_id_band">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-                                                        <!--<input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">-->
+                                                        <input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -65,7 +62,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" name="i_actualEngineer" id="txtIngeniero" class="form-control" readonly="false">
+                                                        <input type="text" name="txtIngeniero" id="txtIngeniero" class="form-control" value="<?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?>" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,10 +115,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                        <select class="form-control" id="cmbTecnologia" name="k_id_technology.k_id_technology">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-<!--                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">-->
+                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,13 +125,11 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                        <select class="form-control" id="cmbTipoTrabajo" name="k_id_work.k_id_work">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-                                                        <!--<input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">-->
+                                                        <input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="txtciudad" class="col-md-3 control-label">Ciudad:</label>
                                                 <div class="col-md-8 selectContainer">
@@ -197,16 +189,16 @@
                                                         <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         </fieldset>
                                         <div class="form-group">
                                             <hr/>
                                             <div class="col-xs-12 text-center">
-                                                <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>
+                                                <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>                                    
                                             </div>
                                         </div>
                                         <!--   fin seccion derecha---->
-                                    </div>
+                                    </div>                                    
                                 </form>
                             </div>
                         </div>
@@ -290,13 +282,13 @@
                                         <div class="row form-xs">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtCorrecionPendientes">Corrección pendientes:</label>
-                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                    <label for="txtCorrecionPendientes">Correción pendientes:</label>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>                                                       
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtTicketTremedy">Ticket Remedy:</label>
+                                                    <label for="txtTicketTremedy">Ticket Tremedy:</label>
                                                     <input type="text" class="form-control input-sm" id="txtTicketTremedy" placeholder="Tiecket Tremedy" name="preparation_stage.n_ticketremedy" />
                                                 </div>
                                             </div>
@@ -375,7 +367,7 @@
                                                 <div class="form-group">
                                                     <button type="button" id="btnEditarSectores" class="btn btn-primary m-t-20" title="Ver y editar sectores"><i class="fa fa-fw fa-check-square-o"></i> (0) Sectores agregados</button>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaRFT">Fecha RFT:</label>
@@ -412,7 +404,7 @@
                                                                                                     <option value="Cerrado">Cerrado</option>
                                                                                                 </select>
                                                                                             </div>
-                                                                                        </div>-->
+                                                                                        </div>-->                                            
                                         </div>
                                     </div>
                                     <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
@@ -434,7 +426,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="contentFases" class="hidden">
+                    <div id="contentFases" class="hidden">                        
                         <div class="col-xs-12 text-right">
                             <div class="display-block pull-right" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
@@ -515,7 +507,7 @@
                                     <div class="col-md-8 wiget" id="contentDetails_12h">
                                     </div>
                                     <div class="col-md-4 wiget" id="contentDetails_12h_users">
-                                        <div class="wiget-list p-l-25 users">
+                                        <div class="wiget-list p-l-25 users">                                            
                                         </div>
                                     </div>
                                 </div>
@@ -523,7 +515,7 @@
                                     <div class="col-md-8 wiget" id="contentDetails_24h">
                                     </div>
                                     <div class="col-md-4 wiget" id="contentDetails_24h_users">
-                                        <div class="wiget-list p-l-25 users">
+                                        <div class="wiget-list p-l-25 users">                                            
                                         </div>
                                     </div>
                                 </div>
@@ -531,29 +523,13 @@
                                     <div class="col-md-8 wiget" id="contentDetails_36h">
                                     </div>
                                     <div class="col-md-4 wiget" id="contentDetails_36h_users">
-                                        <div class="wiget-list p-l-25 users">
+                                        <div class="wiget-list p-l-25 users">                                            
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row content-wiget hidden" id="contentComments">
-                                    <div class="col-xs-12 p-t-0">
-                                        <div id="alertComments" class="alert alert-success alert-dismissable hidden"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p id="text" class="m-b-0 p-b-0"></div>
-                                    </div>
-                                    <div class="col-xs-12 wiget">
+                                <div>
 
-                                    </div>
                                 </div>
-
-                                <div class="row content-wiget hidden" id="contentDetails_36h_content">
-                                    <div class="col-md-8 wiget" id="contentDetails_36h">
-                                    </div>
-                                    <div class="col-md-4 wiget" id="contentDetails_36h_users">
-                                        <div class="wiget-list p-l-25 users">
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -591,7 +567,7 @@
                             <ul class="content-state hidden">
                                 <li>
                                     <label class="display-block" for="cmbSiguienteFase"><i class="fa fa-fw fa-forward"></i> Seleccione la fase:</label>
-                                    <div class="input-control">
+                                    <div class="input-control">                                        
                                         <select id="cmbSiguienteFase" class="form-control">
                                             <option value="12h">12H</option>
                                             <option value="24h">24H</option>
@@ -685,7 +661,7 @@
 
         </div>
     </div>
-    <!--MODAL CHANGE STATE-->
+    <!--MODAL CHANGE STATE-->  
 
     <!--footer Section -->
     <div class="for-full-back" id="footer">
@@ -703,7 +679,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body">                    
                     <div class="row p-t-15">
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
@@ -731,6 +707,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.3') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.0') ?>" type="text/javascript"></script>
 </body>
 </html>

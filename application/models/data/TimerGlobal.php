@@ -32,26 +32,26 @@ class TimerGlobal {
 //                    var_dump($status_onair);
 //                    echo "ENCONTRO STATUS $status_onair->k_id_substatus";
                     switch ($status_onair->k_id_substatus) {
-                        case ConstStates::SEGUIMIENTO_12H:
+                        case ConstSubStates::SEGUIMIENTO_12H:
                             $actual_status = "12h";
                             $stepIdField = "k_id_12h_real";
                             $stepModel = new OnAir12hModel();
                             break;
-                        case ConstStates::SEGUIMIENTO_24H:
+                        case ConstSubStates::SEGUIMIENTO_24H:
                             $actual_status = "24h";
                             $stepIdField = "k_id_24h_real";
                             $stepModel = new OnAir24hModel();
                             break;
-                        case ConstStates::SEGUIMIENTO_36H:
+                        case ConstSubStates::SEGUIMIENTO_36H:
                             $actual_status = "36h";
                             $stepIdField = "k_id_36h_real";
                             $stepModel = new OnAir36hModel();
                             break;
-                        case ConstStates::NOTIFICACION:
+                        case ConstSubStates::NOTIFICACION:
                             $actual_status = "NOTY";
                             $temp = $this->getTimeNotification($tck);
                             break;
-                        case ConstStates::PRECHECK:
+                        case ConstSubStates::PRECHECK:
                             $actual_status = "PCHK";
                             $temp = $this->getTimePrecheck($tck);
                             break;
@@ -74,14 +74,13 @@ class TimerGlobal {
         }
     }
 
-    private function getObjectModel() {
+    public function getObjectModel() {
         return new ObjUtil([
             "actual_status" => null,
             "i_percent" => 0,
             "i_state" => 0,
             "i_timestamp" => 0,
             "i_timetotal" => 0,
-            "i_timeexceeded" => 0,
             "time" => 0,
             "today" => 0
         ]);
@@ -111,10 +110,36 @@ class TimerGlobal {
         return $obj;
     }
 
-    private function timer(&$obj, $field, $timeMath) {
+    public function nextDate(&$obj, $field, $timeMath) {
+        $time = Hash::getTimeStamp($obj->{$field});
+        //Comprobamos si la fecha final supera el rango...
+        $timeFinal = $time + (((1000 * 60) * 60) * $timeMath);
+        $temp = date("H:i:s", $timeFinal / 1000);
+        //Si no está entre el rango...
+        $parts = explode(":", $temp);
+        $hour = $parts[0];
+        $v = Hash::betweenHoras("06:00:00", "18:00:00", $timeFinal);
+        if (!$v) {
+            $hrs = 0;
+            if (floor($hour) < 6) {
+                $hrs = floor($hour);
+            } else if (floor($hour) > 18) {
+                $hrs = 12;
+            }
+            $timeFinal += $hrs * (((1000 * 60) * 60));
+        }
+//        else {
+//            if (date("d", $time / 1000) != date("d", $timeFinal / 1000)) {
+//                $hrs = 12;
+//                $timeFinal += $hrs * (((1000 * 60) * 60));
+//            }
+//        }
+        $obj->next_date = $timeFinal;
+    }
+
+    public function timer(&$obj, $field, $timeMath) {
         $timestamp = 0;
         $percent = 0;
-        $timeexceeded = 0;
 
         $time = Hash::getTimeStamp($obj->{$field});
         $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
@@ -150,15 +175,10 @@ class TimerGlobal {
         //Obtenemos el porcentaje...
         $percent = round((($today - $time) / ($timeFinal - $time)) * 100);
 
-        if ($percent >= 100) {
-            $timeexceeded = $today - $timeFinal;
-        }
-
         $obj->time = $time;
         $obj->i_timestamp = $timestamp;
         $obj->i_timetotal = $timeFinal;
         $obj->i_percent = $percent;
-        $obj->i_timeexceeded = $timeexceeded;
         $obj->today = $today;
     }
 

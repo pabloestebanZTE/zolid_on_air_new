@@ -342,7 +342,7 @@
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
                 console.log(ticket);
-                if (ticket.k_id_status_onair.k_id_status_onair == 80 || ticket.k_id_status_onair.k_id_status_onair == 97) {
+                if (ticket.k_id_status_onair.k_id_status_onair == 80) {
                     $('#runPrecheck').removeClass('hidden');
                 } else {
                     $('.disabledchange').prop('disabled', false);
@@ -370,7 +370,7 @@
             })
         </script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
                 var opciones = {

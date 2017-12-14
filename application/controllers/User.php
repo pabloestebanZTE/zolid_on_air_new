@@ -16,6 +16,7 @@ class User extends CI_Controller {
         $this->load->model('data/Dao_precheck_model');
         $this->load->model('data/Dao_statusOnair_model');
         $this->load->model('data/Dao_scaledOnair_model');
+        $this->load->model('data/Dao_evaluador_model');
     }
 
     private function validUser($request) {
@@ -66,6 +67,10 @@ class User extends CI_Controller {
             Redirect::to(URL::base());
         }
         $answer['user'] = Auth::user();
+        if (Auth::isEvaluador()) {
+            $daoEvaluador = new Dao_evaluador_model();
+            $answer["stadistics"] = $daoEvaluador->getAllStadistics()->data;
+        }
         $this->load->view('principal', $answer);
     }
 
@@ -87,7 +92,12 @@ class User extends CI_Controller {
         if (!Auth::check()) {
             Redirect::to(URL::base());
         }
-        $this->load->view('principal');
+        if (Auth::isEvaluador()) {
+            $daoEvaluador = new Dao_evaluador_model();
+            $this->load->view('principal', ["stadistics" => $daoEvaluador->getAllStadistics()->data]);
+        } else {
+            $this->load->view('principal');
+        }
     }
 
     public function documenterStrartView($answer) {
@@ -186,9 +196,6 @@ class User extends CI_Controller {
     }
 
     public function assignEngineer() {
-        if (!Auth::check()) {
-            return Redirect::to(URL::base());
-        }
         // header('Content-Type: text/plain');
         $id = $this->request->idOnair;
         $ticketOnAir = new dao_ticketOnAir_model();
@@ -236,21 +243,7 @@ class User extends CI_Controller {
         $response->data->k_id_work = $work->findById($response->data->k_id_work)->data;
         $response->data->k_id_status_onair = $status->findById($response->data->k_id_status_onair)->data;
         $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($response->data->k_id_precheck)->data;
-        if (!$response->data->k_id_precheck) {
-            $this->request->d_precheck_init = Hash::getDate();
-            $this->request->d_finpre = Hash::getDate();
-            $this->request->k_id_user = 1000;
-            $response2 = $precheck->insertPrecheck($this->request);
-            $this->request->k_id_precheck = $response2->data->data;
-            $this->request->k_id_ticket = $id;
-            $this->request->i_actualEngineer = $this->request->k_id_user;
-            $this->request->i_precheck_realizado = 1;
-            $response3 = $ticketOnAir->updatePrecheckOnair($this->request, $response->data->k_id_status_onair['k_id_status_onair']);
-            $response->data->k_id_precheck = $precheck->getPrecheckByIdPrech($this->request->k_id_precheck)->data;
-        }
-        if ($response->data->k_id_precheck->k_id_user) {
-            $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
-        }
+        $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
         $answer['ticket'] = json_encode($response->data);
         $answer['statusOnAir'] = json_encode($status->getAll()->data);
         $answer['status'] = json_encode($status->getAllStatus()->data);

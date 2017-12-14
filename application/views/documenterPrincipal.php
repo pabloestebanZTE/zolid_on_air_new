@@ -3,7 +3,6 @@
     <?php $this->load->view('parts/generic/head'); ?>
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
-        <input type="hidden" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" id="idProceso" />
         <div class="container autoheight p-t-20">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
                 <a href="#" class="close">&times;</a>
@@ -440,20 +439,20 @@
                                                 </div>
                                             </div>
 
-                                            <!--                                            <div class="form-group">
-                                                                                            <label for="cmbDoc" class="col-md-3 control-label">DOC:</label>
-                                                                                            <div class="col-md-8 selectContainer">
-                                                                                                <div class="input-group">
-                                                                                                    <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
-                                                                                                    <select name="n_doc" id="n_doc" class="form-control selectpicker">
-                                                                                                        <option value="">Seleccione</option>
-                                                                                                        <option value="ABIERTO">ABIERTO</option>
-                                                                                                        <option value="CERRADO">CERRADO</option>
-                                                                                                        <option value="NA">NA</option>
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>-->
+<!--                                            <div class="form-group">
+                                                <label for="cmbDoc" class="col-md-3 control-label">DOC:</label>
+                                                <div class="col-md-8 selectContainer">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                        <select name="n_doc" id="n_doc" class="form-control selectpicker">
+                                                            <option value="">Seleccione</option>
+                                                            <option value="ABIERTO">ABIERTO</option>
+                                                            <option value="CERRADO">CERRADO</option>
+                                                            <option value="NA">NA</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>-->
 
                                             <div class="form-group">
                                                 <label for="cmbImplementacionCampo" class="col-md-3 control-label">Implementación en Campo:</label>
@@ -568,14 +567,6 @@
                         <a href="#" class="close">&times;</a>
                         <p id="text" class="m-b-0 p-b-0"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultado, por favor espere...</p>
                     </div>
-                    <div class="hidden" id="alertReinicio12h">
-                        <div class="row">
-                            <div class="col-xs-12 p-l-25 p-r-25">
-                                <p class="m-t-0 m-b-0">La actividad actual se encuentra en estado: <b>Reinicio 12h</b> haga clic en el siguiente botón si desea iniciarla.</p>
-                                <button class="btn btn-primary" id="btnRunActividad"><i class="fa fa-fw fa-play"></i> Iniciar Actividad</button>
-                            </div>
-                        </div>
-                    </div>
                     <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
                             <div class="display-block pull-right" style="width: 400px;">
@@ -590,7 +581,7 @@
                             </div>
                         </div>
                         <div class="display-block">
-                            <div class="hour-step active" data-ref="#contentDetails_12h_content" data-value="12">
+                            <div class="hour-step active" data-ref="#contentDetails_12h" data-value="12">
                                 <div class="body-step">
                                     <label>12H</label>
                                     <span class="icon-step no-action"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -602,7 +593,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_24h_content" data-value="24">
+                            <div class="hour-step" data-ref="#contentDetails_24h" data-value="24">
                                 <div class="body-step">
                                     <label>24H</label>
                                     <span class="icon-step no-action"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -614,7 +605,7 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="hour-step" data-ref="#contentDetails_36h_content" data-value="36">
+                            <div class="hour-step" data-ref="#contentDetails_36h" data-value="36">
                                 <div class="body-step">
                                     <label>36H</label>
                                     <span class="icon-step no-action"><i class="fa fa-fw fa-clock-o"></i></span>
@@ -626,76 +617,47 @@
                                     <label id="timeStep" class="timerstamp"><i class="fa fa-fw fa-clock-o"></i> -00:00</label>
                                 </div>
                             </div>
-                            <div class="comment-step">
-                                <i class="fa fa-fw fa-comments"></i>
-                                <label>Comentarios</label>
-                            </div>
                         </div>
                         <div class="well white p-t-5 p-b-5 p-r-5 p-l-5">
-                            <div id="modelWiget" class="hidden form-group row wiget-comment">
+                            <div id="modelWiget" class="hidden">
                                 <div class="col-md-3 wiget-list">
                                     <div class="item-wiget">
                                         <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
                                         <div class="details-wiget">
-                                            <span class="title display-block">Fecha: </span>
+                                            <span class="title display-block">Fecha Inicio: </span>
                                             <span class="text display-block" id="d_start">{d_start}</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-calendar"></i></div>
+                                        <div class="details-wiget">
+                                            <span class="title display-block">Fecha Fin: </span>
+                                            <span class="text display-block" id="d_end">{d_end}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
+                                    <p class="text-justify m-all-0 p-all-0"><b class="display-block m-b-10"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{n_comentario}</span></p>
                                 </div>
-                            </div>
-                            <div class="item-wiget hidden" id="wigetUser">
-                                <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
-                                <div class="details-wiget">
-                                    <span class="title display-block">Ningún usuario asignado</span>
+                                <div class="col-md-4 wiget-list p-l-25 users">
+                                    <div class="item-wiget">
+                                        <div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>
+                                        <div class="details-wiget">
+                                            <span class="title display-block">{user_name}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="well m-b-0 p-t-5 p-b-5">
-                                <div class="row content-wiget" id="contentDetails_12h_content">
-                                    <div class="col-md-8 wiget" id="contentDetails_12h">
-                                    </div>
-                                    <div class="col-md-4 wiget" id="contentDetails_12h_users">
-                                        <div class="wiget-list p-l-25 users">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row content-wiget hidden" id="contentDetails_24h_content">
-                                    <div class="col-md-8 wiget" id="contentDetails_24h">
-                                    </div>
-                                    <div class="col-md-4 wiget" id="contentDetails_24h_users">
-                                        <div class="wiget-list p-l-25 users">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row content-wiget hidden" id="contentDetails_36h_content">
-                                    <div class="col-md-8 wiget" id="contentDetails_36h">
-                                    </div>
-                                    <div class="col-md-4 wiget" id="contentDetails_36h_users">
-                                        <div class="wiget-list p-l-25 users">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row content-wiget hidden" id="contentComments">
-                                    <div class="col-xs-12 p-t-0">
-                                        <div id="alertComments" class="alert alert-success alert-dismissable hidden"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p id="text" class="m-b-0 p-b-0"></div>
-                                    </div>
-                                    <div class="col-xs-12 wiget">
+                                <div class="row wiget" id="contentDetails_12h">
 
-                                    </div>
                                 </div>
+                                <div class="row wiget hidden" id="contentDetails_24h">
 
-                                <div class="row content-wiget hidden" id="contentDetails_36h_content">
-                                    <div class="col-md-8 wiget" id="contentDetails_36h">
-                                    </div>
-                                    <div class="col-md-4 wiget" id="contentDetails_36h_users">
-                                        <div class="wiget-list p-l-25 users">
-                                        </div>
-                                    </div>
                                 </div>
+                                <div class="row wiget hidden" id="contentDetails_36h">
 
-
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -713,7 +675,7 @@
         <script>
             $(function () {
                 var fields = <?php echo $fields; ?>;
-                console.log(fields);
+                 console.log(fields);
                 $('#detailsForm').fillForm(fields);
 
                 $('input[name=n_integrador]').val(fields.k_id_preparation.n_integrador);
@@ -766,9 +728,9 @@
 
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
-        <script src="<?= URL::to('assets/js/modules/documenterPrincipal.js?v=1.0') ?>" type="text/javascript"></script>
+        <script src="<?= URL::to('assets/js/modules/documenterPrincipal.js') ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/HelperForm.js") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
                 dom.submit($('#detailsForm'), null, false);

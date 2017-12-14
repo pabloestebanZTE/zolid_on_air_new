@@ -74,6 +74,16 @@ class Crud {
         return $this->db->get();
     }
 
+    public function isNull($key) {
+        $this->init();
+        return $this->db->isNull($key);
+    }
+
+    public function isNotNull($key) {
+        $this->init();
+        return $this->db->isNotNull($key);
+    }
+
     public function listAll() {
         return $this->get();
     }

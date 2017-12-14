@@ -111,4 +111,9 @@ class Auth {
         return Auth::isRole("INGENIERO");
     }
 
+    //::Evaluador
+    public static function isEvaluador() {
+        return Auth::isRole("EVALUADOR");
+    }
+
 }

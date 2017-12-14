@@ -91,8 +91,10 @@ class CI_Controller {
         $this->load->model('bin/Hash');
         $this->load->model('bin/Session');
         $this->load->model('bin/Redirect');
+        $this->load->model('bin/ZolidException');
         $this->load->model('bin/ObjUtil');
         $this->load->model('dto/ReporteComentarioModel');
+        $this->load->model('data/Dao_audit_model');
         $this->request = new Request();
         date_default_timezone_set("America/Bogota");
         log_message('info', 'Controller Class Initialized');

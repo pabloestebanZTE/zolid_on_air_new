@@ -3,12 +3,12 @@
     <?php $this->load->view('parts/generic/head'); ?>
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
-        <div class="container autoheight p-t-20 m-t-20">
+        <div class="container autoheight p-t-20">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
                 <a href="#" class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
-            <?php            
+            <?php
             if (Auth::isCoordinador()) {
                 $this->load->view('parts/principal/coordinador');
             }
@@ -18,6 +18,11 @@
             if (Auth::isIngeniero()) {
                 $this->load->view('parts/principal/ingeniero');
             }
+            //::Evaluador
+            if (Auth::isEvaluador()) {
+                $this->load->view('parts/principal/evaluador', ["stadistics" => $stadistics]);
+            }
+            //::Fin Evaluador
             ?>
         </div>
         <!--footer Section -->
