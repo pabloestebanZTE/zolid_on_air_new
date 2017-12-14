@@ -421,8 +421,7 @@
                 };
                 form.on('submit', onSubmitForm);
 
-
-
+                $('#runPrecheck').removeClass('hidden');
                 $('#runPrecheck').on('click', function () {
                     dom.confirmar("Se iniciará el proceso de precheck, ¿está seguro de continuar con esta operación?", function () {
                         app.post('Precheck/runPrecheck', {
@@ -432,7 +431,7 @@
                                     if (response.code > 0) {
                                         swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
                                         $('.disabledchange').prop('disabled', false);
-                                        $('#runPrecheck').remove();
+//                                        $('#runPrecheck').remove();
                                     } else {
                                         swal("Iniciado", "No se pudo iniciar el precheck.", "error");
                                     }

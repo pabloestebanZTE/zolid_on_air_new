@@ -17,7 +17,7 @@
             }
             if (Auth::isIngeniero()) {
                 $this->load->view('parts/principal/ingeniero');
-            }    
+            }
             //::Evaluador
             if (Auth::isEvaluador()) {
                 $this->load->view('parts/principal/evaluador', ["stadistics" => $stadistics]);

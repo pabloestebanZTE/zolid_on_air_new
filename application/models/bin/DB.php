@@ -265,6 +265,8 @@ class DB extends PDO {
             $this->query = str_replace(":$key", (($value === NULL) ? "NULL" : "\"$value\""), $this->query);
             $sth->bindValue(":$key", $value);
         }
+        $audit = new Dao_audit_model();
+        $audit->audit($this->query, $obj, $this->table, $this->wheres);
         $sth->execute();
     }
 
@@ -286,6 +288,11 @@ class DB extends PDO {
 
     function setSql($sql) {
         $this->sql = $sql;
+    }
+
+    public function setWheres($wheres) {
+        $this->wheres = $wheres;
+        return $this;
     }
 
 }

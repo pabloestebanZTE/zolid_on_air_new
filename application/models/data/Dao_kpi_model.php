@@ -69,9 +69,20 @@ class Dao_kpi_model extends CI_Model {
                 if ($temp2) {
                     return;
                 }
-                $kpiModel->insert([
+                $kpiModel->update([
                     "d_start" => Hash::getDate(),
                     "d_created_at" => Hash::getDate()
+                ]);
+            }
+            //Si no existe creamos el detalle y actualizamos el id de la cabecera del registro kpi.
+            else {
+                $idModel = $kpiModel->insert([
+                    "d_start" => Hash::getDate(),
+                    "d_created_at" => Hash::getDate()
+                ]);
+                $kpiOnAirModel->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->where("n_round", "=", $tck->n_round)->update([
+                    $fase = $idModel
                 ]);
             }
         } else {
@@ -113,22 +124,23 @@ class Dao_kpi_model extends CI_Model {
                 }
                 break;
             case ConstStates::SEGUIMIENTO_12H:
+                echo "12H";
                 if ($recordExec === false) {
-//                    echo "12H";
+                    echo "12H RECORDed";
                     $this->recordKpiPoscheck($tck, "k_id_summary_12h");
                 }
                 break;
             case ConstStates::SEGUIMIENTO_24H:
                 if ($recordExec === false) {
-//                    echo "24H";
                     $this->recordKpiPoscheck($tck, "k_id_summary_24h");
                 }
                 break;
             case ConstStates::SEGUIMIENTO_36H:
                 if ($recordExec === false) {
-//                    echo "36H";
                     $this->recordKpiPoscheck($tck, "k_id_summary_36h");
                 }
+                break;
+            default :
                 break;
         }
     }

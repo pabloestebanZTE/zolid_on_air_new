@@ -17,6 +17,7 @@ class User extends CI_Controller {
         $this->load->model('data/Dao_statusOnair_model');
         $this->load->model('data/Dao_scaledOnair_model');
         $this->load->model('data/Dao_evaluador_model');
+        $this->load->model('data/Dao_kpi_model');
     }
 
     private function validUser($request) {
@@ -111,6 +112,9 @@ class User extends CI_Controller {
         if (!Auth::check()) {
             Redirect::to(URL::base());
         }
+        $kpiDao = new Dao_kpi_model();
+        //Se registra el KPI.
+        $kpiDao->record($this->request->id);
         $this->load->view('trackingdetails');
     }
 
