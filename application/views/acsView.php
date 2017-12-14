@@ -21,7 +21,7 @@
                             <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
-                            <a class="list-group-item text-center">
+                            <a href="#" class="list-group-item text-center">
                                 <h4 class="glyphicon glyphicon-compressed"></h4><br/>Archivos
                             </a>
                         </div>
@@ -179,7 +179,7 @@
                                             </div>
                                             <div class="display-block m-t-15">
                                                 <label for="txtComentario" class="text-bold">
-                                                    Comentario.
+                                                    Comentario
                                                 </label>
                                                 <textarea class="form-control" id="txtComentario" name="txtComentario"></textarea>
                                             </div>
@@ -319,14 +319,6 @@
                                                 <input type="text" class="form-control" id="txtPersonaQueSolicitaLaVMLC" />
                                             </div>
                                         </div>
-                                        <!--                                        <div class="form-group">
-                                                                                    <label for="cmbEnteEjecutor" class="col-sm-4 control-label">Ente Ejecutor:</label>
-                                                                                    <div class="col-sm-8 ">
-                                                                                        <select class="form-control" id="cmbEnteEjecutor" name="cmbEnteEjecutor">
-                                                                                            <option value="">Seleccione</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>    -->
                                         <div class="form-group row">
                                             <div class="col-md-6">
                                                 <label for="cmbFMNokia" class="col-sm-4 control-label">FM Nokia:</label>
