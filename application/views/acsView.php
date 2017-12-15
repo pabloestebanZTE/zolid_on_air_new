@@ -6,6 +6,10 @@
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20 m-t-20">
             <div class="row">
+                <div class="alert alert-success alert-dismissable hidden">
+                    <a href="#" class="close" >&times;</a>
+                    <p class="p-b-0" id="text"></p>
+                </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
                         <div class="list-group">
@@ -31,18 +35,18 @@
                         <!-- creacion ventana section -->
                         <div class="bhoechie-tab-content active" id="contentTab1">
                             <center>
-                                <form class="well form-horizontal" action="" method="post">
+                                <form class="well form-horizontal" action="insertVmAcs" method="post">
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="d_fecha_solicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
                                             <div class="col-sm-8">
-                                                <input type='datetime-local' name="d_fecha_solicitud" id="d_fecha_solicitud" class="form-control">
+                                                <input type='datetime-local' name="d_fecha_solicitud" id="d_fecha_solicitud" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="i_id_site_access" class="col-md-3 control-label">ID Site Access :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="i_id_site_access" id="i_id_site_access" class="form-control">
+                                                <input type="text" name="i_id_site_access" id="i_id_site_access" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +54,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_station" class="col-md-3 control-label">Estación :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker select-estacion" id="k_id_station" name="k_id_station">
+                                                <select class="form-control selectpicker select-estacion" id="k_id_station" name="k_id_station" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -58,7 +62,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_technology" class="col-md-3 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker select-tecnologia" id="k_id_technology" name="k_id_technology">
+                                                <select class="form-control selectpicker select-tecnologia" id="k_id_technology" name="k_id_technology" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -66,17 +70,17 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="cmbBanda" class="col-md-3 control-label">Banda :</label>
+                                            <label for="k_id_band" class="col-md-3 control-label">Banda :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker select-banda" id="cmbBanda" name="cmbBanda">
+                                                <select class="form-control selectpicker select-banda" id="k_id_band" name="k_id_band" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbTipoTrabajo" class="col-md-3 control-label">Tipo de Trabajo :</label>
+                                            <label for="k_id_work" class="col-md-3 control-label">Tipo de Trabajo :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker select-tipotrabajo" id="cmbTipoTrabajo" name="cmbTipoTrabajo">
+                                                <select class="form-control selectpicker select-tipotrabajo" id="k_id_work" name="k_id_work" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -84,9 +88,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="cmbEnteEjecutor" class="col-md-3 control-label">Ente Ejecutor :</label>
+                                            <label for="n_enteejecutor" class="col-md-3 control-label">Ente Ejecutor :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" name="cmbEnteEjecutor" id="cmbEnteEjecutor">
+                                                <select class="form-control selectpicker" name="n_enteejecutor" id="n_enteejecutor" required>
                                                     <option value="">Seleccione</option>
                                                     <option value="Claro" >Claro</option>
                                                     <option value="Nokia" >Nokia</option>
@@ -94,23 +98,40 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="txtPersonaSolicita" class="col-md-3 control-label">Persona que Solicita :</label>
+                                            <label for="n_persona_solicita" class="col-md-3 control-label">Persona que Solicita :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="txtPersonaSolicita" id="txtPersonaSolicita" class="form-control">
+                                                <input type="text" name="n_persona_solicita" id="n_persona_solicita" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="txtNombreGrupoSkype" class="col-md-3 control-label">Nombre Grupo Skype :</label>
+                                            <label for="n_nombre_grupo_skype" class="col-md-3 control-label">Nombre Grupo Skype :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="txtNombreGrupoSkype" id="txtNombreGrupoSkype" class="form-control">
+                                                <input type="text" name="n_nombre_grupo_skype" id="n_nombre_grupo_skype" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRegionalSkype" class="col-md-3 control-label">Regional Skype :</label>
+                                            <label for="n_regional_skype" class="col-md-3 control-label">Regional Skype :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" id="cmbRegionalSkype" name="cmbRegionalSkype">
+                                                <select class="form-control selectpicker" id="n_regional_skype" name="n_regional_skype" required>
+                                                    <option value="">Seleccione</option>
+                                                    <option value="prueba1">prueba1</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="n_hora_apertura_grupo" class="col-md-3 control-label">Hora Apertura Grupo :</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="n_hora_apertura_grupo" id="n_hora_apertura_grupo" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="i_ingeniero_creador_grupo" class="col-md-3 control-label">Ingeniero Creador Grupo :</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control selectpicker select-ingeniero" id="i_ingeniero_creador_grupo" name="i_ingeniero_creador_grupo" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -118,26 +139,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="txtHoraAperturaGrupo" class="col-md-3 control-label">Hora Apertura Grupo :</label>
+                                            <label for="n_incidente" class="col-md-3 control-label">Incidente:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="txtHoraAperturaGrupo" id="txtHoraAperturaGrupo" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="cmbIngCreadorGrupo" class="col-md-3 control-label">Ingeniero Creador Grupo :</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control selectpicker select-ingeniero" id="cmbIngCreadorGrupo" name="cmbIngCreadorGrupo">
+                                                <select class="form-control selectpicker" name="n_incidente" id="n_incidente" required>
                                                     <option value="">Seleccione</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="cmbIncidente" class="col-md-3 control-label">Incidente:</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control selectpicker" name="cmbIncidente" id="cmbIncidente">
-                                                    <option value="">Seleccione</option>
+                                                    <option value="prueba1">prueba1</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -149,31 +155,31 @@
                                         <div class="widget bg-white">
                                             <div class="checkbox checkbox-primary text-left" id="productionList">
                                                 <div class="display-block">
-                                                    <input id="chk_p_1" type="checkbox">
+                                                    <input id="chk_p_1" name="checklist" type="checkbox">
                                                     <label for="chk_p_1" class="text-bold">
                                                         ID site access Correcto.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_2" type="checkbox">
+                                                    <input id="chk_p_2" name="checklist" type="checkbox">
                                                     <label for="chk_p_2" class="text-bold">
                                                         CRQ Remedy Correcto.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_3" type="checkbox">
+                                                    <input id="chk_p_3" name="checklist"  type="checkbox">
                                                     <label for="chk_p_3" class="text-bold">
                                                         Snapshot Liviano UMTS.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_4" type="checkbox">
+                                                    <input id="chk_p_4" name="checklist"  type="checkbox">
                                                     <label for="chk_p_4" class="text-bold">
                                                         Log Alarmas historico UMTS.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_5" type="checkbox">
+                                                    <input id="chk_p_5" name="checklist"  type="checkbox">
                                                     <label for="chk_p_5" class="text-bold">
                                                         Reporte Radiante Pre.
                                                     </label>
@@ -192,7 +198,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
+                                                <button type="submit" class="btn btn-success" id="btnGenerarVm" disabled><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
                                                 <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>

@@ -9,4 +9,15 @@ $(document).ready(function () {
         $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
     });
+    
+    $("input:checkbox[name=checklist]").click(function (e) {
+        var checkList = $("input:checkbox[name=checklist]").length;
+        var cheked = $("input:checkbox:checked").length;
+        if (checkList === cheked) {
+            $('#btnGenerarVm').attr("disabled", false);
+        } else {
+            $('#btnGenerarVm').attr("disabled", true);
+        }       
+    });
+
 });

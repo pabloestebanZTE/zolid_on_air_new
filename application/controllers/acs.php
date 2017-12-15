@@ -11,6 +11,7 @@ class Acs extends CI_Controller {
         $this->load->model('data/Dao_work_model');
         $this->load->model('data/Dao_technology_model');
         $this->load->model('data/Dao_user_model');
+        $this->load->model('data/Dao_vm_model');
     }
 
     public function principal() {
@@ -43,6 +44,18 @@ class Acs extends CI_Controller {
         
         $answer['respuesta'] = json_encode($res);
         $this->acsview($answer);
+    }
+    
+    public function insertVmAcs() {
+        $vm = new Dao_vm_model();
+        $response = $vm->insertVm($this->request);
+        $this->json($response);
+    }
+    
+    public function insertCvmAcs() {
+        $vm = new Dao_avm_model();
+        $response = $vm->insertAvm($this->request);
+        $this->json($response);
     }
 
 }
