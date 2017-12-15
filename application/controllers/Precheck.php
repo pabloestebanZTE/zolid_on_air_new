@@ -27,6 +27,7 @@ class Precheck extends CI_Controller {
         $this->load->model('data/Dao_preparationStage_model');
         $this->load->model('data/Dao_precheck_model');
         $this->load->model('data/Dao_user_model');
+        $this->load->model('data/Dao_kpi_model');
     }
 
     public function prueba() {
@@ -165,6 +166,9 @@ class Precheck extends CI_Controller {
                         "k_id_status_onair" => 78, //Precheck.
                         "d_precheck_init" => Hash::getDate()
             ]);
+            $kpiDao = new Dao_kpi_model();
+            //Se registra el KPI.
+            $kpiDao->record($this->request->idOnAir);
             $this->json(new Response(EMessages::UPDATE));
         } catch (ZolidException $ex) {
             $this->json($ex);
@@ -188,6 +192,12 @@ class Precheck extends CI_Controller {
         //Sirve para veriificar si va para 12
         $requestProduction = null;
         $prorrogaHours = 0;
+
+        //Cerramos el KPI...
+        $kpiDao = new Dao_kpi_model();
+        //Se registra el KPI.
+        $kpiDao->record($this->request->idOnAir, false, true);
+
         //Se detecta si se desea hacer una prórroga para el precheck...
         if ($this->request->k_id_status_onair == 0) {
             $prorrogaHours = $this->request->prorrogaHours;
@@ -234,7 +244,7 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-      
+
             $comment = $this->request->n_comentario_ing;
             $tempComment = [[
             "comment" => $comment,
@@ -242,8 +252,7 @@ class Precheck extends CI_Controller {
             ]];
             $commentEdit = json_encode($tempComment, true);
             $this->request->n_comentario = $commentEdit;
-            
-            }
+        }
         // si va para 24, 36 o para producción
         if ($this->request->k_id_status_onair == 82 || $this->request->k_id_status_onair >= 87 || $this->request->k_id_status_onair >= 83) {
             $follow24h = new Dao_followUp24h_model();
@@ -261,7 +270,7 @@ class Precheck extends CI_Controller {
             $response1 = $ticket->updatePrecheckStatus($this->request->idOnair)->data; //camilo
             $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data; //camilo
             $repsonse2 = $precheck->updatePrecheckCom($this->request)->data; //camilo
-      
+
             $comment = $this->request->n_comentario_ing;
             $tempComment = [[
             "comment" => $comment,
@@ -269,8 +278,7 @@ class Precheck extends CI_Controller {
             ]];
             $commentEdit = json_encode($tempComment, true);
             $this->request->n_comentario = $commentEdit;
-            
-            }
+        }
         //si va para 36 o para producción
         if ($this->request->k_id_status_onair == 83 || $this->request->k_id_status_onair >= 87) {
             $follow36h = new Dao_followUp36h_model();
@@ -296,8 +304,7 @@ class Precheck extends CI_Controller {
             ]];
             $commentEdit = json_encode($tempComment, true);
             $this->request->n_comentario = $commentEdit;
-            
-            }
+        }
 
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_ing);
         $this->json($response);

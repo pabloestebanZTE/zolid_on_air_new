@@ -9,7 +9,6 @@ class Hash {
      * @param string $salt The salt (This should be the same throughout the system probably)
      * @return string The hashed/salted data
      */
-
     public static function create($algorithm, $data, $salt) {
 
         $context = hash_init($algorithm, HASH_HMAC, $salt);
@@ -28,6 +27,11 @@ class Hash {
 
     public static function sha1($data) {
         return Hash::create("sha1", $data, true);
+    }
+
+    public static function getDateForView() {
+        date_default_timezone_set("America/Bogota");
+        return date("d/m/Y h:i A");
     }
 
     public static function getTimeStamp($date) {

@@ -12,8 +12,8 @@
 <link href="<?= URL::to("assets/plugins/select2/select2.css") ?>" rel="stylesheet" type="text/css"/>
 <script src="<?= URL::to("assets/plugins/select2/select2.js") ?>" type="text/javascript"></script>
 <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
-<script src="<?= URL::to("assets/js/utils/app.global.js?v=1.0") ?>" type="text/javascript"></script>
-<script src="<?= URL::to("assets/js/utils/app.dom.js?v=1.1") ?>" type="text/javascript"></script>
+<script src="<?= URL::to("assets/js/utils/app.global.js?v=1.2") ?>" type="text/javascript"></script>
+<script src="<?= URL::to("assets/js/utils/app.dom.js?v=1.2") ?>" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.min.js"></script>
 <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
 <script src="<?= URL::to("assets/plugins/FormatDate.js") ?>" type="text/javascript"></script>
