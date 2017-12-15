@@ -4,8 +4,8 @@ class AvmModel extends Model {
 
     protected $k_id_avm;
     protected $k_id_vm;
-    protected $k_id_technology;
-    protected $k_id_band;
+    protected $k_tecnologia_afectada;
+    protected $k_banda_afectada;
     protected $i_ingeniero_apertura;
     protected $d_inicio_programado_sa;
     protected $d_fin_programado_sa;
@@ -51,17 +51,17 @@ class AvmModel extends Model {
     public function getKIdVm() {
         return $this->k_id_vm;
     }
-    public function setKIdTechnology($k_id_technology) {
-        $this->k_id_technology = $k_id_technology;
+    public function setKTecnologiaAfectada($k_tecnologia_afectada) {
+        $this->k_tecnologia_afectada = $k_tecnologia_afectada;
     }
-    public function getKIdTechnology() {
-        return $this->k_id_technology;
+    public function getKTecnologiaAfectada() {
+        return $this->k_tecnologia_afectada;
     }
-    public function setKIdBand($k_id_band) {
-        $this->k_id_band = $k_id_band;
+    public function setKBandAfectada($k_banda_afectada) {
+        $this->k_banda_afectada = $k_banda_afectada;
     }
-    public function getKIdBand() {
-        return $this->k_id_band;
+    public function getKBandAfectada() {
+        return $this->k_banda_afectada;
     }
     public function setIIngenieroApertura($i_ingeniero_apertura) {
         $this->i_ingeniero_apertura = $i_ingeniero_apertura;

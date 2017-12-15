@@ -27,6 +27,7 @@ class Dao_vm_model extends CI_Model {
             $vm = new VmModel();
             $datos = $vm->where("k_id_vm","=",$request->k_id_vm)
                           ->update($request->all());
+//            echo $vm->getSQL();
             $response = new Response(EMessages::UPDATE);
             $response->setData($datos);
             return $response;

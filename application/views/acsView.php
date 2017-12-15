@@ -155,31 +155,31 @@
                                         <div class="widget bg-white">
                                             <div class="checkbox checkbox-primary text-left" id="productionList">
                                                 <div class="display-block">
-                                                    <input id="chk_p_1" name="checklist" type="checkbox">
+                                                    <input id="chk_p_1" name="checklist1" type="checkbox">
                                                     <label for="chk_p_1" class="text-bold">
                                                         ID site access Correcto.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_2" name="checklist" type="checkbox">
+                                                    <input id="chk_p_2" name="checklist1" type="checkbox">
                                                     <label for="chk_p_2" class="text-bold">
                                                         CRQ Remedy Correcto.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_3" name="checklist"  type="checkbox">
+                                                    <input id="chk_p_3" name="checklist1"  type="checkbox">
                                                     <label for="chk_p_3" class="text-bold">
                                                         Snapshot Liviano UMTS.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_4" name="checklist"  type="checkbox">
+                                                    <input id="chk_p_4" name="checklist1"  type="checkbox">
                                                     <label for="chk_p_4" class="text-bold">
                                                         Log Alarmas historico UMTS.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_5" name="checklist"  type="checkbox">
+                                                    <input id="chk_p_5" name="checklist1"  type="checkbox">
                                                     <label for="chk_p_5" class="text-bold">
                                                         Reporte Radiante Pre.
                                                     </label>
@@ -210,18 +210,19 @@
                         <!-- apertura VM section -->
                         <div class="bhoechie-tab-content" id="contentTab2">
                             <center>
-                                <form class="well form-horizontal" action="" method="post">
+                                <form class="well form-horizontal" action="insertAvmAcs" method="post">
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">ID ZTE:</label>
+                                            <label for="k_id_vm" class="col-sm-4 control-label">ID ZTE:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" placeholder="000" disabled="" />
+                                                <input type="text" class="form-control" placeholder="000" disabled/>
+                                                <input type="hidden" id="k_id_vm" name="k_id_vm" value="1"/>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
+                                            <label for="k_id_station" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select-estacion" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-estacion" id="k_id_station" name="k_id_station">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -229,52 +230,52 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
+                                            <label for="k_id_technology" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select-tecnologia" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-tecnologia" id="k_id_technology" name="k_id_technology">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
+                                            <label for="k_id_band" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select-banda" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-banda" id="k_id_band" name="k_id_band">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>                                    
                                     <div class="form-group p-l-10 p-r-10">
-                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
+                                        <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-tipotrabajo" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-tipotrabajo" id="k_id_work" name="k_id_work">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
                                     </div>    
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Estado VM:</label>
+                                            <label for="n_estado_vm" class="col-sm-4 control-label">Estado VM:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control" id="n_estado_vm" name="n_estado_vm">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Motivo:</span></label>
+                                            <label for="n_motivo_estado" class="col-sm-3 control-label"><span class="display-block">Motivo:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control" id="n_motivo_estado" name="n_motivo_estado">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group p-l-10 p-r-10">
-                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Ingeniero:</label>
+                                        <label for="i_ingeniero_apertura" class="col-sm-2 control-label">Ingeniero:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-ingeniero" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-ingeniero" id="i_ingeniero_apertura" name="i_ingeniero_apertura">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -285,19 +286,19 @@
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <label>DATOS SITE ACCESS:</label>
-                                                    <input type="text" class="form-control" value="12341324"/>
+                                                    <input type="text" class="form-control" value="12341324" id="i_id_site_access" name="i_id_site_access"/>
                                                 </div>
                                                 <div class="col-md-7">
                                                     <div class="form-group">
                                                         <label class="col-md-5 text-right">Inicio Programado SA:</label>
                                                         <div class="col-md-7">
-                                                            <input type="datetime-local" class="form-control" />
+                                                            <input type="datetime-local" class="form-control" id="d_inicio_programado_sa" name="d_inicio_programado_sa"/>
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-b-0">
                                                         <label class="col-md-5 text-right">Fin Programado SA:</label>
                                                         <div class="col-md-7">
-                                                            <input type="datetime-local" class="form-control" />
+                                                            <input type="datetime-local" class="form-control" id="d_fin_programado_sa" name="d_fin_programado_sa"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -306,41 +307,41 @@
                                         <div class="clearfix m-t-20"></div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="cmbTecnologiasAfectadas" class="col-sm-4 control-label">Tecnologías Afectadas:</label>
+                                                <label for="k_tecnologia_afectada" class="col-sm-4 control-label">Tecnologías Afectadas:</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control select-tecnologia" id="cmbTecnologiasAfectadas" name="cmbFactorRiesgo">
+                                                    <select class="form-control select-tecnologia" id="k_tecnologia_afectada" name="k_tecnologia_afectada">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cmbBandasAfectadas" class="col-sm-3 control-label">Bandas afectadas:</label>
+                                                <label for="k_banda_afectada" class="col-sm-3 control-label">Bandas afectadas:</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control select-banda" id="cmbBandasAfectadas">
+                                                    <select class="form-control select-banda" id="k_banda_afectada" name="k_banda_afectada">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group p-l-10 p-r-10">
-                                            <label for="txtPersonaQueSolicitaLaVMLC" class="col-sm-2 control-label text-right">Persona que solicita la VMLC:</label>
+                                            <label for="n_persona_solicita_vmlc" class="col-sm-2 control-label text-right">Persona que solicita la VMLC:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="txtPersonaQueSolicitaLaVMLC" />
+                                                <input type="text" class="form-control" id="n_persona_solicita_vmlc" name="n_persona_solicita_vmlc"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="cmbFMNokia" class="col-sm-4 control-label">FM Nokia:</label>
+                                                <label for="n_fm_nokia" class="col-sm-4 control-label">FM Nokia:</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" id="cmbFMNokia" name="cmbFMNokia">
+                                                    <select class="form-control" id="n_fm_nokia" name="n_fm_nokia">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cmbFMClaro" class="col-sm-3 control-label">FM Claro:</label>
+                                                <label for="n_fm_claro" class="col-sm-3 control-label">FM Claro:</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="cmbFMClaro" name="cmbFMClaro">
+                                                    <select class="form-control" id="n_fm_claro" name="n_fm_claro">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
@@ -348,87 +349,87 @@
                                         </div>                                           
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="txtTelefonoFM" class="col-sm-4 control-label">Teléfono FM:</label>
+                                                <label for="i_telefono_fm" class="col-sm-4 control-label">Teléfono FM:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="txtTelefonoFM" />
+                                                    <input type="text" class="form-control" id="i_telefono_fm" name="i_telefono_fm"/>
                                                 </div>
                                             </div>    
                                             <div class="col-md-6">
-                                                <label for="txtWP" class="col-sm-3 control-label">WP:</label>
+                                                <label for="n_wp" class="col-sm-3 control-label">WP:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="txtWP" />
+                                                    <input type="text" class="form-control" id="n_wp" name="n_wp"/>
                                                 </div>
                                             </div>
                                         </div>                                            
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="txtCRQ" class="col-sm-4 control-label">CRQ:</label>
+                                                <label for="n_crq" class="col-sm-4 control-label">CRQ:</label>
                                                 <div class="col-sm-8 ">
-                                                    <input class="form-control" id="txtCRQ" name="txtCRQ" />
+                                                    <input class="form-control" id="n_crq" name="n_crq" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="txtIDRFTOOL" class="col-sm-3 control-label">ID_RF TOOL:</label>
+                                                <label for="n_id_rftools" class="col-sm-3 control-label">ID_RF TOOL:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="txtIDRFTOOL" />
+                                                    <input type="text" class="form-control" id="n_id_rftools" name="n_id_rftools"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="txtbsc_name" class="col-sm-4 control-label">BSC_Name:</label>
+                                                <label for="n_bsc_name" class="col-sm-4 control-label">BSC_Name:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="txtbsc_name" />
+                                                    <input type="text" class="form-control" id="n_bsc_name" name="n_bsc_name"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="txtRNCName" class="col-sm-3 control-label">RNC_Name:</label>
+                                                <label for="n_rnc_name" class="col-sm-3 control-label">RNC_Name:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="txtRNCName" />
+                                                    <input type="text" class="form-control" id="n_rnc_name" />
                                                 </div>
                                             </div>
                                         </div>                                            
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Servidor MSS:</label>
+                                                <label for="n_servidor_mss" class="col-sm-4 control-label">Servidor MSS:</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <select class="form-control" id="n_servidor_mss" name="n_servidor_mss">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cmbFactorRiesgo" class="col-sm-3 control-label">Regional Cluster:</label>
+                                                <label for="n_regional_cluster" class="col-sm-3 control-label">Regional Cluster:</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                                    <select class="form-control" id="n_regional_cluster" name="n_regional_cluster">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group p-l-10 p-r-10">
-                                            <label for="txtIntegradorBackoffice" class="col-sm-2 control-label text-right">Integrador y/o Backoffice:</label>
+                                            <label for="n_integrador_backoffice" class="col-sm-2 control-label text-right">Integrador y/o Backoffice:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="txtIntegradorBackoffice" />
+                                                <input type="text" class="form-control" id="n_integrador_backoffice" name="n_integrador_backoffice"/>
                                             </div>
                                         </div>
                                         <div class="form-group p-l-10 p-r-10">
-                                            <label for="txtLiderCuadrillaVM" class="col-sm-2 control-label text-right">Lider de cuadrilla VM:</label>
+                                            <label for="n_lider_cuadrilla_vm" class="col-sm-2 control-label text-right">Lider de cuadrilla VM:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="txtLiderCuadrillaVM" />
+                                                <input type="text" class="form-control" id="n_lider_cuadrilla_vm" name="n_lider_cuadrilla_vm"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="txtTelefonoLiderCuadrilla" class="col-sm-4 control-label">Teléfono Líder de Cuadrilla:</label>
+                                                <label for="i_telefono_lider_cuadrilla" class="col-sm-4 control-label">Teléfono Líder de Cuadrilla:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtTelefonoLiderCuadrilla" class="form-control">
+                                                    <input type="text" id="i_telefono_lider_cuadrilla" name="i_telefono_lider_cuadrilla" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cmbVistasMM" class="col-sm-4 control-label">VISTAS MM:</label>
+                                                <label for="b_vistamm" class="col-sm-4 control-label">VISTAS MM:</label>
                                                 <div class="col-sm-8 ">
-                                                    <select class="form-control" id="cmbVistasMM" name="cmbVistasMM">
+                                                    <select class="form-control" id="b_vistamm" name="b_vistamm">
                                                         <option value="">Seleccione</option>
                                                         <option value="">SI</option>
                                                         <option value="">NO</option>
@@ -439,22 +440,22 @@
                                         </div>                                        
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Hora Atención VM:</label>
+                                                <label for="n_hora_atencion_vm" class="col-sm-4 control-label">Hora Atención VM:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="datetime" class="form-control" />
+                                                    <input type="datetime" class="form-control" name="n_hora_atencion_vm" id="n_hora_atencion_vm"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cmbFactorRiesgo" class="col-sm-4 control-label">Hora Inicio Real VM:</label>
+                                                <label for="n_hora_inicio_real_vm" class="col-sm-4 control-label">Hora Inicio Real VM:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="datetime" class="form-control" />
+                                                    <input type="datetime" class="form-control" name="n_hora_inicio_real_vm" id="n_hora_inicio_real_vm"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group p-l-10 p-r-10">
-                                            <label for="cmbContratista" class="col-sm-2 control-label">Contratista:</label>
+                                            <label for="n_contratista" class="col-sm-2 control-label">Contratista:</label>
                                             <div class="col-sm-10">
-                                                <select name="" id="cmbContratista" class="form-control">
+                                                <select name="" id="n_contratista" name="n_contratista" class="form-control">
                                                     <option>Seleccione</option>
                                                 </select>
                                             </div>
@@ -466,26 +467,26 @@
                                             <div class="widget bg-white">
                                                 <div class="checkbox checkbox-primary text-left" id="productionList">
                                                     <div class="display-block">
-                                                        <input id="chk_p_1" type="checkbox">
-                                                        <label for="chk_p_1" class="text-bold">
+                                                        <input id="chk_p_6" name="checklist2" type="checkbox">
+                                                        <label for="chk_p_6" class="text-bold">
                                                             Se crea word evidencias.
                                                         </label>
                                                     </div>
                                                     <div class="display-block">
-                                                        <input id="chk_p_2" type="checkbox">
-                                                        <label for="chk_p_2" class="text-bold">
+                                                        <input id="chk_p_7" name="checklist2" type="checkbox">
+                                                        <label for="chk_p_7" class="text-bold">
                                                             Se crea Excel Precheck.
                                                         </label>
                                                     </div>
                                                     <div class="display-block">
-                                                        <input id="chk_p_3" type="checkbox">
-                                                        <label for="chk_p_3" class="text-bold">
+                                                        <input id="chk_p_8" name="checklist2" type="checkbox">
+                                                        <label for="chk_p_8" class="text-bold">
                                                             Se crea solicitud ID Access.
                                                         </label>
                                                     </div>
                                                     <div class="display-block">
-                                                        <input id="chk_p_4" type="checkbox">
-                                                        <label for="chk_p_4" class="text-bold">
+                                                        <input id="chk_p_9" name="checklist2" type="checkbox">
+                                                        <label for="chk_p_9" class="text-bold">
                                                             Se adjunta documento excel (gestión de calidad).
                                                         </label>
                                                     </div>
@@ -498,7 +499,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                                <button type="submit" id="btnGenerarApertura" class="btn btn-success" disabled><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
                                                 <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
@@ -510,18 +511,19 @@
                         <!-- punto de control section -->
                         <div class="bhoechie-tab-content" id="contentTab3">
                             <center>
-                                <form class="well form-horizontal" action="" method="post">
+                                <form class="well form-horizontal" action="insertCheckPointAcs" method="post">
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-4 control-label">ID ZTE:</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" placeholder="000" disabled="" />
+                                                <input type="hidden" id="k_id_vm" name="k_id_vm" value="1"/>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Estación:</span></label>
+                                            <label for="k_id_station" class="col-sm-2 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control select-estacion" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-estacion" id="k_id_station" name="k_id_station">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -529,43 +531,43 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
+                                            <label for="k_id_technology" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select-tecnologia" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-tecnologia" id="k_id_technology" name="k_id_technology">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Banda:</span></label>
+                                            <label for="k_id_band" class="col-sm-2 control-label"><span class="display-block">Banda:</span></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control select-banda" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-banda" id="k_id_band" name="k_id_band">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>                                    
                                     <div class="form-group">
-                                        <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
+                                        <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 p-r-30">
-                                            <select class="form-control select-tipotrabajo" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-tipotrabajo" id="k_id_work" name="k_id_work">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
                                     </div>    
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-4 control-label">Estado VM:</label>
+                                            <label for="n_estado_vm" class="col-sm-4 control-label">Estado VM:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control" id="n_estado_vm" name="n_estado_vm">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Motivo:</span></label>
+                                            <label for="n_motivo_estado" class="col-sm-2 control-label"><span class="display-block">Motivo:</span></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control" id="n_motivo_estado" name="n_motivo_estado">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -574,23 +576,23 @@
                                     <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
                                         <div class="clearfix m-t-20"></div>
                                         <div class="form-group">
-                                            <label for="cmbIngenieroControl" class="col-sm-4 control-label">Ingeniero Control:</label>
+                                            <label for="i_ingeniero_control" class="col-sm-4 control-label">Ingeniero Control:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <select class="form-control select-ingeniero" id="cmbIngenieroControl" name="cmbIngenieroControl">
+                                                <select class="form-control select-ingeniero" id="i_ingeniero_control" name="i_ingeniero_control">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>    
                                         <div class="form-group">
-                                            <label for="cmbHoraRevision" class="col-sm-4 control-label">Hora revisión:</label>
+                                            <label for="n_hora_revision" class="col-sm-4 control-label">Hora revisión:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <input type="text" class="form-control" id="cmbHoraRevision" name="cmbHoraRevision">
+                                                <input type="text" class="form-control" id="n_hora_revision" name="n_hora_revision">
                                             </div>
                                         </div>    
                                         <div class="form-group">
-                                            <label for="txtComentarioPuntoControl" class="col-sm-4 control-label">Comentario Punto de Control:</label>
+                                            <label for="n_comentario_punto_control" class="col-sm-4 control-label">Comentario Punto de Control:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <textarea class="form-control" id="txtComentarioPuntoControl" name="txtComentarioPuntoControl"></textarea>
+                                                <textarea class="form-control" id="n_comentario_punto_control" name="n_comentario_punto_control"></textarea>
                                             </div>
                                         </div>    
                                     </div>

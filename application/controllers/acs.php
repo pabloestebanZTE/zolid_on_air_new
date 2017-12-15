@@ -12,6 +12,7 @@ class Acs extends CI_Controller {
         $this->load->model('data/Dao_technology_model');
         $this->load->model('data/Dao_user_model');
         $this->load->model('data/Dao_vm_model');
+        $this->load->model('data/Dao_avm_model');
     }
 
     public function principal() {
@@ -52,9 +53,17 @@ class Acs extends CI_Controller {
         $this->json($response);
     }
     
-    public function insertCvmAcs() {
-        $vm = new Dao_avm_model();
-        $response = $vm->insertAvm($this->request);
+    public function insertAvmAcs() {
+        $vm = new Dao_vm_model();
+        $avm = new Dao_avm_model();
+        $response = $vm->updateVm($this->request);
+        $response = $avm->insertAvm($this->request);
+        $this->json($response);
+    }
+    
+    public function insertCheckPointAcs() {
+        $vm = new Dao_vm_model();
+        $response = $vm->updateVm($this->request);
         $this->json($response);
     }
 
