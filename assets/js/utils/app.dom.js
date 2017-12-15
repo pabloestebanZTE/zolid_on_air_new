@@ -56,7 +56,7 @@ var dom = {
      *
      * @param {Element} cmb
      * @param {Array} array
-     * @param {Object} keyNames : Ej: {text="keyName", value="keyName"}; value también soporta un array para concatenar keyNames,
+     * @param {Object} keyNames : Ej: {text:"keyName", value:"keyName"}; value también soporta un array para concatenar keyNames,
      * @returns {undefined}
      */
     llenarCombo: function (cmb, array, keyNames) {

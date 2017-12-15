@@ -34,31 +34,31 @@
                                 <form class="well form-horizontal" action="" method="post">
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="txtFechaSolicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
+                                            <label for="d_fecha_solicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
                                             <div class="col-sm-8">
-                                                <input type='datetime-local' name="txtFechaSolicitud" id="txtFechaSolicitud" class="form-control">
+                                                <input type='datetime-local' name="d_fecha_solicitud" id="d_fecha_solicitud" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbEstacion" class="col-md-3 control-label">ID Site Access :</label>
+                                            <label for="i_id_site_access" class="col-md-3 control-label">ID Site Access :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="txtIdSiteAccess" id="txtIdSiteAccess" class="form-control">
+                                                <input type="text" name="i_id_site_access" id="i_id_site_access" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="txtFechaSolicitud" class="col-md-3 control-label">Estacion :</label>
+                                            <label for="k_id_station" class="col-md-3 control-label">Estación :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" id="cmbEstacion" name="cmbEstacion">
+                                                <select class="form-control selectpicker select-estacion" id="k_id_station" name="k_id_station">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="cmbTecnologia" class="col-md-3 control-label">Tecnologia:</label>
+                                            <label for="k_id_technology" class="col-md-3 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" id="cmbTecnologia" name="cmbTecnologia">
+                                                <select class="form-control selectpicker select-tecnologia" id="k_id_technology" name="k_id_technology">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -68,7 +68,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbBanda" class="col-md-3 control-label">Banda :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" id="cmbBanda" name="cmbBanda">
+                                                <select class="form-control selectpicker select-banda" id="cmbBanda" name="cmbBanda">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -76,7 +76,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbTipoTrabajo" class="col-md-3 control-label">Tipo de Trabajo :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" id="cmbTipoTrabajo" name="cmbTipoTrabajo">
+                                                <select class="form-control selectpicker select-tipotrabajo" id="cmbTipoTrabajo" name="cmbTipoTrabajo">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -88,6 +88,8 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control selectpicker" name="cmbEnteEjecutor" id="cmbEnteEjecutor">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Claro" >Claro</option>
+                                                    <option value="Nokia" >Nokia</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -124,7 +126,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbIngCreadorGrupo" class="col-md-3 control-label">Ingeniero Creador Grupo :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" id="cmbIngCreadorGrupo" name="cmbIngCreadorGrupo">
+                                                <select class="form-control selectpicker select-ingeniero" id="cmbIngCreadorGrupo" name="cmbIngCreadorGrupo">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -190,7 +192,8 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
+                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
+                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
                                     </center>
@@ -212,7 +215,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-estacion" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -222,7 +225,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-tecnologia" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -230,7 +233,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-banda" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -239,7 +242,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-tipotrabajo" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -265,7 +268,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Ingeniero:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-ingeniero" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -299,7 +302,7 @@
                                             <div class="col-md-6">
                                                 <label for="cmbTecnologiasAfectadas" class="col-sm-4 control-label">Tecnologías Afectadas:</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" id="cmbTecnologiasAfectadas" name="cmbFactorRiesgo">
+                                                    <select class="form-control select-tecnologia" id="cmbTecnologiasAfectadas" name="cmbFactorRiesgo">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
@@ -307,7 +310,7 @@
                                             <div class="col-md-6">
                                                 <label for="cmbBandasAfectadas" class="col-sm-3 control-label">Bandas afectadas:</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="cmbBandasAfectadas">
+                                                    <select class="form-control select-banda" id="cmbBandasAfectadas">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
@@ -485,12 +488,15 @@
                                         </div>
                                         <!--FIN CHECK LIST APERTURA-->
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10 text-left ">
-                                            <hr/>
-                                            <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                    <center>
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label"></label>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </center>
                                 </form>
                             </center>
                         </div>
@@ -509,7 +515,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-estacion" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -519,7 +525,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-tecnologia" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -527,7 +533,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-2 control-label"><span class="display-block">Banda:</span></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-banda" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -536,7 +542,7 @@
                                     <div class="form-group">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 p-r-30">
-                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-tipotrabajo" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -564,7 +570,7 @@
                                         <div class="form-group">
                                             <label for="cmbIngenieroControl" class="col-sm-4 control-label">Ingeniero Control:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <select class="form-control" id="cmbIngenieroControl" name="cmbIngenieroControl">
+                                                <select class="form-control select-ingeniero" id="cmbIngenieroControl" name="cmbIngenieroControl">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -586,7 +592,8 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Control</button>
+                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Control</button>
+                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
                                     </center>
@@ -608,7 +615,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-estacion" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -618,7 +625,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-tecnologia" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -626,7 +633,7 @@
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="cmbRiesgoId" name="cmbRiesgoId">
+                                                <select class="form-control select-banda" id="cmbRiesgoId" name="cmbRiesgoId">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -635,7 +642,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-tipotrabajo" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -799,7 +806,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="cmbFactorRiesgo" class="col-sm-2 control-label">Ingeniero Cierre:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
+                                            <select class="form-control select-ingeniero" id="cmbFactorRiesgo" name="cmbFactorRiesgo">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -827,13 +834,15 @@
                                             <textarea class="form-control" placeholder="Comentario..." id="txtcomentarioCierre"></textarea>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10 text-left ">
-                                            <hr/>
-                                            <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                    <center>
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label"></label>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                                <button type="submit" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </center>
                                 </form>
                             </center>
                         </div>
@@ -883,5 +892,16 @@
         <?php $this->load->view('parts/generic/scripts'); ?>
         <!-- CUSTOM SCRIPT   -->
         <script src="<?= URL::to('assets/js/modules/acsForm.js') ?>" type="text/javascript"></script>
+        <script>
+        $(function () {
+            var info = <?php echo $respuesta; ?>;
+            console.log(info);
+            dom.llenarCombo($('.select-banda'),info.bands.data, {text:"n_name_band", value:"k_id_band"});
+            dom.llenarCombo($('.select-tecnologia'),info.technologies.data, {text:"n_name_technology", value:"k_id_technology"});
+            dom.llenarCombo($('.select-tipotrabajo'),info.works.data, {text:"n_name_ork", value:"k_id_work"});
+            dom.llenarCombo($('.select-estacion'),info.stations.data, {text:"n_name_station", value:"k_id_station"});
+            dom.llenarCombo($('.select-ingeniero'),info.users.data, {text:"n_name_user", value:"k_id_user"});
+        });
+        </script>
     </body>
 </html>
