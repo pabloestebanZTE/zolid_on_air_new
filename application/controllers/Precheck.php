@@ -192,6 +192,12 @@ class Precheck extends CI_Controller {
         //Sirve para veriificar si va para 12
         $requestProduction = null;
         $prorrogaHours = 0;
+
+        //Cerramos el KPI...
+        $kpiDao = new Dao_kpi_model();
+        //Se registra el KPI.
+        $kpiDao->record($this->request->idOnAir, false, true);
+
         //Se detecta si se desea hacer una prórroga para el precheck...
         if ($this->request->k_id_status_onair == 0) {
             $prorrogaHours = $this->request->prorrogaHours;

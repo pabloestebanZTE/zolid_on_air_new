@@ -1021,6 +1021,11 @@ class Dao_ticketOnair_model extends CI_Model {
 
             if ($ticket) {
                 //Finalizamos la fase actual...
+                //Cerramos el KPI...
+                $kpiDao = new Dao_kpi_model();
+                //Se registra el KPI.
+                $kpiDao->record($ticket, false, true);
+
                 $faseActual = $this->finishFase($ticket, $cog12, $cog24, $cog36);
 
                 //Pasamos a la siguiente fase...
