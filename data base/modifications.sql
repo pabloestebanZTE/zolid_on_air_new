@@ -711,3 +711,33 @@ alter table vm add constraint fk_vm_band foreign key (k_id_band)
 
 alter table vm add constraint fk_vm_work foreign key (k_id_work)
       references work (k_id_work) on delete restrict on update restrict;
+
+-- Actualizaciones KPIS.
+CREATE TABLE `kpi_summary_onair` (
+	`k_id_kpi_summary_onair` INT(11) NOT NULL AUTO_INCREMENT,
+	`k_id_onair` INT(11) NULL DEFAULT NULL,
+	`n_round` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_precheck` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_12h` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_24h` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_36h` INT(11) NULL DEFAULT NULL,
+	`d_created_at` TIMESTAMP NULL DEFAULT NULL,
+	PRIMARY KEY (`k_id_kpi_summary_onair`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+CREATE TABLE `kpi_summary` (
+	`k_kpi_summary` INT(11) NOT NULL AUTO_INCREMENT,
+	`e_type` ENUM('PRE','POS') NULL DEFAULT NULL,
+	`on_time` ENUM('Y','N') NULL DEFAULT NULL,
+	`d_start` TIMESTAMP NULL DEFAULT NULL,
+	`d_exec` TIMESTAMP NULL DEFAULT NULL,
+	`d_end` TIMESTAMP NULL DEFAULT NULL,
+	`k_id_executor` INT(11) NULL DEFAULT NULL,
+	`d_created_at` TIMESTAMP NULL DEFAULT NULL,
+	PRIMARY KEY (`k_kpi_summary`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
