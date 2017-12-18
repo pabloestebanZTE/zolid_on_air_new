@@ -246,5 +246,9 @@ class OnAir36hModel extends Model {
         }
         $model->where("k_id_36h_real", "=", $id)->update($obj);
     }
+    
+    public function getConstantState() {
+        return ConstStates::SEGUIMIENTO_36H;
+    }
 
 }

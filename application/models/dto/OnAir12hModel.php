@@ -259,4 +259,8 @@ class OnAir12hModel extends Model {
         $model->where("k_id_12h_real", "=", $id)->update($obj);
     }
 
+    public function getConstantState() {
+        return ConstStates::SEGUIMIENTO_12H;
+    }
+
 }

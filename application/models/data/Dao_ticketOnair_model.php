@@ -21,6 +21,7 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->load->model('data/Dao_followUp36h_model');
         $this->load->model('bin/ConstSubStates');
         $this->load->model('bin/SubstatusModel');
+        $this->load->model('data/Dao_kpi_model');
     }
 
     public function getTicketById($id) {
@@ -1200,6 +1201,10 @@ class Dao_ticketOnair_model extends CI_Model {
                     $obj[$d_end] = Hash::getDate();
                 }
                 $stepModel->insert($obj);
+                if ($type == "CREATE") {
+                    $kpiDao = new Dao_kpi_model();
+                    $kpiDao->record($ticket, false, false, $stepModel->getConstantState());
+                }
             }
         }
     }
@@ -1232,19 +1237,27 @@ class Dao_ticketOnair_model extends CI_Model {
                     $stepModel = new OnAir12hModel();
                     $d_start = "d_start12h";
                     $d_end = "d_fin12h";
+                    $kpiDao = new Dao_kpi_model();
                     $this->createProcess($stepModel, $ticket, $d_start, $d_end, $comment);
+                    //Cerramos el KPI...
+                    $kpiDao->record($ticket, false, true, ConstStates::SEGUIMIENTO_12H);
+
 
                     //Creamos el proceso 24H
                     $stepModel = new OnAir24hModel();
                     $d_start = "d_start24h";
                     $d_end = "d_fin24h";
                     $this->createProcess($stepModel, $ticket, $d_start, $d_end, $comment);
+                    //Cerramos el KPI...
+                    $kpiDao->record($ticket, false, true, ConstStates::SEGUIMIENTO_24H);
 
                     //Creamos el proceso 36H
                     $stepModel = new OnAir36hModel();
                     $d_start = "d_start36h";
                     $d_end = "d_fin36h";
                     $this->createProcess($stepModel, $ticket, $d_start, $d_end, $comment);
+                    //Cerramos el KPI...
+                    $kpiDao->record($ticket, false, true, ConstStates::SEGUIMIENTO_36H);
                 }
 
 
