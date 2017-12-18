@@ -9,7 +9,7 @@ class CvmModel extends Model {
     protected $n_sectores_dualbeam;
     protected $n_tipo_solucion;
     protected $i_telefono_lider_cambio;
-    protected $n_estado_vm;
+    protected $n_estado_vm_cierre;
     protected $n_sub_estado;
     protected $n_iniciar_vm_encontro;
     protected $n_falla_final;
@@ -73,11 +73,11 @@ class CvmModel extends Model {
     public function getITelefonoLiderCambio() {
         return $this->i_telefono_lider_cambio;
     }
-    public function setNEstadoVm($n_estado_vm) {
-        $this->n_estado_vm = $n_estado_vm;
+    public function setNEstadoVmCierre($n_estado_vm_cierre) {
+        $this->n_estado_vm_cierre = $n_estado_vm_cierre;
     }
-    public function getNEstadoVm() {
-        return $this->n_estado_vm;
+    public function getNEstadoVmCierre() {
+        return $this->n_estado_vm_cierre;
     }
     public function setNSubEstado($n_sub_estado) {
         $this->n_sub_estado = $n_sub_estado;

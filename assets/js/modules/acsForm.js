@@ -10,7 +10,7 @@ $(document).ready(function () {
         $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
     });
     
-    $("input:checkbox[name=checklist1]").click(function (e) {
+    $("input:checkbox[name=checklist1]").click(function () {
         var checkList = $("input:checkbox[name=checklist1]").length;
         var cheked = $("input:checkbox[name=checklist1]:checked").length;
         if (checkList === cheked) {
@@ -20,7 +20,7 @@ $(document).ready(function () {
         }       
     });
     
-    $("input:checkbox[name=checklist2]").click(function (e) {
+    $("input:checkbox[name=checklist2]").click(function () {
         var checkList = $("input:checkbox[name=checklist2]").length;
         var cheked = $("input:checkbox[name=checklist2]:checked").length;
         if (checkList === cheked) {
