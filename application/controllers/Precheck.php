@@ -188,15 +188,15 @@ class Precheck extends CI_Controller {
         $this->request->i_actualEngineer = 0;
         $this->request->d_precheck_init = 1;
         $this->request->k_id_ticket = $this->request->k_id_onair;
+        //Cerramos el KPI...
+        $kpiDao = new Dao_kpi_model();
+        //Se registra el KPI.
+        $kpiDao->record($ticketOnAir, false, true);
+
         $response1 = $ticket->updateEngTicket($this->request->idOnair, (($ticketOnAir->k_id_status_onair == 79) ? Auth::user()->k_id_user : 0))->data; //camilo
         //Sirve para veriificar si va para 12
         $requestProduction = null;
         $prorrogaHours = 0;
-
-        //Cerramos el KPI...
-        $kpiDao = new Dao_kpi_model();
-        //Se registra el KPI.
-        $kpiDao->record($this->request->idOnAir, false, true);
 
         //Se detecta si se desea hacer una prórroga para el precheck...
         if ($this->request->k_id_status_onair == 0) {

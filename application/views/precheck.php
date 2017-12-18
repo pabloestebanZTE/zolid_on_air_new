@@ -345,6 +345,7 @@
                 if (ticket.k_id_status_onair.k_id_status_onair == 80 || ticket.k_id_status_onair.k_id_status_onair == 97) {
                     $('#runPrecheck').removeClass('hidden');
                 } else {
+                    $('#runPrecheck').addClass('hidden');
                     $('.disabledchange').prop('disabled', false);
                 }
                 $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
@@ -421,7 +422,7 @@
                 };
                 form.on('submit', onSubmitForm);
 
-                $('#runPrecheck').removeClass('hidden');
+//                $('#runPrecheck').removeClass('hidden');
                 $('#runPrecheck').on('click', function () {
                     dom.confirmar("Se iniciará el proceso de precheck, ¿está seguro de continuar con esta operación?", function () {
                         app.post('Precheck/runPrecheck', {
