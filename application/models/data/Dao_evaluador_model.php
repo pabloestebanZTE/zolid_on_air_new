@@ -77,6 +77,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_12h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary                      
+                     WHERE kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N' 
                      ORDER BY 
                      kpi_r.d_start asc");
         $precheck = $this->getStadisticsObject("SELECT kpi_r.* FROM kpi_summary_onair kpi_s
@@ -84,7 +85,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_12h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary 
-                     WHERE kpi_r.e_type = 'PRE'
+                     WHERE kpi_r.e_type = 'PRE' AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
         $postcheck = $this->getStadisticsObject("SELECT kpi_r.* FROM kpi_summary_onair kpi_s
@@ -93,7 +94,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_12h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary 
-                     WHERE kpi_r.e_type = 'POS' 
+                     WHERE kpi_r.e_type = 'POS' AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
 
@@ -116,7 +117,9 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary                      
                      WHERE kpi_r.k_id_executor = $user->k_id_user AND 
-                     kpi_r.d_start > DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY    
+                     kpi_r.d_start > DATE_SUB(NOW(), INTERVAL 1 DAY) 
+                     AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
+                     ORDER BY    
                      kpi_r.d_start asc");
 
 
@@ -127,6 +130,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary                      
                      WHERE kpi_r.k_id_executor = $user->k_id_user 
+                     AND AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
 
@@ -137,6 +141,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary 
                      WHERE kpi_r.e_type = 'PRE' AND 
                      kpi_r.k_id_executor = $user->k_id_user 
+                     AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
 
@@ -148,6 +153,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary 
                      WHERE kpi_r.e_type = 'POS' AND 
                      kpi_r.k_id_executor = $user->k_id_user 
+                     AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
 

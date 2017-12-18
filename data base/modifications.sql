@@ -545,3 +545,37 @@ INSERT INTO `sectores_on_air` (`k_id_sector_on_air`, `k_id_sector`, `k_id_tecnol
 -- Actualizaciones Lunes, 4 de Diciembre de 2017.
 ALTER TABLE `ticket_on_air`
 	CHANGE COLUMN `n_json_sectores` `n_json_sectores` LONGTEXT NULL DEFAULT NULL AFTER `n_sectoresdesbloqueados`;
+
+
+
+
+-- KPIS Actualizaciones BD.
+CREATE TABLE `kpi_summary` (
+	`k_kpi_summary` INT(11) NOT NULL AUTO_INCREMENT,
+	`e_type` ENUM('PRE','POS') NULL DEFAULT NULL,
+	`on_time` ENUM('Y','N') NULL DEFAULT NULL,
+	`d_start` TIMESTAMP NULL DEFAULT NULL,
+	`d_exec` TIMESTAMP NULL DEFAULT NULL,
+	`d_end` TIMESTAMP NULL DEFAULT NULL,
+	`k_id_executor` INT(11) NULL DEFAULT NULL,
+	`d_created_at` TIMESTAMP NULL DEFAULT NULL,
+	PRIMARY KEY (`k_kpi_summary`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+CREATE TABLE `kpi_summary_onair` (
+	`k_id_kpi_summary_onair` INT(11) NOT NULL AUTO_INCREMENT,
+	`k_id_onair` INT(11) NULL DEFAULT NULL,
+	`n_round` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_precheck` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_12h` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_24h` INT(11) NULL DEFAULT NULL,
+	`k_id_summary_36h` INT(11) NULL DEFAULT NULL,
+	`d_created_at` TIMESTAMP NULL DEFAULT NULL,
+	PRIMARY KEY (`k_id_kpi_summary_onair`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
