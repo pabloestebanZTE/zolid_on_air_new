@@ -21,4 +21,16 @@ class ModelProccessor {
         return $db->get();
     }
 
+    function getTables() {
+        $db = new DB();
+//        $query = EQueries::getQuery(EQueries::SHOW_TABLES);
+        $db->select("SELECT 
+                    table_name AS tablename 
+                    FROM 
+                     information_schema.tables
+                    WHERE 
+                    table_schema = DATABASE()");
+        return $db->get();
+    }
+
 }

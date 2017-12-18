@@ -37,8 +37,24 @@ class Process {
         }
     }
 
-    private function createModel() {
+    private function createModel($nameTable = null) {
         $name_table = $this->args[0];
+        if ($nameTable) {
+            $this->args[0] = $nameTable;
+        }
+        require_once PATH_UTILS . "artisan/bin/ModelProcessor.php";
+        $process = new ModelProccessor();
+        if ($name_table == "-all") {
+            //Procesar las tablas
+            $tables = $process->getTables();
+            $this->args[0] = null;
+            foreach ($tables as $table) {
+                $this->createModel($table->tablename);
+            }
+            return;
+        }
+
+
         require_once PATH_UTILS . "artisan/bin/CamelTypes.php";
         $path = PATH_MODELS;
         $className = CamelTypes::camelCase($name_table) . "Model";
@@ -51,8 +67,6 @@ class Process {
         $content = file_get_contents($fileModel);
         $content = str_replace("ClassName", $className, $content);
         //Ahora consultamos los parámetros...
-        require_once PATH_UTILS . "artisan/bin/ModelProcessor.php";
-        $process = new ModelProccessor();
         $res = $process->getFields($name_table);
         $dbconfig = require PATH_CONFIG;
         $sqlLang = $dbconfig["connections"][$dbconfig["default"]]["driver"];
