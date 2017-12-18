@@ -339,3 +339,19 @@ a.link-normal:hover{
 .bg-gray{
     background-color: #f9f9f9;
 }
+.text-capitalize{
+    text-transform: capitalize !important;
+}
+.text-uppercase{
+    text-transform: uppercase;
+}
+.text-lowercase{
+    text-transform: lowercase;
+}
+
+.bg-gray{
+    background-color: #f5f5f5 !important;
+}
+.bg-white{
+    background-color: #FFF !important;
+}
