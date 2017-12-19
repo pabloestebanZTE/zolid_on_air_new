@@ -8,7 +8,7 @@
                 <a href="#" class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
-            <!-- TRACKING DETAILS FORM -->            
+            <!-- TRACKING DETAILS FORM -->
             <div class="col-md-12">
                 <div class="panel-group m-b-5" id="accordion">
                     <div class="panel panel-default">

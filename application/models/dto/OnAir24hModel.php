@@ -260,4 +260,8 @@ class OnAir24hModel extends Model {
         $model->where("k_id_24h_real", "=", $id)->update($obj);
     }
 
+    public function getConstantState() {
+        return ConstStates::SEGUIMIENTO_24H;
+    }
+
 }
