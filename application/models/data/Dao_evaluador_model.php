@@ -130,7 +130,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary                      
                      WHERE kpi_r.k_id_executor = $user->k_id_user 
-                     AND AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
+                     AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
 
