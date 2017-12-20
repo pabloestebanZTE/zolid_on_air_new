@@ -6,7 +6,7 @@
             var stadistics = '<?= json_encode($stadistics); ?>';
         </script>
         <?php $this->load->view('parts/generic/header'); ?>
-        <div class="container autoheight p-t-20">
+        <div class="container autoheight p-t-40">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
                 <a href="#" class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
