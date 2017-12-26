@@ -104,7 +104,7 @@ class Dao_kpi_model extends CI_Model {
         }
     }
 
-    public function record($tck, $flag = false, $recordExec = false) {
+    public function record($tck, $flag = false, $recordExec = false, $idStatus = null) {
         if ($tck) {
             if (!is_object($tck) && (!$flag)) {
                 $ticketModel = new TicketOnAirModel();
@@ -117,7 +117,7 @@ class Dao_kpi_model extends CI_Model {
         }
         //Se procesa la información del ticket, para iniciar el registro del kpi...
         //Inicialmente consutlamos el estado actual del ticket...
-        $idStatus = $tck->k_id_status_onair;
+        $idStatus = ($idStatus) ? $idStatus : $tck->k_id_status_onair;
         switch ($idStatus) {
             case ConstStates::PRECHECK:
                 if ($recordExec === false) {

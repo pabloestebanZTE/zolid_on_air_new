@@ -6,10 +6,6 @@
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20 m-t-20">
             <div class="row">
-                <div class="alert alert-success alert-dismissable hidden">
-                    <a href="#" class="close" >&times;</a>
-                    <p class="p-b-0" id="text"></p>
-                </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
                         <div class="list-group">
@@ -36,6 +32,10 @@
                         <div class="bhoechie-tab-content active" id="contentTab1">
                             <center>
                                 <form class="well form-horizontal" action="insertVmAcs" method="post">
+                                    <div class="alert alert-success alert-dismissable hidden">
+                                        <a href="#" class="close" >&times;</a>
+                                        <p class="p-b-0" id="text"></p>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="d_fecha_solicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
@@ -211,6 +211,10 @@
                         <div class="bhoechie-tab-content" id="contentTab2">
                             <center>
                                 <form class="well form-horizontal" action="insertAvmAcs" method="post">
+                                    <div class="alert alert-success alert-dismissable hidden">
+                                        <a href="#" class="close" >&times;</a>
+                                        <p class="p-b-0" id="text"></p>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="k_id_vm" class="col-sm-4 control-label">ID ZTE:</label>
@@ -512,6 +516,10 @@
                         <div class="bhoechie-tab-content" id="contentTab3">
                             <center>
                                 <form class="well form-horizontal" action="insertCheckPointAcs" method="post">
+                                    <div class="alert alert-success alert-dismissable hidden">
+                                        <a href="#" class="close" >&times;</a>
+                                        <p class="p-b-0" id="text"></p>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="cmbRiesgoId" class="col-sm-4 control-label">ID ZTE:</label>

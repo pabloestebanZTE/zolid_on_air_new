@@ -9,7 +9,7 @@ class Dao_evaluador_model extends CI_Model {
     }
 
     public function getMonth($month) {
-        $months = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Abril", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        $months = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         return $months[intval($month)];
     }
 
@@ -30,14 +30,15 @@ class Dao_evaluador_model extends CI_Model {
             $this->getMonth(10) => 0,
             $this->getMonth(11) => 0,
             $this->getMonth(12) => 0,
-            $this->getMonth(13) => 0,
         ];
         $array = [
             "onTime" => $montsTemp,
             "overTime" => $montsTemp
         ];
         foreach ($kpis as $kpi) {
-            $month = $this->getMonth(date("m", strtotime($kpi->d_start)));
+            $monthInt = date("m", strtotime($kpi->d_start));
+            $month = $this->getMonth($monthInt);
+//            echo $monthInt . " --- " . $month . "<br/>";
             $obj = "onTime";
             if ($kpi->on_time != "Y") {
                 $obj = "overTime";
@@ -130,7 +131,7 @@ class Dao_evaluador_model extends CI_Model {
                      OR kpi_s.k_id_summary_24h = kpi_r.k_kpi_summary 
                      OR kpi_s.k_id_summary_36h = kpi_r.k_kpi_summary                      
                      WHERE kpi_r.k_id_executor = $user->k_id_user 
-                     AND AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
+                     AND (kpi_r.on_time = 'Y' OR kpi_r.on_time = 'N') 
                      ORDER BY 
                      kpi_r.d_start asc");
 
