@@ -2,7 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
 class Acs extends CI_Controller {
 
     function __construct() {
@@ -30,7 +29,7 @@ class Acs extends CI_Controller {
         }
         $this->load->view('acsView', $answer);
     }
-    
+
     public function createVmAcs() {
         $station = new dao_station_model();
         $band = new dao_band_model();
@@ -43,18 +42,18 @@ class Acs extends CI_Controller {
         $res['works'] = $work->getAll();
         $res['technologies'] = $technology->getAll();
         $res['users'] = $users->getAllEngineers();
-        
-        
+
+
         $answer['respuesta'] = json_encode($res);
         $this->acsview($answer);
     }
-    
+
     public function insertVmAcs() {
         $vm = new Dao_vm_model();
         $response = $vm->insertVm($this->request);
         $this->json($response);
     }
-    
+
     public function insertAvmAcs() {
         $vm = new Dao_vm_model();
         $avm = new Dao_avm_model();
@@ -62,13 +61,13 @@ class Acs extends CI_Controller {
         $response = $avm->insertAvm($this->request);
         $this->json($response);
     }
-    
+
     public function insertCheckPointAcs() {
         $vm = new Dao_vm_model();
         $response = $vm->updateVm($this->request);
         $this->json($response);
     }
-    
+
     public function insertCvmAcs() {
         $vm = new Dao_vm_model();
         $cvm = new Dao_cvm_model();

@@ -66,16 +66,16 @@ class Auth {
     }
 
     public static function save($user) {
-        Session::set("auth", $user);
+        Session::set("auth" . Hash::md5(URL::getBase()), $user);
     }
 
     public static function check() {
-        return null !== (Session::get("auth"));
+        return null !== (Session::get("auth" . Hash::md5(URL::getBase())));
     }
 
     public static function user() {
         self::init();
-        if (null !== $session = Session::get("auth")) {
+        if (null !== $session = Session::get("auth" . Hash::md5(URL::getBase()))) {
             $class = self::$class;
             return new $class($session);
         } else {
@@ -84,7 +84,7 @@ class Auth {
     }
 
     public static function logout() {
-        Session::destroy("auth");
+        Session::destroy("auth" . Hash::md5(URL::getBase()));
     }
 
     public static function isRole($role) {
