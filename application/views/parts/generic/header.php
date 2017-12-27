@@ -32,7 +32,7 @@
                                 <a href="<?= URL::to('index.php/User/principalView') ?>"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Home</a>
                             </li>
                             <li>
-                                <a href="<?= URL::to('acs/principal') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Acs</a>
+                                <a href="<?= URL::to('Acs/principal') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Acs</a>
                             </li>
 
                             <li>
