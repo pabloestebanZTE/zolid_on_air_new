@@ -122,7 +122,7 @@ var vista = {
         var uri = formGlobal.attr('data-action');
         var forInsert = true;
         if (formGlobal.attr('data-mode') == "FOR_UPDATE") {
-            uri = form.attr('data-action-update');
+            uri = formGlobal.attr('data-action-update');
             forInsert = false;
         }
 
@@ -135,14 +135,20 @@ var vista = {
                 .success(function (response) {
                     var v = app.successResponse(response);
                     if (v) {
+                        if (forInsert) {
+                            $('#idAcs').val(response.data);
+                            formGlobal.attr('data-mode', 'FOR_UPDATE');
+                            var btn = form.find('button:submit');
+                            btn.html(btn.attr('data-update-text'));
+                        }
                         swal("Guardado", "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success");
                     } else {
-                        swal("Lo sentimos", "No se pudo " + ((forInsert) ? "insertar" : "actualizar") + " el registro.", "error");
+                        swal("Lo sentimos", response.message, "error");
                     }
                 })
                 .error(function () {
                     swal("Error inesperado", "Se ha producido un error al " + ((forInsert) ? "insertar" : "actualizar") + " el registro.", "error");
-                });
+                }).send();
 
         console.log(obj);
     }
