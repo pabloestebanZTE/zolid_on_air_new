@@ -26,7 +26,7 @@
                                                         </a>-->
                         </div>
                     </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab" id="formGlobalAcs" data-action="<?= URL::to("Acs/insertAcs"); ?>" data-action-update="<?= URL::to("Acs/updateAcs"); ?>">
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab" id="formGlobalAcs" data-action="Acs/insertAcs" data-action-update="Acs/updateAcs">
                         <input type="hidden" id="idAcs" value="" />
                         <!-- creacion ventana section -->
                         <div class="bhoechie-tab-content active" id="contentTab1">
@@ -489,7 +489,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" id="btnGenerarApertura" class="btn btn-success" ><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                                <button type="submit" id="btnGenerarApertura" class="btn btn-success"  data-update-text='<span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Actualizar apertura' ><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
@@ -593,7 +593,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Control</button>
+                                                <button type="submit" class="btn btn-success" data-update-text='<span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Atualizar control'><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Control</button>
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
@@ -827,7 +827,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
+                                                <button type="submit" class="btn btn-success" data-update-text='<span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;actualizar apertura'><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar apertura</button>
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>

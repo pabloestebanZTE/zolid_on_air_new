@@ -37,7 +37,7 @@ class Acs extends CI_Controller {
         $technology = new dao_technology_model();
         $users = new Dao_user_model();
 
-        if ($this->request->id) {
+        if (isset($this->request->id)) {
             
         }
 
@@ -61,7 +61,7 @@ class Acs extends CI_Controller {
         $this->json($response);
     }
 
-    /** Realiza la actualización completa del todo el formulariuo que se muestra en vmAcs. */
+    /** Realiza la actualización completa del todo el formulariuo que se muestra en aAcs. */
     public function updateAcs() {
         $dao = new Dao_acs_model();
         $response = $dao->updateAcs($this->request);
