@@ -17,10 +17,13 @@ class Acs extends CI_Controller {
     }
 
     public function principal() {
+        $users = new Dao_user_model();
         if (!Auth::check()) {
             Redirect::to(URL::base());
         }
-        $this->load->view('principalvm');
+        $res['users'] = $users->getAllEngineers();
+        $answer['usuarios'] = json_encode($res);
+        $this->load->view('principalvm', $answer);
     }
 
     public function acsview($answer) {
@@ -29,31 +32,51 @@ class Acs extends CI_Controller {
         }
         $this->load->view('acsView', $answer);
     }
-    
-    public function createVmAcs() {
+
+    public function vmAcs() {
         $station = new dao_station_model();
         $band = new dao_band_model();
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $users = new Dao_user_model();
 
+        if ($this->request->id) {
+            
+        }
+
         $res['stations'] = $station->getAll();
         $res['bands'] = $band->getAll();
         $res['works'] = $work->getAll();
         $res['technologies'] = $technology->getAll();
         $res['users'] = $users->getAllEngineers();
-        
-        
+
+
         $answer['respuesta'] = json_encode($res);
         $this->acsview($answer);
     }
-    
+
+    /** Realiza la inserción completa de todo el formulario que se muestra en vmAcs,
+      teniendo en cuenta todas las reglas y demás cosas necesarias...
+     */
+    public function insertAcs() {
+        $dao = new Dao_acs_model();
+        $response = $dao->insertAcs($this->request);
+        $this->json($response);
+    }
+
+    /** Realiza la actualización completa del todo el formulariuo que se muestra en vmAcs. */
+    public function updateAcs() {
+        $dao = new Dao_acs_model();
+        $response = $dao->updateAcs($this->request);
+        $this->json($response);
+    }
+
     public function insertVmAcs() {
         $vm = new Dao_vm_model();
         $response = $vm->insertVm($this->request);
         $this->json($response);
     }
-    
+
     public function insertAvmAcs() {
         $vm = new Dao_vm_model();
         $avm = new Dao_avm_model();
@@ -61,19 +84,36 @@ class Acs extends CI_Controller {
         $response = $avm->insertAvm($this->request);
         $this->json($response);
     }
-    
+
     public function insertCheckPointAcs() {
         $vm = new Dao_vm_model();
         $response = $vm->updateVm($this->request);
         $this->json($response);
     }
-    
+
     public function insertCvmAcs() {
         $vm = new Dao_vm_model();
         $cvm = new Dao_cvm_model();
         $response = $vm->updateVm($this->request);
         $response = $cvm->insertCvm($this->request);
         $this->json($response);
+    }
+
+    public function getALLVm() {
+        //Se comprueba si no hay sesión.
+        if (!Auth::check()) {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
+
+        $response = null;
+        if (Auth::check()) {
+            $vm = new Dao_vm_model();
+            $res = $vm->getAllVm();
+            $this->json($res);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
     }
 
 }

@@ -741,3 +741,13 @@ CREATE TABLE `kpi_summary` (
 COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
+
+-- actualizacion 28/12/2017
+ALTER TABLE `on_air`.`avm` 
+ADD COLUMN `i_ingeniero_asignado` INT(11) NULL DEFAULT NULL AFTER `n_contratista`;
+
+ALTER TABLE `on_air`.`cvm` 
+ADD COLUMN `i_ingeniero_asignado` INT(11) NULL DEFAULT NULL AFTER `n_comentarios_cierre`;
+
+ALTER TABLE `on_air`.`vm` 
+ADD COLUMN `i_ingeniero_asignado` VARCHAR(11) NULL AFTER `n_comentario_punto_control`;

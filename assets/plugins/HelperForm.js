@@ -31,20 +31,30 @@ $.fn.fillForm = function (data) {
                     if (callback) {
                         val = eval(callback + '("' + val + '", "fillForm")');
                     }
-                    if ($el.is('select')) {
-                        $el.attr('data-valuehf', val);
-                        $el.on('select2fill', function () {
-                            var $el = $(this);
-                            $el.val($el.attr('data-valuehf'));
-                            window.setTimeout(function () {
-                                $el.trigger('change.select2');
-                            }, 25);
-                            if ($el.hasClass('exec-change')) {
-                                $el.trigger('change');
-                            }
+                    if ($el.is('select') && $el.find('option').length <= 1) {
+                        $el.attr('data-value', val);
+                        $el.on('selectfilled', function () {
+                            var interval = window.setInterval(function () {
+                                if ($el.find('option').length > 1) {
+                                    clearInterval(interval);
+                                } else {
+                                    return;
+                                }
+
+                                $el.val($el.attr('data-value'));
+                                if ($el.hasClass('select2-hidden-accessible')) {
+                                    $el.trigger('change.select2');
+                                }
+                                if ($el.hasClass('helper-change')) {
+                                    $el.trigger('change');
+                                }
+                            }, 100);
                         });
                     }
                     $el.val(val);
+                    if ($el.hasClass('select2-hidden-accessible')) {
+                        $el.trigger('change.select2');
+                    }
             }
         };
         var finder = function (parsekey, data) {
@@ -90,9 +100,16 @@ $.fn.getFormData = function () {
                 for (var i = 0; i < partes.length; i++) {
                     if (i == 0) {
                         objTemp[partes[i]] = new Object();
-                        y = objTemp[partes[i]]
+                        y = objTemp[partes[i]];
                     } else if (i == (partes.length - 1)) {
-                        y[partes[i]] = val;
+                        if (name.indexOf('[]') >= 0) {
+                            if (!Array.isArray(y[partes[i]])) {
+                                y[partes[i]] = [];
+                            }
+                            y[partes[i]].push(val);
+                        } else {
+                            y[partes[i]] = val;
+                        }
                     } else {
                         y[partes[i]] = new Object();
                         y = y[partes[i]];
@@ -107,13 +124,30 @@ $.fn.getFormData = function () {
             } else {
                 objFinal = new Object();
                 if (hasClass) {
-                    objFinal[nameEntity] = new Object();
-                    objFinal[nameEntity][name] = val;
+                    if (name.indexOf('[]') >= 0) {
+                        if (!obj[nameEntity]) {
+                            obj[nameEntity] = new Object();
+                        }
+                        if (!Array.isArray(obj[nameEntity][name])) {
+                            obj[nameEntity][name] = [];
+                        }
+                        obj[nameEntity][name].push(val);
+                    } else {
+                        objFinal[nameEntity] = new Object();
+                        objFinal[nameEntity][name] = val;
+                    }
                 } else {
-                    objFinal[name] = val;
+                    if (name.indexOf('[]') >= 0) {
+                        if (!Array.isArray(obj[name])) {
+                            obj[name] = [];
+                        }
+                        obj[name].push(val);
+                    } else {
+                        objFinal[name] = val;
+                    }
                 }
             }
-            $.extend(true, obj, objFinal);
+            __mergeObj(obj, objFinal);
         };
 
         $el = $($el);
@@ -144,4 +178,27 @@ $.fn.getFormData = function () {
         }
     });
     return obj;
+};
+
+
+__mergeObj = function (obj1, obj2) {
+    for (var key in obj2) {
+        if (typeof obj2[key] != "number" && typeof obj2[key] != "undefined" && obj2[key] != null && obj2[key].constructor()) {
+            if (Array.isArray(obj2[key])) {
+                if (!obj1[key]) {
+                    obj1[key] = [];
+                }
+                for (var i = 0; i < obj2[key].length; i++) {
+                    obj1[key].push(obj2[key][i]);
+                }
+            } else {
+                if (typeof obj1[key] == "undefined") {
+                    obj1[key] = new Object();
+                }
+                __mergeObj(obj1[key], obj2[key]);
+            }
+        } else {
+            obj1[key] = obj2[key];
+        }
+    }
 };

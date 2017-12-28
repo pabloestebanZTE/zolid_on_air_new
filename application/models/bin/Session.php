@@ -3,7 +3,9 @@
 class Session {
 
     public static function init() {
-        @session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public static function set($key, $value) {
@@ -20,7 +22,7 @@ class Session {
 
     public static function destroy($key) {
         self::init();
-        session_destroy();
+        unset($_SESSION[$key]);
     }
 
 }

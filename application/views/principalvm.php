@@ -9,22 +9,91 @@
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
             <div class="well">
-                <a href="<?= URL::to("acs/createVmAcs") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
+                <a href="<?= URL::to("Acs/acsview") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
                 <hr/>
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <table id="tablaVm" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        <div class="table-responsive min-h-300">
+                            <table id="tablaVm" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--modal asignacion-->
+        <div id="modalChangeState" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xs">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i> Riesgos asociados</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal well">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Creación de Ventanas</label>
+                                <div class="col-sm-10">
+                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Apertura de VM</label>
+                                <div class="col-sm-10">
+                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Punto de Control</label>
+                                <div class="col-sm-10">
+                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Cierre de VM</label>
+                                <div class="col-sm-10">
+                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-fw fa-times"></i> Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--modal asignacion-->
+
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
-        </div>        
+        </div>
         <!-- CUSTOM SCRIPT   -->
         <?php $this->load->view('parts/generic/scripts'); ?>
         <script src="<?= URL::to("assets/js/modules/acs.js"); ?>" type = "text/javascript"></script>
+        <script>
+        $(function () {
+            var info = <?php echo $usuarios; ?>;
+            console.log(info);
+            dom.llenarCombo($('.select-ingeniero'),info.users.data, {text:"n_name_user", value:"k_id_user"});
+        });
+        </script>
     </body>
 </html>

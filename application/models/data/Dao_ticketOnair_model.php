@@ -595,27 +595,53 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    private function getListTicket($request, $condition) {
+    private function getListTicket($request, $condition, $orderBy = null) {
         try {
             //CONSULTAMOS LA LISTA DE REGISTROS PENDIENTES...
             $db = new DB();
             $pending = null;
             $sql = "";
             $sqlCount = "";
-            if ($request->search->value) {
+            $order = "";
+            $listOrders = ["tk.d_fecha_ultima_rev" => "asc", "tk.d_created_at" => "desc"];
+            if ($orderBy) {
+                $listOrders = [];
+                //Se agregan los orders adicionales...
+                $flag = true;
+                foreach ($listOrders as $key => $val) {
+                    if ($orderBy["col"] == $key) {
+                        $flag = false;
+                    }
+                }
+                if ($flag) {
+                    $listOrders[$orderBy["col"]] = $orderBy["dir"];
+                }
+            }
+
+            //Armamos la sentencia de ordenamiento.
+            $i = 0;
+            $max = count($listOrders);
+            foreach ($listOrders as $key => $value) {
+                $order .= $key . " " . $value;
+                $order .= ($i < ($max - 1)) ? ", " : " ";
+                $i++;
+            }
+
+            if ($request->search->value || $orderBy) {
                 $request->searchValue = $request->search->value;
                 $sql = "SELECT tk.* FROM ticket_on_air tk
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
-                        INNER JOIN `status` s
-                        INNER JOIN substatus sb
-                        INNER JOIN status_on_air sa ON
-                        sa.k_id_status_onair = tk.k_id_status_onair
-                        AND sa.k_id_status = s.k_id_status
-                        AND sb.k_id_substatus = sa.k_id_substatus
-                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
-                        INNER JOIN station st ON st.k_id_station = tk.k_id_station
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
-                        WHERE
+                        INNER JOIN preparation_stage ps ON tk.k_id_preparation = ps.k_id_preparation 
+                        INNER JOIN `status` s 
+                        INNER JOIN substatus sb 
+                        INNER JOIN status_on_air sa ON 
+                        sa.k_id_status_onair = tk.k_id_status_onair 
+                        AND sa.k_id_status = s.k_id_status 
+                        AND sb.k_id_substatus = sa.k_id_substatus 
+                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band 
+                        INNER JOIN station st ON st.k_id_station = tk.k_id_station 
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
+                        WHERE 
                         (t.n_name_technology LIKE '%$request->searchValue%'
                         OR s.n_name_status LIKE '%$request->searchValue%'
                         OR sb.n_name_substatus LIKE '%$request->searchValue%'
@@ -624,11 +650,12 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
                         group by tk.k_id_onair
-                        order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc limit $request->start, $request->length";
+                        order by $order limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
-                         INNER JOIN `status` s
+                         INNER JOIN `status` s 
+                         INNER JOIN preparation_stage ps ON tk.k_id_preparation = ps.k_id_preparation 
                         INNER JOIN substatus sb
                         INNER JOIN status_on_air sa ON
                         sa.k_id_status_onair = tk.k_id_status_onair
@@ -646,18 +673,18 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
                         group by tk.k_id_onair
-                        order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc";
+                        order by $order";
             } else {
                 $sql = "select * from ticket_on_air tk "
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
-                        . "order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc limit $request->start, $request->length";
+                        . "order by $order limit $request->start, $request->length";
                 $sqlCount = "select count(k_id_onair) as count from ticket_on_air tk "
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
-                        . "order by tk.d_fecha_ultima_rev asc, tk.d_created_at desc";
+                        . "order $order";
             }
 
 //            echo $sql;
@@ -684,15 +711,39 @@ class Dao_ticketOnair_model extends CI_Model {
 
     //Coordinador...
     public function getPendingList($request) {
-        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0", $orderBy);
     }
 
     public function getAssignList($request) {
-        return $this->getListTicket($request, "i_actualEngineer != 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "i_actualEngineer != 0", $orderBy);
     }
 
     public function getNotificationList($request) {
-        return $this->getListTicket($request, "tk.k_id_status_onair = 97 and i_actualEngineer = 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 97 and i_actualEngineer = 0", $orderBy);
     }
 
     public function getIngenerList($request) {
@@ -700,19 +751,51 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getPrecheckList($request) {
-        return $this->getListTicket($request, "tk.k_id_status_onair = 78 and i_actualEngineer = 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 78 and i_actualEngineer = 0", $orderBy);
     }
 
     public function getSeguimiento12hList($request) {
-        return $this->getListTicket($request, "tk.k_id_status_onair = 81 and i_actualEngineer = 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 81 and i_actualEngineer = 0", $orderBy);
     }
 
     public function getSeguimiento24hList($request) {
-        return $this->getListTicket($request, "tk.k_id_status_onair = 82 and i_actualEngineer = 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 82 and i_actualEngineer = 0", $orderBy);
     }
 
     public function getSeguimiento36hhList($request) {
-        return $this->getListTicket($request, "tk.k_id_status_onair = 83 and i_actualEngineer = 0");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 83 and i_actualEngineer = 0", $orderBy);
     }
 
     //Fin Coordinador...
