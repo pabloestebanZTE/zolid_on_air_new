@@ -62,7 +62,7 @@ class Dao_acs_model extends CI_Model {
                 $idVm = $vmModel->where("k_id_vm", "=", $request->id)->update($obj->all())->data;
 
                 $avmModel = new AvmModel();
-                $obj2 = $this->validateAndGetData($request->avm);
+                $obj2 = $this->validateAndGetData($request->avm->all());
                 //Si existe el AVM, lo actualizamos...
                 if ($avmModel->where("k_id_vm", "=", $request->id)->exist()) {
                     $avmModel->where("k_id_vm", "=", $request->id)->update($obj2->all());
@@ -70,18 +70,19 @@ class Dao_acs_model extends CI_Model {
                     $request->avm->k_id_vm = $request->id;
                     $idAvm = DB::NULLED;
                     if ($obj2) {
+                        $obj2->k_id_vm = $request->id;
                         $idAvm = $avmModel->insert($obj2->all());
                     }
                 }
 
                 $cvmModel = new CvmModel();
-                $obj3 = $this->validateAndGetData($request->cvm);
+                $obj3 = $this->validateAndGetData($request->cvm->all());
                 //Si existe el CVM, lo actualizamos...
                 if ($cvmModel->where("k_id_vm", "=", $request->id)->exist()) {
                     $cvmModel->where("k_id_vm", "=", $request->id)->update($obj3->all());
                 } else { //De lo contrario, lo insertamos...
-                    $request->cvm->k_id_vm = $request->id;
                     if ($obj3) {
+                        $obj3->k_id_vm = $request->id;
                         $idCvm = $cvmModel->insert($obj3->all());
                     }
                 }

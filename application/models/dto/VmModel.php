@@ -21,6 +21,7 @@ class VmModel extends Model {
     protected $i_ingeniero_control;
     protected $n_hora_revision;
     protected $n_comentario_punto_control;
+    protected $i_ingeniero_asignado;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "vm";
@@ -145,6 +146,12 @@ class VmModel extends Model {
     }
     public function getNComentarioPuntoControl() {
         return $this->n_comentario_punto_control;
+    }
+    public function setIIngenieroAsignado($i_ingeniero_asignado) {
+        $this->i_ingeniero_asignado = $i_ingeniero_asignado;
+    }
+    public function getIIngenieroAsignado() {
+        return $this->i_ingeniero_asignado;
     }
 
 

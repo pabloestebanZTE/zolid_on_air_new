@@ -37,7 +37,9 @@ var vista = {
     init: function () {
         vista.events();
         vista.configView();
-        vista.get();
+        window.setTimeout(function () {
+            vista.get();
+        }, 15);
     },
     events: function () {
         $('form').on('submit', vista.onSumitForm);
@@ -56,6 +58,8 @@ var vista = {
         dom.llenarCombo($('.select-tipotrabajo'), dataForm.works.data, {text: "n_name_ork", value: "k_id_work"});
         dom.llenarCombo($('.select-estacion'), dataForm.stations.data, {text: "n_name_station", value: "k_id_station"});
         dom.llenarCombo($('.select-ingeniero'), dataForm.users.data, {text: "n_name_user", value: "k_id_user"});
+        $('select').select2({width: '100%'});
+        $('#i_telefono_lider_cambio').mask("(999) 999-9999");
     },
     get: function () {
         var id = app.getParamURL('id');
@@ -66,10 +70,23 @@ var vista = {
             var formGlobal = $('#formGlobalAcs');
             var data = dataForm.record;
             if (data) {
+                $('#idAcs').val(id);
                 formGlobal.attr('data-mode', "FOR_UPDATE");
                 formGlobal.fillForm(data);
-                formGlobal.find('select').trigger('change.select2');
-//                formGlobal.find('button:submit').html('<i class="fa fa-fw fa-save"></i> Actualizar');
+                if (data.vm) {
+                    $('#form1').find('input:checkbox').prop('checked', true);
+                    var btn = $('#form1 button:submit');
+                    btn.html(btn.attr('data-update-text'));
+                }
+                if (data.avm) {
+                    $('#form2').find('input:checkbox').prop('checked', true);
+                    var btn = $('#form2 button:submit');
+                    btn.html(btn.attr('data-update-text'));
+                }
+                if (data.cvm) {
+                    var btn = $('#form4 button:submit');
+                    btn.html(btn.attr('data-update-text'));
+                }
             }
         }
     },
@@ -110,6 +127,40 @@ var vista = {
             return;
         }
 
+        if (form.attr('id') == "form2") {
+            var f1 = form.find('#d_inicio_programado_sa');
+            var f2 = form.find('#d_fin_programado_sa');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                var d1 = new Date(f1.val());
+                var d2 = new Date(f2.val());
+                if (d1.getTime() >= d2.getTime()) {
+                    swal("Atención", "La Fecha de Inicio Programado SA debe ser inferior a la Fecha Fin Programado SA", "warning");
+                    return;
+                }
+            }
+
+            f1 = form.find('#d_hora_atencion_cierre');
+            f2 = form.find('#n_hora_inicio_real_vm');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') >= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Hora Atención VM debe ser inferior a la Hora Inicio Real VM", "warning");
+                    return;
+                }
+            }
+        }
+
+        if (form.attr('id') == "form4") {
+            var f1 = form.find('#d_hora_atencion_cierre');
+            var f2 = form.find('#d_hora_cierre_confirmado');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') >= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Fecha de Hora de atención cierre debe ser inferior a la Hora de cierre confirmado", "warning");
+                    return;
+                }
+            }
+        }
+
+
         //Si todo ha salido bien construimos el objeto y nos preparamos para insertar...
 
         var obj = new Object();
@@ -124,6 +175,7 @@ var vista = {
         if (formGlobal.attr('data-mode') == "FOR_UPDATE") {
             uri = formGlobal.attr('data-action-update');
             forInsert = false;
+            obj.id = $('#idAcs').val();
         }
 
         //Realizamos la petición ajax...
