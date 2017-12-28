@@ -68,8 +68,8 @@ var vista = {
             if (data) {
                 formGlobal.attr('data-mode', "FOR_UPDATE");
                 formGlobal.fillForm(data);
-                vista.listCausas(data.causas);
-                formGlobal.find('button:submit').html('<i class="fa fa-fw fa-save"></i> Actualizar');
+                formGlobal.find('select').trigger('change.select2');
+//                formGlobal.find('button:submit').html('<i class="fa fa-fw fa-save"></i> Actualizar');
             }
         }
     },
@@ -141,7 +141,7 @@ var vista = {
                             var btn = form.find('button:submit');
                             btn.html(btn.attr('data-update-text'));
                         }
-                        swal("Guardado", "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success");
+                        swal(((forInsert) ? "Guardado" : "Actualizado"), "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success");
                     } else {
                         swal("Lo sentimos", response.message, "error");
                     }

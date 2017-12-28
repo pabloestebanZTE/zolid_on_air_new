@@ -9,7 +9,11 @@
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
             <div class="well">
+<<<<<<< HEAD
                 <a href="<?= URL::to("Acs/acsview") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
+=======
+                <a href="<?= URL::to("Acs/vmAcs") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
+>>>>>>> 60b8e6496ceb3d241c4450dfb1e8d6be835a39da
                 <hr/>
                 <div class="clearfix"></div>
                 <div class="row">
@@ -29,40 +33,44 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i> Riesgos asociados</h4>
+                        <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i> Asignar Ingeniero</h4>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal well">
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Creación de Ventanas</label>
+                                <label for="i_ingeniero_asignado_vm" class="col-sm-2 control-label">Creación de Ventanas</label>
                                 <div class="col-sm-10">
-                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                    <select id="i_ingeniero_asignado_vm" name="i_ingeniero_asignado_vm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
+                                    <input type="hidden" name="k_id_vm" id="k_id_vm">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Apertura de VM</label>
+                                <label for="i_ingeniero_asignado_avm" class="col-sm-2 control-label">Apertura de VM</label>
                                 <div class="col-sm-10">
-                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                    <select id="i_ingeniero_asignado_avm" name="i_ingeniero_asignado_avm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
+                                    <input type="hidden" name="k_id_avm" id="k_id_avm">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Punto de Control</label>
+                                <label for="i_ingeniero_asignado_pvm" class="col-sm-2 control-label">Punto de Control</label>
                                 <div class="col-sm-10">
-                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                    <select id="i_ingeniero_asignado_pvm" name="i_ingeniero_asignado_pvm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
+                                    <input type="hidden" name="k_id_pvm" id="k_id_pvm">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Cierre de VM</label>
+                                <label for="i_ingeniero_asignado_cvm" class="col-sm-2 control-label">Cierre de VM</label>
                                 <div class="col-sm-10">
-                                    <select id="" name="" class="form-control selectpicker select-ingeniero">
+                                    <select id="i_ingeniero_asignado_cvm" name="i_ingeniero_asignado_cvm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
+                                    <input type="hidden" name="k_id_cvm" id="k_id_cvm">
                                 </div>
                             </div>
                             <div class="form-group">
