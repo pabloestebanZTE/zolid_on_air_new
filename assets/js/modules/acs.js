@@ -46,8 +46,8 @@ $(function () {
                 }
             }
             return '<div class="btn-group">'
-                    + '<a href="' + app.urlTo('Control/findControlById?idControl=' + obj.k_id_control) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Editar Control"><span class="fa fa-fw fa-pencil-square-o"></span></a>'
-                    + '<a onclick="showModalqualificationControls(\'' + obj.k_id_control + '\')" class="btn btn-default btn-xs" data-toggle="tooltip" title="ver Riesgos Asociados"' + m + '><span class="fa fa-fw fa-list-ul"></span></a>'
+                    + '<a href="' + app.urlTo('Acs/vmAcs?id=' + obj.k_id_vm) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Editar Control"><span class="fa fa-fw fa-pencil-square-o"></span></a>'
+                    + '<a onclick="showModalAssign(' + obj.k_id_avm + ',' + obj.k_id_cvm + ',' + obj.k_id_vm + ')" class="btn btn-default btn-xs" data-toggle="tooltip" title="ver Riesgos Asociados"' + m + '><span class="fa fa-fw fa-list-ul"></span></a>'
                     + '</div>';
         },
         fillTable: function (data) {
@@ -65,13 +65,11 @@ $(function () {
                         {title: "Banda", data: "n_name_band"},
                         {title: "Estado", data: "n_estado_vm"},
                         {title: "SubEstado", data: "n_sub_estado"},
-                        {title: "Est. Notificación", data: ini.fillNA},
                         {title: "Tipo Falla Final", data: "n_falla_final"},
                         {title: "Ing. Crea Grupo", data: "ingeniero_creador_grupo"},
                         {title: "Ing. Apertura", data: "ingeniero_apertura"},
                         {title: "Ing. Punto Control", data: "i_ingeniero_control"},
                         {title: "Ing. Cierre", data: "ingeniero_cierre"},
-                        {title: "VM hoy", data: ini.fillNA},
                         {title: "Opciones", data: ini.getButtons},
                     ],
                     ));
@@ -81,3 +79,8 @@ $(function () {
 
     ini.init();
 });
+
+function showModalAssign(k_id_avm, k_id_cvm, k_id_vm) {
+    alert(k_id_avm+','+ k_id_cvm+','+ k_id_vm);
+    $('#modalChangeState').modal('show');
+}

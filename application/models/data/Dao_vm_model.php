@@ -51,7 +51,7 @@ class Dao_vm_model extends CI_Model {
     public function getAllVm() {
         try {
             $db = new DB();
-            $datos = $db->select("SELECT vm.*, us1.n_name_user ingeniero_creador_grupo, us2.n_name_user ingeniero_control, 
+            $datos = $db->select("SELECT vm.*, avm.k_id_avm, cvm.k_id_cvm,us1.n_name_user ingeniero_creador_grupo, us2.n_name_user ingeniero_control, 
                                     us3.n_name_user ingeniero_apertura, us4.n_name_user ingeniero_cierre, cvm.n_sub_estado, cvm.n_falla_final,
                                     st.n_name_station, tg.n_name_technology, bn.n_name_band, wk.n_name_ork
                                 FROM vm
