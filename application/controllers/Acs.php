@@ -30,12 +30,16 @@ class Acs extends CI_Controller {
         $this->load->view('acsView', $answer);
     }
 
-    public function createVmAcs() {
+    public function vmAcs() {
         $station = new dao_station_model();
         $band = new dao_band_model();
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $users = new Dao_user_model();
+
+        if ($this->request->id) {
+            
+        }
 
         $res['stations'] = $station->getAll();
         $res['bands'] = $band->getAll();
@@ -46,6 +50,22 @@ class Acs extends CI_Controller {
 
         $answer['respuesta'] = json_encode($res);
         $this->acsview($answer);
+    }
+
+    /** Realiza la inserción completa de todo el formulario que se muestra en vmAcs,
+      teniendo en cuenta todas las reglas y demás cosas necesarias...
+     */
+    public function insertAcs() {
+        $dao = new Dao_acs_model();
+        $response = $dao->insertAcs($this->request);
+        $this->json($response);
+    }
+
+    /** Realiza la actualización completa del todo el formulariuo que se muestra en vmAcs. */
+    public function updateAcs() {
+        $dao = new Dao_acs_model();
+        $response = $dao->updateAcs($this->request);
+        $this->json($response);
     }
 
     public function insertVmAcs() {
@@ -74,6 +94,23 @@ class Acs extends CI_Controller {
         $response = $vm->updateVm($this->request);
         $response = $cvm->insertCvm($this->request);
         $this->json($response);
+    }
+
+    public function getALLVm() {
+        //Se comprueba si no hay sesión.
+        if (!Auth::check()) {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
+
+        $response = null;
+        if (Auth::check()) {
+            $vm = new Dao_vm_model();
+            $res = $vm->getAllVm();
+            $this->json($res);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
     }
 
 }

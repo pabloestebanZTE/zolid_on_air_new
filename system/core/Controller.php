@@ -123,3 +123,15 @@ class CI_Controller {
     }
 
 }
+
+function __autoload($class_name) {
+    $file = $class_name . ".php";
+    $folders = ["models/dto", "models/data"];
+    foreach ($folders as $folder) {
+        $path = APPPATH . $folder . DIRECTORY_SEPARATOR . $file;
+        if (file_exists($path)) {
+            require_once $path;
+            break;
+        }
+    }
+}

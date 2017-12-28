@@ -9,12 +9,14 @@
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
             <div class="well">
-                <a href="<?= URL::to("acs/createVmAcs") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
+                <a href="<?= URL::to("Acs/createVmAcs") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
                 <hr/>
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <table id="tablaVm" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        <div class="table-responsive min-h-300">
+                            <table id="tablaVm" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        </div>
                     </div>
                 </div>
             </div>
