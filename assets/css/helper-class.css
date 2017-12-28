@@ -355,3 +355,8 @@ a.link-normal:hover{
 .bg-white{
     background-color: #FFF !important;
 }
+
+#tablaVm td:nth-child(6){
+    min-width: 100px;
+    word-break: break-all;
+}

@@ -76,5 +76,22 @@ class Acs extends CI_Controller {
         $response = $cvm->insertCvm($this->request);
         $this->json($response);
     }
+    
+    public function getALLVm() {
+        //Se comprueba si no hay sesión.
+        if (!Auth::check()) {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
+
+        $response = null;
+        if (Auth::check()) {
+            $vm = new Dao_vm_model();
+            $res = $vm->getAllVm();
+            $this->json($res);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
 
 }
