@@ -19,6 +19,7 @@ class Dao_acs_model extends CI_Model {
                 //Insertamos el formulario (VM)...
                 $vmModel = new VmModel();
                 $idVm = $vmModel->insert($obj->all())->data;
+                $response->setData($idVm);
 
                 //Verificamos, limpiamos y obtenemos la información del segundo formulario (AVM).
                 $avmModel = new AvmModel();
@@ -47,7 +48,6 @@ class Dao_acs_model extends CI_Model {
 
     public function updateAcs($request) {
         $response = new Response(EMessages::UPDATE);
-        return $response;
         try {
             //Verificamos si el registro existe...
             $vmModel = new VmModel();
@@ -57,27 +57,33 @@ class Dao_acs_model extends CI_Model {
             //Verificamos, limpiamos y obtenemos la información del primer formulario (VM).
             $obj = $this->validateAndGetData($request->vm->all());
             if ($obj) {
-                //Insertamos el formulario (VM)...
+                //Actualizamos el formulario (VM)...
                 $vmModel = new VmModel();
                 $idVm = $vmModel->where("k_id_vm", "=", $request->id)->update($obj->all())->data;
 
-                $response->setData($idVm);
-
-                //Verificamos, limpiamos y obtenemos la información del segundo formulario (AVM).
                 $avmModel = new AvmModel();
-                $request->avm->k_id_vm = $idVm;
                 $obj2 = $this->validateAndGetData($request->avm);
-                $idAvm = DB::NULLED;
-                if ($obj2) {
-                    $idAvm = $avmModel->insert($obj2->all());
+                //Si existe el AVM, lo actualizamos...
+                if ($avmModel->where("k_id_vm", "=", $request->id)->exist()) {
+                    $avmModel->where("k_id_vm", "=", $request->id)->update($obj2->all());
+                } else { //De lo contrario, lo insertamos...
+                    $request->avm->k_id_vm = $request->id;
+                    $idAvm = DB::NULLED;
+                    if ($obj2) {
+                        $idAvm = $avmModel->insert($obj2->all());
+                    }
                 }
 
-                //Verificamos, limpiamos y obteneoms la información del 4 formulario (CVM).
                 $cvmModel = new CvmModel();
-                $request->cvm->k_id_vm = $idVm;
                 $obj3 = $this->validateAndGetData($request->cvm);
-                if ($obj3) {
-                    $idCvm = $cvmModel->insert($obj3->all());
+                //Si existe el CVM, lo actualizamos...
+                if ($cvmModel->where("k_id_vm", "=", $request->id)->exist()) {
+                    $cvmModel->where("k_id_vm", "=", $request->id)->update($obj3->all());
+                } else { //De lo contrario, lo insertamos...
+                    $request->cvm->k_id_vm = $request->id;
+                    if ($obj3) {
+                        $idCvm = $cvmModel->insert($obj3->all());
+                    }
                 }
             } else {
                 return new Response(EMessages::ERROR, "Formulario incompleto.");
