@@ -32,7 +32,7 @@
                                 <a href="<?= URL::to('index.php/User/principalView') ?>"><i class="fa fa-fw fa-home"></i>&nbsp;&nbsp;Home</a>
                             </li>
                             <li>
-                                <a href="<?= URL::to('acs/principal') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Acs</a>
+                                <a href="<?= URL::to('Acs/principal') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Acs</a>
                             </li>
 
                             <li>
@@ -40,7 +40,7 @@
                                 if (Auth::getRole() == 'COORDINADOR') {
                                    echo  " <a href=". URL::to('Reportes/reportComments')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
                                    echo  " <a href=". URL::to('reportes/reportOnair')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
-                                  }  
+                                  }
                                 ?>
                             </li>
                             <li>
