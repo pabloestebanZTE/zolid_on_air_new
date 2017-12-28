@@ -14,7 +14,7 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="table-responsive">
+                        <div class="table-responsive min-h-300">
                             <table id="tablaVm" class="table table-hover table-condensed table-striped" width='100%'></table>
                         </div>
                     </div>

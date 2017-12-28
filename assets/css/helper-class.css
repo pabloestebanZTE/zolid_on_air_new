@@ -360,3 +360,9 @@ a.link-normal:hover{
     min-width: 100px;
     word-break: break-all;
 }
+.min-h-150{
+    min-height: 150px;
+}
+.min-h-300{
+    min-height: 300px;
+}
