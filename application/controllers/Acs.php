@@ -18,10 +18,13 @@ class Acs extends CI_Controller {
     }
 
     public function principal() {
+        $users = new Dao_user_model();
         if (!Auth::check()) {
             Redirect::to(URL::base());
         }
-        $this->load->view('principalvm');
+        $res['users'] = $users->getAllEngineers();
+        $answer['usuarios'] = json_encode($res);
+        $this->load->view('principalvm', $answer);
     }
 
     public function acsview($answer) {
