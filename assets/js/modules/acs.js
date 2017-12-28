@@ -81,6 +81,9 @@ $(function () {
 });
 
 function showModalAssign(k_id_avm, k_id_cvm, k_id_vm) {
-    alert(k_id_avm+','+ k_id_cvm+','+ k_id_vm);
+    $('#k_id_vm').val(k_id_vm);
+    $('#k_id_pvm').val(k_id_vm);
+    $('#k_id_avm').val(k_id_avm);
+    $('#k_id_cvm').val(k_id_cvm);
     $('#modalChangeState').modal('show');
 }
