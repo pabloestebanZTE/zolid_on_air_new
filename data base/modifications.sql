@@ -754,3 +754,15 @@ ADD COLUMN `i_ingeniero_asignado` VARCHAR(11) NULL AFTER `n_comentario_punto_con
 
 ALTER TABLE `cvm`
 	CHANGE COLUMN `i_telefono_lider_cambio` `i_telefono_lider_cambio` VARCHAR(20) NULL DEFAULT NULL AFTER `n_tipo_solucion`;
+
+-- actualizacion 29/12/2017
+ALTER TABLE `on_air`.`vm` 
+CHANGE COLUMN `i_ingeniero_asignado` `i_ingeniero_apertura` INT(11) NULL DEFAULT NULL ,
+ADD COLUMN `i_ingeniero_punto_control` INT(11) NULL DEFAULT NULL AFTER `i_ingeniero_apertura`,
+ADD COLUMN `i_ingeniero_cierre` INT(11) NULL DEFAULT NULL AFTER `i_ingeniero_punto_control`;
+
+ALTER TABLE `on_air`.`cvm` 
+DROP COLUMN `i_ingeniero_asignado`;
+
+ALTER TABLE `on_air`.`avm` 
+DROP COLUMN `i_ingeniero_asignado`;
