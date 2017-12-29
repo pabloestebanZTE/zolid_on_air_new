@@ -751,3 +751,6 @@ ADD COLUMN `i_ingeniero_asignado` INT(11) NULL DEFAULT NULL AFTER `n_comentarios
 
 ALTER TABLE `on_air`.`vm` 
 ADD COLUMN `i_ingeniero_asignado` VARCHAR(11) NULL AFTER `n_comentario_punto_control`;
+
+ALTER TABLE `cvm`
+	CHANGE COLUMN `i_telefono_lider_cambio` `i_telefono_lider_cambio` VARCHAR(20) NULL DEFAULT NULL AFTER `n_tipo_solucion`;

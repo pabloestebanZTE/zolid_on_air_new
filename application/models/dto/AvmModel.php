@@ -27,7 +27,8 @@ class AvmModel extends Model {
     protected $b_vistamm;
     protected $n_hora_atencion_vm;
     protected $n_hora_inicio_real_vm;
-    protected $n_comentario;
+    protected $n_contratista;
+    protected $i_ingeniero_asignado;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "avm";
@@ -57,10 +58,10 @@ class AvmModel extends Model {
     public function getKTecnologiaAfectada() {
         return $this->k_tecnologia_afectada;
     }
-    public function setKBandAfectada($k_banda_afectada) {
+    public function setKBandaAfectada($k_banda_afectada) {
         $this->k_banda_afectada = $k_banda_afectada;
     }
-    public function getKBandAfectada() {
+    public function getKBandaAfectada() {
         return $this->k_banda_afectada;
     }
     public function setIIngenieroApertura($i_ingeniero_apertura) {
@@ -189,11 +190,17 @@ class AvmModel extends Model {
     public function getNHoraInicioRealVm() {
         return $this->n_hora_inicio_real_vm;
     }
-    public function setNComentario($n_comentario) {
-        $this->n_comentario = $n_comentario;
+    public function setNContratista($n_contratista) {
+        $this->n_contratista = $n_contratista;
     }
-    public function getNComentario() {
-        return $this->n_comentario;
+    public function getNContratista() {
+        return $this->n_contratista;
+    }
+    public function setIIngenieroAsignado($i_ingeniero_asignado) {
+        $this->i_ingeniero_asignado = $i_ingeniero_asignado;
+    }
+    public function getIIngenieroAsignado() {
+        return $this->i_ingeniero_asignado;
     }
 
 

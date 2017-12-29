@@ -19,7 +19,8 @@ class CvmModel extends Model {
     protected $i_ingeniero_cierre;
     protected $d_hora_atencion_cierre;
     protected $d_hora_cierre_confirmado;
-    protected $ic_comentarios_cierre;
+    protected $n_comentarios_cierre;
+    protected $i_ingeniero_asignado;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "cvm";
@@ -133,11 +134,17 @@ class CvmModel extends Model {
     public function getDHoraCierreConfirmado() {
         return $this->d_hora_cierre_confirmado;
     }
-    public function setIcComentariosCierre($ic_comentarios_cierre) {
-        $this->ic_comentarios_cierre = $ic_comentarios_cierre;
+    public function setNComentariosCierre($n_comentarios_cierre) {
+        $this->n_comentarios_cierre = $n_comentarios_cierre;
     }
-    public function getIcComentariosCierre() {
-        return $this->ic_comentarios_cierre;
+    public function getNComentariosCierre() {
+        return $this->n_comentarios_cierre;
+    }
+    public function setIIngenieroAsignado($i_ingeniero_asignado) {
+        $this->i_ingeniero_asignado = $i_ingeniero_asignado;
+    }
+    public function getIIngenieroAsignado() {
+        return $this->i_ingeniero_asignado;
     }
 
 

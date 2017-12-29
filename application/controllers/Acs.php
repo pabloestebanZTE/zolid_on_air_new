@@ -26,13 +26,6 @@ class Acs extends CI_Controller {
         $this->load->view('principalvm', $answer);
     }
 
-    public function acsview($answer) {
-        if (!Auth::check()) {
-            Redirect::to(URL::base());
-        }
-        $this->load->view('acsView', $answer);
-    }
-
     public function vmAcs() {
         $station = new dao_station_model();
         $band = new dao_band_model();
@@ -40,8 +33,24 @@ class Acs extends CI_Controller {
         $technology = new dao_technology_model();
         $users = new Dao_user_model();
 
-        if (isset($this->request->id)) {
-            
+        $dataForm = null;
+        if ($this->request->id) {
+            $vmModel = new VmModel();
+            $vm = $vmModel->where("k_id_vm", "=", $this->request->id)->first();
+//            echo $vmModel->getSQL();
+            if ($vm) {
+                $avmModel = new AvmModel();
+                $cvmModel = new CvmModel();
+                $avm = $avmModel->where("k_id_vm", "=", $this->request->id)->first();
+                $cvm = $cvmModel->where("k_id_vm", "=", $this->request->id)->first();
+                $dataForm = [
+                    "vm" => $vm,
+                    "avm" => $avm,
+                    "cvm" => $cvm,
+                ];
+            }
+        } else {
+//            echo "ASDFasf";
         }
 
         $res['stations'] = $station->getAll();
@@ -49,10 +58,13 @@ class Acs extends CI_Controller {
         $res['works'] = $work->getAll();
         $res['technologies'] = $technology->getAll();
         $res['users'] = $users->getAllEngineers();
+//        var_dump($dataForm);
 
+        if ($dataForm) {
+            $res['record'] = $dataForm;
+        }
 
-        $answer['respuesta'] = json_encode($res);
-        $this->acsview($answer);
+        $this->load->view('acsView', ["respuesta" => json_encode($res)]);
     }
 
     /** Realiza la inserción completa de todo el formulario que se muestra en vmAcs,

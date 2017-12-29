@@ -40,13 +40,13 @@
                                         <div class="col-md-6">
                                             <label for="d_fecha_solicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
                                             <div class="col-sm-8">
-                                                <input type='datetime-local' name="vm.d_fecha_solicitud" id="d_fecha_solicitud" class="form-control" required>
+                                                <input type='datetime-local' name="vm.d_fecha_solicitud" id="d_fecha_solicitud" class="form-control" data-callback='dom.formatDateForPrint' required >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="i_id_site_access" class="col-md-3 control-label">ID Site Access :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="vm.i_id_site_access" id="i_id_site_access" class="form-control" required>
+                                                <input type="text" name="vm.i_id_site_access" id="i_id_site_access" class="form-control control-change" required>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
                                         <div class="col-md-6">
                                             <label for="n_hora_apertura_grupo" class="col-md-3 control-label">Hora Apertura Grupo :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="vm.n_hora_apertura_grupo" id="n_hora_apertura_grupo" class="form-control" required>
+                                                <input type="time" name="vm.n_hora_apertura_grupo" id="n_hora_apertura_grupo" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -182,15 +182,15 @@
                                         </div>
                                     </div>
                                     <!-- Button -->
-                                    <center>
+                                    <div>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success" id="btnGenerarVm" ><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
+                                                <button type="submit" class="btn btn-success" id="btnGenerarVm" data-update-text='<span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Actualizar Ventana'><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Generar Ventana</button>
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
-                                    </center>
+                                    </div>
                                 </form>
                             </center>
                         </div>
@@ -276,19 +276,19 @@
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <label>DATOS SITE ACCESS:</label>
-                                                    <input type="text" class="form-control" id="i_id_site_access" name="avm.i_id_site_access"/>
+                                                    <input type="text" class="form-control control-change" id="i_id_site_access" name="vm.i_id_site_access"/>
                                                 </div>
                                                 <div class="col-md-7">
                                                     <div class="form-group">
                                                         <label class="col-md-5 text-right">Inicio Programado SA:</label>
                                                         <div class="col-md-7">
-                                                            <input type="datetime-local" class="form-control" id="d_inicio_programado_sa" name="avm.d_inicio_programado_sa"/>
+                                                            <input type="datetime-local" class="form-control" id="d_inicio_programado_sa" name="avm.d_inicio_programado_sa" data-callback='dom.formatDateForPrint'/>
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-b-0">
                                                         <label class="col-md-5 text-right">Fin Programado SA:</label>
                                                         <div class="col-md-7">
-                                                            <input type="datetime-local" class="form-control" id="d_fin_programado_sa" name="avm.d_fin_programado_sa"/>
+                                                            <input type="datetime-local" class="form-control" id="d_fin_programado_sa" name="avm.d_fin_programado_sa" data-callback='dom.formatDateForPrint'/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -432,13 +432,13 @@
                                             <div class="col-md-6">
                                                 <label for="n_hora_atencion_vm" class="col-sm-4 control-label">Hora Atención VM:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="datetime" class="form-control" name="avm.n_hora_atencion_vm" id="n_hora_atencion_vm"/>
+                                                    <input type="time" class="form-control" name="avm.n_hora_atencion_vm" id="n_hora_atencion_vm"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="n_hora_inicio_real_vm" class="col-sm-4 control-label">Hora Inicio Real VM:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="datetime" class="form-control" name="avm.n_hora_inicio_real_vm" id="n_hora_inicio_real_vm"/>
+                                                    <input type="time" class="form-control" name="avm.n_hora_inicio_real_vm" id="n_hora_inicio_real_vm"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -485,7 +485,7 @@
                                         </div>
                                         <!--FIN CHECK LIST APERTURA-->
                                     </div>
-                                    <center>
+                                    <div>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
@@ -493,7 +493,7 @@
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
-                                    </center>
+                                    </div>
                                 </form>
                             </center>
                         </div>
@@ -579,7 +579,7 @@
                                         <div class="form-group">
                                             <label for="n_hora_revision" class="col-sm-4 control-label">Hora revisión:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <input type="text" class="form-control" id="n_hora_revision" name="vm.n_hora_revision">
+                                                <input type="time" class="form-control" id="n_hora_revision" name="vm.n_hora_revision">
                                             </div>
                                         </div>    
                                         <div class="form-group">
@@ -589,7 +589,7 @@
                                             </div>
                                         </div>    
                                     </div>
-                                    <center>
+                                    <div>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
@@ -597,7 +597,7 @@
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
-                                    </center>
+                                    </div>
                                 </form>
                             </center>
                         </div>
@@ -671,8 +671,8 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="n_ret" name="cvm.n_ret">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">VERDADERO</option>
-                                                    <option value="">FALSO</option>
+                                                    <option value="VERDADERO">VERDADERO</option>
+                                                    <option value="FALSO">FALSO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -681,8 +681,8 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_ampliacion_dualbeam" name="cvm.n_ampliacion_dualbeam">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">VERDADERO</option>
-                                                    <option value="">FALSO</option>
+                                                    <option value="VERDADERO">VERDADERO</option>
+                                                    <option value="FALSO">FALSO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -693,8 +693,8 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">VERDADERO</option>
-                                                    <option value="">FALSO</option>
+                                                    <option value="VERDADERO">VERDADERO</option>
+                                                    <option value="FALSO">FALSO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -717,9 +717,9 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_estado_vm_cierre" name="cvm.n_estado_vm_cierre">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">Abierto</option>
-                                                    <option value="">Cerrado</option>
-                                                    <option value="">N/A</option>
+                                                    <option value="Abierto">Abierto</option>
+                                                    <option value="Cerrado">Cerrado</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -731,9 +731,9 @@
                                             <label for="n_sub_estado" class="col-sm-4 control-label">Sub-Estado:</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="n_sub_estado" name="cvm.n_sub_estado">
-                                                    <option>Seleccione</option>
-                                                    <option>Abierto</option>
-                                                    <option>Cerrado</option>
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Abierto">Abierto</option>
+                                                    <option value="Cerrado">Cerrado</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -750,9 +750,9 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="n_falla_final" name="cvm.n_falla_final">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">SI</option>
-                                                    <option value="">NO</option>
-                                                    <option value="">N/A</option>
+                                                    <option value="SI">SI</option>
+                                                    <option value="NO">NO</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -761,8 +761,8 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_tipo_falla_final" name="cvm.n_tipo_falla_final">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">Rollback</option>
-                                                    <option value="">N/A</option>
+                                                    <option value="Rollback">Rollback</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -775,9 +775,9 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="b_vistamm" name="cvm.b_vistamm">
                                                     <option value="">Seleccione</option>
-                                                    <option value="">SI</option>
-                                                    <option value="">NO</option>
-                                                    <option value="">N/A</option>
+                                                    <option value="SI">SI</option>
+                                                    <option value="NO">NO</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -806,13 +806,13 @@
                                         <div class="col-md-6">
                                             <label for="d_hora_atencion_cierre" class="col-sm-4 control-label">Hora de atención cierre:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" id="d_hora_atencion_cierre" name="cvm.d_hora_atencion_cierre" class="form-control">
+                                                <input type="time" id="d_hora_atencion_cierre" name="cvm.d_hora_atencion_cierre" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="d_hora_cierre_confirmado" class="col-sm-3 control-label"><span class="display-block">Hora de cierre confirmado:</span></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="d_hora_cierre_confirmado" name="cvm.d_hora_cierre_confirmado"/>
+                                                <input type="time" class="form-control" id="d_hora_cierre_confirmado" name="cvm.d_hora_cierre_confirmado"/>
                                             </div>
                                         </div>
                                     </div>
@@ -823,7 +823,7 @@
                                             <textarea class="form-control" placeholder="Comentario..." id="n_comentarios_cierre" name="cvm.n_comentarios_cierre"></textarea>
                                         </div>
                                     </div>
-                                    <center>
+                                    <div>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
                                             <div class="col-md-12">
@@ -831,7 +831,7 @@
                                                 <button type="button" class="btn btn-primary"><span class="fa fa-fw fa-times"></span>&nbsp;&nbsp;Escalar</button>
                                             </div>
                                         </div>
-                                    </center>
+                                    </div>
                                 </form>
                             </center>
                         </div>
@@ -884,6 +884,7 @@
         <script type="text/javascript">
             var dataForm = <?php echo $respuesta; ?>;
         </script>
+        <script src="<?= URL::to("assets/plugins/jquery.mask.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/js/modules/acsForm.js') ?>" type="text/javascript"></script>
     </body>
