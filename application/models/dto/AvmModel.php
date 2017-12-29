@@ -28,7 +28,6 @@ class AvmModel extends Model {
     protected $n_hora_atencion_vm;
     protected $n_hora_inicio_real_vm;
     protected $n_contratista;
-    protected $i_ingeniero_asignado;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "avm";
@@ -195,12 +194,6 @@ class AvmModel extends Model {
     }
     public function getNContratista() {
         return $this->n_contratista;
-    }
-    public function setIIngenieroAsignado($i_ingeniero_asignado) {
-        $this->i_ingeniero_asignado = $i_ingeniero_asignado;
-    }
-    public function getIIngenieroAsignado() {
-        return $this->i_ingeniero_asignado;
     }
 
 

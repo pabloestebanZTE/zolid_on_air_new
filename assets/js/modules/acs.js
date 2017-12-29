@@ -46,8 +46,8 @@ $(function () {
                 }
             }
             return '<div class="btn-group">'
-                    + '<a href="' + app.urlTo('Acs/vmAcs?id=' + obj.k_id_vm) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Editar Control"><span class="fa fa-fw fa-pencil-square-o"></span></a>'
-                    + '<a onclick="showModalAssign(' + obj.k_id_avm + ',' + obj.k_id_cvm + ',' + obj.k_id_vm + ')" class="btn btn-default btn-xs" data-toggle="tooltip" title="ver Riesgos Asociados"' + m + '><span class="fa fa-fw fa-list-ul"></span></a>'
+                    + '<a href="' + app.urlTo('Acs/vmAcs?id=' + obj.k_id_vm) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Editar Ventana"><span class="fa fa-fw fa-pencil-square-o"></span></a>'
+                    + '<a onclick="showModalAssign(' + obj.k_id_vm + ')" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar Ingeniero"' + m + '><span class="fa fa-fw fa-list-ul"></span></a>'
                     + '</div>';
         },
         fillTable: function (data) {
@@ -80,11 +80,8 @@ $(function () {
     ini.init();
 });
 
-function showModalAssign(k_id_avm, k_id_cvm, k_id_vm) {
+function showModalAssign(k_id_vm) {
     $('.select-ingeniero').val('');
     $('#k_id_vm').val(k_id_vm);
-    $('#k_id_pvm').val(k_id_vm);
-    $('#k_id_avm').val(k_id_avm);
-    $('#k_id_cvm').val(k_id_cvm);
     $('#modalChangeState').modal('show');
 }

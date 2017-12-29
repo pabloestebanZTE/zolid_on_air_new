@@ -148,23 +148,15 @@ class Acs extends CI_Controller {
 
     public function toAssign() {
         $vm = new Dao_vm_model();
-        $cvm = new Dao_cvm_model();
-        $avm = new Dao_avm_model();
 //        var_dump($this->request);
-        if ($this->request->k_id_vm != null) {
-            if ($this->request->i_ingeniero_asignado_vm != null) {
-                
-            }
-
-            if ($this->request->i_ingeniero_asignado_pvm != null) {
-                
-            }
+        if ($this->request->i_ingeniero_asignado_avm != null) {
+            $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_avm, "i_ingeniero_apertura");
         }
-        if ($this->request->k_id_avm != null) {
-            $response = $avm->toAssignEngineer($this->request->k_id_avm, $this->request->i_ingeniero_asignado_avm);
+        if ($this->request->i_ingeniero_asignado_pvm != null) {
+            $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_pvm, "i_ingeniero_punto_control");
         }
-        if ($this->request->k_id_cvm != null) {
-            $response = $cvm->toAssignEngineer($this->request->k_id_cvm, $this->request->i_ingeniero_asignado_cvm);
+        if ($this->request->i_ingeniero_asignado_cvm != null) {
+            $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_cvm, "i_ingeniero_cierre");
         }
 //        $response = $vm->updateVm($this->request);
 //        $response = $cvm->insertCvm($this->request);

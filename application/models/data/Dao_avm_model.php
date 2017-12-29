@@ -22,21 +22,6 @@ class Dao_avm_model extends CI_Model {
         }
     }
     
-    public function toAssignEngineer($k_id_avm, $ingeniero) {
-        try {
-            $avm = new AvmModel();
-            $datos = $avm->where("k_id_avm", "=", $k_id_avm)
-                    ->update([
-                "i_ingeniero_asignado" => $ingeniero
-            ]);
-            $response = new Response(EMessages::UPDATE);
-            $response->setData($datos);
-            return $response;
-        } catch (ZolidException $ex) {
-            return $ex;
-        }
-    }
-
 }
 
 ?>

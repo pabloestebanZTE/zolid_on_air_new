@@ -38,21 +38,12 @@
                                 <p class="p-b-0" id="text"></p>
                             </div>
                             <div class="form-group">
-                                <label for="i_ingeniero_asignado_vm" class="col-sm-2 control-label">Creación de Ventanas</label>
-                                <div class="col-sm-10">
-                                    <select id="i_ingeniero_asignado_vm" name="i_ingeniero_asignado_vm" class="form-control selectpicker select-ingeniero">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                    <input type="hidden" name="k_id_vm" id="k_id_vm">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="i_ingeniero_asignado_avm" class="col-sm-2 control-label">Apertura de VM</label>
                                 <div class="col-sm-10">
                                     <select id="i_ingeniero_asignado_avm" name="i_ingeniero_asignado_avm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
-                                    <input type="hidden" name="k_id_avm" id="k_id_avm">
+                                    <input type="hidden" name="k_id_vm" id="k_id_vm">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -69,7 +60,6 @@
                                     <select id="i_ingeniero_asignado_cvm" name="i_ingeniero_asignado_cvm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
-                                    <input type="hidden" name="k_id_cvm" id="k_id_cvm">
                                 </div>
                             </div>
                             <div class="form-group">
