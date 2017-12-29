@@ -22,6 +22,21 @@ class Dao_cvm_model extends CI_Model {
             return $ex;
         }
     }
+    
+    public function toAssignEngineer($k_id_cvm, $ingeniero) {
+        try {
+            $avm = new CvmModel();
+            $datos = $avm->where("k_id_cvm", "=", $k_id_cvm)
+                    ->update([
+                "i_ingeniero_asignado" => $ingeniero
+            ]);
+            $response = new Response(EMessages::UPDATE);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
 
 }
 

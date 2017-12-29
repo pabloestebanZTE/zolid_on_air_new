@@ -32,7 +32,11 @@
                         <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i> Asignar Ingeniero</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal well">
+                        <form class="form-horizontal well" action="Acs/toAssign" id="assignForm">
+                            <div class="alert alert-success alert-dismissable hidden">
+                                <a href="#" class="close" >&times;</a>
+                                <p class="p-b-0" id="text"></p>
+                            </div>
                             <div class="form-group">
                                 <label for="i_ingeniero_asignado_vm" class="col-sm-2 control-label">Creación de Ventanas</label>
                                 <div class="col-sm-10">
@@ -57,7 +61,6 @@
                                     <select id="i_ingeniero_asignado_pvm" name="i_ingeniero_asignado_pvm" class="form-control selectpicker select-ingeniero">
                                         <option value="">Seleccione</option>
                                     </select>
-                                    <input type="hidden" name="k_id_pvm" id="k_id_pvm">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -71,7 +74,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="button" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>Guardar</button>
+                                    <button type="submit" class="btn btn-success"><span class="fa fa-fw fa-floppy-o"></span>Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -91,12 +94,14 @@
         </div>        
         <!-- CUSTOM SCRIPT   -->
         <?php $this->load->view('parts/generic/scripts'); ?>
+        <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/js/modules/acs.js"); ?>" type = "text/javascript"></script>
         <script>
         $(function () {
             var info = <?php echo $usuarios; ?>;
             console.log(info);
             dom.llenarCombo($('.select-ingeniero'),info.users.data, {text:"n_name_user", value:"k_id_user"});
+            dom.submit($('#assignForm'), null, false);
         });
         </script>
     </body>

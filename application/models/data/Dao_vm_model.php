@@ -72,6 +72,21 @@ class Dao_vm_model extends CI_Model {
             return $ex;
         }
     }
+    
+    public function toAssignEngineer($k_id_vm, $ingeniero) {
+        try {
+            $avm = new VmModel();
+            $datos = $avm->where("k_id_vm", "=", $k_id_vm)
+                    ->update([
+                "i_ingeniero_asignado" => $ingeniero
+            ]);
+            $response = new Response(EMessages::UPDATE);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
 
 }
 
