@@ -3,7 +3,7 @@
 class ChecklistModel extends Model {
 
     protected $k_id_checklist;
-    protected $n_nombre;
+    protected $k_id_documento;
     protected $k_id_technology;
     protected $k_id_work;
     
@@ -23,11 +23,11 @@ class ChecklistModel extends Model {
     public function getKIdChecklist() {
         return $this->k_id_checklist;
     }
-    public function setNNombre($n_nombre) {
-        $this->n_nombre = $n_nombre;
+    public function setKIdDocumento($k_id_documento) {
+        $this->k_id_documento = $k_id_documento;
     }
-    public function getNNombre() {
-        return $this->n_nombre;
+    public function getKIdDocumento() {
+        return $this->k_id_documento;
     }
     public function setKIdTechnology($k_id_technology) {
         $this->k_id_technology = $k_id_technology;

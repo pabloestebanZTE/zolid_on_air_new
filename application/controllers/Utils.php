@@ -48,4 +48,18 @@ class Utils extends CI_Controller {
         $this->json($x);
     }
 
+    public function getChecklist() {
+        $checklistModel = new ChecklistModel();
+        //Consultamos la lista de documentos para el checklist.
+        $db = new DB();
+        $list = $db->select("SELECT c.*, docs_acs.n_nombre as nombre_documento FROM checklist c INNER JOIN documentos_acs docs_acs "
+                        . "ON c.k_id_documento = docs_acs.k_id_documento WHERE c.k_id_technology = " . $this->request->idTecnologia . " "
+                        . "AND c.k_id_work = " . $this->request->idTipoTrabajo)->get();
+//        $list = $checklistModel->where("k_id_technology", "=", $this->request->idTecnologia)
+//                        ->where("k_id_work", "=", $this->request->idTipoTrabajo)->get();
+        $response = new Response(EMessages::QUERY);
+        $response->setData($list);
+        $this->json($response);
+    }
+
 }
