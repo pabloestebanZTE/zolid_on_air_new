@@ -20,22 +20,50 @@ class Dao_acs_model extends CI_Model {
                 $vmModel = new VmModel();
                 $idVm = $vmModel->insert($obj->all())->data;
                 $response->setData($idVm);
-
+                if ($idVm == 0) {
+                    return new Response(EMessages::ERROR_INSERT, "No se pudo crear el registro.");
+                }
+                //Insertamos el kpi del ACS...
+                //Creación...
+                $kpiAcsModel = new KpiAcsModel();
+                $kpiAcsModel->insert([
+                    "k_id_user" => Auth::user()->k_id_user,
+                    "k_id_vm" => $idVm,
+                    "d_create_at" => Hash::getDate(),
+                    "n_type" => "CREATION_VM"
+                ]);
                 //Verificamos, limpiamos y obtenemos la información del segundo formulario (AVM).
                 $avmModel = new AvmModel();
                 $request->avm->k_id_vm = $idVm;
                 $obj2 = $this->validateAndGetData($request->avm);
                 $idAvm = DB::NULLED;
                 if ($obj2) {
-                    $idAvm = $avmModel->insert($obj2->all());
+                    $idAvm = $avmModel->insert($obj2->all())->data;
+                    if ($idAvm > 0) {
+                        $kpiAcsModel = new KpiAcsModel();
+                        $kpiAcsModel->insert([
+                            "k_id_user" => Auth::user()->k_id_user,
+                            "k_id_vm" => $idVm,
+                            "d_create_at" => Hash::getDate(),
+                            "n_type" => "CREATION_AVM"
+                        ]);
+                    }
                 }
-
                 //Verificamos, limpiamos y obteneoms la información del 4 formulario (CVM).
                 $cvmModel = new CvmModel();
                 $request->cvm->k_id_vm = $idVm;
                 $obj3 = $this->validateAndGetData($request->cvm);
                 if ($obj3) {
-                    $idCvm = $cvmModel->insert($obj3->all());
+                    $idCvm = $cvmModel->insert($obj3->all())->data;
+                    if ($idCvm > 0) {
+                        $kpiAcsModel = new KpiAcsModel();
+                        $kpiAcsModel->insert([
+                            "k_id_user" => Auth::user()->k_id_user,
+                            "k_id_vm" => $idVm,
+                            "d_create_at" => Hash::getDate(),
+                            "n_type" => "CREATION_CVM"
+                        ]);
+                    }
                 }
             } else {
                 return new Response(EMessages::ERROR, "Formulario incompleto.");
@@ -71,7 +99,16 @@ class Dao_acs_model extends CI_Model {
                     $idAvm = DB::NULLED;
                     if ($obj2) {
                         $obj2->k_id_vm = $request->id;
-                        $idAvm = $avmModel->insert($obj2->all());
+                        $idAvm = $avmModel->insert($obj2->all())->data;
+                        if ($idAvm > 0) {
+                            $kpiAcsModel = new KpiAcsModel();
+                            $kpiAcsModel->insert([
+                                "k_id_user" => Auth::user()->k_id_user,
+                                "k_id_vm" => $request->id,
+                                "d_create_at" => Hash::getDate(),
+                                "n_type" => "CREATION_AVM"
+                            ]);
+                        }
                     }
                 }
 
@@ -83,7 +120,16 @@ class Dao_acs_model extends CI_Model {
                 } else { //De lo contrario, lo insertamos...
                     if ($obj3) {
                         $obj3->k_id_vm = $request->id;
-                        $idCvm = $cvmModel->insert($obj3->all());
+                        $idCvm = $cvmModel->insert($obj3->all())->data;
+                        if ($idCvm) {
+                            $kpiAcsModel = new KpiAcsModel();
+                            $kpiAcsModel->insert([
+                                "k_id_user" => Auth::user()->k_id_user,
+                                "k_id_vm" => $request->id,
+                                "d_create_at" => Hash::getDate(),
+                                "n_type" => "CREATION_CVM"
+                            ]);
+                        }
                     }
                 }
             } else {

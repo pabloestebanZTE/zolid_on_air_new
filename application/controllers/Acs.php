@@ -37,20 +37,38 @@ class Acs extends CI_Controller {
         if ($this->request->id) {
             $vmModel = new VmModel();
             $vm = $vmModel->where("k_id_vm", "=", $this->request->id)->first();
-//            echo $vmModel->getSQL();
             if ($vm) {
                 $avmModel = new AvmModel();
                 $cvmModel = new CvmModel();
                 $avm = $avmModel->where("k_id_vm", "=", $this->request->id)->first();
                 $cvm = $cvmModel->where("k_id_vm", "=", $this->request->id)->first();
+                //Consultamos si se ha exedido el tiempo límite de desarrollo de el acs...
+                $kpiModel = new KpiAcsModel();
+                $db = new DB();
+                $kpis = $db->select('SELECT * FROM kpi_acs WHERE k_id_vm = ' . $this->request->id . ' AND (n_type = "CREATION_VM" OR n_type = "CREATION_CVM") ORDER BY `n_type` desc')->get();
+                $exeded = false;
+                if (count($kpis) == 1) {
+                    $kpi = $kpis[0]; //VM
+
+                    $todayDay = date("d", Hash::getTime());
+                    $kpiDay = date("d", Hash::getTimeStamp($kpi->d_create_at) / 1000);
+
+                    $todayMonth = date("m", Hash::getTime());
+                    $kpiMonth = date("m", Hash::getTimeStamp($kpi->d_create_at) / 1000);
+
+                    $todayYear = date("y", Hash::getTime());
+                    $kpiYear = date("y", Hash::getTimeStamp($kpi->d_create_at) / 1000);
+                    $today = $todayYear + $todayMonth + $todayDay;
+                    $dRecord = $kpiYear + $kpiMonth + $kpiDay;
+                    $exeded = ($today - $dRecord) != 0;
+                }
                 $dataForm = [
                     "vm" => $vm,
                     "avm" => $avm,
                     "cvm" => $cvm,
+                    "exeded_time" => $exeded
                 ];
             }
-        } else {
-//            echo "ASDFasf";
         }
 
         $res['stations'] = $station->getAll();
@@ -143,10 +161,10 @@ class Acs extends CI_Controller {
             }
         }
         if ($this->request->k_id_avm != null) {
-            $response=$avm->toAssignEngineer($this->request->k_id_avm, $this->request->i_ingeniero_asignado_avm);
+            $response = $avm->toAssignEngineer($this->request->k_id_avm, $this->request->i_ingeniero_asignado_avm);
         }
         if ($this->request->k_id_cvm != null) {
-            $response=$cvm->toAssignEngineer($this->request->k_id_cvm, $this->request->i_ingeniero_asignado_cvm);
+            $response = $cvm->toAssignEngineer($this->request->k_id_cvm, $this->request->i_ingeniero_asignado_cvm);
         }
 //        $response = $vm->updateVm($this->request);
 //        $response = $cvm->insertCvm($this->request);

@@ -77,15 +77,24 @@ var vista = {
                     $('#form1').find('input:checkbox').prop('checked', true);
                     var btn = $('#form1 button:submit');
                     btn.html(btn.attr('data-update-text'));
+                    $('.list-group-item:eq(1)').removeClass('disabled').trigger('click');
                 }
                 if (data.avm) {
                     $('#form2').find('input:checkbox').prop('checked', true);
                     var btn = $('#form2 button:submit');
                     btn.html(btn.attr('data-update-text'));
+                    $('.list-group-item:eq(2)').removeClass('disabled').trigger('click');
+                }
+                if ($('#form3 #i_ingeniero_control').val().trim() != "") {
+                    $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
                 }
                 if (data.cvm) {
                     var btn = $('#form4 button:submit');
                     btn.html(btn.attr('data-update-text'));
+                    $('.list-group-item:eq(0)').removeClass('disabled').trigger('click');
+                }
+                if (data.exeded_time) {
+                    dom.printAlert('El registro se encuentra fuera de tiempo límite.', 'warning', $('.alert'));
                 }
             }
         }
@@ -128,8 +137,8 @@ var vista = {
         }
 
         if (form.attr('id') == "form2") {
-            var f1 = form.find('#d_inicio_programado_sa');
-            var f2 = form.find('#d_fin_programado_sa');
+            var f1 = $('#d_inicio_programado_sa');
+            var f2 = $('#d_fin_programado_sa');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
                 var d1 = new Date(f1.val());
                 var d2 = new Date(f2.val());
@@ -139,8 +148,8 @@ var vista = {
                 }
             }
 
-            f1 = form.find('#d_hora_atencion_cierre');
-            f2 = form.find('#n_hora_inicio_real_vm');
+            f1 = $('#n_hora_atencion_vm');
+            f2 = $('#n_hora_inicio_real_vm');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
                 if (f1.val().replace(/^\D+/g, '') >= f2.val().replace(/^\D+/g, '')) {
                     swal("Atención", "La Hora Atención VM debe ser inferior a la Hora Inicio Real VM", "warning");
@@ -171,6 +180,7 @@ var vista = {
 
         var formGlobal = $('#formGlobalAcs');
         var uri = formGlobal.attr('data-action');
+        obj.form = form.attr('id');
         var forInsert = true;
         if (formGlobal.attr('data-mode') == "FOR_UPDATE") {
             uri = formGlobal.attr('data-action-update');
@@ -179,18 +189,22 @@ var vista = {
         }
 
         //Realizamos la petición ajax...
-        formGlobal.find('fieldset, input, textarea, button, fieldset, select').prop('disabled', true);
+        formGlobal.find('fieldset, input, textarea, button, fieldset, select').not('.disabled-control').prop('disabled', true);
         app.post(uri, obj)
                 .complete(function () {
-                    formGlobal.find('fieldset, input, textarea, button, fieldset, select').prop('disabled', false);
+                    formGlobal.find('fieldset, input, textarea, button, fieldset, select').not('.disabled-control').prop('disabled', false);
                 })
                 .success(function (response) {
                     var v = app.successResponse(response);
                     if (v) {
                         if (forInsert) {
                             $('#idAcs').val(response.data);
+                            $('#txtIdZTE').val(response.data);
                             formGlobal.attr('data-mode', 'FOR_UPDATE');
                             var btn = form.find('button:submit');
+//                            var index = form.parents('.bhoechie-tab-content').next().index();
+//                            $('.list-group-item').removeClass('active');
+//                            $('.list-group-item:eq(' + (index - 1) + ')').removeClass('disabled').addClass('active').trigger('click');
                             btn.html(btn.attr('data-update-text'));
                         }
                         swal(((forInsert) ? "Guardado" : "Actualizado"), "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success");

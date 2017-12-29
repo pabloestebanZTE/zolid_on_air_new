@@ -12,13 +12,13 @@
                             <a href="#" class="list-group-item active text-center">
                                 <h4 class="glyphicon glyphicon-plane"></h4><br/>Creación de Ventanas
                             </a>
-                            <a href="#" class="list-group-item text-center">
+                            <a href="#" class="list-group-item text-center disabled">
                                 <h4 class="glyphicon glyphicon-road"></h4><br/>Apertura de VM
                             </a>
-                            <a href="#" class="list-group-item text-center">
+                            <a href="#" class="list-group-item text-center disabled">
                                 <h4 class="glyphicon glyphicon-home"></h4><br/>Punto de Control
                             </a>
-                            <a href="#" class="list-group-item text-center">
+                            <a href="#" class="list-group-item text-center disabled">
                                 <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
                             </a>
                             <!--                            <a href="#" class="list-group-item text-center">
@@ -27,6 +27,10 @@
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab" id="formGlobalAcs" data-action="Acs/insertAcs" data-action-update="Acs/updateAcs">
+<!--                        <div class="alert alert-success alert-dismissable hidden m-t-25" id="alertGlobal">
+                            <a href="#" class="close" >&times;</a>
+                            <p class="p-b-0" id="text"></p>
+                        </div>-->
                         <input type="hidden" id="idAcs" value="" />
                         <!-- creacion ventana section -->
                         <div class="bhoechie-tab-content active" id="contentTab1">
@@ -207,7 +211,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_vm" class="col-sm-4 control-label">ID ZTE:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control control-change" placeholder="000" name="vm.k_id_vm" disabled />
+                                                <input type="text" class="form-control control-change disabled-control" id="txtIdZTE" placeholder="000" name="vm.k_id_vm" disabled />
                                             </div>
                                         </div>
                                         <div class="col-md-6">

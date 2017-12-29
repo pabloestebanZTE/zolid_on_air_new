@@ -23,8 +23,9 @@ class Utils extends CI_Controller {
     }
 
     public function prueba() {
-        $date = Hash::getTimeStamp(Hash::getDate());
-        echo date("Y-m-d H:i:s", $date / 1000);
+        echo date("d", Hash::getTime());
+//        $date = Hash::getTimeStamp(Hash::getDate());
+//        echo date("Y-m-d H:i:s", $date / 1000);
     }
 
     public function getActualDate() {
