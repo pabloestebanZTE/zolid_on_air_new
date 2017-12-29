@@ -32,6 +32,9 @@ $(document).ready(function () {
 
 });
 
+var checklist = {
+    
+};
 
 var vista = {
     init: function () {
