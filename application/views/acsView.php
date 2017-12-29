@@ -27,10 +27,10 @@
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab" id="formGlobalAcs" data-action="Acs/insertAcs" data-action-update="Acs/updateAcs">
-<!--                        <div class="alert alert-success alert-dismissable hidden m-t-25" id="alertGlobal">
-                            <a href="#" class="close" >&times;</a>
-                            <p class="p-b-0" id="text"></p>
-                        </div>-->
+                        <!--                        <div class="alert alert-success alert-dismissable hidden m-t-25" id="alertGlobal">
+                                                    <a href="#" class="close" >&times;</a>
+                                                    <p class="p-b-0" id="text"></p>
+                                                </div>-->
                         <input type="hidden" id="idAcs" value="" />
                         <!-- creacion ventana section -->
                         <div class="bhoechie-tab-content active" id="contentTab1">
@@ -66,7 +66,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_technology" class="col-md-3 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-change selectpicker select-tecnologia" id="k_id_technology" name="vm.k_id_technology" required>
+                                                <select class="form-control control-change selectpicker select-tecnologia select-checklist" id="k_id_technology" name="vm.k_id_technology" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -84,7 +84,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_work" class="col-md-3 control-label">Tipo de Trabajo :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-change selectpicker select-tipotrabajo" id="k_id_work" name="vm.k_id_work" required>
+                                                <select class="form-control control-change selectpicker select-tipotrabajo select-checklist" id="k_id_work" name="vm.k_id_work" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -147,34 +147,24 @@
                                         <div class="widget bg-white">
                                             <div class="checkbox checkbox-primary text-left" id="productionList">
                                                 <div class="display-block">
-                                                    <input id="chk_p_1" name="vm.checklist[]" type="checkbox">
-                                                    <label for="chk_p_1" class="text-bold">
+                                                    <input id="chk_init_1" name="vm.checklist[]" type="checkbox">
+                                                    <label for="chk_init_1" class="text-bold">
                                                         ID site access Correcto.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_2" name="vm.checklist[]" type="checkbox">
-                                                    <label for="chk_p_2" class="text-bold">
+                                                    <input id="chk_init_2" name="vm.checklist[]" type="checkbox">
+                                                    <label for="chk_init_2" class="text-bold">
                                                         CRQ Remedy Correcto.
                                                     </label>
                                                 </div>
                                                 <div class="display-block">
-                                                    <input id="chk_p_3" name="vm.checklist[]"  type="checkbox">
-                                                    <label for="chk_p_3" class="text-bold">
+                                                    <input id="chk_init_3" name="vm.checklist[]"  type="checkbox">
+                                                    <label for="chk_init_3" class="text-bold">
                                                         Snapshot Liviano UMTS.
                                                     </label>
                                                 </div>
-                                                <div class="display-block">
-                                                    <input id="chk_p_4" name="vm.checklist[]"  type="checkbox">
-                                                    <label for="chk_p_4" class="text-bold">
-                                                        Log Alarmas historico UMTS.
-                                                    </label>
-                                                </div>
-                                                <div class="display-block">
-                                                    <input id="chk_p_5" name="vm.checklist[]"  type="checkbox">
-                                                    <label for="chk_p_5" class="text-bold">
-                                                        Reporte Radiante Pre.
-                                                    </label>
+                                                <div id="items_checklist">                                                    
                                                 </div>
                                             </div>
                                             <div class="display-block m-t-15">

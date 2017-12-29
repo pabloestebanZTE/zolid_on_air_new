@@ -32,10 +32,6 @@ $(document).ready(function () {
 
 });
 
-var checklist = {
-    
-};
-
 var vista = {
     init: function () {
         vista.events();
@@ -47,6 +43,43 @@ var vista = {
     events: function () {
         $('form').on('submit', vista.onSumitForm);
         $('.control-change').on('change', vista.onControlChange);
+        $('.select-checklist').on('change', vista.onChangeChecklist);
+    },
+    onChangeChecklist: function (callback) {
+        $('#items_checklist').html('');
+        if ($('#k_id_work').val().trim() == "" || $('#k_id_technology').val().trim() == "") {
+            return;
+        }
+        app.post('Utils/getCheckList', {
+            idTipoTrabajo: $('#k_id_work').val(),
+            idTecnologia: $('#k_id_technology').val()
+        })
+                .success(function (response) {
+                    var data = app.parseResponse(response);
+                    if (data) {
+                        //Listamos los nuevos items del checklist...
+                        console.info("Se han consultado los items para el checklist...");
+                        console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                            var dat = data[i];
+                            vista.addItemCheckList(dat);
+                        }
+                        if (typeof callback === "function") {
+                            callback();
+                        }
+                    } else {
+                        console.warn("No se pudo consultar el checklist...");
+                    }
+                })
+                .error(function (e) {
+                    console.error("Error al consultar el checklist...", e);
+                })
+                .send();
+    },
+    addItemCheckList: function (obj) {
+        var content = $('#items_checklist');
+        var html = dom.fillString('<div class="display-block"><input id="chk_p_{k_id_checklist}" name="vm.checklist[]"  type="checkbox"><label for="chk_p_{k_id_checklist}" class="text-bold">{nombre_documento}.</label></div>', obj);
+        content.append(html);
     },
     onControlChange: function () {
         var formGlobal = $('#formGlobalAcs');
@@ -77,7 +110,9 @@ var vista = {
                 formGlobal.attr('data-mode', "FOR_UPDATE");
                 formGlobal.fillForm(data);
                 if (data.vm) {
-                    $('#form1').find('input:checkbox').prop('checked', true);
+                    vista.onChangeChecklist(function () {
+                        $('#form1').find('input:checkbox').prop('checked', true);
+                    });
                     var btn = $('#form1 button:submit');
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(1)').removeClass('disabled').trigger('click');
