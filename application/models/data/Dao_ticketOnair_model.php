@@ -374,6 +374,10 @@ class Dao_ticketOnair_model extends CI_Model {
             if (!$round) {
                 $round = $tck->n_round;
             }
+            //Corregimos los probables errores de data externa...
+            $autoRecordDao = new Dao_autorecord_model();
+            $autoRecordDao->record($tck);
+            
             //Consultamos el k_id_status_onair.
             $status_onair = DB::table("status_on_air")
                     ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
