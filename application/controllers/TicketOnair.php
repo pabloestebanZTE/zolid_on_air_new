@@ -326,6 +326,10 @@ class TicketOnair extends CI_Controller {
         if (!$ticketOnAirTemp) {
             return $this->json(new Response(EMessages::ERROR, "El ticket no existe."));
         }
+        //Corregimos los probables errores de data externa...
+        $autoRecordDao = new Dao_autorecord_model();
+        $autoRecordDao->record($ticketOnAirTemp);
+
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo = Hash::getDate();
