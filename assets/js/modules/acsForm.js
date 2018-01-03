@@ -96,6 +96,8 @@ var vista = {
         dom.llenarCombo($('.select-ingeniero'), dataForm.users.data, {text: "n_name_user", value: "k_id_user"});
         $('select').select2({width: '100%'});
         $('#i_telefono_lider_cambio').mask("(999) 999-9999");
+        $('#i_telefono_fm').mask("(999) 999-9999");
+        $('#i_telefono_lider_cuadrilla').mask("(999) 999-9999");
     },
     get: function () {
         var id = app.getParamURL('id');

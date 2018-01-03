@@ -120,7 +120,12 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control selectpicker" id="n_regional_skype" name="vm.n_regional_skype" required>
                                                     <option value="">Seleccione</option>
-                                                    <option value="prueba1">prueba1</option>
+                                                    <option value="Centro">Centro</option>
+                                                    <option value="Costa">Costa</option>
+                                                    <option value="Nor Occidente">Nor Occidente</option>
+                                                    <option value="Nor Oriente">Nor Oriente</option>
+                                                    <option value="Oriente">Oriente</option>
+                                                    <option value="Sur Occidente">Sur Occidente</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -245,6 +250,12 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Activo">Activo</option>
+                                                    <option value="Cancelado">Cancelado</option>
+                                                    <option value="Cerrado">Cerrado</option>
+                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
+                                                    <option value="Rechazado">Rechazado</option>
+                                                    <option value="Suspendido">Suspendido</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -253,6 +264,14 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control control-change" id="n_motivo_estado" name="vm.n_motivo_estado">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Con alarmas previas">Con alarmas previas</option>
+                                                    <option value="Fecha Erronea">Fecha Erronea</option>
+                                                    <option value="FM Cancela Actividad">FM Cancela Actividad</option>
+                                                    <option value="ID Informacion Erronea">ID Informacion Erronea</option>
+                                                    <option value="ID Sin VM">ID Sin VM</option>
+                                                    <option value="ID VM Rechazado">ID VM Rechazado</option>
+                                                    <option value="LC Cancela Actividad">LC Cancela Actividad</option>
+                                                    <option value="Sin alarmas activas">Sin alarmas activas</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -435,6 +454,7 @@
                                                 <label for="n_fm_claro" class="col-sm-3 control-label">FM Claro:</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="n_fm_claro" name="avm.n_fm_claro">
+                                                        <option value="">Seleccione</option>
                                                         <option value="Hugo Alejandro Blanco">Hugo Alejandro Blanco</option>
                                                         <option value="GVT_GCENTROGESTION">GVT_GCENTROGESTION</option>
                                                         <option value="Wilson Forero">Wilson Forero</option>
@@ -541,9 +561,9 @@
                                                 <div class="col-sm-8 ">
                                                     <select class="form-control" id="b_vistamm" name="avm.b_vistamm">
                                                         <option value="">Seleccione</option>
-                                                        <option value="">SI</option>
-                                                        <option value="">NO</option>
-                                                        <option value="">N/A</option>
+                                                        <option value="SI">SI</option>
+                                                        <option value=">NO">NO</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </div>  
                                             </div>
@@ -565,8 +585,58 @@
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_contratista" class="col-sm-2 control-label">Contratista:</label>
                                             <div class="col-sm-10">
-                                                <select name="avm." id="n_contratista" name="avm.n_contratista" class="form-control">
+                                                <select id="n_contratista" name="avm.n_contratista" class="form-control">
                                                     <option>Seleccione</option>
+                                                    <option value="ADS INTEGRAL">ADS INTEGRAL</option>
+                                                    <option value="ADSM Ingenieros">ADSM Ingenieros</option>
+                                                    <option value="ASECONES">ASECONES</option>
+                                                    <option value="BLUE SKILL LTDA">BLUE SKILL LTDA</option>
+                                                    <option value="DECOM">DECOM</option>
+                                                    <option value="DELTEC">DELTEC</option>
+                                                    <option value="DELTEC SA">DELTEC SA</option>
+                                                    <option value="ENERGITELCO">ENERGITELCO</option>
+                                                    <option value="Ezentis">Ezentis</option>
+                                                    <option value="FIBRATERRA">FIBRATERRA</option>
+                                                    <option value="FUREL">FUREL</option>
+                                                    <option value="GAMMA SOLUTIONS">GAMMA SOLUTIONS</option>
+                                                    <option value="IMTELCOM">IMTELCOM</option>
+                                                    <option value="Ingetel">Ingetel</option>
+                                                    <option value="INGETEL S.A.S">INGETEL S.A.S</option>
+                                                    <option value="INGETEL SAS">INGETEL SAS</option>
+                                                    <option value="INGTEL">INGTEL</option>
+                                                    <option value="INGYTELCOM">INGYTELCOM</option>
+                                                    <option value="INTELCOM">INTELCOM</option>
+                                                    <option value="IPMOVILES LTDA">IPMOVILES LTDA</option>
+                                                    <option value="JANACOR">JANACOR</option>
+                                                    <option value="JANACOR LTDA">JANACOR LTDA</option>
+                                                    <option value="MER INFRAESTRUCTURA COLOMBIA LTDA">MER INFRAESTRUCTURA COLOMBIA LTDA</option>
+                                                    <option value="MSI">MSI</option>
+                                                    <option value="N/A">N/A</option>
+                                                    <option value="Neostar">Neostar</option>
+                                                    <option value="NESITELCO">NESITELCO</option>
+                                                    <option value="NEWICT">NEWICT</option>
+                                                    <option value="NEXPRO">NEXPRO</option>
+                                                    <option value="NEXPRO S.A.S">NEXPRO S.A.S</option>
+                                                    <option value="Nokia">Nokia</option>
+                                                    <option value="NOKIA_OSC">NOKIA_OSC</option>
+                                                    <option value="NSN">NSN</option>
+                                                    <option value="NSN MSI">NSN MSI</option>
+                                                    <option value="OPTIMACON">OPTIMACON</option>
+                                                    <option value="OSC">OSC</option>
+                                                    <option value="OSC Telecoms">OSC Telecoms</option>
+                                                    <option value="Redes y Servicios">Redes y Servicios</option>
+                                                    <option value="REDES Y SERVICIOS ELECTRICOS LTDA">REDES Y SERVICIOS ELECTRICOS LTDA</option>
+                                                    <option value="SAI">SAI</option>
+                                                    <option value="SAI SAS">SAI SAS</option>
+                                                    <option value="SAISAS">SAISAS</option>
+                                                    <option value="SERVINTELCO">SERVINTELCO</option>
+                                                    <option value="SITCOM">SITCOM</option>
+                                                    <option value="SITCOM S.A.S">SITCOM S.A.S</option>
+                                                    <option value="TECH MAHINDRA">TECH MAHINDRA</option>
+                                                    <option value="Techmahindra">Techmahindra</option>
+                                                    <option value="UNION ELECTRICA">UNION ELECTRICA</option>
+                                                    <option value="UNION ELECTRICA S.A.">UNION ELECTRICA S.A.</option>
+                                                    <option value="ZOOM">ZOOM</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -674,6 +744,12 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Activo">Activo</option>
+                                                    <option value="Cancelado">Cancelado</option>
+                                                    <option value="Cerrado">Cerrado</option>
+                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
+                                                    <option value="Rechazado">Rechazado</option>
+                                                    <option value="Suspendido">Suspendido</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -682,6 +758,14 @@
                                             <div class="col-sm-10">
                                                 <select class="form-control control-change" id="n_motivo_estado" name="vm.n_motivo_estado">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Con alarmas previas">Con alarmas previas</option>
+                                                    <option value="Fecha Erronea">Fecha Erronea</option>
+                                                    <option value="FM Cancela Actividad">FM Cancela Actividad</option>
+                                                    <option value="ID Informacion Erronea">ID Informacion Erronea</option>
+                                                    <option value="ID Sin VM">ID Sin VM</option>
+                                                    <option value="ID VM Rechazado">ID VM Rechazado</option>
+                                                    <option value="LC Cancela Actividad">LC Cancela Actividad</option>
+                                                    <option value="Sin alarmas activas">Sin alarmas activas</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -773,6 +857,12 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Activo">Activo</option>
+                                                    <option value="Cancelado">Cancelado</option>
+                                                    <option value="Cerrado">Cerrado</option>
+                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
+                                                    <option value="Rechazado">Rechazado</option>
+                                                    <option value="Suspendido">Suspendido</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -781,6 +871,14 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control control-change" id="n_motivo_estado" name="vm.n_motivo_estado">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Con alarmas previas">Con alarmas previas</option>
+                                                    <option value="Fecha Erronea">Fecha Erronea</option>
+                                                    <option value="FM Cancela Actividad">FM Cancela Actividad</option>
+                                                    <option value="ID Informacion Erronea">ID Informacion Erronea</option>
+                                                    <option value="ID Sin VM">ID Sin VM</option>
+                                                    <option value="ID VM Rechazado">ID VM Rechazado</option>
+                                                    <option value="LC Cancela Actividad">LC Cancela Actividad</option>
+                                                    <option value="Sin alarmas activas">Sin alarmas activas</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -837,9 +935,12 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_estado_vm_cierre" name="cvm.n_estado_vm_cierre">
                                                     <option value="">Seleccione</option>
-                                                    <option value="Abierto">Abierto</option>
+                                                    <option value="Activo">Activo</option>
+                                                    <option value="Cancelado">Cancelado</option>
                                                     <option value="Cerrado">Cerrado</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
+                                                    <option value="Rechazado">Rechazado</option>
+                                                    <option value="Suspendido">Suspendido</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -852,8 +953,14 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="n_sub_estado" name="cvm.n_sub_estado">
                                                     <option value="">Seleccione</option>
-                                                    <option value="Abierto">Abierto</option>
-                                                    <option value="Cerrado">Cerrado</option>
+                                                    <option value="Afectación Activa">Afectación Activa</option>
+                                                    <option value="Cancelado">Cancelado</option>
+                                                    <option value="Degradacion Activa">Degradacion Activa</option>
+                                                    <option value="Degradacion Superada">Degradacion Superada</option>
+                                                    <option value="Exitoso">Exitoso</option>
+                                                    <option value="No Exitoso">No Exitoso</option>
+                                                    <option value="Notificacion activa">Notificacion activa</option>
+                                                    <option value="Notificacion Finalizada">Notificacion Finalizada</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -881,8 +988,27 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_tipo_falla_final" name="cvm.n_tipo_falla_final">
                                                     <option value="">Seleccione</option>
-                                                    <option value="Rollback">Rollback</option>
+                                                    <option value="Actividad inconclusa">Actividad inconclusa</option>
+                                                    <option value="Actividad no ejecutada">Actividad no ejecutada</option>
+                                                    <option value="Alarmas de Antenna Line Failure">Alarmas de Antenna Line Failure</option>
+                                                    <option value="Alarmas de Rx Sistema Radiante">Alarmas de Rx Sistema Radiante</option>
+                                                    <option value="Alarmas de Sincronismo">Alarmas de Sincronismo</option>
+                                                    <option value="Alarmas Externas">Alarmas Externas</option>
+                                                    <option value="Alarmas TX">Alarmas TX</option>
+                                                    <option value="Cableado E1">Cableado E1</option>
+                                                    <option value="Degradacion KPIs">Degradacion KPIs</option>
+                                                    <option value="Envio de Evidencias">Envio de Evidencias</option>
+                                                    <option value="Falla de equipo">Falla de equipo</option>
+                                                    <option value="Licencias">Licencias</option>
                                                     <option value="N/A">N/A</option>
+                                                    <option value="Power">Power</option>
+                                                    <option value="Rollback">Rollback</option>
+                                                    <option value="Sin Conexión Remota">Sin Conexión Remota</option>
+                                                    <option value="RET Antena Controller">RET Antena Controller</option>
+                                                    <option value="Sin Trafico">Sin Trafico</option>
+                                                    <option value="Sincronismo">Sincronismo</option>
+                                                    <option value="Sitio Fuera de Servicio">Sitio Fuera de Servicio</option>
+                                                    <option value="TRX Fuera de servicio">TRX Fuera de servicio</option>
                                                 </select>
                                             </div>
                                         </div>
