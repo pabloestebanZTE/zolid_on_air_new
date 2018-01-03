@@ -58,7 +58,7 @@ var vista = {
                             + '</div>'
                             + '</div>'
                             + '<div class="col-md-5">'
-                            + '<p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{comentario_resucoment}</span></p>'
+                            + '<p class="text-left m-all-0 p-all-0">'+''+'<b class="display-block m-b-0"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}:</b><span id="n_comentario" class="m-l-20">{comentario_resucoment}</span></p>'
                             + '</div>'
                             + '<div class="wiget-list p-l-25 users"><div class="item-wiget">'
                             + '<div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>'
@@ -68,6 +68,7 @@ var vista = {
                             + '</div></div>'
                             + '</div>';
                     content.append(dom.fillString(comment, dat));
+//                    '<h2 class="h5 m-t-0"><span class="text-muted text-normal"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}</span></h2>'
                 }
             } else {
                 alert.print("No se encontraron comentarios.", "warning");
@@ -550,6 +551,12 @@ var vista = {
         }
         $('.hour-step.disabled .progress-step').css('width', '0%');
         vista.resizeWigets();
+
+        //Se instancia la pestaña de comentarios como la principal...
+        $('.row.content-wiget').addClass('hidden');
+        $('.comment-step').addClass('active');
+        $('#contentComments').removeClass('hidden');
+        vista.getComments();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');

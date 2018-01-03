@@ -19,7 +19,6 @@ class TimerGlobal {
                 $tck = $ticketModel->where("k_id_onair", "=", $id)->first();
             }
             if ($tck) {
-//                var_dump($tck);
                 $temp = null;
                 $statusOnair = new StatusOnairModel();
                 $actual_status = null;
