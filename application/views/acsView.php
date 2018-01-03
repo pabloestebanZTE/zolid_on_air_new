@@ -1132,6 +1132,6 @@
         </script>
         <script src="<?= URL::to("assets/plugins/jquery.mask.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-        <script src="<?= URL::to('assets/js/modules/acsForm.js') ?>" type="text/javascript"></script>
+        <script src="<?= URL::to('assets/js/modules/acsForm.js?v.1.0') ?>" type="text/javascript"></script>
     </body>
 </html>

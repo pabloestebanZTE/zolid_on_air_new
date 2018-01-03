@@ -98,6 +98,9 @@ var vista = {
         $('#i_telefono_lider_cambio').mask("(999) 999-9999");
         $('#i_telefono_fm').mask("(999) 999-9999");
         $('#i_telefono_lider_cuadrilla').mask("(999) 999-9999");
+        var inputs = $('input[type="time"]');
+        inputs.attr('type', 'text').addClass('for-time');
+        inputs.mask("99:99", {placeholder: "HH:mm"});
     },
     get: function () {
         var id = app.getParamURL('id');
@@ -165,6 +168,24 @@ var vista = {
             return valid == 0;
         };
 
+        var inputs = $('.for-time');
+        //Validamos los inputs time...
+        for (var i = 0; i < inputs.length; i++) {
+            var input = $(inputs[i]);
+            if (input.val().trim() != "") {
+                var parts = input.val().split(":");
+                var h = parts[0];
+                var m = parts[1];
+                var v = parseInt(h) >= 0 && parseInt(h) <= 23;
+                var v2 = parseInt(m) >= 0 && parseInt(m) <= 59;
+                if (!v || !v2) {
+                    var html = input.parent().parent().find('label').text().replace(/\:/g, '');
+                    swal("Error", "Ingrese una " + html + " válida.", "error");
+                    return;
+                }
+            }
+        }
+
         //Validación cehceklist...
         if ((form.attr('id')) == "form1" && (!validateChecklist(form1))) {
             swal("Error", "Debe completar el checklist.", "error");
@@ -208,7 +229,6 @@ var vista = {
                 }
             }
         }
-
 
         //Si todo ha salido bien construimos el objeto y nos preparamos para insertar...
 
