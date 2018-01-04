@@ -72,6 +72,42 @@ class Precheck extends CI_Controller {
         }
     }
 
+    public function getReinicioPrecheckList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getReinicioPrecheckList($this->request);
+            $this->getFKRegisters($array->data["data"], true);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getReinicio12hList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getReinicio12hList($this->request);
+            $this->getFKRegisters($array->data["data"], true);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getStandByList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getStandByList($this->request);
+            $this->getFKRegisters($array->data["data"], true);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
     public function getNotificationList() {
         $response = null;
         if (Auth::check()) {

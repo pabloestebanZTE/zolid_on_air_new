@@ -20,15 +20,33 @@
                             <div class="col-md-12">
                                 <div class="panel with-nav-tabs panel-primary">
                                     <div class="panel-heading">
-                                        <ul class="nav nav-tabs">
+                                        <ul class="nav nav-tabs ">
                                             <li class="active"><a href="#tab1default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Pendientes</a></li>
                                             <li><a href="#tab2default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-check-square-o"></i> Ya asignados</a></li>
-                                            <li><a href="#tabNotificacion" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-bell"></i> Notificación</a></li>
-                                            <li><a href="#tabPrecheck" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Precheck</a></li>
-                                            <li><a href="#tab12H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Seg. 12h</a></li>
-                                            <li><a href="#tab24H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Seg. 24h</a></li>
-                                            <li><a href="#tab36H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Seg. 36h</a></li>
+                                            <li><a href="#tabNotificacion" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-bell"></i> Not</a></li>
+                                            <li><a href="#tabPrecheck" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> Prec</a></li>
+                                            <li><a href="#tab12H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> 12h</a></li>
+                                            <li><a href="#tab24H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> 24h</a></li>
+                                            <li><a href="#tab36H" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-clock-o"></i> 36h</a></li>
+                                            <li><a href="#reinicioPrecheck" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-undo"></i> R. Pre</a></li>
+                                            <li><a href="#reinicio12h" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-undo"></i> R. 12h</a></li>
+                                            <li><a href="#standBy" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-pause"></i> StandBy</a></li>
                                         </ul>
+                                        <div class="row p-t-15 p-b-15 p-l-10 hidden">
+                                            <div class="col-md-3">
+                                                <select class="form-control">
+                                                    <option>Pendientes</option>
+                                                    <option>Ya asignados</option>
+                                                    <option>Notificación</option>
+                                                    <option>Precheck</option>
+                                                    <option>Seguimiento 12h</option>
+                                                    <option>Seguimiento 24h</option>
+                                                    <option>Seguimiento 36h</option>
+                                                    <option>Reinicio Precheck</option>
+                                                    <option>Reinicio 12h</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="panel-body">
                                         <div class="tab-content">
@@ -59,6 +77,18 @@
                                             <div class="tab-pane fade" id="tab36H">
                                                 <h1 class="m-t-0">Seguimiento 36h</h1>
                                                 <table id="tablaSeguimiento36h" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="reinicioPrecheck">
+                                                <h1 class="m-t-0">Reinicio Precheck</h1>
+                                                <table id="tablaReinicioPrecheck" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="reinicio12h">
+                                                <h1 class="m-t-0">Reinicio 12h</h1>
+                                                <table id="tablaReinicio12h" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="standBy">
+                                                <h1 class="m-t-0">Reinicio 12h</h1>
+                                                <table id="tablaStandBy" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                         </div>
                                     </div>
