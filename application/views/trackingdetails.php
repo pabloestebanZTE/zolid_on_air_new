@@ -708,9 +708,9 @@
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
                                 <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
-                                    <thead><tr><th>Sector</th><th>Bloqueado</th><th>Desbloqueado</th></tr></thead>
+                                    <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar</label></div></th></tr></thead>
                                     <tbody>
-                                        <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
+                                        <tr><td colspan="2"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
                                     </tbody>
                                 </table>
                             </div>
