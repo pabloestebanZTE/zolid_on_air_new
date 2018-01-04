@@ -175,7 +175,7 @@ var dom = {
         hms_inicio = formatDate(hms_inicio, 'HH:mm:ss');
         hms_fin = formatDate(hms_fin, 'HH:mm:ss');
         hms_referencia = formatDate(hms_referencia, 'HH:mm:ss');
-        console.log(hms_referencia);
+//        console.log(hms_referencia);
         var h, m, s;
         //HORA INICIO.
         hms_inicio = hms_inicio.split(/[^\d]+/);
@@ -261,7 +261,7 @@ var dom = {
                 if (state != 2 && element.hasClass('prorroga')) {
                     window.clearInterval(interval);
                     interval = null;
-                    console.warn("SE TERMINA EL INTERVAL POR PRORROGA.");
+//                    console.warn("SE TERMINA EL INTERVAL POR PRORROGA.");
                     return;
                 }
                 if (state == 2) {
@@ -391,7 +391,7 @@ var dom = {
                 dom.printAlert(response.message, 'danger', form.find('.alert'));
             }
         }).error(function (e) {
-            console.error(e);
+//            console.error(e);
             dom.alertError(form.find('.alert'));
         });
         return ajax;

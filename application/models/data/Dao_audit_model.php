@@ -18,7 +18,6 @@ class Dao_audit_model extends CI_Model {
     var $tablesAudit = ["ticket_on_air", "on_air_12h", "on_air24h", "on_air_36h", "precheck", "scaled_on_air"];
 
     function __construct() {
-        $this->load->model('dto/AuditOnAirModel');
     }
 
     public function audit($query, $obj, $table, $wheres) {

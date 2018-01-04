@@ -54,6 +54,15 @@ class TimerGlobal {
                             $actual_status = "PCHK";
                             $temp = $this->getTimePrecheck($tck);
                             break;
+                        case ConstSubStates::REINICIO_PRECHECK:
+                            $actual_status = "R_PCHK";
+                            $temp = $this->getTimePrecheck($tck);
+                            break;
+                        case ConstSubStates::REINICIO_12H:
+//                            echo " MIERDCOASDFASDFADF";
+                            $actual_status = "R_12H";
+                            $temp = $this->getTimePrecheck($tck);
+                            break;
                     }
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
@@ -102,6 +111,9 @@ class TimerGlobal {
         $time = 3;
         if ($tck->i_prorroga_hours > 0) {
             $time = $tck->i_prorroga_hours;
+        }
+        if ($tck->k_id_status_onair == ConstStates::REINICIO_12H) {
+            $time = 12;
         }
         if ($tck->d_precheck_init == null) {
             return null;
