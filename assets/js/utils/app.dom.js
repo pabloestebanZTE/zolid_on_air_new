@@ -70,7 +70,7 @@ var dom = {
                     if (Array.isArray(keyNames.text)) {
                         var keys = keyNames.text.length;
                         for (var j = 0; j < keys; j++) {
-                            value += dato[keyNames.text[j]] + ((j < (keys - 1)) ? " - " : "");
+                            value += dato[keyNames.text[j]] + ((j < (keys - 1)) ? " " : "");
                         }
                     } else {
                         value = dato[keyNames.text];

@@ -51,20 +51,36 @@ class Dao_vm_model extends CI_Model {
     public function getAllVm() {
         try {
             $db = new DB();
-            $datos = $db->select("SELECT vm.*, avm.k_id_avm, cvm.k_id_cvm,us1.n_name_user ingeniero_creador_grupo, us2.n_name_user ingeniero_control, 
-                                    us3.n_name_user ingeniero_apertura, us4.n_name_user ingeniero_cierre, cvm.n_sub_estado, cvm.n_falla_final,
-                                    st.n_name_station, tg.n_name_technology, bn.n_name_band, wk.n_name_ork
-                                FROM vm
-                                INNER JOIN station st ON st.k_id_station = vm.k_id_station
-                                INNER JOIN technology tg ON tg.k_id_technology = vm.k_id_technology
-                                INNER JOIN band bn ON bn.k_id_band = vm.k_id_band
-                                INNER JOIN work wk ON wk.k_id_work = vm.k_id_work
-                                LEFT JOIN avm ON avm.k_id_vm = vm.k_id_vm
-                                LEFT JOIN cvm ON cvm.k_id_vm = vm.k_id_vm
-                                LEFT JOIN user us1 ON us1.k_id_user = vm.i_ingeniero_creador_grupo 
-                                LEFT JOIN user us2 ON us2.k_id_user = vm.i_ingeniero_control
-                                LEFT JOIN user us3 ON us3.k_id_user = avm.i_ingeniero_apertura
-                                LEFT JOIN user us4 ON us4.k_id_user = cvm.i_ingeniero_cierre")->get();
+            $datos['historico'] = $db->select("SELECT vm.*, avm.k_id_avm, cvm.k_id_cvm,us1.n_name_user ingeniero_creador_grupo, us2.n_name_user ingeniero_control, 
+                                                    us3.n_name_user ingeniero_apertura, us4.n_name_user ingeniero_cierre, cvm.n_sub_estado, cvm.n_falla_final,
+                                                    st.n_name_station, tg.n_name_technology, bn.n_name_band, wk.n_name_ork
+                                                FROM vm
+                                                INNER JOIN station st ON st.k_id_station = vm.k_id_station
+                                                INNER JOIN technology tg ON tg.k_id_technology = vm.k_id_technology
+                                                INNER JOIN band bn ON bn.k_id_band = vm.k_id_band
+                                                INNER JOIN work wk ON wk.k_id_work = vm.k_id_work
+                                                LEFT JOIN avm ON avm.k_id_vm = vm.k_id_vm
+                                                LEFT JOIN cvm ON cvm.k_id_vm = vm.k_id_vm
+                                                LEFT JOIN user us1 ON us1.k_id_user = vm.i_ingeniero_creador_grupo 
+                                                LEFT JOIN user us2 ON us2.k_id_user = vm.i_ingeniero_punto_control
+                                                LEFT JOIN user us3 ON us3.k_id_user = vm.i_ingeniero_apertura
+                                                LEFT JOIN user us4 ON us4.k_id_user = vm.i_ingeniero_cierre")->get();
+            
+            $datos['hoy'] = $db->select("SELECT vm.*, avm.k_id_avm, cvm.k_id_cvm,us1.n_name_user ingeniero_creador_grupo, us2.n_name_user ingeniero_control, 
+                                            us3.n_name_user ingeniero_apertura, us4.n_name_user ingeniero_cierre, cvm.n_sub_estado, cvm.n_falla_final,
+                                            st.n_name_station, tg.n_name_technology, bn.n_name_band, wk.n_name_ork
+                                        FROM vm
+                                        INNER JOIN station st ON st.k_id_station = vm.k_id_station
+                                        INNER JOIN technology tg ON tg.k_id_technology = vm.k_id_technology
+                                        INNER JOIN band bn ON bn.k_id_band = vm.k_id_band
+                                        INNER JOIN work wk ON wk.k_id_work = vm.k_id_work
+                                        LEFT JOIN avm ON avm.k_id_vm = vm.k_id_vm
+                                        LEFT JOIN cvm ON cvm.k_id_vm = vm.k_id_vm
+                                        LEFT JOIN user us1 ON us1.k_id_user = vm.i_ingeniero_creador_grupo 
+                                        LEFT JOIN user us2 ON us2.k_id_user = vm.i_ingeniero_punto_control
+                                        LEFT JOIN user us3 ON us3.k_id_user = vm.i_ingeniero_apertura
+                                        LEFT JOIN user us4 ON us4.k_id_user = vm.i_ingeniero_cierre
+                                        WHERE vm.d_fecha_solicitud >= CURDATE()")->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -82,6 +98,27 @@ class Dao_vm_model extends CI_Model {
             ]);
 //            echo $vm->getSQL();
             $response = new Response(EMessages::UPDATE);
+            $response->setData($datos);
+            return $response;
+        } catch (ZolidException $ex) {
+            return $ex;
+        }
+    }
+    
+    public function getVmAssigned() {
+        try {
+            $db = new DB();
+            $usuario_session = Auth::user()->k_id_user;
+            $datos = $db->select("SELECT vm.*, st.n_name_station, tg.n_name_technology, bn.n_name_band, wk.n_name_ork
+                                FROM vm
+                                INNER JOIN station st ON st.k_id_station = vm.k_id_station
+                                INNER JOIN technology tg ON tg.k_id_technology = vm.k_id_technology
+                                INNER JOIN band bn ON bn.k_id_band = vm.k_id_band
+                                INNER JOIN work wk ON wk.k_id_work = vm.k_id_work
+                                WHERE vm.i_ingeniero_apertura = $usuario_session 
+                                OR vm.i_ingeniero_punto_control = $usuario_session 
+                                OR vm.i_ingeniero_cierre = $usuario_session")->get();
+            $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
         } catch (ZolidException $ex) {

@@ -85,7 +85,13 @@ var vista = {
         var formGlobal = $('#formGlobalAcs');
         var control = $(this);
         var name = control.attr('name');
-        var controls = formGlobal.find('[name="' + name + '"]');
+        var controls = null;
+        if (control.attr('data-name')) {
+            name = control.attr('data-name');
+            controls = formGlobal.find('[data-name="' + name + '"]');
+        } else {
+            controls = formGlobal.find('[name="' + name + '"]');
+        }
         controls.val(control.val()).trigger('change.select2');
     },
     configView: function () {
@@ -93,7 +99,7 @@ var vista = {
         dom.llenarCombo($('.select-tecnologia'), dataForm.technologies.data, {text: "n_name_technology", value: "k_id_technology"});
         dom.llenarCombo($('.select-tipotrabajo'), dataForm.works.data, {text: "n_name_ork", value: "k_id_work"});
         dom.llenarCombo($('.select-estacion'), dataForm.stations.data, {text: "n_name_station", value: "k_id_station"});
-        dom.llenarCombo($('.select-ingeniero'), dataForm.users.data, {text: "n_name_user", value: "k_id_user"});
+        dom.llenarCombo($('.select-ingeniero'), dataForm.users.data, {text: ["n_name_user", "n_last_name_user"], value: "k_id_user"});
         $('select').select2({width: '100%'});
         $('#i_telefono_lider_cambio').mask("(999) 999-9999");
         $('#i_telefono_fm').mask("(999) 999-9999");
@@ -176,7 +182,7 @@ var vista = {
                 var parts = input.val().split(":");
                 var h = parts[0];
                 var m = parts[1];
-                var v = parseInt(h) >= 0 && parseInt(h) <= 23;
+                var v = parseInt(h) >= 8 && parseInt(h) <= 20;
                 var v2 = parseInt(m) >= 0 && parseInt(m) <= 59;
                 if (!v || !v2) {
                     var html = input.parent().parent().find('label').text().replace(/\:/g, '');
@@ -214,6 +220,17 @@ var vista = {
             if (f1.val().trim() != "" && f2.val().trim() != "") {
                 if (f1.val().replace(/^\D+/g, '') >= f2.val().replace(/^\D+/g, '')) {
                     swal("Atención", "La Hora Atención VM debe ser inferior a la Hora Inicio Real VM", "warning");
+                    return;
+                }
+            }
+        }
+        
+        if (form.attr('id') == "form3") {
+            f1 = $('#n_hora_revision');
+            f2 = $('#n_hora_apertura_grupo');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Hora revisión debe ser mayor a la Hora Apertura Grupo", "warning");
                     return;
                 }
             }

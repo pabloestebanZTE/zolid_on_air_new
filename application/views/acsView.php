@@ -104,7 +104,7 @@
                                         <div class="col-md-6">
                                             <label for="n_persona_solicita" class="col-md-3 control-label">Persona que Solicita :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="vm.n_persona_solicita" id="n_persona_solicita" class="form-control" required>
+                                                <input type="text" name="vm.n_persona_solicita" id="n_persona_solicita" class="form-control control-change" data-name="persona_solicita" required>
                                             </div>
                                         </div>
                                     </div>
@@ -329,7 +329,7 @@
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_persona_solicita_vmlc" class="col-sm-2 control-label text-right">Persona que solicita la VMLC:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="n_persona_solicita_vmlc" name="avm.n_persona_solicita_vmlc"/>
+                                                <input type="text" class="form-control control-change" id="n_persona_solicita_vmlc" name="avm.n_persona_solicita_vmlc" data-name="persona_solicita"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -592,50 +592,34 @@
                                                     <option value="ASECONES">ASECONES</option>
                                                     <option value="BLUE SKILL LTDA">BLUE SKILL LTDA</option>
                                                     <option value="DECOM">DECOM</option>
-                                                    <option value="DELTEC">DELTEC</option>
                                                     <option value="DELTEC SA">DELTEC SA</option>
                                                     <option value="ENERGITELCO">ENERGITELCO</option>
-                                                    <option value="Ezentis">Ezentis</option>
+                                                    <option value="EZENTIS">EZENTIS</option>
                                                     <option value="FIBRATERRA">FIBRATERRA</option>
                                                     <option value="FUREL">FUREL</option>
                                                     <option value="GAMMA SOLUTIONS">GAMMA SOLUTIONS</option>
                                                     <option value="IMTELCOM">IMTELCOM</option>
-                                                    <option value="Ingetel">Ingetel</option>
-                                                    <option value="INGETEL S.A.S">INGETEL S.A.S</option>
                                                     <option value="INGETEL SAS">INGETEL SAS</option>
-                                                    <option value="INGTEL">INGTEL</option>
                                                     <option value="INGYTELCOM">INGYTELCOM</option>
-                                                    <option value="INTELCOM">INTELCOM</option>
                                                     <option value="IPMOVILES LTDA">IPMOVILES LTDA</option>
-                                                    <option value="JANACOR">JANACOR</option>
                                                     <option value="JANACOR LTDA">JANACOR LTDA</option>
                                                     <option value="MER INFRAESTRUCTURA COLOMBIA LTDA">MER INFRAESTRUCTURA COLOMBIA LTDA</option>
                                                     <option value="MSI">MSI</option>
                                                     <option value="N/A">N/A</option>
-                                                    <option value="Neostar">Neostar</option>
+                                                    <option value="NEOSTAR">NEOSTAR</option>
                                                     <option value="NESITELCO">NESITELCO</option>
                                                     <option value="NEWICT">NEWICT</option>
-                                                    <option value="NEXPRO">NEXPRO</option>
                                                     <option value="NEXPRO S.A.S">NEXPRO S.A.S</option>
-                                                    <option value="Nokia">Nokia</option>
-                                                    <option value="NOKIA_OSC">NOKIA_OSC</option>
-                                                    <option value="NSN">NSN</option>
+                                                    <option value="NOKIA">NOKIA</option>
                                                     <option value="NSN MSI">NSN MSI</option>
                                                     <option value="OPTIMACON">OPTIMACON</option>
-                                                    <option value="OSC">OSC</option>
                                                     <option value="OSC Telecoms">OSC Telecoms</option>
-                                                    <option value="Redes y Servicios">Redes y Servicios</option>
                                                     <option value="REDES Y SERVICIOS ELECTRICOS LTDA">REDES Y SERVICIOS ELECTRICOS LTDA</option>
-                                                    <option value="SAI">SAI</option>
                                                     <option value="SAI SAS">SAI SAS</option>
-                                                    <option value="SAISAS">SAISAS</option>
                                                     <option value="SERVINTELCO">SERVINTELCO</option>
-                                                    <option value="SITCOM">SITCOM</option>
                                                     <option value="SITCOM S.A.S">SITCOM S.A.S</option>
                                                     <option value="TECH MAHINDRA">TECH MAHINDRA</option>
-                                                    <option value="Techmahindra">Techmahindra</option>
-                                                    <option value="UNION ELECTRICA">UNION ELECTRICA</option>
-                                                    <option value="UNION ELECTRICA S.A.">UNION ELECTRICA S.A.</option>
+                                                    <option value="UNION ELECTRICA SA">UNION ELECTRICA SA</option>
                                                     <option value="ZOOM">ZOOM</option>
                                                 </select>
                                             </div>
@@ -658,12 +642,12 @@
                                                             Se crea Excel Precheck.
                                                         </label>
                                                     </div>
-                                                    <div class="display-block">
-                                                        <input id="chk_p_8" name="avm.checklist[]" type="checkbox">
-                                                        <label for="chk_p_8" class="text-bold">
-                                                            Se crea solicitud ID Access.
-                                                        </label>
-                                                    </div>
+                                                    <!--                                                    <div class="display-block">
+                                                                                                            <input id="chk_p_8" name="avm.checklist[]" type="checkbox">
+                                                                                                            <label for="chk_p_8" class="text-bold">
+                                                                                                                Se crea solicitud ID Access.
+                                                                                                            </label>
+                                                                                                        </div>-->
                                                     <div class="display-block">
                                                         <input id="chk_p_9" name="avm.checklist[]" type="checkbox">
                                                         <label for="chk_p_9" class="text-bold">
@@ -935,12 +919,8 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_estado_vm_cierre" name="cvm.n_estado_vm_cierre">
                                                     <option value="">Seleccione</option>
-                                                    <option value="Activo">Activo</option>
                                                     <option value="Cancelado">Cancelado</option>
                                                     <option value="Cerrado">Cerrado</option>
-                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
-                                                    <option value="Rechazado">Rechazado</option>
-                                                    <option value="Suspendido">Suspendido</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -964,12 +944,12 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="n_iniciar_vm_encontro" class="col-sm-3 control-label"><span class="display-block">Al iniciar VM se encontró:</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="n_iniciar_vm_encontro" name="cvm.n_iniciar_vm_encontro"/>
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="col-md-6">
+                                                                                    <label for="n_iniciar_vm_encontro" class="col-sm-3 control-label"><span class="display-block">Al iniciar VM se encontró:</span></label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control" id="n_iniciar_vm_encontro" name="cvm.n_iniciar_vm_encontro"/>
+                                                                                    </div>
+                                                                                </div>-->
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">

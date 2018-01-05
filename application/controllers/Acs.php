@@ -148,7 +148,6 @@ class Acs extends CI_Controller {
 
     public function toAssign() {
         $vm = new Dao_vm_model();
-//        var_dump($this->request);
         if ($this->request->i_ingeniero_asignado_avm != null) {
             $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_avm, "i_ingeniero_apertura");
         }
@@ -158,9 +157,23 @@ class Acs extends CI_Controller {
         if ($this->request->i_ingeniero_asignado_cvm != null) {
             $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_cvm, "i_ingeniero_cierre");
         }
-//        $response = $vm->updateVm($this->request);
-//        $response = $cvm->insertCvm($this->request);
         $this->json($response);
     }
+    
+    public function getVmAssigned() {
+        //Se comprueba si no hay sesión.
+        if (!Auth::check()) {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
 
+        $response = null;
+        if (Auth::check()) {
+            $vm = new Dao_vm_model();
+            $res = $vm->getVmAssigned();
+            $this->json($res);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
 }
