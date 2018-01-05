@@ -373,3 +373,6 @@ a.link-normal:hover{
 .vertical-middle{
     vertical-align: middle !important;
 }
+.error{
+    color: #cc0033;
+}

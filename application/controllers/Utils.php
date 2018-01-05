@@ -62,4 +62,16 @@ class Utils extends CI_Controller {
         $this->json($response);
     }
 
+    public function bandsByTech() {
+        $this->request;
+        $db = new DB();
+        $data = $db->select("SELECT b.* FROM band b INNER JOIN ref_tech_band rtb "
+                        . "ON b.k_id_band = rtb.k_id_band "
+                        . "WHERE rtb.k_id_technology = "
+                        . $this->request->id_technology)->get();
+        $response = new Response(EMessages::QUERY);
+        $response->setData($data);
+        $this->json($response);
+    }
+
 }

@@ -210,6 +210,9 @@ class Precheck extends CI_Controller {
             //Se registra el KPI.
             $kpiDao->record($this->request->idOnAir);
             $this->json(new Response(EMessages::UPDATE));
+
+            $ticketDao = new Dao_ticketOnair_model();
+            $ticketDao->registerReportComment($this->request->idOnAir, "Se inicia el precheck.");
         } catch (ZolidException $ex) {
             $this->json($ex);
         }
@@ -232,6 +235,21 @@ class Precheck extends CI_Controller {
         $kpiDao = new Dao_kpi_model();
         //Se registra el KPI.
         $kpiDao->record($ticketOnAir, false, true);
+
+        $valid = new Validator();
+        if ($valid->required(null, $this->request->jsonSectores)) {
+            $tempOnair = new TicketOnAirModel();
+            $obj = ["n_json_sectores" => $this->request->jsonSectores];
+            if ($this->request->typeBlock == 1) {
+                $obj["n_sectores_bloqueados"] = $this->request->sectoresBloqueados;
+                $obj["d_bloqueo"] = Hash::getDate();
+            } else
+            if ($this->request->typeBlock == 0) {
+                $obj["n_sectores_desbloqueados"] = $this->request->sectoresDesbloqueados;
+                $obj["d_desbloqueo"] = Hash::getDate();
+            }
+            $tempOnair->update($obj);
+        }
 
         $response1 = $ticket->updateEngTicket($this->request->idOnair, (($ticketOnAir->k_id_status_onair == 79) ? Auth::user()->k_id_user : 0))->data; //camilo
         //Sirve para veriificar si va para 12
