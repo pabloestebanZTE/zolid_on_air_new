@@ -377,7 +377,7 @@ class Dao_ticketOnair_model extends CI_Model {
             //Corregimos los probables errores de data externa...
             $autoRecordDao = new Dao_autorecord_model();
             $autoRecordDao->record($tck);
-            
+
             //Consultamos el k_id_status_onair.
             $status_onair = DB::table("status_on_air")
                     ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
@@ -764,6 +764,42 @@ class Dao_ticketOnair_model extends CI_Model {
             $orderBy["dir"] = $dir;
         }
         return $this->getListTicket($request, "tk.k_id_status_onair = 78 and i_actualEngineer = 0", $orderBy);
+    }
+
+    public function getReinicioPrecheckList($request) {
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 80 and i_actualEngineer = 0", $orderBy);
+    }
+
+    public function getReinicio12hList($request) {
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 79 and i_actualEngineer = 0", $orderBy);
+    }
+
+    public function getStandByList($request) {
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.k_id_status_onair = 100 and i_actualEngineer = 0", $orderBy);
     }
 
     public function getSeguimiento12hList($request) {

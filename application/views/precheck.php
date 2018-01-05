@@ -203,7 +203,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_bts_id" id="n_bts_id" class="form-control disabledchange" disabled="" value='' required>
+                                            <input type='text' name="n_bts_id" id="n_bts_id" class="form-control disabledchange" disabled="">
                                         </div>
                                     </div>
                                 </div>

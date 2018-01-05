@@ -370,3 +370,6 @@ a.link-normal:hover{
     pointer-events: none;
     opacity: 0.5;    
 }
+.vertical-middle{
+    vertical-align: middle !important;
+}

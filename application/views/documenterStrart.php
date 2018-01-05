@@ -193,6 +193,21 @@
                                     <button type="button" id="btnCheckSectores" class="btn btn-primary btn-block"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar Sectores</button>
                                 </div>
                             </div>
+                            <div class="form-group estado-sectores hidden">
+                                <label class="col-md-3 control-label">Estado sectores:</label>
+                                <div class="col-md-8 selectContainer">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-wrench"></i>
+                                        </div>
+                                        <select class="form-control" name="estado_sectores" id="cmbEstadoSectores">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Bloqueados</option>
+                                            <option value="0">Desbloqueados</option>
+                                        </select>
+                                    </div>                             
+                                </div>
+                            </div>
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Estado:</label>
@@ -335,7 +350,7 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script type="text/javascript" src="<?= URL::to('assets/js/DataStream.js') ?>"></script>
     <script type="text/javascript" src="<?= URL::to('assets/js/msg.reader.js') ?>"></script>
-    <script>
+    <script type="text/javascript">
                                                                 $(function () {
                                                                     var info = <?php echo $respuesta; ?>;
                                                                     console.log(info);
@@ -379,7 +394,6 @@
                                                                     //dom.configCalendar($('#d_ingreso_on_air'));
                                                                 });
 
-
                                                                 function editTextCityRegional() {
                                                                     var estacion = $("#estacion").val();
                                                                     var info = <?php echo $respuesta; ?>;
@@ -421,12 +435,12 @@
                                                                     $('#substatus').empty();
                                                                     for (var j = 0; j < info.statusOnAir.data.length; j++) {
                                                                         if (status == info.statusOnAir.data[j].k_id_status) {
-                                                                          if(info.statusOnAir.data[j].k_id_status_onair != 78){
-                                                                            $('#substatus').append($('<option>', {
-                                                                                value: info.statusOnAir.data[j].k_id_status_onair,
-                                                                                text: info.statusOnAir.data[j].n_name_substatus
-                                                                            }));
-                                                                          }
+                                                                            if (info.statusOnAir.data[j].k_id_status_onair != 78) {
+                                                                                $('#substatus').append($('<option>', {
+                                                                                    value: info.statusOnAir.data[j].k_id_status_onair,
+                                                                                    text: info.statusOnAir.data[j].n_name_substatus
+                                                                                }));
+                                                                            }
                                                                         }
                                                                         if (status == 9) {
                                                                             $('#substatus').val(97);
@@ -438,11 +452,56 @@
     <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
     <script type="text/javascript">
                                                                 $(function () {
-                                                                    dom.submit($('#assignServie2'), function (response) {
-                                                                        if (response.code > 0) {
-                                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
+
+                                                                    var form = $('#assignServie2');
+                                                                    form.validate();
+                                                                    var onSubmitForm = function (e) {
+                                                                        if (e.isDefaultPrevented())
+                                                                        {
+                                                                            return;
                                                                         }
-                                                                    });
+                                                                        app.stopEvent(e);
+                                                                        var json = $('#jsonSectores').val();
+                                                                        if (json.trim() != "") {
+                                                                            json = JSON.parse(json);
+                                                                            var input = $('#cmbEstadoSectores');
+                                                                            var sectoresIncluidos = "";
+                                                                            var sectoresDesbloqueados = "";
+
+                                                                            for (var i = 0; i < json.length; i++) {
+                                                                                var temp = json[i];
+                                                                                if (temp.state != -1) {
+//                                                                                    json[i].state = input.val();
+                                                                                    temp.state = input.val();
+                                                                                }
+
+                                                                                if (input.val() == 1 && temp.state == 1) {
+                                                                                    sectoresIncluidos += temp.name + ((i < (json.length - 1) ? ", " : ""));
+                                                                                } else if (input.val() == 0 && temp.state == 0) {
+                                                                                    sectoresDesbloqueados += temp.name + ((i < (json.length - 1) ? ", " : ""));
+                                                                                }
+                                                                            }
+                                                                            $('#sectoresBloqueados').val(sectoresIncluidos);
+                                                                            $('#sectoresDebloqueados').val(sectoresDesbloqueados);
+                                                                            $('#jsonSectores').val(JSON.stringify(json));
+                                                                        }
+
+
+
+                                                                        var form = $(this);
+                                                                        dom.submitDirect(form, function (response) {
+                                                                            if (response.code > 0) {
+                                                                                $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
+                                                                            }
+                                                                        });
+                                                                    };
+                                                                    form.on('submit', onSubmitForm);
+
+//                                                                    dom.submit($('#assignServie2'), function (response) {
+//                                                                        if (response.code > 0) {
+//                                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
+//                                                                        }
+//                                                                    });
                                                                     dom.submit($('#stationForm'), function () {
                                                                         location.href = app.urlTo('User/createTicketOnair');
                                                                     });
@@ -493,7 +552,7 @@
                                                                             return;
                                                                         }
 
-                                                                        $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultando...</td></tr>');
+                                                                        $('#tblSectores tbody').html('<tr><td colspan="2"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultando...</td></tr>');
                                                                         app.post('TicketOnair/getSectores', obj)
                                                                                 .success(function (response) {
                                                                                     var data = app.parseResponse(response);
@@ -503,7 +562,7 @@
                                                                                         //Llenamos la tabla sectores...
                                                                                         for (var i = 0; i < data.length; i++) {
                                                                                             var dat = data[i];
-                                                                                            tabla.append(dom.fillString('<tr data-id="{k_id_sector}" data-name="{name}"><td>{name}</td><td><div class="radio radio-primary" style=""><input id="checkbox_block_{k_id_sector}" type="radio" name="check_{k_id_sector}" value="1" ><label for="checkbox_block_{k_id_sector}" class="text-bold">Bloqueado</label></div></td><td><div class="radio radio-primary" style=""><input id="checkbox_desblock_{k_id_sector}" type="radio" name="check_{k_id_sector}" value="0"><label for="checkbox_desblock_{k_id_sector}" class="text-bold">Desbloqueado</label></div></td></tr>', dat));
+                                                                                            tabla.append(dom.fillString('<tr data-id="{k_id_sector}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input id="checkbox_block_{k_id_sector}" type="checkbox" name="check_{k_id_sector}" value="1" /><label for="checkbox_block_{k_id_sector}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
                                                                                         }
                                                                                     } else {
                                                                                         $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
@@ -535,28 +594,35 @@
 
                                                                     $('#btnAceptarModalSectores').on('click', function () {
                                                                         var sectores = [];
-                                                                        var sectoresBloqueados = "";
-                                                                        var sectoresDesbloqueados = "";
-                                                                        var inputs = $('#tblSectores').find('input:checked');
+//                                                                        var sectoresIncluidos = "";
+//                                                                        var sectoresDesbloqueados = "";
+                                                                        var inputs = $('#tblSectores').find('input:checkbox').not('.check-head');
                                                                         for (var i = 0; i < inputs.length; i++) {
                                                                             var input = $(inputs[i]);
                                                                             var tr = input.parents('tr');
                                                                             var temp = {
                                                                                 id: tr.attr('data-id'),
                                                                                 name: tr.attr('data-name'),
-                                                                                state: input.val() //1 = Bloqueado, 0 = Desbloqueado
+                                                                                state: ((input.is(':checked')) ? true : -1)
                                                                             };
                                                                             sectores.push(temp);
-                                                                            if (input.val() == 1) {
-                                                                                sectoresBloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
-                                                                            } else if (input.val() == 0) {
-                                                                                sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
-                                                                            }
+//                                                                            if (input.val() == 1) {
+//                                                                                sectoresIncluidos += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+//                                                                            } else if (input.val() == 0) {
+//                                                                                sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+//                                                                            }
                                                                         }
                                                                         $('#jsonSectores').val(JSON.stringify(sectores));
-                                                                        $('#sectoresBloqueados').val(sectoresBloqueados);
-                                                                        $('#sectoresDebloqueados').val(sectoresDesbloqueados);
-                                                                        $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + sectores.length + ') Sectores agregados');
+//                                                                        $('#sectoresBloqueados').val(sectoresIncluidos);
+//                                                                        $('#sectoresDebloqueados').val(sectoresDesbloqueados);
+                                                                        $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked').length + ') Sectores agregados');
+                                                                        if (sectores.length > 0) {
+                                                                            $('.estado-sectores').removeClass('hidden');
+                                                                            $('#cmbEstadoSectores').prop('required', true);
+                                                                        } else {
+                                                                            $('.estado-sectores').addClass('hidden');
+                                                                            $('#cmbEstadoSectores').prop('required', false);
+                                                                        }
                                                                     });
                                                                 });
     </script>
@@ -618,7 +684,9 @@
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
                                 <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
-                                    <thead><tr><th>Sector</th><th>Bloqueado</th><th>Desbloqueado</th></tr></thead>
+                                    <thead><tr>
+                                            <th class="vertical-middle"><i class="fa fa-fw fa-wrench"></i> Sector</th><th class="p-l-5"><div class="checkbox checkbox-primary" style=""><input id="checkbox_head_sectores" type="checkbox" name="check_sectores" class="check-head" value="1" ><label for="checkbox_head_sectores" class="text-bold">Seleccionar todos</label></div></th>
+                                        </tr></thead>
                                     <tbody>
                                         <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
                                     </tbody>

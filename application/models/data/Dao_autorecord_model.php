@@ -19,8 +19,8 @@ class Dao_autorecord_model extends CI_Model {
      * @param type $ticket | Object OR ID del ticket.
      */
     public function record($ticket) {
+        $ticketModel = new TicketOnAirModel();
         if (!is_object($ticket)) {
-            $ticketModel = new TicketOnAirModel();
             $ticket = $ticketModel->where("k_id_onair", "=", $ticket)->first();
             $this->record($ticket);
             return;
@@ -32,6 +32,23 @@ class Dao_autorecord_model extends CI_Model {
         $segModel = null;
         $d_start = null;
         switch ($ticket->k_id_status_onair) {
+            case ConstStates::PRECHECK:
+                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+                ]);
+                return $response;
+            case ConstStates::REINICIO_PRECHECK:
+                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+                ]);
+                return $response;
+            case ConstStates::REINICIO_12H:
+                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+                ]);
+                return $response;
+            case ConstStates::PRECHECK:
+                break;
             case ConstStates::SEGUIMIENTO_12H:
                 $segModel = new OnAir12hModel();
                 $d_start = "d_start12h";
@@ -52,7 +69,7 @@ class Dao_autorecord_model extends CI_Model {
             if (!$seg) {
                 $data = [
                     "k_id_onair" => $ticket->k_id_onair,
-                    $d_start => Hash::getDate(),
+                    $d_start => $ticket->d_fecha_ultima_rev,
                     "i_state" => 0,
                     "i_round" => $ticket->n_round,
                 ];

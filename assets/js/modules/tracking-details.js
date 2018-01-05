@@ -58,7 +58,7 @@ var vista = {
                             + '</div>'
                             + '</div>'
                             + '<div class="col-md-5">'
-                            + '<p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{comentario_resucoment}</span></p>'
+                            + '<p class="text-left m-all-0 p-all-0">' + '' + '<b class="display-block m-b-0"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}:</b><span id="n_comentario" class="m-l-20">{comentario_resucoment}</span></p>'
                             + '</div>'
                             + '<div class="wiget-list p-l-25 users"><div class="item-wiget">'
                             + '<div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>'
@@ -68,6 +68,7 @@ var vista = {
                             + '</div></div>'
                             + '</div>';
                     content.append(dom.fillString(comment, dat));
+//                    '<h2 class="h5 m-t-0"><span class="text-muted text-normal"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}</span></h2>'
                 }
             } else {
                 alert.print("No se encontraron comentarios.", "warning");
@@ -89,7 +90,7 @@ var vista = {
             var temp = {
                 id: tr.attr('data-id'),
                 name: tr.attr('data-name'),
-                state: input.val() //1 = Bloqueado, 0 = Desbloqueado
+//                state: input.val() //1 = Bloqueado, 0 = Desbloqueado
             };
             sectores.push(temp);
             if (input.val() == 1) {
@@ -117,7 +118,7 @@ var vista = {
             //Llenamos la tabla sectores...
             for (var i = 0; i < data.length; i++) {
                 var dat = data[i];
-                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="radio radio-primary" style=""><input ' + ((dat.state == 1) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="radio" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Bloqueado</label></div></td><td><div class="radio radio-primary" style=""><input ' + ((dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_desblock_{id}" type="radio" name="check_{id}" value="0"><label for="checkbox_desblock_{id}" class="text-bold">Desbloqueado</label></div></td></tr>', dat));
+                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
             }
             $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + data.length + ') Sectores agregados');
         } else {
@@ -550,6 +551,12 @@ var vista = {
         }
         $('.hour-step.disabled .progress-step').css('width', '0%');
         vista.resizeWigets();
+
+        //Se instancia la pestaña de comentarios como la principal...
+        $('.row.content-wiget').addClass('hidden');
+        $('.comment-step').addClass('active');
+        $('#contentComments').removeClass('hidden');
+        vista.getComments();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');

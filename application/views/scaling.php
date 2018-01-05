@@ -9,30 +9,30 @@
                         <form class="well form-horizontal" action="TicketOnair/createScaling" method="post"  id="createScaling" name="createScaling">
                             <legend>Escalar Actividad</legend>
                             <fieldset class="col-md-6 control-label">
-<!--                                <div class="form-group">
-                                    <label for="txtAtribuibleNokia" class="col-md-3 control-label">Atribuible a nokia:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                            <select class="form-control input-sm" id="n_atribuible_nokia" name="n_atribuible_nokia">
-                                                <option value="">Seleccione</option>
-                                                <option value="SI">SI</option>
-                                                <option value="NO">NO</option>
-                                                <option value="NA">NA</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>-->
+                                <!--                                <div class="form-group">
+                                                                    <label for="txtAtribuibleNokia" class="col-md-3 control-label">Atribuible a nokia:</label>
+                                                                    <div class="col-md-8 selectContainer">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
+                                                                            <select class="form-control input-sm" id="n_atribuible_nokia" name="n_atribuible_nokia">
+                                                                                <option value="">Seleccione</option>
+                                                                                <option value="SI">SI</option>
+                                                                                <option value="NO">NO</option>
+                                                                                <option value="NA">NA</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
 
-<!--                                <div class="form-group">
-                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
-                                        </div>
-                                    </div>
-                                </div>-->
+                                <!--                                <div class="form-group">
+                                                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
+                                                                    <div class="col-md-8 selectContainer">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                                                                            <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
                                 <div class="form-group">
                                     <label for="txtTicket" class="col-md-3 control-label">Ticket:</label>
                                     <div class="col-md-8 selectContainer">
@@ -143,20 +143,20 @@
 
                                 <div class="form-group" style="height: 40px;"></div>
 
-<!--                                <div class="form-group">
-                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Atribuible a nokia 2:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                            <select class="form-control" id="n_atribuible_nokia2" name="n_atribuible_nokia2">
-                                                <option value="">Seleccione</option>
-                                                <option value="SI">SI</option>
-                                                <option value="NO">NO</option>
-                                                <option value="NA">NA</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>-->
+                                <!--                                <div class="form-group">
+                                                                    <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Atribuible a nokia 2:</label>
+                                                                    <div class="col-md-8 selectContainer">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                                                                            <select class="form-control" id="n_atribuible_nokia2" name="n_atribuible_nokia2">
+                                                                                <option value="">Seleccione</option>
+                                                                                <option value="SI">SI</option>
+                                                                                <option value="NO">NO</option>
+                                                                                <option value="NA">NA</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
 
                                 <div class="form-group">
                                     <label for="txtValorKpi1" class="col-md-3 control-label">Valor KPI 1:</label>
@@ -437,180 +437,188 @@
         <!-- CUSTOM SCRIPT   -->
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script>
-          $(function () {
-            var items = <?php echo $items; ?>;
-            console.log(items);
+                                            $(function () {
+                                                var items = <?php echo $items; ?>;
+                                                console.log(items);
 
-            for (var j = 0; j < items.status.data.length; j++){
-                if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7' || items.status.data[j].k_id_status === '11' || items.status.data[j].k_id_status === '12' || items.status.data[j].k_id_status === '13') {
-                    $('#status').append($('<option>', {
-                        value: items.status.data[j].k_id_status,
-                        text: items.status.data[j].n_name_status
-                    }));
-                }
-            }
+                                                for (var j = 0; j < items.status.data.length; j++) {
+                                                    if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7' || items.status.data[j].k_id_status === '11' || items.status.data[j].k_id_status === '12' || items.status.data[j].k_id_status === '13') {
+                                                        $('#status').append($('<option>', {
+                                                            value: items.status.data[j].k_id_status,
+                                                            text: items.status.data[j].n_name_status
+                                                        }));
+                                                    }
+                                                }
 
-            if (items.scaledOnair !== null) {
-                $('#createScaling').fillForm(items);
+                                                if (items.scaledOnair !== null) {
+                                                    $('#createScaling').fillForm(items);
 
-                $('#n_atribuible_nokia option[value="'+items.scaledOnair.n_atribuible_nokia+'"]').attr('selected', 'selected');
-                // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
-                // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
-                $('input[name=i_cont_esc_imp]').val(items.scaledOnair.i_cont_esc_imp);
-                $('input[name=time_esc_imp]').val(items.scaledOnair.time_esc_imp);
-                $('input[name=i_cont_esc_rf]').val(items.scaledOnair.i_cont_esc_rf);
-                $('input[name=i_time_esc_rf]').val(items.scaledOnair.i_time_esc_rf);
-                $('input[name=cont_esc_npo]').val(items.scaledOnair.cont_esc_npo);
-                $('input[name=i_time_esc_npo]').val(items.scaledOnair.i_time_esc_npo);
-                $('input[name=cont_esc_care]').val(items.scaledOnair.cont_esc_care);
-                $('input[name=i_time_esc_care]').val(items.scaledOnair.i_time_esc_care);
-                $('input[name=i_cont_esc_gdrt]').val(items.scaledOnair.i_cont_esc_gdrt);
-                $('input[name=i_time_esc_gdrt]').val(items.scaledOnair.i_time_esc_gdrt);
-                $('input[name=i_cont_esc_oym]').val(items.scaledOnair.i_cont_esc_oym);
-                $('input[name=time_esc_oym]').val(items.scaledOnair.time_esc_oym);
-                $('input[name=cont_esc_calidad]').val(items.scaledOnair.cont_esc_calidad);
-                $('input[name=i_time_esc_calidad]').val(items.scaledOnair.i_time_esc_calidad);
-                $('#n_atribuible_nokia2 option[value="'+items.scaledOnair.n_atribuible_nokia2+'"]').attr('selected', 'selected');
-                $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
-                $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
-                $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
+                                                    $('#n_atribuible_nokia option[value="' + items.scaledOnair.n_atribuible_nokia + '"]').attr('selected', 'selected');
+                                                    // $('input[name=d_time_escalado]').val(items.scaledOnair.d_time_escalado);
+                                                    // $('input[name=d_fecha_escalado]').val(items.scaledOnair.d_fecha_escalado);
+                                                    $('input[name=i_cont_esc_imp]').val(items.scaledOnair.i_cont_esc_imp);
+                                                    $('input[name=time_esc_imp]').val(items.scaledOnair.time_esc_imp);
+                                                    $('input[name=i_cont_esc_rf]').val(items.scaledOnair.i_cont_esc_rf);
+                                                    $('input[name=i_time_esc_rf]').val(items.scaledOnair.i_time_esc_rf);
+                                                    $('input[name=cont_esc_npo]').val(items.scaledOnair.cont_esc_npo);
+                                                    $('input[name=i_time_esc_npo]').val(items.scaledOnair.i_time_esc_npo);
+                                                    $('input[name=cont_esc_care]').val(items.scaledOnair.cont_esc_care);
+                                                    $('input[name=i_time_esc_care]').val(items.scaledOnair.i_time_esc_care);
+                                                    $('input[name=i_cont_esc_gdrt]').val(items.scaledOnair.i_cont_esc_gdrt);
+                                                    $('input[name=i_time_esc_gdrt]').val(items.scaledOnair.i_time_esc_gdrt);
+                                                    $('input[name=i_cont_esc_oym]').val(items.scaledOnair.i_cont_esc_oym);
+                                                    $('input[name=time_esc_oym]').val(items.scaledOnair.time_esc_oym);
+                                                    $('input[name=cont_esc_calidad]').val(items.scaledOnair.cont_esc_calidad);
+                                                    $('input[name=i_time_esc_calidad]').val(items.scaledOnair.i_time_esc_calidad);
+                                                    $('#n_atribuible_nokia2 option[value="' + items.scaledOnair.n_atribuible_nokia2 + '"]').attr('selected', 'selected');
+                                                    $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
+                                                    $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
+                                                    $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
 
-                contEscStatus();
-                window.setInterval("contEscStatus()", 60000);
-                editSubstatus();
-            }
+                                                    contEscStatus();
+                                                    window.setInterval("contEscStatus()", 60000);
+                                                    editSubstatus();
+                                                }
 
 
 
-          });
+                                            });
 
-          function editSubstatus(){
-            var status = $( "#status" ).val();
-            console.log(status);
-            var info = <?php echo $items; ?>;
-            $('#substatus').empty();
-            for (var j = 0; j < info.statusOnAir.data.length; j++){
-              if(status === info.statusOnAir.data[j].k_id_status){
-                  $('#substatus').append($('<option>', {
-                      value: info.statusOnAir.data[j].k_id_status_onair,
-                      text: info.statusOnAir.data[j].n_name_substatus
-                  }));
-              }
-            }
-          }
+                                            function editSubstatus() {
+                                                var status = $("#status").val();
+                                                console.log(status);
+                                                var info = <?php echo $items; ?>;
+                                                $('#substatus').empty();
+                                                for (var j = 0; j < info.statusOnAir.data.length; j++) {
+                                                    if (status === info.statusOnAir.data[j].k_id_status) {
+                                                        $('#substatus').append($('<option>', {
+                                                            value: info.statusOnAir.data[j].k_id_status_onair,
+                                                            text: info.statusOnAir.data[j].n_name_substatus
+                                                        }));
+                                                    }
+                                                }
+                                            }
 
-          function contEscStatus(){
-            var status = "";
-            var info = <?php echo $items; ?>;
-            var fecha_escalado = info.scaledOnair.d_fecha_escalado;
-            for (var j = 0; j < info.statusOnAir.data.length; j++){
-              if(info.k_id_status_onair === info.statusOnAir.data[j].k_id_status_onair){
-                  status = info.statusOnAir.data[j].k_id_status;
-              }
-            }
+                                            function contEscStatus() {
+                                                var status = "";
+                                                var info = <?php echo $items; ?>;
+                                                var fecha_escalado = info.scaledOnair.d_fecha_escalado;
+                                                for (var j = 0; j < info.statusOnAir.data.length; j++) {
+                                                    if (info.k_id_status_onair === info.statusOnAir.data[j].k_id_status_onair) {
+                                                        status = info.statusOnAir.data[j].k_id_status;
+                                                    }
+                                                }
 
-            switch(status) {
-                case "3":
-                    accountant("cont_esc_calidad");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_calidad");
-                    break;
-                case "4":
-                    accountant("i_cont_esc_imp");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "time_esc_imp");
-                    break;
-                case "5":
-                    accountant("i_cont_esc_oym");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "time_esc_oym");
-                    break;
-                case "6":
-                    accountant("i_cont_esc_rf");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_rf");
-                    break;
-                case "11":
-                    accountant("i_cont_esc_gdrt");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_gdrt");
-                    break;
-                case "12":
-                    accountant("cont_esc_care");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_care");
-                    break;
-                case "13":
-                    accountant("cont_esc_npo");
-                    timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_npo");
-                    break;
-            }
+                                                switch (status) {
+                                                    case "3":
+                                                        accountant("cont_esc_calidad");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_calidad");
+                                                        break;
+                                                    case "4":
+                                                        accountant("i_cont_esc_imp");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "time_esc_imp");
+                                                        break;
+                                                    case "5":
+                                                        accountant("i_cont_esc_oym");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "time_esc_oym");
+                                                        break;
+                                                    case "6":
+                                                        accountant("i_cont_esc_rf");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_rf");
+                                                        break;
+                                                    case "11":
+                                                        accountant("i_cont_esc_gdrt");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_gdrt");
+                                                        break;
+                                                    case "12":
+                                                        accountant("cont_esc_care");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_care");
+                                                        break;
+                                                    case "13":
+                                                        accountant("cont_esc_npo");
+                                                        timeEscStatus(fecha_escalado, GetTodayDate(), "i_time_esc_npo");
+                                                        break;
+                                                }
 
-            $('input[name=d_time_escalado]').val(timeEscalado(info));
-          }
+                                                $('input[name=d_time_escalado]').val(timeEscalado(info));
+                                            }
 
-          function accountant(id){
-            var cont = $("#"+id).val();
-            cont++;
-            $("#"+id).val(cont);
-          }
+                                            function accountant(id) {
+                                                var cont = $("#" + id).val();
+                                                cont++;
+                                                $("#" + id).val(cont);
+                                            }
 
-          function timeEscStatus(date1, date2, id){
-            var start_actual_time = new Date(date1);
-            var end_actual_time = new Date(date2);
+                                            function timeEscStatus(date1, date2, id) {
+                                                var start_actual_time = new Date(date1);
+                                                var end_actual_time = new Date(date2);
 
-            var diff = end_actual_time - start_actual_time;
-            var dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-            var diffSeconds = diff/1000;
-            var HH = Math.floor(diffSeconds/3600);
-            var MM = Math.trunc(Math.floor(diffSeconds%3600)/60);
+                                                var diff = end_actual_time - start_actual_time;
+                                                var dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                                var diffSeconds = diff / 1000;
+                                                var HH = Math.floor(diffSeconds / 3600);
+                                                var MM = Math.trunc(Math.floor(diffSeconds % 3600) / 60);
 
-            if (dias > 0) {
-                var HH1 = (HH * 60) - (720 * dias);
-                MM = MM + HH1;
-            }
+                                                if (dias > 0) {
+                                                    var HH1 = (HH * 60) - (720 * dias);
+                                                    MM = MM + HH1;
+                                                }
 
-            var formatted = ((MM < 10)?("0" + MM):MM);
-            $("#"+id).val(formatted);
-          }
+                                                var formatted = ((MM < 10) ? ("0" + MM) : MM);
+                                                $("#" + id).val(formatted);
+                                            }
 
-          function GetTodayDate() {
-              var tdate = new Date();
-              var dd = tdate.getDate();
-              var MM = tdate.getMonth();
-              var yyyy = tdate.getFullYear();
-              var hh = tdate.getHours();
-              var min = tdate.getMinutes();
-              var ss = tdate.getSeconds();
-              var currentDate= yyyy + "-" +( MM+1) + "-" + dd + " " + hh + ":" + min + ":" + ss;
-              return currentDate;
-          }
+                                            function GetTodayDate() {
+                                                var tdate = new Date();
+                                                var dd = tdate.getDate();
+                                                var MM = tdate.getMonth();
+                                                var yyyy = tdate.getFullYear();
+                                                var hh = tdate.getHours();
+                                                var min = tdate.getMinutes();
+                                                var ss = tdate.getSeconds();
+                                                var currentDate = yyyy + "-" + (MM + 1) + "-" + dd + " " + hh + ":" + min + ":" + ss;
+                                                return currentDate;
+                                            }
 
-          function timeEscalado() {
-              var time1 = $("#time_esc_imp").val();
-              var time2 = $("#i_time_esc_rf").val();
-              var time3 = $("#i_time_esc_npo").val();
-              var time4 = $("#i_time_esc_care").val();
-              var time5 = $("#time_esc_oym").val();
-              var time6 = $("#i_time_esc_gdrt").val();
-              var time7 = $("#i_time_esc_calidad").val();
-              var timeEscalado = parseInt(time1) + parseInt(time2) + parseInt(time3) + parseInt(time4) + parseInt(time5) + parseInt(time6) + parseInt(time7);
+                                            function timeEscalado() {
+                                                var time1 = $("#time_esc_imp").val();
+                                                var time2 = $("#i_time_esc_rf").val();
+                                                var time3 = $("#i_time_esc_npo").val();
+                                                var time4 = $("#i_time_esc_care").val();
+                                                var time5 = $("#time_esc_oym").val();
+                                                var time6 = $("#i_time_esc_gdrt").val();
+                                                var time7 = $("#i_time_esc_calidad").val();
+                                                var timeEscalado = parseInt(time1) + parseInt(time2) + parseInt(time3) + parseInt(time4) + parseInt(time5) + parseInt(time6) + parseInt(time7);
 //              console.log(timeEscalado);
-              return timeEscalado;
-          }
+                                                return timeEscalado;
+                                            }
 
-          function confirmar(){
-            swal({
-                title: "¿Está seguro que desea escalar el ticket?",
-                icon: "warning",
-                buttons: {
-                    cancel: "Cancelar",
-                    confirm: "Confirmar",
-                },
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    dom.submitDirect($('#createScaling'),function () {
-                        location.href = app.urlTo('User/principalView');
-                    });
-//                    window.location = app.urlTo('User/principal');
-                }
-            });
-          }
+                                            function confirmar() {
+                                                dom.confirmar("¿Está seguro que desea escalar el ticket?", function () {
+                                                    dom.submitDirect($('#createScaling'), function () {
+                                                        location.href = app.urlTo('User/principalView');
+                                                    });
+                                                }, function () {
+                                                    swal("Cancelado", "Se ha cancelado la acción.", "error");
+                                                });
+//                                                swal({
+//                                                    title: "",
+//                                                    type: "warning",
+//                                                    buttons: {
+//                                                        cancel: "Cancelar",
+//                                                        confirm: "Confirmar",
+//                                                    },
+//                                                    dangerMode: true,
+//                                                }).then((willDelete) => {
+//                                                    if (willDelete) {
+//                                                        dom.submitDirect($('#createScaling'), function () {
+//                                                            location.href = app.urlTo('User/principalView');
+//                                                        });
+//                                                    } else {
+//                                                        swal("Cancelado", "Se ha cancelado la acción.", "error");
+//                                                    }
+//                                                });
+                                            }
         </script>
 
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
@@ -618,9 +626,9 @@
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
         <script type="text/javascript">
-        $(function(){
-        })
-        // , function(){location.href = app.urlTo('User/principalView');}
+                                            $(function () {
+                                            })
+                                            // , function(){location.href = app.urlTo('User/principalView');}
         </script>
     </body>
 </html>

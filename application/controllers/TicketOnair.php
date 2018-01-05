@@ -141,7 +141,7 @@ class TicketOnair extends CI_Controller {
         }
     }
 
-    public function getFKRegisters(&$res) {
+    public function getFKRegisters(&$res, $flag = null) {
         $ticketsOnAir = new dao_ticketOnAir_model();
         $station = new dao_station_model();
         $band = new dao_band_model();
@@ -151,6 +151,10 @@ class TicketOnair extends CI_Controller {
         $stage = new dao_preparationStage_model();
         $assign = new dao_user_model();
         for ($j = 0; $j < count($res); $j++) {
+            if ($flag == true) {
+                $daoAutoRecord = new Dao_autorecord_model();
+                $daoAutoRecord->record($res[$j]);
+            }
             $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j])->data; //Status onair
             $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
             $res[$j]->k_id_band = $band->findById($res[$j]->k_id_band)->data; //band
@@ -178,7 +182,7 @@ class TicketOnair extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getIngenerList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
