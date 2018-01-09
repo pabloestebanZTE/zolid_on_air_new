@@ -9,11 +9,7 @@
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
             <div class="well">
-<<<<<<< HEAD
-                <a href="<?= URL::to("Acs/acsview") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
-=======
                 <a href="<?= URL::to("Acs/vmAcs") ?>" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Nueva ventana</a>
->>>>>>> 60b8e6496ceb3d241c4450dfb1e8d6be835a39da
                 <hr/>
                 <div class="clearfix"></div>
                 <div class="row">
