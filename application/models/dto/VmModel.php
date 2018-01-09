@@ -21,6 +21,9 @@ class VmModel extends Model {
     protected $i_ingeniero_control;
     protected $n_hora_revision;
     protected $n_comentario_punto_control;
+    protected $i_ingeniero_apertura;
+    protected $i_ingeniero_punto_control;
+    protected $i_ingeniero_cierre;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "vm";
@@ -145,6 +148,24 @@ class VmModel extends Model {
     }
     public function getNComentarioPuntoControl() {
         return $this->n_comentario_punto_control;
+    }
+    public function setIIngenieroApertura($i_ingeniero_apertura) {
+        $this->i_ingeniero_apertura = $i_ingeniero_apertura;
+    }
+    public function getIIngenieroApertura() {
+        return $this->i_ingeniero_apertura;
+    }
+    public function setIIngenieroPuntoControl($i_ingeniero_punto_control) {
+        $this->i_ingeniero_punto_control = $i_ingeniero_punto_control;
+    }
+    public function getIIngenieroPuntoControl() {
+        return $this->i_ingeniero_punto_control;
+    }
+    public function setIIngenieroCierre($i_ingeniero_cierre) {
+        $this->i_ingeniero_cierre = $i_ingeniero_cierre;
+    }
+    public function getIIngenieroCierre() {
+        return $this->i_ingeniero_cierre;
     }
 
 

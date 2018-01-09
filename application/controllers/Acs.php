@@ -37,20 +37,38 @@ class Acs extends CI_Controller {
         if ($this->request->id) {
             $vmModel = new VmModel();
             $vm = $vmModel->where("k_id_vm", "=", $this->request->id)->first();
-//            echo $vmModel->getSQL();
             if ($vm) {
                 $avmModel = new AvmModel();
                 $cvmModel = new CvmModel();
                 $avm = $avmModel->where("k_id_vm", "=", $this->request->id)->first();
                 $cvm = $cvmModel->where("k_id_vm", "=", $this->request->id)->first();
+                //Consultamos si se ha exedido el tiempo límite de desarrollo de el acs...
+                $kpiModel = new KpiAcsModel();
+                $db = new DB();
+                $kpis = $db->select('SELECT * FROM kpi_acs WHERE k_id_vm = ' . $this->request->id . ' AND (n_type = "CREATION_VM" OR n_type = "CREATION_CVM") ORDER BY `n_type` desc')->get();
+                $exeded = false;
+                if (count($kpis) == 1) {
+                    $kpi = $kpis[0]; //VM
+
+                    $todayDay = date("d", Hash::getTime());
+                    $kpiDay = date("d", Hash::getTimeStamp($kpi->d_create_at) / 1000);
+
+                    $todayMonth = date("m", Hash::getTime());
+                    $kpiMonth = date("m", Hash::getTimeStamp($kpi->d_create_at) / 1000);
+
+                    $todayYear = date("y", Hash::getTime());
+                    $kpiYear = date("y", Hash::getTimeStamp($kpi->d_create_at) / 1000);
+                    $today = $todayYear + $todayMonth + $todayDay;
+                    $dRecord = $kpiYear + $kpiMonth + $kpiDay;
+                    $exeded = ($today - $dRecord) != 0;
+                }
                 $dataForm = [
                     "vm" => $vm,
                     "avm" => $avm,
                     "cvm" => $cvm,
+                    "exeded_time" => $exeded
                 ];
             }
-        } else {
-//            echo "ASDFasf";
         }
 
         $res['stations'] = $station->getAll();
@@ -128,4 +146,40 @@ class Acs extends CI_Controller {
         }
     }
 
+    public function toAssign() {
+        $vm = new Dao_vm_model();
+        if ($this->request->i_ingeniero_asignado_avm != null) {
+            $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_avm, "i_ingeniero_apertura");
+        }
+        if ($this->request->i_ingeniero_asignado_pvm != null) {
+            $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_pvm, "i_ingeniero_punto_control");
+        }
+        if ($this->request->i_ingeniero_asignado_cvm != null) {
+            $response = $vm->toAssignEngineerStage($this->request->k_id_vm, $this->request->i_ingeniero_asignado_cvm, "i_ingeniero_cierre");
+        }
+        $this->json($response);
+    }
+    
+    public function getVmAssigned() {
+        //Se comprueba si no hay sesión.
+        if (!Auth::check()) {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
+
+        $response = null;
+        if (Auth::check()) {
+            $vm = new Dao_vm_model();
+            $res = $vm->getVmAssigned();
+            $this->json($res);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+    
+    public function insertTiketRemedy() {
+        $tr = new Dao_tiket_remedy_model();
+        $response = $tr->insertTiketRemedy($this->request);
+        $this->json($response);
+    }
 }

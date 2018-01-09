@@ -25,6 +25,55 @@ var vista = {
         $('#btnEditarSectores').on('click', vista.onClickEditarSectores);
         $('#btnAceptarModalSectores').on('click', vista.onClickAceptarModalSectores);
         $('.comment-step').on('click', vista.onClickCommentStep);
+        $('#tblSectores').on('change', 'input:checkbox', vista.onClickCheckTblSectores);
+        $('#cmbEstadoSectores').on('change', function () {
+            $('#txtEstadoSectores').val($(this).val());
+        });
+        $('.btn-sectores').on('click', vista.onClickBtnSectores);
+
+        $('#cmbTecnologia').on('change', vista.onChangeTecnologia);
+    },
+    onChangeTecnologia: function () {
+        app.get('Utils/bandsByTech', {
+            id_technology: $('#cmbTecnologia').val()
+        })
+                .success(function (response) {
+                    var data = app.parseResponse(response);
+                    if (data) {
+                        dom.llenarCombo($('#cmbBanda'), data, {text: "n_name_band", value: "k_id_band"});
+                    }
+                    dom.comboVacio($('#cmbBanda'));
+                })
+                .error(function () {
+                    dom.comboVacio($('#cmbBanda'));
+                })
+                .send();
+    },
+    onClickCheckTblSectores: function () {
+        var chk = $(this);
+        if (chk.hasClass('checkbox-head')) {
+            $('#tblSectores input:checkbox').prop('checked', chk.is(':checked'));
+            return;
+        }
+        if ($('#tblSectores td input:checked').length == 0 || chk.is(':checked')) {
+            $('#tblSectores input.checkbox-head').prop('checked', chk.is(':checked'));
+        }
+    },
+    onClickBtnSectores: function () {
+        var btn = $(this);
+        if (btn.hasClass('view')) {
+            $('#modalSectores').modal('show');
+        } else if (btn.hasClass('lock')) {
+            $('.btn-sectores.unlock').prop('disabled', false);
+            $('#cmbEstadoSectores').val(1).trigger('change.select2');
+            btn.prop('disabled', true);
+            $('#modalSectores').addClass('updated');
+        } else if (btn.hasClass('unlock')) {
+            $('.btn-sectores.lock').prop('disabled', false);
+            btn.prop('disabled', true);
+            $('#cmbEstadoSectores').val(0).trigger('change.select2');
+            $('#modalSectores').addClass('updated');
+        }
     },
     onClickCommentStep: function () {
         $('.row.content-wiget').addClass('hidden');
@@ -58,7 +107,7 @@ var vista = {
                             + '</div>'
                             + '</div>'
                             + '<div class="col-md-5">'
-                            + '<p class="text-left m-all-0 p-all-0"><b class="display-block m-b-5"><i class="fa fa-fw fa-comment"></i> Comentario:</b><span id="n_comentario">{comentario_resucoment}</span></p>'
+                            + '<p class="text-left m-all-0 p-all-0">' + '' + '<b class="display-block m-b-0"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}:</b><span id="n_comentario" class="m-l-20">{comentario_resucoment}</span></p>'
                             + '</div>'
                             + '<div class="wiget-list p-l-25 users"><div class="item-wiget">'
                             + '<div class="icon-wiget"><i class="fa fa-fw fa-user"></i></div>'
@@ -68,6 +117,7 @@ var vista = {
                             + '</div></div>'
                             + '</div>';
                     content.append(dom.fillString(comment, dat));
+//                    '<h2 class="h5 m-t-0"><span class="text-muted text-normal"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}</span></h2>'
                 }
             } else {
                 alert.print("No se encontraron comentarios.", "warning");
@@ -79,29 +129,59 @@ var vista = {
         }).send();
     },
     onClickAceptarModalSectores: function () {
+        var cmbSectores = $('#cmbEstadoSectores');
+        if (cmbSectores.val().trim() == "") {
+            if (!cmbSectores.parents('.input-group').next().hasClass('error')) {
+                cmbSectores.parents('.input-group').after('<label class="error m-l-40 m-t-5 text-right center-block"><i class="fa fa-fw fa-warning"></i> Seleccione el estado para los sectores.</label>');
+            }
+            return;
+        }
         var sectores = [];
         var sectoresBloqueados = "";
         var sectoresDesbloqueados = "";
-        var inputs = $('#tblSectores').find('input:checked');
+        var estadoSectores = "";
+        var sectoresSeleccionados = 0;
+        var inputs = $('#tblSectores').find('input:checkbox').not('.checkbox-head');
         for (var i = 0; i < inputs.length; i++) {
             var input = $(inputs[i]);
             var tr = input.parents('tr');
             var temp = {
                 id: tr.attr('data-id'),
                 name: tr.attr('data-name'),
-                state: input.val() //1 = Bloqueado, 0 = Desbloqueado
+                state: ((input.is(':checked')) ? cmbSectores.val() : -1)
             };
             sectores.push(temp);
-            if (input.val() == 1) {
+            if (temp.state == 1) {
                 sectoresBloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
-            } else if (input.val() == 0) {
+            } else if (temp.state == 0) {
                 sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+            }
+            if (temp.state != -1) {
+                sectoresSeleccionados++;
+                estadoSectores = temp.state;
             }
         }
         $('#jsonSectores').val(JSON.stringify(sectores));
+//        sectoresBloqueados = sectoresBloqueados.trim(",");
+//        sectoresDesbloqueados = sectoresDesbloqueados.trim(",");
+
         $('#sectoresBloqueados').val(sectoresBloqueados);
         $('#sectoresDebloqueados').val(sectoresDesbloqueados);
-        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + sectores.length + ') Sectores agregados');
+        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + sectoresSeleccionados + ') Sectores selecionados');
+        $('#modalSectores').modal('hide');
+        $('#modalSectores').addClass('updated');
+
+        $('.length-sectores').html(sectoresSeleccionados);
+        if (estadoSectores == 1) {
+            $('.btn-sectores.lock').prop('disabled', true);
+            $('.state-sectores').html(' Bloqueados');
+        } else if (estadoSectores == 0) {
+            $('.btn-sectores.unlock').prop('disabled', true);
+            $('.state-sectores').html(' Desbloqueados');
+        }
+//        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
+
+        cmbSectores.parents('.input-group').next('.error').remove();
     },
     onClickEditarSectores: function () {
         $('#modalSectores').modal('show');
@@ -112,16 +192,34 @@ var vista = {
             $('#jsonSectores').val(data.n_json_sectores);
             $('#sectoresBloqueados').val(data.n_sectoresbloqueados);
             $('#sectoresDebloqueados').val(data.n_sectoresdesbloqueados);
+            var estadoSectores = "";
             var table = $('#tblSectores tbody');
             table.html('');
+            var selecteds = 0;
             //Llenamos la tabla sectores...
             for (var i = 0; i < data.length; i++) {
                 var dat = data[i];
-                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="radio radio-primary" style=""><input ' + ((dat.state == 1) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="radio" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Bloqueado</label></div></td><td><div class="radio radio-primary" style=""><input ' + ((dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_desblock_{id}" type="radio" name="check_{id}" value="0"><label for="checkbox_desblock_{id}" class="text-bold">Desbloqueado</label></div></td></tr>', dat));
+                if (dat.state != -1) {
+                    selecteds++;
+                    estadoSectores = dat.state;
+                }
+                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
             }
-            $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + data.length + ') Sectores agregados');
+            $('#cmbEstadoSectores').val(estadoSectores).trigger('change.select2');
+            $('.length-sectores').html(selecteds);
+            if (estadoSectores == 1) {
+                $('.btn-sectores.lock').prop('disabled', true);
+                $('.state-sectores').html(' Bloqueados');
+            } else if (estadoSectores == 0) {
+                $('.btn-sectores.unlock').prop('disabled', true);
+                $('.state-sectores').html(' Desbloqueados');
+            }
+            $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
         } else {
             $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+        }
+        if ($('#tblSectores td input:checked').length > 0) {
+            $('#tblSectores input.checkbox-head').prop('checked', true);
         }
     },
     onClickHourStep: function () {
@@ -214,9 +312,10 @@ var vista = {
             idStatus: cmbProduccion.val(),
             comment: (joinText + "-----\n" + $('#modalChangeState #txtObservations').val()).trim()
         };
+//        vista.appendSectores(obj);
         app.post('TicketOnair/toProduction', obj)
                 .success(function (response) {
-                    console.log(response);
+//                    console.log(response);
                     if (response.code > 0) {
                         swal({
                             title: "Actualizado",
@@ -236,6 +335,15 @@ var vista = {
                 })
                 .send();
     },
+    appendSectores: function (obj) {
+        if ($('#modalSectores').hasClass('updated')) {
+            $('#btnAceptarModalSectores').trigger('click');
+            obj.jsonSectores = $('#jsonSectores').val();
+            obj.typeBlock = $('#cmbEstadoSectores').val();
+            obj.sectoresBloqueados = $('#sectoresBloqueados').val();
+            obj.sectoresDesbloqueados = $('#sectoresDebloqueados').val();
+        }
+    },
     createProrroga: function () {
         //Validamos...
         var txtHorasProrroga = $('#txtTiempoProrroga');
@@ -248,9 +356,10 @@ var vista = {
             hours: txtHorasProrroga.val(),
             comment: $('#modalChangeState #txtObservations').val()
         };
+        vista.appendSectores(obj);
         app.post('TicketOnair/createProrroga', obj)
                 .success(function (response) {
-                    console.log(response);
+//                    console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
                         swal({
@@ -280,9 +389,10 @@ var vista = {
             fase: cmb.val(),
             comment: $('#modalChangeState #txtObservations').val()
         };
+        vista.appendSectores(obj);
         app.post('TicketOnair/nextFase', obj)
                 .success(function (response) {
-                    console.log(response);
+//                    console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
                         swal("Guardado", "Se ha terminado la fase correctamente.", "success");
@@ -360,12 +470,12 @@ var vista = {
                 dom.llenarCombo(cmbSubStatus, response.data["substates"], {text: 'n_name_substatus', value: 'k_id_substatus'});
                 dom.llenarCombo(cmbTechnolgies, response.data["technologies"], {text: 'n_name_technology', value: 'k_id_technology'});
                 dom.llenarCombo(cmbWorks, response.data["works"], {text: 'n_name_ork', value: 'k_id_work'});
-                dom.llenarCombo(cmbBands, response.data["bands"], {text: 'n_name_band', value: 'k_id_band'});
+//                dom.llenarCombo(cmbBands, response.data["bands"], {text: 'n_name_band', value: 'k_id_band'});
             } else {
                 dom.comboVacio(cmbStatus);
                 dom.comboVacio(cmbSubStatus);
                 dom.comboVacio(cmbTechnolgies);
-                dom.comboVacio(cmbBands);
+//                dom.comboVacio(cmbBands);
                 dom.comboVacio(cmbWorks);
             }
         }).error(function (e) {
@@ -398,6 +508,8 @@ var vista = {
                         alert.hide();
                         var form = $('#formDetallesBasicos');
                         form.fillForm(response.data);
+                        $('#cmbTecnologia').trigger('change');
+//                        $('#cmbBanda').on('sel')
                         $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');
@@ -550,6 +662,12 @@ var vista = {
         }
         $('.hour-step.disabled .progress-step').css('width', '0%');
         vista.resizeWigets();
+
+        //Se instancia la pestaña de comentarios como la principal...
+        $('.row.content-wiget').addClass('hidden');
+        $('.comment-step').addClass('active');
+        $('#contentComments').removeClass('hidden');
+        vista.getComments();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');

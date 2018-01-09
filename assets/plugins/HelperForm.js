@@ -15,6 +15,16 @@ $.fn.fillForm = function (data) {
     if (typeof this === "object") {
         var form = $(this);
         var fill = function (type, $el, val) {
+
+            //Comprobamos si el elemento es múltiple...
+            if ($el.length > 1) {
+                console.log("IS MULTIPLE", val);
+                for (var i = 0; i < $el.length; i++) {
+                    var $elTemp = $($el[i]);
+                    fill($elTemp.attr('type'), $elTemp, val);
+                }
+            }
+
             switch (type) {
                 case 'checkbox':
                     if (val == true || val == 1) {
@@ -34,19 +44,21 @@ $.fn.fillForm = function (data) {
                     if ($el.is('select') && $el.find('option').length <= 1) {
                         $el.attr('data-value', val);
                         $el.on('selectfilled', function () {
+                            $el = $(this);
                             var interval = window.setInterval(function () {
                                 if ($el.find('option').length > 1) {
                                     clearInterval(interval);
                                 } else {
                                     return;
                                 }
-
                                 $el.val($el.attr('data-value'));
-                                if ($el.hasClass('select2-hidden-accessible')) {
-                                    $el.trigger('change.select2');
-                                }
+                                $el.removeAttr('data-value');
+                                $el.off('selectfilled');
                                 if ($el.hasClass('helper-change')) {
                                     $el.trigger('change');
+                                }
+                                if ($el.hasClass('select2-hidden-accessible')) {
+                                    $el.trigger('change.select2');
                                 }
                             }, 100);
                         });
@@ -62,8 +74,8 @@ $.fn.fillForm = function (data) {
                 return;
             }
             $.each(data, function (name, val) {
-                var $el = form.find('[name="' + parsekey + name + '"]'),
-                        type = $el.attr('type');
+                var $el = form.find('[name="' + parsekey + name + '"]');
+                var type = $el.attr('type');
                 if (typeof val === "object") {
                     finder(parsekey + "" + name + ".", val);
                 } else {

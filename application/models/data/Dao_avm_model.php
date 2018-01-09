@@ -12,8 +12,8 @@ class Dao_avm_model extends CI_Model {
 
     public function insertAvm($request) {
         try {
-            $cvm = new AvmModel();
-            $datos = $cvm->insert($request->all());
+            $avm = new AvmModel();
+            $datos = $avm->insert($request->all());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -21,7 +21,7 @@ class Dao_avm_model extends CI_Model {
             return $ex;
         }
     }
-
+    
 }
 
 ?>

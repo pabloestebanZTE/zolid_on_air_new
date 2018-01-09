@@ -366,3 +366,13 @@ a.link-normal:hover{
 .min-h-300{
     min-height: 300px;
 }
+.disabled{
+    pointer-events: none;
+    opacity: 0.5;    
+}
+.vertical-middle{
+    vertical-align: middle !important;
+}
+.error{
+    color: #cc0033;
+}

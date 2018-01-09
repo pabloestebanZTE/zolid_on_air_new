@@ -41,7 +41,7 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getPendingList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -53,7 +53,7 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getAssignList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -65,7 +65,43 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getPrecheckList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getReinicioPrecheckList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getReinicioPrecheckList($this->request);
+            $this->getFKRegisters($array->data["data"], true);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getReinicio12hList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getReinicio12hList($this->request);
+            $this->getFKRegisters($array->data["data"], true);
+            $this->json($array->data);
+        } else {
+            $response = new Response(EMessages::NOT_ALLOWED);
+        }
+    }
+
+    public function getStandByList() {
+        $response = null;
+        if (Auth::check()) {
+            $dao = new dao_ticketOnAir_model();
+            $array = $dao->getStandByList($this->request);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -77,7 +113,7 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getNotificationList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -89,7 +125,7 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getSeguimiento12hList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -101,7 +137,7 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getSeguimiento24hList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -113,7 +149,7 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getSeguimiento36hhList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -125,14 +161,14 @@ class Precheck extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getAllTickets($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
 
-    public function getFKRegisters(&$res) {
+    public function getFKRegisters(&$res, $flag = null) {
         $ticketsOnAir = new dao_ticketOnAir_model();
         $station = new dao_station_model();
         $band = new dao_band_model();
@@ -142,6 +178,10 @@ class Precheck extends CI_Controller {
         $stage = new dao_preparationStage_model();
         $assign = new dao_user_model();
         for ($j = 0; $j < count($res); $j++) {
+            if ($flag == true) {
+                $daoAutoRecord = new Dao_autorecord_model();
+                $daoAutoRecord->record($res[$j]);
+            }
             $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j])->data; //Status onair
             $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
             $res[$j]->k_id_band = $band->findById($res[$j]->k_id_band)->data; //band
@@ -170,6 +210,9 @@ class Precheck extends CI_Controller {
             //Se registra el KPI.
             $kpiDao->record($this->request->idOnAir);
             $this->json(new Response(EMessages::UPDATE));
+
+            $ticketDao = new Dao_ticketOnair_model();
+            $ticketDao->registerReportComment($this->request->idOnAir, "Se inicia el precheck.");
         } catch (ZolidException $ex) {
             $this->json($ex);
         }
@@ -192,6 +235,21 @@ class Precheck extends CI_Controller {
         $kpiDao = new Dao_kpi_model();
         //Se registra el KPI.
         $kpiDao->record($ticketOnAir, false, true);
+
+        $valid = new Validator();
+        if ($valid->required(null, $this->request->jsonSectores)) {
+            $tempOnair = new TicketOnAirModel();
+            $obj = ["n_json_sectores" => $this->request->jsonSectores];
+            if ($this->request->typeBlock == 1) {
+                $obj["n_sectores_bloqueados"] = $this->request->sectoresBloqueados;
+                $obj["d_bloqueo"] = Hash::getDate();
+            } else
+            if ($this->request->typeBlock == 0) {
+                $obj["n_sectores_desbloqueados"] = $this->request->sectoresDesbloqueados;
+                $obj["d_desbloqueo"] = Hash::getDate();
+            }
+            $tempOnair->update($obj);
+        }
 
         $response1 = $ticket->updateEngTicket($this->request->idOnair, (($ticketOnAir->k_id_status_onair == 79) ? Auth::user()->k_id_user : 0))->data; //camilo
         //Sirve para veriificar si va para 12

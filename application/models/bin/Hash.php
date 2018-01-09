@@ -41,6 +41,14 @@ class Hash {
         return strtotime($date) * 1000;
     }
 
+    public static function getTime() {
+        date_default_timezone_set("America/Bogota");
+        $date = Hash::getDate();
+        $date = date_create($date);
+        $date = date_format($date, "Y-m-d H:i:s");
+        return strtotime($date);
+    }
+
     public static function timeStampToDate($timestamp) {
         $date = Hash::getTimeStamp(Hash::getDate());
         return date("Y-m-d H:i:s", $timestamp / 1000);
@@ -49,6 +57,48 @@ class Hash {
     public static function getDate() {
         date_default_timezone_set("America/Bogota");
         return date("Y-m-d H:i:s");
+    }
+
+    public static function addMinutes($date, $minutes) {
+        $fecha = $date;
+        $nuevafecha = strtotime('+' . $minutes . ' minute', strtotime($fecha));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
+    }
+
+    public static function subtractMinutes($date, $hours) {
+        $fecha = $date;
+        $nuevafecha = strtotime('-' . $minutes . ' minute', strtotime($fecha));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
+    }
+
+    public static function addHours($date, $hours) {
+        $fecha = $date;
+        $nuevafecha = strtotime('+' . $hours . ' hour', strtotime($fecha));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
+    }
+
+    public static function subtractHours($date, $hours) {
+        $fecha = $date;
+        $nuevafecha = strtotime('-' . $hours . ' hour', strtotime($fecha));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
+    }
+
+    public static function addDay($date, $day) {
+        $fecha = $date;
+        $nuevafecha = strtotime('+' . $day . ' day', strtotime($fecha));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
+    }
+
+    public static function subtractDay($date, $day) {
+        $fecha = $date;
+        $nuevafecha = strtotime('-' . $day . ' day', strtotime($fecha));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
     }
 
     public static function betweenHoras($hms_inicio, $hms_fin, $hms_referencia = NULL) {

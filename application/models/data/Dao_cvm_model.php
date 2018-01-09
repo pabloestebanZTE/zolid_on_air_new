@@ -22,7 +22,6 @@ class Dao_cvm_model extends CI_Model {
             return $ex;
         }
     }
-
 }
 
 ?>

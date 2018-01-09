@@ -751,3 +751,79 @@ ADD COLUMN `i_ingeniero_asignado` INT(11) NULL DEFAULT NULL AFTER `n_comentarios
 
 ALTER TABLE `on_air`.`vm` 
 ADD COLUMN `i_ingeniero_asignado` VARCHAR(11) NULL AFTER `n_comentario_punto_control`;
+
+ALTER TABLE `cvm`
+	CHANGE COLUMN `i_telefono_lider_cambio` `i_telefono_lider_cambio` VARCHAR(20) NULL DEFAULT NULL AFTER `n_tipo_solucion`;
+
+-- actualizacion 29/12/2017
+ALTER TABLE `on_air`.`vm` 
+CHANGE COLUMN `i_ingeniero_asignado` `i_ingeniero_apertura` INT(11) NULL DEFAULT NULL ,
+ADD COLUMN `i_ingeniero_punto_control` INT(11) NULL DEFAULT NULL AFTER `i_ingeniero_apertura`,
+ADD COLUMN `i_ingeniero_cierre` INT(11) NULL DEFAULT NULL AFTER `i_ingeniero_punto_control`;
+
+ALTER TABLE `on_air`.`cvm` 
+DROP COLUMN `i_ingeniero_asignado`;
+
+ALTER TABLE `on_air`.`avm` 
+DROP COLUMN `i_ingeniero_asignado`;
+
+-- actualizacion 05/01/2018
+CREATE TABLE `on_air`.`tiket_remedy` (
+  `k_id_tiket_remedy` INT NOT NULL AUTO_INCREMENT,
+  `k_id_vm` INT NULL,
+  `n_numero_incidente` VARCHAR(45) NULL,
+  `n_estado_ticket` VARCHAR(45) NULL,
+  `i_ingeniero_apertura_ticket` INT NULL,
+  `n_tipo_afectación` VARCHAR(45) NULL,
+  `n_grupo_soporte` VARCHAR(45) NULL,
+  `d_inicio_afectación` DATETIME NULL,
+  `n_responsable_oym` VARCHAR(45) NULL,
+  `n_responsable_ticket` VARCHAR(45) NULL,
+  `n_summary_remedy` VARCHAR(1000) NULL,
+  `n_fm_claro` VARCHAR(45) NULL,
+  `n_fm_nokia` VARCHAR(45) NULL,
+  `n_comentario_ticket` VARCHAR(1000) NULL,
+  PRIMARY KEY (`k_id_tiket_remedy`),
+  INDEX `fk_vm_idx` (`k_id_vm` ASC),
+  CONSTRAINT `fk_vm`
+    FOREIGN KEY (`k_id_vm`)
+    REFERENCES `on_air`.`vm` (`k_id_vm`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+-- Viernes, 5 de enero de 2018.
+CREATE TABLE `ref_tech_band` (
+	`k_id_tech_band` INT(11) NOT NULL AUTO_INCREMENT,
+	`k_id_technology` INT(11) NULL DEFAULT NULL,
+	`k_id_band` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`k_id_tech_band`),
+	INDEX `k_id_technology` (`k_id_technology`),
+	INDEX `k_id_band` (`k_id_band`),
+	CONSTRAINT `FK__band` FOREIGN KEY (`k_id_band`) REFERENCES `band` (`k_id_band`),
+	CONSTRAINT `FK__technology` FOREIGN KEY (`k_id_technology`) REFERENCES `technology` (`k_id_technology`)
+);
+
+INSERT INTO `ref_tech_band` (`k_id_tech_band`, `k_id_technology`, `k_id_band`) VALUES
+	(1, 1, 3),
+	(2, 1, 1),
+	(3, 4, 3),
+	(4, 4, 1),
+	(5, 6, 1),
+	(6, 6, 2),
+	(7, 2, 3),
+	(8, 2, 1),
+	(9, 2, 4),
+	(10, 3, 1),
+	(11, 3, 2),
+	(12, 3, 3),
+	(13, 3, 4),
+	(14, 3, 5),
+	(15, 3, 6),
+	(16, 3, 7),
+	(17, 5, 1),
+	(18, 5, 2),
+	(19, 5, 3),
+	(20, 5, 4),
+	(21, 5, 5),
+	(22, 5, 6),
+	(23, 5, 7);

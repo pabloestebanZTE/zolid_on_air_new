@@ -14,6 +14,9 @@ $(function () {
             vista.getSeguimiento12h();
             vista.getSeguimiento24h();
             vista.getSeguimiento36h();
+            vista.getReinicioPrecheck();
+            vista.getReinicio12h();
+            vista.getStandBy();
         },
         getPendingList: function () {
             vista.tablaPendientes = $('#tablaPendientes').DataTable(vista.genericCogDataTable("Precheck/getPendingList", "tablaPendientes"));
@@ -35,6 +38,15 @@ $(function () {
         },
         getSeguimiento36h: function () {
             vista.tablaSeguimiento36h = $('#tablaSeguimiento36h').DataTable(vista.genericCogDataTable("Precheck/getSeguimiento36hList", "tablaSeguimiento36h"));
+        },
+        getReinicioPrecheck: function () {
+            vista.tablaReinicioPrecheck = $('#tablaReinicioPrecheck').DataTable(vista.genericCogDataTable("Precheck/getReinicioPrecheckList", "tablaSeguimiento36h"));
+        },
+        getReinicio12h: function () {
+            vista.tablaReinicio12h = $('#tablaReinicio12h').DataTable(vista.genericCogDataTable("Precheck/getReinicio12hList", "tablaSeguimiento36h"));
+        },
+        getStandBy: function () {
+            vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaSeguimiento36h"));
         },
         genericCogDataTable: function (url, table) {
             $('.contentPrincipal').removeClass('hidden');
