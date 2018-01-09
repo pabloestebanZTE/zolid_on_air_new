@@ -43,11 +43,11 @@ $(function () {
                     + '</div>';
         },
         fillTable: function (data) {
-            if (ini.tablaPrincipal) {
-                dom.refreshTable(ini.tablaPrincipal, data);
+            if (ini.tablaAsignaciones) {
+                dom.refreshTable(ini.tablaAsignaciones, data);
                 return;
             }
-            ini.tablaPrincipal = $('#tablaPrincipal').DataTable(dom.configTable(data,
+            ini.tablaAsignaciones = $('#tablaAsignaciones').DataTable(dom.configTable(data,
                     [
                         {title: "Id ZTE", data: "k_id_vm"},
                         {title: "Site Acces", data: "i_id_site_access"},

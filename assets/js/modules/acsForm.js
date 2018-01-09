@@ -44,6 +44,15 @@ var vista = {
         $('form').on('submit', vista.onSumitForm);
         $('.control-change').on('change', vista.onControlChange);
         $('.select-checklist').on('change', vista.onChangeChecklist);
+        $('#n_sub_estado').on('change', vista.onActivateRemedyForm);
+    },
+    onActivateRemedyForm: function () {
+        var subEstado = $('#n_sub_estado').val();
+        if (subEstado === 'No Exitoso') {
+            $('#form5').show();
+        } else {
+            $('#form5').hide();
+        }
     },
     onChangeChecklist: function (callback) {
         $('#items_checklist').html('');
@@ -277,6 +286,7 @@ var vista = {
                         if (forInsert) {
                             $('#idAcs').val(response.data);
                             $('#txtIdZTE').val(response.data);
+                            $('#idVm').val(response.data);
                             formGlobal.attr('data-mode', 'FOR_UPDATE');
                             var btn = form.find('button:submit');
 //                            var index = form.parents('.bhoechie-tab-content').next().index();

@@ -12,7 +12,7 @@
             if (Auth::isCoordinador()) {
                 $this->load->view('parts/principalVm/coordinadorVm');
             }
-            if (Auth::isDocumentador() ||Auth::isIngeniero() ) {
+            if (Auth::isDocumentador() || Auth::isIngeniero()) {
                 $this->load->view('parts/principalVm/ingenieroVm');
             }
             ?>

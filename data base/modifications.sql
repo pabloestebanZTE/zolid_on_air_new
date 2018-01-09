@@ -766,3 +766,27 @@ DROP COLUMN `i_ingeniero_asignado`;
 
 ALTER TABLE `on_air`.`avm` 
 DROP COLUMN `i_ingeniero_asignado`;
+
+-- actualizacion 05/01/2018
+CREATE TABLE `on_air`.`tiket_remedy` (
+  `k_id_tiket_remedy` INT NOT NULL AUTO_INCREMENT,
+  `k_id_vm` INT NULL,
+  `n_numero_incidente` VARCHAR(45) NULL,
+  `n_estado_ticket` VARCHAR(45) NULL,
+  `i_ingeniero_apertura_ticket` INT NULL,
+  `n_tipo_afectación` VARCHAR(45) NULL,
+  `n_grupo_soporte` VARCHAR(45) NULL,
+  `d_inicio_afectación` DATETIME NULL,
+  `n_responsable_oym` VARCHAR(45) NULL,
+  `n_responsable_ticket` VARCHAR(45) NULL,
+  `n_summary_remedy` VARCHAR(1000) NULL,
+  `n_fm_claro` VARCHAR(45) NULL,
+  `n_fm_nokia` VARCHAR(45) NULL,
+  `n_comentario_ticket` VARCHAR(1000) NULL,
+  PRIMARY KEY (`k_id_tiket_remedy`),
+  INDEX `fk_vm_idx` (`k_id_vm` ASC),
+  CONSTRAINT `fk_vm`
+    FOREIGN KEY (`k_id_vm`)
+    REFERENCES `on_air`.`vm` (`k_id_vm`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
