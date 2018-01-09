@@ -118,7 +118,7 @@
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                        <select class="form-control" id="cmbTecnologia" name="k_id_technology.k_id_technology">
+                                                        <select class="form-control helper-change" id="cmbTecnologia" name="k_id_technology.k_id_technology">
                                                             <option value="">Seleccione</option>
                                                         </select>
 <!--                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">-->
@@ -340,6 +340,7 @@
                                     </div>
                                     <div class="hidden well display-block p-l-40 p-r-40 m-b-0 step-panel" id="step-2">
                                         <div class="row form-xs">
+                                            <input type="hidden" name="estado_sectores" id="txtEstadoSectores"/>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbEstadosTD">Estado:</label>
@@ -359,13 +360,13 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaBloqueado">Bloqueado:</label>
-                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                    <input type="datetime-local" disabled="disabled" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtFechaDesBloqueado">Desbloqueado:</label>
-                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                    <input type="datetime-local" disabled="disabled" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -672,8 +673,18 @@
                         </li>
                         <li>
                             <a href="<?= URL::to("User/scaling?id=" . $_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar Proceso</a>
-                        </li>
+                        </li>                                                                        
                     </ul>
+                    <div class="row">
+                        <div class="col-xs-12 p-b-15">
+                            <label class="center-block"><i class="fa fa-fw fa-wrench"></i> (<span class="length-sectores">0</span>) Sectores<span class="state-sectores"></span>:</label>
+                            <div class="btn-group p-t-5 p-l-15">
+                                <button type="button" class="btn btn-default btn-sectores view"><i class="fa fa-fw fa-check"></i> Verificar</button>
+                                <button type="button" class="btn btn-danger btn-sectores lock"><i class="fa fa-fw fa-lock"></i> Bloquear</button>
+                                <button type="button" class="btn btn-success btn-sectores unlock"><i class="fa fa-fw fa-unlock"></i> Desbloquear</button>
+                            </div>
+                        </div>
+                    </div>
                     <label for="txtObservations">Observaciones:</label>
                     <textarea id="txtObservations" class="form-control" rows="5" placeholder="Escriba aquí las observaciones por las cuales está realizando el cambio."></textarea>
                 </div>
@@ -708,7 +719,7 @@
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
                                 <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
-                                    <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar</label></div></th></tr></thead>
+                                    <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th></tr></thead>
                                     <tbody>
                                         <tr><td colspan="2"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
                                     </tbody>
@@ -716,9 +727,27 @@
                             </div>
                         </div>
                     </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-3 text-right">
+                            <label class="m-t-5">Estado sectores:</label>                            
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-fw fa-wrench"></i>
+                                </div>
+                                <select id="cmbEstadoSectores" class="form-control" >
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Bloqueados</option>
+                                    <option value="0">Desbloqueados</option>
+                                </select>
+                            </div>                            
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAceptarModalSectores">Aceptar</button>
+                    <button type="button" class="btn btn-primary" id="btnAceptarModalSectores">Aceptar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -731,6 +760,6 @@
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=2.4') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=' . time()) ?>" type="text/javascript"></script>
 </body>
 </html>

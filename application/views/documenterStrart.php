@@ -166,7 +166,7 @@
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                        <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia" required>
+                                        <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change" required>
                                             <option value="" >Seleccione la tecnologia</option>
                                         </select>
                                     </div>
@@ -352,14 +352,31 @@
     <script type="text/javascript" src="<?= URL::to('assets/js/msg.reader.js') ?>"></script>
     <script type="text/javascript">
                                                                 $(function () {
+
+                                                                    $('.select-tecnologia').on('change', function () {
+                                                                        app.get('Utils/bandsByTech', {
+                                                                            id_technology: $('.select-tecnologia').val()
+                                                                        })
+                                                                                .success(function (response) {
+                                                                                    var data = app.parseResponse(response);
+                                                                                    if (data) {
+                                                                                        dom.llenarCombo($('.select-banda'), data, {text: "n_name_band", value: "k_id_band"});
+                                                                                    }
+                                                                                    dom.comboVacio($('.select-banda'));
+                                                                                })
+                                                                                .error(function () {
+                                                                                    dom.comboVacio($('.select-banda'));
+                                                                                }).send();
+                                                                    });
+
                                                                     var info = <?php echo $respuesta; ?>;
                                                                     console.log(info);
-                                                                    for (var j = 0; j < info.bands.data.length; j++) {
-                                                                        $('.select-banda').append($('<option>', {
-                                                                            value: info.bands.data[j].k_id_band,
-                                                                            text: info.bands.data[j].n_name_band
-                                                                        }));
-                                                                    }
+//                                                                    for (var j = 0; j < info.bands.data.length; j++) {
+//                                                                        $('.select-banda').append($('<option>', {
+//                                                                            value: info.bands.data[j].k_id_band,
+//                                                                            text: info.bands.data[j].n_name_band
+//                                                                        }));
+//                                                                    }
                                                                     for (var j = 0; j < info.technologies.data.length; j++) {
                                                                         $('.select-tecnologia').append($('<option>', {
                                                                             value: info.technologies.data[j].k_id_technology,
@@ -453,6 +470,18 @@
     <script type="text/javascript">
                                                                 $(function () {
 
+                                                                    $('#tblSectores').on('change', 'input:checkbox', function () {
+                                                                        var chk = $(this);
+                                                                        if (chk.hasClass('check-head')) {
+                                                                            $('#tblSectores input:checkbox').prop('checked', chk.is(':checked'));
+                                                                            return;
+                                                                        }
+                                                                        if ($('#tblSectores td input:checked').length == 0 || chk.is(':checked')) {
+                                                                            $('#tblSectores input.check-head').prop('checked', chk.is(':checked'));
+                                                                        }
+                                                                    });
+
+
                                                                     var form = $('#assignServie2');
                                                                     form.validate();
                                                                     var onSubmitForm = function (e) {
@@ -461,6 +490,7 @@
                                                                             return;
                                                                         }
                                                                         app.stopEvent(e);
+                                                                        $('#btnAceptarModalSectores').trigger('click');
                                                                         var json = $('#jsonSectores').val();
                                                                         if (json.trim() != "") {
                                                                             json = JSON.parse(json);
@@ -471,7 +501,6 @@
                                                                             for (var i = 0; i < json.length; i++) {
                                                                                 var temp = json[i];
                                                                                 if (temp.state != -1) {
-//                                                                                    json[i].state = input.val();
                                                                                     temp.state = input.val();
                                                                                 }
 
@@ -659,7 +688,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia" required>
+                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia helper-change" required>
                                             <option value="" >Seleccione la tecnología</option>
                                         </select>
                                     </div>

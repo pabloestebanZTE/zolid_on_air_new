@@ -7,6 +7,11 @@
             <div class='tab-content' id='tab3'><brt><br>
                     <div class="container">
                         <form class="well form-horizontal" action="Precheck/doPrecheck" method="post"  id="precheckForm" name="precheckForm">
+                            <input type="hidden=" id="jsonSectores" name="jsonSectores" />
+                            <input type="hidden=" id="sectoresBloqueados" name="sectoresBloqueados" />
+                            <input type="hidden=" id="sectoresDebloqueados" name="sectoresDebloqueados" />
+                            <input type="hidden=" id="typeBlock" name="typeBlock" />
+
                             <legend class="p-b-15">Confirmar precheck<button type="button" class="display-block hidden btn btn-primary m-t-10" id="runPrecheck" title="Iniciar Precheck"><i class="fa fa-fw fa-play"></i> Iniciar Precheck</button></legend>
                             <fieldset class="col-md-6 control-label">
                                 <div class="form-group">
@@ -336,12 +341,103 @@
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
         </div>
+
+
+
+        <!--MODAL SECTORES-->
+        <div id="modalSectores" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row p-t-15">
+                            <div class="col-xs-12">
+                                <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
+                                    <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
+                                        <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th></tr></thead>
+                                        <tbody>
+                                            <tr><td colspan="2"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-md-3 text-right">
+                                <label class="m-t-5">Estado sectores:</label>                            
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-fw fa-wrench"></i>
+                                    </div>
+                                    <select id="cmbEstadoSectores" class="form-control" >
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Bloqueados</option>
+                                        <option value="0">Desbloqueados</option>
+                                    </select>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAceptarModalSectores">Aceptar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--FIN MODAL SECTORES-->
+
         <?php $this->load->view('parts/generic/scripts'); ?>
         <!-- CUSTOM SCRIPT   -->
         <script>
+            var fillTableSectores = function (data) {
+                data = JSON.parse(data.n_json_sectores);
+                if (data && data.length > 0) {
+                    $('#jsonSectores').val(data.n_json_sectores);
+                    $('#sectoresBloqueados').val(data.n_sectoresbloqueados);
+                    $('#sectoresDebloqueados').val(data.n_sectoresdesbloqueados);
+                    var estadoSectores = "";
+                    var table = $('#tblSectores tbody');
+                    table.html('');
+                    var selecteds = 0;
+                    //Llenamos la tabla sectores...
+                    for (var i = 0; i < data.length; i++) {
+                        var dat = data[i];
+                        if (dat.state != -1) {
+                            selecteds++;
+                            estadoSectores = dat.state;
+                        }
+                        table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                    }
+                    $('#cmbEstadoSectores').val(estadoSectores).trigger('change.select2');
+                    $('.length-sectores').html(selecteds);
+                    if (estadoSectores == 1) {
+                        $('.btn-sectores.lock').prop('disabled', true);
+                        $('.state-sectores').html(' Bloqueados');
+                    } else if (estadoSectores == 0) {
+                        $('.btn-sectores.unlock').prop('disabled', true);
+                        $('.state-sectores').html(' Desbloqueados');
+                    }
+                    $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
+                } else {
+                    $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+                }
+                if ($('#tblSectores td input:checked').length > 0) {
+                    $('#tblSectores input.checkbox-head').prop('checked', true);
+                }
+            };
             $(function () {
                 var ticket = <?php echo $ticket; ?>;
                 console.log(ticket);
+                fillTableSectores(ticket);
                 if (ticket.k_id_status_onair.k_id_status_onair == 80 || ticket.k_id_status_onair.k_id_status_onair == 97) {
                     $('#runPrecheck').removeClass('hidden');
                 } else {
@@ -368,7 +464,7 @@
                 $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
                 $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
 
-            })
+            });
         </script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
@@ -379,7 +475,25 @@
                     '8': '<option value="">Seleccione el Subestado</option><option value="87">Pendiente Tareas Remedy</option><option value="89">Producción</option>',
                     '9': '<option value="0">Prórroga</option>',
                     '10': '<option value="10">Stand By</option>'
-                }
+                };
+
+                var submitForm = function (form) {
+                    if ($('#k_id_status').val() == "9" && $('#numHoursProrroga').val() <= 0) {
+                        swal("Error", "El tiempo de prórroga debe ser mayor a 0", "error");
+                        return;
+                    }
+                    dom.controlSubmit(form, function () {
+                        location.href = app.urlTo('User/principalView');
+                    }).before(function () {
+                        var joinText = "";
+                        var joinItems = $('#productionList').find('input:checked');
+                        for (var i = 0; i < joinItems.length; i++) {
+                            joinText += $(joinItems[i]).next('label').text() + ((i < (joinItems.length - 1)) ? ", " : "");
+                        }
+                        $('#n_comentario_ing').val(joinText + "-----\n" + $('#n_comentario_ing').val());
+                    }).send();
+                };
+
                 $('#k_id_status').on('change', function () {
                     $('#k_id_status_onair').html(opciones[$(this).val()]);
                     if ($(this).val() == 8) {
@@ -405,22 +519,55 @@
                     }
                     app.stopEvent(e);
                     var form = $(this);
-                    if ($('#k_id_status').val() == "9" && $('#numHoursProrroga').val() <= 0) {
-                        swal("Error", "El tiempo de prórroga debe ser mayor a 0", "error");
-                        return;
-                    }
-                    dom.controlSubmit(form, function () {
-                        location.href = app.urlTo('User/principalView');
-                    }).before(function () {
-                        var joinText = "";
-                        var joinItems = $('#productionList').find('input:checked');
-                        for (var i = 0; i < joinItems.length; i++) {
-                            joinText += $(joinItems[i]).next('label').text() + ((i < (joinItems.length - 1)) ? ", " : "");
-                        }
-                        $('#n_comentario_ing').val(joinText + "-----\n" + $('#n_comentario_ing').val());
-                    }).send();
+                    $('#modalSectores').modal('show');
                 };
                 form.on('submit', onSubmitForm);
+                $('#btnAceptarModalSectores').on('click', function () {
+                    var cmbSectores = $('#cmbEstadoSectores');
+                    var lg = $('#tblSectores').find('input:checked').not('.checkbox-head').length;
+                    if (lg == 0) {
+                        $('#modalSectores').modal('hide');
+                        return;
+                    }
+                    if (cmbSectores.val().trim() == "") {
+                        if (!cmbSectores.parents('.input-group').next().hasClass('error')) {
+                            cmbSectores.parents('.input-group').after('<label class="error m-l-40 m-t-5 text-right center-block"><i class="fa fa-fw fa-warning"></i> Seleccione el estado para los sectores.</label>');
+                        }
+                        return;
+                    }
+
+                    //Preparamos los sectores...
+                    var sectores = [];
+                    var sectoresBloqueados = "";
+                    var sectoresDesbloqueados = "";
+                    var sectoresSeleccionados = 0;
+                    var inputs = $('#tblSectores').find('input:checkbox').not('.checkbox-head');
+                    for (var i = 0; i < inputs.length; i++) {
+                        var input = $(inputs[i]);
+                        var tr = input.parents('tr');
+                        var temp = {
+                            id: tr.attr('data-id'),
+                            name: tr.attr('data-name'),
+                            state: ((input.is(':checked')) ? cmbSectores.val() : -1)
+                        };
+                        sectores.push(temp);
+                        if (temp.state == 1) {
+                            sectoresBloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+                        } else if (temp.state == 0) {
+                            sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
+                        }
+                        if (temp.state != -1) {
+                            sectoresSeleccionados++;
+                            estadoSectores = temp.state;
+                        }
+                    }
+                    $('#typeBlock').val($('#cmbEstadoSectores').val());
+                    $('#jsonSectores').val(JSON.stringify(sectores));
+                    $('#sectoresBloqueados').val(sectoresBloqueados);
+                    $('#sectoresDebloqueados').val(sectoresDesbloqueados);
+                    $('#modalSectores').modal('hide');
+                    submitForm($('#precheckForm'));
+                });
 
 //                $('#runPrecheck').removeClass('hidden');
                 $('#runPrecheck').on('click', function () {
