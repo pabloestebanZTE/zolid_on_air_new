@@ -658,6 +658,17 @@
                                             </div>
                                         </div>
                                         <!--FIN CHECK LIST APERTURA-->
+                                        
+                                        <!--inicio texto template-->
+                                        <div class="widget bg-gray text-left m-t-25 display-block">
+                                            <h2 class="h4"><i class="fa fa-fw fa-comment-o"></i> Confirmación Apertura</h2>
+                                            <div class="widget bg-white">
+                                                <div class="checkbox checkbox-primary text-left" >
+                                                    <p class="muted m-b-0">Por favor, verifique los procesos a continuación y complete el checklist según sea el caso.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--fin texto template-->
                                     </div>
                                     <div>
                                         <div class="form-group">
