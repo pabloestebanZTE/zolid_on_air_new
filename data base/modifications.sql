@@ -848,3 +848,13 @@ UPDATE `on_air`.`work` SET `n_abreviacion`='N_RF_Sharing_a_Dedicado_' WHERE `k_i
 UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_SE_' WHERE `k_id_work`='43';
 UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_2N_' WHERE `k_id_work`='20';
 UPDATE `on_air`.`work` SET `n_abreviacion`='N_Upgrade_Modulos_ RF_' WHERE `k_id_work`='51';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='33';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='1';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='53';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='9';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='8';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='7';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='6';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_' WHERE `k_id_work`='12';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_RB_' WHERE `k_id_work`='41';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='42';

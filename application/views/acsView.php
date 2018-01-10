@@ -212,7 +212,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_station" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select-estacion control-change" id="k_id_station" name="vm.k_id_station">
+                                                <select class="form-control select-estacion control-change control-text" id="k_id_station" name="vm.k_id_station">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -239,7 +239,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-tipotrabajo control-change" id="k_id_work" name="vm.k_id_work">
+                                            <select class="form-control select-tipotrabajo control-change control-text" id="k_id_work" name="vm.k_id_work">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -301,7 +301,7 @@
                                                     <div class="form-group m-b-0">
                                                         <label class="col-md-5 text-right">Fin Programado SA:</label>
                                                         <div class="col-md-7">
-                                                            <input type="datetime-local" class="form-control" id="d_fin_programado_sa" name="avm.d_fin_programado_sa" data-callback='dom.formatDateForPrint'/>
+                                                            <input type="datetime-local" class="form-control control-text" id="d_fin_programado_sa" name="avm.d_fin_programado_sa" data-callback='dom.formatDateForPrint'/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -658,13 +658,18 @@
                                             </div>
                                         </div>
                                         <!--FIN CHECK LIST APERTURA-->
-                                        
+
                                         <!--inicio texto template-->
                                         <div class="widget bg-gray text-left m-t-25 display-block">
                                             <h2 class="h4"><i class="fa fa-fw fa-comment-o"></i> Confirmación Apertura</h2>
                                             <div class="widget bg-white">
                                                 <div class="checkbox checkbox-primary text-left" >
-                                                    <p class="muted m-b-0">Por favor, verifique los procesos a continuación y complete el checklist según sea el caso.</p>
+                                                    <p class="muted m-b-0">
+                                                        *<span id="name_station"></span>* - Se confirma Apertura de VM para los siguientes 1 trabajos: <span id="type_work"></span>
+                                                        Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *<span id="closing_time"></span>*. 
+                                                        Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio.
+                                                        *Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -800,6 +805,7 @@
                                 </form>
                             </center>
                         </div>
+
                         <!-- cierre VM section -->
                         <div class="bhoechie-tab-content" id="contentTab4">
                             <center>
@@ -1060,6 +1066,44 @@
                                             <textarea class="form-control" placeholder="Comentario..." id="n_comentarios_cierre" name="cvm.n_comentarios_cierre"></textarea>
                                         </div>
                                     </div>
+                                    <!--inicio email template-->
+                                    <div class="widget bg-gray text-left m-t-25 display-block">
+                                        <h2 class="h4"><i class="fa fa-fw fa-comment-o"></i> Asunto Email</h2>
+                                        <div class="widget bg-white" style="height: 50px;">
+                                            <div class="text-left" >
+                                                <p class="muted m-b-0">
+                                                    <span id="affair_type_work"></span><span id="affair_station"></span>_<span id="affair_band"></span>_<span id="affair_technology"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <h2 class="h4"><i class="fa fa-fw fa-comment-o"></i> Cuerpo Email</h2>
+                                        <div class="widget bg-white">
+                                            <div class="checkbox checkbox-primary text-left" >
+                                                <p class="muted m-b-0">
+                                                    Buen día,<br/>
+                                                    Se realiza notificación ACS de finalización de actividad para el sitio en mención solo es llamar a los campos:<br/>
+                                                    Sitio: <span id="body_station"></span><br/>
+                                                    ID Site Access: <span id="body_id_site_access"></span><br/>
+                                                    CRQ: <span id="body_crq"></span><br/>
+                                                    WP: <span id="body_wp"></span><br/>
+                                                    ID RFTool: <span id="body_rftool"></span><br/>
+                                                    RET: <span id="body_ret"></span><br/>
+                                                    Ampliación Dualbeam: <span id="body_ampliacion_dualbeam"></span><br/>
+                                                    Sectores Dualbeam: <span id="body_sectores_dualbeam"></span><br/>
+                                                    Tipo de Solución: <span id="body_tipo_solucion"></span><br/>
+                                                    Ente Ejecutor: <span id="body_enteejecutor"></span><br/>
+                                                    Contratista: <span id="body_contratista"></span><br/>
+                                                    Líder De Cambio: <span id="body_lider_cambio"></span><br/>
+                                                    Teléfono Líder de Cambio: <span id="body_telefono_lider_cambio"></span><br/>
+                                                    Responsable En Sitio: <span id="body_responsable_sitio"></span><br/>
+                                                    Integrador:  <span id="body_integrador"></span><br/>
+                                                    Ingeniero ACS Cierre VM: <span id="body_ing_cierre"></span><br/>
+                                                    Fecha Integración VM: <span id="body_fecha_integracion"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--fin email template-->                                    
                                     <div>
                                         <div class="form-group">
                                             <label class="col-md-12 control-label"></label>
@@ -1078,7 +1122,7 @@
                                             <label for="n_numero_incidente" class="col-sm-4 control-label">Número de Incidente:</label>
                                             <div class="col-sm-8">
                                                 <input type="text" name="n_numero_incidente" id="n_numero_incidente" class="form-control" />
-                                                <input type="hidden" name="k_id_vm" id="idVm" class="form-control" />
+                                                <input type="hidden" name="k_id_vm" id="k_id_vm" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
