@@ -39,6 +39,7 @@ var vista = {
         window.setTimeout(function () {
             vista.get();
             vista.onChangeText();
+            vista.onChangeEmail();
         }, 15);
     },
     events: function () {
@@ -47,6 +48,7 @@ var vista = {
         $('.select-checklist').on('change', vista.onChangeChecklist);
         $('#n_sub_estado').on('change', vista.onActivateRemedyForm);
         $('.control-text').on('change', vista.onChangeText);
+        $('.control-email').on('change', vista.onChangeEmail);
     },
     onChangeText: function () {
         var estacion = $('#k_id_station option:selected').text();
@@ -56,6 +58,47 @@ var vista = {
         $('#type_work').html(tipo_trabajo);
         $('#closing_time').html(fin_programado[1]);
     },
+    onChangeEmail: function () {
+        var tecnologia = $('#k_id_technology option:selected').text();
+        var banda = $('#k_id_band option:selected').text();
+        var estacion = $('#k_id_station option:selected').text();
+        var site_access = $('#i_id_site_access').val()
+        var crq = $('#n_crq').val();
+        var wp = $('#n_wp').val();
+        var rftools = $('#n_id_rftools').val();
+        var ret = $('#n_ret').val();
+        var am_dualbeam = $('#n_ampliacion_dualbeam').val();
+        var se_dualbeam = $('#n_sectores_dualbeam').val();
+        var tipo_solucion = $('#n_tipo_solucion').val();
+        var ente_ejecutor = $('#n_enteejecutor').val();
+        var contratista = $('#n_contratista').val();
+        var lider_cambio = $('#n_lider_cuadrilla_vm').val();
+        var tel_lider_cambio = $('#i_telefono_lider_cuadrilla').val();
+        var integrador = $('#n_integrador_backoffice').val();
+        var ing_cierre = $('#i_ingeniero_cierre option:selected').text();
+        var valor = $('#k_id_work').val();
+        var abrev_tipo_trabajo = $("#n_abrev_work option[value="+ valor +"]").text();
+        $('#affair_station').html(estacion);
+        $('#affair_band').html(banda);
+        $('#affair_technology').html(tecnologia);
+        $('#affair_type_work').html(abrev_tipo_trabajo);
+        $('#body_station').html(estacion);
+        $('#body_id_site_access').html(site_access);
+        $('#body_crq').html(crq);
+        $('#body_wp').html(wp);
+        $('#body_rftool').html(rftools);
+        $('#body_ret').html(ret);
+        $('#body_ampliacion_dualbeam').html(am_dualbeam);
+        $('#body_sectores_dualbeam').html(se_dualbeam);
+        $('#body_tipo_solucion').html(tipo_solucion);
+        $('#body_enteejecutor').html(ente_ejecutor);
+        $('#body_contratista').html(contratista);
+        $('#body_lider_cambio').html(lider_cambio);
+        $('#body_telefono_lider_cambio').html(tel_lider_cambio);
+        $('#body_integrador').html(integrador);
+        $('#body_ing_cierre').html(ing_cierre);
+        $('#body_fecha_integracion').html(vista.fechaActual());
+    },
     onActivateRemedyForm: function () {
         var subEstado = $('#n_sub_estado').val();
         if (subEstado === 'No Exitoso') {
@@ -63,6 +106,20 @@ var vista = {
         } else {
             $('#form5').hide();
         }
+    },
+    fechaActual: function () {
+        var hoy = new Date();
+        var dd = hoy.getDate();
+        var mm = hoy.getMonth() + 1;
+        var yyyy = hoy.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        hoy = dd + '/' + mm + '/' + yyyy;
+        return hoy;
     },
     onChangeChecklist: function (callback) {
         $('#items_checklist').html('');
@@ -117,6 +174,7 @@ var vista = {
         dom.llenarCombo($('.select-banda'), dataForm.bands.data, {text: "n_name_band", value: "k_id_band"});
         dom.llenarCombo($('.select-tecnologia'), dataForm.technologies.data, {text: "n_name_technology", value: "k_id_technology"});
         dom.llenarCombo($('.select-tipotrabajo'), dataForm.works.data, {text: "n_name_ork", value: "k_id_work"});
+        dom.llenarCombo($('#n_abrev_work'), dataForm.works.data, {text: "n_abreviacion", value: "k_id_work"});
         dom.llenarCombo($('.select-estacion'), dataForm.stations.data, {text: "n_name_station", value: "k_id_station"});
         dom.llenarCombo($('.select-ingeniero'), dataForm.users.data, {text: ["n_name_user", "n_last_name_user"], value: "k_id_user"});
         $('select').select2({width: '100%'});
