@@ -7,10 +7,10 @@
             <div class='tab-content' id='tab3'><brt><br>
                     <div class="container">
                         <form class="well form-horizontal" action="Precheck/doPrecheck" method="post"  id="precheckForm" name="precheckForm">
-                            <input type="hidden=" id="jsonSectores" name="jsonSectores" />
-                            <input type="hidden=" id="sectoresBloqueados" name="sectoresBloqueados" />
-                            <input type="hidden=" id="sectoresDebloqueados" name="sectoresDebloqueados" />
-                            <input type="hidden=" id="typeBlock" name="typeBlock" />
+                            <input type="hidden" id="jsonSectores" name="jsonSectores" />
+                            <input type="hidden" id="sectoresBloqueados" name="sectoresBloqueados" />
+                            <input type="hidden" id="sectoresDebloqueados" name="sectoresDebloqueados" />
+                            <input type="hidden" id="typeBlock" name="typeBlock" />
 
                             <legend class="p-b-15">Confirmar precheck<button type="button" class="display-block hidden btn btn-primary m-t-10" id="runPrecheck" title="Iniciar Precheck"><i class="fa fa-fw fa-play"></i> Iniciar Precheck</button></legend>
                             <fieldset class="col-md-6 control-label">
@@ -579,7 +579,7 @@
                                     if (response.code > 0) {
                                         swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
                                         $('.disabledchange').prop('disabled', false);
-//                                        $('#runPrecheck').remove();
+                                        $('#runPrecheck').remove();
                                     } else {
                                         swal("Iniciado", "No se pudo iniciar el precheck.", "error");
                                     }
