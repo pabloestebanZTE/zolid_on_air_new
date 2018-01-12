@@ -99,7 +99,6 @@ $(function () {
 });
 
 function showModalAssign(k_id_vm) {
-    $('.select-ingeniero').val('');
     $('#k_id_vm').val(k_id_vm);
     $('#modalChangeState').modal('show');
 }

@@ -767,6 +767,29 @@ DROP COLUMN `i_ingeniero_asignado`;
 ALTER TABLE `on_air`.`avm` 
 DROP COLUMN `i_ingeniero_asignado`;
 
+-- actualizacion 05/01/2018
+CREATE TABLE `on_air`.`tiket_remedy` (
+  `k_id_tiket_remedy` INT NOT NULL AUTO_INCREMENT,
+  `k_id_vm` INT NULL,
+  `n_numero_incidente` VARCHAR(45) NULL,
+  `n_estado_ticket` VARCHAR(45) NULL,
+  `i_ingeniero_apertura_ticket` INT NULL,
+  `n_tipo_afectación` VARCHAR(45) NULL,
+  `n_grupo_soporte` VARCHAR(45) NULL,
+  `d_inicio_afectación` DATETIME NULL,
+  `n_responsable_oym` VARCHAR(45) NULL,
+  `n_responsable_ticket` VARCHAR(45) NULL,
+  `n_summary_remedy` VARCHAR(1000) NULL,
+  `n_fm_claro` VARCHAR(45) NULL,
+  `n_fm_nokia` VARCHAR(45) NULL,
+  `n_comentario_ticket` VARCHAR(1000) NULL,
+  PRIMARY KEY (`k_id_tiket_remedy`),
+  INDEX `fk_vm_idx` (`k_id_vm` ASC),
+  CONSTRAINT `fk_vm`
+    FOREIGN KEY (`k_id_vm`)
+    REFERENCES `on_air`.`vm` (`k_id_vm`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 -- Viernes, 5 de enero de 2018.
 CREATE TABLE `ref_tech_band` (
@@ -804,3 +827,34 @@ INSERT INTO `ref_tech_band` (`k_id_tech_band`, `k_id_technology`, `k_id_band`) V
 	(21, 5, 5),
 	(22, 5, 6),
 	(23, 5, 7);
+
+-- actualizacion 09/01/2018
+ALTER TABLE `on_air`.`work` 
+ADD COLUMN `n_abreviacion` VARCHAR(45) NULL AFTER `b_aplica_bloqueo`;
+
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='34';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_A_OV_' WHERE `k_id_work`='35';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_A_SE_' WHERE `k_id_work`='2';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='36';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J/F' WHERE `k_id_work`='37';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_' WHERE `k_id_work`='10';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_+ Upgrade_Modulos RF_' WHERE `k_id_work`='11';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_+ Upgrade_Modulos RF_' WHERE `k_id_work`='38';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_MMR_' WHERE `k_id_work`='13';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_MMR_' WHERE `k_id_work`='52';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_RB_' WHERE `k_id_work`='14';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='15';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RF_Sharing_a_Dedicado_' WHERE `k_id_work`='16';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_SE_' WHERE `k_id_work`='43';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_2N_' WHERE `k_id_work`='20';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Upgrade_Modulos_ RF_' WHERE `k_id_work`='51';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='33';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='1';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='53';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='9';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='8';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='7';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='6';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_' WHERE `k_id_work`='12';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_RB_' WHERE `k_id_work`='41';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='42';

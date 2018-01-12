@@ -6,7 +6,7 @@
                     <div class="col col-md-12 p-t-40">
                         <h1 class="m-t-0">VM asignadas</h1><hr>
                         <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
-                        <table id="tablaPrincipal" class="table table-hover table-condensed table-striped"></table>
+                        <table id="tablaAsignaciones" class="table table-hover table-condensed table-striped"></table>
                         <br/>
                     </div>
                 </div>

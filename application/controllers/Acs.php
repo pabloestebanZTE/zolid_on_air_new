@@ -176,4 +176,10 @@ class Acs extends CI_Controller {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
+    
+    public function insertTiketRemedy() {
+        $tr = new Dao_tiket_remedy_model();
+        $response = $tr->insertTiketRemedy($this->request);
+        $this->json($response);
+    }
 }

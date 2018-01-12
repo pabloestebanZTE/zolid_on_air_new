@@ -38,12 +38,31 @@ var vista = {
         vista.configView();
         window.setTimeout(function () {
             vista.get();
+            vista.onChangeText();
         }, 15);
     },
     events: function () {
         $('form').on('submit', vista.onSumitForm);
         $('.control-change').on('change', vista.onControlChange);
         $('.select-checklist').on('change', vista.onChangeChecklist);
+        $('#n_sub_estado').on('change', vista.onActivateRemedyForm);
+        $('.control-text').on('change', vista.onChangeText);
+    },
+    onChangeText: function () {
+        var estacion = $('#k_id_station option:selected').text();
+        var tipo_trabajo = $('#k_id_work option:selected').text()
+        var fin_programado = $('#d_fin_programado_sa').val().split('T');
+        $('#name_station').html(estacion);
+        $('#type_work').html(tipo_trabajo);
+        $('#closing_time').html(fin_programado[1]);
+    },
+    onActivateRemedyForm: function () {
+        var subEstado = $('#n_sub_estado').val();
+        if (subEstado === 'No Exitoso') {
+            $('#form5').show();
+        } else {
+            $('#form5').hide();
+        }
     },
     onChangeChecklist: function (callback) {
         $('#items_checklist').html('');
@@ -160,6 +179,7 @@ var vista = {
         var form2 = $('#form2');
         var form3 = $('#form3');
         var form4 = $('#form4');
+        var form5 = $('#form5');
 
         //Función genérica para validar el checklist de los dos formuarios...
         var validateChecklist = function (form) {
@@ -224,7 +244,7 @@ var vista = {
                 }
             }
         }
-        
+
         if (form.attr('id') == "form3") {
             f1 = $('#n_hora_revision');
             f2 = $('#n_hora_apertura_grupo');
@@ -277,12 +297,16 @@ var vista = {
                         if (forInsert) {
                             $('#idAcs').val(response.data);
                             $('#txtIdZTE').val(response.data);
+                            $('#k_id_vm').val(response.data);
                             formGlobal.attr('data-mode', 'FOR_UPDATE');
                             var btn = form.find('button:submit');
 //                            var index = form.parents('.bhoechie-tab-content').next().index();
 //                            $('.list-group-item').removeClass('active');
 //                            $('.list-group-item:eq(' + (index - 1) + ')').removeClass('disabled').addClass('active').trigger('click');
                             btn.html(btn.attr('data-update-text'));
+                        }
+                        if (form.attr('id') == "form5") {
+                            vista.insertRemedy();
                         }
                         swal(((forInsert) ? "Guardado" : "Actualizado"), "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success");
                     } else {
@@ -294,6 +318,23 @@ var vista = {
                 }).send();
 
         console.log(obj);
+    },
+    insertRemedy: function () {
+        var idAcs = $('#idAcs').val();
+        $('#k_id_vm').val(idAcs);
+        var form5 = $('#form5');
+        app.post('Acs/insertTiketRemedy', form5.getFormData())
+                .success(function (response) {
+                    var v = app.successResponse(response);
+                    if (v) {
+                        swal("Guardado", "Se ha registrado el registro correctamente.", "success");
+                    } else {
+                        swal("Lo sentimos", response.message, "error");
+                    }
+                })
+                .error(function () {
+                    swal("Error inesperado", "Se ha producido un error al insertar el registro.", "error");
+                }).send();
     }
 };
 $(function () {
