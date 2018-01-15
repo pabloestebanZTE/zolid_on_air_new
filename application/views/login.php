@@ -41,11 +41,11 @@
                     <h1>ZOLID</h1>
                     <input id="username" class="form-control" type="text" name="username" value="" placeholder="Username" required/>
                     <input id="password" class="form-control" type="password" name="password" value="" placeholder="Password" required/>
-                    <input id="projectList" class="form-control" type="text" name="projectList" list="project" placeholder="seleccione su proyecto" required>
+<!--                    <input id="projectList" class="form-control" type="text" name="projectList" list="project" placeholder="seleccione su proyecto" required>
                     <datalist id="project">
                         <option value="Fonade" />
                         <option value="On-Air" />
-                    </datalist>
+                    </datalist>-->
                 </div>
             </div>
             <div class="cms">
