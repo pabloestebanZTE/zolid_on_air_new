@@ -354,7 +354,6 @@ class TicketOnair extends CI_Controller {
             $flag = 1;
         }
 
-
         //Precheck.
         if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 78) {
             $ticketModel = new TicketOnAirModel();
@@ -450,9 +449,9 @@ class TicketOnair extends CI_Controller {
             $this->json(new Response(EMessages::ERROR, "Verifique el estado del proceso ya que no se puede realizar una asignación."));
         }
 
-//        if ($flag == 1) {
-//            $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
-//        }
+        if ($flag == 1) {
+            $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
+        }
     }
 
     public function createScaling() {

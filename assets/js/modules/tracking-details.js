@@ -64,13 +64,13 @@ var vista = {
         if (btn.hasClass('view')) {
             $('#modalSectores').modal('show');
         } else if (btn.hasClass('lock')) {
-            $('.btn-sectores.unlock').prop('disabled', false);
+            $('.btn-sectores.unlock').prop('disabled', false).show();
             $('#cmbEstadoSectores').val(1).trigger('change.select2');
-            btn.prop('disabled', true);
+            btn.prop('disabled', true).hide();
             $('#modalSectores').addClass('updated');
         } else if (btn.hasClass('unlock')) {
-            $('.btn-sectores.lock').prop('disabled', false);
-            btn.prop('disabled', true);
+            $('.btn-sectores.lock').prop('disabled', false).show();
+            btn.prop('disabled', true).hide();
             $('#cmbEstadoSectores').val(0).trigger('change.select2');
             $('#modalSectores').addClass('updated');
         }
@@ -173,10 +173,10 @@ var vista = {
 
         $('.length-sectores').html(sectoresSeleccionados);
         if (estadoSectores == 1) {
-            $('.btn-sectores.lock').prop('disabled', true);
+            $('.btn-sectores.lock').prop('disabled', true).hide();
             $('.state-sectores').html(' Bloqueados');
         } else if (estadoSectores == 0) {
-            $('.btn-sectores.unlock').prop('disabled', true);
+            $('.btn-sectores.unlock').prop('disabled', true).hide();
             $('.state-sectores').html(' Desbloqueados');
         }
 //        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
@@ -208,10 +208,10 @@ var vista = {
             $('#cmbEstadoSectores').val(estadoSectores).trigger('change.select2');
             $('.length-sectores').html(selecteds);
             if (estadoSectores == 1) {
-                $('.btn-sectores.lock').prop('disabled', true);
+                $('.btn-sectores.lock').prop('disabled', true).hide();
                 $('.state-sectores').html(' Bloqueados');
             } else if (estadoSectores == 0) {
-                $('.btn-sectores.unlock').prop('disabled', true);
+                $('.btn-sectores.unlock').prop('disabled', true).hide();
                 $('.state-sectores').html(' Desbloqueados');
             }
             $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');

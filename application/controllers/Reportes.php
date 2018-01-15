@@ -91,6 +91,7 @@ class Reportes extends CI_Controller {
                     )
         ));
 
+        
         //Escribir cabecearas.
         $objPhpExcel->getActiveSheet()->setCellValue("A1", "Id-On Air");
         $objPhpExcel->getActiveSheet()->setCellValue("B1", "Nombre_Estación-EB");
