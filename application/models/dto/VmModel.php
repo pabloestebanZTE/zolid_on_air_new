@@ -8,6 +8,7 @@ class VmModel extends Model {
     protected $k_id_band;
     protected $k_id_work;
     protected $d_fecha_solicitud;
+    protected $n_hora_solicitud;
     protected $i_id_site_access;
     protected $n_enteejecutor;
     protected $n_persona_solicita;
@@ -70,6 +71,12 @@ class VmModel extends Model {
     }
     public function getDFechaSolicitud() {
         return $this->d_fecha_solicitud;
+    }
+    public function setNHoraSolicitud($n_hora_solicitud) {
+        $this->n_hora_solicitud = $n_hora_solicitud;
+    }
+    public function getNHoraSolicitud() {
+        return $this->n_hora_solicitud;
     }
     public function setIIdSiteAccess($i_id_site_access) {
         $this->i_id_site_access = $i_id_site_access;

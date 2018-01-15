@@ -42,9 +42,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="d_fecha_solicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
+                                            <label for="d_fecha_solicitud" class="col-md-3 control-label">Hora de Solicitud:</label>
                                             <div class="col-sm-8">
-                                                <input type='datetime-local' name="vm.d_fecha_solicitud" id="d_fecha_solicitud" class="form-control" data-callback='dom.formatDateForPrint' required >
+                                                <input type='time' name="vm.n_hora_solicitud" id="n_hora_solicitud" class="form-control" required >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -486,10 +486,24 @@
                                                     <input type="text" class="form-control control-email" id="n_wp" name="avm.n_wp"/>
                                                 </div>
                                             </div>
-                                        </div>                                            
+                                        </div>   
+                                        <div class="form-group">
+                                            <div class="col-md-8 selectContainer">
+                                                <div class="radio radio-primary" style="text-align: left; margin-left: 140px;">
+                                                    <input id="CRQ" type="radio" class="radio-code" name="crq_chg" value="CRQ" onclick="changeCrqChg()" checked>
+                                                    <label for="CRQ" class="text-bold">
+                                                        CRQ
+                                                    </label><br/>
+                                                    <input id="CHG" type="radio" class="radio-code" name="crq_chg" value="CHG" onclick="changeCrqChg()">
+                                                    <label for="CHG" class="text-bold">
+                                                        CHG
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="n_crq" class="col-sm-4 control-label">CRQ:</label>
+                                                <label for="n_crq" class="col-sm-4 control-label">&nbsp;</label>
                                                 <div class="col-sm-8 ">
                                                     <input class="form-control control-email" id="n_crq" name="avm.n_crq" />
                                                 </div>

@@ -122,7 +122,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
+                                <label class="col-md-3 control-label">&nbsp;</label>
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>

@@ -36,6 +36,7 @@ var vista = {
     init: function () {
         vista.events();
         vista.configView();
+        vista.onChangeCrqChg();
         window.setTimeout(function () {
             vista.get();
             vista.onChangeText();
@@ -49,6 +50,8 @@ var vista = {
         $('#n_sub_estado').on('change', vista.onActivateRemedyForm);
         $('.control-text').on('change', vista.onChangeText);
         $('.control-email').on('change', vista.onChangeEmail);
+        $('.radio-code').on('click', vista.onChangeCrqChg);
+        $('#n_crq').on('focusout', vista.onValidateCrqChg);
     },
     onChangeText: function () {
         var estacion = $('#k_id_station option:selected').text();
@@ -77,7 +80,9 @@ var vista = {
         var integrador = $('#n_integrador_backoffice').val();
         var ing_cierre = $('#i_ingeniero_cierre option:selected').text();
         var valor = $('#k_id_work').val();
-        var abrev_tipo_trabajo = $("#n_abrev_work option[value="+ valor +"]").text();
+        if (valor != "") {
+            var abrev_tipo_trabajo = $("#n_abrev_work option[value="+ valor +"]").text();
+        }
         $('#affair_station').html(estacion);
         $('#affair_band').html(banda);
         $('#affair_technology').html(tecnologia);
@@ -105,6 +110,27 @@ var vista = {
             $('#form5').show();
         } else {
             $('#form5').hide();
+        }
+    },
+    onChangeCrqChg: function () {
+        var valRadio = $('input:radio[name=crq_chg]:checked').val();
+        switch (valRadio) {
+            case "CRQ":
+                $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
+                break;
+            case "CHG":
+                $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
+                break;
+        }
+    },
+    onValidateCrqChg: function () {
+        var valinput = $('#n_crq').val();
+        var valRadio = $('input:radio[name=crq_chg]:checked').val();
+        var info = dataForm;
+        for (var m = 0; m < info.crq.data.length; m++) {
+            if (valinput == info.crq.data[m].n_crq) {
+                swal("Código " + valRadio + " invalido", "Lo sentimos, el código " + valRadio + " ya existe.", "warning");
+            }
         }
     },
     fechaActual: function () {
