@@ -94,7 +94,7 @@
                                         <div class="col-md-6">
                                             <label for="n_enteejecutor" class="col-md-3 control-label">Ente Ejecutor :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker control-email" name="vm.n_enteejecutor" id="n_enteejecutor" required>
+                                                <select class="form-control selectpicker control-email control-fm" name="vm.n_enteejecutor" id="n_enteejecutor" required>
                                                     <option value="">Seleccione</option>
                                                     <option value="Claro" >Claro</option>
                                                     <option value="Nokia" >Nokia</option>
@@ -251,11 +251,11 @@
                                                 <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
                                                     <option value="">Seleccione</option>
                                                     <option value="Activo">Activo</option>
-                                                    <option value="Cancelado">Cancelado</option>
-                                                    <option value="Cerrado">Cerrado</option>
-                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
+                                                    <!--<option value="Cancelado">Cancelado</option>-->
+                                                    <!--<option value="Cerrado">Cerrado</option>-->
+                                                    <!--<option value="Pendiente Apertura">Pendiente Apertura</option>-->
                                                     <option value="Rechazado">Rechazado</option>
-                                                    <option value="Suspendido">Suspendido</option>
+                                                    <!--<option value="Suspendido">Suspendido</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -447,6 +447,7 @@
                                                         <option value="Mayra Alejandra Herrera Betancourt">Mayra Alejandra Herrera Betancourt</option>
                                                         <option value="Nelson David Garzón Aya">Nelson David Garzón Aya</option>
                                                         <option value="Raul Zuñiga Parra">Raul Zuñiga Parra</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -469,6 +470,7 @@
                                                         <option value="GDI_MESADECALIDAD">GDI_MESADECALIDAD</option>
                                                         <option value="Javier Antonio Kamell Yaspe">Javier Antonio Kamell Yaspe</option>
                                                         <option value="Oscar Barrera">Oscar Barrera</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -577,7 +579,7 @@
                                                         <option value="">Seleccione</option>
                                                         <option value="SI">SI</option>
                                                         <option value=">NO">NO</option>
-                                                        <option value="N/A">N/A</option>
+                                                        <!--<option value="N/A">N/A</option>-->
                                                     </select>
                                                 </div>  
                                             </div>
@@ -932,11 +934,12 @@
                                         <div class="col-md-6">
                                             <label for="n_sectores_dualbeam" class="col-sm-4 control-label">Sectores Dualbeam:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-email" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam">
+                                                <input type="text" class="form-control control-email" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam"/>
+<!--                                                <select class="form-control control-email" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam">
                                                     <option value="">Seleccione</option>
                                                     <option value="VERDADERO">VERDADERO</option>
                                                     <option value="FALSO">FALSO</option>
-                                                </select>
+                                                </select>-->
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -997,7 +1000,7 @@
                                                     <option value="">Seleccione</option>
                                                     <option value="SI">SI</option>
                                                     <option value="NO">NO</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <!--<option value="N/A">N/A</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -1041,7 +1044,7 @@
                                                     <option value="">Seleccione</option>
                                                     <option value="SI">SI</option>
                                                     <option value="NO">NO</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <option value="N/A" selected>N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1053,7 +1056,7 @@
                                                     <option value="No notificable">No notificable</option>
                                                     <option value="Pendiente notificar">Pendiente notificar</option>
                                                     <option value="Actividad notificada">Actividad notificada</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <!--<option value="N/A">N/A</option>-->
                                                 </select>
                                             </div>
                                         </div>

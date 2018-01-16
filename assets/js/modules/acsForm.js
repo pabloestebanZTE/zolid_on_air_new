@@ -41,6 +41,8 @@ var vista = {
             vista.get();
             vista.onChangeText();
             vista.onChangeEmail();
+            vista.onControlFm();
+            vista.onChangeFineFault();
         }, 15);
     },
     events: function () {
@@ -52,6 +54,96 @@ var vista = {
         $('.control-email').on('change', vista.onChangeEmail);
         $('.radio-code').on('click', vista.onChangeCrqChg);
         $('#n_crq').on('focusout', vista.onValidateCrqChg);
+        $('.control-fm').on('change', vista.onControlFm);
+        $('#k_tecnologia_afectada').on('change', vista.onValidateRncBsc);
+        $('#n_ampliacion_dualbeam').on('change', vista.onChangeDualBeam);
+        $('#n_falla_final').on('change', vista.onChangeFineFault);
+    },
+    onChangeFineFault: function () {
+        var falla_final = $('#n_falla_final option:selected').text();
+        var option = '';
+        switch (falla_final) {
+            case "SI":
+                option = '<option value="Degradacion activa">Degradación activa</option>'
+                        + '<option value="Afectación activa">Afectación activa</option>';
+                break;
+            case "NO":
+                $("#n_tipo_falla_final").val('N/A').trigger('change.select2');
+                option = '<option value="Afectación Activa">Afectación Activa</option>'
+                        + '<option value="Cancelado">Cancelado</option>'
+                        + '<option value="Degradacion Activa">Degradacion Activa</option>'
+                        + '<option value="Degradacion Superada">Degradacion Superada</option>'
+                        + '<option value="Exitoso">Exitoso</option>'
+                        + '<option value="No Exitoso">No Exitoso</option>'
+                        + '<option value="Notificacion activa">Notificacion activa</option>'
+                        + '<option value="Notificacion Finalizada">Notificacion Finalizada</option>';
+                break;
+            default:
+                option = '<option value="Afectación Activa">Afectación Activa</option>'
+                        + '<option value="Cancelado">Cancelado</option>'
+                        + '<option value="Degradacion Activa">Degradacion Activa</option>'
+                        + '<option value="Degradacion Superada">Degradacion Superada</option>'
+                        + '<option value="Exitoso">Exitoso</option>'
+                        + '<option value="No Exitoso">No Exitoso</option>'
+                        + '<option value="Notificacion activa">Notificacion activa</option>'
+                        + '<option value="Notificacion Finalizada">Notificacion Finalizada</option>';
+                break;
+        }
+
+        $('#n_sub_estado').empty();
+        $('#n_sub_estado').append(option);
+        $('#n_sub_estado').trigger('selectfilled');
+    },
+    onChangeDualBeam: function () {
+        var ampliacion_dualbeam = $('#n_ampliacion_dualbeam option:selected').text();
+        switch (ampliacion_dualbeam) {
+            case "FALSO":
+                $("#n_sectores_dualbeam").val('N/A');
+                break;
+            default:
+                $("#n_sectores_dualbeam").val('');
+                break;
+        }
+    },
+    onValidateRncBsc: function () {
+        var tecnologia_afectada = $('#k_tecnologia_afectada option:selected').text();
+        switch (tecnologia_afectada) {
+            case "2G":
+                $('#n_rnc_name').attr('disabled', true);
+                $('#n_bsc_name').removeAttr('disabled');
+                $("#n_rnc_name").val('N/A');
+                $("#n_bsc_name").val('');
+                break;
+            case "3G":
+                $('#n_bsc_name').attr('disabled', true);
+                $('#n_rnc_name').removeAttr('disabled');
+                $("#n_bsc_name").val('N/A');
+                $("#n_rnc_name").val('');
+                break;
+            default:
+                $('#n_rnc_name').removeAttr('disabled');
+                $('#n_bsc_name').removeAttr('disabled');
+                $("#n_rnc_name").val('N/A');
+                $("#n_bsc_name").val('N/A');
+                break;
+        }
+    },
+    onControlFm: function () {
+        var ente_ejecutor = $('#n_enteejecutor option:selected').text();
+        switch (ente_ejecutor) {
+            case "Claro":
+                $("#n_fm_nokia").val('N/A').trigger('change.select2');
+                $('#n_fm_nokia').attr('disabled', true);
+                $('#n_wp').removeAttr('required');
+                $('#n_fm_claro').removeAttr('disabled');
+                break;
+            case "Nokia":
+                $("#n_fm_claro").val('N/A').trigger('change.select2');
+                $('#n_fm_claro').attr('disabled', true);
+                $('#n_wp').attr('required', true);
+                $('#n_fm_nokia').removeAttr('disabled');
+                break;
+        }
     },
     onChangeText: function () {
         var estacion = $('#k_id_station option:selected').text();
@@ -81,7 +173,7 @@ var vista = {
         var ing_cierre = $('#i_ingeniero_cierre option:selected').text();
         var valor = $('#k_id_work').val();
         if (valor != "") {
-            var abrev_tipo_trabajo = $("#n_abrev_work option[value="+ valor +"]").text();
+            var abrev_tipo_trabajo = $("#n_abrev_work option[value=" + valor + "]").text();
         }
         $('#affair_station').html(estacion);
         $('#affair_band').html(banda);
@@ -106,7 +198,7 @@ var vista = {
     },
     onActivateRemedyForm: function () {
         var subEstado = $('#n_sub_estado').val();
-        if (subEstado === 'No Exitoso') {
+        if (subEstado === 'Afectación Activa' || subEstado === 'Notificacion activa' || subEstado === 'Degradacion Activa') {
             $('#form5').show();
         } else {
             $('#form5').hide();
@@ -307,6 +399,17 @@ var vista = {
             return;
         }
 
+        if (form.attr('id') == "form1") {
+            var f1 = $('#n_hora_apertura_grupo');
+            var f2 = $('#n_hora_solicitud');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Hora Apertura Grupo debe ser mayor a la Hora de Solicitud", "warning");
+                    return;
+                }
+            }
+        }
+        
         if (form.attr('id') == "form2") {
             var f1 = $('#d_inicio_programado_sa');
             var f2 = $('#d_fin_programado_sa');
@@ -327,6 +430,24 @@ var vista = {
                     return;
                 }
             }
+            
+            f1 = $('#n_hora_atencion_vm');
+            f2 = $('#n_hora_solicitud');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Hora Atención VM debe ser mayor a la Hora de Solicitud", "warning");
+                    return;
+                }
+            }
+            
+            f1 = $('#n_hora_inicio_real_vm');
+            f2 = $('#n_hora_solicitud');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Hora Inicio Real VM debe ser mayor a la Hora de Solicitud", "warning");
+                    return;
+                }
+            }
         }
 
         if (form.attr('id') == "form3") {
@@ -338,6 +459,15 @@ var vista = {
                     return;
                 }
             }
+            
+            f1 = $('#n_hora_revision');
+            f2 = $('#n_hora_solicitud');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "La Hora revisión debe ser mayor a la Hora de Solicitud", "warning");
+                    return;
+                }
+            }
         }
 
         if (form.attr('id') == "form4") {
@@ -346,6 +476,24 @@ var vista = {
             if (f1.val().trim() != "" && f2.val().trim() != "") {
                 if (f1.val().replace(/^\D+/g, '') >= f2.val().replace(/^\D+/g, '')) {
                     swal("Atención", "La Fecha de Hora de atención cierre debe ser inferior a la Hora de cierre confirmado", "warning");
+                    return;
+                }
+            }
+            
+            f1 = $('#d_hora_atencion_cierre');
+            f2 = $('#n_hora_solicitud');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "Hora de atención cierre debe ser mayor a la Hora de Solicitud", "warning");
+                    return;
+                }
+            }
+            
+            f1 = $('#d_hora_cierre_confirmado');
+            f2 = $('#n_hora_solicitud');
+            if (f1.val().trim() != "" && f2.val().trim() != "") {
+                if (f1.val().replace(/^\D+/g, '') <= f2.val().replace(/^\D+/g, '')) {
+                    swal("Atención", "Hora de cierre confirmado debe ser mayor a la Hora de Solicitud", "warning");
                     return;
                 }
             }
@@ -392,7 +540,11 @@ var vista = {
                         if (form.attr('id') == "form5") {
                             vista.insertRemedy();
                         }
-                        swal(((forInsert) ? "Guardado" : "Actualizado"), "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success");
+                        swal(((forInsert) ? "Guardado" : "Actualizado"), "Se ha " + ((forInsert) ? "registrado" : "actualizado") + " el registro correctamente.", "success").then(function (isConfirm) {
+                            if (isConfirm.value) {
+                                location.href = app.urlTo('Acs/principal');
+                            }
+                        });
                     } else {
                         swal("Lo sentimos", response.message, "error");
                     }
