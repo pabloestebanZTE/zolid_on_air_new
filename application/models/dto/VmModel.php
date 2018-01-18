@@ -25,6 +25,8 @@ class VmModel extends Model {
     protected $i_ingeniero_apertura;
     protected $i_ingeniero_punto_control;
     protected $i_ingeniero_cierre;
+    protected $n_fase_ventana;
+    protected $n_asignado;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "vm";
@@ -173,6 +175,18 @@ class VmModel extends Model {
     }
     public function getIIngenieroCierre() {
         return $this->i_ingeniero_cierre;
+    }
+    public function setNFaseVentana($n_fase_ventana) {
+        $this->n_fase_ventana = $n_fase_ventana;
+    }
+    public function getNFaseVentana() {
+        return $this->n_fase_ventana;
+    }
+    public function setNAsignado($n_asignado) {
+        $this->n_asignado = $n_asignado;
+    }
+    public function getNAsignado() {
+        return $this->n_asignado;
     }
 
 

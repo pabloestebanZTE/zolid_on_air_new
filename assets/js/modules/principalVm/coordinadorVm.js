@@ -65,6 +65,7 @@ $(function () {
                         {title: "Ing. Apertura", data: "ingeniero_apertura"},
                         {title: "Ing. Punto Control", data: "ingeniero_control"},
                         {title: "Ing. Cierre", data: "ingeniero_cierre"},
+                        {title: "Fase Actual", data: "n_fase_ventana"},
                         {title: "Opciones", data: ini.getButtons},
                     ],
                     ));
@@ -86,6 +87,7 @@ $(function () {
                         {title: "Ing. Apertura", data: "ingeniero_apertura"},
                         {title: "Ing. Punto Control", data: "ingeniero_control"},
                         {title: "Ing. Cierre", data: "ingeniero_cierre"},
+                        {title: "Fase Actual", data: "n_fase_ventana"},
                         {title: "Opciones", data: ini.getButtons},
                     ],
                     ));

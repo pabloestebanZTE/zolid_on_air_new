@@ -858,3 +858,8 @@ UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='6'
 UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_' WHERE `k_id_work`='12';
 UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_RB_' WHERE `k_id_work`='41';
 UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='42';
+
+-- actualizacion 17/01/2018
+ALTER TABLE `on_air`.`vm` 
+ADD COLUMN `n_fase_ventana` VARCHAR(45) NULL DEFAULT NULL AFTER `i_ingeniero_cierre`,
+ADD COLUMN `n_asignado` INT(11) NULL DEFAULT NULL AFTER `n_fase_ventana`;

@@ -69,30 +69,28 @@ var vista = {
                 break;
             case "NO":
                 $("#n_tipo_falla_final").val('N/A').trigger('change.select2');
-                option = '<option value="Afectación Activa">Afectación Activa</option>'
+                option = '<option value="">Seleccione</option>'
+                        + '<option value="Activo">Activo</option>'
                         + '<option value="Cancelado">Cancelado</option>'
-                        + '<option value="Degradacion Activa">Degradacion Activa</option>'
-                        + '<option value="Degradacion Superada">Degradacion Superada</option>'
-                        + '<option value="Exitoso">Exitoso</option>'
-                        + '<option value="No Exitoso">No Exitoso</option>'
-                        + '<option value="Notificacion activa">Notificacion activa</option>'
-                        + '<option value="Notificacion Finalizada">Notificacion Finalizada</option>';
+                        + '<option value="Cerrado">Cerrado</option>'
+                        + '<option value="Pendiente Apertura">Pendiente Apertura</option>'
+                        + '<option value="Rechazado">Rechazado</option>'
+                        + '<option value="Suspendido">Suspendido</option>';
                 break;
             default:
-                option = '<option value="Afectación Activa">Afectación Activa</option>'
+                option = '<option value="">Seleccione</option>'
+                        + '<option value="Activo">Activo</option>'
                         + '<option value="Cancelado">Cancelado</option>'
-                        + '<option value="Degradacion Activa">Degradacion Activa</option>'
-                        + '<option value="Degradacion Superada">Degradacion Superada</option>'
-                        + '<option value="Exitoso">Exitoso</option>'
-                        + '<option value="No Exitoso">No Exitoso</option>'
-                        + '<option value="Notificacion activa">Notificacion activa</option>'
-                        + '<option value="Notificacion Finalizada">Notificacion Finalizada</option>';
+                        + '<option value="Cerrado">Cerrado</option>'
+                        + '<option value="Pendiente Apertura">Pendiente Apertura</option>'
+                        + '<option value="Rechazado">Rechazado</option>'
+                        + '<option value="Suspendido">Suspendido</option>';
                 break;
         }
 
-        $('#n_sub_estado').empty();
-        $('#n_sub_estado').append(option);
-        $('#n_sub_estado').trigger('selectfilled');
+        $('#n_estado_vm').empty();
+        $('#n_estado_vm').append(option);
+        $('#n_estado_vm').trigger('selectfilled');
     },
     onChangeDualBeam: function () {
         var ampliacion_dualbeam = $('#n_ampliacion_dualbeam option:selected').text();
@@ -167,13 +165,22 @@ var vista = {
         var tipo_solucion = $('#n_tipo_solucion').val();
         var ente_ejecutor = $('#n_enteejecutor').val();
         var contratista = $('#n_contratista').val();
-        var lider_cambio = $('#n_lider_cuadrilla_vm').val();
+        var responsable_sitio = $('#n_lider_cuadrilla_vm').val();
         var tel_lider_cambio = $('#i_telefono_lider_cuadrilla').val();
         var integrador = $('#n_integrador_backoffice').val();
         var ing_cierre = $('#i_ingeniero_cierre option:selected').text();
         var valor = $('#k_id_work').val();
         if (valor != "") {
             var abrev_tipo_trabajo = $("#n_abrev_work option[value=" + valor + "]").text();
+        }
+        var lider_cambio = "";
+        switch (ente_ejecutor) {
+            case "Claro":
+                lider_cambio = $('#n_fm_claro').val();
+                break;
+            case "Nokia":
+                lider_cambio = $("#n_fm_nokia").val();
+                break;
         }
         $('#affair_station').html(estacion);
         $('#affair_band').html(banda);
@@ -192,6 +199,7 @@ var vista = {
         $('#body_contratista').html(contratista);
         $('#body_lider_cambio').html(lider_cambio);
         $('#body_telefono_lider_cambio').html(tel_lider_cambio);
+        $('#body_responsable_sitio').html(responsable_sitio);
         $('#body_integrador').html(integrador);
         $('#body_ing_cierre').html(ing_cierre);
         $('#body_fecha_integracion').html(vista.fechaActual());
@@ -199,6 +207,17 @@ var vista = {
     onActivateRemedyForm: function () {
         var subEstado = $('#n_sub_estado').val();
         if (subEstado === 'Afectación Activa' || subEstado === 'Notificacion activa' || subEstado === 'Degradacion Activa') {
+            switch (subEstado) {
+                case 'Afectación Activa':
+                    $("#n_tipo_afectación").val('Afectacion de servicio').trigger('change.select2');
+                    break;
+                case 'Notificacion activa':
+                    $("#n_tipo_afectación").val('Notificacion').trigger('change.select2');
+                    break;
+                case 'Degradacion Activa':
+                    $("#n_tipo_afectación").val('Performance - Degradacion').trigger('change.select2');
+                    break;
+            }
             $('#form5').show();
         } else {
             $('#form5').hide();
@@ -322,12 +341,14 @@ var vista = {
                     var btn = $('#form1 button:submit');
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(1)').removeClass('disabled').trigger('click');
+                    $("#i_ingeniero_apertura").val(data.vm.i_ingeniero_apertura).trigger('change.select2');
                 }
                 if (data.avm) {
                     $('#form2').find('input:checkbox').prop('checked', true);
                     var btn = $('#form2 button:submit');
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(2)').removeClass('disabled').trigger('click');
+                    $("#i_ingeniero_control").val(data.vm.i_ingeniero_punto_control).trigger('change.select2');
                 }
                 if ($('#form3 #i_ingeniero_control').val().trim() != "") {
                     $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
@@ -335,7 +356,9 @@ var vista = {
                 if (data.cvm) {
                     var btn = $('#form4 button:submit');
                     btn.html(btn.attr('data-update-text'));
-                    $('.list-group-item:eq(0)').removeClass('disabled').trigger('click');
+                    $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
+                    $("#i_ingeniero_cierre").val(data.vm.i_ingeniero_cierre).trigger('change.select2');
+                    
                 }
                 if (data.exeded_time) {
                     dom.printAlert('El registro se encuentra fuera de tiempo límite.', 'warning', $('.alert'));
@@ -409,7 +432,7 @@ var vista = {
                 }
             }
         }
-        
+
         if (form.attr('id') == "form2") {
             var f1 = $('#d_inicio_programado_sa');
             var f2 = $('#d_fin_programado_sa');
@@ -430,7 +453,7 @@ var vista = {
                     return;
                 }
             }
-            
+
             f1 = $('#n_hora_atencion_vm');
             f2 = $('#n_hora_solicitud');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
@@ -439,7 +462,7 @@ var vista = {
                     return;
                 }
             }
-            
+
             f1 = $('#n_hora_inicio_real_vm');
             f2 = $('#n_hora_solicitud');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
@@ -459,7 +482,7 @@ var vista = {
                     return;
                 }
             }
-            
+
             f1 = $('#n_hora_revision');
             f2 = $('#n_hora_solicitud');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
@@ -479,7 +502,7 @@ var vista = {
                     return;
                 }
             }
-            
+
             f1 = $('#d_hora_atencion_cierre');
             f2 = $('#n_hora_solicitud');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
@@ -488,7 +511,7 @@ var vista = {
                     return;
                 }
             }
-            
+
             f1 = $('#d_hora_cierre_confirmado');
             f2 = $('#n_hora_solicitud');
             if (f1.val().trim() != "" && f2.val().trim() != "") {
@@ -507,6 +530,20 @@ var vista = {
         __mergeObj(obj, form3.getFormData());
         __mergeObj(obj, form4.getFormData());
 
+        switch (form.attr('id')) {
+            case "form1":
+                obj.vm.n_fase_ventana = 'apertura vm';
+                break;
+            case "form2":
+                obj.vm.n_fase_ventana = 'punto control';
+                break;
+            case "form3":
+                obj.vm.n_fase_ventana = 'cierre vm';
+                break;
+        }
+
+        obj.vm.n_asignado = 'N';
+        obj.vm.i_ingeniero_actual = 0;
         var formGlobal = $('#formGlobalAcs');
         var uri = formGlobal.attr('data-action');
         obj.form = form.attr('id');

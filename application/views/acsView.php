@@ -279,7 +279,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="i_ingeniero_apertura" class="col-sm-2 control-label">Ingeniero:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-ingeniero" id="i_ingeniero_apertura" name="avm.i_ingeniero_apertura">
+                                            <select class="form-control select-ingeniero" id="i_ingeniero_apertura" name="avm.i_ingeniero_apertura" disabled>
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -791,7 +791,7 @@
                                         <div class="form-group">
                                             <label for="i_ingeniero_control" class="col-sm-4 control-label">Ingeniero Control:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <select class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control">
+                                                <select class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control" disabled>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -977,11 +977,11 @@
                                                     <option value="Afectación Activa">Afectación Activa</option>
                                                     <option value="Cancelado">Cancelado</option>
                                                     <option value="Degradacion Activa">Degradacion Activa</option>
-                                                    <option value="Degradacion Superada">Degradacion Superada</option>
+                                                    <!--<option value="Degradacion Superada">Degradacion Superada</option>-->
                                                     <option value="Exitoso">Exitoso</option>
                                                     <option value="No Exitoso">No Exitoso</option>
                                                     <option value="Notificacion activa">Notificacion activa</option>
-                                                    <option value="Notificacion Finalizada">Notificacion Finalizada</option>
+                                                    <!--<option value="Notificacion Finalizada">Notificacion Finalizada</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -1064,7 +1064,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="i_ingeniero_cierre" class="col-sm-2 control-label">Ingeniero Cierre:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-ingeniero control-email" id="i_ingeniero_cierre" name="cvm.i_ingeniero_cierre">
+                                            <select class="form-control select-ingeniero control-email" id="i_ingeniero_cierre" name="cvm.i_ingeniero_cierre" disabled>
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
