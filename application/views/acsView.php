@@ -42,9 +42,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="d_fecha_solicitud" class="col-md-3 control-label">Fecha de Solicitud:</label>
+                                            <label for="d_fecha_solicitud" class="col-md-3 control-label">Hora de Solicitud:</label>
                                             <div class="col-sm-8">
-                                                <input type='datetime-local' name="vm.d_fecha_solicitud" id="d_fecha_solicitud" class="form-control" data-callback='dom.formatDateForPrint' required >
+                                                <input type='time' name="vm.n_hora_solicitud" id="n_hora_solicitud" class="form-control" required >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -94,7 +94,7 @@
                                         <div class="col-md-6">
                                             <label for="n_enteejecutor" class="col-md-3 control-label">Ente Ejecutor :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control selectpicker" name="vm.n_enteejecutor" id="n_enteejecutor" required>
+                                                <select class="form-control selectpicker control-email control-fm" name="vm.n_enteejecutor" id="n_enteejecutor" required>
                                                     <option value="">Seleccione</option>
                                                     <option value="Claro" >Claro</option>
                                                     <option value="Nokia" >Nokia</option>
@@ -251,11 +251,11 @@
                                                 <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
                                                     <option value="">Seleccione</option>
                                                     <option value="Activo">Activo</option>
-                                                    <option value="Cancelado">Cancelado</option>
-                                                    <option value="Cerrado">Cerrado</option>
-                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
+                                                    <!--<option value="Cancelado">Cancelado</option>-->
+                                                    <!--<option value="Cerrado">Cerrado</option>-->
+                                                    <!--<option value="Pendiente Apertura">Pendiente Apertura</option>-->
                                                     <option value="Rechazado">Rechazado</option>
-                                                    <option value="Suspendido">Suspendido</option>
+                                                    <!--<option value="Suspendido">Suspendido</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -279,7 +279,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="i_ingeniero_apertura" class="col-sm-2 control-label">Ingeniero:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-ingeniero" id="i_ingeniero_apertura" name="avm.i_ingeniero_apertura">
+                                            <select class="form-control select-ingeniero" id="i_ingeniero_apertura" name="avm.i_ingeniero_apertura" disabled>
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -289,7 +289,7 @@
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <label>DATOS SITE ACCESS:</label>
-                                                    <input type="text" class="form-control control-change" id="i_id_site_access" name="vm.i_id_site_access"/>
+                                                    <input type="text" class="form-control control-change control-email" id="i_id_site_access" name="vm.i_id_site_access"/>
                                                 </div>
                                                 <div class="col-md-7">
                                                     <div class="form-group">
@@ -447,6 +447,7 @@
                                                         <option value="Mayra Alejandra Herrera Betancourt">Mayra Alejandra Herrera Betancourt</option>
                                                         <option value="Nelson David Garzón Aya">Nelson David Garzón Aya</option>
                                                         <option value="Raul Zuñiga Parra">Raul Zuñiga Parra</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -469,6 +470,7 @@
                                                         <option value="GDI_MESADECALIDAD">GDI_MESADECALIDAD</option>
                                                         <option value="Javier Antonio Kamell Yaspe">Javier Antonio Kamell Yaspe</option>
                                                         <option value="Oscar Barrera">Oscar Barrera</option>
+                                                        <option value="N/A">N/A</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -483,21 +485,35 @@
                                             <div class="col-md-6">
                                                 <label for="n_wp" class="col-sm-3 control-label">WP:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="n_wp" name="avm.n_wp"/>
+                                                    <input type="text" class="form-control control-email" id="n_wp" name="avm.n_wp"/>
                                                 </div>
                                             </div>
-                                        </div>                                            
+                                        </div>   
+                                        <div class="form-group">
+                                            <div class="col-md-8 selectContainer">
+                                                <div class="radio radio-primary" style="text-align: left; margin-left: 140px;">
+                                                    <input id="CRQ" type="radio" class="radio-code" name="crq_chg" value="CRQ" onclick="changeCrqChg()" checked>
+                                                    <label for="CRQ" class="text-bold">
+                                                        CRQ
+                                                    </label><br/>
+                                                    <input id="CHG" type="radio" class="radio-code" name="crq_chg" value="CHG" onclick="changeCrqChg()">
+                                                    <label for="CHG" class="text-bold">
+                                                        CHG
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="n_crq" class="col-sm-4 control-label">CRQ:</label>
+                                                <label for="n_crq" class="col-sm-4 control-label">&nbsp;</label>
                                                 <div class="col-sm-8 ">
-                                                    <input class="form-control" id="n_crq" name="avm.n_crq" />
+                                                    <input class="form-control control-email" id="n_crq" name="avm.n_crq" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="n_id_rftools" class="col-sm-3 control-label">ID_RF TOOL:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="n_id_rftools" name="avm.n_id_rftools"/>
+                                                    <input type="text" class="form-control control-email" id="n_id_rftools" name="avm.n_id_rftools"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -540,20 +556,20 @@
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_integrador_backoffice" class="col-sm-2 control-label text-right">Integrador y/o Backoffice:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="n_integrador_backoffice" name="avm.n_integrador_backoffice"/>
+                                                <input type="text" class="form-control control-email" id="n_integrador_backoffice" name="avm.n_integrador_backoffice"/>
                                             </div>
                                         </div>
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_lider_cuadrilla_vm" class="col-sm-2 control-label text-right">Lider de cuadrilla VM:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="n_lider_cuadrilla_vm" name="avm.n_lider_cuadrilla_vm"/>
+                                                <input type="text" class="form-control control-email" id="n_lider_cuadrilla_vm" name="avm.n_lider_cuadrilla_vm"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
                                                 <label for="i_telefono_lider_cuadrilla" class="col-sm-4 control-label">Teléfono Líder de Cuadrilla:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="i_telefono_lider_cuadrilla" name="avm.i_telefono_lider_cuadrilla" class="form-control">
+                                                    <input type="text" id="i_telefono_lider_cuadrilla" name="avm.i_telefono_lider_cuadrilla" class="form-control control-email">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -563,7 +579,7 @@
                                                         <option value="">Seleccione</option>
                                                         <option value="SI">SI</option>
                                                         <option value=">NO">NO</option>
-                                                        <option value="N/A">N/A</option>
+                                                        <!--<option value="N/A">N/A</option>-->
                                                     </select>
                                                 </div>  
                                             </div>
@@ -585,7 +601,7 @@
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_contratista" class="col-sm-2 control-label">Contratista:</label>
                                             <div class="col-sm-10">
-                                                <select id="n_contratista" name="avm.n_contratista" class="form-control">
+                                                <select id="n_contratista" name="avm.n_contratista" class="form-control control-email">
                                                     <option>Seleccione</option>
                                                     <option value="ADS INTEGRAL">ADS INTEGRAL</option>
                                                     <option value="ADSM Ingenieros">ADSM Ingenieros</option>
@@ -665,10 +681,11 @@
                                             <div class="widget bg-white">
                                                 <div class="checkbox checkbox-primary text-left" >
                                                     <p class="muted m-b-0">
-                                                        *<span id="name_station"></span>* - Se confirma Apertura de VM para los siguientes 1 trabajos: <span id="type_work"></span>
+<!--                                                        *<span id="name_station"></span>* - Se confirma Apertura de VM para los siguientes 1 trabajos: <span id="type_work"></span>
                                                         Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *<span id="closing_time"></span>*. 
                                                         Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio.
-                                                        *Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*
+                                                        *Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*-->
+                                                        <textarea id="texto" rows="8" style="width: 100%"></textarea>
                                                     </p>
                                                 </div>
                                             </div>
@@ -775,7 +792,7 @@
                                         <div class="form-group">
                                             <label for="i_ingeniero_control" class="col-sm-4 control-label">Ingeniero Control:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <select class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control">
+                                                <select class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control" disabled>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -820,7 +837,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_station" class="col-sm-3 control-label"><span class="display-block">Estación:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select-estacion control-change" id="k_id_station" name="vm.k_id_station">
+                                                <select class="form-control select-estacion control-change control-email" id="k_id_station" name="vm.k_id_station">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -830,7 +847,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_technology" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select-tecnologia control-change" id="k_id_technology" name="vm.k_id_technology">
+                                                <select class="form-control select-tecnologia control-change control-email" id="k_id_technology" name="vm.k_id_technology">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -838,7 +855,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_band" class="col-sm-3 control-label"><span class="display-block">Banda:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control select-banda control-change" id="k_id_band" name="vm.k_id_band">
+                                                <select class="form-control select-banda control-change control-email" id="k_id_band" name="vm.k_id_band">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -847,11 +864,19 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-tipotrabajo control-change" id="k_id_work" name="vm.k_id_work">
+                                            <select class="form-control select-tipotrabajo control-change control-email" id="k_id_work" name="vm.k_id_work">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
-                                    </div>    
+                                    </div>
+                                    <div class="form-group p-l-10 p-r-10" style="display: none;">
+                                        <label for="k_id_work" class="col-sm-2 control-label">abrev tipo trabajo:</label>
+                                        <div class="col-sm-10 ">
+                                            <select class="form-control select-tipotrabajo" id="n_abrev_work" name="n_abrev_work">
+                                                <option value="">Seleccione</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="n_estado_vm" class="col-sm-4 control-label">Estado VM:</label>
@@ -888,7 +913,7 @@
                                         <div class="col-md-6">
                                             <label for="n_ret" class="col-sm-4 control-label">RET:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="n_ret" name="cvm.n_ret">
+                                                <select class="form-control control-email" id="n_ret" name="cvm.n_ret">
                                                     <option value="">Seleccione</option>
                                                     <option value="VERDADERO">VERDADERO</option>
                                                     <option value="FALSO">FALSO</option>
@@ -898,7 +923,7 @@
                                         <div class="col-md-6">
                                             <label for="n_ampliacion_dualbeam" class="col-sm-3 control-label"><span class="display-block">Ampliación Dualbeam:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="n_ampliacion_dualbeam" name="cvm.n_ampliacion_dualbeam">
+                                                <select class="form-control control-email" id="n_ampliacion_dualbeam" name="cvm.n_ampliacion_dualbeam">
                                                     <option value="">Seleccione</option>
                                                     <option value="VERDADERO">VERDADERO</option>
                                                     <option value="FALSO">FALSO</option>
@@ -910,17 +935,18 @@
                                         <div class="col-md-6">
                                             <label for="n_sectores_dualbeam" class="col-sm-4 control-label">Sectores Dualbeam:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam">
+                                                <input type="text" class="form-control control-email" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam"/>
+<!--                                                <select class="form-control control-email" id="n_sectores_dualbeam" name="cvm.n_sectores_dualbeam">
                                                     <option value="">Seleccione</option>
                                                     <option value="VERDADERO">VERDADERO</option>
                                                     <option value="FALSO">FALSO</option>
-                                                </select>
+                                                </select>-->
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="n_tipo_solucion" class="col-sm-3 control-label"><span class="display-block">Tipo de solución:</span></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="cvm.n_tipo_solucion" id="n_tipo_solucion" />
+                                                <input type="text" class="form-control control-email" name="cvm.n_tipo_solucion" id="n_tipo_solucion" />
                                             </div>
                                         </div>
                                     </div>
@@ -943,7 +969,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="n_sub_estado" class="col-sm-4 control-label">Sub-Estado:</label>
@@ -953,11 +978,11 @@
                                                     <option value="Afectación Activa">Afectación Activa</option>
                                                     <option value="Cancelado">Cancelado</option>
                                                     <option value="Degradacion Activa">Degradacion Activa</option>
-                                                    <option value="Degradacion Superada">Degradacion Superada</option>
+                                                    <!--<option value="Degradacion Superada">Degradacion Superada</option>-->
                                                     <option value="Exitoso">Exitoso</option>
                                                     <option value="No Exitoso">No Exitoso</option>
                                                     <option value="Notificacion activa">Notificacion activa</option>
-                                                    <option value="Notificacion Finalizada">Notificacion Finalizada</option>
+                                                    <!--<option value="Notificacion Finalizada">Notificacion Finalizada</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -976,7 +1001,7 @@
                                                     <option value="">Seleccione</option>
                                                     <option value="SI">SI</option>
                                                     <option value="NO">NO</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <!--<option value="N/A">N/A</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -1020,7 +1045,7 @@
                                                     <option value="">Seleccione</option>
                                                     <option value="SI">SI</option>
                                                     <option value="NO">NO</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <option value="N/A" selected>N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1032,7 +1057,7 @@
                                                     <option value="No notificable">No notificable</option>
                                                     <option value="Pendiente notificar">Pendiente notificar</option>
                                                     <option value="Actividad notificada">Actividad notificada</option>
-                                                    <option value="N/A">N/A</option>
+                                                    <!--<option value="N/A">N/A</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -1040,7 +1065,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="i_ingeniero_cierre" class="col-sm-2 control-label">Ingeniero Cierre:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-ingeniero" id="i_ingeniero_cierre" name="cvm.i_ingeniero_cierre">
+                                            <select class="form-control select-ingeniero control-email" id="i_ingeniero_cierre" name="cvm.i_ingeniero_cierre" disabled>
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -1115,6 +1140,7 @@
                                     </div>
                                 </form>
 
+                                <!--formulario remedy-->
                                 <form class="well form-horizontal" action="insertTiketRemedy" method="post" id="form5" style="display: none">
                                     <legend><h3>Tikets Remedy</h3></legend>
                                     <div class="form-group row">
@@ -1130,6 +1156,9 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_estado_ticket" name="n_estado_ticket">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Abierto">Abierto</option>
+                                                    <option value="Cancelado">Cancelado</option>
+                                                    <option value="Cerrado">Cerrado</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1148,6 +1177,9 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_tipo_afectación" name="n_tipo_afectación">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Afectacion de servicio">Afectacion de servicio</option>
+                                                    <option value="Notificacion">Notificacion</option>
+                                                    <option value="Performance - Degradacion">Performance - Degradacion</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1172,6 +1204,110 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control control-change" id="n_responsable_oym" name="n_responsable_oym">
                                                     <option value="">Seleccione</option>
+                                                    <option value="Adrian Orlando Clavijo Romero">Adrian Orlando Clavijo Romero</option>
+                                                    <option value="Albeiro Garcia Giraldo">Albeiro Garcia Giraldo</option>
+                                                    <option value="Alex Bladimir Gamboa Vasquez">Alex Bladimir Gamboa Vasquez</option>
+                                                    <option value="Alexandra Beatriz Linero Navarra">Alexandra Beatriz Linero Navarra</option>
+                                                    <option value="Alfonso De Jesus Llano Henao">Alfonso De Jesus Llano Henao</option>
+                                                    <option value="Alvaro Wilson Celemín Cáceres">Alvaro Wilson Celemín Cáceres</option>
+                                                    <option value="Andres Felipe Franco Pino">Andres Felipe Franco Pino</option>
+                                                    <option value="Angel Luis Lopez Castillo">Angel Luis Lopez Castillo</option>
+                                                    <option value="Camilo Alexander Rodriguez Gonzalez">Camilo Alexander Rodriguez Gonzalez</option>
+                                                    <option value="Carlos Alberto de la Cruz Cantillo">Carlos Alberto de la Cruz Cantillo</option>
+                                                    <option value="Carlos Alberto Valencia ochoa">Carlos Alberto Valencia Ochoa</option>
+                                                    <option value="Carlos Jose Duarte Sanchez">Carlos Jose Duarte Sanchez</option>
+                                                    <option value="Christian Eduardo Mejia Rincon">Christian Eduardo Mejia Rincon</option>
+                                                    <option value="Clauss Oeckel Perez">Clauss Oeckel Perez</option>
+                                                    <option value="Daniel Alberto Daza Valbuena">Daniel Alberto Daza Valbuena</option>
+                                                    <option value="Daniel Pabon">Daniel Pabon</option>
+                                                    <option value="Dennys Eliecer Hoyos Gutierrez">Dennys Eliecer Hoyos Gutierrez</option>
+                                                    <option value="Diego Bahamon">Diego Bahamon</option>
+                                                    <option value="Diego Fernando Bahamon Velez">Diego Fernando Bahamon Velez</option>
+                                                    <option value="Diego Fernando Torres Acelas">Diego Fernando Torres Acelas</option>
+                                                    <option value="Diego G Melo Revelo">Diego G Melo Revelo</option>
+                                                    <option value="Diego Humberto Puentes Caceres">Diego Humberto Puentes Caceres</option>
+                                                    <option value="Diego Rangel	">Diego Rangel</option>
+                                                    <option value="Edgar Fuentes Gutierrez">Edgar Fuentes Gutierrez</option>
+                                                    <option value="Edgardo Jose Cruz Lora">Edgardo Jose Cruz Lora</option>
+                                                    <option value="Eduard Herney Morales Rios">Eduard Herney Morales Rios</option>
+                                                    <option value="Edwin Jair Murcia Moreno">Edwin Jair Murcia Moreno</option>
+                                                    <option value="Elkin Rosero Acevedo">Elkin Rosero Acevedo</option>
+                                                    <option value="Enrique Kaled Daza Lopez">Enrique Kaled Daza Lopez</option>
+                                                    <option value="Erwin Eliecer Guerrero Osorio">Erwin Eliecer Guerrero Osorio</option>
+                                                    <option value="Ever Carmona Almanza">Ever Carmona Almanza</option>
+                                                    <option value="Fabian Eduardo Perafan Zuluaga">Fabian Eduardo Perafan Zuluaga</option>
+                                                    <option value="Fabian Romero">Fabian Romero</option>
+                                                    <option value="Fabio Nelson Garcia Torres">Fabio Nelson Garcia Torres</option>
+                                                    <option value="Flaminio Reyes Santos">Flaminio Reyes Santos</option>
+                                                    <option value="Gabriel David Molina Acevedo">Gabriel David Molina Acevedo</option>
+                                                    <option value="German Gil Ramos">German Gil Ramos</option>
+                                                    <option value="Halbher Holmedo Hernandez Hernandez">Halbher Holmedo Hernandez Hernandez</option>
+                                                    <option value="Harol Andrey Luna Sanchez">Harol Andrey Luna Sanchez</option>
+                                                    <option value="Hector Fabian Obando Colonia">Hector Fabian Obando Colonia</option>
+                                                    <option value="Hector Narces Mejia Arango">Hector Narces Mejia Arango</option>
+                                                    <option value="Helberth Giovanni Sierra Flechas">Helberth Giovanni Sierra Flechas</option>
+                                                    <option value="Hever Moncayo Martinez">Hever Moncayo Martinez</option>
+                                                    <option value="Ivan Alberto Pinto Gonzales">Ivan Alberto Pinto Gonzales</option>
+                                                    <option value="Ivan Dario Torres Cadena">Ivan Dario Torres Cadena</option>
+                                                    <option value="Jaime Luis Jimenez Garcia">Jaime Luis Jimenez Garcia</option>
+                                                    <option value="Jairo Andres Fajardo Mendoza">Jairo Andres Fajardo Mendoza</option>
+                                                    <option value="James Hernan Reina Bolaños">James Hernan Reina Bolaños</option>
+                                                    <option value="Javier Andres Angarita Bernal">Javier Andres Angarita Bernal</option>
+                                                    <option value="Javier Guzman">Javier Guzman</option>
+                                                    <option value="Javier Suaza Alvarado">Javier Suaza Alvarado</option>
+                                                    <option value="Jeisson Andres Gallego Castillo">Jeisson Andres Gallego Castillo</option>
+                                                    <option value="Jhon Solarte Quintero">Jhon Solarte Quintero</option>
+                                                    <option value="Jhonatan Mejia">Jhonatan Mejia</option>
+                                                    <option value="Jhonathan Felipe Martinez">Jhonathan Felipe Martinez</option>
+                                                    <option value="Jhonnatan Velasco">Jhonnatan Velasco</option>
+                                                    <option value="Jhonny Carrillo Quintero">Jhonny Carrillo Quintero</option>
+                                                    <option value="Jhonny Esteban Puente Morelos">Jhonny Esteban Puente Morelos</option>
+                                                    <option value="Jimmy Aya Diaz">Jimmy Aya Diaz</option>
+                                                    <option value="John F Solarte Quintero">John F Solarte Quintero</option>
+                                                    <option value="Johnatan Felipe Martinez Garcia">Johnatan Felipe Martinez Garcia</option>
+                                                    <option value="Jorge Andres Acero Hernandez">Jorge Andres Acero Hernandez</option>
+                                                    <option value="Jose Alberto Miranda Ríos">Jose Alberto Miranda Ríos</option>
+                                                    <option value="Jose Alejandro Ocampo Aguirre">Jose Alejandro Ocampo Aguirre</option>
+                                                    <option value="Jose Angel Navas Lombana">Jose Angel Navas Lombana</option>
+                                                    <option value="Jose Antonio Sierra Zambrano">Jose Antonio Sierra Zambrano</option>
+                                                    <option value="Jose Carlos Lacatt Martinez">Jose Carlos Lacatt Martinez</option>
+                                                    <option value="Jose Manuel Rivera Cardenas">Jose Manuel Rivera Cardenas</option>
+                                                    <option value="Juan Alberto Hernandez Gonzalez">Juan Alberto Hernandez Gonzalez</option>
+                                                    <option value="Juan Carlos Araos Guzman">Juan Carlos Araos Guzman</option>
+                                                    <option value="Juan David Durango Acosta">Juan David Durango Acosta</option>
+                                                    <option value="Juan Pablo Montoya Palacio">Juan Pablo Montoya Palacio</option>
+                                                    <option value="Juan Pablo Pulgarin Gutierrez">Juan Pablo Pulgarin Gutierrez</option>
+                                                    <option value="Julio Cesar Castaño Vargas">Julio Cesar Castaño Vargas</option>
+                                                    <option value="Julio Cesar Giraldo Betancur">Julio Cesar Giraldo Betancur</option>
+                                                    <option value="Julio Cesar Rodriguez Ruiz">Julio Cesar Rodriguez Ruiz</option>
+                                                    <option value="Julio Eduardo Castillo Cuadros">Julio Eduardo Castillo Cuadros</option>
+                                                    <option value="Leonardo Gomez Gutierrez">Leonardo Gomez Gutierrez</option>
+                                                    <option value="Leonel Alfonso Castellanos">Leonel Alfonso Castellanos</option>
+                                                    <option value="Lowell Suarez">Lowell Suarez</option>
+                                                    <option value="Luis Fernando Rua Palacio">Luis Fernando Rua Palacio</option>
+                                                    <option value="Luis Gabriel Caceres Corredor">Luis Gabriel Caceres Corredor</option>
+                                                    <option value="Luis Gabriel Ramirez Castano">Luis Gabriel Ramirez Castano</option>
+                                                    <option value="Marcela Consuegra Murcia">Marcela Consuegra Murcia</option>
+                                                    <option value="Mauricio Herrera Rodrigurez">Mauricio Herrera Rodrigurez</option>
+                                                    <option value="Mauricio Mosquera Castaneda">Mauricio Mosquera Castaneda</option>
+                                                    <option value="Mayra Alejandra Cortes Nuñez">Mayra Alejandra Cortes Nuñez</option>
+                                                    <option value="Miguel Angel Mejia Saldarriaga">Miguel Angel Mejia Saldarriaga</option>
+                                                    <option value="Monica Lizeth Montoya Cifuentes">Monica Lizeth Montoya Cifuentes</option>
+                                                    <option value="Norberto de Jesus Taborda Montoya">Norberto de Jesus Taborda Montoya</option>
+                                                    <option value="Octaviano Sanchez Chavez">Octaviano Sanchez Chavez</option>
+                                                    <option value="Orlando Duque Polo">Orlando Duque Polo</option>
+                                                    <option value="Orlando Euripides Landinez Rojas">Orlando Euripides Landinez Rojas</option>
+                                                    <option value="Pedro Tomas Buitrago">Pedro Tomas Buitrago</option>
+                                                    <option value="Ricardo Andres Mikan Fajardo">Ricardo Andres Mikan Fajardo</option>
+                                                    <option value="Roberto Carlos Pacheco">Roberto Carlos Pacheco</option>
+                                                    <option value="Rosa Leylany Mesa Chaparro">Rosa Leylany Mesa Chaparro</option>
+                                                    <option value="Santiago Rubiano Torres">Santiago Rubiano Torres</option>
+                                                    <option value="Sebastian vargas Velasquez">Sebastian vargas Velasquez</option>
+                                                    <option value="Sergio Enrique Gutierrez Bello">Sergio Enrique Gutierrez Bello</option>
+                                                    <option value="Site Owners Costa">Site Owners Costa</option>
+                                                    <option value="Tatiana Milena Torres Ulloa">Tatiana Milena Torres Ulloa</option>
+                                                    <option value="Wilson Fernando Osorio Guzman">Wilson Fernando Osorio Guzman</option>
+                                                    <option value="Yhonn Felipe Diaz Caviedes">Yhonn Felipe Diaz Caviedes</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -4,8 +4,10 @@ class WorkModel extends Model {
 
     protected $k_id_work;
     protected $n_name_ork;
-
-    //Los campos que desea ocultar para que no se reflejen en la vista.
+    protected $b_aplica_bloqueo;
+    protected $n_abreviacion;
+    
+    //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "work";
     //Los campos que desea exculir del modelo.
     protected $exclude = ["hidden", "exclude", "table", "class", "db", "__data"];
@@ -14,7 +16,7 @@ class WorkModel extends Model {
         parent::__construct($properties);
         $this->class = get_class($this);
     }
-
+    
         public function setKIdWork($k_id_work) {
         $this->k_id_work = $k_id_work;
     }
@@ -27,6 +29,19 @@ class WorkModel extends Model {
     public function getNNameOrk() {
         return $this->n_name_ork;
     }
+    public function setBAplicaBloqueo($b_aplica_bloqueo) {
+        $this->b_aplica_bloqueo = $b_aplica_bloqueo;
+    }
+    public function getBAplicaBloqueo() {
+        return $this->b_aplica_bloqueo;
+    }
+    public function setNAbreviacion($n_abreviacion) {
+        $this->n_abreviacion = $n_abreviacion;
+    }
+    public function getNAbreviacion() {
+        return $this->n_abreviacion;
+    }
 
 
 }
+

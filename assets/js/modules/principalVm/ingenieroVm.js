@@ -55,6 +55,7 @@ $(function () {
                         {title: "tecnología", data: "n_name_technology"},
                         {title: "Tipo Trabajo", data: "n_name_ork"},
                         {title: "Banda", data: "n_name_band"},
+                        {title: "Fase Actual", data: "n_fase_ventana"},
                         {title: "Opciones", data: ini.getButtons},
                     ],
                     ));

@@ -182,7 +182,8 @@ class User extends CI_Controller {
         $res['statusOnAir'] = $status->getAll();
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
-        /* $res['crq'] = $crq-> */
+        $res['crq'] = $crq->getAllCRQ();
+        
         for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
             for ($j = 0; $j < count($res['status']->data); $j++) {
                 if ($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status) {
