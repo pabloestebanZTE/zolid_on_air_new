@@ -147,9 +147,12 @@ var vista = {
         var estacion = $('#k_id_station option:selected').text();
         var tipo_trabajo = $('#k_id_work option:selected').text()
         var fin_programado = $('#d_fin_programado_sa').val().split('T');
-        $('#name_station').html(estacion);
-        $('#type_work').html(tipo_trabajo);
-        $('#closing_time').html(fin_programado[1]);
+        console.log(fin_programado[1]);
+        var texto = "*" + estacion + "* - Se confirma Apertura de VM para los siguientes 1 trabajos: " + tipo_trabajo
+                + " Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *" + fin_programado[1] + "*."
+                + "Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio."
+                + "*Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*";
+        $('#texto').html(texto);
     },
     onChangeEmail: function () {
         var tecnologia = $('#k_id_technology option:selected').text();
@@ -358,7 +361,7 @@ var vista = {
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
                     $("#i_ingeniero_cierre").val(data.vm.i_ingeniero_cierre).trigger('change.select2');
-                    
+
                 }
                 if (data.exeded_time) {
                     dom.printAlert('El registro se encuentra fuera de tiempo límite.', 'warning', $('.alert'));

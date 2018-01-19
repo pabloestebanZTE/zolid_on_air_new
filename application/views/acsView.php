@@ -681,10 +681,11 @@
                                             <div class="widget bg-white">
                                                 <div class="checkbox checkbox-primary text-left" >
                                                     <p class="muted m-b-0">
-                                                        *<span id="name_station"></span>* - Se confirma Apertura de VM para los siguientes 1 trabajos: <span id="type_work"></span>
+<!--                                                        *<span id="name_station"></span>* - Se confirma Apertura de VM para los siguientes 1 trabajos: <span id="type_work"></span>
                                                         Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *<span id="closing_time"></span>*. 
                                                         Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio.
-                                                        *Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*
+                                                        *Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*-->
+                                                        <textarea id="texto" rows="8" style="width: 100%"></textarea>
                                                     </p>
                                                 </div>
                                             </div>
