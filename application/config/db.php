@@ -98,7 +98,7 @@ return [
             'driver' => 'mysql',
             'host' => 'localhost',
             'port' => '3306',
-            'database' => 'on_air2',
+            'database' => 'on_air',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

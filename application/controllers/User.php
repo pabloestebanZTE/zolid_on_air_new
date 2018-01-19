@@ -266,6 +266,9 @@ class User extends CI_Controller {
             $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
         }
         $answer['ticket'] = json_encode($response->data);
+        //Se corre el parche para corregir los errores...
+        $parche = new Dao_autorecord_model();
+        $parche->corregirSectores($response->data);
         $answer['statusOnAir'] = json_encode($status->getAll()->data);
         $answer['status'] = json_encode($status->getAllStatus()->data);
         $answer['substatus'] = json_encode($status->getAllSubstatus()->data);

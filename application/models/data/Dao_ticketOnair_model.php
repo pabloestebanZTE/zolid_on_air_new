@@ -375,7 +375,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 return new Response(EMessages::NO_FOUND_REGISTERS);
             }
             if (!$tck->k_id_precheck) {
-                return new Response(EMessages::EMPTY_MSG, "Aún no se ha hecho precheck para este proceso.");
+                return new Response(EMessages::EMPTY_MSG, "No se encontró el ticket.");
             }
             //Si no viene el round desde el cliente, se setea al que tenemos en el tck...
             if (!$round) {
@@ -386,9 +386,8 @@ class Dao_ticketOnair_model extends CI_Model {
             $autoRecordDao->record($tck);
 
             //Consultamos el k_id_status_onair.
-            $status_onair = DB::table("status_on_air")
-                    ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
-                    ->first();
+            $sql = "select * from status_on_air where k_id_status_onair = " . $tck->k_id_status_onair;
+            $status_onair = (new DB())->select($sql)->first();
             $actual_status = null;
             $timestamp = 0;
             $percent = 0;
@@ -521,7 +520,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $response->setData($data);
                 return $response;
             } else {
-                return new Response(EMessages::EMPTY_MSG, "Aún no se ha hecho precheck para este proceso.");
+                return new Response(EMessages::EMPTY_MSG, "No se pudo verificar el estado actual del ticket.");
             }
         } catch (ZolidException $ex) {
 

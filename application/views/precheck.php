@@ -399,6 +399,9 @@
         <!-- CUSTOM SCRIPT   -->
         <script>
             var fillTableSectores = function (data) {
+                if (!data.n_json_sectores) {
+                    return;
+                }
                 data = JSON.parse(data.n_json_sectores);
                 if (data && data.length > 0) {
                     $('#jsonSectores').val(data.n_json_sectores);
@@ -470,6 +473,19 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
+
+                $('#tblSectores').on('change', 'input:checkbox', function () {
+                    var chk = $(this);
+                    if (chk.hasClass('checkbox-head')) {
+                        $('#tblSectores input:checkbox').prop('checked', chk.is(':checked'));
+                        return;
+                    }
+                    if ($('#tblSectores td input:checked').length == 0 || chk.is(':checked')) {
+                        $('#tblSectores input.checkbox-head').prop('checked', chk.is(':checked'));
+                    }
+                });
+
+
                 var opciones = {
                     '0': '<option value="">Seleccione el Subestado</option><option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>',
                     '8': '<option value="">Seleccione el Subestado</option><option value="87">Pendiente Tareas Remedy</option><option value="89">Producción</option>',

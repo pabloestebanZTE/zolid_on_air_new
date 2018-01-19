@@ -421,6 +421,7 @@ class TicketOnair extends CI_Controller {
         }
 
         //STAND BY...
+        $actualizar_fecha_ultima_revision = false;
         if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 100) {
             $ticket->stopStandBy($ticketOnAirTemp, $this->request);
             //Detectamos el estado actual...
@@ -443,6 +444,7 @@ class TicketOnair extends CI_Controller {
             $this->request->n_comentario_coor = "Se detiene el Stand By --- " . $this->request->n_comentario_coor;
             $this->json(new Response(EMessages::SUCCESS, "Se ha asignado y detenido el Stand by correctamente."));
             $flag = 1;
+            $actualizar_fecha_ultima_revision = true;
         }
 
         if ($flag == 0) {
@@ -450,7 +452,9 @@ class TicketOnair extends CI_Controller {
         }
 
         if ($flag == 1) {
-            $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
+            if ($actualizar_fecha_ultima_revision) {
+                $ticket->registerReportComment($ticketOnAirTemp->k_id_onair, $this->request->n_comentario_coor);
+            }
         }
     }
 
