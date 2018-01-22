@@ -18,8 +18,8 @@ class Dao_autorecord_model extends CI_Model {
                 return;
             }
             $ticketOnAirModel = new TicketOnAirModel();
-            $ticket = $ticketOnAirModel->where("k_id_onair", "=", $ticket->k_id_onair)->first();
-            if ($ticket && (count($ticket->n_json_sectores) == 0)) {
+//            $ticket = $ticketOnAirModel->where("k_id_onair", "=", $ticket->k_id_onair)->first();
+            if ($ticket && ($ticket->n_json_sectores == null || (strlen(trim($ticket->n_json_sectores))) == 0) || (!$ticket->n_json_sectores)) {
                 $resposne = new Response(EMessages::QUERY);
                 $db = new DB();
                 $sql = "SELECT s.* FROM sectores s INNER JOIN sectores_on_air sa
@@ -67,7 +67,7 @@ class Dao_autorecord_model extends CI_Model {
         $response = new Response(EMessages::CORRECT);
 
         //Correjimos los sectores...       
-        $this->corregirSectores($tikect);
+        $this->corregirSectores($ticket);
 
 
         //Comprobamos el estado del ticket y obtenemos el modelo de la tabla a la que 

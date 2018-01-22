@@ -679,17 +679,17 @@ class Dao_ticketOnair_model extends CI_Model {
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
                         INNER JOIN technology t ON t.k_id_technology = tk.k_id_technology
-                         INNER JOIN `status` s 
-                         INNER JOIN preparation_stage ps ON tk.k_id_preparation = ps.k_id_preparation 
-                        INNER JOIN substatus sb
-                        INNER JOIN status_on_air sa ON
-                        sa.k_id_status_onair = tk.k_id_status_onair
-                        AND sa.k_id_status = s.k_id_status
-                        AND sb.k_id_substatus = sa.k_id_substatus
-                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
-                        INNER JOIN station st ON st.k_id_station = tk.k_id_station
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
-                        WHERE
+                        INNER JOIN preparation_stage ps ON tk.k_id_preparation = ps.k_id_preparation 
+                        INNER JOIN `status` s 
+                        INNER JOIN substatus sb 
+                        INNER JOIN status_on_air sa ON 
+                        sa.k_id_status_onair = tk.k_id_status_onair 
+                        AND sa.k_id_status = s.k_id_status 
+                        AND sb.k_id_substatus = sa.k_id_substatus 
+                        INNER JOIN band bd ON bd.k_id_band = tk.k_id_band 
+                        INNER JOIN station st ON st.k_id_station = tk.k_id_station 
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
+                        WHERE 
                         (t.n_name_technology LIKE '%$request->searchValue%'
                         OR s.n_name_status LIKE '%$request->searchValue%'
                         OR sb.n_name_substatus LIKE '%$request->searchValue%'
@@ -697,7 +697,6 @@ class Dao_ticketOnair_model extends CI_Model {
                         OR st.n_name_station LIKE '%$request->searchValue%'
                         OR w.n_name_ork LIKE '%$request->searchValue%')
                         AND $condition
-                        group by tk.k_id_onair
                         order by $order";
             } else {
                 $sql = "select * from ticket_on_air tk "
@@ -709,15 +708,18 @@ class Dao_ticketOnair_model extends CI_Model {
                         . "inner join status_on_air sa on sa.k_id_status_onair = tk.k_id_status_onair
                                     inner join `status` s on s.k_id_status = sa.k_id_status "
                         . "where $condition "
-                        . "order $order";
+                        . "order by $order";
             }
-
+            
 //            echo $sql;
 
             $pending = $db->select($sql)->get();
 
             $db = new DB();
             $count = $db->select($sqlCount)->first();
+            
+//            echo $sqlCount;
+            
             $count = ($count) ? $count->count : 0;
             $data = [
                 "draw" => intval($request->draw),
@@ -1031,7 +1033,6 @@ class Dao_ticketOnair_model extends CI_Model {
                     }
                 }
                 $ticketModel->where("k_id_onair", "=", $id)->update($obj);
-                $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }

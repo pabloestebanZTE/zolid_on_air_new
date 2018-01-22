@@ -217,6 +217,8 @@ var vista = {
             $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
         } else {
             $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+            $('.btn-group').hide();
+            $('#lblSectoresSeleccionados').hide().after('<label class="center-block"><i class="fa fa-fw fa-warning"></i> No aplica para sectores.</label>');
         }
         if ($('#tblSectores td input:checked').length > 0) {
             $('#tblSectores input.checkbox-head').prop('checked', true);
@@ -286,7 +288,6 @@ var vista = {
                             button: "Aceptar"
                         }).then(function () {
                             location.href = app.urlTo("User/principal");
-//                            location.reload();
                         });
                     } else {
                         swal("Error", response.message, "success");
@@ -359,7 +360,6 @@ var vista = {
         vista.appendSectores(obj);
         app.post('TicketOnair/createProrroga', obj)
                 .success(function (response) {
-//                    console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
                         swal({
@@ -392,11 +392,16 @@ var vista = {
         vista.appendSectores(obj);
         app.post('TicketOnair/nextFase', obj)
                 .success(function (response) {
-//                    console.log(response);
                     var v = app.validResponse(response);
                     if (v) {
-                        swal("Guardado", "Se ha terminado la fase correctamente.", "success");
-                        vista.getDetails();
+                        swal({
+                            title: "Guardado",
+                            text: "Se ha terminado la fase correctamente.",
+                            type: "success",
+                            button: "Aceptar"
+                        }).then(function () {
+                            location.reload();
+                        });
                     } else {
                         swal("Atención", response.message, "warning");
                     }
@@ -431,6 +436,9 @@ var vista = {
         $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
         $('#modalChangeState .content-state').hide();
         $('#modalChangeState a.active').removeClass('active');
+        if (parent.hasClass('finish')) {
+            return;
+        }
         if (parent.hasClass('prorroga')) {
             $('#modalChangeState .states-modal a:eq(0)').addClass('disabled');
         } else if (parent.hasClass('escalado')) {

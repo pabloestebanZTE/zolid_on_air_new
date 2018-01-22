@@ -21,7 +21,7 @@
         <div class="container">
 
             <!--asignacion-->
-            <div class='tab-content' id='tab1'><br><br>
+            <div class='tab-content hidden' id='tab1'><br><br>
                 <div class='container'>
                     <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>
                         <fieldset>
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class='tab-content' id='tab3'>
+            <div class='tab-content m-t-40' id='tab3'>
                 <div class="container">
                     <form class="well form-horizontal" action="TicketOnair/insertTicketOnair" method="post"  id="assignServie2" name="assignServie2">
                         <div class="alert alert-success alert-dismissable hidden">
