@@ -84,14 +84,14 @@ class Dao_autorecord_model extends CI_Model {
 //                }
                 return $response;
             case ConstStates::REINICIO_PRECHECK:
-                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
-                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
-                ]);
+//                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+//                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+//                ]);
                 return $response;
             case ConstStates::REINICIO_12H:
-                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
-                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
-                ]);
+//                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+//                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+//                ]);
                 return $response;
             case ConstStates::PRECHECK:
                 break;
