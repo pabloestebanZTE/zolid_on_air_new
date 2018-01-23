@@ -685,7 +685,7 @@
                                                         Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *<span id="closing_time"></span>*. 
                                                         Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio.
                                                         *Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*-->
-                                                        <textarea id="texto" rows="8" style="width: 100%"></textarea>
+                                                        <textarea id="texto" rows="8" cols="95"></textarea>
                                                     </p>
                                                 </div>
                                             </div>
@@ -847,7 +847,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_technology" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select-tecnologia control-change control-email" id="k_id_technology" name="vm.k_id_technology">
+                                                <select class="form-control select-tecnologia control-change control-email change-solution" id="k_id_technology" name="vm.k_id_technology">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -864,7 +864,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-tipotrabajo control-change control-email" id="k_id_work" name="vm.k_id_work">
+                                            <select class="form-control select-tipotrabajo control-change control-email change-solution" id="k_id_work" name="vm.k_id_work">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -946,7 +946,10 @@
                                         <div class="col-md-6">
                                             <label for="n_tipo_solucion" class="col-sm-3 control-label"><span class="display-block">Tipo de solución:</span></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control control-email" name="cvm.n_tipo_solucion" id="n_tipo_solucion" />
+<!--                                                <input type="text" class="form-control control-email" name="cvm.n_tipo_solucion" id="n_tipo_solucion" />-->
+                                                <select class="form-control control-email" name="cvm.n_tipo_solucion" id="n_tipo_solucion">
+                                                    <option value="">Seleccione</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

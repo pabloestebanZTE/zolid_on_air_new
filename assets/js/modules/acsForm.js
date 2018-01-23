@@ -43,6 +43,7 @@ var vista = {
             vista.onChangeEmail();
             vista.onControlFm();
             vista.onChangeFineFault();
+            vista.onChangeTypeSolution();
         }, 15);
     },
     events: function () {
@@ -58,6 +59,35 @@ var vista = {
         $('#k_tecnologia_afectada').on('change', vista.onValidateRncBsc);
         $('#n_ampliacion_dualbeam').on('change', vista.onChangeDualBeam);
         $('#n_falla_final').on('change', vista.onChangeFineFault);
+        $('.change-solution').on('change', vista.onChangeTypeSolution);
+    },
+    onChangeTypeSolution: function () {
+        var tecnologia = $('#k_id_technology option:selected').text();
+        var tipo_trabajo = $('#k_id_work option:selected').text();
+        var option = '';
+        if (tipo_trabajo == 'Modernización Multiradio') {
+            switch (tecnologia) {
+                case '2G':
+                    option = '<option value="Modernización concurrente">Modernización concurrente</option>'
+                            + '<option value="Modernización dedicada">Modernización dedicada</option>';
+                    break;
+
+                case '2G/3G':
+                    option = '<option value="Modernización RX diversity">Modernización RX diversity</option>'
+                            + '<option value="Modernización RF scharig">Modernización RF scharig</option>';
+                    break;
+
+                default:
+                    option = '<option value="N/A">N/A</option>';
+                    break;
+            }
+        } else {
+            option = '<option value="N/A">N/A</option>';
+        }
+
+        $('#n_tipo_solucion').empty();
+        $('#n_tipo_solucion').append(option);
+        $('#n_tipo_solucion').trigger('selectfilled');
     },
     onChangeFineFault: function () {
         var falla_final = $('#n_falla_final option:selected').text();
@@ -147,7 +177,7 @@ var vista = {
         var estacion = $('#k_id_station option:selected').text();
         var tipo_trabajo = $('#k_id_work option:selected').text()
         var fin_programado = $('#d_fin_programado_sa').val().split('T');
-        console.log(fin_programado[1]);
+//        console.log(fin_programado[1]);
         var texto = "*" + estacion + "* - Se confirma Apertura de VM para los siguientes 1 trabajos: " + tipo_trabajo
                 + " Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *" + fin_programado[1] + "*."
                 + "Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio."
