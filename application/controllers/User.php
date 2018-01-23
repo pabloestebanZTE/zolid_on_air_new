@@ -183,7 +183,7 @@ class User extends CI_Controller {
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
         $res['crq'] = $crq->getAllCRQ();
-        
+
         for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
             for ($j = 0; $j < count($res['status']->data); $j++) {
                 if ($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status) {
@@ -266,7 +266,18 @@ class User extends CI_Controller {
         if ($response->data->k_id_precheck->k_id_user) {
             $response->data->k_id_precheck->k_id_user = $users->findBySingleId($response->data->k_id_precheck->k_id_user)->data;
         }
+        //Se corre el parche para corregir los errores...
+        $parche = new Dao_autorecord_model();
+        $parche->corregirSectores($response->data);
+
+        $ticketObj = (new TicketOnAirModel())->where("k_id_onair", "=", $response->data->k_id_onair)->first();
+
+        $response->data->n_json_sectores = $ticketObj->n_json_sectores;
+        $response->data->n_sectoresbloqueados = $ticketObj->n_sectoresbloqueados;
+        $response->data->n_sectoresdesbloqueados = $ticketObj->n_sectoresdesbloqueados;
+
         $answer['ticket'] = json_encode($response->data);
+
         $answer['statusOnAir'] = json_encode($status->getAll()->data);
         $answer['status'] = json_encode($status->getAllStatus()->data);
         $answer['substatus'] = json_encode($status->getAllSubstatus()->data);

@@ -398,7 +398,12 @@
         <?php $this->load->view('parts/generic/scripts'); ?>
         <!-- CUSTOM SCRIPT   -->
         <script>
+            var hasSectores = true;
             var fillTableSectores = function (data) {
+                if (!data.n_json_sectores) {
+                    hasSectores = false;
+                    return;
+                }
                 data = JSON.parse(data.n_json_sectores);
                 if (data && data.length > 0) {
                     $('#jsonSectores').val(data.n_json_sectores);
@@ -428,6 +433,7 @@
                     }
                     $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
                 } else {
+                    hasSectores = false;
                     $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
                 }
                 if ($('#tblSectores td input:checked').length > 0) {
@@ -470,6 +476,17 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
+                $('#tblSectores').on('change', 'input:checkbox', function () {
+                    var chk = $(this);
+                    if (chk.hasClass('checkbox-head')) {
+                        $('#tblSectores input:checkbox').prop('checked', chk.is(':checked'));
+                        return;
+                    }
+                    if ($('#tblSectores td input:checked').length == 0 || chk.is(':checked')) {
+                        $('#tblSectores input.checkbox-head').prop('checked', chk.is(':checked'));
+                    }
+                });
+
                 var opciones = {
                     '0': '<option value="">Seleccione el Subestado</option><option value="81">Seguimiento 12H</option><option value="82">Seguimiento 24H</option><option value="83">Seguimiento 36H</option>',
                     '8': '<option value="">Seleccione el Subestado</option><option value="87">Pendiente Tareas Remedy</option><option value="89">Producción</option>',
@@ -519,10 +536,16 @@
                     }
                     app.stopEvent(e);
                     var form = $(this);
-                    $('#modalSectores').modal('show');
+                    if (hasSectores) {
+                        $('#modalSectores').modal('show');
+                    } else {
+                        submitForm($('#precheckForm'));
+                    }
                 };
+
                 form.on('submit', onSubmitForm);
-                $('#btnAceptarModalSectores').on('click', function () {
+
+                var sendPrecheck = function () {
                     var cmbSectores = $('#cmbEstadoSectores');
                     var lg = $('#tblSectores').find('input:checked').not('.checkbox-head').length;
                     if (lg == 0) {
@@ -567,8 +590,9 @@
                     $('#sectoresDebloqueados').val(sectoresDesbloqueados);
                     $('#modalSectores').modal('hide');
                     submitForm($('#precheckForm'));
-                });
+                };
 
+                $('#btnAceptarModalSectores').on('click', sendPrecheck);
 //                $('#runPrecheck').removeClass('hidden');
                 $('#runPrecheck').on('click', function () {
                     dom.confirmar("Se iniciará el proceso de precheck, ¿está seguro de continuar con esta operación?", function () {

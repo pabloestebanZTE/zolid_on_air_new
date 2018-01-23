@@ -25,7 +25,7 @@ return [
      */
     //Por favor, Seguir subiendo la configuración de sus localhost y no la del servidor
     //que el único que apunte a el servidor mysql sea quíen suba el proyecto con nuevos cambios...
-    'default' => 'mysqlLocalhost',
+    'default' => 'jj',
     /*
       |--------------------------------------------------------------------------
       | Database Connections
@@ -98,7 +98,7 @@ return [
             'driver' => 'mysql',
             'host' => 'localhost',
             'port' => '3306',
-            'database' => 'on_air2',
+            'database' => 'on_air',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

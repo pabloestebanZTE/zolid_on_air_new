@@ -677,7 +677,7 @@
                     </ul>
                     <div class="row">
                         <div class="col-xs-12 p-b-15">
-                            <label class="center-block"><i class="fa fa-fw fa-wrench"></i> (<span class="length-sectores">0</span>) Sectores<span class="state-sectores"></span>:</label>
+                            <label class="center-block" id="lblSectoresSeleccionados"><i class="fa fa-fw fa-wrench"></i> (<span class="length-sectores">0</span>) Sectores<span class="state-sectores"></span>:</label>
                             <div class="btn-group p-t-5 p-l-15">
                                 <button type="button" class="btn btn-default btn-sectores view"><i class="fa fa-fw fa-check"></i> Verificar</button>
                                 <button type="button" class="btn btn-danger btn-sectores lock"><i class="fa fa-fw fa-lock"></i> Bloquear</button>
