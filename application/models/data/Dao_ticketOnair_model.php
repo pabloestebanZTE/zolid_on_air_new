@@ -746,7 +746,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $dir = $request->order->all()[0]->dir;
             $orderBy["dir"] = $dir;
         }
-        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0", $orderBy);
+        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 2 and sa.k_id_status <> 11 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0", $orderBy);
     }
 
     public function getAssignList($request) {
