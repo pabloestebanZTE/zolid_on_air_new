@@ -215,17 +215,17 @@ class Precheck extends CI_Controller {
 
             //Se actualizan los sectores...
             $valid = new Validator();
-            if ($valid->required(null, $this->request->jsonSectores)) {
+            if ($valid->required(null, $this->request->n_json_sectores)) {
                 $tempOnair = new TicketOnAirModel();
-                $obj = ["n_json_sectores" => $this->request->jsonSectores];
+                $obj = ["n_json_sectores" => $this->request->n_json_sectores];
                 if ($this->request->typeBlock == 1) {
-                    $obj["n_sectoresbloqueados"] = $this->request->sectoresBloqueados;
+                    $obj["n_sectoresbloqueados"] = $this->request->n_sectores_bloqueados;
                     $obj["n_sectoresdesbloqueados"] = DB::NULLED;
                     $obj["d_bloqueo"] = Hash::getDate();
                 } else
                 if ($this->request->typeBlock == 0) {
                     $obj["n_sectoresbloqueados"] = DB::NULLED;
-                    $obj["n_sectoresdesbloqueados"] = $this->request->sectoresDesbloqueados;
+                    $obj["n_sectoresdesbloqueados"] = $this->request->n_sectores_desbloqueados;
                     $obj["d_desbloqueo"] = Hash::getDate();
                 }
                 $tempOnair->where("k_id_onair", "=", $this->request->idOnAir)->update($obj);

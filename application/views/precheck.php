@@ -616,8 +616,9 @@
                     submitForm($('#precheckForm'));
                 };
 
-                $('#btnAceptarModalSectores').on('click', sendPrecheck);
+//                $('#btnAceptarModalSectores').on('click', sendPrecheck);
                 var startPrecheck = function () {
+                    $('#modalSectores').modal('hide');
                     app.post('Precheck/runPrecheck', {
                         idOnAir: $('#idOnair').val(),
                         n_json_sectores: $('#jsonSectores').val(),
@@ -631,7 +632,7 @@
                                     swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
                                     $('.disabledchange').prop('disabled', false);
                                     $('#runPrecheck').remove();
-                                    $('#modalSectores').attr('data-action', 'precheck').modal('show');
+//                                    $('#modalSectores').attr('data-action', 'precheck').modal('show');
                                 } else {
                                     swal("Iniciado", "No se pudo iniciar el precheck.", "error");
                                 }
@@ -689,10 +690,19 @@
                     });
                 });
 
+                $('#btnNoexitiso').on('click', function (e) {
+                    app.stopEvent(e);
+                    app.post('Precheck/updateBasicTicket', {
+                        
+                    });
+                });
+
                 $('#btnAceptarModalSectores').on('click', function () {
                     applySectores();
                     if ($('#modalSectores').attr('data-action') === "start_precheck") {
                         startPrecheck();
+                    } else {
+                        sendPrecheck();
                     }
                 });
             })
