@@ -14,7 +14,7 @@ class Dao_tiket_remedy_model extends CI_Model {
         try {
             $tr = new TiketRemedyModel();
             $datos = $tr->insert($request->all());
-            $tr->getSQL();
+//            echo $tr->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;

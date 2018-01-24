@@ -409,7 +409,7 @@
                                     <div class="col-md-8 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            <textarea class="form-control" name="n_comentario_esc" id="n_comentario_esc" placeholder="Observaciones Coordinador"></textarea>
+                                            <textarea class="form-control" name="n_comentario_esc" id="n_comentario_esc" placeholder="Observaciones de Escalamiento"></textarea>
                                         </div>
                                     </div>
                                 </div>

@@ -827,3 +827,39 @@ INSERT INTO `ref_tech_band` (`k_id_tech_band`, `k_id_technology`, `k_id_band`) V
 	(21, 5, 5),
 	(22, 5, 6),
 	(23, 5, 7);
+
+-- actualizacion 09/01/2018
+ALTER TABLE `on_air`.`work` 
+ADD COLUMN `n_abreviacion` VARCHAR(45) NULL AFTER `b_aplica_bloqueo`;
+
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='34';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_A_OV_' WHERE `k_id_work`='35';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_A_SE_' WHERE `k_id_work`='2';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='36';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J/F' WHERE `k_id_work`='37';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_' WHERE `k_id_work`='10';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_+ Upgrade_Modulos RF_' WHERE `k_id_work`='11';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_+ Upgrade_Modulos RF_' WHERE `k_id_work`='38';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_MMR_' WHERE `k_id_work`='13';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_MMR_' WHERE `k_id_work`='52';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_RB_' WHERE `k_id_work`='14';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='15';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RF_Sharing_a_Dedicado_' WHERE `k_id_work`='16';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_SE_' WHERE `k_id_work`='43';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_2N_' WHERE `k_id_work`='20';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Upgrade_Modulos_ RF_' WHERE `k_id_work`='51';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='33';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_adecuacion_LTE_' WHERE `k_id_work`='1';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='53';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='9';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='8';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='7';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_Cambio_J+B_' WHERE `k_id_work`='6';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_CE_' WHERE `k_id_work`='12';
+UPDATE `on_air`.`work` SET `n_abreviacion`='S_DI_RB_' WHERE `k_id_work`='41';
+UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='42';
+
+-- actualizacion 17/01/2018
+ALTER TABLE `on_air`.`vm` 
+ADD COLUMN `n_fase_ventana` VARCHAR(45) NULL DEFAULT NULL AFTER `i_ingeniero_cierre`,
+ADD COLUMN `n_asignado` INT(11) NULL DEFAULT NULL AFTER `n_fase_ventana`;

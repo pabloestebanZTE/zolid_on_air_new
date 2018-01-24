@@ -25,10 +25,14 @@ $(function () {
                     .success(function (response) {
                         console.log(response);
                         if (app.successResponse(response)) {
-                            ini.fillTable(response.data.hoy);
-                            ini.fillTable2(response.data.historico);
+                            ini.fillTableHoy(response.data.hoy);
+                            ini.fillTableHis(response.data.historico);
+                            ini.fillTableAper(response.data.apertura);
+                            ini.fillTableCont(response.data.control);
+                            ini.fillTableCierre(response.data.cierre);
                         } else {
-                            ini.fillTable([]);
+                            ini.fillTableHoy([]);
+                            ini.fillTableHis([]);
                         }
                     }).error(function (e) {
                 console.error(e);
@@ -41,10 +45,10 @@ $(function () {
         getButtons: function (obj) {
             return '<div class="btn-group">'
                     + '<a href="' + app.urlTo('Acs/vmAcs?id=' + obj.k_id_vm) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Editar Ventana"><span class="fa fa-fw fa-pencil-square-o"></span></a>'
-                    + '<a onclick="showModalAssign(' + obj.k_id_vm + ')" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar Ingeniero"><span class="fa fa-fw fa-list-ul"></span></a>'
+                    + '<a onclick="showModalAssign(' + obj.k_id_vm + ',' + obj.i_ingeniero_apertura + ',' + obj.i_ingeniero_punto_control + ',' + obj.i_ingeniero_cierre + ')" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar Ingeniero"><span class="fa fa-fw fa-list-ul"></span></a>'
                     + '</div>';
         },
-        fillTable: function (data) {
+        fillTableHoy: function (data) {
             if (ini.tablaVmHoy) {
                 dom.refreshTable(ini.tablaVmHoy, data);
                 return;
@@ -57,18 +61,16 @@ $(function () {
                         {title: "tecnología", data: "n_name_technology"},
                         {title: "Tipo Trabajo", data: "n_name_ork"},
                         {title: "Banda", data: "n_name_band"},
-                        {title: "Estado", data: "n_estado_vm"},
-                        {title: "SubEstado", data: "n_sub_estado"},
-                        {title: "Tipo Falla Final", data: "n_falla_final"},
                         {title: "Ing. Crea Grupo", data: "ingeniero_creador_grupo"},
                         {title: "Ing. Apertura", data: "ingeniero_apertura"},
                         {title: "Ing. Punto Control", data: "ingeniero_control"},
                         {title: "Ing. Cierre", data: "ingeniero_cierre"},
+                        {title: "Fase Actual", data: "n_fase_ventana"},
                         {title: "Opciones", data: ini.getButtons},
                     ],
                     ));
         },
-        fillTable2: function (data) {
+        fillTableHis: function (data) {
             if (ini.tablaVmHis) {
                 dom.refreshTable(ini.tablaVmHis, data);
                 return;
@@ -81,9 +83,70 @@ $(function () {
                         {title: "tecnología", data: "n_name_technology"},
                         {title: "Tipo Trabajo", data: "n_name_ork"},
                         {title: "Banda", data: "n_name_band"},
-                        {title: "Estado", data: "n_estado_vm"},
-                        {title: "SubEstado", data: "n_sub_estado"},
-                        {title: "Tipo Falla Final", data: "n_falla_final"},
+                        {title: "Ing. Crea Grupo", data: "ingeniero_creador_grupo"},
+                        {title: "Ing. Apertura", data: "ingeniero_apertura"},
+                        {title: "Ing. Punto Control", data: "ingeniero_control"},
+                        {title: "Ing. Cierre", data: "ingeniero_cierre"},
+                        {title: "Fase Actual", data: "n_fase_ventana"},
+                        {title: "Opciones", data: ini.getButtons},
+                    ],
+                    ));
+        },
+        fillTableAper: function (data) {
+            if (ini.tablaVmApertura) {
+                dom.refreshTable(ini.tablaVmApertura, data);
+                return;
+            }
+            ini.tablaVmApertura = $('#tablaVmApertura').DataTable(dom.configTable(data,
+                    [
+                        {title: "Id ZTE", data: "k_id_vm"},
+                        {title: "Site Acces", data: "i_id_site_access"},
+                        {title: "Estación", data: "n_name_station"},
+                        {title: "tecnología", data: "n_name_technology"},
+                        {title: "Tipo Trabajo", data: "n_name_ork"},
+                        {title: "Banda", data: "n_name_band"},
+                        {title: "Ing. Crea Grupo", data: "ingeniero_creador_grupo"},
+                        {title: "Ing. Apertura", data: "ingeniero_apertura"},
+                        {title: "Ing. Punto Control", data: "ingeniero_control"},
+                        {title: "Ing. Cierre", data: "ingeniero_cierre"},
+                        {title: "Opciones", data: ini.getButtons},
+                    ],
+                    ));
+        },
+        fillTableCont: function (data) {
+            if (ini.tablaVmControl) {
+                dom.refreshTable(ini.tablaVmControl, data);
+                return;
+            }
+            ini.tablaVmControl = $('#tablaVmControl').DataTable(dom.configTable(data,
+                    [
+                        {title: "Id ZTE", data: "k_id_vm"},
+                        {title: "Site Acces", data: "i_id_site_access"},
+                        {title: "Estación", data: "n_name_station"},
+                        {title: "tecnología", data: "n_name_technology"},
+                        {title: "Tipo Trabajo", data: "n_name_ork"},
+                        {title: "Banda", data: "n_name_band"},
+                        {title: "Ing. Crea Grupo", data: "ingeniero_creador_grupo"},
+                        {title: "Ing. Apertura", data: "ingeniero_apertura"},
+                        {title: "Ing. Punto Control", data: "ingeniero_control"},
+                        {title: "Ing. Cierre", data: "ingeniero_cierre"},
+                        {title: "Opciones", data: ini.getButtons},
+                    ],
+                    ));
+        },
+        fillTableCierre: function (data) {
+            if (ini.tablaVmCierre) {
+                dom.refreshTable(ini.tablaVmCierre, data);
+                return;
+            }
+            ini.tablaVmCierre = $('#tablaVmCierre').DataTable(dom.configTable(data,
+                    [
+                        {title: "Id ZTE", data: "k_id_vm"},
+                        {title: "Site Acces", data: "i_id_site_access"},
+                        {title: "Estación", data: "n_name_station"},
+                        {title: "tecnología", data: "n_name_technology"},
+                        {title: "Tipo Trabajo", data: "n_name_ork"},
+                        {title: "Banda", data: "n_name_band"},
                         {title: "Ing. Crea Grupo", data: "ingeniero_creador_grupo"},
                         {title: "Ing. Apertura", data: "ingeniero_apertura"},
                         {title: "Ing. Punto Control", data: "ingeniero_control"},
@@ -98,7 +161,10 @@ $(function () {
     ini.init();
 });
 
-function showModalAssign(k_id_vm) {
+function showModalAssign(k_id_vm, ingeniero_apertura, ingeniero_control, ingeniero_cierre) {
+    $("#i_ingeniero_asignado_avm").val(ingeniero_apertura).trigger('change.select2');
+    $("#i_ingeniero_asignado_pvm").val(ingeniero_control).trigger('change.select2');
+    $("#i_ingeniero_asignado_cvm").val(ingeniero_cierre).trigger('change.select2');
     $('#k_id_vm').val(k_id_vm);
     $('#modalChangeState').modal('show');
 }

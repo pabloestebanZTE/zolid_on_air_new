@@ -21,7 +21,7 @@
         <div class="container">
 
             <!--asignacion-->
-            <div class='tab-content' id='tab1'><br><br>
+            <div class='tab-content hidden' id='tab1'><br><br>
                 <div class='container'>
                     <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>
                         <fieldset>
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class='tab-content' id='tab3'>
+            <div class='tab-content m-t-40' id='tab3'>
                 <div class="container">
                     <form class="well form-horizontal" action="TicketOnair/insertTicketOnair" method="post"  id="assignServie2" name="assignServie2">
                         <div class="alert alert-success alert-dismissable hidden">
@@ -108,11 +108,25 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">CRQ / CHG:</label>
+                                <div class="col-md-8 selectContainer">
+                                    <div class="radio radio-primary" style="text-align: left; margin-left: 140px;">
+                                        <input id="CRQ" type="radio" name="crq_chg" value="CRQ" onclick="changeCrqChg()" checked>
+                                        <label for="CRQ" class="text-bold">
+                                            CRQ
+                                        </label><br/>
+                                        <input id="CHG" type="radio" name="crq_chg" value="CHG" onclick="changeCrqChg()">
+                                        <label for="CHG" class="text-bold">
+                                            CHG
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">&nbsp;</label>
                                 <div class="col-md-8 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                        <input type='text' name="n_crq" id="n_crq" class="form-control" value='' required>
+                                        <input type='text' name="n_crq" id="n_crq" class="form-control" value='' required onfocusout="validateCrqChg()">
                                     </div>
                                 </div>
                             </div>
@@ -409,7 +423,32 @@
                                                                     }
                                                                     $('select').select2({"width": "100%"});
                                                                     //dom.configCalendar($('#d_ingreso_on_air'));
+                                                                    changeCrqChg();
+
                                                                 });
+
+                                                                function changeCrqChg() {
+                                                                    var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                                    switch (valRadio) {
+                                                                        case "CRQ":
+                                                                            $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
+                                                                            break;
+                                                                        case "CHG":
+                                                                            $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
+                                                                            break;
+                                                                    }
+                                                                }
+
+                                                                function validateCrqChg() {
+                                                                    var valinput = $('#n_crq').val();
+                                                                    var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                                    var info = <?php echo $respuesta; ?>;
+                                                                    for (var m = 0; m < info.crq.data.length; m++) {
+                                                                        if (valinput == info.crq.data[m].n_crq) {
+                                                                            swal("Código " + valRadio + " invalido", "Lo sentimos, el código " + valRadio + " ya existe.", "warning");
+                                                                        }
+                                                                    }
+                                                                }
 
                                                                 function editTextCityRegional() {
                                                                     var estacion = $("#estacion").val();

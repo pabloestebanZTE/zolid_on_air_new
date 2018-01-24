@@ -32,6 +32,7 @@ class Acs extends CI_Controller {
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $users = new Dao_user_model();
+        $crq = new dao_preparationStage_model();
 
         $dataForm = null;
         if ($this->request->id) {
@@ -76,6 +77,7 @@ class Acs extends CI_Controller {
         $res['works'] = $work->getAll();
         $res['technologies'] = $technology->getAll();
         $res['users'] = $users->getAllEngineers();
+        $res['crq'] = $crq->getAllCRQ();
 //        var_dump($dataForm);
 
         if ($dataForm) {

@@ -18,6 +18,7 @@ class Dao_acs_model extends CI_Model {
             if ($obj) {
                 //Insertamos el formulario (VM)...
                 $vmModel = new VmModel();
+                $obj->d_fecha_solicitud = date('Y-m-d');
                 $idVm = $vmModel->insert($obj->all())->data;
                 $response->setData($idVm);
                 if ($idVm == 0) {

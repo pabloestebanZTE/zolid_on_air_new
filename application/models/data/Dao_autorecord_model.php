@@ -12,6 +12,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dao_autorecord_model extends CI_Model {
 
+    public function corregirSectores($ticket) {
+        try {
+            if (!$ticket) {
+                return;
+            }
+            $ticketOnAirModel = new TicketOnAirModel();
+//            $ticket = $ticketOnAirModel->where("k_id_onair", "=", $ticket->k_id_onair)->first();
+            if ($ticket && ($ticket->n_json_sectores == null || (strlen(trim($ticket->n_json_sectores))) == 0) || (!$ticket->n_json_sectores)) {
+                $resposne = new Response(EMessages::QUERY);
+                $db = new DB();
+                $sql = "SELECT s.* FROM sectores s INNER JOIN sectores_on_air sa
+                    inner JOIN `work` w
+                    ON s.k_id_sector = sa.k_id_sector WHERE sa.k_id_tecnology = $ticket->k_id_technology
+                    AND sa.k_id_band = $ticket->k_id_band AND w.k_id_work = $ticket->k_id_work "
+                        . "AND w.b_aplica_bloqueo = 1 group by s.k_id_sector ";
+                $data = $db->select($sql)->get();
+
+                $sectores_json = [];
+                $sectoresString = "";
+                foreach ($data as $dat) {
+                    $sectores_json[] = [
+                        "id" => $dat->k_id_sector,
+                        "name" => $dat->name,
+                        "state" => "1" //Bloqueados...
+                    ];
+                    $sectoresString = $sectoresString . $dat->name . ", ";
+                }
+
+                $ticketOnAirModel = new TicketOnAirModel();
+                $ticketOnAirModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+                    "n_sectoresbloqueados" => $sectoresString,
+                    "n_json_sectores" => json_encode($sectores_json)
+                ]);
+            }
+        } catch (ZolidException $exc) {
+            return $ext;
+        }
+    }
+
     /**
      * Esta función evaluará el estado actual de un ticket, y de no existir 
      * un control 12, 24, 36, lo creará...
@@ -27,25 +66,32 @@ class Dao_autorecord_model extends CI_Model {
         }
         $response = new Response(EMessages::CORRECT);
 
+        //Correjimos los sectores...       
+        $this->corregirSectores($ticket);
+
+
         //Comprobamos el estado del ticket y obtenemos el modelo de la tabla a la que 
         //pertenece el seguimiento...
         $segModel = null;
         $d_start = null;
         switch ($ticket->k_id_status_onair) {
             case ConstStates::PRECHECK:
+//                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->first();
+//                if ($ticket) {
                 $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
                     "d_precheck_init" => $ticket->d_fecha_ultima_rev
                 ]);
+//                }
                 return $response;
             case ConstStates::REINICIO_PRECHECK:
-                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
-                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
-                ]);
+//                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+//                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+//                ]);
                 return $response;
             case ConstStates::REINICIO_12H:
-                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
-                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
-                ]);
+//                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
+//                    "d_precheck_init" => $ticket->d_fecha_ultima_rev
+//                ]);
                 return $response;
             case ConstStates::PRECHECK:
                 break;
@@ -62,9 +108,9 @@ class Dao_autorecord_model extends CI_Model {
                 $d_start = "d_start36h";
                 break;
         }
+
         if ($segModel != null) {
-            $seg = $segModel->where("k_id_onair", "=", $ticket->k_id_onair)
-                            ->where("i_round", "=", $ticket->n_round)->first();
+            $seg = $segModel->where("k_id_onair", "=", $ticket->k_id_onair)->where("i_round", "=", $ticket->n_round)->first();
             //Si no existe, lo creamos...
             if (!$seg) {
                 $data = [
@@ -75,7 +121,7 @@ class Dao_autorecord_model extends CI_Model {
                 ];
                 $segModel->insert($data);
             } else {
-                $response = new Response(EMessages::CORRECT, "No fue necesario crear el registro.");
+                $response = new Response(EMessages:: CORRECT, "No fue necesario crear el registro.");
             }
         }
         return $response;

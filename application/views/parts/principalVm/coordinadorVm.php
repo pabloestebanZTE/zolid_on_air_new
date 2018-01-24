@@ -7,17 +7,32 @@
             <div class="panel with-nav-tabs panel-primary">
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> VM hoy</a></li>
-                        <li><a href="#tab2default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-list-ul"></i> VM historico</a></li>
+                        <li class="active"><a href="#tab1default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Apertura de VM</a></li>
+                        <li><a href="#tab2default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Punto de Control</a></li>
+                        <li><a href="#tab3default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Cierre de VM</a></li>
+                        <li><a href="#tab4default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> VM hoy</a></li>
+                        <li><a href="#tab5default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-list-ul"></i> VM historico</a></li>
                     </ul>
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">
                         <div class="tab-pane fade in active table-responsive min-h-300" id="tab1default">
+                            <h1 class="m-t-0">Apertura de VM</h1>
+                            <table id="tablaVmApertura" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        </div>
+                        <div class="tab-pane table-responsive min-h-300" id="tab2default">
+                            <h1 class="m-t-0">Punto de Control</h1>
+                            <table id="tablaVmControl" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        </div>
+                        <div class="tab-pane table-responsive min-h-300" id="tab3default">
+                            <h1 class="m-t-0">Cierre de VM</h1>
+                            <table id="tablaVmCierre" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        </div>
+                        <div class="tab-pane table-responsive min-h-300" id="tab4default">
                             <h1 class="m-t-0">VM hoy</h1>
                             <table id="tablaVmHoy" class="table table-hover table-condensed table-striped" width='100%'></table>
                         </div>
-                        <div class="tab-pane fade table-responsive min-h-300" id="tab2default">
+                        <div class="tab-pane table-responsive min-h-300" id="tab5default">
                             <h1 class="m-t-0">VM historico</h1>
                             <table id="tablaVmHis" class="table table-hover table-condensed table-striped" width='100%'></table>
                         </div>
@@ -92,6 +107,8 @@
         var info = <?php echo $usuarios; ?>;
         console.log(info);
         dom.llenarCombo($('.select-ingeniero'), info.users.data, {text: ["n_name_user", "n_last_name_user"], value: "k_id_user"});
-        dom.submit($('#assignForm'), null, false);
+        dom.submit($('#assignForm'), function () {
+                location.reload();
+        }, false);
     });
 </script>
