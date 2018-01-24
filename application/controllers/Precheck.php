@@ -212,7 +212,26 @@ class Precheck extends CI_Controller {
             $this->json(new Response(EMessages::UPDATE));
 
             $ticketDao = new Dao_ticketOnair_model();
-            $ticketDao->registerReportComment($this->request->idOnAir, "Se inicia el precheck.");
+
+            //Se actualizan los sectores...
+            $valid = new Validator();
+            if ($valid->required(null, $this->request->jsonSectores)) {
+                $tempOnair = new TicketOnAirModel();
+                $obj = ["n_json_sectores" => $this->request->jsonSectores];
+                if ($this->request->typeBlock == 1) {
+                    $obj["n_sectoresbloqueados"] = $this->request->sectoresBloqueados;
+                    $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                    $obj["d_bloqueo"] = Hash::getDate();
+                } else
+                if ($this->request->typeBlock == 0) {
+                    $obj["n_sectoresbloqueados"] = DB::NULLED;
+                    $obj["n_sectoresdesbloqueados"] = $this->request->sectoresDesbloqueados;
+                    $obj["d_desbloqueo"] = Hash::getDate();
+                }
+                $tempOnair->where("k_id_onair", "=", $this->request->idOnAir)->update($obj);
+            }
+
+            $ticketDao->registerReportComment($this->request->idOnAir, $this->request->n_comentario_ing);
         } catch (ZolidException $ex) {
             $this->json($ex);
         }
@@ -241,14 +260,16 @@ class Precheck extends CI_Controller {
             $tempOnair = new TicketOnAirModel();
             $obj = ["n_json_sectores" => $this->request->jsonSectores];
             if ($this->request->typeBlock == 1) {
-                $obj["n_sectores_bloqueados"] = $this->request->sectoresBloqueados;
+                $obj["n_sectoresbloqueados"] = $this->request->sectoresBloqueados;
+                $obj["n_sectoresdesbloqueados"] = DB::NULLED;
                 $obj["d_bloqueo"] = Hash::getDate();
             } else
             if ($this->request->typeBlock == 0) {
-                $obj["n_sectores_desbloqueados"] = $this->request->sectoresDesbloqueados;
+                $obj["n_sectoresbloqueados"] = DB::NULLED;
+                $obj["n_sectoresdesbloqueados"] = $this->request->sectoresDesbloqueados;
                 $obj["d_desbloqueo"] = Hash::getDate();
             }
-            $tempOnair->update($obj);
+            $tempOnair->where("k_id_onair", "=", $this->request->idOnair)->update($obj);
         }
 
         $response1 = $ticket->updateEngTicket($this->request->idOnair, (($ticketOnAir->k_id_status_onair == 79) ? Auth::user()->k_id_user : 0))->data; //camilo
@@ -270,7 +291,7 @@ class Precheck extends CI_Controller {
         if ($this->request->k_id_status_onair == 10) {
             $this->request->comment = $this->request->n_comentario_ing;
             $ticket->toStandBy($response->data, $this->request);
-            $ticket->registerReportComment($this->request->k_id_onair, "Se escala a StandBy --- " . $this->request->comment);
+            $ticket->registerReportComment($this->request->k_id_onair, $this->request->comment);
             $this->json($response);
             return;
         }

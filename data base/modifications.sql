@@ -863,3 +863,9 @@ UPDATE `on_air`.`work` SET `n_abreviacion`='N_RB_' WHERE `k_id_work`='42';
 ALTER TABLE `on_air`.`vm` 
 ADD COLUMN `n_fase_ventana` VARCHAR(45) NULL DEFAULT NULL AFTER `i_ingeniero_cierre`,
 ADD COLUMN `n_asignado` INT(11) NULL DEFAULT NULL AFTER `n_fase_ventana`;
+
+
+
+-- Actualización Miércoles, 24 de Enero de 2018.
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `n_comentario_sectores` VARCHAR(300) NULL DEFAULT NULL AFTER `n_ola_areas_excedido`;

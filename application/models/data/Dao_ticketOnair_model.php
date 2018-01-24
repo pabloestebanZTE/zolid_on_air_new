@@ -573,11 +573,13 @@ class Dao_ticketOnair_model extends CI_Model {
                 if ($request && $valid->required(null, $request->jsonSectores)) {
                     $obj["n_json_sectores"] = $request->jsonSectores;
                     if ($request->typeBlock == 1) {
-                        $obj["n_sectores_bloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresdesbloqueados"] = DB::NULLED;
                         $obj["d_bloqueo"] = Hash::getDate();
                     } else
                     if ($request->typeBlock == 0) {
-                        $obj["n_sectores_desbloqueados"] = $request->sectoresDesbloqueados;
+                        $obj["n_sectoresbloqueados"] = DB::NULLED;
+                        $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
                         $obj["d_desbloqueo"] = Hash::getDate();
                     }
                 }
@@ -710,16 +712,16 @@ class Dao_ticketOnair_model extends CI_Model {
                         . "where $condition "
                         . "order by $order";
             }
-            
+
 //            echo $sql;
 
             $pending = $db->select($sql)->get();
 
             $db = new DB();
             $count = $db->select($sqlCount)->first();
-            
+
 //            echo $sqlCount;
-            
+
             $count = ($count) ? $count->count : 0;
             $data = [
                 "draw" => intval($request->draw),
@@ -1024,11 +1026,13 @@ class Dao_ticketOnair_model extends CI_Model {
                 if ($valid->required(null, $request->jsonSectores)) {
                     $obj["n_json_sectores"] = $request->jsonSectores;
                     if ($request->typeBlock == 1) {
-                        $obj["n_sectores_bloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresdesbloqueados"] = DB::NULLED;
                         $obj["d_bloqueo"] = Hash::getDate();
                     } else
                     if ($request->typeBlock == 0) {
-                        $obj["n_sectores_desbloqueados"] = $request->sectoresDesbloqueados;
+                        $obj["n_sectoresbloqueados"] = DB::NULLED;
+                        $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
                         $obj["d_desbloqueo"] = Hash::getDate();
                     }
                 }
@@ -1189,6 +1193,25 @@ class Dao_ticketOnair_model extends CI_Model {
 
                 //Pasamos a la siguiente fase...
                 $this->toFase($fase, $ticket, $cog12, $cog24, $cog36, $faseActual);
+
+
+                //Se actualizan los sectores...
+                $valid = new Validator();
+                if ($valid->required(null, $request->jsonSectores)) {
+                    $tempOnair = new TicketOnAirModel();
+                    $obj = ["n_json_sectores" => $request->jsonSectores];
+                    if ($request->typeBlock == 1) {
+                        $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                        $obj["d_bloqueo"] = Hash::getDate();
+                    } else
+                    if ($request->typeBlock == 0) {
+                        $obj["n_sectoresbloqueados"] = DB::NULLED;
+                        $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
+                        $obj["d_desbloqueo"] = Hash::getDate();
+                    }
+                    $tempOnair->where("k_id_onair", "=", $id)->update($obj);
+                }
 
                 $this->registerReportComment($ticket->k_id_onair, $comment);
                 $response = new Response(EMessages::SUCCESS);
@@ -1624,7 +1647,7 @@ class Dao_ticketOnair_model extends CI_Model {
         }
 
 
-        $comment = "Se escala a StandBy --- $request->comment";
+        $comment = $request->comment;
 //
 //        //Se deja el proceso en stand by...
 //        //Empezamos guardando toda la configuración del estado actual del proceso, tiempos, etc, etc...
@@ -1708,16 +1731,35 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketModel->where("k_id_onair", "=", $request->idTicket)->update([
                 "i_actualEngineer" => 0,
             ]);
+
+
+            //Se actualizan los sectores...
+            $valid = new Validator();
+            if ($valid->required(null, $request->jsonSectores)) {
+                $tempOnair = new TicketOnAirModel();
+                $obj = ["n_json_sectores" => $request->jsonSectores];
+                if ($request->typeBlock == 1) {
+                    $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                    $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                    $obj["d_bloqueo"] = Hash::getDate();
+                } else
+                if ($request->typeBlock == 0) {
+                    $obj["n_sectoresbloqueados"] = DB::NULLED;
+                    $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
+                    $obj["d_desbloqueo"] = Hash::getDate();
+                }
+                $tempOnair->where("k_id_onair", "=", $request->idTicket)->update($obj);
+            }
+
             //Ahora actualizamos la fecha Start de el registro 12h...
             $onAir12h = new OnAir12hModel();
-
             $this->insertCommentDetail($onAir12h, $tck, [
                 "d_start12h" => Hash::getDate(),
                 "i_hours" => 0,
                 "n_comentario" => "Se inicia el proceso después de pasar por un Reinicio12h."
             ]);
-            $comentario = "Se inicia el proceso después de pasar por un Reinicio12h.";
-            $this->registerReportComment($request->idTicket, $comentario);
+//            $comentario = "Se inicia el proceso después de pasar por un Reinicio12h.";
+            $this->registerReportComment($request->idTicket, $request->comentario_reinicio12h);
 
             return $response;
         } catch (ZolidException $ex) {
