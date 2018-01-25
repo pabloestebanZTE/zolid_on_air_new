@@ -18,7 +18,7 @@ class Dao_precheck_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -31,7 +31,7 @@ class Dao_precheck_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -44,7 +44,7 @@ class Dao_precheck_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -57,7 +57,7 @@ class Dao_precheck_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -76,7 +76,7 @@ class Dao_precheck_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $response->setData($data);
             return $response;
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $exc;
         }
     }
@@ -90,7 +90,7 @@ class Dao_precheck_model extends CI_Model {
         $response->setData($datos);
         $response->setMessage("Se ha insertado el precheck correctamente");
         return $response;
-      } catch (ZolidException $ex) {
+      } catch (DeplynException $ex) {
         return $ex;
       }
     }
@@ -103,7 +103,7 @@ class Dao_precheck_model extends CI_Model {
         $response = new Response(EMessages::SUCCESS);
         $response->setData($datos);
         return $response;
-      } catch (ZolidException $ex) {
+      } catch (DeplynException $ex) {
         return $ex;
       }
     }

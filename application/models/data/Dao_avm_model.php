@@ -17,7 +17,7 @@ class Dao_avm_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }

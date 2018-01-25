@@ -46,7 +46,7 @@ class Dao_autorecord_model extends CI_Model {
                     "n_json_sectores" => json_encode($sectores_json)
                 ]);
             }
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $ext;
         }
     }

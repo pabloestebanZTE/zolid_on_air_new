@@ -15,7 +15,7 @@ class Dao_examples_model extends CI_Model {
         $response = new Response(EMessages::QUERY);
         $response->setData($datos);
         return $response;
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -31,7 +31,7 @@ class Dao_examples_model extends CI_Model {
         $response = new Response(EMessages::QUERY);
         $response->setData($datos);
         return $response;
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -47,7 +47,7 @@ class Dao_examples_model extends CI_Model {
         $response = new Response(EMessages::QUERY);
         $response->setData($data);
         return $response;
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -64,7 +64,7 @@ class Dao_examples_model extends CI_Model {
         $response = new Response(EMessages::QUERY);
         $response->setData($data);
         return $response;
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -82,7 +82,7 @@ class Dao_examples_model extends CI_Model {
         $response = new Response(EMessages::QUERY);
         $response->setData($data);
         return $response;
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -98,7 +98,7 @@ class Dao_examples_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $response->setData($datos);
             return $response;
-          }catch(ZolidException $ex){
+          }catch(DeplynException $ex){
             return $ex;
           }
     }
@@ -112,7 +112,7 @@ class Dao_examples_model extends CI_Model {
         $user = new Users();
         $user->insert($request->all());
         return new Response(EMessages::INSERT);
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -125,7 +125,7 @@ class Dao_examples_model extends CI_Model {
         $user->where("id","=",$request->id)
              ->update($request->all());
         return new Response(EMessages::UPDATE);
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }
@@ -138,7 +138,7 @@ class Dao_examples_model extends CI_Model {
         $user->where("id","=",$request->id)
              ->delete();
         return new Response(EMessages::DELETE);
-      }catch(ZolidException $ex){
+      }catch(DeplynException $ex){
         return $ex;
       }
     }

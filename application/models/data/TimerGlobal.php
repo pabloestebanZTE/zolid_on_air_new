@@ -77,7 +77,7 @@ class TimerGlobal {
             } else {
                 return ["status" => $status_onair];
             }
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return ["ERROR" => "dfasdf"];
         }
     }

@@ -232,7 +232,7 @@ class Precheck extends CI_Controller {
             }
 
             $ticketDao->registerReportComment($this->request->idOnAir, $this->request->n_comentario_ing);
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             $this->json($ex);
         }
     }
@@ -393,6 +393,45 @@ class Precheck extends CI_Controller {
         // $response1 = $ticket->updateRoundTicket($this->request->idOnair, 1)->data;//camilo
         // $repsonse2 = $precheck->updatePrecheckCom($this->request)->data;//camilo
         // $this->json($response);
+    }
+
+    public function updateBasicTicket() {
+        $response = new Response(EMessages::UPDATE);
+        $request = $this->request;
+        try {
+            //Actualizamos el k_id_preparation del onair...
+            $preparationModel = new PreparationStageModel();
+            $preparationModel->where("k_id_preparation", "=", $request->k_id_preparation)->update([
+                "n_btsipaddress" => $request->n_btsipaddress,
+                "n_bcf_wbts_id" => $request->n_bcf_wbts_id,
+                "n_bts_id" => $request->n_bts_id,
+                "b_vistamm" => $request->b_vistamm,
+                "n_controlador" => $request->n_controlador,
+                "n_idcontrolador" => $request->n_idcontrolador
+            ]);
+
+            //Se actualizan los sectores...
+            $valid = new Validator();
+            if ($valid->required(null, $this->request->jsonSectores)) {
+                $tempOnair = new TicketOnAirModel();
+                $obj = ["n_json_sectores" => $this->request->jsonSectores];
+                if ($this->request->typeBlock == 1) {
+                    $obj["n_sectoresbloqueados"] = $this->request->sectoresBloqueados;
+                    $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                    $obj["d_bloqueo"] = Hash::getDate();
+                } else
+                if ($this->request->typeBlock == 0) {
+                    $obj["n_sectoresbloqueados"] = DB::NULLED;
+                    $obj["n_sectoresdesbloqueados"] = $this->request->sectoresDesbloqueados;
+                    $obj["d_desbloqueo"] = Hash::getDate();
+                }
+                $tempOnair->where("k_id_onair", "=", $this->request->idOnair)->update($obj);
+            }
+
+            $this->json($response);
+        } catch (DeplynException $ex) {
+            $this->json($ex);
+        }
     }
 
 }

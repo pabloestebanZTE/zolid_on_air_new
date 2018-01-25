@@ -329,8 +329,8 @@
                                 <div class="form-group">
                                     <label class="col-md-12 control-label"></label>
                                     <div class="col-md-12">
-                                        <button type="submit" id="btnAsignar" class="btn btn-success disabledchange" disabled="" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
-                                        <button type="button" id="btnNoexitiso" class="btn btn-primary disabledchange" disabled="" onclick = "location.href = '<?= URL::to('User/scaling?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
+                                        <button type="submit" id="btnAsignar" class="btn btn-success disabledchange" disabled="" > Confirmar <span class="fa fa-fw fa-check"></span></button>
+                                        <button type="button" id="btnNoexitiso" class="btn btn-primary disabledchange" disabled="" >No exitoso <span class="fa fa-fw fa-times"></span></button>
                                     </div>
                                 </div>
                             </center>
@@ -418,7 +418,7 @@
                                     </div>                            
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" id="contentCommentSectores">
                                 <div class="col-md-3 text-right">
                                     <label class="m-t-5">Observaciones:</label>                            
                                 </div>
@@ -521,6 +521,13 @@
                 $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
                 $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
+                $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
+                $('input[name=n_controlador]').val(ticket.k_id_preparation.n_controlador);
+                $('input[name=n_idcontrolador]').val(ticket.k_id_preparation.n_idcontrolador);
+                $('input[name=n_btsipaddress]').val(ticket.k_id_preparation.n_btsipaddress);
+                $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
+                $('#b_vistamm').val(ticket.k_id_preparation.b_vistamm);
+                $('input[name=n_bts_id]').val(ticket.k_id_preparation.n_bts_id);
                 $('#txtComentarioStartPrecheck').val(ticket.n_comentario_sectores);
 
             });
@@ -629,7 +636,9 @@
                     })
                             .success(function (response) {
                                 if (response.code > 0) {
-                                    swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
+                                    swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success").then(function () {
+                                        location.reload();
+                                    });
                                     $('.disabledchange').prop('disabled', false);
                                     $('#runPrecheck').remove();
 //                                    $('#modalSectores').attr('data-action', 'precheck').modal('show');
@@ -690,17 +699,57 @@
                     });
                 });
 
+                //Se controla Click del botón no exitoso.
                 $('#btnNoexitiso').on('click', function (e) {
+                    var btn = $(this);
                     app.stopEvent(e);
-                    app.post('Precheck/updateBasicTicket', {
-                        
-                    });
+                    var confirmRedirect = function () {
+                        swal({
+                            title: "Error",
+                            message: "No se pudo guardar los guardar los cambios, ¿Desea continuar?",
+                            type: "error",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Continuar",
+                            cancelButtonText: "Cancelar",
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                        }).then(function (res) {
+                            if (res.value) {
+                                location.href = app.urlTo("User/scaling?id=" + $('#idOnair').val());
+                            }
+                        });
+                    };
+
+
+                    //Antes que nada, verificamos los sectores...
+                    $('#modalSectores #contentCommentSectores').hide();
+                    $('#modalSectores').attr('data-action', 'PRECHECK_NO_EXITOSO').modal('show');
                 });
 
                 $('#btnAceptarModalSectores').on('click', function () {
                     applySectores();
                     if ($('#modalSectores').attr('data-action') === "start_precheck") {
                         startPrecheck();
+                    } else if ($('#modalSectores').attr('data-action') === 'PRECHECK_NO_EXITOSO') {
+                        applySectores();
+                        var obj = $('#precheckForm').getFormData();
+                        app.post('Precheck/updateBasicTicket', obj)
+                                .before(function () {
+                                    $('#precheckForm input, button, select, fieldset, textarea').prop('disabled', true);
+                                })
+                                .success(function (response) {
+                                    if (app.validResponse(response)) {
+                                        location.href = app.urlTo("User/scaling?id=" + $('#idOnair').val());
+                                    } else {
+                                        confirmRedirect();
+                                    }
+                                })
+                                .error(function (error) {
+                                    console.error(error);
+                                    confirmRedirect();
+                                })
+                                .send();
                     } else {
                         sendPrecheck();
                     }
