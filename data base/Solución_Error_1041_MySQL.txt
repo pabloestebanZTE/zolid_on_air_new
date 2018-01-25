@@ -1,0 +1,4 @@
+ALGORITHM=COPY
+
+Ejemplo:
+$ ALTER TABLE test_table ADD id2 INT(10), ALGORITHM=COPY;
