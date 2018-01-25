@@ -4,12 +4,19 @@ var vista = {
     init: function () {
         vista.events();
         vista.configView();
-        vista.getDetail();
+//        vista.getDetail();
         vista.listCombox();
         vista.getDetails();
         vista.getStatesProduction();
         dom.submit($('#formDetallesBasicos'), null, false);
-        dom.submit($('#formTrackingDetails'), null, false);
+        $('#formTrackingDetails').on('submit', function (e) {
+            app.stopEvent(e);
+            $('#formTrackingDetails').find('#typeBlock_Dinamic').remove();
+            $('#formTrackingDetails').append('<input type="hidden" id="typeBlock_Dinamic" name="typeBlock" value="' + $('#cmbEstadoSectores').val() + '" />');
+            vista.configSectores();
+            dom.submitDirect($('#formTrackingDetails'), null, false);
+        });
+//        dom.submit($('#formTrackingDetails'), null, false);
     },
     events: function () {
         $('#btnDetails').on('click', vista.onClickDetails);
@@ -32,6 +39,51 @@ var vista = {
         $('.btn-sectores').on('click', vista.onClickBtnSectores);
 
         $('#cmbTecnologia').on('change', vista.onChangeTecnologia);
+
+        $('#cmbEstadosTD').on('change', vista.onChangeCmbEstados);
+        $('#cmbSubEstadosTD').on('change', vista.onChangeState);
+    },
+    createSubstates: function () {
+        vista.substates = {};
+        for (var i = 0; i < vista.states.substates.length; i++) {
+            vista.substates[vista.states.substates[i].k_id_substatus] = vista.states.substates[i];
+        }
+    },
+    onChangeState: function () {
+        $('#formTrackingDetails').append('<input type="hidden" name="ticket_on_air.statuschanged" value="true" />');
+        $('#comment_change_stated').removeClass('hidden').slideDown(500);
+    },
+    onChangeCmbEstados: function (e) {
+        var status = $("#cmbEstadosTD").val();
+        var cmb = $('#cmbSubEstadosTD');
+        if (e != false) {
+            vista.onChangeState();
+        }
+        cmb.empty();
+        if (!vista.substates) {
+            vista.createSubstates();
+        }
+        var length = 0;
+        for (var j = 0; j < vista.states.statusOnAir.length; j++) {
+            if (status == vista.states.statusOnAir[j].k_id_status) {
+                var subStatus = vista.substates[vista.states.statusOnAir[j].k_id_substatus];
+                cmb.append($('<option>', {
+                    value: vista.states.statusOnAir[j].k_id_status_onair,
+                    text: subStatus.n_name_substatus
+                }));
+                length++;
+            }
+            if (status == 9) {
+                cmb.val(97);
+            }
+        }
+        console.log("LENGTH:", length);
+        if (length == 0) {
+            dom.comboVacio(cmb);
+        } else {
+            cmb.find('option:eq(0)').prop('selected', true);
+        }
+        cmb.trigger('change.select2');
     },
     onChangeTecnologia: function () {
         app.get('Utils/bandsByTech', {
@@ -62,6 +114,9 @@ var vista = {
     onClickBtnSectores: function () {
         var btn = $(this);
         if (btn.hasClass('view')) {
+            $('#txtBandaModal').val($('#cmbBanda option:selected').text());
+            $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
+            $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
             $('#modalSectores').modal('show');
         } else if (btn.hasClass('lock')) {
             $('.btn-sectores.unlock').prop('disabled', false).show();
@@ -74,6 +129,7 @@ var vista = {
             $('#cmbEstadoSectores').val(0).trigger('change.select2');
             $('#modalSectores').addClass('updated');
         }
+        vista.configSectores();
     },
     onClickCommentStep: function () {
         $('.row.content-wiget').addClass('hidden');
@@ -129,10 +185,20 @@ var vista = {
         }).send();
     },
     onClickAceptarModalSectores: function () {
+        vista.configSectores();
+        if ($('#modalSectores').attr('data-action') === "REINICIO_12H") {
+            vista.restart12h();
+        }
+        $('#modalSectores').modal('hide');
+        $('#modalSectores').addClass('updated');
+    },
+    configSectores: function () {
         var cmbSectores = $('#cmbEstadoSectores');
         if (cmbSectores.val().trim() == "") {
             if (!cmbSectores.parents('.input-group').next().hasClass('error')) {
                 cmbSectores.parents('.input-group').after('<label class="error m-l-40 m-t-5 text-right center-block"><i class="fa fa-fw fa-warning"></i> Seleccione el estado para los sectores.</label>');
+                $('#modalSectores').addClass('updated');
+                $('#modalSectores').modal('show');
             }
             return;
         }
@@ -168,22 +234,26 @@ var vista = {
         $('#sectoresBloqueados').val(sectoresBloqueados);
         $('#sectoresDebloqueados').val(sectoresDesbloqueados);
         $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + sectoresSeleccionados + ') Sectores selecionados');
-        $('#modalSectores').modal('hide');
-        $('#modalSectores').addClass('updated');
 
         $('.length-sectores').html(sectoresSeleccionados);
+        console.log("ESTADO SECTORES: ", estadoSectores);
         if (estadoSectores == 1) {
             $('.btn-sectores.lock').prop('disabled', true).hide();
+            $('.btn-sectores.unlock').prop('disabled', false).show();
             $('.state-sectores').html(' Bloqueados');
         } else if (estadoSectores == 0) {
             $('.btn-sectores.unlock').prop('disabled', true).hide();
+            $('.btn-sectores.lock').prop('disabled', false).show();
             $('.state-sectores').html(' Desbloqueados');
         }
+        console.log("SECTORES: ", sectores);
 //        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
-
         cmbSectores.parents('.input-group').next('.error').remove();
     },
     onClickEditarSectores: function () {
+        $('#txtBandaModal').val($('#cmbBanda option:selected').text());
+        $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
+        $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
         $('#modalSectores').modal('show');
     },
     fillTableSectores: function (data) {
@@ -250,6 +320,11 @@ var vista = {
                 break;
             case "QUITSTANDBY":
                 vista.quitStandBy();
+                break;
+            default :
+                swal("Error", "No ha seleccionado ninguna acción de la lista", "error").then(function () {
+                    $('#modalChangeState').modal('show');
+                });
                 break;
         }
     },
@@ -338,11 +413,13 @@ var vista = {
     },
     appendSectores: function (obj) {
         if ($('#modalSectores').hasClass('updated')) {
-            $('#btnAceptarModalSectores').trigger('click');
+            vista.configSectores();
+//            $('#btnAceptarModalSectores').trigger('click');
             obj.jsonSectores = $('#jsonSectores').val();
             obj.typeBlock = $('#cmbEstadoSectores').val();
             obj.sectoresBloqueados = $('#sectoresBloqueados').val();
             obj.sectoresDesbloqueados = $('#sectoresDebloqueados').val();
+            obj.comentario_reinicio12h = $('#sectionComentarioSectores #txtComentarioStartPrecheck').val();
         }
     },
     createProrroga: function () {
@@ -474,8 +551,16 @@ var vista = {
         var cmbBands = $('#cmbBanda');
         app.post('TicketOnair/getAllStates').success(function (response) {
             if (response.code > 0) {
+                vista.states = response.data;
                 dom.llenarCombo(cmbStatus, response.data["states"], {text: 'n_name_status', value: 'k_id_status'});
-                dom.llenarCombo(cmbSubStatus, response.data["substates"], {text: 'n_name_substatus', value: 'k_id_substatus'});
+                cmbStatus.on('selectfilled', function () {
+//                    $('#cmbEstadosTD').val($('#cmbEstadosTD').attr('data-value')).trigger('change.select2');
+                    window.setTimeout(function () {
+                        vista.onChangeCmbEstados(false);
+                        $('#cmbSubEstadosTD').trigger('filledStatic');
+                    }, 500);
+                });
+//                dom.llenarCombo(cmbSubStatus, response.data["substates"], {text: 'n_name_substatus', value: 'k_id_substatus'});
                 dom.llenarCombo(cmbTechnolgies, response.data["technologies"], {text: 'n_name_technology', value: 'k_id_technology'});
                 dom.llenarCombo(cmbWorks, response.data["works"], {text: 'n_name_ork', value: 'k_id_work'});
 //                dom.llenarCombo(cmbBands, response.data["bands"], {text: 'n_name_band', value: 'k_id_band'});
@@ -486,6 +571,7 @@ var vista = {
 //                dom.comboVacio(cmbBands);
                 dom.comboVacio(cmbWorks);
             }
+            vista.getDetail();
         }).error(function (e) {
             console.error(e);
             dom.comboVacio(cmbStatus);
@@ -517,7 +603,10 @@ var vista = {
                         var form = $('#formDetallesBasicos');
                         form.fillForm(response.data);
                         $('#cmbTecnologia').trigger('change');
-//                        $('#cmbBanda').on('sel')
+                        $('#cmbBanda').on('selectfilled', function () {
+                            console.log("OKAY", response.data.k_id_band.k_id_band);
+                            $(this).val(response.data.k_id_band.k_id_band).trigger('change.select2');
+                        });
                         $('#n_enteejecutor').trigger('change.select2');
                         var objTemp = {ticket_on_air: response.data};
                         var form = $('#formTrackingDetails');
@@ -531,9 +620,13 @@ var vista = {
                         objTemp = {preparation_stage: response.data.k_id_preparation};
                         form.fillForm(objTemp);
                         form.find('#cmbEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_status.k_id_status);
-                        form.find('#cmbSubEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_substatus.k_id_substatus);
+                        form.find('#cmbSubEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_status_onair);
                         form.find('.select-fill').trigger('select2fill');
                         form.find('select').trigger('change.select2');
+                        $('#cmbSubEstadosTD').on('filledStatic', function () {
+                            $(this).val($(this).attr('data-value')).trigger('change.select2');
+                        });
+//                        vista.listCombox();
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");
                     }
@@ -623,24 +716,11 @@ var vista = {
                 vista.contentFases.addClass('hidden').hide();
                 $('#btnRunActividad').on('click', function () {
                     dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
-                        app.post('TicketOnair/restart12h', {
-                            idTicket: $('#idProceso').val()
-                        }).success(function (response) {
-                            if (response.code > 0) {
-                                swal({
-                                    title: "Iniciado",
-                                    type: "success",
-                                    text: "Se ha iniciado el proceso correctamente.",
-                                    button: "Aceptar"
-                                }).then(function () {
-                                    location.reload();
-                                });
-                            } else {
-                                swal("Error", response.message);
-                            }
-                        }).error(function (e) {
-                            swal("Error", "Se ha producido un error inesperado.", "error");
-                        }).send();
+                        $('#modalSectores').attr('data-action', 'REINICIO_12H').modal('show');
+                        $('#sectionComentarioSectores').removeClass('hidden');
+                        $('#txtBandaModal').val($('#cmbBanda option:selected').text());
+                        $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
+                        $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
                     }, function () {
                         swal("Cancelado", "Se ha cancelado la operación", "error");
                     });
@@ -676,6 +756,28 @@ var vista = {
         $('.comment-step').addClass('active');
         $('#contentComments').removeClass('hidden');
         vista.getComments();
+    },
+    restart12h: function () {
+        var obj = {
+            idTicket: $('#idProceso').val()
+        };
+        vista.appendSectores(obj);
+        app.post('TicketOnair/restart12h', obj).success(function (response) {
+            if (response.code > 0) {
+                swal({
+                    title: "Iniciado",
+                    type: "success",
+                    text: "Se ha iniciado el proceso correctamente.",
+                    button: "Aceptar"
+                }).then(function () {
+                    location.reload();
+                });
+            } else {
+                swal("Error", response.message);
+            }
+        }).error(function (e) {
+            swal("Error", "Se ha producido un error inesperado.", "error");
+        }).send();
     },
     listGroups: function (groups, group) {
         var cmb = $('#cmbGruposTracking');

@@ -40,7 +40,7 @@
                                 if (Auth::getRole() == 'COORDINADOR') {
                                    echo  " <a href=". URL::to('Reportes/reportComments')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
                                    echo  " <a href=". URL::to('reportes/reportOnair')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
-                                  }  
+                                  }
                                 ?>
                             </li>
                             <li>

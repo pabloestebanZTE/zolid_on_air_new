@@ -69,7 +69,7 @@ class Dao_acs_model extends CI_Model {
             } else {
                 return new Response(EMessages::ERROR, "Formulario incompleto.");
             }
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
         return $response;
@@ -136,7 +136,7 @@ class Dao_acs_model extends CI_Model {
             } else {
                 return new Response(EMessages::ERROR, "Formulario incompleto.");
             }
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
         return $response;

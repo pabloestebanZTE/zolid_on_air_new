@@ -1,12 +1,13 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @author = Starlly Software - https://starlly.com.
+ * @licence = GNU
+ * @description = Este archivo es propiedad de Deplyn Framework (https://deplyn.com) 
+ * recuerda que para usarlo debes incluir en tu proyecto la licencia del framework.
  */
 
-class ZolidException extends Exception {
+class DeplynException extends Exception {
 
     var $code;
     var $message;

@@ -23,7 +23,7 @@ class Dao_statusOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -61,7 +61,7 @@ class Dao_statusOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos->all());
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
 
@@ -115,7 +115,7 @@ class Dao_statusOnair_model extends CI_Model {
 //            $response = new Response(EMessages::SUCCESS);
 //            $response->setData($datos->all());
 //            return $response;
-//        } catch (ZolidException $ex) {
+//        } catch (DeplynException $ex) {
 //            return $ex;
 //        }
     }
@@ -126,7 +126,7 @@ class Dao_statusOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -137,7 +137,7 @@ class Dao_statusOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }

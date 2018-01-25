@@ -46,7 +46,7 @@ class Dao_autorecord_model extends CI_Model {
                     "n_json_sectores" => json_encode($sectores_json)
                 ]);
             }
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $ext;
         }
     }
@@ -74,6 +74,7 @@ class Dao_autorecord_model extends CI_Model {
         //pertenece el seguimiento...
         $segModel = null;
         $d_start = null;
+        $idTable = null;
         switch ($ticket->k_id_status_onair) {
             case ConstStates::PRECHECK:
 //                $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair)->first();
@@ -97,16 +98,23 @@ class Dao_autorecord_model extends CI_Model {
                 break;
             case ConstStates::SEGUIMIENTO_12H:
                 $segModel = new OnAir12hModel();
+                $idTable = "k_id_12h_real";
                 $d_start = "d_start12h";
                 break;
             case ConstStates::SEGUIMIENTO_24H:
                 $segModel = new OnAir24hModel();
+                $idTable = "k_id_24h_real";
                 $d_start = "d_start24h";
                 break;
             case ConstStates::SEGUIMIENTO_36H:
                 $segModel = new OnAir36hModel();
+                $idTable = "k_id_36h_real";
                 $d_start = "d_start36h";
                 break;
+        }
+
+        if (($ticket->d_fecha_ultima_rev == null || (strlen(trim($ticket->d_fecha_ultima_rev))) == 0) || (!$ticket->d_fecha_ultima_rev)) {
+            $ticket->d_fecha_ultima_rev = Hash::getDate();
         }
 
         if ($segModel != null) {
@@ -121,6 +129,17 @@ class Dao_autorecord_model extends CI_Model {
                 ];
                 $segModel->insert($data);
             } else {
+                //Comprobamos si la fecha start no existe para actualizarla...
+                if (($seg->{$d_start} == null || (strlen(trim($seg->{$d_start}))) == 0) || (!$seg->{$d_start})) {
+                    $segModel->where($idTable, "=", $seg->{$idTable})
+                            ->where("i_round", "=", $ticket->n_round)
+                            ->update([
+                                $d_start => $ticket->d_fecha_ultima_rev
+                    ]);
+//                    echo "SE ACTUALIZA EL REGISTRO " . $ticket->k_id_onair;
+                } else {
+//                    echo "NO SE ACTUALIZA EL REGISTRO " . $ticket->k_id_onair . " - " . $seg->{$d_start} . " --- " . $seg->{$idTable} . " :: SQL :: " . $segModel->getSQL() . " <br/>";
+                }
                 $response = new Response(EMessages:: CORRECT, "No fue necesario crear el registro.");
             }
         }

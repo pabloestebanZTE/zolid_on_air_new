@@ -283,9 +283,9 @@ var dom = {
                     if (typeof callback === "function" && (state == 0 || state == 2)) {
                         callback();
                     }
-                    if (state == 1) {
-                        element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
-                    }
+//                    if (state == 1) {
+//                        element.html('<span class="text-danger"><i class="fa fa-fw fa-warning"></i> Tiempo agotado</span>');
+//                    }
                 }
             }
             if (progress) {

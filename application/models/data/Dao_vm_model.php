@@ -17,7 +17,7 @@ class Dao_vm_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -31,7 +31,7 @@ class Dao_vm_model extends CI_Model {
             $response = new Response(EMessages::UPDATE);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -43,7 +43,7 @@ class Dao_vm_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -123,7 +123,7 @@ class Dao_vm_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -140,7 +140,7 @@ class Dao_vm_model extends CI_Model {
             $response = new Response(EMessages::UPDATE);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -162,7 +162,7 @@ class Dao_vm_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }

@@ -183,6 +183,60 @@ class OnAir24hModel extends Model {
         $obj->i_timetotal = $timeFinal;
         $obj->i_percent = $percent;
         $obj->today = $today;
+        if ($percent >= 100) {
+            $this->timerExpired($obj, $field, $timeMath);
+        }
+    }
+
+    public function timerExpired(&$obj, $field, $timeMath) {
+        $timestamp = 0;
+        $percent = 0;
+        $timeexceeded = 0;
+
+        $time = Hash::getTimeStamp($obj->{$field});
+        $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
+
+        $date = date("H:i:s");
+        $parts = explode(":", $date);
+        $hour = $parts[0];
+        $minute = $parts[1];
+        $v = Hash::betweenHoras("06:00:00", "18:00:00");
+        if (!$v) {
+            $hrs = 0;
+            if (floor($hour) < 6) {
+                $hrs = floor($hour);
+                //Detectamos si el día de hoy es igual o inferior al día del registro...                    
+                if (date("d", $time / 1000) != date("d", $today / 1000)) {
+                    $hrs += 6;
+                }
+            } else if (floor($hour) > 18) {
+                $hrs = floor($hour) - 18;
+            }
+            $time += $hrs * (((1000 * 60) * 60));
+        } else {
+            if (date("d", $time / 1000) != date("d", $today / 1000)) {
+                $hrs = 12;
+                $time += $hrs * (((1000 * 60) * 60));
+            }
+        }
+
+        $timeFinal = $time + ((1000 * 60) * 60) * $timeMath;
+        //Milisegundos entre la fecha y hoy (tiempo que falta)...
+        $timestamp = ($timeFinal - $today);
+
+        //Obtenemos el porcentaje...
+        $percent = round((($today - $time) / ($timeFinal - $time)) * 100);
+
+        if ($percent >= 100) {
+            $timeexceeded = $today - $timeFinal;
+        }
+
+        $obj->time = $time;
+        $obj->i_timestamp = $timestamp;
+        $obj->i_timetotal = $timeFinal;
+        $obj->i_percent = $percent;
+        $obj->i_timeexceeded = $timeexceeded;
+        $obj->today = $today;
     }
 
     public function updateTimeStamp($tck) {

@@ -90,7 +90,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $response = new Response(EMessages::NO_FOUND_REGISTERS);
             }
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -107,7 +107,7 @@ class Dao_ticketOnair_model extends CI_Model {
             }
             $this->registerReportComment($datos->data, $request->n_comentario_doc);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -119,7 +119,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -133,7 +133,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -146,7 +146,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -159,15 +159,17 @@ class Dao_ticketOnair_model extends CI_Model {
             $workModel = new WorkModel();
             $bandModel = new BandModel();
             $technologyModel = new TechnologyModel();
+            $statusOnAir = new StatusOnairModel();
             $data = array();
             $data["states"] = $statusModel->get();
             $data["substates"] = $subStatusModel->get();
             $data["bands"] = $bandModel->get();
             $data["technologies"] = $technologyModel->get();
             $data["works"] = $workModel->get();
+            $data["statusOnAir"] = $statusOnAir->get();
             $response->setData($data);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -181,24 +183,6 @@ class Dao_ticketOnair_model extends CI_Model {
             if ($tempTicketOnAir) {
                 //SE BUSCA EL TK_ID_STATUS_ONAIR Y SE ACTUALIZA...
                 $status_onair = DB::table("status_on_air")->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)->first();
-                // $objStatusOnair = [
-                //     "k_id_status" => $request->ticket_on_air->k_id_status_onair->k_id_status,
-                //     "k_id_substatus" => $request->ticket_on_air->k_id_status_onair->k_id_substatus
-                // ];
-                $idStatusOnair = 0;
-                $idPreparation = 0;
-                //ACTUALIZANDO STATUS_ONAIR
-//                if ($status_onair) {
-//                    //SE REALIZA LA ACTUALIZACIÓN DEL STATUS_ONAIR...
-////                    $idStatusOnair = $status_onair->k_id_status_onair;
-////                    DB::table("status_on_air")
-////                            ->where("k_id_status_onair", "=", $tempTicketOnAir->k_id_status_onair)
-////                            ->update($objStatusOnair);
-//                } else {
-//                    //SE INSERTA EL STATUS_ONAIR...
-//                    $idStatusOnair = DB::table("status_on_air")
-//                            ->insert($objStatusOnair);
-//                }
                 //ACTUALIZANDO PREPARATION STAGE.
                 $psModel = new PreparationStageModel();
                 //COMPROBAMOS SI EXISTE
@@ -216,35 +200,41 @@ class Dao_ticketOnair_model extends CI_Model {
                     $idPreparation = $psModel->insert($request->preparation_stage->all());
                 }
 
-
-                //SE ACTUALIZA EL REGISTRO ONAIR...
-                //Antes de hacerlo modificamos algunos de los parámetros
-                //asignando los valores correspondientes...
-                $request->ticket_on_air->k_id_status_onair = $idStatusOnair;
-                $request->k_id_preparation = $idPreparation;
-                //print_r($request->ticket_on_air);
-                $obj = [
-                    "n_sectoresbloqueados" => $request->ticket_on_air->n_sectoresbloqueados,
-                    "n_sectoresdesbloqueados" => $request->ticket_on_air->n_sectoresdesbloqueados,
-                    "n_json_sectores" => $request->ticket_on_air->n_json_sectores,
+                $obj = new ObjUtil([
                     "fecha_rft" => $request->ticket_on_air->fecha_rft,
                     "d_fecha_cg" => $request->ticket_on_air->d_fecha_cg,
                     "n_exclusion_bajo_trafico" => $request->ticket_on_air->n_exclusion_bajo_trafico,
-                ];
-                if ($request->estado_sectores >= 0) {
-                    if ($request->estado_sectores == 1) {
-                        $fieldFecha = "d_bloqueo";
-                    } else if ($request->estado_sectores == 0) {
-                        $fieldFecha = "d_desbloqueo";
+                ]);
+
+                //Se actualizan los sectores...
+                $valid = new Validator();
+                if ($valid->required(null, $request->ticket_on_air->n_json_sectores)) {
+                    $tempOnair = new TicketOnAirModel();
+                    $obj->n_json_sectores = $request->ticket_on_air->n_json_sectores;
+                    if ($request->typeBlock == 1) {
+                        $obj->n_sectoresbloqueados = $request->ticket_on_air->n_sectoresbloqueados;
+                        $obj->n_sectoresdesbloqueados = DB::NULLED;
+                        $obj->d_bloqueo = Hash::getDate();
+                    } else
+                    if ($request->typeBlock == 0) {
+                        $obj->n_sectoresbloqueados = DB::NULLED;
+                        $obj->n_sectoresdesbloqueados = $request->ticket_on_air->n_sectoresdesbloqueados;
+                        $obj->d_desbloqueo = Hash::getDate();
                     }
-                    $obj[$fieldFecha] = Hash::getDate();
                 }
-                DB::table("ticket_on_air")
-                        ->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
-                        ->update($obj);
-//                $res = $ticketOnAir->where("k_id_onair", "=", $request->ticket_on_air->id_onair)
-//                        ->update($request->ticket_on_air->all());
-//                DB::runSQL($ticketOnAir->getSQL());
+
+                if ($request->ticket_on_air->statuschanged) {
+                    $obj->k_id_status_onair = $request->ticket_on_air->k_id_substatus;
+                }
+
+                //Se buscan los sectores...
+                //Se actualiza el ticket.
+                $ticketModel = new TicketOnAirModel();
+                $ticketModel->where("k_id_onair", "=", $request->ticket_on_air->id_onair)->update($obj->all());
+
+                if ($request->ticket_on_air->statuschanged) {
+                    $this->registerReportComment($request->ticket_on_air->id_onair, $request->ticket_on_air->coordinador_comment);
+                }
                 $response = new Response(EMessages::UPDATE);
                 $response->setData($ticketOnAir->getSQL());
             } else {
@@ -253,7 +243,7 @@ class Dao_ticketOnair_model extends CI_Model {
             }
             return $response;
             return null;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -270,7 +260,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response->setData($datos);
             $response->setMessage("Se ha actualizado el precheck correctamente");
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -358,7 +348,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $groups = $this->getGroupsGeneric($groups, $gh24, "d_start24h", "d_fin24h");
             $groups = $this->getGroupsGeneric($groups, $gh36, "d_start36h", "d_fin36h");
             return $groups;
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return null;
         }
     }
@@ -522,7 +512,7 @@ class Dao_ticketOnair_model extends CI_Model {
             } else {
                 return new Response(EMessages::EMPTY_MSG, "No se pudo verificar el estado actual del ticket.");
             }
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
 
             return $ex;
         }
@@ -538,7 +528,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -551,7 +541,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -573,11 +563,13 @@ class Dao_ticketOnair_model extends CI_Model {
                 if ($request && $valid->required(null, $request->jsonSectores)) {
                     $obj["n_json_sectores"] = $request->jsonSectores;
                     if ($request->typeBlock == 1) {
-                        $obj["n_sectores_bloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresdesbloqueados"] = DB::NULLED;
                         $obj["d_bloqueo"] = Hash::getDate();
                     } else
                     if ($request->typeBlock == 0) {
-                        $obj["n_sectores_desbloqueados"] = $request->sectoresDesbloqueados;
+                        $obj["n_sectoresbloqueados"] = DB::NULLED;
+                        $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
                         $obj["d_desbloqueo"] = Hash::getDate();
                     }
                 }
@@ -588,7 +580,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -602,7 +594,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -615,7 +607,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -710,16 +702,16 @@ class Dao_ticketOnair_model extends CI_Model {
                         . "where $condition "
                         . "order by $order";
             }
-            
+
 //            echo $sql;
 
             $pending = $db->select($sql)->get();
 
             $db = new DB();
             $count = $db->select($sqlCount)->first();
-            
+
 //            echo $sqlCount;
-            
+
             $count = ($count) ? $count->count : 0;
             $data = [
                 "draw" => intval($request->draw),
@@ -731,7 +723,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $response->setData($data);
             return $response;
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $exc;
         }
     }
@@ -746,7 +738,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $dir = $request->order->all()[0]->dir;
             $orderBy["dir"] = $dir;
         }
-        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0", $orderBy);
+        return $this->getListTicket($request, "(sa.k_id_status <> 1 and sa.k_id_status <> 2 and sa.k_id_status <> 11 and sa.k_id_status <> 3 and sa.k_id_status <> 4 and sa.k_id_status <> 5 and sa.k_id_status <> 6 and sa.k_id_status <> 7 and sa.k_id_status <> 8) AND i_actualEngineer = 0", $orderBy);
     }
 
     public function getAssignList($request) {
@@ -904,7 +896,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $response->setData($data);
             return $response;
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $exc;
         }
     }
@@ -939,7 +931,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $response = new Response(EMessages::QUERY);
             $response->setData($data);
             return $response;
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $exc;
         }
     }
@@ -1024,11 +1016,13 @@ class Dao_ticketOnair_model extends CI_Model {
                 if ($valid->required(null, $request->jsonSectores)) {
                     $obj["n_json_sectores"] = $request->jsonSectores;
                     if ($request->typeBlock == 1) {
-                        $obj["n_sectores_bloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresdesbloqueados"] = DB::NULLED;
                         $obj["d_bloqueo"] = Hash::getDate();
                     } else
                     if ($request->typeBlock == 0) {
-                        $obj["n_sectores_desbloqueados"] = $request->sectoresDesbloqueados;
+                        $obj["n_sectoresbloqueados"] = DB::NULLED;
+                        $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
                         $obj["d_desbloqueo"] = Hash::getDate();
                     }
                 }
@@ -1039,7 +1033,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $this->registerReportComment($id, $comment);
             $response = new Response(EMessages::INSERT);
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -1190,13 +1184,32 @@ class Dao_ticketOnair_model extends CI_Model {
                 //Pasamos a la siguiente fase...
                 $this->toFase($fase, $ticket, $cog12, $cog24, $cog36, $faseActual);
 
+
+                //Se actualizan los sectores...
+                $valid = new Validator();
+                if ($valid->required(null, $request->jsonSectores)) {
+                    $tempOnair = new TicketOnAirModel();
+                    $obj = ["n_json_sectores" => $request->jsonSectores];
+                    if ($request->typeBlock == 1) {
+                        $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                        $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                        $obj["d_bloqueo"] = Hash::getDate();
+                    } else
+                    if ($request->typeBlock == 0) {
+                        $obj["n_sectoresbloqueados"] = DB::NULLED;
+                        $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
+                        $obj["d_desbloqueo"] = Hash::getDate();
+                    }
+                    $tempOnair->where("k_id_onair", "=", $id)->update($obj);
+                }
+
                 $this->registerReportComment($ticket->k_id_onair, $comment);
                 $response = new Response(EMessages::SUCCESS);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -1209,7 +1222,7 @@ class Dao_ticketOnair_model extends CI_Model {
                             ->where("status_on_air.k_id_status", "=", 8)->get();
             $responde->setData($data);
             return $responde;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -1462,7 +1475,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
             }
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -1488,7 +1501,7 @@ class Dao_ticketOnair_model extends CI_Model {
             } else {
                 return new Response(EMessages::ERROR, "El ticket no existe.");
             }
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -1624,7 +1637,7 @@ class Dao_ticketOnair_model extends CI_Model {
         }
 
 
-        $comment = "Se escala a StandBy --- $request->comment";
+        $comment = $request->comment;
 //
 //        //Se deja el proceso en stand by...
 //        //Empezamos guardando toda la configuración del estado actual del proceso, tiempos, etc, etc...
@@ -1708,19 +1721,38 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketModel->where("k_id_onair", "=", $request->idTicket)->update([
                 "i_actualEngineer" => 0,
             ]);
+
+
+            //Se actualizan los sectores...
+            $valid = new Validator();
+            if ($valid->required(null, $request->jsonSectores)) {
+                $tempOnair = new TicketOnAirModel();
+                $obj = ["n_json_sectores" => $request->jsonSectores];
+                if ($request->typeBlock == 1) {
+                    $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
+                    $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                    $obj["d_bloqueo"] = Hash::getDate();
+                } else
+                if ($request->typeBlock == 0) {
+                    $obj["n_sectoresbloqueados"] = DB::NULLED;
+                    $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
+                    $obj["d_desbloqueo"] = Hash::getDate();
+                }
+                $tempOnair->where("k_id_onair", "=", $request->idTicket)->update($obj);
+            }
+
             //Ahora actualizamos la fecha Start de el registro 12h...
             $onAir12h = new OnAir12hModel();
-
             $this->insertCommentDetail($onAir12h, $tck, [
                 "d_start12h" => Hash::getDate(),
                 "i_hours" => 0,
                 "n_comentario" => "Se inicia el proceso después de pasar por un Reinicio12h."
             ]);
-            $comentario = "Se inicia el proceso después de pasar por un Reinicio12h.";
-            $this->registerReportComment($request->idTicket, $comentario);
+//            $comentario = "Se inicia el proceso después de pasar por un Reinicio12h.";
+            $this->registerReportComment($request->idTicket, $request->comentario_reinicio12h);
 
             return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }
@@ -1736,7 +1768,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $data = $db->select($sql)->get();
             $resposne->setData($data);
             return $resposne;
-        } catch (ZolidException $exc) {
+        } catch (DeplynException $exc) {
             return $ext;
         }
     }

@@ -11,6 +11,7 @@
                             <input type="hidden" id="sectoresBloqueados" name="sectoresBloqueados" />
                             <input type="hidden" id="sectoresDebloqueados" name="sectoresDebloqueados" />
                             <input type="hidden" id="typeBlock" name="typeBlock" />
+                            <input type="hidden" id="txtComentarioIng" name="n_comentario_ing" />
 
                             <legend class="p-b-15">Confirmar precheck<button type="button" class="display-block hidden btn btn-primary m-t-10" id="runPrecheck" title="Iniciar Precheck"><i class="fa fa-fw fa-play"></i> Iniciar Precheck</button></legend>
                             <fieldset class="col-md-6 control-label">
@@ -223,15 +224,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Observaciones Precheck</label>
-                                    <div class="col-md-8 inputGroupContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            <textarea class="form-control disabledchange" disabled="" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Observaciones Precheck</label>
+                                                                    <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                                            <textarea class="form-control disabledchange" disabled="" name="n_comentario_ing" id="n_comentario_ing" placeholder="Observaciones Precheck"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Próximo Estado:</label>
                                     <div class="col-md-8 selectContainer">
@@ -328,8 +329,8 @@
                                 <div class="form-group">
                                     <label class="col-md-12 control-label"></label>
                                     <div class="col-md-12">
-                                        <button type="submit" id="btnAsignar" class="btn btn-success disabledchange" disabled="" onclick = "">Confirmar <span class="fa fa-fw fa-check"></span></button>
-                                        <button type="button" id="btnNoexitiso" class="btn btn-primary disabledchange" disabled="" onclick = "location.href = '<?= URL::to('User/scaling?id=' . $_GET['idOnair']) ?>'">No exitoso <span class="fa fa-fw fa-times"></span></button>
+                                        <button type="submit" id="btnAsignar" class="btn btn-success disabledchange" disabled="" > Confirmar <span class="fa fa-fw fa-check"></span></button>
+                                        <button type="button" id="btnNoexitiso" class="btn btn-primary disabledchange" disabled="" >No exitoso <span class="fa fa-fw fa-times"></span></button>
                                     </div>
                                 </div>
                             </center>
@@ -354,9 +355,41 @@
                         <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
                     </div>
                     <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <input type="text" class="form-control" id="txtTipoTrabajoModal" disabled="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
+                                            <input type="text" class="form-control" id="txtTecnologiaModal" disabled="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
+                                            <input type="text" class="form-control" id="txtBandaModal" disabled="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row p-t-15">
                             <div class="col-xs-12">
-                                <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
+                                <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 200px; border: 1px solid #ddd;">
                                     <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
                                         <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th></tr></thead>
                                         <tbody>
@@ -367,21 +400,36 @@
                             </div>
                         </div>
                         <hr/>
-                        <div class="row">
-                            <div class="col-md-3 text-right">
-                                <label class="m-t-5">Estado sectores:</label>                            
+                        <div class="controls-modal">
+                            <div class="row m-b-15">
+                                <div class="col-md-3 text-right">
+                                    <label class="m-t-5">Estado sectores:</label>                            
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-wrench"></i>
+                                        </div>
+                                        <select id="cmbEstadoSectores" class="form-control" >
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Bloqueados</option>
+                                            <option value="0">Desbloqueados</option>
+                                        </select>
+                                    </div>                            
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-fw fa-wrench"></i>
-                                    </div>
-                                    <select id="cmbEstadoSectores" class="form-control" >
-                                        <option value="">Seleccione</option>
-                                        <option value="1">Bloqueados</option>
-                                        <option value="0">Desbloqueados</option>
-                                    </select>
-                                </div>                            
+                            <div class="row" id="contentCommentSectores">
+                                <div class="col-md-3 text-right">
+                                    <label class="m-t-5">Observaciones:</label>                            
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-comment"></i>
+                                        </div>
+                                        <textarea class="form-control" placeholder="Observaciones" id="txtComentarioStartPrecheck" >Se inicia el precheck.</textarea>
+                                    </div>                            
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -449,12 +497,16 @@
                 } else {
                     $('#runPrecheck').addClass('hidden');
                     $('.disabledchange').prop('disabled', false);
+                    $('#txtComentarioStartPrecheck').val("Se confirma el precheck.");
                 }
                 $('input[name=txtEstacion]').val(ticket.k_id_station.n_name_station);
                 $('input[name=txtBanda]').val(ticket.k_id_band.n_name_band);
+                $('#txtBandaModal').val(ticket.k_id_band.n_name_band);
                 $('input[name=txtRegional]').val(ticket.k_id_station.k_id_city.k_id_regional.n_name_regional);
                 $('input[name=txtTecnologia]').val(ticket.k_id_technology.n_name_technology);
+                $('#txtTecnologiaModal').val(ticket.k_id_technology.n_name_technology);
                 $('input[name=txtTipotrabajo]').val(ticket.k_id_work.n_name_ork);
+                $('#txtTipoTrabajoModal').val(ticket.k_id_work.n_name_ork);
                 $('input[name=txtCiudad]').val(ticket.k_id_station.k_id_city.n_name_city);
                 $('input[name=txtEnte]').val(ticket.k_id_preparation.n_enteejecutor);
                 $('input[name=txtCRQ]').val(ticket.k_id_preparation.n_crq);
@@ -469,6 +521,14 @@
                 $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
                 $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
+                $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
+                $('input[name=n_controlador]').val(ticket.k_id_preparation.n_controlador);
+                $('input[name=n_idcontrolador]').val(ticket.k_id_preparation.n_idcontrolador);
+                $('input[name=n_btsipaddress]').val(ticket.k_id_preparation.n_btsipaddress);
+                $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
+                $('#b_vistamm').val(ticket.k_id_preparation.b_vistamm);
+                $('input[name=n_bts_id]').val(ticket.k_id_preparation.n_bts_id);
+                $('#txtComentarioStartPrecheck').val(ticket.n_comentario_sectores);
 
             });
         </script>
@@ -558,7 +618,43 @@
                         }
                         return;
                     }
+                    applySectores();
+                    $('#txtComentarioIng').val($('#txtComentarioStartPrecheck').val());
+                    submitForm($('#precheckForm'));
+                };
 
+//                $('#btnAceptarModalSectores').on('click', sendPrecheck);
+                var startPrecheck = function () {
+                    $('#modalSectores').modal('hide');
+                    app.post('Precheck/runPrecheck', {
+                        idOnAir: $('#idOnair').val(),
+                        n_json_sectores: $('#jsonSectores').val(),
+                        n_sectores_bloqueados: $('#sectoresBloqueados').val(),
+                        n_sectores_desbloqueados: $('#sectoresDebloqueados').val(),
+                        typeBlock: $('#typeBlock').val(),
+                        n_comentario_ing: $('#txtComentarioStartPrecheck').val(),
+                    })
+                            .success(function (response) {
+                                if (response.code > 0) {
+                                    swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success").then(function () {
+                                        location.reload();
+                                    });
+                                    $('.disabledchange').prop('disabled', false);
+                                    $('#runPrecheck').remove();
+//                                    $('#modalSectores').attr('data-action', 'precheck').modal('show');
+                                } else {
+                                    swal("Iniciado", "No se pudo iniciar el precheck.", "error");
+                                }
+                            })
+                            .error(function () {
+                                swal("Error", "Se ha producido un error inesperado al iniciar el precheck.");
+                            })
+                            .send();
+                };
+
+
+                var applySectores = function () {
+                    var cmbSectores = $('#cmbEstadoSectores');
                     //Preparamos los sectores...
                     var sectores = [];
                     var sectoresBloqueados = "";
@@ -589,32 +685,74 @@
                     $('#sectoresBloqueados').val(sectoresBloqueados);
                     $('#sectoresDebloqueados').val(sectoresDesbloqueados);
                     $('#modalSectores').modal('hide');
-                    submitForm($('#precheckForm'));
                 };
 
-                $('#btnAceptarModalSectores').on('click', sendPrecheck);
-//                $('#runPrecheck').removeClass('hidden');
+
+
                 $('#runPrecheck').on('click', function () {
                     dom.confirmar("Se iniciará el proceso de precheck, ¿está seguro de continuar con esta operación?", function () {
-                        app.post('Precheck/runPrecheck', {
-                            idOnAir: $('#idOnair').val()
-                        })
-                                .success(function (response) {
-                                    if (response.code > 0) {
-                                        swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success");
-                                        $('.disabledchange').prop('disabled', false);
-                                        $('#runPrecheck').remove();
-                                    } else {
-                                        swal("Iniciado", "No se pudo iniciar el precheck.", "error");
-                                    }
-                                })
-                                .error(function () {
-                                    swal("Error", "Se ha producido un error inesperado al iniciar el precheck.");
-                                })
-                                .send();
+                        $('#modalSectores').attr('data-action', 'start_precheck').modal('show');
+//                        applySectores();
+//                        startPrecheck();
                     }, function () {
                         swal("Cancelado", "Se ha cancelado la operación", "error");
                     });
+                });
+
+                //Se controla Click del botón no exitoso.
+                $('#btnNoexitiso').on('click', function (e) {
+                    var btn = $(this);
+                    app.stopEvent(e);
+                    var confirmRedirect = function () {
+                        swal({
+                            title: "Error",
+                            message: "No se pudo guardar los guardar los cambios, ¿Desea continuar?",
+                            type: "error",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Continuar",
+                            cancelButtonText: "Cancelar",
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                        }).then(function (res) {
+                            if (res.value) {
+                                location.href = app.urlTo("User/scaling?id=" + $('#idOnair').val());
+                            }
+                        });
+                    };
+
+
+                    //Antes que nada, verificamos los sectores...
+                    $('#modalSectores #contentCommentSectores').hide();
+                    $('#modalSectores').attr('data-action', 'PRECHECK_NO_EXITOSO').modal('show');
+                });
+
+                $('#btnAceptarModalSectores').on('click', function () {
+                    applySectores();
+                    if ($('#modalSectores').attr('data-action') === "start_precheck") {
+                        startPrecheck();
+                    } else if ($('#modalSectores').attr('data-action') === 'PRECHECK_NO_EXITOSO') {
+                        applySectores();
+                        var obj = $('#precheckForm').getFormData();
+                        app.post('Precheck/updateBasicTicket', obj)
+                                .before(function () {
+                                    $('#precheckForm input, button, select, fieldset, textarea').prop('disabled', true);
+                                })
+                                .success(function (response) {
+                                    if (app.validResponse(response)) {
+                                        location.href = app.urlTo("User/scaling?id=" + $('#idOnair').val());
+                                    } else {
+                                        confirmRedirect();
+                                    }
+                                })
+                                .error(function (error) {
+                                    console.error(error);
+                                    confirmRedirect();
+                                })
+                                .send();
+                    } else {
+                        sendPrecheck();
+                    }
                 });
             })
             // , function(){location.href = app.urlTo('User/principalView');}

@@ -5,7 +5,7 @@
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
-                <a href="#" class="close">&times;</a>
+                <a class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
             <!-- TRACKING DETAILS FORM -->
@@ -22,7 +22,7 @@
                                 <form class="form-horizontal well" id="formDetallesBasicos" action="TicketOnair/updateTicketDetails">
                                     <input type="hidden" name="idOnAir" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" />
                                     <div class="alert alert-success alert-dismissable hidden">
-                                        <a href="#" class="close" >&times;</a>
+                                        <a class="close" >&times;</a>
                                         <p class="p-b-0" id="text"></p>
                                     </div>
                                     <div class="panel-body">
@@ -237,7 +237,7 @@
                                 </div>
                                 <form id="formTrackingDetails" action="TicketOnair/updateTicket">
                                     <div class="alert alert-success alert-dismissable hidden">
-                                        <a href="#" class="close" >&times;</a>
+                                        <a class="close" >&times;</a>
                                         <p class="p-b-0" id="text"></p>
                                     </div>
                                     <input type="hidden" name="ticket_on_air.id_onair" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" id="idProceso" />
@@ -344,7 +344,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbEstadosTD">Estado:</label>
-                                                    <select class="form-control select-fill input-sm" id="cmbEstadosTD" disabled="">
+                                                    <select class="form-control select-fill input-sm" name="ticket_on_air.k_id_status" id="cmbEstadosTD" <?= (Auth::isCoordinador()) ? '' : 'disabled=""' ?>>
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
@@ -352,7 +352,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbSubEstadosTD">SubEstado:</label>
-                                                    <select class="form-control select-fill input-sm" id="cmbSubEstadosTD" disabled="">
+                                                    <select class="form-control input-sm" name="ticket_on_air.k_id_substatus" id="cmbSubEstadosTD" <?= (Auth::isCoordinador()) ? '' : 'disabled=""' ?>>
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
@@ -398,6 +398,14 @@
                                                     </select>-->
                                                 </div>
                                             </div>
+                                            <?php if (Auth::isCoordinador()) { ?>
+                                                <div class="col-md-12 hidden" id="comment_change_stated">
+                                                    <div class="form-group">
+                                                        <label for="txtCoordinadorComment">Comentario:</label>
+                                                        <textarea class="form-control" id="txtCoordinadorComment" name="ticket_on_air.coordinador_comment" placeholder="Escriba su comentario aquí."></textarea>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
                                             <!--                                            <div class="col-md-3">
                                                                                             <div class="form-group">
                                                                                                 <label for="txtTicket">Ticket:</label>
@@ -424,7 +432,7 @@
                 </div>
                 <div class="well">
                     <div class="alert alert-info alert-dismissable m-b-0" id="alertFases">
-                        <a href="#" class="close">&times;</a>
+                        <a class="close">&times;</a>
                         <p id="text" class="m-b-0 p-b-0"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultado, por favor espere...</p>
                     </div>
                     <div class="hidden" id="alertReinicio12h">
@@ -538,7 +546,7 @@
                                 </div>
                                 <div class="row content-wiget hidden" id="contentComments">
                                     <div class="col-xs-12 p-t-0">
-                                        <div id="alertComments" class="alert alert-success alert-dismissable hidden"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p id="text" class="m-b-0 p-b-0"></div>
+                                        <div id="alertComments" class="alert alert-success alert-dismissable hidden"><a class="close" data-dismiss="alert" aria-label="close">&times;</a><p id="text" class="m-b-0 p-b-0"></div>
                                     </div>
                                     <div class="col-xs-12 wiget">
 
@@ -715,9 +723,41 @@
                     <h4 class="modal-title"><i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <div class="selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type="text" class="form-control" id="txtTipoTrabajoModal" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
+                                        <input type="text" class="form-control" id="txtTecnologiaModal" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
+                                        <input type="text" class="form-control" id="txtBandaModal" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row p-t-15">
                         <div class="col-xs-12">
-                            <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
+                            <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 200px; border: 1px solid #ddd;">
                                 <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
                                     <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th></tr></thead>
                                     <tbody>
@@ -742,6 +782,19 @@
                                     <option value="1">Bloqueados</option>
                                     <option value="0">Desbloqueados</option>
                                 </select>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="row hidden m-t-15" id="sectionComentarioSectores">
+                        <div class="col-md-3 text-right">
+                            <label class="m-t-5">Observaciones:</label>                            
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-fw fa-comment"></i>
+                                </div>
+                                <textarea class="form-control" placeholder="Observaciones" id="txtComentarioStartPrecheck"></textarea>
                             </div>                            
                         </div>
                     </div>

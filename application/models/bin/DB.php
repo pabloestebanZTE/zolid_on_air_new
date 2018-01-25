@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * @author = Starlly Software - https://starlly.com.
+ * @licence = GNU
+ * @description = Este archivo es propiedad de Deplyn Framework (https://deplyn.com) 
+ * recuerda que para usarlo debes incluir en tu proyecto la licencia del framework.
+ */
+
 class DB extends PDO {
 
     private $cogs;
@@ -233,7 +240,7 @@ class DB extends PDO {
             $fieldDetails = rtrim($fieldDetails, ',');
             $this->sql = "UPDATE $this->table SET $fieldDetails $this->wheres";
             $this->run($obj);
-            return true;
+            return $this->sql;
         } catch (Exception $exc) {
             throw (new DeplynException(EMessages::ERROR_UPDATE))
                     ->setOriginalMessage($exc->getMessage());
@@ -268,6 +275,7 @@ class DB extends PDO {
         $audit = new Dao_audit_model();
         $audit->audit($this->query, $obj, $this->table, $this->wheres);
         $sth->execute();
+        return $this->query;
     }
 
     static function runSQL($sql) {

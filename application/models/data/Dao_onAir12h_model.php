@@ -17,7 +17,7 @@
           $response = new Response(EMessages::SUCCESS);
           $response->setData($datos);
           return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
           return $ex;
         }
       }
@@ -31,7 +31,7 @@
           $response->setData($datos);
           return $response;
 
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
           return $ex;
         }
       }
@@ -44,7 +44,7 @@
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-          } catch (ZolidException $ex) {
+          } catch (DeplynException $ex) {
             return $ex;
           }
         }
@@ -57,7 +57,7 @@
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
-          } catch (ZolidException $ex) {
+          } catch (DeplynException $ex) {
             return $ex;
           }
         }
@@ -69,7 +69,7 @@
               $response = new Response(EMessages::SUCCESS);
               $response->setData($datos);
               return $response;
-          } catch (ZolidException $ex) {
+          } catch (DeplynException $ex) {
               return $ex;
           }
         }
@@ -82,7 +82,7 @@
           $response = new Response(EMessages::SUCCESS);
           $response->setData($datos);
           return $response;
-        } catch (ZolidException $ex) {
+        } catch (DeplynException $ex) {
           return $ex;
         }
       }
