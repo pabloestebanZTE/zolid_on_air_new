@@ -142,6 +142,109 @@ var app = {
     },
     beforeSend: function (data) {
     },
+    uploadFile: function (url, input, validExtensions) {
+        var public = {
+            progress: function (callback) {
+                if (typeof callback === "function") {
+                    public.progress = callback;
+                }
+                return public;
+            },
+            complete: function (callback) {
+                if (typeof callback === "function") {
+                    public.complete = callback;
+                }
+                return public;
+            },
+            errorExtension: function (callback) {
+                if (typeof callback === "function") {
+                    public.errorExtension = callback;
+                }
+                return public;
+            },
+            error: function (callback) {
+                if (typeof callback === "function") {
+                    public.error = callback;
+                }
+                return public;
+            }
+        };
+        var actions = {
+            onProgress: function (e) {
+                var max = e.total;
+                var current = e.loaded;
+                var percentage = (current * 100) / max;
+                public.progress(percentage);
+            },
+            errorExtension: function (file) {
+                console.error("Archivo no admitido, extención no válida.", file);
+                public.errorExtension(file);
+            }
+        };
+
+        var start = function (url, input, validExtensions) {
+            var file = input.files;
+            if (file.length > 0) {
+                file = file[0];
+            } else {
+                console.warn("No se seleccionó ningún archivo");
+                return;
+            }
+            var ext = file.name.split('.');
+            ext = ext[ext.length - 1];
+            var valid = 0;
+            if (validExtensions) {
+                for (var i = 0; i < validExtensions.length; i++) {
+                    if (ext && ext.toLowerCase() == validExtensions[i]) {
+                    } else {
+                        valid--;
+                        actions.errorExtension(file);
+                    }
+                }
+            }
+            if (valid == 0) {
+                var formData = new FormData();
+                formData.append("filename", "file");
+                formData.append("file", file);
+                $.ajax({
+                    url: app.urlTo(url),
+                    type: 'POST',
+                    data: formData,
+                    xhr: function () {
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) {
+                            myXhr.upload.addEventListener('progress', actions.onProgress, false);
+                        }
+                        return myXhr;
+                    },
+                    cache: false,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data, textStatus, jqXHR)
+                    {
+                        if (typeof data.error === 'undefined')
+                        {
+                            public.complete(data);
+                        } else
+                        {
+                            console.log('ERRORS: ' + data.error);
+                            public.error(data.error);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        console.log('ERRORS: ' + textStatus);
+                        public.error(textStatus);
+                    }
+                });
+            }
+        };
+        public.start = function () {
+            start(url, input, validExtensions);
+        };
+        return public;
+    },
     ajax: function (args) {
         var ajax = new Object();
         ajax.url = (app.urlbase + args.url);

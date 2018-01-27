@@ -549,7 +549,7 @@ class Dao_ticketOnair_model extends CI_Model {
     function updateStatusTicket($id, $value, $request = null) {
         try {
             $ticketOnAir = new TicketOnAirModel();
-            if ($request == null) {
+            if ($request && $request->TO_PRODUCCTION == null) {
                 $datos = $ticketOnAir->where("k_id_onair", "=", $id)
                         ->update(["k_id_status_onair" => $value]);
             } else {

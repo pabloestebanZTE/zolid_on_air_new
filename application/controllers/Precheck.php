@@ -297,7 +297,8 @@ class Precheck extends CI_Controller {
         }
         //Para producción.
         if ($this->request->k_id_status_onair >= 87) {
-            $requestProduction = "TO_PRODUCCTION";
+            $requestProduction = $this->request;
+            $requestProduction->TO_PRODUCCTION = true;
             $comment = $this->request->n_comentario_ing;
             $tempComment = [[
             "comment" => $comment,
