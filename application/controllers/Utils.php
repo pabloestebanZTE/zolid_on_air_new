@@ -73,6 +73,22 @@ class Utils extends CI_Controller {
         $this->json($response);
     }
 
+    private function getDatePHPExcel($sheet, $colum) {
+
+//        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+//        $objPHPExcel = $objReader->load($file);
+//        //Obtenemos las dimenciones de la página.
+//        $sheet = $objPHPExcel->getSheet(0);
+
+        $cell = $sheet->getCell($colum);
+        $date = $cell->getValue();
+        if (PHPExcel_Shared_Date::isDateTime($cell)) {
+            $date = date("Y-m-d H:i:s", PHPExcel_Shared_Date::ExcelToPHP($date));
+            $date = Hash::addHours($date, 5);
+        }
+        return $date;
+    }
+
     public function uploadfile() {
         $request = $this->request;
         $storage = new Storage();
@@ -116,49 +132,43 @@ class Utils extends CI_Controller {
                 //Obtenemos las dimenciones de la página.
                 $sheet = $objPHPExcel->getSheet(0);
                 //$highestRow = $sheet->calculateWorksheetDimension();
-
                 //Obtenemos el highestRow...
                 $highestRow = 0;
-                $row = 1;
-                while($validator->required("", $sheet->getCell('A' . $row)->getValue())){
+                $row = 2;
+                while ($validator->required("", $sheet->getCell('A' . $row)->getValue())) {
                     $highestRow++;
                     //$row++;
-                //}
-
-                //$highestColumn = $sheet->getHighestColumn();
-                //$response->setData($highestRow);
-                //$this->json($response);
-                //return;
-
-                //$data = [];                
-
-                //$row = 1;
-
-                //Empezamos a obtener los datos...
-                $obj = new ObjUtil([]);
-                $imported = 0;
-                //for ($row = 1; $row <= $highestRow; $row++) {
+                    //}
+                    //$highestColumn = $sheet->getHighestColumn();
+                    //$response->setData($highestRow);
+                    //$this->json($response);
+                    //return;
+                    //$data = [];                
+                    //$row = 1;
+                    //Empezamos a obtener los datos...
+                    $obj = new ObjUtil([]);
+                    $imported = 0;
+                    //for ($row = 1; $row <= $highestRow; $row++) {
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
-                    /**
                     //Obtenemos y consultamos la estación...
                     $station = $sheet->getCell('A' . $row)->getValue();
-                    $obj->k_id_station = (new StationModel())->where("n_name_station", "=", $station)->orWhere("n_name_station", "LIKE", "%" . $station . "%", $value)->first();
+                    $obj->k_id_station = (new StationModel())->where("n_name_station", "=", $station)->orWhere("n_name_station", "LIKE", "%" . $station . "%")->first();
                     if (!$obj->k_id_station) {
                         //En efecto insertariamos la nueva estación.
                         $inconsistencies++;
                         $cellInconsistencies[] = "A";
                     }
-
                     //Obtenemos el preparation_stage.
-                    $obj->k_id_preparation = new ObjUtil([
+                    $obj->k_id_preparation = (new ObjUtil([
                         "n_bcf_wbts_id" => $sheet->getCell('B' . $row)->getValue(),
                         "n_bts_id" => $sheet->getCell('C' . $row)->getValue(),
-                        "d_ingreso_on_air" => $sheet->getCell('I' . $row)->getValue(),
+                        "d_ingreso_on_air" => $this->getDatePHPExcel($sheet, "I" . $row),
+                        "d_correccionespendientes" => $this->getDatePHPExcel($sheet, "U" . $row),
+                        "d_actualizacion_final" => $this->getDatePHPExcel($sheet, "AZ" . $row),
                         "n_enteejecutor" => $sheet->getCell('M' . $row)->getValue(),
                         "n_controlador" => $sheet->getCell('N' . $row)->getValue(),
                         "n_idcontrolador" => $sheet->getCell('O' . $row)->getValue(),
-                        "d_correccionespendientes" => $sheet->getCell('U' . $row)->getValue(),
                         "n_btsipaddress" => $sheet->getCell('V' . $row)->getValue(),
                         "n_integrador" => $sheet->getCell('W' . $row)->getValue(),
                         "n_wp" => $sheet->getCell('AA' . $row)->getValue(),
@@ -178,23 +188,23 @@ class Utils extends CI_Controller {
                         "puesta_servicio_sitio_nuevo_lte" => $sheet->getCell('AW' . $row)->getValue(),
                         "n_instalacion_hw_4g_sitio" => $sheet->getCell('AX' . $row)->getValue(),
                         "pre_launch" => $sheet->getCell('AY' . $row)->getValue(),
-                        "d_actualizacion_final" => $sheet->getCell('AZ' . $row)->getValue(),
                         "n_evidenciasl" => $sheet->getCell('BC' . $row)->getValue(),
                         "n_evidenciatg" => $sheet->getCell('BD' . $row)->getValue(),
                         "i_week" => $sheet->getCell('BU' . $row)->getValue(),
                         "id_rftools" => $sheet->getCell('CB' . $row)->getValue(),
-                    ]);
+                            ]))->all();
 
                     //Obtenemos el precheck...
-                    $obj->k_id_precheck = new ObjUtil([
+                    $obj->k_id_precheck = (new ObjUtil([
                         "d_finpre" => $sheet->getCell('AP' . $row)->getValue(),
                         "k_id_user" => null
-                    ]);
+                            ]))->all();
+
 
 
                     //Obtenemos el posible escalamiento.
-                    $obj->scaled_on_air = new ObjUtil([
-                        "d_fecha_escalado" => $sheet->getCell('BF' . $row)->getValue(),
+                    $obj->scaled_on_air = (new ObjUtil([
+                        "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BF" . $row),
                         "time_esc_imp" => $sheet->getCell('BH' . $row)->getValue(),
                         "cont_esc_npo" => $sheet->getCell('BK' . $row)->getValue(),
                         "cont_esc_care" => $sheet->getCell('BM' . $row)->getValue(),
@@ -212,64 +222,60 @@ class Utils extends CI_Controller {
                         "i_time_esc_gdrt" => $sheet->getCell('BP' . $row)->getValue(),
                         "i_cont_esc_oym" => $sheet->getCell('BQ' . $row)->getValue(),
                         "i_time_esc_calidad" => $sheet->getCell('BT' . $row)->getValue(),
-
-                    ]);
+                            ]))->all();
 
 
                     //Verificamos el 12h...
-
                     //Obtenemos la tecnología.
                     $technology = $sheet->getCell('D' . $row)->getValue();
                     $obj->k_id_technology = (new TechnologyModel())->where("n_name_technology", "=", $technology)->orWhere("n_name_technology", "LIKE", "%$technology%")->first();
 
-                    if(!$obj->k_id_technology){
+                    if (!$obj->k_id_technology) {
                         $inconsistencies++;
                         $cellInconsistencies[] = "D";
                     }
 
                     //Obtenemos la banda...
-                    $band = $sheet->getCell('E'.$row)->getValue();
-                    $obj->k_id_band = (new BandModel())->where("n_name_band","=",$band)->orWhere("n_name_band", "LIKE", "%$band%")->first();
+                    $band = $sheet->getCell('E' . $row)->getValue();
+                    $obj->k_id_band = (new BandModel())->where("n_name_band", "=", $band)->orWhere("n_name_band", "LIKE", "%$band%")->first();
 
-                    if(!$obj->k_id_band){
+                    if (!$obj->k_id_band) {
                         $inconsistencies++;
                         $cellInconsistencies[] = "E";
                     }
 
                     //Obtenemos el estado...
-                    $status = $sheet->getCell('F'.$row)->getValue();
+                    $status = $sheet->getCell('F' . $row)->getValue();
                     $obj->k_id_status = (new StatusModel())->where("n_name_status", "=", $status)->orWhere("n_name_status", "LIKE", "%$status%")->first();
 
-                    if(!$obj->k_id_status){
+                    if (!$obj->k_id_status) {
                         $inconsistencies++;
                         $cellInconsistencies[] = "F";
                     }
 
                     //Obtenemos el subestado...
-                    $subStatus = $sheet->getCell('G'.$row)->getValue();
+                    $subStatus = $sheet->getCell('G' . $row)->getValue();
                     $obj->k_id_substatus = (new SubstatusModel())->where("n_name_substatus", "=", $subStatus)->orWhere("n_name_substatus", "LIKE", $subStatus)->first();
 
-                    if(!$obj->k_id_substatus){
+                    if (!$obj->k_id_substatus) {
                         $inconsistencies++;
                         $cellInconsistencies[] = "G";
                     }
 
-                    $obj->b_excpetion_gri = $sheet->getCell('H'.$row)->getValue();
-                    $obj->d_fecha_ultima_rev = $sheet->getCell('J'.$row)->getValue();
+                    $obj->b_excpetion_gri = $sheet->getCell('H' . $row)->getValue();
+                    $obj->d_fecha_ultima_rev = $this->getDatePHPExcel($sheet, "J" . $row);
 
 
                     //Obtenemos el tipo de trabajo...
-                    $work = $sheet->getCell('K'.$row)->getValue();
-                    $obj->k_id_work = (new WorkModel())->where("n_name_ork", "=", $work)->orWhere("n_name_ork","LIKE","%$work%")->first();
-                    if(!$obj->k_id_substatus){
+                    $work = $sheet->getCell('K' . $row)->getValue();
+                    $obj->k_id_work = (new WorkModel())->where("n_name_ork", "=", $work)->orWhere("n_name_ork", "LIKE", "%$work%")->first();
+                    if (!$obj->k_id_work) {
                         $inconsistencies++;
                         $cellInconsistencies[] = "K";
                     }
-                    */
-
-                    $obj->b_vistamm = $sheet->getCell('L'.$row)->getValue();
-                    $obj->d_desbloqueo = $sheet->getCell('R'.$row)->getValue();
-                    $obj->d_bloqueo = $sheet->getCell('S'.$row)->getValue();
+                    $obj->b_vistamm = $sheet->getCell('L' . $row)->getValue();
+                    $obj->d_bloqueo = $this->getDatePHPExcel($sheet, "S" . $row);
+                    $obj->d_desbloqueo = $this->getDatePHPExcel($sheet, "R" . $row);
                     $obj->d_fechaproduccion = $sheet->getCell('AE' . $row)->getValue();
                     $obj->n_sectoresbloqueados = $sheet->getCell('AI' . $row)->getValue();
                     $obj->n_sectoresdesbloqueados = $sheet->getCell('AJ' . $row)->getValue();
@@ -310,13 +316,13 @@ class Utils extends CI_Controller {
                     if ($inconsistencies == 0) {
                         //Iniciamos la inserción del nuevo registro OnAir...
                         $imported++;
-                    }else{
+                    } else {
                         //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
                     }
-
+                    $idTicket = $this->insertTicket($obj);
                     $row++;
                 }
-                $response->setData($obj->all());
+                $response->setData(["data" => $obj->all(), "id" => $idTicket]);
             } catch (DeplynException $ex) {
                 $response = new Response(EMessages::ERROR, "Error al procesar el archivo.");
             }
@@ -325,6 +331,37 @@ class Utils extends CI_Controller {
         }
 
         $this->json($response);
+    }
+
+    private function insertTicket($obj) {
+        //Obtenemos el preparation_stage;
+        try {
+            $validator = new Validator();
+            $preparation_stage = $obj->k_id_preparation;
+            $ps = new PreparationStageModel();
+            $idPS = $ps->insert($preparation_stage);
+
+            $tck = new TicketOnAirModel();
+            $objTck = $obj;
+            $objTck->k_id_band = ($objTck->k_id_band) ? $objTck->k_id_band->k_id_band : DB::NULLED;
+            $objTck->k_id_status = ($objTck->k_id_status) ? $objTck->k_id_status->k_id_status : DB::NULLED;
+            $objTck->k_id_substatus = ($objTck->k_id_substatus) ? $objTck->k_id_substatus->k_id_substatus : DB::NULLED;
+            $status_on_air = (new StatusOnairModel())->where("k_id_status", "=", $objTck->k_id_status)
+                            ->where("k_id_substatus", "=", $objTck->k_id_substatus)->first();
+            if ($status_on_air) {
+                $objTck->k_id_status_onair = $status_on_air->k_id_substatus;
+            } else {
+                $objTck->k_id_status_onair = DB::NULLED;
+            }
+//            $objTck->k_id_preparation = $idPS;
+//            $objTck->k_id_technology = ($objTck->k_id_technology) ? $objTck->k_id_technology->k_id_technology : DB::NULLED;
+//            $objTck->k_id_work = ($objTck->k_id_work) ? $objTck->k_id_work->k_id_work : DB::NULLED;
+//            $idTick = $tck->insert($objTck->all());
+            return 0;
+//            return $idTick;
+        } catch (DeplynException $exc) {
+            return $exc;
+        }
     }
 
 }

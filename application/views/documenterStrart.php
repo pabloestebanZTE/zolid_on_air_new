@@ -251,7 +251,7 @@
                                 <div class="col-md-8 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador"></textarea>
+                                        <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones de Creación"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -579,7 +579,7 @@
                                                                                 .success(function (response) {
                                                                                     console.log(response);
                                                                                     if (response.code > 0) {
-                                                                                        $('#d_ingreso_on_air').val(formatDate(response.data, "yyyy-MM-ddThh:mm", "yyyy-MM-dd HH:mm"));
+                                                                                        $('#d_ingreso_on_air').val(formatDate(response.data, "yyyy-MM-ddTHH:mm", "yyyy-MM-dd HH:mm"));
                                                                                     }
                                                                                 })
                                                                                 .send();
