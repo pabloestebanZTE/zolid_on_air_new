@@ -869,3 +869,9 @@ ADD COLUMN `n_asignado` INT(11) NULL DEFAULT NULL AFTER `n_fase_ventana`;
 -- Actualización Miércoles, 24 de Enero de 2018.
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `n_comentario_sectores` VARCHAR(300) NULL DEFAULT NULL AFTER `n_ola_areas_excedido`;
+
+-- Actualización Martes, 30 de Enero de 2018.
+ALTER TABLE `preparation_stage`
+	CHANGE COLUMN `i_week` `i_week` VARCHAR(50) NULL DEFAULT NULL AFTER `idenciasl`;
+
+ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);

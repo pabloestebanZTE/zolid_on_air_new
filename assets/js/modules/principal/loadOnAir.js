@@ -2,7 +2,6 @@
  * @author = John Vanegas
  */
 
-
 var load = {
     init: function () {
         load.events();

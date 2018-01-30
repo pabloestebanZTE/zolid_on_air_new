@@ -7,7 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dao_statusOnair_model extends CI_Model {
 
     public function __construct() {
-        $this->load->model('dto/StatusOnAirModel');
         $this->load->model('dto/StatusModel');
         $this->load->model('dto/SubstatusModel');
         $this->load->model('dto/OnAir12hModel');

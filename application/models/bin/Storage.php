@@ -89,6 +89,7 @@ class Storage {
                 }
                 if (move_uploaded_file($input, $output)) {
                     $file->uploaded = true;
+                    chmod($output, 0777);
                 } else {
                     $file->uploaded = false;
                 }

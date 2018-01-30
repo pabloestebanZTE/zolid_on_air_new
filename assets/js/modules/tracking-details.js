@@ -18,11 +18,34 @@ var vista = {
         });
 //        dom.submit($('#formTrackingDetails'), null, false);
     },
+    onClickPushSector: function () {
+        var btn = $(this);
+        var tr = btn.parents('tr');
+        var table = $('#tblSectores');
+        if (tr.find('input').val().trim() == "") {
+            return;
+        }
+        var dat = {
+            id: tr.find('input').val(),
+            name: tr.find('input').val(),
+            state: 1,
+        };
+        tr.remove();
+        table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+    },
+    onClickDeleteSector: function () {
+        var btn = $(this);
+        var tr = btn.parents('tr');
+        tr.remove();
+    },
     events: function () {
+        $('#tblSectores').on('click', '.push-sector-btn', vista.onClickPushSector);
+        $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickDeleteSector);
         $('#btnDetails').on('click', vista.onClickDetails);
         $('.hour-step .icon-step').on('click', vista.onClickIconStep);
         $('.hour-step').on('click', vista.onClickHourStep);
         $('.states-modal li a').on('click', vista.onClickItemState);
+        $('.btn-add-sector').on('click', vista.addSector);
         $('.select-fill').on('select2fill', function () {
             var cmb = $(this);
             cmb.val(cmb.attr('data-value'));
@@ -256,6 +279,12 @@ var vista = {
         $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
         $('#modalSectores').modal('show');
     },
+    addSector: function () {
+        var table = $('#tblSectores tbody');
+        var tr = $('<tr><td class="" colspan="3"><div style="width: 100%; display: table" class="input-group"><div class="input-group-addon">Sector:</div><input type="text" class="form-control" placeholder="Nombre del sector" /><div class="input-group-btn"><button type="button" class="btn btn-success push-sector-btn"><i class="fa fa-fw fa-save"></i></button><button type="button" class="btn btn-danger delete-sector-btn"><i class="fa fa-fw fa-trash"></i></button></div></div></td></tr>');
+        table.prepend(tr);
+        tr.find('input').focus();
+    },
     fillTableSectores: function (data) {
         data = JSON.parse(data.n_json_sectores);
         if (data && data.length > 0) {
@@ -273,7 +302,7 @@ var vista = {
                     selecteds++;
                     estadoSectores = dat.state;
                 }
-                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
             }
             $('#cmbEstadoSectores').val(estadoSectores).trigger('change.select2');
             $('.length-sectores').html(selecteds);
@@ -399,7 +428,7 @@ var vista = {
                             type: "success",
                             button: "Aceptar"
                         }).then(function () {
-                            location.reload();
+                            location.href = app.urlTo("User/principal");
                         });
                     } else {
                         swal("Información", response.message, "warning");
@@ -445,7 +474,7 @@ var vista = {
                             type: "success",
                             button: "Aceptar"
                         }).then(function () {
-                            location.reload();
+                            location.href = app.urlTo("User/principal");
                         });
                     } else {
                         swal("Atención", "No se pudo registrar la prórroga.", "warning");
@@ -477,7 +506,7 @@ var vista = {
                             type: "success",
                             button: "Aceptar"
                         }).then(function () {
-                            location.reload();
+                            location.href = app.urlTo("User/principal");
                         });
                     } else {
                         swal("Atención", response.message, "warning");
@@ -759,7 +788,8 @@ var vista = {
     },
     restart12h: function () {
         var obj = {
-            idTicket: $('#idProceso').val()
+            idTicket: $('#idProceso').val(),
+            comentario_reinicio12h: $('#txtComentarioStartPrecheck').val()
         };
         vista.appendSectores(obj);
         app.post('TicketOnair/restart12h', obj).success(function (response) {
@@ -770,7 +800,7 @@ var vista = {
                     text: "Se ha iniciado el proceso correctamente.",
                     button: "Aceptar"
                 }).then(function () {
-                    location.reload();
+                    location.href = app.urlTo("User/principal");
                 });
             } else {
                 swal("Error", response.message);

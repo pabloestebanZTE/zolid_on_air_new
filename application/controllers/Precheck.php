@@ -201,10 +201,11 @@ class Precheck extends CI_Controller {
     public function runPrecheck() {
         try {
             $ticketModel = new TicketOnAirModel();
+            $ticket = (new TicketOnAirModel())->where("k_id_onair", "=", $this->request->idOnAir)->first();
             $ticketModel->where("k_id_onair", "=", $this->request->idOnAir)
                     ->update([
                         "k_id_status_onair" => 78, //Precheck.
-                        "d_precheck_init" => Hash::getDate()
+                        "d_precheck_init" => $ticket->d_created_at
             ]);
             $kpiDao = new Dao_kpi_model();
             //Se registra el KPI.
