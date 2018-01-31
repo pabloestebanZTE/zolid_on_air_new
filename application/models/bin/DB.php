@@ -64,7 +64,7 @@ class DB extends PDO {
      * @param ...string $params
      * @return DB $this
      */
-    public static function &select(...$params) {
+    public function select(...$params) {
         if (empty($this->table)) {
             //Haga la consulta directamente...
             $this->sql = $params[0];

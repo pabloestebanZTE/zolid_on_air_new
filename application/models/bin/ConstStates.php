@@ -15,5 +15,8 @@ class ConstStates {
     const SEGUIMIENTO_24H = 82;
     const SEGUIMIENTO_36H = 83;
     const PRODUCCION = 89;
+    const STAND_BY_SEGUIMIENTO_FO = 100;
+    const STAND_BY_PRODUCCION = 101;
+    const SCALED = 101;
 
 }

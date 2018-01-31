@@ -143,57 +143,110 @@ class Utils extends CI_Controller {
             "n_evidenciatg" => $sheet->getCell('BD' . $row)->getValue(),
             "i_week" => $sheet->getCell('BU' . $row)->getValue(),
             "id_rftools" => $sheet->getCell('CB' . $row)->getValue(),
+            "id_documentacion" => $sheet->getCell('CA' . $row)->getValue(),
                 ]))->all();
     }
 
     private function getUserByName($userName) {
         //Ojo! se crean algunos indices en la tabla, para ajustar los campos usados en este MATCH de MySQL ejecutar la siguiente consulta:
         //ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);
-        return DB::select('SELECT * FROM (SELECT * , MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AS puntuacion FROM user WHERE MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AND n_role_user IS NOT NULL AND n_role_user = "Ingeniero" ORDER BY puntuacion DESC LIMIT 15) q1 WHERE puntuacion >= 4')->first();
+        return (new DB())->select('SELECT * FROM (SELECT * , MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AS puntuacion FROM user WHERE MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AND n_role_user IS NOT NULL AND n_role_user = "Ingeniero" ORDER BY puntuacion DESC LIMIT 15) q1 WHERE puntuacion >= 4')->first();
     }
 
+    /**
+     * En este, se obtiene el precheck de la data.
+     * @param type $sheet
+     * @param type $obj
+     */
     private function getPrecheck(&$sheet, &$obj) {
         $userName = $sheet->getCell('AP' . $row)->getValue();
         $user = $this->getUserByName($userName);
-        if ($user) {
-            $obj->k_id_precheck = (new ObjUtil([
-                "d_finpre" => $this->getDatePHPExcel($sheet, "AP" . $row),
-                "k_id_user" => $user->k_id_user
+        $user = (($user) ? $user->k_id_user : DB::NULLED);
+        $validator = new Validator();
+        $date = $validator->required("", $sheet->getCell('CB' . $row)->getValue());
+        if (!$date) {
+            $date = DB::NULLED;
+        } else {
+            $date = $this->getDatePHPExcel($sheet, "AP" . $row);
+        }
+
+        if ($date == DB::NULLED && $user == DB::NULLED) {
+            $obj->k_id_precheck = DB::NULLED;
+            return;
+        }
+
+        $precheckModel = new PrecheckModel();
+        $precheckModel->setDFinpre($date);
+        $precheckModel->setKIdUser($user);
+        //::Pendiente n_comentario_ing.
+        $idPrecheck = $precheckModel->save()->data;
+
+        $obj->k_id_precheck = $idPrecheck;
+    }
+
+    private function getScaledOnAir(&$sheet, &$obj) {
+        $dateScaled = $sheet->getCell('BF' . $row)->getValue();
+        $validator = new Validator($dateScaled);
+        if ($validator->required("", $dateScaled)) {
+            $obj->scaled_on_air = (new ObjUtil([
+                "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BF" . $row),
+                "time_esc_imp" => $sheet->getCell('BH' . $row)->getValue(),
+                "cont_esc_npo" => $sheet->getCell('BK' . $row)->getValue(),
+                "cont_esc_care" => $sheet->getCell('BM' . $row)->getValue(),
+                "time_esc_oym" => $sheet->getCell('BR' . $row)->getValue(),
+                "cont_esc_calidad" => $sheet->getCell('BS' . $row)->getValue(),
+                "n_atribuible_nokia2" => $sheet->getCell('BX' . $row)->getValue(),
+                "n_tipificacion_solucion" => $sheet->getCell('CC' . $row)->getValue(),
+                "n_ultimo_subestado_de_escalamiento" => $sheet->getCell('CC' . $row)->getValue(),
+                "i_time_esc_rf" => $sheet->getCell('BI' . $row)->getValue(),
+                "i_cont_esc_imp" => $sheet->getCell('BG' . $row)->getValue(),
+                "i_time_esc_rf" => $sheet->getCell('BJ' . $row)->getValue(),
+                "i_time_esc_npo" => $sheet->getCell('BL' . $row)->getValue(),
+                "i_time_esc_care" => $sheet->getCell('BN' . $row)->getValue(),
+                "i_cont_esc_gdrt" => $sheet->getCell('BO' . $row)->getValue(),
+                "i_time_esc_gdrt" => $sheet->getCell('BP' . $row)->getValue(),
+                "i_cont_esc_oym" => $sheet->getCell('BQ' . $row)->getValue(),
+                "i_time_esc_calidad" => $sheet->getCell('BT' . $row)->getValue(),
+                "n_detalle_solucion" => $sheet->getCell('CT' . $row)->getValue(),
                     ]))->all();
         }
     }
 
-    private function getScaledOnAir(&$sheet, &$obj) {
-        $obj->scaled_on_air = (new ObjUtil([
-            "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BF" . $row),
-            "time_esc_imp" => $sheet->getCell('BH' . $row)->getValue(),
-            "cont_esc_npo" => $sheet->getCell('BK' . $row)->getValue(),
-            "cont_esc_care" => $sheet->getCell('BM' . $row)->getValue(),
-            "time_esc_oym" => $sheet->getCell('BR' . $row)->getValue(),
-            "cont_esc_calidad" => $sheet->getCell('BS' . $row)->getValue(),
-            "n_atribuible_nokia2" => $sheet->getCell('BX' . $row)->getValue(),
-            "n_tipificacion_solucion" => $sheet->getCell('CC' . $row)->getValue(),
-            "n_ultimo_subestado_de_escalamiento" => $sheet->getCell('CC' . $row)->getValue(),
-            "i_time_esc_rf" => $sheet->getCell('BI' . $row)->getValue(),
-            "i_cont_esc_imp" => $sheet->getCell('BG' . $row)->getValue(),
-            "i_time_esc_rf" => $sheet->getCell('BJ' . $row)->getValue(),
-            "i_time_esc_npo" => $sheet->getCell('BL' . $row)->getValue(),
-            "i_time_esc_care" => $sheet->getCell('BN' . $row)->getValue(),
-            "i_cont_esc_gdrt" => $sheet->getCell('BO' . $row)->getValue(),
-            "i_time_esc_gdrt" => $sheet->getCell('BP' . $row)->getValue(),
-            "i_cont_esc_oym" => $sheet->getCell('BQ' . $row)->getValue(),
-            "i_time_esc_calidad" => $sheet->getCell('BT' . $row)->getValue(),
-                ]))->all();
-    }
-
     private function getParamsOnAir(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies) {
         //Obtenemos y consultamos la estación...
-        $station = $sheet->getCell('A' . $row)->getValue();
-        $obj->k_id_station = (new StationModel())->where("n_name_station", "=", $station)->orWhere("n_name_station", "LIKE", "%" . $station . "%")->first();
+        $stationName = $sheet->getCell('A' . $row)->getValue();
+        $obj->k_id_station = (new StationModel())->where("n_name_station", "=", $stationName)->orWhere("n_name_station", "LIKE", "%" . $stationName . "%")->first();
         if (!$obj->k_id_station) {
-            //En efecto insertariamos la nueva estación.
-            $inconsistencies++;
-            $cellInconsistencies[] = "A";
+            //Consultamos la región...
+            $region = (new RegionalModel())->where("n_name_regional", "=", $nameRegion)->orWhere("n_name_regional", "LIKE", "%$nameRegion%")->first();
+            //Si no existe la región la creamos...
+            if (!$region) {
+                $region = (new RegionalModel())->insert([
+                    "n_name_regional" => $nameRegion,
+                ]);
+                $region = $region->data;
+            } else {
+                $region = $region->k_id_regional;
+            }
+            //Consultamos la ciudad...
+            $nameCity = $sheet->getCell('P' . $row)->getValue();
+            $city = (new CityModel())->where("n_name_city", "=", $city)->orWhere("n_name_city", "LIKE", "%$city%")->first();
+            //Si no existe la ciudad, la creamos...
+            if (!$city) {
+                $city = (new CityModel())->insert([
+                    "n_name_city" => $nameCity,
+                    "k_id_regional" => $regional
+                ]);
+                $city = $city->data;
+            } else {
+                $city = $city->k_id_city;
+            }
+
+            //Creamos la nueva estación...
+            $stationModel = new StationModel();
+            $stationModel->setKIdCity($city);
+            $stationModel->setNNameStation($stationName);
+            $stationModel->save();
         }
 
         //Obtenemos la tecnología.
@@ -301,6 +354,8 @@ class Utils extends CI_Controller {
         $obj->n_en_prorroga = $sheet->getCell('DM' . $row)->getValue();
         $obj->n_cont_prorrogas = $sheet->getCell('DN' . $row)->getValue();
         $obj->n_noc = $sheet->getCell('DO' . $row)->getValue();
+        $obj->fecha_rft = $this->getDatePHPExcel($sheet, 'RFT' . $row);
+        $obj->d_t_from_notif = (new Validator())->required("", $sheet->getCell('BV' . $row)->getValue()) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
     }
 
     private function get12H(&$sheet, &$obj, $row) {
@@ -317,20 +372,56 @@ class Utils extends CI_Controller {
                 $user = $this->getUserByName($userName);
                 $follow12HModel->setKIdUser($user->k_id_user);
                 $follow12HModel->setNRound(0);
-                $follow12HModel->save();
+                $idFollow = $follow12HModel->save();
                 $onAir12hModel->setKIdFollowUp12h($idFollow);
             }
-            //Se deja hasta aquí, para que el proceso que invocó esta función ejecute el insert de este modelo cuando le pase el id del ticket insertado...
+            //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
             $obj->onAir12h = $onAir12hModel;
         }
     }
 
     private function get24H(&$sheet, &$obj) {
-        
+        //INiciamos la creación del 24h...
+        $onAir24hModel = new OnAir24hModel();
+        $validator = new Validator();
+        $value = $sheet->getCell('' . $row)->getValue();
+        if ($validator->required("", $value)) {
+            $onAir24hModel->setDStart24h(Hash::subtractHours($value, 1));
+            $onAir24hModel->setDFin24h($value);
+            $follow24hModel = new FollowUp24hModel();
+            $userName = $sheet->getCell('' . $row)->getValue();
+            if ($userName) {
+                $user = $this->getUserByName($userName);
+                $follow24hModel->setKIdUser($user->k_id_user);
+                $follow24hModel->setNRound(0);
+                $idFollow = $follow24hModel->save();
+                $onAir24hModel->setKIdFollowUp24h($idFollow);
+            }
+            //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
+            $obj->onAir24h = $onAir24hModel;
+        }
     }
 
-    private function get36H(&$sheet, &$obj) {
-        
+    private function get36H(&$sheet, &$obj, $row) {
+        //Iniciamos la creación del 12h...
+        $onAir36hModel = new OnAir36hModel();
+        $validator = new Validator();
+        $value = $sheet->getCell('AQ' . $row)->getValue();
+        if ($validator->required("", $value)) {
+            $onAir36hModel->setDStart36h(Hash::subtractHours($value, 1));
+            $onAir36hModel->setDFin36h($value);
+            $follow36HModel = new FollowUp36hModel();
+            $userName = $sheet->getCell('Y' . $row)->getValue();
+            if ($userName) {
+                $user = $this->getUserByName($userName);
+                $follow36HModel->setKIdUser($user->k_id_user);
+                $follow36HModel->setNRound(0);
+                $idFollow = $follow36HModel->save();
+                $onAir36hModel->setKIdFollowUp36h($idFollow);
+            }
+            //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
+            $obj->onAir12h = $onAir36hModel;
+        }
     }
 
     private function getSectores(&$sheet, &$obj) {
@@ -346,7 +437,7 @@ class Utils extends CI_Controller {
         if (file_exists($file)) {
             //Iniciamos el procedimiento de carga de datos...
             set_time_limit(-1);
-            ini_set('memory_limit', '1024M');
+            ini_set('memory_limit', '500M');
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
             try {
@@ -361,62 +452,39 @@ class Utils extends CI_Controller {
                 //Obtenemos el highestRow...
                 $highestRow = 0;
                 $row = 2;
+                $idTicket = 0;
                 while ($validator->required("", $sheet->getCell('A' . $row)->getValue())) {
-                    $highestRow++;
-                    $obj = new ObjUtil([]);
-                    $imported = 0;
-                    $inconsistencies = 0;
-                    $cellInconsistencies = [];
+                    //Comprobamos que el NOC no sea de Nokia, ya que realmente no pertenece a la data del proyecto...
+                    $noc = $sheet->getCell('DO' . $row)->getValue();
+                    if ($noc . trim() != "Nokia") {
+                        $highestRow++;
+                        $obj = new ObjUtil([]);
+                        $imported = 0;
+                        $inconsistencies = 0;
+                        $cellInconsistencies = [];
 
-                    $this->getParamsOnAir($sheet, $obj, $inconsistencies, $cellInconsistencies);
-                    //Obtenemos el preparation_stage.
-                    $this->getPreparationStage($sheet, $obj);
+                        $this->getParamsOnAir($sheet, $obj, $inconsistencies, $cellInconsistencies);
+                        //Obtenemos el preparation_stage.
+                        $this->getPreparationStage($sheet, $obj);
 
-                    //Aquí verificamos en que estado está el ticket para tomar alcunas desciciones...
-                    switch ($obj->k_id_status_onair) {
-                        case ConstStates::PRECHECK:
-                            //Si está en precheck debería resolver quíen está a cargo...
-                            $this->getPrecheck($sheet, $obj);
-                        case ConstStates::REINICIO_PRECHECK:
-                            break;
-                        case ConstStates::REINICIO_12H:
-                            //Si está en reinicio debería resolver quíen está a cargo, si hay registros de 12h, 24h,36 etc.
-                            break;
-                        case ConstStates::SEGUIMIENTO_12H:
-                            //Si está en 12, debe resolver quién hizo el precheck y resolver cuanto tiempo lleva en seguimiento 12h.
+                        //Obtenemos toda la información del onAir...
+                        $this->getPrecheck($sheet, $obj);
+                        $this->get12H($sheet, $obj, $row);
+                        $this->get24H($sheet, $obj, $row);
+                        $this->get36H($sheet, $obj, $row);
+                        $this->getScaledOnAir($sheet, $obj);
+                        $obj->row = $row;
 
-                            break;
-                        case ConstStates::SEGUIMIENTO_24H:
-                            //Si está en 24, debe resolver quién hizo el 12h y resolver cuanto tiempo lleva en seguimiento 24h y si está asignado.
-                            break;
-                        case ConstStates::SEGUIMIENTO_36H:
-                            //Si está en 36h, debe resolver quién hizo el 12h,24h y resolver cuanto tiempo lleva en seguimiento 36h y si está asignado.
-                            break;
-                        case ConstStates::PRODUCCION:
-                            $this->getPrecheck($sheet, $obj);
-                            $this->get12H($sheet, $obj, $row);
-                            $this->get24H($sheet, $obj, $row);
-                            $this->get36H($sheet, $obj, $row);
-                            break;
+                        if ($inconsistencies == 0) {
+                            //Iniciamos la inserción del nuevo registro OnAir...
+                            $imported++;
+                        } else {
+                            //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
+                        }
+                        if ($inconsistencies == 0) {
+                            $idTicket = $this->insertTicket($obj);
+                        }
                     }
-
-
-                    //Obtenemos el precheck...
-//                    $this->getPrecheck();
-                    //Obtenemos el posible escalamiento.
-//                    $this->getScaledOnAir($sheet, $obj);
-
-
-                    $obj->row = $row;
-
-                    if ($inconsistencies == 0) {
-                        //Iniciamos la inserción del nuevo registro OnAir...
-                        $imported++;
-                    } else {
-                        //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
-                    }
-                    $idTicket = 0;
-                    $idTicket = $this->insertTicket($obj);
                     $row++;
                 }
                 $response->setData(["data" => $obj->all(), "id" => $idTicket]);
@@ -454,11 +522,22 @@ class Utils extends CI_Controller {
             //Dejamos el precheck en estand by por ahora...
             $objTck->k_id_precheck = DB::NULLED;
             $idTick = 0;
-//            var_dump($objTck->all());
-            $idTick = $tck->insert($objTck->all());
-//            echo $tck->getSQL();
+            $idTick = $tck->insert($objTck->all())->data;
+
+            //Insertamos los seguimientos...
+            if ($objTck->onAir12h) {
+                $objTck->onAir12h->setKIdOnair($idTick);
+                $objTck->onAir12h->save();
+            }
+            if ($objTck->onAir24h) {
+                $objTck->onAir24h->setKIdOnair($idTick);
+                $objTck->onAir24h->save();
+            }
+            if ($objTck->onAir36h) {
+                $objTck->onAir36h->setKIdOnair($idTick);
+                $objTck->onAir36h->save();
+            }
             return $idTick;
-//            return $idTick;
         } catch (DeplynException $exc) {
             return $exc;
         }
