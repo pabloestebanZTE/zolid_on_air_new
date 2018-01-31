@@ -175,7 +175,7 @@ class PHPExcel_Settings
      */
     public static function setCacheStorageMethod(
     	$method = PHPExcel_CachedObjectStorageFactory::cache_in_memory,
-      $arguments = array()
+        $arguments = array()
     )
     {
         return PHPExcel_CachedObjectStorageFactory::initialize($method, $arguments);
