@@ -60,6 +60,40 @@ var vista = {
         $('#n_ampliacion_dualbeam').on('change', vista.onChangeDualBeam);
         $('#n_falla_final').on('change', vista.onChangeFineFault);
         $('.change-solution').on('change', vista.onChangeTypeSolution);
+        $('.select-note').on('change', vista.onChangeNote);
+        $('.estado_ticket_remedy').on('change', vista.onActivateRemedyClosing);
+    },
+    onActivateRemedyClosing: function () {
+        var estado_remedy = $('#n_estado_ticket option:selected').text();
+        if (estado_remedy == 'Cancelado' || estado_remedy == 'Cerrado') {
+            $('#remedy_cierre').show();
+        } else {
+            $('#remedy_cierre').hide();
+        }
+
+    },
+    onChangeNote: function () {
+        var tecnologia = $('#k_id_technology option:selected').text();
+        var tipo_trabajo = $('#k_id_work option:selected').text();
+        var nota = '';
+        switch (tipo_trabajo) {
+            case 'Migración de alarmas externas':
+                if (tecnologia == '2G/3G' || tecnologia == '2G/3G/LTE') {
+                    nota = '<h2 class="h4"><i class="fa fa-fw fa-exclamation-triangle"></i> Aval por parte implementacion Claro en caso que no presenten alarmas externas para migracion (FPMA FLEXI POWER MODULE)</h2>';
+                }
+                break;
+                
+            case 'Modernización Multiradio':
+                if (tecnologia == '2G' || tecnologia == '2G/3G') {
+                    nota = '<h2 class="h4"><i class="fa fa-fw fa-exclamation-triangle"></i> Validar VM ACS y/o CG Migracion de alarmas y/o - Aval por parte implementacion Claro en caso que no presenten alarmas externas para migracion (FPMA FLEXI POWER MODULE)</h2>';
+                }
+                break;
+                
+            case 'Reubicacion de Equipos':
+                nota = '<h2 class="h4"><i class="fa fa-fw fa-exclamation-triangle"></i> Validar se mantiene o se realiza migracion alarmas a otro equipo de Power</h2>';
+                break;
+        }
+        $('#note_checklist').html(nota);
     },
     onChangeTypeSolution: function () {
         var tecnologia = $('#k_id_technology option:selected').text();
@@ -354,6 +388,7 @@ var vista = {
         var inputs = $('input[type="time"]');
         inputs.attr('type', 'text').addClass('for-time');
         inputs.mask("99:99", {placeholder: "HH:mm"});
+        $('#n_numero_incidente').mask("INC999999999999", {placeholder: "INC999999999999"});
     },
     get: function () {
         var id = app.getParamURL('id');
@@ -392,6 +427,11 @@ var vista = {
                     $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
                     $("#i_ingeniero_cierre").val(data.vm.i_ingeniero_cierre).trigger('change.select2');
 
+                }
+                if (data.tiketRemedy) {
+                    console.log(data.tiketRemedy);
+                    formGlobal.fillForm(data.tiketRemedy);
+                    $('#form5').show();
                 }
                 if (data.exeded_time) {
                     dom.printAlert('El registro se encuentra fuera de tiempo límite.', 'warning', $('.alert'));

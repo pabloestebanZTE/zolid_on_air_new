@@ -41,8 +41,12 @@ class Acs extends CI_Controller {
             if ($vm) {
                 $avmModel = new AvmModel();
                 $cvmModel = new CvmModel();
+                $tiketRemedyModel = new TiketRemedyModel();
                 $avm = $avmModel->where("k_id_vm", "=", $this->request->id)->first();
                 $cvm = $cvmModel->where("k_id_vm", "=", $this->request->id)->first();
+                $tiketRemedy = $tiketRemedyModel->where("k_id_vm", "=", $this->request->id)
+                        ->orderBy("k_id_tiket_remedy", "desc")
+                        ->first();
                 //Consultamos si se ha exedido el tiempo límite de desarrollo de el acs...
                 $kpiModel = new KpiAcsModel();
                 $db = new DB();
@@ -67,6 +71,7 @@ class Acs extends CI_Controller {
                     "vm" => $vm,
                     "avm" => $avm,
                     "cvm" => $cvm,
+                    "tiketRemedy" => $tiketRemedy,
                     "exeded_time" => $exeded
                 ];
             }

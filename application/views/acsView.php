@@ -66,7 +66,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_technology" class="col-md-3 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-change selectpicker select-tecnologia select-checklist" id="k_id_technology" name="vm.k_id_technology" required>
+                                                <select class="form-control control-change selectpicker select-tecnologia select-checklist select-note" id="k_id_technology" name="vm.k_id_technology" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -84,7 +84,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_work" class="col-md-3 control-label">Tipo de Trabajo :</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-change selectpicker select-tipotrabajo select-checklist" id="k_id_work" name="vm.k_id_work" required>
+                                                <select class="form-control control-change selectpicker select-tipotrabajo select-checklist select-note" id="k_id_work" name="vm.k_id_work" required>
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -163,12 +163,14 @@
                                                         CRQ Remedy Correcto.
                                                     </label>
                                                 </div>
-                                                <div class="display-block">
+                                                <!--div class="display-block">
                                                     <input id="chk_init_3" name="vm.checklist[]"  type="checkbox">
                                                     <label for="chk_init_3" class="text-bold">
                                                         Snapshot Liviano UMTS.
                                                     </label>
-                                                </div>
+                                                </div>-->
+                                                <div id="note_checklist">                                                    
+                                                </div>                                                
                                                 <div id="items_checklist">                                                    
                                                 </div>
                                             </div>
@@ -1157,7 +1159,7 @@
                                         <div class="col-md-6">
                                             <label for="n_estado_ticket" class="col-sm-3 control-label"><span class="display-block">Estado de Ticket:</span></label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="n_estado_ticket" name="n_estado_ticket">
+                                                <select class="form-control estado_ticket_remedy" id="n_estado_ticket" name="n_estado_ticket">
                                                     <option value="">Seleccione</option>
                                                     <option value="Abierto">Abierto</option>
                                                     <option value="Cancelado">Cancelado</option>
@@ -1481,6 +1483,22 @@
                                             <label for="n_comentario_ticket" class="col-sm-2 control-label">Comentario de Ticket:</label>
                                             <div class="col-sm-10">
                                                 <textarea id="n_comentario_ticket" name="n_comentario_ticket" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="display: none" id="remedy_cierre">
+                                        <div class="col-md-6">
+                                            <label for="i_ingeniero_cierre_ticket" class="col-sm-4 control-label">Ingeniero Cierre:</label>
+                                            <div class="col-sm-8">
+                                                <select name="i_ingeniero_cierre_ticket" id="i_ingeniero_cierre_ticket" class="form-control select-ingeniero">
+                                                    <option value="">Seleccione...</option>>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="d_fin_afectacion" class="col-sm-3 control-label"><span class="display-block">Fin Afectación:</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="datetime-local" class="form-control" id="d_fin_afectacion" name="d_fin_afectacion"/>
                                             </div>
                                         </div>
                                     </div>
