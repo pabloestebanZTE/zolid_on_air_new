@@ -60,43 +60,37 @@ class Hash {
     }
 
     public static function addMinutes($date, $minutes) {
-        $fecha = $date;
-        $nuevafecha = strtotime('+' . $minutes . ' minute', strtotime($fecha));
+        $nuevafecha = strtotime('+' . $minutes . ' minute', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }
 
     public static function subtractMinutes($date, $hours) {
-        $fecha = $date;
-        $nuevafecha = strtotime('-' . $minutes . ' minute', strtotime($fecha));
+        $nuevafecha = strtotime('-' . $minutes . ' minute', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }
 
     public static function addHours($date, $hours) {
-        $fecha = $date;
-        $nuevafecha = strtotime('+' . $hours . ' hour', strtotime($fecha));
+        $nuevafecha = strtotime('+' . $hours . ' hour', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }
 
     public static function subtractHours($date, $hours) {
-        $fecha = $date;
-        $nuevafecha = strtotime('-' . $hours . ' hour', strtotime($fecha));
+        $nuevafecha = strtotime('-' . $hours . ' hour', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }
 
     public static function addDay($date, $day) {
-        $fecha = $date;
-        $nuevafecha = strtotime('+' . $day . ' day', strtotime($fecha));
+        $nuevafecha = strtotime('+' . $day . ' day', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }
 
     public static function subtractDay($date, $day) {
-        $fecha = $date;
-        $nuevafecha = strtotime('-' . $day . ' day', strtotime($fecha));
+        $nuevafecha = strtotime('-' . $day . ' day', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }

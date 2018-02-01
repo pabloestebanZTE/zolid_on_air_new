@@ -521,7 +521,7 @@ var dom = {
         if (dateString && dateString.trim() != "") {
             if (method === "fillForm") {
                 //dateString, outputFormat, inputFormat...            
-                return formatDate(dateString, "yyyy-MM-ddThh:mm", "yyyy-MM-dd HH:mm");
+                return formatDate(dateString, "yyyy-MM-ddTHH:mm", "yyyy-MM-dd HH:mm");
             } else if (method === "getFormData") {
                 return dateString;
             }

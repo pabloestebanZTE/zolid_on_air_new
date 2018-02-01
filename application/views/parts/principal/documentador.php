@@ -12,6 +12,7 @@
                 <div class="row">
                     <div class="col col-md-12 p-t-20">
                         <a class="btn btn-primary" href="<?= URL::to('User/createTicketOnair') ?>"><span class="fa fa-fw fa-plus-circle"></span>&nbsp;Nueva actividad</a>
+                        <a class="btn btn-primary" id="btnLoadOnAir"><span class="fa fa-fw fa-paperclip"></span>&nbsp;Cargar OnAir</a>
                         <a class="btn btn-primary" href="<?= URL::to('User/getAllTickets') ?>"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;&nbsp;Ver todo</a>
                     </div>
                     <div class="col col-md-12">
@@ -22,7 +23,7 @@
                     </div>
                 </div>
             </fieldset>
-            
+
             <fieldset>
                 <div class="row">
                     <div class="col col-md-12">
@@ -46,3 +47,4 @@
 </div>
 <?php $this->load->view('parts/generic/scripts'); ?>
 <script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/documentador.js") ?>"></script>
+<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/loadOnAir.js?v=" . time()) ?>"></script>

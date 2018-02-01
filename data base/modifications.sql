@@ -870,10 +870,8 @@ ADD COLUMN `n_asignado` INT(11) NULL DEFAULT NULL AFTER `n_fase_ventana`;
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `n_comentario_sectores` VARCHAR(300) NULL DEFAULT NULL AFTER `n_ola_areas_excedido`;
 
+-- Actualización Martes, 30 de Enero de 2018.
+ALTER TABLE `preparation_stage`
+	CHANGE COLUMN `i_week` `i_week` VARCHAR(50) NULL DEFAULT NULL AFTER `idenciasl`;
 
--- Actualización Jueves, 01 de Febrero de 2018.
-ALTER TABLE `on_air`.`tiket_remedy` 
-ADD COLUMN `i_ingeniero_cierre_ticket` INT(11) NULL DEFAULT NULL AFTER `n_comentario_ticket`,
-ADD COLUMN `d_fin_afectacion` DATETIME NULL DEFAULT NULL AFTER `i_ingeniero_cierre_ticket`, ALGORITHM=COPY;
-
-
+ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);

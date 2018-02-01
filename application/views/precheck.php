@@ -391,9 +391,9 @@
                             <div class="col-xs-12">
                                 <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 200px; border: 1px solid #ddd;">
                                     <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
-                                        <thead><tr><th>Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th></tr></thead>
+                                        <thead><tr><th class="vertical-middle">Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th><th class="p-all-0 vertical-middle text-right"><button class="btn btn-default btn-sm m-r-15 btn-add-sector" ><i class="fa fa-fw fa-plus"></i> Agregar sector</button></th></tr></thead>
                                         <tbody>
-                                            <tr><td colspan="2"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
+                                            <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -468,7 +468,7 @@
                             selecteds++;
                             estadoSectores = dat.state;
                         }
-                        table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                        table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
                     }
                     $('#cmbEstadoSectores').val(estadoSectores).trigger('change.select2');
                     $('.length-sectores').html(selecteds);
@@ -726,6 +726,41 @@
                     $('#modalSectores #contentCommentSectores').hide();
                     $('#modalSectores').attr('data-action', 'PRECHECK_NO_EXITOSO').modal('show');
                 });
+
+                //Sectores dinámicos.
+                function addSector() {
+                    var table = $('#tblSectores tbody');
+                    var tr = $('<tr><td class="" colspan="3"><div style="width: 100%; display: table" class="input-group"><div class="input-group-addon">Sector:</div><input type="text" class="form-control" placeholder="Nombre del sector" /><div class="input-group-btn"><button type="button" class="btn btn-success push-sector-btn"><i class="fa fa-fw fa-save"></i></button><button type="button" class="btn btn-danger delete-sector-btn"><i class="fa fa-fw fa-trash"></i></button></div></div></td></tr>');
+                    table.prepend(tr);
+                    tr.find('input').focus();
+                }
+
+                function onClickPushSector() {
+                    var btn = $(this);
+                    var tr = btn.parents('tr');
+                    var table = $('#tblSectores');
+                    if (tr.find('input').val().trim() == "") {
+                        return;
+                    }
+                    var dat = {
+                        id: tr.find('input').val(),
+                        name: tr.find('input').val(),
+                        state: 1,
+                    };
+                    tr.remove();
+                    table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                }
+
+                function onClickDeleteSector() {
+                    var btn = $(this);
+                    var tr = btn.parents('tr');
+                    tr.remove();
+                }
+
+                $('.btn-add-sector').on('click', addSector);
+                $('#tblSectores').on('click', '.push-sector-btn', onClickPushSector);
+                $('#tblSectores').on('click', '.delete-sector-btn', onClickDeleteSector);
+                //Fin sectores dinámicos.
 
                 $('#btnAceptarModalSectores').on('click', function () {
                     applySectores();

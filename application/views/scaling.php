@@ -439,7 +439,6 @@
         <script>
                                             $(function () {
                                                 var items = <?php echo $items; ?>;
-                                                console.log(items);
 
                                                 for (var j = 0; j < items.status.data.length; j++) {
                                                     if (items.status.data[j].k_id_status === '3' || items.status.data[j].k_id_status === '4' || items.status.data[j].k_id_status === '5' || items.status.data[j].k_id_status === '6' || items.status.data[j].k_id_status === '7' || items.status.data[j].k_id_status === '11' || items.status.data[j].k_id_status === '12' || items.status.data[j].k_id_status === '13') {
@@ -486,7 +485,6 @@
 
                                             function editSubstatus() {
                                                 var status = $("#status").val();
-                                                console.log(status);
                                                 var info = <?php echo $items; ?>;
                                                 $('#substatus').empty();
                                                 for (var j = 0; j < info.statusOnAir.data.length; j++) {
@@ -589,7 +587,6 @@
                                                 var time6 = $("#i_time_esc_gdrt").val();
                                                 var time7 = $("#i_time_esc_calidad").val();
                                                 var timeEscalado = parseInt(time1) + parseInt(time2) + parseInt(time3) + parseInt(time4) + parseInt(time5) + parseInt(time6) + parseInt(time7);
-//              console.log(timeEscalado);
                                                 return timeEscalado;
                                             }
 
@@ -627,7 +624,8 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
         <script type="text/javascript">
                                             $(function () {
-                                            })
+                                                $('#status').val(4).trigger('change');
+                                            });
                                             // , function(){location.href = app.urlTo('User/principalView');}
         </script>
     </body>
