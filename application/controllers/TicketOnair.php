@@ -64,7 +64,7 @@ class TicketOnair extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getPriorityList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -76,7 +76,7 @@ class TicketOnair extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getTracingList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -94,7 +94,7 @@ class TicketOnair extends CI_Controller {
         if (Auth::check()) {
             $dao = new dao_ticketOnAir_model();
             $array = $dao->getRestartList($this->request);
-            $this->getFKRegisters($array->data["data"]);
+            $this->getFKRegisters($array->data["data"], true);
             $this->json($array->data);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -163,7 +163,7 @@ class TicketOnair extends CI_Controller {
             $res[$j]->k_id_preparation = $stage->findByIdPreparation($res[$j]->k_id_preparation)->data; //preparation
             if ($res[$j]->i_actualEngineer != 0) {
                 $res[$j]->i_actualEngineer = $assign->findBySingleId($res[$j]->i_actualEngineer)->data; //
-                $res[$j]->i_actualEngineer = $res[$j]->i_actualEngineer->n_name_user . " " . $res[$j]->i_actualEngineer->n_last_name_user;
+//                $res[$j]->i_actualEngineer = $res[$j]->i_actualEngineer->n_name_user . " " . $res[$j]->i_actualEngineer->n_last_name_user;
             } elseif ($res[$j]->i_actualEngineer == 0) {
                 $res[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
             }

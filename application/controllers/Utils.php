@@ -179,8 +179,10 @@ class Utils extends CI_Controller {
         $precheckModel->setKIdUser($user);
         //::Pendiente n_comentario_ing.
         $idPrecheck = $precheckModel->save()->data;
+//        echo "ESTE EL ID ($idPrecheck) DEL PRECHECK PARA $obj->k_id_onair<br/>";
 
         $obj->k_id_precheck = $idPrecheck;
+        $obj->i_precheck_realizado = 1;
     }
 
     //</editor-fold>
@@ -219,6 +221,7 @@ class Utils extends CI_Controller {
         //Obtenemos y consultamos la estación...
         $stationName = $sheet->getCell('B' . $row)->getValue();
         $obj->k_id_station = (new StationModel())->where("n_name_station", "=", $stationName)->orWhere("n_name_station", "LIKE", "%" . $stationName . "%")->first();
+        //Si no existe...
         if (!$obj->k_id_station) {
             //Consultamos la región...
             $nameRegion = $sheet->getCell('R' . $row)->getValue();
@@ -381,20 +384,16 @@ class Utils extends CI_Controller {
         //Iniciamos la creación del 12h...
         $onAir12hModel = new OnAir12hModel();
         $validator = new Validator();
-        $value = $sheet->getCell('AR' . $row)->getValue();
-        if ($validator->required("", $value)) {
-            $onAir12hModel->setDStart12h(Hash::subtractHours($value, 1));
-            $onAir12hModel->setDFin12h($value);
-//            $follow12HModel = new FollowUp12hModel();
-//            $userName = $sheet->getCell('Y' . $row)->getValue();
-//            if ($userName) {
-//                $user = $this->getUserByName($userName);
-//                $follow12HModel->setKIdUser($user->k_id_user);
-//                $follow12HModel->setNRound(0);
-//                $idFollow = $follow12HModel->save();
-//                $onAir12hModel->setKIdFollowUp12h($idFollow);
-//            }
-            //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
+        $date = $sheet->getCell('AR' . $row)->getValue();
+        if ($validator->required("", $date)) {
+            $date = $this->getDatePHPExcel($sheet, "AR" . $row);
+            $onAir12hModel->setDStart12h(Hash::subtractHours($date, 1));
+            $onAir12hModel->setDFin12h($date);
+            $onAir12hModel->setITimestamp(0);
+            $onAir12hModel->setIRound(0);
+            $onAir12hModel->setIPercent(0);
+            $onAir12hModel->setIState(0);
+            $onAir12hModel->setIHours(0);
             $obj->onAir12h = $onAir12hModel;
         }
     }
@@ -405,10 +404,16 @@ class Utils extends CI_Controller {
         //INiciamos la creación del 24h...
         $onAir24hModel = new OnAir24hModel();
         $validator = new Validator();
-        $value = $sheet->getCell('DA' . $row)->getValue();
-        if ($validator->required("", $value)) {
-            $onAir24hModel->setDStart24h(Hash::subtractHours($value, 1));
-            $onAir24hModel->setDFin24h($value);
+        $date = $sheet->getCell('DA' . $row)->getValue();
+        if ($validator->required("", $date)) {
+            $date = $this->getDatePHPExcel($sheet, "DA" . $row);
+            $onAir24hModel->setDStart24h(Hash::subtractHours($date, 1));
+            $onAir24hModel->setDFin24h($date);
+            $onAir24hModel->setITimestamp(0);
+            $onAir24hModel->setIRound(0);
+            $onAir24hModel->setIPercent(0);
+            $onAir24hModel->setIState(0);
+            $onAir24hModel->setIHours(0);
 //            $follow24hModel = new FollowUp24hModel();
 //            $userName = $sheet->getCell('' . $row)->getValue();
 //            if ($userName) {
@@ -429,10 +434,16 @@ class Utils extends CI_Controller {
         //Iniciamos la creación del 12h...
         $onAir36hModel = new OnAir36hModel();
         $validator = new Validator();
-        $value = $sheet->getCell('DB' . $row)->getValue();
-        if ($validator->required('', $value)) {
-            $onAir36hModel->setDStart36h(Hash::subtractHours($value, 1));
-            $onAir36hModel->setDFin36h($value);
+        $date = $sheet->getCell('DB' . $row)->getValue();
+        if ($validator->required('', $date)) {
+            $date = $this->getDatePHPExcel($sheet, "DB" . $row);
+            $onAir36hModel->setDStart36h(Hash::subtractHours($date, 1));
+            $onAir36hModel->setDFin36h($date);
+            $onAir36hModel->setITimestamp(0);
+            $onAir36hModel->setIRound(0);
+            $onAir36hModel->setIPercent(0);
+            $onAir36hModel->setIState(0);
+            $onAir36hModel->setIHours(0);
 //            $follow36HModel = new FollowUp36hModel();
 //            $userName = $sheet->getCell('Y' . $row)->getValue();
 //            if ($userName) {
@@ -451,6 +462,80 @@ class Utils extends CI_Controller {
 
     private function getSectores(&$sheet, &$obj) {
         //En esta función se comprobarán los sectores del ticket...
+    }
+
+    public function processAndInsertComments() {
+        $request = $this->request;
+        $file = $request->file;
+        //Verificamos si existe el archivo...
+        if (file_exists($file)) {
+            //Se procesa el archivo de comentarios...
+            set_time_limit(-1);
+            ini_set('memory_limit', '1500M');
+            require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
+            $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+            $cacheSettings = array(' memoryCacheSize ' => '15MB');
+            PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+            $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
+
+            try {
+                $validator = new Validator();
+                $inputFileType = PHPExcel_IOFactory::identify($file);
+                $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                $objReader->setReadDataOnly(true);
+                $objPHPExcel = $objReader->load($file);
+
+                //Obtenemos la página.
+                $sheet = $objPHPExcel->getSheet(1);
+                //$highestRow = $sheet->calculateWorksheetDimension();
+                //Obtenemos el highestRow...
+                $highestRow = 0;
+                $row = 2;
+                $idTicket = 0;
+                $imported = 0;
+                $inconsistencies = 0;
+                $cellInconsistencies = [];
+                while ($validator->required("", $sheet->getCell('A' . $row)->getValue())) {
+                    sleep(1);
+                    $imported = 0;
+                    $inconsistencies = 0;
+                    $cellInconsistencies = [];
+                    $obj = new ObjUtil([
+                        "k_id_on_air" => $sheet->getCell('A' . $row)->getValue(),
+                        "n_nombre_estacion_eb" => $sheet->getCell('B' . $row)->getValue(),
+                        "n_tecnologia" => $sheet->getCell('C' . $row)->getValue(),
+                        "n_banda" => $sheet->getCell('D' . $row)->getValue(),
+                        "n_tipo_trabajo" => $sheet->getCell('E' . $row)->getValue(),
+                        "n_estado_eb_resucomen" => $sheet->getCell('F' . $row)->getValue() . " - " . $sheet->getCell('G' . $row)->getValue(),
+                        "comentario_resucoment" => $sheet->getCell('H' . $row)->getValue(),
+                        "hora_actualizacion_resucomen" => $this->getDatePHPExcel($sheet, 'I' . $row),
+                        "usuario_resucomen" => $sheet->getCell('J' . $row)->getValue(),
+                        "ente_ejecutor" => $sheet->getCell('K' . $row)->getValue(),
+                        "tipificacion_resucomen" => $sheet->getCell('L' . $row)->getValue(),
+                        "noc" => $sheet->getCell('M' . $row)->getValue(),
+                    ]);
+
+                    //Comprobamos si existe el ticket...
+                    if ($obj->k_id_on_air) {
+                        if ((new TicketOnAirModel())->where("k_id_onair", "=", $obj->k_id_on_air)->exist()) {
+                            //Se inserta el comentario...
+                            $reportCommentsModel = new ReporteComentarioModel();
+                            $reportCommentsModel->insert($obj->all());
+                        } else {
+                            //Se marca la celda como no existe el ticket...
+                        }
+                    }
+
+                    $row++;
+                }
+
+                return true;
+            } catch (DeplynException $ex) {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     public function processData() {
@@ -486,8 +571,8 @@ class Utils extends CI_Controller {
                 $imported = 0;
                 $inconsistencies = 0;
                 $cellInconsistencies = [];
-                while ($validator->required("", $sheet->getCell('A' . $row)->getValue())) {
-                    sleep(1);
+                while ($sheet->getCell('A' . $row)->getValue() > 0) {
+//                    sleep(1);
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
@@ -513,7 +598,7 @@ class Utils extends CI_Controller {
                         $this->getScaledOnAir($sheet, $obj, $row);
                         $obj->row = $row;
 
-                        if ($obj->k_id_status_onair == ConstStates::STAND_BY_SEGUIMIENTO_FO || ConstStates::STAND_BY_PRODUCCION) {
+                        if ($obj->k_id_status_onair == ConstStates::STAND_BY_SEGUIMIENTO_FO || $obj->k_id_status_onair == ConstStates::STAND_BY_PRODUCCION) {
                             $inconsistencies++;
                         }
 
@@ -527,10 +612,14 @@ class Utils extends CI_Controller {
                     }
                     $row++;
                 }
+                //Se procesan los comentarios...
+                $this->processAndInsertComments();
+
                 $response->setData([
                     "id" => $idTicket,
                     "imported" => $imported,
                     "inconsistencies" => $inconsistencies,
+                    "cellInconsistencies" => $cellInconsistencies,
                     "data" => $this->objs
                 ]);
             } catch (DeplynException $ex) {
@@ -547,8 +636,9 @@ class Utils extends CI_Controller {
 
     //<editor-fold defaultstate="collapsed" desc="insertTicket() -- Para PHPExcel" >
     private function insertTicket($obj) {
+//        echo "PASO POR INSERT";
         $this->objs[] = $obj->all();
-        return $this->objs;
+//        return $this->objs;
         //Obtenemos el preparation_stage;
         try {
             $validator = new Validator();
@@ -570,8 +660,6 @@ class Utils extends CI_Controller {
             $objTck->k_id_work = ($objTck->k_id_work) ? $objTck->k_id_work->k_id_work : DB::NULLED;
             $objTck->k_id_station = ($objTck->k_id_station) ? $objTck->k_id_station->k_id_station : DB::NULLED;
 
-            //Dejamos el precheck en estand by por ahora...
-            $objTck->k_id_precheck = DB::NULLED;
             $idTick = 0;
             $idTick = $tck->insert($objTck->all())->data;
 
