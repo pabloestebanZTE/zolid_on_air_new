@@ -12,6 +12,7 @@ class Utils extends CI_Controller {
         parent::__construct();
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Other modules" >
     public function getCurrentTimeStamp() {
         $x = date("Y-m-d H:i:s");
         $this->json(Hash::getTimeStamp($x));
@@ -72,6 +73,7 @@ class Utils extends CI_Controller {
         $response->setData($data);
         $this->json($response);
     }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getDatePHPExcel($sheet, $colum)" >
     private function getDatePHPExcel($sheet, $colum) {
