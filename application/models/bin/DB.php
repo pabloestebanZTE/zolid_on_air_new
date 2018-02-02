@@ -37,8 +37,12 @@ class DB extends PDO {
         $DB_PORT = $connection["port"];
         $DB_USER = $connection["username"];
         $DB_PASS = $connection["password"];
+        $array = [];
+        if (!defined("STDIN")) {
+            $array = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'");
+        }
         parent::__construct($DB_TYPE . ':host=' . $DB_HOST . ":" . $DB_PORT
-                . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+                . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, $array);
         $this->setAttribute(PDO::ATTR_PERSISTENT, true);
     }
 

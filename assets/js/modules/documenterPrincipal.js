@@ -224,6 +224,8 @@ var TD = {
                         $('#trackingDetails').removeClass('hidden');
                         alert.hide();
                         $('#formDetallesBasicos').fillForm(response.data);
+                        rg.getTickets(response.data.k_id_station.k_id_station);
+                        rg.getRelatedTickets(response.data.k_id_onair);
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");
                     }
