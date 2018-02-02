@@ -11,6 +11,11 @@ class Utils extends CI_Controller {
     function __construct() {
         parent::__construct();
     }
+    
+    public function pr(){
+        $s = new StationModel();
+        echo $s->getLastId("k_id_station");
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Other modules" >
     public function getCurrentTimeStamp() {
@@ -73,8 +78,8 @@ class Utils extends CI_Controller {
         $response->setData($data);
         $this->json($response);
     }
-    //</editor-fold>
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getDatePHPExcel($sheet, $colum)" >
     private function getDatePHPExcel($sheet, $colum) {
         $cell = $sheet->getCell($colum);
@@ -253,9 +258,12 @@ class Utils extends CI_Controller {
 
             //Creamos la nueva estación...
             $stationModel = new StationModel();
+            $stationModel->setKIdStation($stationModel->getLastId("k_id_station"));
             $stationModel->setKIdCity($city);
             $stationModel->setNNameStation($stationName);
             $stationModel->save();
+//            echo $stationModel->getSQL();
+//            INSERT INTO station (`k_id_station`, `k_id_city`, `n_name_station`) VALUES (NULL, "18", "ANT.Jardin Parque")
         }
 
         //Obtenemos la tecnología.
