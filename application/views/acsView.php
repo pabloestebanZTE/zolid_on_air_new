@@ -1180,7 +1180,7 @@
                                         <div class="col-md-6">
                                             <label for="n_tipo_afectación" class="col-sm-3 control-label">Tipo de Afectación:</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="n_tipo_afectación" name="n_tipo_afectación">
+                                                <select class="form-control" id="n_tipo_afectacion" name="n_tipo_afectacion">
                                                     <option value="">Seleccione</option>
                                                     <option value="Afectacion de servicio">Afectacion de servicio</option>
                                                     <option value="Notificacion">Notificacion</option>
@@ -1199,7 +1199,7 @@
                                         <div class="col-md-6">
                                             <label for="d_inicio_afectación" class="col-sm-3 control-label">Inicio Afectación:</label>
                                             <div class="col-sm-9">
-                                                <input type="datetime-local" class="form-control" id="d_inicio_afectación" name="d_inicio_afectación"/>
+                                                <input type="datetime-local" class="form-control" id="d_inicio_afectacion" name="d_inicio_afectacion"/>
                                             </div>
                                         </div>
                                     </div>    
@@ -1339,7 +1339,7 @@
                                         <div class="col-md-6">
                                             <label for="n_fm_claro" class="col-sm-4 control-label">FM Claro:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="n_fm_claro" name="n_fm_claro">
+                                                <select class="form-control" id="n_fm_claro_remedy" name="n_fm_claro">
                                                     <option value="">Seleccione</option>
                                                     <option value="N/A">N/A</option>
                                                     <option value="Hugo Alejandro Blanco">Hugo Alejandro Blanco</option>
@@ -1362,7 +1362,7 @@
                                         <div class="col-md-6">
                                             <label for="n_fm_nokia" class="col-sm-3 control-label">FM Nokia:</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="n_fm_nokia" name="n_fm_nokia">
+                                                <select class="form-control" id="n_fm_nokia_remedy" name="n_fm_nokia">
                                                     <option value="">Seleccione</option>
                                                     <option value="N/A">N/A</option>
                                                     <option value="Andrea del Pilar Guerrero Sanchez">Andrea del Pilar Guerrero Sanchez</option>
