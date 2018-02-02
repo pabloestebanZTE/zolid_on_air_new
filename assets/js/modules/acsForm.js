@@ -62,6 +62,39 @@ var vista = {
         $('.change-solution').on('change', vista.onChangeTypeSolution);
         $('.select-note').on('change', vista.onChangeNote);
         $('.estado_ticket_remedy').on('change', vista.onActivateRemedyClosing);
+        $('.estado_ticket_remedy').on('change', vista.onChangeTypeAffectation);
+    },
+    onChangeTypeAffectation: function () {
+        var estado_remedy = $('#n_estado_ticket option:selected').text();
+        var option = '';
+        switch (estado_remedy) {
+            case 'Cerrado':
+                option = '<option value="Seleccione">Seleccione</option>'
+                        + '<option value="Afectacion Finalizada">Afectacion Finalizada</option>'
+                        + '<option value="Degradacion Superada">Degradacion Superada</option>'
+                        + '<option value="Notificacion Finalizada">Notificacion Finalizada</option>';
+                break;
+
+            case 'Cancelado':
+                option = '<option value="">Seleccione</option>'
+                        + '<option value="Afectacion Finalizada">Afectacion Finalizada</option>'
+                        + '<option value="Degradacion Superada">Degradacion Superada</option>'
+                        + '<option value="Notificacion Finalizada">Notificacion Finalizada</option>'
+                        + '<option value="Cancelado">Cancelado</option>';
+                break;
+
+            default :
+                option = '<option value="">Seleccione</option>'
+                        + '<option value="Afectacion de servicio">Afectacion de servicio</option>'
+                        + '<option value="Notificacion">Notificacion</option>'
+                        + '<option value="Performance - Degradacion">Performance - Degradacion</option>';
+                break;
+        }
+
+        $('#n_tipo_afectacion').empty();
+        $('#n_tipo_afectacion').append(option);
+        $('#n_tipo_afectacion').trigger('selectfilled');
+
     },
     onActivateRemedyClosing: function () {
         var estado_remedy = $('#n_estado_ticket option:selected').text();
@@ -70,7 +103,6 @@ var vista = {
         } else {
             $('#remedy_cierre').hide();
         }
-
     },
     onChangeNote: function () {
         var tecnologia = $('#k_id_technology option:selected').text();
@@ -82,13 +114,13 @@ var vista = {
                     nota = '<h2 class="h4"><i class="fa fa-fw fa-exclamation-triangle"></i> Aval por parte implementacion Claro en caso que no presenten alarmas externas para migracion (FPMA FLEXI POWER MODULE)</h2>';
                 }
                 break;
-                
+
             case 'Modernización Multiradio':
                 if (tecnologia == '2G' || tecnologia == '2G/3G') {
                     nota = '<h2 class="h4"><i class="fa fa-fw fa-exclamation-triangle"></i> Validar VM ACS y/o CG Migracion de alarmas y/o - Aval por parte implementacion Claro en caso que no presenten alarmas externas para migracion (FPMA FLEXI POWER MODULE)</h2>';
                 }
                 break;
-                
+
             case 'Reubicacion de Equipos':
                 nota = '<h2 class="h4"><i class="fa fa-fw fa-exclamation-triangle"></i> Validar se mantiene o se realiza migracion alarmas a otro equipo de Power</h2>';
                 break;
@@ -273,20 +305,41 @@ var vista = {
     },
     onActivateRemedyForm: function () {
         var subEstado = $('#n_sub_estado').val();
+        var ente_ejecutor = $('#n_enteejecutor').val();
+        if (subEstado === 'Exitoso') {
+            $("#n_tipo_falla_final").val('N/A').trigger('change.select2');
+        }
+        
         if (subEstado === 'Afectación Activa' || subEstado === 'Notificacion activa' || subEstado === 'Degradacion Activa') {
             switch (subEstado) {
                 case 'Afectación Activa':
                     $("#n_tipo_afectación").val('Afectacion de servicio').trigger('change.select2');
+                    $("#n_falla_final").val('SI').trigger('change.select2');
                     break;
                 case 'Notificacion activa':
                     $("#n_tipo_afectación").val('Notificacion').trigger('change.select2');
+                    $("#n_falla_final").val('NO').trigger('change.select2');
                     break;
                 case 'Degradacion Activa':
                     $("#n_tipo_afectación").val('Performance - Degradacion').trigger('change.select2');
+                    $("#n_falla_final").val('SI').trigger('change.select2');
+                    break;
+            }
+           
+            $('#n_responsable_ticket').val(ente_ejecutor).trigger('change.select2');
+            switch (ente_ejecutor) {
+                case "Claro":
+                    $('#n_fm_claro_remedy').val($('#n_fm_claro').val()).trigger('change.select2');
+                    $('#n_fm_nokia_remedy').val('N/A').trigger('change.select2');
+                    break;
+                case "Nokia":
+                    $('#n_fm_nokia_remedy').val($('#n_fm_nokia').val()).trigger('change.select2');
+                    $('#n_fm_claro_remedy').val('N/A').trigger('change.select2');
                     break;
             }
             $('#form5').show();
         } else {
+            $("#n_falla_final").val('NO').trigger('change.select2');
             $('#form5').hide();
         }
     },
@@ -429,7 +482,6 @@ var vista = {
 
                 }
                 if (data.tiketRemedy) {
-                    console.log(data.tiketRemedy);
                     formGlobal.fillForm(data.tiketRemedy);
                     $('#form5').show();
                 }
