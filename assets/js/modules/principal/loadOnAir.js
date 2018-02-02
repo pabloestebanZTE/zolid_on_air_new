@@ -22,6 +22,7 @@ var load = {
         load.uploadFile(input);
     },
     uploadFile: function (input) {
+        $('body').attr('onbeforeunload', "event.returnValue = 'Si cierras la ventana no se guardaran los cambios.'");
         $('#btnLoadOnAir').html('<i class="fa fa-fw fa-refresh fa-spin"></i> Subiendo').prop('disabled', true);
         app.uploadFile("Utils/uploadfile", input, ["xlsx"])
                 .progress(function (progress) {
@@ -49,6 +50,7 @@ var load = {
         })
                 .complete(function () {
                     alert.hide();
+                    $('body').removeAttr('onbeforeunload');
                 })
                 .success(function (response) {
                     var v = app.validResponse(response);

@@ -365,7 +365,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 return new Response(EMessages::NO_FOUND_REGISTERS);
             }
             if (!$tck->k_id_precheck) {
-                return new Response(EMessages::EMPTY_MSG, "No se encontró el ticket.");
+                return new Response(EMessages::EMPTY_MSG, "Este ticket no cuenta con precheck, no se puede mostrar.");
             }
             //Si no viene el round desde el cliente, se setea al que tenemos en el tck...
             if (!$round) {
@@ -462,8 +462,13 @@ class Dao_ticketOnair_model extends CI_Model {
                 $timetotal = 0;
                 $today = 0;
                 $time = 0;
+                $temp = null;
                 if ($stepModel) {
-                    $temp = $stepModel->updateTimeStamp($tck);
+                    if (is_object($tck)) {
+                        $timeGlobal = new TimerGlobal();
+                        $temp = new ObjUtil($timeGlobal->updateTimeStamp($tck));
+                    }
+//                    $temp = $stepModel->updateTimeStamp($tck);
                     if ($temp) {
                         $timestamp = $temp->i_timestamp;
                         $percent = $temp->i_percent;
@@ -485,6 +490,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $actual_status = "escalado";
                 }
 
+
                 $data = [
                     "status" => $status_onair,
                     "details" => $details,
@@ -498,6 +504,16 @@ class Dao_ticketOnair_model extends CI_Model {
                     "today" => $today,
                     "time" => $time,
                 ];
+
+                if ($temp) {
+                    $data["i_timeexceeded"] = $temp->i_timeexceeded;
+                    $data["today"] = $temp->today;
+//                 $data->i_timestamp = $timestamp;
+//        $obj->i_timetotal = $timeFinal;
+//        $obj->i_percent = $percent;
+//        $obj->i_timeexceeded = $timeexceeded;
+//        $obj->today = $today;    
+                }
                 if ($haveDetails == 0 && !$escalado) {
                     return new Response(EMessages::EMPTY_MSG, "No hay ningún detalle para mostrar.");
                 } else if ($escalado) {
