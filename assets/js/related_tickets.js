@@ -1,9 +1,17 @@
 var rg = {
     init: function () {
         rg.events();
+        rg.configView();
     },
     events: function () {
         $('#btnAddTicketRelation').on('click', rg.onClickAddTicketRelation);
+    },
+    configView: function () {
+        if (!rgPermisesUpdate) {
+            $('#stationForm .alert').remove();
+            $('.relation-content-editor').remove();
+            $('#btnGuardarRelacionTickets').remove();
+        }
     },
     getRelations: function (form) {
         rg.relatedTickets = [];

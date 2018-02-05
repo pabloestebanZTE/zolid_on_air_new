@@ -655,6 +655,10 @@ var vista = {
                         $('#cmbSubEstadosTD').on('filledStatic', function () {
                             $(this).val($(this).attr('data-value')).trigger('change.select2');
                         });
+
+
+                        rg.getTickets(response.data.k_id_station.k_id_station);
+
 //                        vista.listCombox();
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");

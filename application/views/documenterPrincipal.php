@@ -28,13 +28,13 @@
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <?php if (Auth::isDocumentador()) { ?>
+                                <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a data-toggle="tab" href="#basic_information"><i class="fa fa-fw fa-info-circle"></i> Información básica</a></li>
                                         <li><a data-toggle="tab" href="#related_tickets" id="tabRelacionarTickets" ><i class="fa fa-fw fa-rebel"></i> Tickets relacionados (<span id="spanRelatedTickets">0</span>)</a></li>
                                     </ul>
                                 <?php } ?>
-                                <?php if (Auth::isDocumentador()) { ?>
+                                <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
                                     <div class="tab-content">
                                         <div id="basic_information" class="tab-pane fade in active">
                                         <?php } ?>                                        
@@ -198,10 +198,10 @@
                                                 <!--   fin seccion derecha---->
                                             </div>
                                         </form>
-                                        <?php if (Auth::isDocumentador()) { ?>
+                                        <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
                                         </div>
                                     <?php } ?>
-                                    <?php if (Auth::isDocumentador()) { ?>
+                                    <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
                                         <div id="related_tickets" class="tab-pane fade">
                                             <div class="form-horizontal well" method="post"  id="stationForm" name="stationForm">
                                                 <div class="alert alert-info alert-dismissable">
@@ -211,20 +211,22 @@
                                                     </p>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div class="form-group">
-                                                        <label for="cmbRegional" class="col-md-3 control-label">Ticket:</label>
-                                                        <div class="col-md-8 selectContainer">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
-                                                                <select id="cmbTicketRelation" class="form-control selectpicker" required>
-                                                                    <option value="">Seleccione</option>
-                                                                </select>
-                                                                <div class="input-group-btn"><button type="button" id="btnAddTicketRelation" title="Agregar" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button></div>
+                                                    <div class="relation-content-editor" >
+                                                        <div class="form-group">
+                                                            <label for="cmbRegional" class="col-md-3 control-label">Ticket:</label>
+                                                            <div class="col-md-8 selectContainer">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                                    <select id="cmbTicketRelation" class="form-control selectpicker" required>
+                                                                        <option value="">Seleccione</option>
+                                                                    </select>
+                                                                    <div class="input-group-btn"><button type="button" id="btnAddTicketRelation" title="Agregar" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button></div>
+                                                                </div>
                                                             </div>
+                                                        </div>                                
+                                                        <div class="form-group">
+                                                            <hr/>
                                                         </div>
-                                                    </div>                                
-                                                    <div class="form-group">
-                                                        <hr/>
                                                     </div>
                                                     <div class="form-group">
                                                         <table class="table table-bordered table-condensed table-striped table-hover" id="tableRelacionTickets">
@@ -255,7 +257,7 @@
                                             </div>
                                         </div>
                                     <?php } ?>
-                                    <?php if (Auth::isDocumentador()) { ?>
+                                    <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
                                     </div>                                
                                 <?php } ?>
                             </div>
@@ -841,9 +843,15 @@
             })
         </script>
 
+        <script type="text/javascript" >
+            var rgPermisesUpdate = <?= (Auth::isDocumentador()) ? "true" : "false"; ?>
+        </script>
+
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
         <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
-        <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
+        <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
+            <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
+        <?php } ?>
         <script src="<?= URL::to('assets/js/modules/documenterPrincipal.js?v=' . time()) ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
