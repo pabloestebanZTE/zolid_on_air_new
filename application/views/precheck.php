@@ -482,7 +482,7 @@
                     $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
                 } else {
                     hasSectores = false;
-                    $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+                    $('#tblSectores tbody').html('<tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
                 }
                 if ($('#tblSectores td input:checked').length > 0) {
                     $('#tblSectores input.checkbox-head').prop('checked', true);
@@ -636,7 +636,7 @@
                     })
                             .success(function (response) {
                                 if (response.code > 0) {
-                                    swal("Iniciado", "Se ha inciado el precheck correctamente, a partir de ahora cuenta con 3:00 horas para completarlo.", "success").then(function () {
+                                    swal("Iniciado", "Se ha inciado el precheck correctamente.", "success").then(function () {
                                         location.reload();
                                     });
                                     $('.disabledchange').prop('disabled', false);
@@ -731,6 +731,7 @@
                 function addSector() {
                     var table = $('#tblSectores tbody');
                     var tr = $('<tr><td class="" colspan="3"><div style="width: 100%; display: table" class="input-group"><div class="input-group-addon">Sector:</div><input type="text" class="form-control" placeholder="Nombre del sector" /><div class="input-group-btn"><button type="button" class="btn btn-success push-sector-btn"><i class="fa fa-fw fa-save"></i></button><button type="button" class="btn btn-danger delete-sector-btn"><i class="fa fa-fw fa-trash"></i></button></div></div></td></tr>');
+                    table.find('.no-found').remove();
                     table.prepend(tr);
                     tr.find('input').focus();
                 }
@@ -748,8 +749,9 @@
                         state: 1,
                     };
                     tr.remove();
-                    table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                    table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label> <button class="close btn-remove-sector-added m-r-15" title="Eliminar sector">&times</button></div></td></tr>', dat));
                 }
+
 
                 function onClickDeleteSector() {
                     var btn = $(this);
@@ -757,9 +759,15 @@
                     tr.remove();
                 }
 
+                function onClickPushRemoveSector() {
+                    var tr = $(this).parents('tr');
+                    tr.remove();
+                }
+
                 $('.btn-add-sector').on('click', addSector);
                 $('#tblSectores').on('click', '.push-sector-btn', onClickPushSector);
                 $('#tblSectores').on('click', '.delete-sector-btn', onClickDeleteSector);
+                $('#tblSectores').on('click', '.btn-remove-sector-added', onClickPushRemoveSector);
                 //Fin sectores dinámicos.
 
                 $('#btnAceptarModalSectores').on('click', function () {
