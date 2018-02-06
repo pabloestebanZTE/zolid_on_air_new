@@ -4,7 +4,6 @@ var vista = {
     init: function () {
         vista.events();
         vista.configView();
-//        vista.getDetail();
         vista.listCombox();
         vista.getDetails();
         vista.getStatesProduction();
@@ -16,7 +15,6 @@ var vista = {
             vista.configSectores();
             dom.submitDirect($('#formTrackingDetails'), null, false);
         });
-//        dom.submit($('#formTrackingDetails'), null, false);
     },
     onClickPushSector: function () {
         var btn = $(this);
@@ -31,7 +29,7 @@ var vista = {
             state: 1,
         };
         tr.remove();
-        table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+        table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label> <button class="close btn-remove-sector-added m-r-15" title="Eliminar sector">&times</button></div></td></tr>', dat));
     },
     onClickDeleteSector: function () {
         var btn = $(this);
@@ -40,7 +38,8 @@ var vista = {
     },
     events: function () {
         $('#tblSectores').on('click', '.push-sector-btn', vista.onClickPushSector);
-        $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickDeleteSector);
+        $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickRemoveSector);
+        $('#tblSectores').on('click', '.btn-remove-sector-added', vista.onClickRemoveSector);
         $('#btnDetails').on('click', vista.onClickDetails);
         $('.hour-step .icon-step').on('click', vista.onClickIconStep);
         $('.hour-step').on('click', vista.onClickHourStep);
@@ -65,6 +64,10 @@ var vista = {
 
         $('#cmbEstadosTD').on('change', vista.onChangeCmbEstados);
         $('#cmbSubEstadosTD').on('change', vista.onChangeState);
+    },
+    onClickRemoveSector: function () {
+        var tr = $(this).parents('tr');
+        tr.remove();
     },
     createSubstates: function () {
         vista.substates = {};
@@ -282,6 +285,7 @@ var vista = {
     addSector: function () {
         var table = $('#tblSectores tbody');
         var tr = $('<tr><td class="" colspan="3"><div style="width: 100%; display: table" class="input-group"><div class="input-group-addon">Sector:</div><input type="text" class="form-control" placeholder="Nombre del sector" /><div class="input-group-btn"><button type="button" class="btn btn-success push-sector-btn"><i class="fa fa-fw fa-save"></i></button><button type="button" class="btn btn-danger delete-sector-btn"><i class="fa fa-fw fa-trash"></i></button></div></div></td></tr>');
+        table.find('.no-found').remove();
         table.prepend(tr);
         tr.find('input').focus();
     },
@@ -315,7 +319,7 @@ var vista = {
             }
             $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
         } else {
-            $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+            $('#tblSectores tbody').html('<tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
             $('.btn-group').hide();
             $('#lblSectoresSeleccionados').hide().after('<label class="center-block"><i class="fa fa-fw fa-warning"></i> No aplica para sectores.</label>');
         }
@@ -655,6 +659,11 @@ var vista = {
                         $('#cmbSubEstadosTD').on('filledStatic', function () {
                             $(this).val($(this).attr('data-value')).trigger('change.select2');
                         });
+
+
+                        rg.getTickets(response.data.k_id_station.k_id_station);
+                        rg.getRelatedTickets(response.data.k_id_onair)
+
 //                        vista.listCombox();
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");

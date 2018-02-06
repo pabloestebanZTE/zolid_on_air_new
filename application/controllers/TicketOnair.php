@@ -252,6 +252,9 @@ class TicketOnair extends CI_Controller {
     }
 
     public function insertTicketOnair() {
+        $related_tickets = json_decode($this->request->related_tickets);
+//        echo $related_tickets[0];
+//        return;
         $ticket = new dao_ticketOnAir_model();
         $ticketPS = new dao_preparationStage_model();
         //camilo se envia semana actual y fecha de creacion
@@ -263,6 +266,24 @@ class TicketOnair extends CI_Controller {
         $this->request->i_actualEngineer = 0;
         $this->request->d_created_at = Hash::getDate();
         $response = $ticket->insertTicket($this->request);
+
+        //Ahora insertamos las relaciones...
+        if ($response->code > 0) {
+            foreach ($related_tickets as $id) {
+                $relatedTicketsModel = new RelatedTicketsModel();
+                $relatedTicketsModel->setKIdTicket1($response->data->data);
+                $relatedTicketsModel->setKIdTicket2($id);
+                $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                $relatedTicketsModel->setDCreated(Hash::getDate());
+                $relatedTicketsModel->save();
+                $relatedTicketsModel = new RelatedTicketsModel();
+                $relatedTicketsModel->setKIdTicket1($id);
+                $relatedTicketsModel->setKIdTicket2($response->data->data);
+                $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                $relatedTicketsModel->setDCreated(Hash::getDate());
+                $relatedTicketsModel->save();
+            }
+        }
         $this->json($response);
     }
 

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php $this->load->view('parts/generic/head'); ?>
+    <style type="text/css">
+        .nav li a {
+            background-color:#207be5;
+            text-decoration:'Open Sans', sans-serif;
+            padding:20px 12px;
+            display:block;
+            color: #FFF;
+        }
+    </style>
     <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
@@ -19,195 +28,267 @@
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <form class="form-horizontal well" id="formDetallesBasicos" action="TicketOnair/updateTicketDetails">
-                                    <input type="hidden" name="idOnAir" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" />
-                                    <div class="alert alert-success alert-dismissable hidden">
-                                        <a class="close" >&times;</a>
-                                        <p class="p-b-0" id="text"></p>
-                                    </div>
-                                    <div class="panel-body">
-                                        <fieldset class="col-md-6 control-label">
-                                            <div class="form-group">
-                                                <label for="txtEstacion" class="col-md-3 control-label">Estacion:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                                        <input type="text" name="k_id_station.n_name_station" id="txtEstacion" class="form-control" value="" readonly="false">
-                                                    </div>
-                                                </div>
+                                <?php $view = (Auth::isDocumentador() || Auth::isCoordinador() || Auth::isIngeniero()); ?>
+                                <?php if ($view) { ?>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#basic_information"><i class="fa fa-fw fa-info-circle"></i> Información básica</a></li>
+                                        <li><a data-toggle="tab" href="#related_tickets" id="tabRelacionarTickets" ><i class="fa fa-fw fa-rebel"></i> Tickets relacionados (<span id="spanRelatedTickets">0</span>)</a></li>
+                                    </ul>
+                                <?php } ?>
+                                <?php if ($view) { ?>
+                                    <div class="tab-content">
+                                        <div id="basic_information" class="tab-pane fade in active">
+                                        <?php } ?>
+                                        <form class="form-horizontal well" id="formDetallesBasicos" action="TicketOnair/updateTicketDetails">
+                                            <input type="hidden" name="idOnAir" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" />
+                                            <div class="alert alert-success alert-dismissable hidden">
+                                                <a class="close" >&times;</a>
+                                                <p class="p-b-0" id="text"></p>
                                             </div>
+                                            <div class="panel-body">
+                                                <fieldset class="col-md-6 control-label">
+                                                    <div class="form-group">
+                                                        <label for="txtEstacion" class="col-md-3 control-label">Estacion:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
+                                                                <input type="text" name="k_id_station.n_name_station" id="txtEstacion" class="form-control" value="" readonly="false">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="form-group">
-                                                <label for="txtBanda" class="col-md-3 control-label">Banda:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                        <select class="form-control" id="cmbBanda" name="k_id_band.k_id_band">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-                                                        <!--<input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">-->
+                                                    <div class="form-group">
+                                                        <label for="txtBanda" class="col-md-3 control-label">Banda:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
+                                                                <select class="form-control" id="cmbBanda" name="k_id_band.k_id_band">
+                                                                    <option value="">Seleccione</option>
+                                                                </select>
+                                                                <!--<input type="text" name="k_id_band.n_name_band" id="txtBanda" class="form-control" value="" readonly="false">-->
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label for="txtRegional" class="col-md-3 control-label">Regional:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
-                                                        <input type="text" name="k_id_station.k_id_city.k_id_regional.n_name_regional" id="txtRegional" class="form-control" value="" readonly="false">
+                                                    <div class="form-group">
+                                                        <label for="txtRegional" class="col-md-3 control-label">Regional:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-globe"></i></span>
+                                                                <input type="text" name="k_id_station.k_id_city.k_id_regional.n_name_regional" id="txtRegional" class="form-control" value="" readonly="false">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                    <div class="form-group">
+                                                        <label for="txtIngeniero" class="col-md-3 control-label">Ingeniero:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                                <input type="text" name="i_actualEngineer" id="txtIngeniero" class="form-control" readonly="false">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="form-group">
-                                                <label for="txtIngeniero" class="col-md-3 control-label">Ingeniero:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                        <input type="text" name="i_actualEngineer" id="txtIngeniero" class="form-control" readonly="false">
+                                                    <div class="form-group">
+                                                        <label for="txtFechaIngresoOnAir" class="col-md-3 control-label">Fecha ingreso On Air:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
+                                                                <input type="text" name="k_id_preparation.d_ingreso_on_air" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" placeholder="DD/MM/AAAA">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label for="txtFechaIngresoOnAir" class="col-md-3 control-label">Fecha ingreso On Air:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></span>
-                                                        <input type="text" name="k_id_preparation.d_ingreso_on_air" id="txtFechaIngresoOnAir" class="form-control" value="" readonly="false" placeholder="DD/MM/AAAA">
+                                                    <div class="form-group">
+                                                        <label for="txtCRQ" class="col-md-3 control-label">CRQ:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
+                                                                <input type="text" name="k_id_preparation.n_crq" id="txtCRQ" class="form-control" value="" readonly="false">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label for="txtCRQ" class="col-md-3 control-label">CRQ:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_crq" id="txtCRQ" class="form-control" value="" readonly="false">
+                                                    <div class="form-group">
+                                                        <label for="txtWP" class="col-md-3 control-label">WP:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
+                                                                <input type="text" name="k_id_preparation.n_wp" id="txtWP" class="form-control" value="" >
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                    <div class="form-group">
+                                                        <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
+                                                                <input type="text" name="k_id_preparation.n_bcf_wbts_id" id="k_id_preparation.n_bcf_wbts_id" class="form-control" value="" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <!--  fin seccion izquierda form---->
 
-                                            <div class="form-group">
-                                                <label for="txtWP" class="col-md-3 control-label">WP:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_wp" id="txtWP" class="form-control" value="" >
+                                                <!--  inicio seccion derecha form---->
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <label for="txtTecnologia" class="col-md-3 control-label">Tecnologia:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
+                                                                <select class="form-control helper-change" id="cmbTecnologia" name="k_id_technology.k_id_technology">
+                                                                    <option value="">Seleccione</option>
+                                                                </select>
+        <!--                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">-->
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="txtwbts" class="col-md-3 control-label">WBTS:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-drivers-license"></i></span>
-                                                        <input type="text" name="k_id_preparation.n_bcf_wbts_id" id="k_id_preparation.n_bcf_wbts_id" class="form-control" value="" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <!--  fin seccion izquierda form---->
 
-                                        <!--  inicio seccion derecha form---->
-                                        <fieldset>
-                                            <div class="form-group">
-                                                <label for="txtTecnologia" class="col-md-3 control-label">Tecnologia:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                        <select class="form-control helper-change" id="cmbTecnologia" name="k_id_technology.k_id_technology">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-<!--                                                        <input type="text" name="k_id_technology.n_name_technology" id="txtTecnologia" class="form-control" value="" readonly="false">-->
+                                                    <div class="form-group">
+                                                        <label for="txtTipotrabajo" class="col-md-3 control-label">Tipo de trabajo:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                                                <select class="form-control" id="cmbTipoTrabajo" name="k_id_work.k_id_work">
+                                                                    <option value="">Seleccione</option>
+                                                                </select>
+                                                                <!--<input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">-->
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                    <div class="form-group">
+                                                        <label for="txtciudad" class="col-md-3 control-label">Ciudad:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                                                                <input type="text" name="k_id_station.k_id_city.n_name_city" id="txtciudad" class="form-control" value="" readonly="false">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="form-group">
-                                                <label for="txtTipotrabajo" class="col-md-3 control-label">Tipo de trabajo:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                        <select class="form-control" id="cmbTipoTrabajo" name="k_id_work.k_id_work">
-                                                            <option value="">Seleccione</option>
-                                                        </select>
-                                                        <!--<input type="text" name="k_id_work.n_name_ork" id="txtTipotrabajo" class="form-control" value="" readonly="false">-->
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Ente Ejecutor:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
+                                                                <select name="k_id_preparation.n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker" required>
+                                                                    <option value="" >Seleccione</option><option value="Claro" >Claro</option><option value="Nokia" >Nokia</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="txtciudad" class="col-md-3 control-label">Ciudad:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
-                                                        <input type="text" name="k_id_station.k_id_city.n_name_city" id="txtciudad" class="form-control" value="" readonly="false">
+                                                    <div class="form-group">
+                                                        <label for="txtEstado" class="col-md-3 control-label">Estado:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
+                                                                <input type="text" name="k_id_status_onair.k_id_status.n_name_status" id="txtEstado" class="form-control" value="" readonly="false">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Ente Ejecutor:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                                        <select name="k_id_preparation.n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker" required>
-                                                            <option value="" >Seleccione</option><option value="Claro" >Claro</option><option value="Nokia" >Nokia</option>
-                                                        </select>
+                                                    <div class="form-group">
+                                                        <label for="txtSubestado" class="col-md-3 control-label">subestado:</label>
+                                                        <div class="col-md-8 selectContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
+                                                                <input type="text" name="k_id_status_onair.k_id_substatus.n_name_substatus" id="txtSubestado" class="form-control" value="" readonly="false">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="txtEstado" class="col-md-3 control-label">Estado:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                        <input type="text" name="k_id_status_onair.k_id_status.n_name_status" id="txtEstado" class="form-control" value="" readonly="false">
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label for="txtSubestado" class="col-md-3 control-label">subestado:</label>
-                                                <div class="col-md-8 selectContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                        <input type="text" name="k_id_status_onair.k_id_substatus.n_name_substatus" id="txtSubestado" class="form-control" value="" readonly="false">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                                <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Observaciones de Creación</label>
-                                                <div class="col-md-8 inputGroupContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                        <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Observaciones de Asignacion</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                                <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="form-group">
+                                                    <hr/>
+                                                    <div class="col-xs-12 text-center">
+                                                        <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>
                                                     </div>
                                                 </div>
+                                                <!--   fin seccion derecha---->
                                             </div>
+                                        </form>
+                                        <?php if ($view) { ?>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($view) { ?>
+                                        <div id="related_tickets" class="tab-pane fade">
+                                            <div class="form-horizontal well" method="post"  id="stationForm" name="stationForm">                                                
+                                                <div class="alert alert-info alert-dismissable">
+                                                    <a href="#" class="close" >&times;</a>
+                                                    <p class="p-b-0" id="text">
+                                                        <i class="fa fa-fw fa-info-circle"></i> Utiliza este panel para relacionar tickets. Selecciona el ticket y has clic en el botón agregar.
+                                                    </p>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="relation-content-editor">
+                                                        <div class="form-group">
+                                                            <label for="cmbRegional" class="col-md-3 control-label">Ticket:</label>
+                                                            <div class="col-md-8 selectContainer">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                                    <select id="cmbTicketRelation" class="form-control selectpicker" required>
+                                                                        <option value="">Seleccione</option>
+                                                                    </select>
+                                                                    <div class="input-group-btn"><button type="button" id="btnAddTicketRelation" title="Agregar" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                
+                                                        <div class="form-group">
+                                                            <hr/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <table class="table table-bordered table-condensed table-striped table-hover" id="tableRelacionTickets">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Ticket</th>
+                                                                    <th><i class="fa fa-fw fa-cog"></i> Opciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> No se han agregado relaciones para este ticket.</td></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!--  fin seccion izquierda form---->                                    
 
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Observaciones de Asignacion</label>
-                                                <div class="col-md-8 inputGroupContainer">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor"  readonly="false"></textarea>
-                                                    </div>
+                                                    <!-- Button -->
+                                                    <center>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12 control-label"></label>
+                                                            <div class="col-md-12">
+                                                                <button type="submit" id="btnGuardarRelacionTickets" class="btn btn-primary" >Guardar <span class="fa fa-fw fa-floppy-o"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </center>
                                                 </div>
-                                            </div>
-                                        </fieldset>
-                                        <div class="form-group">
-                                            <hr/>
-                                            <div class="col-xs-12 text-center">
-                                                <button class="btn btn-success"><i class="fa fa-fw fa-save"></i> Actualizar</button>
                                             </div>
                                         </div>
-                                        <!--   fin seccion derecha---->
-                                    </div>
-                                </form>
+                                    <?php } ?>
+                                    <?php if ($view) { ?>
+                                    </div>                                
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -810,7 +891,11 @@
     <!--FIN MODAL SECTORES-->
 
     <?php $this->load->view('parts/generic/scripts'); ?>
+    <script type="text/javascript" >
+        var rgPermisesUpdate = <?= (Auth::isDocumentador()) ? "true" : "false"; ?>
+    </script>
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=' . time()) ?>" type="text/javascript"></script>

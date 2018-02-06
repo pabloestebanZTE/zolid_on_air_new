@@ -29,7 +29,6 @@ var load = {
 //                    $('#barProgress').css('width', progress + '%');
                 })
                 .complete(function (response) {
-                    $('#btnLoadOnAir').html('<i class="fa fa-fw fa-paperclip"></i> Cargar OnAir').prop('disabled', false);
                     if (response.code > 0 && response.data.uploaded) {
                         swal("Correcto", "Se ha subido correctamente el archivo, haga clic a continuación el el botón ok para iniciar la lectura y carga del OnAir que acaba de subir en el sistema.", "success").then(function () {
                             load.processData(response.data);
@@ -51,6 +50,7 @@ var load = {
                 .complete(function () {
                     alert.hide();
                     $('body').removeAttr('onbeforeunload');
+                    $('#btnLoadOnAir').html('<i class="fa fa-fw fa-paperclip"></i> Cargar OnAir').prop('disabled', false);
                 })
                 .success(function (response) {
                     var v = app.validResponse(response);

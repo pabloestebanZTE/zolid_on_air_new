@@ -173,4 +173,14 @@ class Crud {
         }
     }
 
+    public function getLastId($id) {
+        $this->init();
+        try {
+            $db = new DB();
+            return $db->select("SELECT max($id) as max FROM $this->table")->first()->max + 1;
+        } catch (Exception $exc) {
+            return 0;
+        }
+    }
+
 }

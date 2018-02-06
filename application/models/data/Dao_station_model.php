@@ -7,9 +7,9 @@
     class Dao_station_model extends CI_Model{
 
         public function __construct(){
-           $this->load->model('dto/StationModel');
-           $this->load->model('dto/CityModel');
-           $this->load->model('dto/RegionalModel');
+//           $this->load->model('dto/StationModel');
+//           $this->load->model('dto/CityModel');
+//           $this->load->model('dto/RegionalModel');
         }
         public function getAll(){
           try {

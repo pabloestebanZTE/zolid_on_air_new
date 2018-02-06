@@ -12,6 +12,66 @@ class Utils extends CI_Controller {
         parent::__construct();
     }
 
+    public function pr() {
+        $s = new StationModel();
+        echo $s->getLastId("k_id_station");
+    }
+
+    public function getTicketsByStations() {
+        $response = new Response(EMessages::QUERY);
+        $request = $this->request;
+        $idStation = $request->idStation;
+        //Consultamos los tickets en esta estación...
+        $data = (new TicketOnAirModel())->where("k_id_station", "=", $idStation)->get();
+        $this->getFKRegisters($data);
+        $response->setData($data);
+        $this->json($response);
+    }
+
+    public function getRelatedTicketsByIdTicked() {
+        $response = new Response(EMessages::QUERY);
+        $request = $this->request;
+        $idTicket = $request->idTicket;
+        //Consultamos los tickets relacionados...
+        $db = new DB();
+        $data = $db->select("select tck.* from ticket_on_air tck inner join related_tickets rt on rt.k_id_ticket2 = tck.k_id_onair or rt.k_id_ticket2 = tck.k_id_onair where rt.k_id_ticket1 = $idTicket")->get();
+        $this->getFKRegisters($data);
+        $response->setData($data);
+        $this->json($response);
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="getFKRegisters()" >
+    public function getFKRegisters(&$res, $flag = null) {
+//        $ticketsOnAir = new Dao_ticketOnair_model();
+        $station = new Dao_station_model();
+        $band = new Dao_band_model();
+        $work = new Dao_work_model();
+        $technology = new Dao_technology_model();
+        $statusOnair = new Dao_statusOnair_model();
+        $stage = new Dao_preparationStage_model();
+        $assign = new Dao_user_model();
+        for ($j = 0; $j < count($res); $j++) {
+//            if ($flag == true) {
+//                $daoAutoRecord = new Dao_autorecord_model();
+//                $daoAutoRecord->record($res[$j]);
+//            }
+            $res[$j]->k_id_status_onair = $statusOnair->findById($res[$j])->data; //Status onair
+            $res[$j]->k_id_station = $station->findById($res[$j]->k_id_station)->data; //Station
+            $res[$j]->k_id_band = $band->findById($res[$j]->k_id_band)->data; //band
+            $res[$j]->k_id_work = $work->findById($res[$j]->k_id_work)->data; //work
+            $res[$j]->k_id_technology = $technology->findById($res[$j]->k_id_technology)->data; //technology
+            $res[$j]->k_id_preparation = $stage->findByIdPreparation($res[$j]->k_id_preparation)->data; //preparation
+            if ($res[$j]->i_actualEngineer != 0) {
+                $res[$j]->i_actualEngineer = $assign->findBySingleId($res[$j]->i_actualEngineer)->data; //
+//                $res[$j]->i_actualEngineer = $res[$j]->i_actualEngineer->n_name_user . " " . $res[$j]->i_actualEngineer->n_last_name_user;
+            } elseif ($res[$j]->i_actualEngineer == 0) {
+                $res[$j]->i_actualEngineer = "<b>PENDIENTE POR ASIGNAR</b>";
+            }
+        }
+        return $res;
+    }
+
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Other modules" >
     public function getCurrentTimeStamp() {
         $x = date("Y-m-d H:i:s");
@@ -73,8 +133,8 @@ class Utils extends CI_Controller {
         $response->setData($data);
         $this->json($response);
     }
-    //</editor-fold>
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getDatePHPExcel($sheet, $colum)" >
     private function getDatePHPExcel($sheet, $colum) {
         $cell = $sheet->getCell($colum);
@@ -253,9 +313,12 @@ class Utils extends CI_Controller {
 
             //Creamos la nueva estación...
             $stationModel = new StationModel();
+            $stationModel->setKIdStation($stationModel->getLastId("k_id_station"));
             $stationModel->setKIdCity($city);
             $stationModel->setNNameStation($stationName);
             $stationModel->save();
+//            echo $stationModel->getSQL();
+//            INSERT INTO station (`k_id_station`, `k_id_city`, `n_name_station`) VALUES (NULL, "18", "ANT.Jardin Parque")
         }
 
         //Obtenemos la tecnología.
@@ -466,6 +529,7 @@ class Utils extends CI_Controller {
         //En esta función se comprobarán los sectores del ticket...
     }
 
+    //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
         $request = $this->request;
         $file = $request->file;
@@ -540,6 +604,8 @@ class Utils extends CI_Controller {
         }
     }
 
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="processData()" >
     public function processData() {
         $request = $this->request;
         $response = new Response(EMessages::SUCCESS);
@@ -572,9 +638,9 @@ class Utils extends CI_Controller {
                 $idTicket = 0;
                 $imported = 0;
                 $inconsistencies = 0;
+                $inconsistenciesFull = [];
                 $cellInconsistencies = [];
                 while ($sheet->getCell('A' . $row)->getValue() > 0) {
-//                    sleep(1);
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
@@ -613,6 +679,9 @@ class Utils extends CI_Controller {
                         }
                     }
                     $row++;
+                    if (count($cellInconsistencies) > 0) {
+                        $inconsistenciesFull[$row] = $cellInconsistencies;
+                    }
                 }
                 //Se procesan los comentarios...
                 $this->processAndInsertComments();
@@ -633,6 +702,8 @@ class Utils extends CI_Controller {
 
         $this->json($response);
     }
+
+    //</editor-fold>
 
     private $objs = [];
 
