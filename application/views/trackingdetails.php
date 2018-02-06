@@ -28,13 +28,14 @@
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
+                                <?php $view = (Auth::isDocumentador() || Auth::isCoordinador() || Auth::isIngeniero()); ?>
+                                <?php if ($view) { ?>
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a data-toggle="tab" href="#basic_information"><i class="fa fa-fw fa-info-circle"></i> Información básica</a></li>
                                         <li><a data-toggle="tab" href="#related_tickets" id="tabRelacionarTickets" ><i class="fa fa-fw fa-rebel"></i> Tickets relacionados (<span id="spanRelatedTickets">0</span>)</a></li>
                                     </ul>
                                 <?php } ?>
-                                <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
+                                <?php if ($view) { ?>
                                     <div class="tab-content">
                                         <div id="basic_information" class="tab-pane fade in active">
                                         <?php } ?>
@@ -78,7 +79,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="form-group">
                                                         <label for="txtIngeniero" class="col-md-3 control-label">Ingeniero:</label>
                                                         <div class="col-md-8 selectContainer">
@@ -227,10 +227,10 @@
                                                 <!--   fin seccion derecha---->
                                             </div>
                                         </form>
-                                        <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
+                                        <?php if ($view) { ?>
                                         </div>
                                     <?php } ?>
-                                    <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
+                                    <?php if ($view) { ?>
                                         <div id="related_tickets" class="tab-pane fade">
                                             <div class="form-horizontal well" method="post"  id="stationForm" name="stationForm">                                                
                                                 <div class="alert alert-info alert-dismissable">
@@ -286,7 +286,7 @@
                                             </div>
                                         </div>
                                     <?php } ?>
-                                    <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
+                                    <?php if ($view) { ?>
                                     </div>                                
                                 <?php } ?>
                             </div>
@@ -895,9 +895,7 @@
         var rgPermisesUpdate = <?= (Auth::isDocumentador()) ? "true" : "false"; ?>
     </script>
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
-    <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
-        <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
-    <?php } ?>       
+    <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=' . time()) ?>" type="text/javascript"></script>

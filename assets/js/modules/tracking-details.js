@@ -39,7 +39,7 @@ var vista = {
     events: function () {
         $('#tblSectores').on('click', '.push-sector-btn', vista.onClickPushSector);
         $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickRemoveSector);
-        $('#tblSectores').on('click', '.btn-remove-sector-added', );
+        $('#tblSectores').on('click', '.btn-remove-sector-added', vista.onClickRemoveSector);
         $('#btnDetails').on('click', vista.onClickDetails);
         $('.hour-step .icon-step').on('click', vista.onClickIconStep);
         $('.hour-step').on('click', vista.onClickHourStep);
@@ -662,6 +662,7 @@ var vista = {
 
 
                         rg.getTickets(response.data.k_id_station.k_id_station);
+                        rg.getRelatedTickets(response.data.k_id_onair)
 
 //                        vista.listCombox();
                     } else {

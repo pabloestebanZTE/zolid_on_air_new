@@ -63,7 +63,7 @@ var rg = {
                         for (var i = 0; i < data.length; i++) {
                             var obj = data[i];
                             obj.i = i + 1;
-                            content.append(dom.fillString('<tr class="saved" data-i="{k_id_onair}"><td>{i}</td><td><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a><button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button></div></td></tr>', obj));
+                            content.append(dom.fillString('<tr class="saved" data-i="{k_id_onair}"><td>{i}</td><td><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a>' + ((rgPermisesUpdate) ? '<button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button>' : '') + '</div></td></tr>', obj));
                         }
                     } else {
                         content.html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No se han agregado relaciones para este tikcet.</td></tr>');
@@ -86,10 +86,12 @@ var rg = {
                         var max = data.length;
                         for (var i = 0; i < max; i++) {
                             var obj = data[i];
-                            rg.dataEstaciones[obj.k_id_onair] = obj;
-                            obj.i = i + 1;
-                            $el = $(dom.fillString('<option value="{k_id_onair}">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</option>', obj));
-                            cmb.append($el);
+                            if (obj.k_id_onair != $('#idOnAir').val()) {
+                                rg.dataEstaciones[obj.k_id_onair] = obj;
+                                obj.i = i + 1;
+                                $el = $(dom.fillString('<option value="{k_id_onair}">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</option>', obj));
+                                cmb.append($el);
+                            }
                         }
                         cmb.trigger('change.select2');
                     } else {
