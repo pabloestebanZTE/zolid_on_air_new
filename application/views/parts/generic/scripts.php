@@ -2,6 +2,7 @@
 <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
 <!-- CORE JQUERY  -->
 <script src="<?= URL::to('assets/plugins/jquery-1.10.2.js') ?>" /></script>
+<script src="<?= URL::to('assets/plugins/jquery-ui.min.js') ?>" /></script>
 <!-- BOOTSTRAP CORE SCRIPT   -->
 <script src="<?= URL::to('assets/plugins/bootstrap/js/bootstrap.min.js') ?>" /></script>
 <!-- PARALLAX SCRIPT   -->

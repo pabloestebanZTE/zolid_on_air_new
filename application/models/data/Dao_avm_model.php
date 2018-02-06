@@ -21,7 +21,19 @@ class Dao_avm_model extends CI_Model {
             return $ex;
         }
     }
-    
+
+    public function getAllPersonRequests($request) {
+        try {
+            $db = new DB();
+            $datos = $db->select("SELECT n_persona_solicita_vmlc FROM avm WHERE n_persona_solicita_vmlc LIKE'%" . $request->search . "%'")->get();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (DeplynException $ex) {
+            return $ex;
+        }
+    }
+
 }
 
 ?>

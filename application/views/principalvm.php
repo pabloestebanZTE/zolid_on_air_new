@@ -21,20 +21,16 @@
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
-<<<<<<< HEAD
         </div>
         <!-- CUSTOM SCRIPT   -->
         <?php $this->load->view('parts/generic/scripts'); ?>
-        <script src="<?= URL::to("assets/js/modules/acs.js"); ?>" type = "text/javascript"></script>
+        <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
         <script>
         $(function () {
             var info = <?php echo $usuarios; ?>;
-            console.log(info);
+//            console.log(info);
             dom.llenarCombo($('.select-ingeniero'),info.users.data, {text:"n_name_user", value:"k_id_user"});
         });
         </script>
-=======
-        </div>        
->>>>>>> 0111eac9d3abb6ee103f3c6f71dfab931b4cfdfb
     </body>
 </html>
