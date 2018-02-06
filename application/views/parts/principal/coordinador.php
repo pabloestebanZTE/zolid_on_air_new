@@ -87,7 +87,7 @@
                                                 <table id="tablaReinicio12h" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                             <div class="tab-pane fade" id="standBy">
-                                                <h1 class="m-t-0">Reinicio 12h</h1>
+                                                <h1 class="m-t-0">StandBy</h1>
                                                 <table id="tablaStandBy" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                         </div>
