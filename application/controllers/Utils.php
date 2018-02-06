@@ -638,9 +638,9 @@ class Utils extends CI_Controller {
                 $idTicket = 0;
                 $imported = 0;
                 $inconsistencies = 0;
+                $inconsistenciesFull = [];
                 $cellInconsistencies = [];
                 while ($sheet->getCell('A' . $row)->getValue() > 0) {
-//                    sleep(1);
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
@@ -679,6 +679,9 @@ class Utils extends CI_Controller {
                         }
                     }
                     $row++;
+                    if (count($cellInconsistencies) > 0) {
+                        $inconsistenciesFull[$row] = $cellInconsistencies;
+                    }
                 }
                 //Se procesan los comentarios...
                 $this->processAndInsertComments();
