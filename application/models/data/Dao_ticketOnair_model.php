@@ -129,6 +129,10 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketOnAir = new TicketOnAirModel();
             $datos = $ticketOnAir->where("k_id_onair", "=", $id)
                     ->first();
+            if (!$datos->k_id_station) {
+                $ticketOnAir->getSQL();
+//                var_dump($datos);
+            }
             //Evaluamos si se encontró algún registro.
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);

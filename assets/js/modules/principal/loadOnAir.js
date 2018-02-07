@@ -49,6 +49,29 @@ var load = {
             file: data.path
         })
                 .complete(function () {
+                    load.processComments(data, alert);
+                })
+                .success(function (response) {
+                    var v = app.validResponse(response);
+                    if (v) {
+                        swal("Importado", "Se ha importado toda la información del OnAir correctamente.", "success");
+                    } else {
+                        swal("Error", "Lo sentimos, no se pudo procesar el OnAir que ha subido.", "error");
+                    }
+                })
+                .error(function (e) {
+                    swal("Error", "Lo sentimos se ha producido un error inesperado al procesar el OnAir que ha subido.", "error");
+                })
+                .send();
+    },
+    processComments: function (data, alert) {
+        $('body').removeAttr('onbeforeunload');
+        $('#btnLoadOnAir').html('<i class="fa fa-fw fa-paperclip"></i> Cargar OnAir').prop('disabled', false);
+        alert.hide();
+        app.post('Utils/processAndInsertComments', {
+            file: data.path
+        })
+                .complete(function () {
                     alert.hide();
                     $('body').removeAttr('onbeforeunload');
                     $('#btnLoadOnAir').html('<i class="fa fa-fw fa-paperclip"></i> Cargar OnAir').prop('disabled', false);
@@ -65,6 +88,7 @@ var load = {
                     swal("Error", "Lo sentimos se ha producido un error inesperado al procesar el OnAir que ha subido.", "error");
                 })
                 .send();
+
     }
 };
 $(load.init);

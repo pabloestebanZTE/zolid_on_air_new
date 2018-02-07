@@ -538,9 +538,9 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
-            if (intval(phpversion()) <= 5) {
-                PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
-            }
+//            if (intval(phpversion()) <= 5) {
+            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+//            }
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -1051,9 +1051,9 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
-            if (intval(phpversion()) <= 5) {
-                PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
-            }
+//            if (intval(phpversion()) <= 5) {
+            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+//            }
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -1066,7 +1066,6 @@ class Utils extends CI_Controller {
 
                 //Obtenemos la página.
                 $sheet = $objPHPExcel->getSheet(0);
-                //$highestRow = $sheet->calculateWorksheetDimension();
                 //Obtenemos el highestRow...
                 $highestRow = 0;
                 $row = 2;
@@ -1077,7 +1076,7 @@ class Utils extends CI_Controller {
                 $cellInconsistencies = [];
 
                 //Inicializamos un objeto de PHPExcel para escritura...
-                $objPHPWriter = $this->createErrorsFileExcel();
+//                $objPHPWriter = $this->createErrorsFileExcel();
                 $rowWriter = 1;
 
                 while ($sheet->getCell('A' . $row)->getValue() > 0) {
@@ -1116,7 +1115,7 @@ class Utils extends CI_Controller {
                             $idTicket = $this->insertTicket($obj);
                         } else {
                             //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
-                            $this->printLineError($objPHPWriter, $rowWriter, $obj);
+//                            $this->printLineError($objPHPWriter, $rowWriter, $obj);
                             $rowWriter++;
                         }
                     }
@@ -1129,20 +1128,18 @@ class Utils extends CI_Controller {
                         $inconsistenciesFull[] = $cellInconsistencies;
                     }
                 }
-                //Se procesan los comentarios...
-                $this->processAndInsertComments();
 
                 $filename = null;
 
                 if (count($inconsistenciesFull) > 0) {
                     //Ponemos un nombre a la hoja.
-                    $objPHPWriter->getActiveSheet()->setTitle("Reporte Errores de importación OnAir");
-                    //Hacemos la hoja activa...
-                    $objPHPWriter->setActiveSheetIndex(0);
-                    //Guardamos.
-                    $objWriter = new PHPExcel_Writer_Excel2007($objPHPWriter);
-                    $filename = 'Reporte errores de importación OnAir.xlsx';
-                    $objWriter->save($filename);
+//                    $objPHPWriter->getActiveSheet()->setTitle("Reporte Errores de importación OnAir");
+//                    //Hacemos la hoja activa...
+//                    $objPHPWriter->setActiveSheetIndex(0);
+//                    //Guardamos.
+//                    $objWriter = new PHPExcel_Writer_Excel2007($objPHPWriter);
+//                    $filename = 'Reporte errores de importación OnAir.xlsx';
+//                    $objWriter->save($filename);
                 }
 
                 $response->setData([
