@@ -172,7 +172,7 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="getPreparationStage" >
+    //<editor-fold defaultstate="collapsed" desc="getPreparationStage()" >
     private function getPreparationStage(&$sheet, &$obj, $row) {
         $obj->k_id_preparation = (new ObjUtil([
             "n_bcf_wbts_id" => $sheet->getCell('C' . $row)->getValue(),
@@ -211,13 +211,6 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
-
-    private function getUserByName($userName) {
-        //Ojo! se crean algunos indices en la tabla, para ajustar los campos usados en este MATCH de MySQL ejecutar la siguiente consulta:
-        //ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);
-        return (new DB())->select('SELECT * FROM (SELECT * , MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AS puntuacion FROM user WHERE MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AND n_role_user IS NOT NULL AND n_role_user = "Ingeniero" ORDER BY puntuacion DESC LIMIT 15) q1 WHERE puntuacion >= 4')->first();
-    }
-
     //<editor-fold defaultstate="collapsed" desc="getPrecheck(&$sheet, &$obj)" >
     private function getPrecheck(&$sheet, &$obj, $row) {
         $userName = $sheet->getCell('Y' . $row)->getValue();
@@ -592,7 +585,12 @@ class Utils extends CI_Controller {
                         }
                     }
 
+                    if (($row % 50) == 0) {
+                        sleep(3);
+                    }
+                    
                     $row++;
+                    
                 }
 
                 return true;
@@ -619,6 +617,7 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
+            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -678,6 +677,10 @@ class Utils extends CI_Controller {
                             //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
                         }
                     }
+                    if (($row % 50) == 0) {
+                        sleep(3);
+                    }
+
                     $row++;
                     if (count($cellInconsistencies) > 0) {
                         $inconsistenciesFull[$row] = $cellInconsistencies;
@@ -710,7 +713,7 @@ class Utils extends CI_Controller {
     //<editor-fold defaultstate="collapsed" desc="insertTicket() -- Para PHPExcel" >
     private function insertTicket($obj) {
 //        echo "PASO POR INSERT";
-        $this->objs[] = $obj->all();
+//        $this->objs[] = $obj->all();
 //        return $this->objs;
         //Obtenemos el preparation_stage;
         try {
@@ -756,4 +759,12 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
+
+
+    private function getUserByName($userName) {
+        //Ojo! se crean algunos indices en la tabla, para ajustar los campos usados en este MATCH de MySQL ejecutar la siguiente consulta:
+        //ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);
+        return (new DB())->select('SELECT * FROM (SELECT * , MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AS puntuacion FROM user WHERE MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AND n_role_user IS NOT NULL AND n_role_user = "Ingeniero" ORDER BY puntuacion DESC LIMIT 15) q1 WHERE puntuacion >= 4')->first();
+    }
+
 }
