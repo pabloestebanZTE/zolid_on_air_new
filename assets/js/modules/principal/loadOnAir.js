@@ -23,12 +23,13 @@ var load = {
     },
     uploadFile: function (input) {
         $('body').attr('onbeforeunload', "event.returnValue = 'Si cierras la ventana no se guardaran los cambios.'");
-        $('#btnLoadOnAir').html('<i class="fa fa-fw fa-refresh fa-spin"></i> Subiendo').prop('disabled', true);
+        $('#btnLoadOnAir').prop('disabled', true).html('<i class="fa fa-fw fa-refresh fa-spin"></i> Subiendo <span id="progressLoadSpan">(0%)</span>');
         app.uploadFile("Utils/uploadfile", input, ["xlsx"])
                 .progress(function (progress) {
-//                    $('#barProgress').css('width', progress + '%');
+                    $('#progressLoadSpan').html('(' + Math.floor(progress) + '%)');
                 })
                 .complete(function (response) {
+                    $('#btnLoadOnAir').prop('disabled', true).html('<i class="fa fa-fw fa-check"></i> Cargado.</span>');
                     if (response.code > 0 && response.data.uploaded) {
                         swal("Correcto", "Se ha subido correctamente el archivo, haga clic a continuación el el botón ok para iniciar la lectura y carga del OnAir que acaba de subir en el sistema.", "success").then(function () {
                             load.processData(response.data);

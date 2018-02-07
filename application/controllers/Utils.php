@@ -521,6 +521,10 @@ class Utils extends CI_Controller {
     private function getSectores(&$sheet, &$obj) {
         //En esta función se comprobarán los sectores del ticket...
     }
+    
+    public function printInconsistences($inconsistences){
+        
+    }
 
     //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
@@ -534,6 +538,7 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
+//            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -683,7 +688,7 @@ class Utils extends CI_Controller {
 
                     $row++;
                     if (count($cellInconsistencies) > 0) {
-                        $inconsistenciesFull[$row] = $cellInconsistencies;
+                        $inconsistenciesFull[] = $cellInconsistencies;
                     }
                 }
                 //Se procesan los comentarios...
@@ -693,7 +698,7 @@ class Utils extends CI_Controller {
                     "id" => $idTicket,
                     "imported" => $imported,
                     "inconsistencies" => $inconsistencies,
-                    "cellInconsistencies" => $cellInconsistencies,
+                    "inconsistenciesFull" => $inconsistenciesFull,
                     "data" => $this->objs
                 ]);
             } catch (DeplynException $ex) {
