@@ -23,10 +23,10 @@ var load = {
     },
     uploadFile: function (input) {
         $('body').attr('onbeforeunload', "event.returnValue = 'Si cierras la ventana no se guardaran los cambios.'");
-        $('#btnLoadOnAir').html('<i class="fa fa-fw fa-refresh fa-spin"></i> Subiendo').prop('disabled', true);
+        $('#btnLoadOnAir').prop('disabled', true).html('<i class="fa fa-fw fa-refresh fa-spin"></i> Subiendo <span id="progressLoadSpan">(0%)</span>');
         app.uploadFile("Utils/uploadfile", input, ["xlsx"])
                 .progress(function (progress) {
-//                    $('#barProgress').css('width', progress + '%');
+                    $('#progressLoadSpan').html('(' + progress + '%)');
                 })
                 .complete(function (response) {
                     if (response.code > 0 && response.data.uploaded) {
