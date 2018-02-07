@@ -40,6 +40,15 @@ class Utils extends CI_Controller {
         $this->json($response);
     }
 
+    /**
+     * @param $sheet
+     * @param $cell
+     * getValueCell($sheet, $cell)
+     */
+    private function getValueCell(&$sheet, $cell) {
+        return str_replace(array("\n", "\r", "\t"), '', $sheet->getCell($cell)->getValue());
+    }
+
     //<editor-fold defaultstate="collapsed" desc="getFKRegisters()" >
     public function getFKRegisters(&$res, $flag = null) {
 //        $ticketsOnAir = new Dao_ticketOnair_model();
@@ -175,49 +184,49 @@ class Utils extends CI_Controller {
     //<editor-fold defaultstate="collapsed" desc="getPreparationStage()" >
     private function getPreparationStage(&$sheet, &$obj, $row) {
         $obj->k_id_preparation = (new ObjUtil([
-            "n_bcf_wbts_id" => $sheet->getCell('C' . $row)->getValue(),
-            "n_bts_id" => $sheet->getCell('D' . $row)->getValue(),
+            "n_bcf_wbts_id" => $this->getValueCell($sheet, 'C' . $row),
+            "n_bts_id" => $this->getValueCell($sheet, 'D' . $row),
             "d_ingreso_on_air" => $this->getDatePHPExcel($sheet, "J" . $row),
             "d_correccionespendientes" => $this->getDatePHPExcel($sheet, "V" . $row),
             "d_actualizacion_final" => $this->getDatePHPExcel($sheet, "BA" . $row),
-            "n_enteejecutor" => $sheet->getCell('N' . $row)->getValue(),
-            "n_controlador" => $sheet->getCell('O' . $row)->getValue(),
-            "n_idcontrolador" => $sheet->getCell('P' . $row)->getValue(),
-            "n_btsipaddress" => $sheet->getCell('W' . $row)->getValue(),
-            "n_integrador" => $sheet->getCell('X' . $row)->getValue(),
-            "n_wp" => $sheet->getCell('AB' . $row)->getValue(),
-            "n_crq" => $sheet->getCell('AC' . $row)->getValue(),
-            "n_testgestion" => $sheet->getCell('AD' . $row)->getValue(),
-            "n_sitiolimpio" => $sheet->getCell('AE' . $row)->getValue(),
-            "n_instalacion_hw_sitio" => $sheet->getCell('AG' . $row)->getValue(),
-            "n_cambios_config_solicitados" => $sheet->getCell('AH' . $row)->getValue(),
-            "n_cambios_config_final" => $sheet->getCell('AI' . $row)->getValue(),
-            "n_contratista" => $sheet->getCell('AN' . $row)->getValue(),
-            "n_comentarioccial" => $sheet->getCell('AO' . $row)->getValue(),
-            "n_ticketremedy" => $sheet->getCell('AP' . $row)->getValue(),
-            "n_lac" => $sheet->getCell('AT' . $row)->getValue(),
-            "n_rac" => $sheet->getCell('AU' . $row)->getValue(),
-            "n_sac" => $sheet->getCell('AV' . $row)->getValue(),
-            "n_integracion_gestion_y_trafica" => $sheet->getCell('AW' . $row)->getValue(),
-            "puesta_servicio_sitio_nuevo_lte" => $sheet->getCell('AX' . $row)->getValue(),
-            "n_instalacion_hw_4g_sitio" => $sheet->getCell('AY' . $row)->getValue(),
-            "pre_launch" => $sheet->getCell('AZ' . $row)->getValue(),
-            "n_evidenciasl" => $sheet->getCell('BD' . $row)->getValue(),
-            "n_evidenciatg" => $sheet->getCell('BE' . $row)->getValue(),
-            "i_week" => $sheet->getCell('BV' . $row)->getValue(),
-            "id_rftools" => $sheet->getCell('CC' . $row)->getValue(),
-            "id_documentacion" => $sheet->getCell('CB' . $row)->getValue(),
+            "n_enteejecutor" => $this->getValueCell($sheet, 'N' . $row),
+            "n_controlador" => $this->getValueCell($sheet, 'O' . $row),
+            "n_idcontrolador" => $this->geValuetCell('P' . $row),
+            "n_btsipaddress" => $this->getvalueCell('W' . $row),
+            "n_integrador" => $this->getValueCell('X' . $row),
+            "n_wp" => $this->getValueCell('AB' . $row),
+            "n_crq" => $this->getValueCell('AC' . $row),
+            "n_testgestion" => $this->getValueCell('AD' . $row),
+            "n_sitiolimpio" => $this->getValueCell('AE' . $row),
+            "n_instalacion_hw_sitio" => $this->getValueCell('AG' . $row),
+            "n_cambios_config_solicitados" => $this->getValueCell('AH' . $row),
+            "n_cambios_config_final" => $this->getValueCell($sheet, 'AI' . $row),
+            "n_contratista" => $this->getValueCell($sheet, 'AN' . $row),
+            "n_comentarioccial" => $this->getValueCell($sheet, 'AO' . $row),
+            "n_ticketremedy" => $this->getValueCell($sheet, 'AP' . $row),
+            "n_lac" => $this->getValueCell($sheet, 'AT' . $row),
+            "n_rac" => $this->getValueCell($sheet, 'AU' . $row),
+            "n_sac" => $this->getValueCell($sheet, 'AV' . $row),
+            "n_integracion_gestion_y_trafica" => $this->getValueCell($sheet, 'AW' . $row),
+            "puesta_servicio_sitio_nuevo_lte" => $this->getValueCell($sheet, 'AX' . $row),
+            "n_instalacion_hw_4g_sitio" => $this->getValueCell($sheet, 'AY' . $row),
+            "pre_launch" => $this->getValueCell($sheet, 'AZ' . $row),
+            "n_evidenciasl" => $this->getValueCell($sheet, 'BD' . $row),
+            "n_evidenciatg" => $this->getValueCell($sheet, 'BE' . $row),
+            "i_week" => $this->getValueCell($sheet, 'BV' . $row),
+            "id_rftools" => $this->getValueCell($sheet, 'CC' . $row),
+            "id_documentacion" => $this->getValueCell($sheet, 'CB' . $row),
                 ]))->all();
     }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getPrecheck(&$sheet, &$obj)" >
     private function getPrecheck(&$sheet, &$obj, $row) {
-        $userName = $sheet->getCell('Y' . $row)->getValue();
+        $userName = $this->getValueCell($sheet, 'Y' . $row);
         $user = $this->getUserByName($userName);
         $user = (($user) ? $user->k_id_user : DB::NULLED);
         $validator = new Validator();
-        $date = $validator->required("", $sheet->getCell('AQ' . $row)->getValue());
+        $date = $validator->required("", $this->getValueCell('AQ' . $row));
         if (!$date) {
             $date = DB::NULLED;
         } else {
@@ -243,29 +252,29 @@ class Utils extends CI_Controller {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getScaledOnAir(&$sheet, &$obj)" >
     private function getScaledOnAir(&$sheet, &$obj, $row) {
-        $dateScaled = $sheet->getCell('BF' . $row)->getValue();
+        $dateScaled = $this->getValueCell('BF' . $row);
         $validator = new Validator($dateScaled);
         if ($validator->required("", $dateScaled)) {
             $obj->scaled_on_air = (new ObjUtil([
                 "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BG" . $row),
-                "time_esc_imp" => $sheet->getCell('BI' . $row)->getValue(),
-                "cont_esc_npo" => $sheet->getCell('BL' . $row)->getValue(),
-                "cont_esc_care" => $sheet->getCell('BN' . $row)->getValue(),
-                "time_esc_oym" => $sheet->getCell('BS' . $row)->getValue(),
-                "cont_esc_calidad" => $sheet->getCell('BT' . $row)->getValue(),
-                "n_atribuible_nokia2" => $sheet->getCell('BY' . $row)->getValue(),
-                "n_tipificacion_solucion" => $sheet->getCell('CD' . $row)->getValue(),
-                "n_ultimo_subestado_de_escalamiento" => $sheet->getCell('CZ' . $row)->getValue(),
-                "i_cont_esc_imp" => $sheet->getCell('BH' . $row)->getValue(),
-                "i_cont_esc_rf" => $sheet->getCell('BJ' . $row)->getValue(),
-                "i_time_esc_rf" => $sheet->getCell('BK' . $row)->getValue(),
-                "i_time_esc_npo" => $sheet->getCell('BM' . $row)->getValue(),
-                "i_time_esc_care" => $sheet->getCell('BO' . $row)->getValue(),
-                "i_cont_esc_gdrt" => $sheet->getCell('BP' . $row)->getValue(),
-                "i_time_esc_gdrt" => $sheet->getCell('BQ' . $row)->getValue(),
-                "i_cont_esc_oym" => $sheet->getCell('BR' . $row)->getValue(),
-                "i_time_esc_calidad" => $sheet->getCell('BU' . $row)->getValue(),
-                "n_detalle_solucion" => $sheet->getCell('CU' . $row)->getValue(),
+                "time_esc_imp" => $this->getValueCell($sheet, 'BI' . $row),
+                "cont_esc_npo" => $this->getValueCell($sheet, 'BL' . $row),
+                "cont_esc_care" => $this->getValueCell($sheet, 'BN' . $row),
+                "time_esc_oym" => $this->getValueCell($sheet, 'BS' . $row),
+                "cont_esc_calidad" => $this->getValueCell($sheet, 'BT' . $row),
+                "n_atribuible_nokia2" => $this->getValueCell($sheet, 'BY' . $row),
+                "n_tipificacion_solucion" => $this->getValueCell($sheet, 'CD' . $row),
+                "n_ultimo_subestado_de_escalamiento" => $this->getValueCell($sheet, 'CZ' . $row),
+                "i_cont_esc_imp" => $this->getValueCell($sheet, 'BH' . $row),
+                "i_cont_esc_rf" => $this->getValueCell($sheet, 'BJ' . $row),
+                "i_time_esc_rf" => $this->getValueCell($sheet, 'BK' . $row),
+                "i_time_esc_npo" => $this->getValueCell($sheet, 'BM' . $row),
+                "i_time_esc_care" => $this->getValueCell($sheet, 'BO' . $row),
+                "i_cont_esc_gdrt" => $this->getValueCell($sheet, 'BP' . $row),
+                "i_time_esc_gdrt" => $this->getValueCell($sheet, 'BQ' . $row),
+                "i_cont_esc_oym" => $this->getValueCell($sheet, 'BR' . $row),
+                "i_time_esc_calidad" => $this->getValueCell($sheet, 'BU' . $row),
+                "n_detalle_solucion" => $this->getValueCell($sheet, 'CU' . $row),
                     ]))->all();
         }
     }
@@ -274,12 +283,12 @@ class Utils extends CI_Controller {
     //<editor-fold defaultstate="collapsed" desc="getParamsOnAir(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies)" >
     private function getParamsOnAir(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies, $row) {
         //Obtenemos y consultamos la estación...
-        $stationName = $sheet->getCell('B' . $row)->getValue();
+        $stationName = $this->getValueCell($sheet, 'B' . $row);
         $obj->k_id_station = (new StationModel())->where("n_name_station", "=", $stationName)->orWhere("n_name_station", "LIKE", "%" . $stationName . "%")->first();
         //Si no existe...
         if (!$obj->k_id_station) {
             //Consultamos la región...
-            $nameRegion = $sheet->getCell('R' . $row)->getValue();
+            $nameRegion = $this->getValueCell($sheet, 'R' . $row);
             $region = (new RegionalModel())->where("n_name_regional", "=", $nameRegion)->orWhere("n_name_regional", "LIKE", "%$nameRegion%")->first();
             //Si no existe la región la creamos...
             if (!$region) {
@@ -291,7 +300,7 @@ class Utils extends CI_Controller {
                 $region = $region->k_id_regional;
             }
             //Consultamos la ciudad...
-            $nameCity = $sheet->getCell('Q' . $row)->getValue();
+            $nameCity = $this->getValueCell($sheet, 'Q' . $row);
             $city = (new CityModel())->where("n_name_city", "=", $nameCity)->orWhere("n_name_city", "LIKE", "%$nameCity%")->first();
             //Si no existe la ciudad, la creamos...
             if (!$city) {
@@ -315,49 +324,48 @@ class Utils extends CI_Controller {
         }
 
         //Obtenemos la tecnología.
-        $technology = $sheet->getCell('E' . $row)->getValue();
+        $technology = $this->getValueCell($sheet, 'E' . $row);
         $obj->k_id_technology = (new TechnologyModel())->where("n_name_technology", "=", $technology)->orWhere("n_name_technology", "LIKE", "%$technology%")->first();
 
         if (!$obj->k_id_technology) {
             $inconsistencies++;
-            $cellInconsistencies[] = "E";
+            $cellInconsistencies[] = "E" . $row;
         }
 
         //Obtenemos la banda...
-        $band = $sheet->getCell('F' . $row)->getValue();
+        $band = $this->getValueCell($sheet, 'F' . $row);
         $obj->k_id_band = (new BandModel())->where("n_name_band", "=", $band)->orWhere("n_name_band", "LIKE", "%$band%")->first();
 
         if (!$obj->k_id_band) {
             $inconsistencies++;
-            $cellInconsistencies[] = "F";
+            $cellInconsistencies[] = "F" . $row;
         }
 
         //Obtenemos el estado...
-        $status = $sheet->getCell('G' . $row)->getValue();
+        $status = $this->getValueCell($sheet, 'G' . $row);
         $obj->k_id_status = (new StatusModel())->where("n_name_status", "=", $status)->orWhere("n_name_status", "LIKE", "%$status%")->first();
-//                    $obj->k_id_status = $status;
 
         if (!$obj->k_id_status) {
             $inconsistencies++;
-            $cellInconsistencies[] = "G";
+            $cellInconsistencies[] = "G" . $row;
         }
 
         //Obtenemos el subestado...
-        $subStatus = $sheet->getCell('H' . $row)->getValue();
+        $subStatus = $this->getValueCell($sheet, 'H' . $row);
         $obj->k_id_substatus = (new SubstatusModel())->where("n_name_substatus", "=", $subStatus)->orWhere("n_name_substatus", "LIKE", $subStatus)->first();
 
         if (!$obj->k_id_substatus) {
             $inconsistencies++;
-            $cellInconsistencies[] = "H";
+            $cellInconsistencies[] = "H" . $row;
         }
 
 
         //Obtenemos el tipo de trabajo...
-        $work = $sheet->getCell('L' . $row)->getValue();
+        $work = $this->getValueCell($sheet, 'L' . $row);
         $obj->k_id_work = (new WorkModel())->where("n_name_ork", "=", $work)->orWhere("n_name_ork", "LIKE", "%$work%")->first();
         if (!$obj->k_id_work) {
             $inconsistencies++;
-            $cellInconsistencies[] = "L";
+            $cellInconsistencies[] = "L" . $row;
         }
 
         $objTck = $obj;
@@ -391,49 +399,50 @@ class Utils extends CI_Controller {
 
 
         //Obtenemos los campos comunes...
-        $obj->k_id_onair = $sheet->getCell('A' . $row)->getValue();
-        $obj->b_excpetion_gri = $sheet->getCell('I' . $row)->getValue();
+        $obj->k_id_onair = $this->getValueCell($sheet, 'A' . $row);
+        $obj->b_excpetion_gri = $this->getValueCell($sheet, 'I' . $row);
+        ;
         $obj->d_fecha_ultima_rev = $this->getDatePHPExcel($sheet, "K" . $row);
-        $obj->b_vistamm = $sheet->getCell('M' . $row)->getValue();
+        $obj->b_vistamm = $this->getValueCell($sheet, 'M' . $row);
         $obj->d_bloqueo = $this->getDatePHPExcel($sheet, "T" . $row);
         $obj->d_desbloqueo = $this->getDatePHPExcel($sheet, "S" . $row);
         $obj->d_fechaproduccion = $this->getDatePHPExcel($sheet, "AF" . $row);
-        $obj->n_sectoresbloqueados = $sheet->getCell('AJ' . $row)->getValue();
-        $obj->n_sectoresdesbloqueados = $sheet->getCell('AK' . $row)->getValue();
-        $obj->n_estadoonair = $sheet->getCell('AL' . $row)->getValue();
-        $obj->n_atribuible_nokia = $sheet->getCell('AM' . $row)->getValue();
+        $obj->n_sectoresbloqueados = $this->getValueCell($sheet, 'AJ' . $row);
+        $obj->n_sectoresdesbloqueados = $this->getValueCell($sheet, 'AK' . $row);
+        $obj->n_estadoonair = $this->getValueCell($sheet, 'AL' . $row);
+        $obj->n_atribuible_nokia = $this->getValueCell($sheet, 'AM' . $row);
         $obj->d_asignacion_final = $this->getDatePHPExcel($sheet, 'BB' . $row);
-        $obj->n_kpi1 = $sheet->getCell('CE' . $row)->getValue();
-        $obj->n_kpi2 = $sheet->getCell('CG' . $row)->getValue();
-        $obj->n_kpi3 = $sheet->getCell('CI' . $row)->getValue();
-        $obj->n_kpi4 = $sheet->getCell('CK' . $row)->getValue();
-        $obj->n_alarma1 = $sheet->getCell('CM' . $row)->getValue();
-        $obj->n_alarma2 = $sheet->getCell('CN' . $row)->getValue();
-        $obj->n_alarma3 = $sheet->getCell('CO' . $row)->getValue();
-        $obj->n_alarma4 = $sheet->getCell('CP' . $row)->getValue();
-        $obj->i_cont_total_escalamiento = $sheet->getCell('CQ' . $row)->getValue();
-        $obj->i_time_total_escalamiento = $sheet->getCell('CR' . $row)->getValue();
-        $obj->n_ola = $sheet->getCell('CS' . $row)->getValue();
-        $obj->n_ola_excedido = $sheet->getCell('CT' . $row)->getValue();
-        $obj->i_lider_cambio = $sheet->getCell('CV' . $row)->getValue();
-        $obj->i_lider_cuadrilla = $sheet->getCell('CW' . $row)->getValue();
-        $obj->n_ola_areas = $sheet->getCell('CX' . $row)->getValue();
-        $obj->n_ola_areas_excedido = $sheet->getCell('CY' . $row)->getValue();
-        $obj->n_implementacion_campo = $sheet->getCell('DC' . $row)->getValue();
-        $obj->n_implementacion_remota = $sheet->getCell('DD' . $row)->getValue();
-        $obj->n_gestion_power = $sheet->getCell('DE' . $row)->getValue();
-        $obj->n_obra_civil = $sheet->getCell('DF' . $row)->getValue();
-        $obj->on_air = $sheet->getCell('DG' . $row)->getValue();
+        $obj->n_kpi1 = $this->getValueCell($sheet, 'CE' . $row);
+        $obj->n_kpi2 = $this->getValueCell($sheet, 'CG' . $row);
+        $obj->n_kpi3 = $this->getValueCell($sheet, 'CI' . $row);
+        $obj->n_kpi4 = $this->getValueCell($sheet, 'CK' . $row);
+        $obj->n_alarma1 = $this->getValueCell($sheet, 'CM' . $row);
+        $obj->n_alarma2 = $this->getValueCell($sheet, 'CN' . $row);
+        $obj->n_alarma3 = $this->getValueCell($sheet, 'CO' . $row);
+        $obj->n_alarma4 = $this->getValueCell($sheet, 'CP' . $row);
+        $obj->i_cont_total_escalamiento = $this->getValueCell($sheet, 'CQ' . $row);
+        $obj->i_time_total_escalamiento = $this->getValueCell($sheet, 'CR' . $row);
+        $obj->n_ola = $this->getValueCell($sheet, 'CS' . $row);
+        $obj->n_ola_excedido = $this->getValueCell($sheet, 'CT' . $row);
+        $obj->i_lider_cambio = $this->getValueCell($sheet, 'CV' . $row);
+        $obj->i_lider_cuadrilla = $this->getValueCell($sheet, 'CW' . $row);
+        $obj->n_ola_areas = $this->getValueCell($sheet, 'CX' . $row);
+        $obj->n_ola_areas_excedido = $this->getValueCell($sheet, 'CY' . $row);
+        $obj->n_implementacion_campo = $this->getValueCell($sheet, 'DC' . $row);
+        $obj->n_implementacion_remota = $this->getValueCell($sheet, 'DD' . $row);
+        $obj->n_gestion_power = $this->getValueCell($sheet, 'DE' . $row);
+        $obj->n_obra_civil = $this->getValueCell($sheet, 'DF' . $row);
+        $obj->on_air = $this->getValueCell($sheet, 'DG' . $row);
         $obj->d_fecha_cg = $this->getDatePHPExcel($sheet, 'DH' . $row);
-        $obj->n_exclusion_bajo_trafico = $sheet->getCell('DJ' . $row)->getValue();
-        $obj->n_ticket = $sheet->getCell('DK' . $row)->getValue();
-        $obj->n_estado_ticket = $sheet->getCell('DL' . $row)->getValue();
-        $obj->n_sln_modernizacion = $sheet->getCell('DM' . $row)->getValue();
-        $obj->n_en_prorroga = $sheet->getCell('DN' . $row)->getValue();
-        $obj->n_cont_prorrogas = $sheet->getCell('DO' . $row)->getValue();
-        $obj->n_noc = $sheet->getCell('DP' . $row)->getValue();
+        $obj->n_exclusion_bajo_trafico = $this->getValueCell($sheet, 'DJ' . $row);
+        $obj->n_ticket = $this->getValueCell($sheet, 'DK' . $row);
+        $obj->n_estado_ticket = $this->getValueCell($sheet, 'DL' . $row);
+        $obj->n_sln_modernizacion = $this->getValueCell($sheet, 'DM' . $row);
+        $obj->n_en_prorroga = $this->getValueCell($sheet, 'DN' . $row);
+        $obj->n_cont_prorrogas = $this->getValueCell($sheet, 'DO' . $row);
+        $obj->n_noc = $this->getValueCell($sheet, 'DP' . $row);
         $obj->fecha_rft = $this->getDatePHPExcel($sheet, 'DH' . $row);
-        $obj->d_t_from_notif = (new Validator())->required("", $sheet->getCell('BW' . $row)->getValue()) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
+        $obj->d_t_from_notif = (new Validator())->required("", $this->getValueCell($sheet, 'BW' . $row)) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
     }
 
     //</editor-fold>
@@ -442,7 +451,7 @@ class Utils extends CI_Controller {
         //Iniciamos la creación del 12h...
         $onAir12hModel = new OnAir12hModel();
         $validator = new Validator();
-        $date = $sheet->getCell('AR' . $row)->getValue();
+        $date = $this->getValueCell($sheet, 'AR' . $row);
         if ($validator->required("", $date)) {
             $date = $this->getDatePHPExcel($sheet, "AR" . $row);
             $onAir12hModel->setDStart12h(Hash::subtractHours($date, 1));
@@ -462,7 +471,7 @@ class Utils extends CI_Controller {
         //INiciamos la creación del 24h...
         $onAir24hModel = new OnAir24hModel();
         $validator = new Validator();
-        $date = $sheet->getCell('DA' . $row)->getValue();
+        $date = $this->getValueCell('DA' . $row);
         if ($validator->required("", $date)) {
             $date = $this->getDatePHPExcel($sheet, "DA" . $row);
             $onAir24hModel->setDStart24h(Hash::subtractHours($date, 1));
@@ -473,7 +482,7 @@ class Utils extends CI_Controller {
             $onAir24hModel->setIState(0);
             $onAir24hModel->setIHours(0);
 //            $follow24hModel = new FollowUp24hModel();
-//            $userName = $sheet->getCell('' . $row)->getValue();
+//            $userName = $this->getValueCell($sheet, '' . $row);
 //            if ($userName) {
 //                $user = $this->getUserByName($userName);
 //                $follow24hModel->setKIdUser($user->k_id_user);
@@ -492,7 +501,7 @@ class Utils extends CI_Controller {
         //Iniciamos la creación del 12h...
         $onAir36hModel = new OnAir36hModel();
         $validator = new Validator();
-        $date = $sheet->getCell('DB' . $row)->getValue();
+        $date = $this->getValueCell($sheet, 'DB' . $row);
         if ($validator->required('', $date)) {
             $date = $this->getDatePHPExcel($sheet, "DB" . $row);
             $onAir36hModel->setDStart36h(Hash::subtractHours($date, 1));
@@ -503,7 +512,7 @@ class Utils extends CI_Controller {
             $onAir36hModel->setIState(0);
             $onAir36hModel->setIHours(0);
 //            $follow36HModel = new FollowUp36hModel();
-//            $userName = $sheet->getCell('Y' . $row)->getValue();
+//            $userName = $this->getValueCell($sheet, 'Y' . $row);
 //            if ($userName) {
 //                $user = $this->getUserByName($userName);
 //                $follow36HModel->setKIdUser($user->k_id_user);
@@ -561,24 +570,24 @@ class Utils extends CI_Controller {
                 $imported = 0;
                 $inconsistencies = 0;
                 $cellInconsistencies = [];
-                while ($validator->required("", $sheet->getCell('A' . $row)->getValue())) {
+                while ($validator->required("", $this->getValueCell($sheet, 'A' . $row))) {
                     sleep(1);
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
                     $obj = new ObjUtil([
-                        "k_id_on_air" => $sheet->getCell('A' . $row)->getValue(),
-                        "n_nombre_estacion_eb" => $sheet->getCell('B' . $row)->getValue(),
-                        "n_tecnologia" => $sheet->getCell('C' . $row)->getValue(),
-                        "n_banda" => $sheet->getCell('D' . $row)->getValue(),
-                        "n_tipo_trabajo" => $sheet->getCell('E' . $row)->getValue(),
-                        "n_estado_eb_resucomen" => $sheet->getCell('F' . $row)->getValue() . " - " . $sheet->getCell('G' . $row)->getValue(),
-                        "comentario_resucoment" => $sheet->getCell('H' . $row)->getValue(),
+                        "k_id_on_air" => $this->getValueCell($sheet, 'A' . $row),
+                        "n_nombre_estacion_eb" => $this->getValueCell($sheet, 'B' . $row),
+                        "n_tecnologia" => $this->getValueCell($sheet, 'C' . $row),
+                        "n_banda" => $this->getValueCell($sheet, 'D' . $row),
+                        "n_tipo_trabajo" => $this->getValueCell($sheet, 'E' . $row),
+                        "n_estado_eb_resucomen" => $this->getValueCell($sheet, 'F' . $row) . " - " . $this->getValueCell($sheet, 'G' . $row),
+                        "comentario_resucoment" => $this->getValueCell($sheet, 'H' . $row),
                         "hora_actualizacion_resucomen" => $this->getDatePHPExcel($sheet, 'I' . $row),
-                        "usuario_resucomen" => $sheet->getCell('J' . $row)->getValue(),
-                        "ente_ejecutor" => $sheet->getCell('K' . $row)->getValue(),
-                        "tipificacion_resucomen" => $sheet->getCell('L' . $row)->getValue(),
-                        "noc" => $sheet->getCell('M' . $row)->getValue(),
+                        "usuario_resucomen" => $this->getValueCell($sheet, 'J' . $row),
+                        "ente_ejecutor" => $this->getValueCell($sheet, 'K' . $row),
+                        "tipificacion_resucomen" => $this->getValueCell($sheet, 'L' . $row),
+                        "noc" => $this->getValueCell($sheet, 'M' . $row),
                     ]);
 
                     //Comprobamos si existe el ticket...
@@ -1079,12 +1088,12 @@ class Utils extends CI_Controller {
 //                $objPHPWriter = $this->createErrorsFileExcel();
                 $rowWriter = 1;
 
-                while ($sheet->getCell('A' . $row)->getValue() > 0) {
+                while ($this->getValueCell('A' . $row) > 0) {
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
                     //Comprobamos que el NOC no sea de Nokia, ya que realmente no pertenece a la data del proyecto...
-                    $noc = $sheet->getCell('DP' . $row)->getValue();
+                    $noc = $this->getValueCell('DP' . $row);
 //                    if ($noc != "Nokia") {
                     if (true) {
                         $highestRow++;

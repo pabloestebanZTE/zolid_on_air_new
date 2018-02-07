@@ -29,14 +29,12 @@ class Reportes extends CI_Controller {
     }
 
     public function reportComments() {
-        /* header('Content-Type: text/plain'); */
         $reporte = new Dao_reporte_comentario_model();
         $filename = "Reporte_Comentarios_" . date("Y-m-d") . ".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
         $respuesta = $reporte->getAll()->data;
-        /*       print_r($respuesta);
-         */ for ($i = 0; $i < count($respuesta); $i++) {
+        for ($i = 0; $i < count($respuesta); $i++) {
             if ($respuesta[$i]->hora_actualizacion_resucomen == "0000-00-00 00:00:00" || $respuesta[$i]->hora_actualizacion_resucomen == "1900-01-00 00:00:00") {
                 $respuesta[$i]->hora_actualizacion_resucomen = " ";
             }
