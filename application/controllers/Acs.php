@@ -194,5 +194,6 @@ class Acs extends CI_Controller {
         $avmModel = new Dao_avm_model();
         $response = $avmModel->getAllPersonRequests($this->request);
         $this->json($response);
+//        echo json_encode($response);
     }
 }
