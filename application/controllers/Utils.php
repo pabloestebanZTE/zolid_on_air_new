@@ -619,6 +619,7 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
+            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
