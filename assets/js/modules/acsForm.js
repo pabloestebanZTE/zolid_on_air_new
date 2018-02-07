@@ -61,8 +61,8 @@ $(document).ready(function () {
                     search: request.term
                 },
                 success: function (data) {
-                    console.log(data);
-                    response(data);
+                    console.log(data.data);
+                    response(data.data);
                 }
             });
         },

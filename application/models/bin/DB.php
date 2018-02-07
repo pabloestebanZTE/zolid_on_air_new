@@ -21,6 +21,7 @@ class DB {
     const NULLED = "NULLED";
 
     public function __construct($table = null) {
+        $this->table = (isset($table)) ? $table : "";
         if (DB::$con == null) {
             $this->init($table);
         }
