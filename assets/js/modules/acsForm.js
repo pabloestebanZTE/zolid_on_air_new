@@ -30,6 +30,49 @@ $(document).ready(function () {
         }
     });
 
+    $("#btnMinus").click(function (e) {
+        e.preventDefault();
+        if ($("#containerSubject").is(":visible")) {
+            $("#btnMinus").html('<i class="fa fa-plus"></i>');
+        } else {
+            $("#btnMinus").html('<i class="fa fa-minus"></i>');
+        }
+        $("#containerSubject").toggle();
+        $("#containerEmail").toggle();
+    });
+
+    $("#btnMinusRemedy").click(function (e) {
+        e.preventDefault();
+        if ($("#containerRemedy").is(":visible")) {
+            $("#btnMinusRemedy").html('<i class="fa fa-plus"></i>');
+        } else {
+            $("#btnMinusRemedy").html('<i class="fa fa-minus"></i>');
+        }
+        $("#containerRemedy").toggle();
+    });
+
+    $("#n_persona_solicita_vmlc").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "getAllPersonRequests",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    search: request.term
+                },
+                success: function (data) {
+                    console.log(data);
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#n_persona_solicita_vmlc').val(ui.item.n_persona_solicita_vmlc);
+//            $('#selectuser_id').val(ui.item.value); // save selected id to input
+            return false;
+        }
+    });
+
 });
 
 var vista = {
@@ -309,7 +352,7 @@ var vista = {
         if (subEstado === 'Exitoso') {
             $("#n_tipo_falla_final").val('N/A').trigger('change.select2');
         }
-        
+
         if (subEstado === 'Afectación Activa' || subEstado === 'Notificacion activa' || subEstado === 'Degradacion Activa') {
             switch (subEstado) {
                 case 'Afectación Activa':
@@ -325,7 +368,7 @@ var vista = {
                     $("#n_falla_final").val('SI').trigger('change.select2');
                     break;
             }
-           
+
             $('#n_responsable_ticket').val(ente_ejecutor).trigger('change.select2');
             switch (ente_ejecutor) {
                 case "Claro":
@@ -392,7 +435,7 @@ var vista = {
                     if (data) {
                         //Listamos los nuevos items del checklist...
                         console.info("Se han consultado los items para el checklist...");
-                        console.log(data);
+//                        console.log(data);
                         for (var i = 0; i < data.length; i++) {
                             var dat = data[i];
                             vista.addItemCheckList(dat);
@@ -483,6 +526,11 @@ var vista = {
                 }
                 if (data.tiketRemedy) {
                     formGlobal.fillForm(data.tiketRemedy);
+                    vista.onChangeTypeAffectation();
+                    $('#n_tipo_afectacion').val(data.tiketRemedy.n_tipo_afectacion).trigger('change.select2');
+                    if (data.tiketRemedy.n_estado_ticket == "Cerrado") {
+                        $('#remedy_cierre').show();
+                    }
                     $('#form5').show();
                 }
                 if (data.exeded_time) {
@@ -725,7 +773,7 @@ var vista = {
                 .success(function (response) {
                     var v = app.successResponse(response);
                     if (v) {
-                        swal("Guardado", "Se ha registrado el registro correctamente.", "success");
+                        swal("Guardado", "recuerde que debe crear un ticket en remedy.", "success");
                     } else {
                         swal("Lo sentimos", response.message, "error");
                     }

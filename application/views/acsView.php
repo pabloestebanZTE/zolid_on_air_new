@@ -529,7 +529,7 @@
                                             <div class="col-md-6">
                                                 <label for="n_rnc_name" class="col-sm-3 control-label">RNC_Name:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="n_rnc_name" />
+                                                    <input type="text" class="form-control" id="n_rnc_name" name="n_rnc_name"/>
                                                 </div>
                                             </div>
                                         </div>                                            
@@ -1098,8 +1098,9 @@
                                     </div>
                                     <!--inicio email template-->
                                     <div class="widget bg-gray text-left m-t-25 display-block">
+                                        <button id="btnMinus" style="position: absolute; right: 50px;" class="btn btn-primary"><i class="fa fa-minus"></i></button>
                                         <h2 class="h4"><i class="fa fa-fw fa-comment-o"></i> Asunto Email</h2>
-                                        <div class="widget bg-white" style="height: 50px;">
+                                        <div class="widget bg-white" style="height: 50px;" id="containerSubject">
                                             <div class="text-left" >
                                                 <p class="muted m-b-0">
                                                     <span id="affair_type_work"></span><span id="affair_station"></span>_<span id="affair_band"></span>_<span id="affair_technology"></span>
@@ -1107,7 +1108,7 @@
                                             </div>
                                         </div>
                                         <h2 class="h4"><i class="fa fa-fw fa-comment-o"></i> Cuerpo Email</h2>
-                                        <div class="widget bg-white">
+                                        <div class="widget bg-white" id="containerEmail">
                                             <div class="checkbox checkbox-primary text-left" >
                                                 <p class="muted m-b-0">
                                                     Buen día,<br/>
@@ -1147,366 +1148,369 @@
 
                                 <!--formulario remedy-->
                                 <form class="well form-horizontal" action="insertTiketRemedy" method="post" id="form5" style="display: none">
+                                    <button id="btnMinusRemedy" style="position: absolute; right: 50px;" class="btn btn-primary m-t-20"><i class="fa fa-minus"></i></button>
                                     <legend><h3>Tikets Remedy</h3></legend>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="n_numero_incidente" class="col-sm-4 control-label">Número de Incidente:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" name="n_numero_incidente" id="n_numero_incidente" class="form-control" />
-                                                <input type="hidden" name="k_id_vm" id="k_id_vm" class="form-control" />
+                                    <div id="containerRemedy">
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="n_numero_incidente" class="col-sm-4 control-label">Número de Incidente:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="n_numero_incidente" id="n_numero_incidente" class="form-control" />
+                                                    <input type="hidden" name="k_id_vm" id="k_id_vm" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="n_estado_ticket" class="col-sm-3 control-label"><span class="display-block">Estado de Ticket:</span></label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control estado_ticket_remedy" id="n_estado_ticket" name="n_estado_ticket">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="Abierto">Abierto</option>
+                                                        <option value="Cancelado">Cancelado</option>
+                                                        <option value="Cerrado">Cerrado</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="n_estado_ticket" class="col-sm-3 control-label"><span class="display-block">Estado de Ticket:</span></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control estado_ticket_remedy" id="n_estado_ticket" name="n_estado_ticket">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Abierto">Abierto</option>
-                                                    <option value="Cancelado">Cancelado</option>
-                                                    <option value="Cerrado">Cerrado</option>
-                                                </select>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="i_ingeniero_apertura_ticket" class="col-sm-4 control-label">Ingeniero Apertura Ticket:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control select-ingeniero" id="i_ingeniero_apertura_ticket" name="i_ingeniero_apertura_ticket">
+                                                        <option value="">Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="n_tipo_afectación" class="col-sm-3 control-label">Tipo de Afectación:</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="n_tipo_afectacion" name="n_tipo_afectacion">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="Afectacion de servicio">Afectacion de servicio</option>
+                                                        <option value="Notificacion">Notificacion</option>
+                                                        <option value="Performance - Degradacion">Performance - Degradacion</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="i_ingeniero_apertura_ticket" class="col-sm-4 control-label">Ingeniero Apertura Ticket:</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control select-ingeniero" id="i_ingeniero_apertura_ticket" name="i_ingeniero_apertura_ticket">
-                                                    <option value="">Seleccione</option>
-                                                </select>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="n_grupo_soporte" class="col-sm-4 control-label">Grupo Soporte:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" id="n_grupo_soporte" name="n_grupo_soporte"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="d_inicio_afectacion" class="col-sm-3 control-label">Inicio Afectación:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="datetime-local" class="form-control" id="d_inicio_afectacion" name="d_inicio_afectacion" data-callback='dom.formatDateForPrint'/>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="n_responsable_oym" class="col-sm-4 control-label">Responsable OyM:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control control-change" id="n_responsable_oym" name="n_responsable_oym">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="Adrian Orlando Clavijo Romero">Adrian Orlando Clavijo Romero</option>
+                                                        <option value="Albeiro Garcia Giraldo">Albeiro Garcia Giraldo</option>
+                                                        <option value="Alex Bladimir Gamboa Vasquez">Alex Bladimir Gamboa Vasquez</option>
+                                                        <option value="Alexandra Beatriz Linero Navarra">Alexandra Beatriz Linero Navarra</option>
+                                                        <option value="Alfonso De Jesus Llano Henao">Alfonso De Jesus Llano Henao</option>
+                                                        <option value="Alvaro Wilson Celemín Cáceres">Alvaro Wilson Celemín Cáceres</option>
+                                                        <option value="Andres Felipe Franco Pino">Andres Felipe Franco Pino</option>
+                                                        <option value="Angel Luis Lopez Castillo">Angel Luis Lopez Castillo</option>
+                                                        <option value="Camilo Alexander Rodriguez Gonzalez">Camilo Alexander Rodriguez Gonzalez</option>
+                                                        <option value="Carlos Alberto de la Cruz Cantillo">Carlos Alberto de la Cruz Cantillo</option>
+                                                        <option value="Carlos Alberto Valencia ochoa">Carlos Alberto Valencia Ochoa</option>
+                                                        <option value="Carlos Jose Duarte Sanchez">Carlos Jose Duarte Sanchez</option>
+                                                        <option value="Christian Eduardo Mejia Rincon">Christian Eduardo Mejia Rincon</option>
+                                                        <option value="Clauss Oeckel Perez">Clauss Oeckel Perez</option>
+                                                        <option value="Daniel Alberto Daza Valbuena">Daniel Alberto Daza Valbuena</option>
+                                                        <option value="Daniel Pabon">Daniel Pabon</option>
+                                                        <option value="Dennys Eliecer Hoyos Gutierrez">Dennys Eliecer Hoyos Gutierrez</option>
+                                                        <option value="Diego Bahamon">Diego Bahamon</option>
+                                                        <option value="Diego Fernando Bahamon Velez">Diego Fernando Bahamon Velez</option>
+                                                        <option value="Diego Fernando Torres Acelas">Diego Fernando Torres Acelas</option>
+                                                        <option value="Diego G Melo Revelo">Diego G Melo Revelo</option>
+                                                        <option value="Diego Humberto Puentes Caceres">Diego Humberto Puentes Caceres</option>
+                                                        <option value="Diego Rangel	">Diego Rangel</option>
+                                                        <option value="Edgar Fuentes Gutierrez">Edgar Fuentes Gutierrez</option>
+                                                        <option value="Edgardo Jose Cruz Lora">Edgardo Jose Cruz Lora</option>
+                                                        <option value="Eduard Herney Morales Rios">Eduard Herney Morales Rios</option>
+                                                        <option value="Edwin Jair Murcia Moreno">Edwin Jair Murcia Moreno</option>
+                                                        <option value="Elkin Rosero Acevedo">Elkin Rosero Acevedo</option>
+                                                        <option value="Enrique Kaled Daza Lopez">Enrique Kaled Daza Lopez</option>
+                                                        <option value="Erwin Eliecer Guerrero Osorio">Erwin Eliecer Guerrero Osorio</option>
+                                                        <option value="Ever Carmona Almanza">Ever Carmona Almanza</option>
+                                                        <option value="Fabian Eduardo Perafan Zuluaga">Fabian Eduardo Perafan Zuluaga</option>
+                                                        <option value="Fabian Romero">Fabian Romero</option>
+                                                        <option value="Fabio Nelson Garcia Torres">Fabio Nelson Garcia Torres</option>
+                                                        <option value="Flaminio Reyes Santos">Flaminio Reyes Santos</option>
+                                                        <option value="Gabriel David Molina Acevedo">Gabriel David Molina Acevedo</option>
+                                                        <option value="German Gil Ramos">German Gil Ramos</option>
+                                                        <option value="Halbher Holmedo Hernandez Hernandez">Halbher Holmedo Hernandez Hernandez</option>
+                                                        <option value="Harol Andrey Luna Sanchez">Harol Andrey Luna Sanchez</option>
+                                                        <option value="Hector Fabian Obando Colonia">Hector Fabian Obando Colonia</option>
+                                                        <option value="Hector Narces Mejia Arango">Hector Narces Mejia Arango</option>
+                                                        <option value="Helberth Giovanni Sierra Flechas">Helberth Giovanni Sierra Flechas</option>
+                                                        <option value="Hever Moncayo Martinez">Hever Moncayo Martinez</option>
+                                                        <option value="Ivan Alberto Pinto Gonzales">Ivan Alberto Pinto Gonzales</option>
+                                                        <option value="Ivan Dario Torres Cadena">Ivan Dario Torres Cadena</option>
+                                                        <option value="Jaime Luis Jimenez Garcia">Jaime Luis Jimenez Garcia</option>
+                                                        <option value="Jairo Andres Fajardo Mendoza">Jairo Andres Fajardo Mendoza</option>
+                                                        <option value="James Hernan Reina Bolaños">James Hernan Reina Bolaños</option>
+                                                        <option value="Javier Andres Angarita Bernal">Javier Andres Angarita Bernal</option>
+                                                        <option value="Javier Guzman">Javier Guzman</option>
+                                                        <option value="Javier Suaza Alvarado">Javier Suaza Alvarado</option>
+                                                        <option value="Jeisson Andres Gallego Castillo">Jeisson Andres Gallego Castillo</option>
+                                                        <option value="Jhon Solarte Quintero">Jhon Solarte Quintero</option>
+                                                        <option value="Jhonatan Mejia">Jhonatan Mejia</option>
+                                                        <option value="Jhonathan Felipe Martinez">Jhonathan Felipe Martinez</option>
+                                                        <option value="Jhonnatan Velasco">Jhonnatan Velasco</option>
+                                                        <option value="Jhonny Carrillo Quintero">Jhonny Carrillo Quintero</option>
+                                                        <option value="Jhonny Esteban Puente Morelos">Jhonny Esteban Puente Morelos</option>
+                                                        <option value="Jimmy Aya Diaz">Jimmy Aya Diaz</option>
+                                                        <option value="John F Solarte Quintero">John F Solarte Quintero</option>
+                                                        <option value="Johnatan Felipe Martinez Garcia">Johnatan Felipe Martinez Garcia</option>
+                                                        <option value="Jorge Andres Acero Hernandez">Jorge Andres Acero Hernandez</option>
+                                                        <option value="Jose Alberto Miranda Ríos">Jose Alberto Miranda Ríos</option>
+                                                        <option value="Jose Alejandro Ocampo Aguirre">Jose Alejandro Ocampo Aguirre</option>
+                                                        <option value="Jose Angel Navas Lombana">Jose Angel Navas Lombana</option>
+                                                        <option value="Jose Antonio Sierra Zambrano">Jose Antonio Sierra Zambrano</option>
+                                                        <option value="Jose Carlos Lacatt Martinez">Jose Carlos Lacatt Martinez</option>
+                                                        <option value="Jose Manuel Rivera Cardenas">Jose Manuel Rivera Cardenas</option>
+                                                        <option value="Juan Alberto Hernandez Gonzalez">Juan Alberto Hernandez Gonzalez</option>
+                                                        <option value="Juan Carlos Araos Guzman">Juan Carlos Araos Guzman</option>
+                                                        <option value="Juan David Durango Acosta">Juan David Durango Acosta</option>
+                                                        <option value="Juan Pablo Montoya Palacio">Juan Pablo Montoya Palacio</option>
+                                                        <option value="Juan Pablo Pulgarin Gutierrez">Juan Pablo Pulgarin Gutierrez</option>
+                                                        <option value="Julio Cesar Castaño Vargas">Julio Cesar Castaño Vargas</option>
+                                                        <option value="Julio Cesar Giraldo Betancur">Julio Cesar Giraldo Betancur</option>
+                                                        <option value="Julio Cesar Rodriguez Ruiz">Julio Cesar Rodriguez Ruiz</option>
+                                                        <option value="Julio Eduardo Castillo Cuadros">Julio Eduardo Castillo Cuadros</option>
+                                                        <option value="Leonardo Gomez Gutierrez">Leonardo Gomez Gutierrez</option>
+                                                        <option value="Leonel Alfonso Castellanos">Leonel Alfonso Castellanos</option>
+                                                        <option value="Lowell Suarez">Lowell Suarez</option>
+                                                        <option value="Luis Fernando Rua Palacio">Luis Fernando Rua Palacio</option>
+                                                        <option value="Luis Gabriel Caceres Corredor">Luis Gabriel Caceres Corredor</option>
+                                                        <option value="Luis Gabriel Ramirez Castano">Luis Gabriel Ramirez Castano</option>
+                                                        <option value="Marcela Consuegra Murcia">Marcela Consuegra Murcia</option>
+                                                        <option value="Mauricio Herrera Rodrigurez">Mauricio Herrera Rodrigurez</option>
+                                                        <option value="Mauricio Mosquera Castaneda">Mauricio Mosquera Castaneda</option>
+                                                        <option value="Mayra Alejandra Cortes Nuñez">Mayra Alejandra Cortes Nuñez</option>
+                                                        <option value="Miguel Angel Mejia Saldarriaga">Miguel Angel Mejia Saldarriaga</option>
+                                                        <option value="Monica Lizeth Montoya Cifuentes">Monica Lizeth Montoya Cifuentes</option>
+                                                        <option value="Norberto de Jesus Taborda Montoya">Norberto de Jesus Taborda Montoya</option>
+                                                        <option value="Octaviano Sanchez Chavez">Octaviano Sanchez Chavez</option>
+                                                        <option value="Orlando Duque Polo">Orlando Duque Polo</option>
+                                                        <option value="Orlando Euripides Landinez Rojas">Orlando Euripides Landinez Rojas</option>
+                                                        <option value="Pedro Tomas Buitrago">Pedro Tomas Buitrago</option>
+                                                        <option value="Ricardo Andres Mikan Fajardo">Ricardo Andres Mikan Fajardo</option>
+                                                        <option value="Roberto Carlos Pacheco">Roberto Carlos Pacheco</option>
+                                                        <option value="Rosa Leylany Mesa Chaparro">Rosa Leylany Mesa Chaparro</option>
+                                                        <option value="Santiago Rubiano Torres">Santiago Rubiano Torres</option>
+                                                        <option value="Sebastian vargas Velasquez">Sebastian vargas Velasquez</option>
+                                                        <option value="Sergio Enrique Gutierrez Bello">Sergio Enrique Gutierrez Bello</option>
+                                                        <option value="Site Owners Costa">Site Owners Costa</option>
+                                                        <option value="Tatiana Milena Torres Ulloa">Tatiana Milena Torres Ulloa</option>
+                                                        <option value="Wilson Fernando Osorio Guzman">Wilson Fernando Osorio Guzman</option>
+                                                        <option value="Yhonn Felipe Diaz Caviedes">Yhonn Felipe Diaz Caviedes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="n_responsable_ticket" class="col-sm-3 control-label"><span class="display-block">Responsable de Ticket:</span></label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control control-change" id="n_responsable_ticket" name="n_responsable_ticket">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="Claro" >Claro</option>
+                                                        <option value="Nokia" >Nokia</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="n_tipo_afectación" class="col-sm-3 control-label">Tipo de Afectación:</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="n_tipo_afectacion" name="n_tipo_afectacion">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Afectacion de servicio">Afectacion de servicio</option>
-                                                    <option value="Notificacion">Notificacion</option>
-                                                    <option value="Performance - Degradacion">Performance - Degradacion</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="n_grupo_soporte" class="col-sm-4 control-label">Grupo Soporte:</label>
-                                            <div class="col-sm-8">
-                                                <input class="form-control" id="n_grupo_soporte" name="n_grupo_soporte"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="d_inicio_afectación" class="col-sm-3 control-label">Inicio Afectación:</label>
-                                            <div class="col-sm-9">
-                                                <input type="datetime-local" class="form-control" id="d_inicio_afectacion" name="d_inicio_afectacion"/>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="n_responsable_oym" class="col-sm-4 control-label">Responsable OyM:</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control control-change" id="n_responsable_oym" name="n_responsable_oym">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Adrian Orlando Clavijo Romero">Adrian Orlando Clavijo Romero</option>
-                                                    <option value="Albeiro Garcia Giraldo">Albeiro Garcia Giraldo</option>
-                                                    <option value="Alex Bladimir Gamboa Vasquez">Alex Bladimir Gamboa Vasquez</option>
-                                                    <option value="Alexandra Beatriz Linero Navarra">Alexandra Beatriz Linero Navarra</option>
-                                                    <option value="Alfonso De Jesus Llano Henao">Alfonso De Jesus Llano Henao</option>
-                                                    <option value="Alvaro Wilson Celemín Cáceres">Alvaro Wilson Celemín Cáceres</option>
-                                                    <option value="Andres Felipe Franco Pino">Andres Felipe Franco Pino</option>
-                                                    <option value="Angel Luis Lopez Castillo">Angel Luis Lopez Castillo</option>
-                                                    <option value="Camilo Alexander Rodriguez Gonzalez">Camilo Alexander Rodriguez Gonzalez</option>
-                                                    <option value="Carlos Alberto de la Cruz Cantillo">Carlos Alberto de la Cruz Cantillo</option>
-                                                    <option value="Carlos Alberto Valencia ochoa">Carlos Alberto Valencia Ochoa</option>
-                                                    <option value="Carlos Jose Duarte Sanchez">Carlos Jose Duarte Sanchez</option>
-                                                    <option value="Christian Eduardo Mejia Rincon">Christian Eduardo Mejia Rincon</option>
-                                                    <option value="Clauss Oeckel Perez">Clauss Oeckel Perez</option>
-                                                    <option value="Daniel Alberto Daza Valbuena">Daniel Alberto Daza Valbuena</option>
-                                                    <option value="Daniel Pabon">Daniel Pabon</option>
-                                                    <option value="Dennys Eliecer Hoyos Gutierrez">Dennys Eliecer Hoyos Gutierrez</option>
-                                                    <option value="Diego Bahamon">Diego Bahamon</option>
-                                                    <option value="Diego Fernando Bahamon Velez">Diego Fernando Bahamon Velez</option>
-                                                    <option value="Diego Fernando Torres Acelas">Diego Fernando Torres Acelas</option>
-                                                    <option value="Diego G Melo Revelo">Diego G Melo Revelo</option>
-                                                    <option value="Diego Humberto Puentes Caceres">Diego Humberto Puentes Caceres</option>
-                                                    <option value="Diego Rangel	">Diego Rangel</option>
-                                                    <option value="Edgar Fuentes Gutierrez">Edgar Fuentes Gutierrez</option>
-                                                    <option value="Edgardo Jose Cruz Lora">Edgardo Jose Cruz Lora</option>
-                                                    <option value="Eduard Herney Morales Rios">Eduard Herney Morales Rios</option>
-                                                    <option value="Edwin Jair Murcia Moreno">Edwin Jair Murcia Moreno</option>
-                                                    <option value="Elkin Rosero Acevedo">Elkin Rosero Acevedo</option>
-                                                    <option value="Enrique Kaled Daza Lopez">Enrique Kaled Daza Lopez</option>
-                                                    <option value="Erwin Eliecer Guerrero Osorio">Erwin Eliecer Guerrero Osorio</option>
-                                                    <option value="Ever Carmona Almanza">Ever Carmona Almanza</option>
-                                                    <option value="Fabian Eduardo Perafan Zuluaga">Fabian Eduardo Perafan Zuluaga</option>
-                                                    <option value="Fabian Romero">Fabian Romero</option>
-                                                    <option value="Fabio Nelson Garcia Torres">Fabio Nelson Garcia Torres</option>
-                                                    <option value="Flaminio Reyes Santos">Flaminio Reyes Santos</option>
-                                                    <option value="Gabriel David Molina Acevedo">Gabriel David Molina Acevedo</option>
-                                                    <option value="German Gil Ramos">German Gil Ramos</option>
-                                                    <option value="Halbher Holmedo Hernandez Hernandez">Halbher Holmedo Hernandez Hernandez</option>
-                                                    <option value="Harol Andrey Luna Sanchez">Harol Andrey Luna Sanchez</option>
-                                                    <option value="Hector Fabian Obando Colonia">Hector Fabian Obando Colonia</option>
-                                                    <option value="Hector Narces Mejia Arango">Hector Narces Mejia Arango</option>
-                                                    <option value="Helberth Giovanni Sierra Flechas">Helberth Giovanni Sierra Flechas</option>
-                                                    <option value="Hever Moncayo Martinez">Hever Moncayo Martinez</option>
-                                                    <option value="Ivan Alberto Pinto Gonzales">Ivan Alberto Pinto Gonzales</option>
-                                                    <option value="Ivan Dario Torres Cadena">Ivan Dario Torres Cadena</option>
-                                                    <option value="Jaime Luis Jimenez Garcia">Jaime Luis Jimenez Garcia</option>
-                                                    <option value="Jairo Andres Fajardo Mendoza">Jairo Andres Fajardo Mendoza</option>
-                                                    <option value="James Hernan Reina Bolaños">James Hernan Reina Bolaños</option>
-                                                    <option value="Javier Andres Angarita Bernal">Javier Andres Angarita Bernal</option>
-                                                    <option value="Javier Guzman">Javier Guzman</option>
-                                                    <option value="Javier Suaza Alvarado">Javier Suaza Alvarado</option>
-                                                    <option value="Jeisson Andres Gallego Castillo">Jeisson Andres Gallego Castillo</option>
-                                                    <option value="Jhon Solarte Quintero">Jhon Solarte Quintero</option>
-                                                    <option value="Jhonatan Mejia">Jhonatan Mejia</option>
-                                                    <option value="Jhonathan Felipe Martinez">Jhonathan Felipe Martinez</option>
-                                                    <option value="Jhonnatan Velasco">Jhonnatan Velasco</option>
-                                                    <option value="Jhonny Carrillo Quintero">Jhonny Carrillo Quintero</option>
-                                                    <option value="Jhonny Esteban Puente Morelos">Jhonny Esteban Puente Morelos</option>
-                                                    <option value="Jimmy Aya Diaz">Jimmy Aya Diaz</option>
-                                                    <option value="John F Solarte Quintero">John F Solarte Quintero</option>
-                                                    <option value="Johnatan Felipe Martinez Garcia">Johnatan Felipe Martinez Garcia</option>
-                                                    <option value="Jorge Andres Acero Hernandez">Jorge Andres Acero Hernandez</option>
-                                                    <option value="Jose Alberto Miranda Ríos">Jose Alberto Miranda Ríos</option>
-                                                    <option value="Jose Alejandro Ocampo Aguirre">Jose Alejandro Ocampo Aguirre</option>
-                                                    <option value="Jose Angel Navas Lombana">Jose Angel Navas Lombana</option>
-                                                    <option value="Jose Antonio Sierra Zambrano">Jose Antonio Sierra Zambrano</option>
-                                                    <option value="Jose Carlos Lacatt Martinez">Jose Carlos Lacatt Martinez</option>
-                                                    <option value="Jose Manuel Rivera Cardenas">Jose Manuel Rivera Cardenas</option>
-                                                    <option value="Juan Alberto Hernandez Gonzalez">Juan Alberto Hernandez Gonzalez</option>
-                                                    <option value="Juan Carlos Araos Guzman">Juan Carlos Araos Guzman</option>
-                                                    <option value="Juan David Durango Acosta">Juan David Durango Acosta</option>
-                                                    <option value="Juan Pablo Montoya Palacio">Juan Pablo Montoya Palacio</option>
-                                                    <option value="Juan Pablo Pulgarin Gutierrez">Juan Pablo Pulgarin Gutierrez</option>
-                                                    <option value="Julio Cesar Castaño Vargas">Julio Cesar Castaño Vargas</option>
-                                                    <option value="Julio Cesar Giraldo Betancur">Julio Cesar Giraldo Betancur</option>
-                                                    <option value="Julio Cesar Rodriguez Ruiz">Julio Cesar Rodriguez Ruiz</option>
-                                                    <option value="Julio Eduardo Castillo Cuadros">Julio Eduardo Castillo Cuadros</option>
-                                                    <option value="Leonardo Gomez Gutierrez">Leonardo Gomez Gutierrez</option>
-                                                    <option value="Leonel Alfonso Castellanos">Leonel Alfonso Castellanos</option>
-                                                    <option value="Lowell Suarez">Lowell Suarez</option>
-                                                    <option value="Luis Fernando Rua Palacio">Luis Fernando Rua Palacio</option>
-                                                    <option value="Luis Gabriel Caceres Corredor">Luis Gabriel Caceres Corredor</option>
-                                                    <option value="Luis Gabriel Ramirez Castano">Luis Gabriel Ramirez Castano</option>
-                                                    <option value="Marcela Consuegra Murcia">Marcela Consuegra Murcia</option>
-                                                    <option value="Mauricio Herrera Rodrigurez">Mauricio Herrera Rodrigurez</option>
-                                                    <option value="Mauricio Mosquera Castaneda">Mauricio Mosquera Castaneda</option>
-                                                    <option value="Mayra Alejandra Cortes Nuñez">Mayra Alejandra Cortes Nuñez</option>
-                                                    <option value="Miguel Angel Mejia Saldarriaga">Miguel Angel Mejia Saldarriaga</option>
-                                                    <option value="Monica Lizeth Montoya Cifuentes">Monica Lizeth Montoya Cifuentes</option>
-                                                    <option value="Norberto de Jesus Taborda Montoya">Norberto de Jesus Taborda Montoya</option>
-                                                    <option value="Octaviano Sanchez Chavez">Octaviano Sanchez Chavez</option>
-                                                    <option value="Orlando Duque Polo">Orlando Duque Polo</option>
-                                                    <option value="Orlando Euripides Landinez Rojas">Orlando Euripides Landinez Rojas</option>
-                                                    <option value="Pedro Tomas Buitrago">Pedro Tomas Buitrago</option>
-                                                    <option value="Ricardo Andres Mikan Fajardo">Ricardo Andres Mikan Fajardo</option>
-                                                    <option value="Roberto Carlos Pacheco">Roberto Carlos Pacheco</option>
-                                                    <option value="Rosa Leylany Mesa Chaparro">Rosa Leylany Mesa Chaparro</option>
-                                                    <option value="Santiago Rubiano Torres">Santiago Rubiano Torres</option>
-                                                    <option value="Sebastian vargas Velasquez">Sebastian vargas Velasquez</option>
-                                                    <option value="Sergio Enrique Gutierrez Bello">Sergio Enrique Gutierrez Bello</option>
-                                                    <option value="Site Owners Costa">Site Owners Costa</option>
-                                                    <option value="Tatiana Milena Torres Ulloa">Tatiana Milena Torres Ulloa</option>
-                                                    <option value="Wilson Fernando Osorio Guzman">Wilson Fernando Osorio Guzman</option>
-                                                    <option value="Yhonn Felipe Diaz Caviedes">Yhonn Felipe Diaz Caviedes</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="n_responsable_ticket" class="col-sm-3 control-label"><span class="display-block">Responsable de Ticket:</span></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control control-change" id="n_responsable_ticket" name="n_responsable_ticket">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Claro" >Claro</option>
-                                                    <option value="Nokia" >Nokia</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <label for="n_summary_remedy" class="col-sm-2 control-label">Summary Remedy:</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" id="n_summary_remedy" name="n_summary_remedy"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="n_fm_claro" class="col-sm-4 control-label">FM Claro:</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control" id="n_fm_claro_remedy" name="n_fm_claro">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="N/A">N/A</option>
-                                                    <option value="Hugo Alejandro Blanco">Hugo Alejandro Blanco</option>
-                                                    <option value="GVT_GCENTROGESTION">GVT_GCENTROGESTION</option>
-                                                    <option value="Wilson Forero">Wilson Forero</option>
-                                                    <option value="GVT_FRONT_OFFICE">GVT_FRONT_OFFICE</option>
-                                                    <option value="Alfonso Salcedo Camelo ">Alfonso Salcedo Camelo </option>
-                                                    <option value="Carlos Andres Rojas Rodriguez">Carlos Andres Rojas Rodriguez</option>
-                                                    <option value="Julio Ferney Rodriguez">Julio Ferney Rodriguez</option>
-                                                    <option value="Cesar Orlando Pacheco">Cesar Orlando Pacheco</option>
-                                                    <option value="Heli Alfonso Peñaranda Ramirez">Heli Alfonso Peñaranda Ramirez</option>
-                                                    <option value="Noel Quintero">Noel Quintero</option>
-                                                    <option value="GDI_CAS">GDI_CAS</option>
-                                                    <option value="GDI_MESADECALIDAD">GDI_MESADECALIDAD</option>
-                                                    <option value="Javier Antonio Kamell Yaspe">Javier Antonio Kamell Yaspe</option>
-                                                    <option value="Oscar Barrera">Oscar Barrera</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="n_fm_nokia" class="col-sm-3 control-label">FM Nokia:</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="n_fm_nokia_remedy" name="n_fm_nokia">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="N/A">N/A</option>
-                                                    <option value="Andrea del Pilar Guerrero Sanchez">Andrea del Pilar Guerrero Sanchez</option>
-                                                    <option value="Yetzabel Yadira Gutierrez Bueno">Yetzabel Yadira Gutierrez Bueno</option>
-                                                    <option value="Yazmin Atencio Camargo ">Yazmin Atencio Camargo </option>
-                                                    <option value="Cesar Andres Mican Alvarez">Cesar Andres Mican Alvarez</option>
-                                                    <option value="Daniel Humberto Olaya Mojica">Daniel Humberto Olaya Mojica</option>
-                                                    <option value="Diego Armando Carrero Pinzon">Diego Armando Carrero Pinzon</option>
-                                                    <option value="Diego Fernando Cortes Forero">Diego Fernando Cortes Forero</option>
-                                                    <option value="Diego Mauricio Arrieta Ramirez">Diego Mauricio Arrieta Ramirez</option>
-                                                    <option value="Edgar Alexander Mena Solarte">Edgar Alexander Mena Solarte</option>
-                                                    <option value="Elkin Yesid Lopez Rubiano">Elkin Yesid Lopez Rubiano</option>
-                                                    <option value="Felix Hernandez Treviño">Felix Hernandez Treviño</option>
-                                                    <option value="Gonzalo Eddy Gonzales Uriona">Gonzalo Eddy Gonzales Uriona</option>
-                                                    <option value="Jaime Oswaldo Arias Pacheco">Jaime Oswaldo Arias Pacheco</option>
-                                                    <option value="Jorge Mario Rodriguez Cuellar">Jorge Mario Rodriguez Cuellar</option>
-                                                    <option value="Juan Carlos Herrera Marrero">Juan Carlos Herrera Marrero</option>
-                                                    <option value="Oscar Orlando Sanchez Clavijo">Oscar Orlando Sanchez Clavijo</option>
-                                                    <option value="Rafael Alfonso Salazar Guillen">Rafael Alfonso Salazar Guillen</option>
-                                                    <option value="Enrique Alvarez">Enrique Alvarez</option>
-                                                    <option value="Fred Rodriguez">Fred Rodriguez</option>
-                                                    <option value="Cesar Mejia">Cesar Mejia</option>
-                                                    <option value="Diego Rozo">Diego Rozo</option>
-                                                    <option value="Ervin Lopez">Ervin Lopez</option>
-                                                    <option value="Fabian Cardozo">Fabian Cardozo</option>
-                                                    <option value="Giovanny Lamprea">Giovanny Lamprea</option>
-                                                    <option value="Gustavo Diaz">Gustavo Diaz</option>
-                                                    <option value="Harold Villalba">Harold Villalba</option>
-                                                    <option value="Javier Ferro">Javier Ferro</option>
-                                                    <option value="Jhon Leiva">Jhon Leiva</option>
-                                                    <option value="Jose Luis Gomez">Jose Luis Gomez</option>
-                                                    <option value="Juan David Garzon">Juan David Garzon</option>
-                                                    <option value="Julio Diaz">Julio Diaz</option>
-                                                    <option value="Luis Mercado">Luis Mercado</option>
-                                                    <option value="Mauricio Henao">Mauricio Henao</option>
-                                                    <option value="Norberto Cardozo">Norberto Cardozo</option>
-                                                    <option value="Pedro Zuluaga">Pedro Zuluaga</option>
-                                                    <option value="Robinson Ordoñez">Robinson Ordoñez</option>
-                                                    <option value="Andres Piraneque">Andres Piraneque</option>
-                                                    <option value="Diego Vera">Diego Vera</option>
-                                                    <option value="Eleasar Reyes">Eleasar Reyes</option>
-                                                    <option value="Fernando Franco">Fernando Franco</option>
-                                                    <option value="Catalina Ramirez">Catalina Ramirez</option>
-                                                    <option value="Jorge Baracaldo">Jorge Baracaldo</option>
-                                                    <option value="Jose Herrera Gomez">Jose Herrera Gomez</option>
-                                                    <option value="Rafael Garcia">Rafael Garcia</option>
-                                                    <option value="Fredy Puerto">Fredy Puerto</option>
-                                                    <option value="Juan Andrade">Juan Andrade</option>
-                                                    <option value="Andres Felipe Sánchez Estrada">Andres Felipe Sánchez Estrada</option>
-                                                    <option value="Carol Giselle Rodriguez">Carol Giselle Rodriguez</option>
-                                                    <option value="Cesar Ortiz">Cesar Ortiz</option>
-                                                    <option value="Cristian Quintero">Cristian Quintero</option>
-                                                    <option value="Dolcey Torres">Dolcey Torres</option>
-                                                    <option value="Eduardo Cancino">Eduardo Cancino</option>
-                                                    <option value="Edwin Ortiz">Edwin Ortiz</option>
-                                                    <option value="Fabio Cardona">Fabio Cardona</option>
-                                                    <option value="Henry Pineda">Henry Pineda</option>
-                                                    <option value="Juan Gabriel Valdes">Juan Gabriel Valdes</option>
-                                                    <option value="Julian Obando">Julian Obando</option>
-                                                    <option value="Julie Alexandra Sandoval">Julie Alexandra Sandoval</option>
-                                                    <option value="Yeraldine Restrepo">Yeraldine Restrepo</option>
-                                                    <option value="Andres Felipe Carvajal Sarmiento">Andres Felipe Carvajal Sarmiento</option>
-                                                    <option value="Edgar Daniel Barrera Zuleta">Edgar Daniel Barrera Zuleta</option>
-                                                    <option value="Sandra Yamile Triana Cortes">Sandra Yamile Triana Cortes</option>
-                                                    <option value="Adriana Calderón Ligarreto">Adriana Calderón Ligarreto</option>
-                                                    <option value="Ana Elizabeth Pacheco Orjuela">Ana Elizabeth Pacheco Orjuela</option>
-                                                    <option value="Maira Alejandra Gil Hurtado">Maira Alejandra Gil Hurtado</option>
-                                                    <option value="Nataly Sanabria Posada">Nataly Sanabria Posada</option>
-                                                    <option value="Alexander Barrios Fuentes">Alexander Barrios Fuentes</option>
-                                                    <option value="Arnold David Guzman Mendieta">Arnold David Guzman Mendieta</option>
-                                                    <option value="Cristian Farid Motta Lopez">Cristian Farid Motta Lopez</option>
-                                                    <option value="Diana Alexandra Bocarejo Torres">Diana Alexandra Bocarejo Torres</option>
-                                                    <option value="Ivan Camilo Barriga Gomez">Ivan Camilo Barriga Gomez</option>
-                                                    <option value="Jennifer Barragán Rincón">Jennifer Barragán Rincón</option>
-                                                    <option value="John Davis Naranjo Garzón">John Davis Naranjo Garzón</option>
-                                                    <option value="John Jaiver Enciso Lozano">John Jaiver Enciso Lozano</option>
-                                                    <option value="Jorge Andrés Romero Noguera">Jorge Andrés Romero Noguera</option>
-                                                    <option value="Juan David Gonzalez Caballero">Juan David Gonzalez Caballero</option>
-                                                    <option value="Julieth Carolina Naranjo Tello">Julieth Carolina Naranjo Tello</option>
-                                                    <option value="Maira Elianeth Silva Rojas">Maira Elianeth Silva Rojas</option>
-                                                    <option value="Nelson Mauricio Cetina Salamanca">Nelson Mauricio Cetina Salamanca</option>
-                                                    <option value="Ronald José Jardim Hernández">Ronald José Jardim Hernández</option>
-                                                    <option value="Sandra Milena Pico Ortiz">Sandra Milena Pico Ortiz</option>
-                                                    <option value="Victor Manuel Garcia Albarracin">Victor Manuel Garcia Albarracin</option>
-                                                    <option value="Yeimi Lorena Sotomonte Peña">Yeimi Lorena Sotomonte Peña</option>
-                                                    <option value="Yenifer Julieth Sanchez Ariza">Yenifer Julieth Sanchez Ariza</option>
-                                                    <option value="Yolaima Efigenia Vergel Pino">Yolaima Efigenia Vergel Pino</option>
-                                                    <option value="Dico Diaz Dussan">Dico Diaz Dussan</option>
-                                                    <option value="Jorge Guillermo Vega Lanchipa">Jorge Guillermo Vega Lanchipa</option>
-                                                    <option value="Martha Carolina Mantilla Cárdenas">Martha Carolina Mantilla Cárdenas</option>
-                                                    <option value="Octavio Torrado Quintero">Octavio Torrado Quintero</option>
-                                                    <option value="Rafael Leonardo Sánchez Sierra">Rafael Leonardo Sánchez Sierra</option>
-                                                    <option value="Evelyn Johanna González Lozano">Evelyn Johanna González Lozano</option>
-                                                    <option value="Andrés Felipe Chitan Medina">Andrés Felipe Chitan Medina</option>
-                                                    <option value="Andrés Gilberto Salas Cubillos">Andrés Gilberto Salas Cubillos</option>
-                                                    <option value="Bryan David Garcia Castiblanco">Bryan David Garcia Castiblanco</option>
-                                                    <option value="Daniel Enrique Diaz Figueredo">Daniel Enrique Diaz Figueredo</option>
-                                                    <option value="Edna Quidley Rivera Cifuentes">Edna Quidley Rivera Cifuentes</option>
-                                                    <option value="Edysson Fabian Herrera Morales">Edysson Fabian Herrera Morales</option>
-                                                    <option value="Elsa Margarita Soler Polanco">Elsa Margarita Soler Polanco</option>
-                                                    <option value="Eric Fabian Gómez Ballén">Eric Fabian Gómez Ballén</option>
-                                                    <option value="Felipe Mejia Tascon">Felipe Mejia Tascon</option>
-                                                    <option value="Ivan Mauricio Ochoa Salamanca">Ivan Mauricio Ochoa Salamanca</option>
-                                                    <option value="Jaidith Mirleidys Ríos Guzman">Jaidith Mirleidys Ríos Guzman</option>
-                                                    <option value="Jorge Iván Rincón Orduz">Jorge Iván Rincón Orduz</option>
-                                                    <option value="Luis Alejandro Ortega García">Luis Alejandro Ortega García</option>
-                                                    <option value="Luis Carlos Hidalgo Rengifo">Luis Carlos Hidalgo Rengifo</option>
-                                                    <option value="Maria Lorena Diaz Borray">Maria Lorena Diaz Borray</option>
-                                                    <option value="Mayra Alejandra Herrera Betancourt">Mayra Alejandra Herrera Betancourt</option>
-                                                    <option value="Nelson David Garzón Aya">Nelson David Garzón Aya</option>
-                                                    <option value="Raul Zuñiga Parra">Raul Zuñiga Parra</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <label for="n_comentario_ticket" class="col-sm-2 control-label">Comentario de Ticket:</label>
-                                            <div class="col-sm-10">
-                                                <textarea id="n_comentario_ticket" name="n_comentario_ticket" class="form-control"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row" style="display: none" id="remedy_cierre">
-                                        <div class="col-md-6">
-                                            <label for="i_ingeniero_cierre_ticket" class="col-sm-4 control-label">Ingeniero Cierre:</label>
-                                            <div class="col-sm-8">
-                                                <select name="i_ingeniero_cierre_ticket" id="i_ingeniero_cierre_ticket" class="form-control select-ingeniero">
-                                                    <option value="">Seleccione...</option>>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="d_fin_afectacion" class="col-sm-3 control-label"><span class="display-block">Fin Afectación:</span></label>
-                                            <div class="col-sm-9">
-                                                <input type="datetime-local" class="form-control" id="d_fin_afectacion" name="d_fin_afectacion"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 control-label"></label>
+                                        <div class="form-group row">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success" ><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Guadar Ticket</button>
+                                                <label for="n_summary_remedy" class="col-sm-2 control-label">Summary Remedy:</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" id="n_summary_remedy" name="n_summary_remedy"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="n_fm_claro" class="col-sm-4 control-label">FM Claro:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" id="n_fm_claro_remedy" name="n_fm_claro">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="N/A">N/A</option>
+                                                        <option value="Hugo Alejandro Blanco">Hugo Alejandro Blanco</option>
+                                                        <option value="GVT_GCENTROGESTION">GVT_GCENTROGESTION</option>
+                                                        <option value="Wilson Forero">Wilson Forero</option>
+                                                        <option value="GVT_FRONT_OFFICE">GVT_FRONT_OFFICE</option>
+                                                        <option value="Alfonso Salcedo Camelo ">Alfonso Salcedo Camelo </option>
+                                                        <option value="Carlos Andres Rojas Rodriguez">Carlos Andres Rojas Rodriguez</option>
+                                                        <option value="Julio Ferney Rodriguez">Julio Ferney Rodriguez</option>
+                                                        <option value="Cesar Orlando Pacheco">Cesar Orlando Pacheco</option>
+                                                        <option value="Heli Alfonso Peñaranda Ramirez">Heli Alfonso Peñaranda Ramirez</option>
+                                                        <option value="Noel Quintero">Noel Quintero</option>
+                                                        <option value="GDI_CAS">GDI_CAS</option>
+                                                        <option value="GDI_MESADECALIDAD">GDI_MESADECALIDAD</option>
+                                                        <option value="Javier Antonio Kamell Yaspe">Javier Antonio Kamell Yaspe</option>
+                                                        <option value="Oscar Barrera">Oscar Barrera</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="n_fm_nokia" class="col-sm-3 control-label">FM Nokia:</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="n_fm_nokia_remedy" name="n_fm_nokia">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="N/A">N/A</option>
+                                                        <option value="Andrea del Pilar Guerrero Sanchez">Andrea del Pilar Guerrero Sanchez</option>
+                                                        <option value="Yetzabel Yadira Gutierrez Bueno">Yetzabel Yadira Gutierrez Bueno</option>
+                                                        <option value="Yazmin Atencio Camargo ">Yazmin Atencio Camargo </option>
+                                                        <option value="Cesar Andres Mican Alvarez">Cesar Andres Mican Alvarez</option>
+                                                        <option value="Daniel Humberto Olaya Mojica">Daniel Humberto Olaya Mojica</option>
+                                                        <option value="Diego Armando Carrero Pinzon">Diego Armando Carrero Pinzon</option>
+                                                        <option value="Diego Fernando Cortes Forero">Diego Fernando Cortes Forero</option>
+                                                        <option value="Diego Mauricio Arrieta Ramirez">Diego Mauricio Arrieta Ramirez</option>
+                                                        <option value="Edgar Alexander Mena Solarte">Edgar Alexander Mena Solarte</option>
+                                                        <option value="Elkin Yesid Lopez Rubiano">Elkin Yesid Lopez Rubiano</option>
+                                                        <option value="Felix Hernandez Treviño">Felix Hernandez Treviño</option>
+                                                        <option value="Gonzalo Eddy Gonzales Uriona">Gonzalo Eddy Gonzales Uriona</option>
+                                                        <option value="Jaime Oswaldo Arias Pacheco">Jaime Oswaldo Arias Pacheco</option>
+                                                        <option value="Jorge Mario Rodriguez Cuellar">Jorge Mario Rodriguez Cuellar</option>
+                                                        <option value="Juan Carlos Herrera Marrero">Juan Carlos Herrera Marrero</option>
+                                                        <option value="Oscar Orlando Sanchez Clavijo">Oscar Orlando Sanchez Clavijo</option>
+                                                        <option value="Rafael Alfonso Salazar Guillen">Rafael Alfonso Salazar Guillen</option>
+                                                        <option value="Enrique Alvarez">Enrique Alvarez</option>
+                                                        <option value="Fred Rodriguez">Fred Rodriguez</option>
+                                                        <option value="Cesar Mejia">Cesar Mejia</option>
+                                                        <option value="Diego Rozo">Diego Rozo</option>
+                                                        <option value="Ervin Lopez">Ervin Lopez</option>
+                                                        <option value="Fabian Cardozo">Fabian Cardozo</option>
+                                                        <option value="Giovanny Lamprea">Giovanny Lamprea</option>
+                                                        <option value="Gustavo Diaz">Gustavo Diaz</option>
+                                                        <option value="Harold Villalba">Harold Villalba</option>
+                                                        <option value="Javier Ferro">Javier Ferro</option>
+                                                        <option value="Jhon Leiva">Jhon Leiva</option>
+                                                        <option value="Jose Luis Gomez">Jose Luis Gomez</option>
+                                                        <option value="Juan David Garzon">Juan David Garzon</option>
+                                                        <option value="Julio Diaz">Julio Diaz</option>
+                                                        <option value="Luis Mercado">Luis Mercado</option>
+                                                        <option value="Mauricio Henao">Mauricio Henao</option>
+                                                        <option value="Norberto Cardozo">Norberto Cardozo</option>
+                                                        <option value="Pedro Zuluaga">Pedro Zuluaga</option>
+                                                        <option value="Robinson Ordoñez">Robinson Ordoñez</option>
+                                                        <option value="Andres Piraneque">Andres Piraneque</option>
+                                                        <option value="Diego Vera">Diego Vera</option>
+                                                        <option value="Eleasar Reyes">Eleasar Reyes</option>
+                                                        <option value="Fernando Franco">Fernando Franco</option>
+                                                        <option value="Catalina Ramirez">Catalina Ramirez</option>
+                                                        <option value="Jorge Baracaldo">Jorge Baracaldo</option>
+                                                        <option value="Jose Herrera Gomez">Jose Herrera Gomez</option>
+                                                        <option value="Rafael Garcia">Rafael Garcia</option>
+                                                        <option value="Fredy Puerto">Fredy Puerto</option>
+                                                        <option value="Juan Andrade">Juan Andrade</option>
+                                                        <option value="Andres Felipe Sánchez Estrada">Andres Felipe Sánchez Estrada</option>
+                                                        <option value="Carol Giselle Rodriguez">Carol Giselle Rodriguez</option>
+                                                        <option value="Cesar Ortiz">Cesar Ortiz</option>
+                                                        <option value="Cristian Quintero">Cristian Quintero</option>
+                                                        <option value="Dolcey Torres">Dolcey Torres</option>
+                                                        <option value="Eduardo Cancino">Eduardo Cancino</option>
+                                                        <option value="Edwin Ortiz">Edwin Ortiz</option>
+                                                        <option value="Fabio Cardona">Fabio Cardona</option>
+                                                        <option value="Henry Pineda">Henry Pineda</option>
+                                                        <option value="Juan Gabriel Valdes">Juan Gabriel Valdes</option>
+                                                        <option value="Julian Obando">Julian Obando</option>
+                                                        <option value="Julie Alexandra Sandoval">Julie Alexandra Sandoval</option>
+                                                        <option value="Yeraldine Restrepo">Yeraldine Restrepo</option>
+                                                        <option value="Andres Felipe Carvajal Sarmiento">Andres Felipe Carvajal Sarmiento</option>
+                                                        <option value="Edgar Daniel Barrera Zuleta">Edgar Daniel Barrera Zuleta</option>
+                                                        <option value="Sandra Yamile Triana Cortes">Sandra Yamile Triana Cortes</option>
+                                                        <option value="Adriana Calderón Ligarreto">Adriana Calderón Ligarreto</option>
+                                                        <option value="Ana Elizabeth Pacheco Orjuela">Ana Elizabeth Pacheco Orjuela</option>
+                                                        <option value="Maira Alejandra Gil Hurtado">Maira Alejandra Gil Hurtado</option>
+                                                        <option value="Nataly Sanabria Posada">Nataly Sanabria Posada</option>
+                                                        <option value="Alexander Barrios Fuentes">Alexander Barrios Fuentes</option>
+                                                        <option value="Arnold David Guzman Mendieta">Arnold David Guzman Mendieta</option>
+                                                        <option value="Cristian Farid Motta Lopez">Cristian Farid Motta Lopez</option>
+                                                        <option value="Diana Alexandra Bocarejo Torres">Diana Alexandra Bocarejo Torres</option>
+                                                        <option value="Ivan Camilo Barriga Gomez">Ivan Camilo Barriga Gomez</option>
+                                                        <option value="Jennifer Barragán Rincón">Jennifer Barragán Rincón</option>
+                                                        <option value="John Davis Naranjo Garzón">John Davis Naranjo Garzón</option>
+                                                        <option value="John Jaiver Enciso Lozano">John Jaiver Enciso Lozano</option>
+                                                        <option value="Jorge Andrés Romero Noguera">Jorge Andrés Romero Noguera</option>
+                                                        <option value="Juan David Gonzalez Caballero">Juan David Gonzalez Caballero</option>
+                                                        <option value="Julieth Carolina Naranjo Tello">Julieth Carolina Naranjo Tello</option>
+                                                        <option value="Maira Elianeth Silva Rojas">Maira Elianeth Silva Rojas</option>
+                                                        <option value="Nelson Mauricio Cetina Salamanca">Nelson Mauricio Cetina Salamanca</option>
+                                                        <option value="Ronald José Jardim Hernández">Ronald José Jardim Hernández</option>
+                                                        <option value="Sandra Milena Pico Ortiz">Sandra Milena Pico Ortiz</option>
+                                                        <option value="Victor Manuel Garcia Albarracin">Victor Manuel Garcia Albarracin</option>
+                                                        <option value="Yeimi Lorena Sotomonte Peña">Yeimi Lorena Sotomonte Peña</option>
+                                                        <option value="Yenifer Julieth Sanchez Ariza">Yenifer Julieth Sanchez Ariza</option>
+                                                        <option value="Yolaima Efigenia Vergel Pino">Yolaima Efigenia Vergel Pino</option>
+                                                        <option value="Dico Diaz Dussan">Dico Diaz Dussan</option>
+                                                        <option value="Jorge Guillermo Vega Lanchipa">Jorge Guillermo Vega Lanchipa</option>
+                                                        <option value="Martha Carolina Mantilla Cárdenas">Martha Carolina Mantilla Cárdenas</option>
+                                                        <option value="Octavio Torrado Quintero">Octavio Torrado Quintero</option>
+                                                        <option value="Rafael Leonardo Sánchez Sierra">Rafael Leonardo Sánchez Sierra</option>
+                                                        <option value="Evelyn Johanna González Lozano">Evelyn Johanna González Lozano</option>
+                                                        <option value="Andrés Felipe Chitan Medina">Andrés Felipe Chitan Medina</option>
+                                                        <option value="Andrés Gilberto Salas Cubillos">Andrés Gilberto Salas Cubillos</option>
+                                                        <option value="Bryan David Garcia Castiblanco">Bryan David Garcia Castiblanco</option>
+                                                        <option value="Daniel Enrique Diaz Figueredo">Daniel Enrique Diaz Figueredo</option>
+                                                        <option value="Edna Quidley Rivera Cifuentes">Edna Quidley Rivera Cifuentes</option>
+                                                        <option value="Edysson Fabian Herrera Morales">Edysson Fabian Herrera Morales</option>
+                                                        <option value="Elsa Margarita Soler Polanco">Elsa Margarita Soler Polanco</option>
+                                                        <option value="Eric Fabian Gómez Ballén">Eric Fabian Gómez Ballén</option>
+                                                        <option value="Felipe Mejia Tascon">Felipe Mejia Tascon</option>
+                                                        <option value="Ivan Mauricio Ochoa Salamanca">Ivan Mauricio Ochoa Salamanca</option>
+                                                        <option value="Jaidith Mirleidys Ríos Guzman">Jaidith Mirleidys Ríos Guzman</option>
+                                                        <option value="Jorge Iván Rincón Orduz">Jorge Iván Rincón Orduz</option>
+                                                        <option value="Luis Alejandro Ortega García">Luis Alejandro Ortega García</option>
+                                                        <option value="Luis Carlos Hidalgo Rengifo">Luis Carlos Hidalgo Rengifo</option>
+                                                        <option value="Maria Lorena Diaz Borray">Maria Lorena Diaz Borray</option>
+                                                        <option value="Mayra Alejandra Herrera Betancourt">Mayra Alejandra Herrera Betancourt</option>
+                                                        <option value="Nelson David Garzón Aya">Nelson David Garzón Aya</option>
+                                                        <option value="Raul Zuñiga Parra">Raul Zuñiga Parra</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label for="n_comentario_ticket" class="col-sm-2 control-label">Comentario de Ticket:</label>
+                                                <div class="col-sm-10">
+                                                    <textarea id="n_comentario_ticket" name="n_comentario_ticket" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" style="display: none" id="remedy_cierre">
+                                            <div class="col-md-6">
+                                                <label for="i_ingeniero_cierre_ticket" class="col-sm-4 control-label">Ingeniero Cierre:</label>
+                                                <div class="col-sm-8">
+                                                    <select name="i_ingeniero_cierre_ticket" id="i_ingeniero_cierre_ticket" class="form-control select-ingeniero">
+                                                        <option value="">Seleccione...</option>>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="d_fin_afectacion" class="col-sm-3 control-label"><span class="display-block">Fin Afectación:</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="datetime-local" class="form-control" id="d_fin_afectacion" name="d_fin_afectacion" data-callback='dom.formatDateForPrint'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group">
+                                                <label class="col-md-12 control-label"></label>
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="btn btn-success" ><span class="fa fa-fw fa-floppy-o"></span>&nbsp;&nbsp;Guadar Ticket</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

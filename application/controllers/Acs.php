@@ -189,4 +189,10 @@ class Acs extends CI_Controller {
         $response = $tr->insertTiketRemedy($this->request);
         $this->json($response);
     }
+    
+    public function getAllPersonRequests() {
+        $avmModel = new Dao_avm_model();
+        $response = $avmModel->getAllPersonRequests($this->request);
+        $this->json($response);
+    }
 }
