@@ -691,7 +691,7 @@ class Utils extends CI_Controller {
                     "id" => $idTicket,
                     "imported" => $imported,
                     "inconsistencies" => $inconsistencies,
-                    "cellInconsistencies" => $cellInconsistencies,
+                    "inconsistencies" => $inconsistenciesFull,
                     "data" => $this->objs
                 ]);
             } catch (DeplynException $ex) {
