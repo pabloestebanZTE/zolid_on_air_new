@@ -27,12 +27,12 @@ class Acs extends CI_Controller {
     }
 
     public function vmAcs() {
-        $station = new dao_station_model();
-        $band = new dao_band_model();
-        $work = new dao_work_model();
-        $technology = new dao_technology_model();
+        $station = new Dao_station_model();
+        $band = new Dao_band_model();
+        $work = new Dao_work_model();
+        $technology = new Dao_technology_model();
         $users = new Dao_user_model();
-        $crq = new dao_preparationStage_model();
+        $crq = new Dao_preparationStage_model();
 
         $dataForm = null;
         if ($this->request->id) {
@@ -166,7 +166,7 @@ class Acs extends CI_Controller {
         }
         $this->json($response);
     }
-    
+
     public function getVmAssigned() {
         //Se comprueba si no hay sesión.
         if (!Auth::check()) {
@@ -183,16 +183,17 @@ class Acs extends CI_Controller {
             $response = new Response(EMessages::NOT_ALLOWED);
         }
     }
-    
+
     public function insertTiketRemedy() {
         $tr = new Dao_tiket_remedy_model();
         $response = $tr->insertTiketRemedy($this->request);
         $this->json($response);
     }
-    
+
     public function getAllPersonRequests() {
         $avmModel = new Dao_avm_model();
         $response = $avmModel->getAllPersonRequests($this->request);
         $this->json($response);
     }
+
 }

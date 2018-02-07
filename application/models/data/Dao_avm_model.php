@@ -25,12 +25,12 @@ class Dao_avm_model extends CI_Model {
     public function getAllPersonRequests($request) {
         try {
             $db = new DB();
-            $datos = $db->select("SELECT n_persona_solicita_vmlc FROM avm WHERE n_persona_solicita_vmlc LIKE'%" . $request->search . "%'")->get();
-            $response = new Response(EMessages::SUCCESS);
-            $response->setData($datos);
-            return $response;
+            $datos = $db->select("SELECT n_persona_solicita_vmlc as label FROM avm WHERE n_persona_solicita_vmlc LIKE'%" . $request->search . "%' LIMIT 15")->get();
+            return $datos;
         } catch (DeplynException $ex) {
-            return $ex;
+            return [
+                "label" => "Error al consultar"
+            ];
         }
     }
 

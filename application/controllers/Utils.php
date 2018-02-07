@@ -869,170 +869,170 @@ class Utils extends CI_Controller {
     //
     //<editor-fold defaultstate="collapsed" desc="Pintar Linea en el archivo execel de errores de salida" >
     public function printLineError(&$objPHPWriter, $row, $obj) {
-        $objPhpExcel->getActiveSheet()->setCellValue("A" . ($row + 2), $obj->k_id_onair);
-        $objPhpExcel->getActiveSheet()->setCellValue("I" . ($row + 2), $obj->b_excpetion_gri);
-        $objPhpExcel->getActiveSheet()->setCellValue("K" . ($row + 2), $obj->d_fecha_ultima_rev);
-        $objPhpExcel->getActiveSheet()->setCellValue("S" . ($row + 2), $obj->d_desbloqueo);
-        $objPhpExcel->getActiveSheet()->setCellValue("T" . ($row + 2), $obj->d_bloqueo);
-        $objPhpExcel->getActiveSheet()->setCellValue("U" . ($row + 2), $obj->n_reviewedfo);
-        $objPhpExcel->getActiveSheet()->setCellValue("AJ" . ($row + 2), $obj->n_sectoresbloqueados);
-        $objPhpExcel->getActiveSheet()->setCellValue("AK" . ($row + 2), $obj->n_sectoresdesbloqueados);
-        $objPhpExcel->getActiveSheet()->setCellValue("AL" . ($row + 2), $obj->n_estadoonair);
-        $objPhpExcel->getActiveSheet()->setCellValue("AS" . ($row + 2), " "); //fin48
-        $objPhpExcel->getActiveSheet()->setCellValue("BA" . ($row + 2), $obj->d_actualizacion_final);
-        $objPhpExcel->getActiveSheet()->setCellValue("BB" . ($row + 2), $obj->d_asignacion_final);
-        $objPhpExcel->getActiveSheet()->setCellValue("BC" . ($row + 2), " "); //identificador
-        $objPhpExcel->getActiveSheet()->setCellValue("BW" . ($row + 2), " "); //t_from_notif
-        $objPhpExcel->getActiveSheet()->setCellValue("BX" . ($row + 2), " "); //t_from_asign
-        $objPhpExcel->getActiveSheet()->setCellValue("BZ" . ($row + 2), $obj->n_kpis_degraded);
-        $objPhpExcel->getActiveSheet()->setCellValue("CE" . ($row + 2), $obj->n_kpi1);
-        $objPhpExcel->getActiveSheet()->setCellValue("CF" . ($row + 2), $obj->i_valor_kpi1);
-        $objPhpExcel->getActiveSheet()->setCellValue("CG" . ($row + 2), $obj->n_kpi2);
-        $objPhpExcel->getActiveSheet()->setCellValue("CH" . ($row + 2), $obj->i_valor_kpi2);
-        $objPhpExcel->getActiveSheet()->setCellValue("CI" . ($row + 2), $obj->n_kpi3);
-        $objPhpExcel->getActiveSheet()->setCellValue("CJ" . ($row + 2), $obj->i_valor_kpi3);
-        $objPhpExcel->getActiveSheet()->setCellValue("CK" . ($row + 2), $obj->n_kpi4);
-        $objPhpExcel->getActiveSheet()->setCellValue("CL" . ($row + 2), $obj->i_valor_kpi4);
-        $objPhpExcel->getActiveSheet()->setCellValue("CM" . ($row + 2), $obj->n_alarma1);
-        $objPhpExcel->getActiveSheet()->setCellValue("CN" . ($row + 2), $obj->n_alarma2);
-        $objPhpExcel->getActiveSheet()->setCellValue("CO" . ($row + 2), $obj->n_alarma3);
-        $objPhpExcel->getActiveSheet()->setCellValue("CP" . ($row + 2), $obj->n_alarma4);
-        $objPhpExcel->getActiveSheet()->setCellValue("CQ" . ($row + 2), $obj->i_cont_total_escalamiento);
-        $objPhpExcel->getActiveSheet()->setCellValue("CR" . ($row + 2), $obj->i_time_total_escalamiento);
-        $objPhpExcel->getActiveSheet()->setCellValue("CS" . ($row + 2), " "); //OLA
-        $objPhpExcel->getActiveSheet()->setCellValue("CT" . ($row + 2), " "); //OLA extendido
-        $objPhpExcel->getActiveSheet()->setCellValue("CV" . ($row + 2), $obj->i_lider_cambio);
-        $objPhpExcel->getActiveSheet()->setCellValue("CW" . ($row + 2), $obj->i_lider_cuadrilla);
-        $objPhpExcel->getActiveSheet()->setCellValue("CX" . ($row + 2), ""); //OLA_Areas
-        $objPhpExcel->getActiveSheet()->setCellValue("CY" . ($row + 2), ""); //OLA_Areas_Excedido
-        $objPhpExcel->getActiveSheet()->setCellValue("DC" . ($row + 2), $obj->n_implementacion_campo);
-        $objPhpExcel->getActiveSheet()->setCellValue("DD" . ($row + 2), " "); //implementacion_remota
-        $objPhpExcel->getActiveSheet()->setCellValue("DE" . ($row + 2), $obj->n_gestion_power);
-        $objPhpExcel->getActiveSheet()->setCellValue("DF" . ($row + 2), $obj->n_obra_civil);
-        $objPhpExcel->getActiveSheet()->setCellValue("DG" . ($row + 2), $obj->on_air);
-        $objPhpExcel->getActiveSheet()->setCellValue("DH" . ($row + 2), $obj->fecha_rft);
-        $objPhpExcel->getActiveSheet()->setCellValue("DI" . ($row + 2), $obj->d_fecha_cg);
-        $objPhpExcel->getActiveSheet()->setCellValue("DJ" . ($row + 2), $obj->n_exclusion_bajo_trafico);
-        $objPhpExcel->getActiveSheet()->setCellValue("DK" . ($row + 2), $obj->n_ticket);
-        $objPhpExcel->getActiveSheet()->setCellValue("DL" . ($row + 2), $obj->n_estado_ticket);
-        $objPhpExcel->getActiveSheet()->setCellValue("DM" . ($row + 2), $obj->n_sln_modernizacion);
-        $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($row + 2), $obj->n_en_prorroga);
-        $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($row + 2), $obj->n_cont_prorrogas);
-        $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($row + 2), $obj->n_noc);
+        $objPHPWriter->getActiveSheet()->setCellValue("A" . ($row + 2), $obj->k_id_onair);
+        $objPHPWriter->getActiveSheet()->setCellValue("I" . ($row + 2), $obj->b_excpetion_gri);
+        $objPHPWriter->getActiveSheet()->setCellValue("K" . ($row + 2), $obj->d_fecha_ultima_rev);
+        $objPHPWriter->getActiveSheet()->setCellValue("S" . ($row + 2), $obj->d_desbloqueo);
+        $objPHPWriter->getActiveSheet()->setCellValue("T" . ($row + 2), $obj->d_bloqueo);
+        $objPHPWriter->getActiveSheet()->setCellValue("U" . ($row + 2), $obj->n_reviewedfo);
+        $objPHPWriter->getActiveSheet()->setCellValue("AJ" . ($row + 2), $obj->n_sectoresbloqueados);
+        $objPHPWriter->getActiveSheet()->setCellValue("AK" . ($row + 2), $obj->n_sectoresdesbloqueados);
+        $objPHPWriter->getActiveSheet()->setCellValue("AL" . ($row + 2), $obj->n_estadoonair);
+        $objPHPWriter->getActiveSheet()->setCellValue("AS" . ($row + 2), " "); //fin48
+        $objPHPWriter->getActiveSheet()->setCellValue("BA" . ($row + 2), $obj->d_actualizacion_final);
+        $objPHPWriter->getActiveSheet()->setCellValue("BB" . ($row + 2), $obj->d_asignacion_final);
+        $objPHPWriter->getActiveSheet()->setCellValue("BC" . ($row + 2), " "); //identificador
+        $objPHPWriter->getActiveSheet()->setCellValue("BW" . ($row + 2), " "); //t_from_notif
+        $objPHPWriter->getActiveSheet()->setCellValue("BX" . ($row + 2), " "); //t_from_asign
+        $objPHPWriter->getActiveSheet()->setCellValue("BZ" . ($row + 2), $obj->n_kpis_degraded);
+        $objPHPWriter->getActiveSheet()->setCellValue("CE" . ($row + 2), $obj->n_kpi1);
+        $objPHPWriter->getActiveSheet()->setCellValue("CF" . ($row + 2), $obj->i_valor_kpi1);
+        $objPHPWriter->getActiveSheet()->setCellValue("CG" . ($row + 2), $obj->n_kpi2);
+        $objPHPWriter->getActiveSheet()->setCellValue("CH" . ($row + 2), $obj->i_valor_kpi2);
+        $objPHPWriter->getActiveSheet()->setCellValue("CI" . ($row + 2), $obj->n_kpi3);
+        $objPHPWriter->getActiveSheet()->setCellValue("CJ" . ($row + 2), $obj->i_valor_kpi3);
+        $objPHPWriter->getActiveSheet()->setCellValue("CK" . ($row + 2), $obj->n_kpi4);
+        $objPHPWriter->getActiveSheet()->setCellValue("CL" . ($row + 2), $obj->i_valor_kpi4);
+        $objPHPWriter->getActiveSheet()->setCellValue("CM" . ($row + 2), $obj->n_alarma1);
+        $objPHPWriter->getActiveSheet()->setCellValue("CN" . ($row + 2), $obj->n_alarma2);
+        $objPHPWriter->getActiveSheet()->setCellValue("CO" . ($row + 2), $obj->n_alarma3);
+        $objPHPWriter->getActiveSheet()->setCellValue("CP" . ($row + 2), $obj->n_alarma4);
+        $objPHPWriter->getActiveSheet()->setCellValue("CQ" . ($row + 2), $obj->i_cont_total_escalamiento);
+        $objPHPWriter->getActiveSheet()->setCellValue("CR" . ($row + 2), $obj->i_time_total_escalamiento);
+        $objPHPWriter->getActiveSheet()->setCellValue("CS" . ($row + 2), " "); //OLA
+        $objPHPWriter->getActiveSheet()->setCellValue("CT" . ($row + 2), " "); //OLA extendido
+        $objPHPWriter->getActiveSheet()->setCellValue("CV" . ($row + 2), $obj->i_lider_cambio);
+        $objPHPWriter->getActiveSheet()->setCellValue("CW" . ($row + 2), $obj->i_lider_cuadrilla);
+        $objPHPWriter->getActiveSheet()->setCellValue("CX" . ($row + 2), ""); //OLA_Areas
+        $objPHPWriter->getActiveSheet()->setCellValue("CY" . ($row + 2), ""); //OLA_Areas_Excedido
+        $objPHPWriter->getActiveSheet()->setCellValue("DC" . ($row + 2), $obj->n_implementacion_campo);
+        $objPHPWriter->getActiveSheet()->setCellValue("DD" . ($row + 2), " "); //implementacion_remota
+        $objPHPWriter->getActiveSheet()->setCellValue("DE" . ($row + 2), $obj->n_gestion_power);
+        $objPHPWriter->getActiveSheet()->setCellValue("DF" . ($row + 2), $obj->n_obra_civil);
+        $objPHPWriter->getActiveSheet()->setCellValue("DG" . ($row + 2), $obj->on_air);
+        $objPHPWriter->getActiveSheet()->setCellValue("DH" . ($row + 2), $obj->fecha_rft);
+        $objPHPWriter->getActiveSheet()->setCellValue("DI" . ($row + 2), $obj->d_fecha_cg);
+        $objPHPWriter->getActiveSheet()->setCellValue("DJ" . ($row + 2), $obj->n_exclusion_bajo_trafico);
+        $objPHPWriter->getActiveSheet()->setCellValue("DK" . ($row + 2), $obj->n_ticket);
+        $objPHPWriter->getActiveSheet()->setCellValue("DL" . ($row + 2), $obj->n_estado_ticket);
+        $objPHPWriter->getActiveSheet()->setCellValue("DM" . ($row + 2), $obj->n_sln_modernizacion);
+        $objPHPWriter->getActiveSheet()->setCellValue("DN" . ($row + 2), $obj->n_en_prorroga);
+        $objPHPWriter->getActiveSheet()->setCellValue("DO" . ($row + 2), $obj->n_cont_prorrogas);
+        $objPHPWriter->getActiveSheet()->setCellValue("DP" . ($row + 2), $obj->n_noc);
 
 
         if ($obj->k_id_station) {
-            $objPhpExcel->getActiveSheet()->setCellValue("B" . ($row + 2), $obj->k_id_station->n_name_station);
+            $objPHPWriter->getActiveSheet()->setCellValue("B" . ($row + 2), $obj->k_id_station->n_name_station);
             if ($obj->k_id_station->k_id_city) {
-                $objPhpExcel->getActiveSheet()->setCellValue("Q" . ($row + 2), $obj->k_id_station->k_id_city->n_name_city);
+                $objPHPWriter->getActiveSheet()->setCellValue("Q" . ($row + 2), $obj->k_id_station->k_id_city->n_name_city);
                 if ($obj->k_id_station->k_id_city->k_id_regional) {
-                    $objPhpExcel->getActiveSheet()->setCellValue("R" . ($row + 2), $obj->k_id_station->k_id_city->k_id_regional->n_name_regional);
+                    $objPHPWriter->getActiveSheet()->setCellValue("R" . ($row + 2), $obj->k_id_station->k_id_city->k_id_regional->n_name_regional);
                 }
             }
         }
         if ($obj->k_id_preparation) {
-            $objPhpExcel->getActiveSheet()->setCellValue("C" . ($row + 2), $obj->k_id_preparation->n_bcf_wbts_id);
-            $objPhpExcel->getActiveSheet()->setCellValue("D" . ($row + 2), $obj->k_id_preparation->n_bts_id);
-            $objPhpExcel->getActiveSheet()->setCellValue("J" . ($row + 2), $obj->k_id_preparation->d_ingreso_on_air);
-            $objPhpExcel->getActiveSheet()->setCellValue("M" . ($row + 2), $obj->k_id_preparation->b_vistamm);
-            $objPhpExcel->getActiveSheet()->setCellValue("N" . ($row + 2), $obj->k_id_preparation->n_enteejecutor);
-            $objPhpExcel->getActiveSheet()->setCellValue("O" . ($row + 2), $obj->k_id_preparation->n_controlador);
-            $objPhpExcel->getActiveSheet()->setCellValue("P" . ($row + 2), $obj->k_id_preparation->n_idcontrolador);
-            $objPhpExcel->getActiveSheet()->setCellValue("V" . ($row + 2), $obj->k_id_preparation->d_correccionespendientes);
-            $objPhpExcel->getActiveSheet()->setCellValue("W" . ($row + 2), $obj->k_id_preparation->n_btsipaddress);
-            $objPhpExcel->getActiveSheet()->setCellValue("X" . ($row + 2), $obj->k_id_preparation->n_integrador);
-            $objPhpExcel->getActiveSheet()->setCellValue("AB" . ($row + 2), $obj->k_id_preparation->n_wp);
-            $objPhpExcel->getActiveSheet()->setCellValue("AC" . ($row + 2), $obj->k_id_preparation->n_crq);
-            $objPhpExcel->getActiveSheet()->setCellValue("AD" . ($row + 2), $obj->k_id_preparation->n_testgestion);
-            $objPhpExcel->getActiveSheet()->setCellValue("AE" . ($row + 2), $obj->k_id_preparation->n_sitiolimpio);
-            $objPhpExcel->getActiveSheet()->setCellValue("AF" . ($row + 2), $obj->d_fechaproduccion);
-            $objPhpExcel->getActiveSheet()->setCellValue("AG" . ($row + 2), $obj->k_id_preparation->n_instalacion_hw_sitio);
-            $objPhpExcel->getActiveSheet()->setCellValue("AH" . ($row + 2), $obj->k_id_preparation->n_cambios_config_solicitados);
-            $objPhpExcel->getActiveSheet()->setCellValue("AI" . ($row + 2), $obj->k_id_preparation->n_cambios_config_final);
-            $objPhpExcel->getActiveSheet()->setCellValue("AN" . ($row + 2), $obj->k_id_preparation->n_contratista);
-            $objPhpExcel->getActiveSheet()->setCellValue("AO" . ($row + 2), $obj->k_id_preparation->n_comentarioccial);
-            $objPhpExcel->getActiveSheet()->setCellValue("AP" . ($row + 2), $obj->k_id_preparation->n_ticketremedy);
-            $objPhpExcel->getActiveSheet()->setCellValue("AT" . ($row + 2), $obj->k_id_preparation->n_lac);
-            $objPhpExcel->getActiveSheet()->setCellValue("AU" . ($row + 2), $obj->k_id_preparation->n_rac);
-            $objPhpExcel->getActiveSheet()->setCellValue("AV" . ($row + 2), $obj->k_id_preparation->n_sac);
-            $objPhpExcel->getActiveSheet()->setCellValue("AW" . ($row + 2), $obj->k_id_preparation->n_integracion_gestion_y_trafica);
-            $objPhpExcel->getActiveSheet()->setCellValue("AX" . ($row + 2), $obj->k_id_preparation->puesta_servicio_sitio_nuevo_lte);
-            $objPhpExcel->getActiveSheet()->setCellValue("AY" . ($row + 2), $obj->k_id_preparation->n_instalacion_hw_4g_sitio);
-            $objPhpExcel->getActiveSheet()->setCellValue("AZ" . ($row + 2), $obj->k_id_preparation->pre_launch);
-            $objPhpExcel->getActiveSheet()->setCellValue("BD" . ($row + 2), $obj->k_id_preparation->n_evidenciasl);
-            $objPhpExcel->getActiveSheet()->setCellValue("BE" . ($row + 2), $obj->k_id_preparation->n_evidenciatg);
-            $objPhpExcel->getActiveSheet()->setCellValue("BV" . ($row + 2), $obj->k_id_preparation->i_week);
-            $objPhpExcel->getActiveSheet()->setCellValue("CA" . ($row + 2), $obj->k_id_preparation->id_notificacion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CB" . ($row + 2), $obj->k_id_preparation->id_documentacion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CC" . ($row + 2), $obj->k_id_preparation->id_rftools);
+            $objPHPWriter->getActiveSheet()->setCellValue("C" . ($row + 2), $obj->k_id_preparation->n_bcf_wbts_id);
+            $objPHPWriter->getActiveSheet()->setCellValue("D" . ($row + 2), $obj->k_id_preparation->n_bts_id);
+            $objPHPWriter->getActiveSheet()->setCellValue("J" . ($row + 2), $obj->k_id_preparation->d_ingreso_on_air);
+            $objPHPWriter->getActiveSheet()->setCellValue("M" . ($row + 2), $obj->k_id_preparation->b_vistamm);
+            $objPHPWriter->getActiveSheet()->setCellValue("N" . ($row + 2), $obj->k_id_preparation->n_enteejecutor);
+            $objPHPWriter->getActiveSheet()->setCellValue("O" . ($row + 2), $obj->k_id_preparation->n_controlador);
+            $objPHPWriter->getActiveSheet()->setCellValue("P" . ($row + 2), $obj->k_id_preparation->n_idcontrolador);
+            $objPHPWriter->getActiveSheet()->setCellValue("V" . ($row + 2), $obj->k_id_preparation->d_correccionespendientes);
+            $objPHPWriter->getActiveSheet()->setCellValue("W" . ($row + 2), $obj->k_id_preparation->n_btsipaddress);
+            $objPHPWriter->getActiveSheet()->setCellValue("X" . ($row + 2), $obj->k_id_preparation->n_integrador);
+            $objPHPWriter->getActiveSheet()->setCellValue("AB" . ($row + 2), $obj->k_id_preparation->n_wp);
+            $objPHPWriter->getActiveSheet()->setCellValue("AC" . ($row + 2), $obj->k_id_preparation->n_crq);
+            $objPHPWriter->getActiveSheet()->setCellValue("AD" . ($row + 2), $obj->k_id_preparation->n_testgestion);
+            $objPHPWriter->getActiveSheet()->setCellValue("AE" . ($row + 2), $obj->k_id_preparation->n_sitiolimpio);
+            $objPHPWriter->getActiveSheet()->setCellValue("AF" . ($row + 2), $obj->d_fechaproduccion);
+            $objPHPWriter->getActiveSheet()->setCellValue("AG" . ($row + 2), $obj->k_id_preparation->n_instalacion_hw_sitio);
+            $objPHPWriter->getActiveSheet()->setCellValue("AH" . ($row + 2), $obj->k_id_preparation->n_cambios_config_solicitados);
+            $objPHPWriter->getActiveSheet()->setCellValue("AI" . ($row + 2), $obj->k_id_preparation->n_cambios_config_final);
+            $objPHPWriter->getActiveSheet()->setCellValue("AN" . ($row + 2), $obj->k_id_preparation->n_contratista);
+            $objPHPWriter->getActiveSheet()->setCellValue("AO" . ($row + 2), $obj->k_id_preparation->n_comentarioccial);
+            $objPHPWriter->getActiveSheet()->setCellValue("AP" . ($row + 2), $obj->k_id_preparation->n_ticketremedy);
+            $objPHPWriter->getActiveSheet()->setCellValue("AT" . ($row + 2), $obj->k_id_preparation->n_lac);
+            $objPHPWriter->getActiveSheet()->setCellValue("AU" . ($row + 2), $obj->k_id_preparation->n_rac);
+            $objPHPWriter->getActiveSheet()->setCellValue("AV" . ($row + 2), $obj->k_id_preparation->n_sac);
+            $objPHPWriter->getActiveSheet()->setCellValue("AW" . ($row + 2), $obj->k_id_preparation->n_integracion_gestion_y_trafica);
+            $objPHPWriter->getActiveSheet()->setCellValue("AX" . ($row + 2), $obj->k_id_preparation->puesta_servicio_sitio_nuevo_lte);
+            $objPHPWriter->getActiveSheet()->setCellValue("AY" . ($row + 2), $obj->k_id_preparation->n_instalacion_hw_4g_sitio);
+            $objPHPWriter->getActiveSheet()->setCellValue("AZ" . ($row + 2), $obj->k_id_preparation->pre_launch);
+            $objPHPWriter->getActiveSheet()->setCellValue("BD" . ($row + 2), $obj->k_id_preparation->n_evidenciasl);
+            $objPHPWriter->getActiveSheet()->setCellValue("BE" . ($row + 2), $obj->k_id_preparation->n_evidenciatg);
+            $objPHPWriter->getActiveSheet()->setCellValue("BV" . ($row + 2), $obj->k_id_preparation->i_week);
+            $objPHPWriter->getActiveSheet()->setCellValue("CA" . ($row + 2), $obj->k_id_preparation->id_notificacion);
+            $objPHPWriter->getActiveSheet()->setCellValue("CB" . ($row + 2), $obj->k_id_preparation->id_documentacion);
+            $objPHPWriter->getActiveSheet()->setCellValue("CC" . ($row + 2), $obj->k_id_preparation->id_rftools);
         }
         if ($obj->k_id_precheck) {
-            $objPhpExcel->getActiveSheet()->setCellValue("AQ" . ($row + 2), $obj->k_id_precheck->d_finpre);
+            $objPHPWriter->getActiveSheet()->setCellValue("AQ" . ($row + 2), $obj->k_id_precheck->d_finpre);
             if ($obj->k_id_precheck->k_id_user) {
-                $objPhpExcel->getActiveSheet()->setCellValue("Y" . ($row + 2), $obj->k_id_precheck->k_id_user->n_name_user . " " . $obj->k_id_precheck->k_id_user->n_last_name_user);
+                $objPHPWriter->getActiveSheet()->setCellValue("Y" . ($row + 2), $obj->k_id_precheck->k_id_user->n_name_user . " " . $obj->k_id_precheck->k_id_user->n_last_name_user);
             }
         }
         if ($obj->k_id_band) {
-            $objPhpExcel->getActiveSheet()->setCellValue("F" . ($row + 2), $obj->k_id_band->n_name_band);
+            $objPHPWriter->getActiveSheet()->setCellValue("F" . ($row + 2), $obj->k_id_band->n_name_band);
         }
         if ($obj->k_id_technology) {
-            $objPhpExcel->getActiveSheet()->setCellValue("E" . ($row + 2), $obj->k_id_technology->n_name_technology);
+            $objPHPWriter->getActiveSheet()->setCellValue("E" . ($row + 2), $obj->k_id_technology->n_name_technology);
         }
         if ($obj->k_id_status_onair) {
             if ($obj->k_id_status_onair['k_id_status']) {
-                $objPhpExcel->getActiveSheet()->setCellValue("G" . ($row + 2), $obj->k_id_status_onair['k_id_status']->n_name_status);
+                $objPHPWriter->getActiveSheet()->setCellValue("G" . ($row + 2), $obj->k_id_status_onair['k_id_status']->n_name_status);
             }
             if ($obj->k_id_status_onair['k_id_substatus']) {
-                $objPhpExcel->getActiveSheet()->setCellValue("H" . ($row + 2), $obj->k_id_status_onair['k_id_substatus']->n_name_substatus);
+                $objPHPWriter->getActiveSheet()->setCellValue("H" . ($row + 2), $obj->k_id_status_onair['k_id_substatus']->n_name_substatus);
             }
         }
         if ($obj->k_id_work) {
-            $objPhpExcel->getActiveSheet()->setCellValue("L" . ($row + 2), $obj->k_id_work->n_name_ork);
+            $objPHPWriter->getActiveSheet()->setCellValue("L" . ($row + 2), $obj->k_id_work->n_name_ork);
         }
         if ($obj->onair12) {
             if ($obj->onair12->k_id_follow_up_12h) {
                 if ($obj->onair12->k_id_follow_up_12h->k_id_user) {
-                    $objPhpExcel->getActiveSheet()->setCellValue("Z" . ($row + 2), $obj->onair12->k_id_follow_up_12h->k_id_user->n_name_user . " " . $obj->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user);
+                    $objPHPWriter->getActiveSheet()->setCellValue("Z" . ($row + 2), $obj->onair12->k_id_follow_up_12h->k_id_user->n_name_user . " " . $obj->onair12->k_id_follow_up_12h->k_id_user->n_last_name_user);
                 }
             }
-            $objPhpExcel->getActiveSheet()->setCellValue("AR" . ($row + 2), $obj->onair12->d_fin12h);
+            $objPHPWriter->getActiveSheet()->setCellValue("AR" . ($row + 2), $obj->onair12->d_fin12h);
         }
         if ($obj->onair36) {
             if ($obj->onair36->k_id_follow_up_36h) {
                 if ($obj->onair36->k_id_follow_up_36h->k_id_user) {
-                    $objPhpExcel->getActiveSheet()->setCellValue("AA" . ($row + 2), $obj->onair36->k_id_follow_up_36h->k_id_user->n_name_user . "" . $obj->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user);
+                    $objPHPWriter->getActiveSheet()->setCellValue("AA" . ($row + 2), $obj->onair36->k_id_follow_up_36h->k_id_user->n_name_user . "" . $obj->onair36->k_id_follow_up_36h->k_id_user->n_last_name_user);
                 }
             }
-            $objPhpExcel->getActiveSheet()->setCellValue("DB" . ($row + 2), $obj->onair36->d_fin36h);
+            $objPHPWriter->getActiveSheet()->setCellValue("DB" . ($row + 2), $obj->onair36->d_fin36h);
         }
         if ($obj->scaled_onair) {
-            $objPhpExcel->getActiveSheet()->setCellValue("AM" . ($row + 2), $obj->scaled_onair->n_atribuible_nokia);
-            $objPhpExcel->getActiveSheet()->setCellValue("BF" . ($row + 2), $obj->scaled_onair->d_time_escalado);
-            $objPhpExcel->getActiveSheet()->setCellValue("BG" . ($row + 2), $obj->scaled_onair->d_fecha_escalado);
-            $objPhpExcel->getActiveSheet()->setCellValue("BH" . ($row + 2), $obj->scaled_onair->i_cont_esc_imp);
-            $objPhpExcel->getActiveSheet()->setCellValue("BI" . ($row + 2), $obj->scaled_onair->time_esc_imp);
-            $objPhpExcel->getActiveSheet()->setCellValue("BJ" . ($row + 2), $obj->scaled_onair->i_cont_esc_rf);
-            $objPhpExcel->getActiveSheet()->setCellValue("BK" . ($row + 2), $obj->scaled_onair->i_time_esc_rf);
-            $objPhpExcel->getActiveSheet()->setCellValue("BL" . ($row + 2), $obj->scaled_onair->cont_esc_npo);
-            $objPhpExcel->getActiveSheet()->setCellValue("BM" . ($row + 2), $obj->scaled_onair->i_time_esc_npo);
-            $objPhpExcel->getActiveSheet()->setCellValue("BN" . ($row + 2), $obj->scaled_onair->cont_esc_care);
-            $objPhpExcel->getActiveSheet()->setCellValue("BO" . ($row + 2), $obj->scaled_onair->i_time_esc_care);
-            $objPhpExcel->getActiveSheet()->setCellValue("BP" . ($row + 2), $obj->scaled_onair->i_cont_esc_gdrt);
-            $objPhpExcel->getActiveSheet()->setCellValue("BQ" . ($row + 2), $obj->scaled_onair->i_time_esc_gdrt);
-            $objPhpExcel->getActiveSheet()->setCellValue("BR" . ($row + 2), $obj->scaled_onair->i_cont_esc_oym);
-            $objPhpExcel->getActiveSheet()->setCellValue("BS" . ($row + 2), $obj->scaled_onair->time_esc_oym);
-            $objPhpExcel->getActiveSheet()->setCellValue("BT" . ($row + 2), $obj->scaled_onair->cont_esc_calidad);
-            $objPhpExcel->getActiveSheet()->setCellValue("BU" . ($row + 2), $obj->scaled_onair->i_time_esc_calidad);
-            $objPhpExcel->getActiveSheet()->setCellValue("BY" . ($row + 2), $obj->scaled_onair->n_atribuible_nokia2);
-            $objPhpExcel->getActiveSheet()->setCellValue("CU" . ($row + 2), $obj->scaled_onair->n_detalle_solucion);
-            $objPhpExcel->getActiveSheet()->setCellValue("CZ" . ($row + 2), $obj->scaled_onair->n_ultimo_subestado_de_escalamiento);
-            $objPhpExcel->getActiveSheet()->setCellValue("CD" . ($row + 2), $obj->scaled_onair->n_tipificacion_solucion);
+            $objPHPWriter->getActiveSheet()->setCellValue("AM" . ($row + 2), $obj->scaled_onair->n_atribuible_nokia);
+            $objPHPWriter->getActiveSheet()->setCellValue("BF" . ($row + 2), $obj->scaled_onair->d_time_escalado);
+            $objPHPWriter->getActiveSheet()->setCellValue("BG" . ($row + 2), $obj->scaled_onair->d_fecha_escalado);
+            $objPHPWriter->getActiveSheet()->setCellValue("BH" . ($row + 2), $obj->scaled_onair->i_cont_esc_imp);
+            $objPHPWriter->getActiveSheet()->setCellValue("BI" . ($row + 2), $obj->scaled_onair->time_esc_imp);
+            $objPHPWriter->getActiveSheet()->setCellValue("BJ" . ($row + 2), $obj->scaled_onair->i_cont_esc_rf);
+            $objPHPWriter->getActiveSheet()->setCellValue("BK" . ($row + 2), $obj->scaled_onair->i_time_esc_rf);
+            $objPHPWriter->getActiveSheet()->setCellValue("BL" . ($row + 2), $obj->scaled_onair->cont_esc_npo);
+            $objPHPWriter->getActiveSheet()->setCellValue("BM" . ($row + 2), $obj->scaled_onair->i_time_esc_npo);
+            $objPHPWriter->getActiveSheet()->setCellValue("BN" . ($row + 2), $obj->scaled_onair->cont_esc_care);
+            $objPHPWriter->getActiveSheet()->setCellValue("BO" . ($row + 2), $obj->scaled_onair->i_time_esc_care);
+            $objPHPWriter->getActiveSheet()->setCellValue("BP" . ($row + 2), $obj->scaled_onair->i_cont_esc_gdrt);
+            $objPHPWriter->getActiveSheet()->setCellValue("BQ" . ($row + 2), $obj->scaled_onair->i_time_esc_gdrt);
+            $objPHPWriter->getActiveSheet()->setCellValue("BR" . ($row + 2), $obj->scaled_onair->i_cont_esc_oym);
+            $objPHPWriter->getActiveSheet()->setCellValue("BS" . ($row + 2), $obj->scaled_onair->time_esc_oym);
+            $objPHPWriter->getActiveSheet()->setCellValue("BT" . ($row + 2), $obj->scaled_onair->cont_esc_calidad);
+            $objPHPWriter->getActiveSheet()->setCellValue("BU" . ($row + 2), $obj->scaled_onair->i_time_esc_calidad);
+            $objPHPWriter->getActiveSheet()->setCellValue("BY" . ($row + 2), $obj->scaled_onair->n_atribuible_nokia2);
+            $objPHPWriter->getActiveSheet()->setCellValue("CU" . ($row + 2), $obj->scaled_onair->n_detalle_solucion);
+            $objPHPWriter->getActiveSheet()->setCellValue("CZ" . ($row + 2), $obj->scaled_onair->n_ultimo_subestado_de_escalamiento);
+            $objPHPWriter->getActiveSheet()->setCellValue("CD" . ($row + 2), $obj->scaled_onair->n_tipificacion_solucion);
         }
         if ($obj->onair24) {
-            $objPhpExcel->getActiveSheet()->setCellValue("DA" . ($row + 2), $obj->onair24->d_fin24h);
+            $objPHPWriter->getActiveSheet()->setCellValue("DA" . ($row + 2), $obj->onair24->d_fin24h);
         }
 
-        $objPhpExcel->getActiveSheet()->getStyle("AO" . ($row + 2))->getAlignment()->setWrapText(true);
+        $objPHPWriter->getActiveSheet()->getStyle("AO" . ($row + 2))->getAlignment()->setWrapText(true);
         //$objPhpExcel->getActiveSheet()->getHighestRow();
     }
 
