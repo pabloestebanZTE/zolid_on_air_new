@@ -172,7 +172,7 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="getPreparationStage" >
+    //<editor-fold defaultstate="collapsed" desc="getPreparationStage()" >
     private function getPreparationStage(&$sheet, &$obj, $row) {
         $obj->k_id_preparation = (new ObjUtil([
             "n_bcf_wbts_id" => $sheet->getCell('C' . $row)->getValue(),
@@ -545,7 +545,7 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
-            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+//            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -626,7 +626,7 @@ class Utils extends CI_Controller {
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
-            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+//            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
             $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 

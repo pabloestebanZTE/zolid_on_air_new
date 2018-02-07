@@ -25,7 +25,7 @@ return [
      */
     //Por favor, Seguir subiendo la configuración de sus localhost y no la del servidor
     //que el único que apunte a el servidor mysql sea quíen suba el proyecto con nuevos cambios...
-    'default' => 'mysql2',
+    'default' => 'jj',
     /*
       |--------------------------------------------------------------------------
       | Database Connections
@@ -61,7 +61,7 @@ return [
             'port' => '3306',
             'database' => 'u100536767_zolid',
             'username' => 'u100536767_zolid',
-            'password' => 'jhon151221',
+            'password' => 'abc123',
             'charset' => 'utf8',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',

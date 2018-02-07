@@ -7,7 +7,7 @@
  * recuerda que para usarlo debes incluir en tu proyecto la licencia del framework.
  */
 
-class DB extends PDO {
+class DB {
 
     private $cogs;
     private $table;
@@ -16,11 +16,14 @@ class DB extends PDO {
     private $action;
     private $sql;
     private $query;
+    public static $con;
 
     const NULLED = "NULLED";
 
     public function __construct($table = null) {
-        $this->init($table);
+        if (DB::$con == null) {
+            $this->init($table);
+        }
     }
 
     public function init($table = null) {
@@ -41,9 +44,11 @@ class DB extends PDO {
         if (!defined("STDIN")) {
             $array = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'");
         }
-        parent::__construct($DB_TYPE . ':host=' . $DB_HOST . ":" . $DB_PORT
+
+        DB::$con = new PDO($DB_TYPE . ':host=' . $DB_HOST . ":" . $DB_PORT
                 . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, $array);
-        $this->setAttribute(PDO::ATTR_PERSISTENT, true);
+
+        DB::$con->setAttribute(PDO::ATTR_PERSISTENT, true);
     }
 
     public static $db;
@@ -184,10 +189,10 @@ class DB extends PDO {
             }
             $this->sql .= " " . $this->wheres;
             $this->sql .= " " . $this->others;
-            $sth = $this->prepare($this->sql);
+            $sth = DB::$con->prepare($this->sql);
             $this->query = $this->sql;
             $sth->execute();
-            return $sth->fetchAll(($fech != null) ? $fech : $this->cogs["fetch"]);
+            return $sth->fetchAll(($fech != null) ? $fech : PDO::FETCH_OBJ);
         } catch (Exception $ex) {
             throw (new DeplynException(EMessages::ERROR_QUERY))
                     ->setOriginalMessage($exc->getMessage());
@@ -267,7 +272,7 @@ class DB extends PDO {
     }
 
     private function run($obj) {
-        $sth = $this->prepare($this->sql);
+        $sth = DB::$con->prepare($this->sql);
         $this->query = $this->sql;
         foreach ($obj as $key => $value) {
             if ($value === DB::NULLED) {
