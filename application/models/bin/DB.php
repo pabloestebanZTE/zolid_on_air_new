@@ -229,7 +229,7 @@ class DB {
             $fieldValues = ':' . implode(', :', array_keys($obj));
             $this->sql = "INSERT INTO $this->table (`$fieldNames`) VALUES ($fieldValues)";
             $this->run($obj);
-            $id = $this->lastInsertId();
+            $id = DB::$con->lastInsertId();
             return $id;
         } catch (Exception $exc) {
             throw (new DeplynException(EMessages::ERROR_INSERT))
