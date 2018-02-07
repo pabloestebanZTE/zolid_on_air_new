@@ -61,12 +61,13 @@ $(document).ready(function () {
                     search: request.term
                 },
                 success: function (data) {
-                    response(data.data);
+                    response(data);
                 }
             });
         },
         select: function (event, ui) {
-            $('#n_persona_solicita_vmlc').val(ui.item.n_persona_solicita_vmlc);
+            $('#n_persona_solicita_vmlc').val(ui.item.label);
+//            $('#selectuser_id').val(ui.item.value); // save selected id to input
             return false;
         }
     });

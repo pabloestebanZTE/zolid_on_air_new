@@ -331,6 +331,7 @@
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_persona_solicita_vmlc" class="col-sm-2 control-label text-right">Persona que solicita la VMLC:</label>
                                             <div class="col-sm-10">
+<!--                                                <select class="form-control control-change"  id="n_persona_solicita_vmlc" name="avm.n_persona_solicita_vmlc" data-name="persona_solicita"></select>-->
                                                 <input type="text" class="form-control control-change" id="n_persona_solicita_vmlc" name="avm.n_persona_solicita_vmlc" data-name="persona_solicita"/>
                                             </div>
                                         </div>

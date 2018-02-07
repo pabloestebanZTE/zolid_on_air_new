@@ -10,7 +10,7 @@
             color: #FFF;
         }
     </style>
-    <body data-base="<?= URL::base() ?>">
+    <body data-base="<?= URL::base() ?>">        
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
