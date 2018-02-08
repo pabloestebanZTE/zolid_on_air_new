@@ -70,7 +70,7 @@ var load = {
         var progress = $('#progressProcessImportData');
         progress.removeClass('hidden');
         var i = (load.indexTemp) + 2;
-        $('#lblProgressInformation').removeClass('hidden').html((i) + ' de ' + (load.linesFile - 2) + ' líneas procesados.');
+        $('#lblProgressInformation').removeClass('hidden').html((i) + ' de ' + (load.linesFile - 2) + ' líneas procesadas.');
         var progressValue = Math.round(((i) / (load.linesFile - 2)) * 100);
         if (progressValue > 100) {
             progressValue = 100;
