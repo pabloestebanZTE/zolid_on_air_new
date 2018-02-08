@@ -6,7 +6,7 @@
     }
 </style>
 <div class='tab-content contentPrincipal hidden' id='tab1'>
-    <div class='container'>
+    <div class=''>
         <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>
             <fieldset>
                 <div class="row contentPrincipal hidden">

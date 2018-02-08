@@ -35,7 +35,7 @@
 </script>
 
 <div class='tab-content contentPrincipal' id='tab1'>
-    <div class='container'>
+    <div class=''>
         <div class= 'form-horizontal' method='post'  id='assignService' name='assignServie' enctype='multipart/form-data'>
             <fieldset class="well">
                 <div class="row contentPrincipal">

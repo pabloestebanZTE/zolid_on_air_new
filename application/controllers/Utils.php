@@ -535,6 +535,49 @@ class Utils extends CI_Controller {
         
     }
 
+    public function countLinesFile() {
+        $request = $this->request;
+        $file = $request->file;
+        $response = new Response(EMessages::SUCCESS);
+        if (file_exists($file)) {
+            try {
+                //Se procesa el archivo de comentarios...
+                set_time_limit(-1);
+                ini_set('memory_limit', '1500M');
+                require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
+                $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+                $cacheSettings = array(' memoryCacheSize ' => '15MB');
+//            if (intval(phpversion()) <= 5) {
+                PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+//            }
+                PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+                $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
+
+                $inputFileType = PHPExcel_IOFactory::identify($file);
+                $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                $objReader->setReadDataOnly(true);
+                $objPHPExcel = $objReader->load($file);
+
+                //Obtenemos la página.
+                $sheet = $objPHPExcel->getSheet(0);
+                $highestRowSheet1 = $sheet->getHighestRow();
+
+                $sheet = $objPHPExcel->getSheet(1);
+                $highestRowSheet2 = $sheet->getHighestRow();
+
+                $lines = [
+                    "sheet1" => $highestRowSheet1,
+                    "sheet2" => $highestRowSheet2,
+                ];
+
+                $response->setData($lines);
+                $this->json($response);
+            } catch (DeplynException $ex) {
+                $this->json($ex);
+            }
+        }
+    }
+
     //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
         $response = new Response(EMessages::SUCCESS);
@@ -607,7 +650,8 @@ class Utils extends CI_Controller {
 
                 if (($limit - $row) >= 2) {
                     $response->setCode(2);
-                    $response->setMessage("Se han importado correctamente los comentarios okay.");
+                    $response->setMessage("Se han importado correctamente los comentarios.");
+                    $response->setData($row - $request->index);
                 }
 
                 $this->json($response);
@@ -1159,7 +1203,8 @@ class Utils extends CI_Controller {
                     "inconsistencies" => $inconsistencies,
                     "inconsistenciesFull" => $inconsistenciesFull,
                     "data" => $this->objs,
-                    "errors_filename" => $filename
+                    "errors_filename" => $filename,
+                    "row" => ($row - $request->index)
                 ]);
             } catch (DeplynException $ex) {
                 $response = new Response(EMessages::ERROR, "Error al procesar el archivo.");
