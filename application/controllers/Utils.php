@@ -648,8 +648,6 @@ class Utils extends CI_Controller {
                             //Se inserta el comentario...
                             $reportCommentsModel = new ReporteComentarioModel();
                             $reportCommentsModel->insert($obj->all());
-                        } else {
-                            //Se marca la celda como no existe el ticket...
                         }
                     }
 
@@ -659,9 +657,9 @@ class Utils extends CI_Controller {
                 if (($limit - $row) >= 2) {
                     $response->setCode(2);
                     $response->setMessage("Se han importado correctamente los comentarios.");
-                    $response->setData($row - $request->index);
                 }
 
+                $response->setData($row - $request->index);
                 $this->json($response);
             } catch (DeplynException $ex) {
                 $this->json($ex);
