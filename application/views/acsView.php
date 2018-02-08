@@ -171,7 +171,7 @@
                                                 </div>-->
                                                 <div id="note_checklist">                                                    
                                                 </div>                                                
-                                                <div id="items_checklist">                                                    
+                                                <div id="items_checklist_E">                                                    
                                                 </div>
                                             </div>
                                             <div class="display-block m-t-15">
@@ -530,7 +530,7 @@
                                             <div class="col-md-6">
                                                 <label for="n_rnc_name" class="col-sm-3 control-label">RNC_Name:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="n_rnc_name" name="n_rnc_name"/>
+                                                    <input type="text" class="form-control" id="n_rnc_name" name="avm.n_rnc_name"/>
                                                 </div>
                                             </div>
                                         </div>                                            
@@ -850,7 +850,7 @@
                                         <div class="col-md-6">
                                             <label for="k_id_technology" class="col-sm-4 control-label">Tecnología:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control select-tecnologia control-change control-email change-solution" id="k_id_technology" name="vm.k_id_technology">
+                                                <select class="form-control select-tecnologia control-change control-email change-solution select-checklist" id="k_id_technology" name="vm.k_id_technology">
                                                     <option value="">Seleccione</option>
                                                 </select>
                                             </div>
@@ -867,7 +867,7 @@
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
-                                            <select class="form-control select-tipotrabajo control-change control-email change-solution" id="k_id_work" name="vm.k_id_work">
+                                            <select class="form-control select-tipotrabajo control-change control-email change-solution select-checklist" id="k_id_work" name="vm.k_id_work">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -1097,6 +1097,40 @@
                                             <textarea class="form-control" placeholder="Comentario..." id="n_comentarios_cierre" name="cvm.n_comentarios_cierre"></textarea>
                                         </div>
                                     </div>
+                                    
+                                    <!--inicio checklist-->
+                                    <div class="widget bg-gray text-left m-t-25 display-block">
+                                        <h2 class="h4"><i class="fa fa-fw fa-check-square-o"></i> CheckList</h2>
+                                        <p class="muted m-b-0">Por favor, verifique los procesos a continuación y complete el checklist según sea el caso.</p>
+                                        <div class="widget bg-white">
+                                            <div class="checkbox checkbox-primary text-left" id="productionList">
+<!--                                                <div class="display-block">
+                                                    <input id="chk_init_1" name="vm.checklist[]" type="checkbox">
+                                                    <label for="chk_init_1" class="text-bold">
+                                                        ID site access Correcto.
+                                                    </label>
+                                                </div>
+                                                <div class="display-block">
+                                                    <input id="chk_init_2" name="vm.checklist[]" type="checkbox">
+                                                    <label for="chk_init_2" class="text-bold">
+                                                        CRQ Remedy Correcto.
+                                                    </label>
+                                                </div>-->
+                                                <div id="note_checklist">                                                    
+                                                </div>                                                
+                                                <div id="items_checklist_S">                                                    
+                                                </div>
+                                            </div>
+<!--                                            <div class="display-block m-t-15">
+                                                <label for="txtComentario" class="text-bold">
+                                                    Comentario
+                                                </label>
+                                                <textarea class="form-control" id="txtComentario" name="vm.txtComentario"></textarea>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                    <!--fin checklist-->
+                                    
                                     <!--inicio email template-->
                                     <div class="widget bg-gray text-left m-t-25 display-block">
                                         <button id="btnMinus" style="position: absolute; right: 50px;" class="btn btn-primary"><i class="fa fa-minus"></i></button>

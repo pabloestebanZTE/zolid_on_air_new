@@ -873,3 +873,7 @@ ALTER TABLE `preparation_stage`
 	CHANGE COLUMN `i_week` `i_week` VARCHAR(50) NULL DEFAULT NULL AFTER `idenciasl`;
 
 ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);
+
+-- Actualización Miercoles, 07 de Febrero de 2018.
+ALTER TABLE `on_air`.`checklist` 
+ADD COLUMN `n_type` ENUM('E', 'S') NULL DEFAULT 'E' AFTER `k_id_work`;

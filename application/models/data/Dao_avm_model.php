@@ -22,10 +22,10 @@ class Dao_avm_model extends CI_Model {
         }
     }
 
-    public function getAllPersonRequests($request) {
+    public function getAllPersonAutocomplete($request) {
         try {
             $db = new DB();
-            $datos = $db->select("SELECT n_persona_solicita_vmlc as label FROM avm WHERE n_persona_solicita_vmlc LIKE'%" . $request->search . "%' LIMIT 15")->get();
+            $datos = $db->select("SELECT " . $request->field . " as label FROM avm WHERE " . $request->field . " LIKE'%" . $request->search . "%' GROUP BY label LIMIT 15")->get();
             return $datos;
         } catch (DeplynException $ex) {
             return [
