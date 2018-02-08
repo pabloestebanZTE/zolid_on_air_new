@@ -69,7 +69,9 @@ var load = {
     showProgress: function () {
         var progress = $('#progressProcessImportData');
         progress.removeClass('hidden');
-        var progressValue = Math.round(((load.index + load.indexTemp) / load.linesFile) * 100);
+        var i = (load.indexTemp) + 2;
+        $('#lblProgressInformation').removeClass('hidden').html((i) + ' de ' + (load.linesFile - 2) + ' líneas procesados.');
+        var progressValue = Math.round(((i) / (load.linesFile - 2)) * 100);
         if (progressValue > 100) {
             progressValue = 100;
         }
@@ -97,7 +99,7 @@ var load = {
                         console.log("Se ha importado los datos del OnAir, el proceso continuará importando los comentarios.");
                         $('#btnLoadOnAir').html('<i class="fa fa-fw fa-paperclip"></i> Cargar OnAir').prop('disabled', false);
                         alert = dom.printAlert('Cargando comentarios del OnAir en el sistema, por favor no cierre esta ventana.', 'loading', $('#principalAlert'));
-                        load.indexTemp = load.index + response.data.row;
+                        load.indexTemp = response.data.row;
                         load.index = 2;
                         window.setTimeout(function () {
                             load.processComments(data, alert);
@@ -107,6 +109,7 @@ var load = {
                     var v = app.validResponse(response);
                     if (v) {
                         load.index += response.data.row;
+                        load.indexTemp += response.data.row;
                         window.setTimeout(function () {
                             load.processData(data, alert);
                         }, load.sleepTime);
@@ -133,6 +136,7 @@ var load = {
                     if (response.code == 2) {
                         if (response.data > 0) {
                             load.index += response.data;
+                            load.indexTemp += response.data;
                         }
                         load.endImport(alert);
                         swal("Importado", "Se ha importado toda la información del OnAir correctamente.", "success")
@@ -144,6 +148,7 @@ var load = {
                     var v = app.validResponse(response);
                     if (v) {
                         load.index += response.data;
+                        load.indexTemp += response.data;
                         window.setTimeout(function () {
                             load.processComments(data, alert);
                         }, load.sleepTime);
