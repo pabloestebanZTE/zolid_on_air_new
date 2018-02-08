@@ -536,6 +536,7 @@ class Utils extends CI_Controller {
     }
 
     public function countLinesFile() {
+        error_reporting(E_ERROR);
         $request = $this->request;
         $file = $request->file;
         $response = new Response(EMessages::SUCCESS);
@@ -547,9 +548,7 @@ class Utils extends CI_Controller {
                 require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
                 $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
                 $cacheSettings = array(' memoryCacheSize ' => '15MB');
-//            if (intval(phpversion()) <= 5) {
                 PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
-//            }
                 PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
                 $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -560,10 +559,18 @@ class Utils extends CI_Controller {
 
                 //Obtenemos la página.
                 $sheet = $objPHPExcel->getSheet(0);
-                $highestRowSheet1 = $sheet->getHighestRow();
+                $row = 1;
+                $validator = new Validator();
+                while ($validator->required("", $this->getValueCell($sheet, "A" . $row))) {
+                    $row++;
+                }
+                $highestRowSheet1 = $row;
 
                 $sheet = $objPHPExcel->getSheet(1);
-                $highestRowSheet2 = $sheet->getHighestRow();
+                while ($validator->required("", $this->getValueCell($sheet, "A" . $row))) {
+                    $row++;
+                }
+                $highestRowSheet2 = $row;
 
                 $lines = [
                     "sheet1" => $highestRowSheet1,
@@ -580,6 +587,7 @@ class Utils extends CI_Controller {
 
     //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
+        error_reporting(E_ERROR);
         $response = new Response(EMessages::SUCCESS);
         $request = $this->request;
         $file = $request->file;
@@ -663,6 +671,7 @@ class Utils extends CI_Controller {
         }
     }
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Se crea el objeto de PHPExcel, para escribir los posibles errores que se presenten en el archivo..." >
     public function createErrorsFileExcel() {
         $objPHPWriter = new PHPExcel();
