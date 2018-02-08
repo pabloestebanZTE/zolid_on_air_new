@@ -191,15 +191,15 @@ class Utils extends CI_Controller {
             "d_actualizacion_final" => $this->getDatePHPExcel($sheet, "BA" . $row),
             "n_enteejecutor" => $this->getValueCell($sheet, 'N' . $row),
             "n_controlador" => $this->getValueCell($sheet, 'O' . $row),
-            "n_idcontrolador" => $this->geValuetCell('P' . $row),
-            "n_btsipaddress" => $this->getvalueCell('W' . $row),
-            "n_integrador" => $this->getValueCell('X' . $row),
-            "n_wp" => $this->getValueCell('AB' . $row),
-            "n_crq" => $this->getValueCell('AC' . $row),
-            "n_testgestion" => $this->getValueCell('AD' . $row),
-            "n_sitiolimpio" => $this->getValueCell('AE' . $row),
-            "n_instalacion_hw_sitio" => $this->getValueCell('AG' . $row),
-            "n_cambios_config_solicitados" => $this->getValueCell('AH' . $row),
+            "n_idcontrolador" => $this->getValueCell($sheet, 'P' . $row),
+            "n_btsipaddress" => $this->getvalueCell($sheet, 'W' . $row),
+            "n_integrador" => $this->getValueCell($sheet, 'X' . $row),
+            "n_wp" => $this->getValueCell($sheet, 'AB' . $row),
+            "n_crq" => $this->getValueCell($sheet, 'AC' . $row),
+            "n_testgestion" => $this->getValueCell($sheet, 'AD' . $row),
+            "n_sitiolimpio" => $this->getValueCell($sheet, 'AE' . $row),
+            "n_instalacion_hw_sitio" => $this->getValueCell($sheet, 'AG' . $row),
+            "n_cambios_config_solicitados" => $this->getValueCell($sheet, 'AH' . $row),
             "n_cambios_config_final" => $this->getValueCell($sheet, 'AI' . $row),
             "n_contratista" => $this->getValueCell($sheet, 'AN' . $row),
             "n_comentarioccial" => $this->getValueCell($sheet, 'AO' . $row),
@@ -226,7 +226,7 @@ class Utils extends CI_Controller {
         $user = $this->getUserByName($userName);
         $user = (($user) ? $user->k_id_user : DB::NULLED);
         $validator = new Validator();
-        $date = $validator->required("", $this->getValueCell('AQ' . $row));
+        $date = $validator->required("", $this->getValueCell($sheet, 'AQ' . $row));
         if (!$date) {
             $date = DB::NULLED;
         } else {
@@ -252,7 +252,7 @@ class Utils extends CI_Controller {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getScaledOnAir(&$sheet, &$obj)" >
     private function getScaledOnAir(&$sheet, &$obj, $row) {
-        $dateScaled = $this->getValueCell('BF' . $row);
+        $dateScaled = $this->getValueCell($sheet, 'BF' . $row);
         $validator = new Validator($dateScaled);
         if ($validator->required("", $dateScaled)) {
             $obj->scaled_on_air = (new ObjUtil([
@@ -471,7 +471,7 @@ class Utils extends CI_Controller {
         //INiciamos la creación del 24h...
         $onAir24hModel = new OnAir24hModel();
         $validator = new Validator();
-        $date = $this->getValueCell('DA' . $row);
+        $date = $this->getValueCell($sheet, 'DA' . $row);
         if ($validator->required("", $date)) {
             $date = $this->getDatePHPExcel($sheet, "DA" . $row);
             $onAir24hModel->setDStart24h(Hash::subtractHours($date, 1));
@@ -537,6 +537,7 @@ class Utils extends CI_Controller {
 
     //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
+        $response = new Response(EMessages::SUCCESS);
         $request = $this->request;
         $file = $request->file;
         //Verificamos si existe el archivo...
@@ -565,13 +566,13 @@ class Utils extends CI_Controller {
                 //$highestRow = $sheet->calculateWorksheetDimension();
                 //Obtenemos el highestRow...
                 $highestRow = 0;
-                $row = 2;
+                $row = $request->index;
+                $limit = $row + $request->limit;
                 $idTicket = 0;
                 $imported = 0;
                 $inconsistencies = 0;
                 $cellInconsistencies = [];
-                while ($validator->required("", $this->getValueCell($sheet, 'A' . $row))) {
-                    sleep(1);
+                while ($validator->required("", $this->getValueCell($sheet, 'A' . $row)) && ($row < $limit)) {
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
@@ -601,19 +602,20 @@ class Utils extends CI_Controller {
                         }
                     }
 
-                    if (($row % 50) == 0) {
-                        sleep(3);
-                    }
-
                     $row++;
                 }
 
-                return new Response(EMessages::SUCCESS);
+                if (($limit - $row) >= 2) {
+                    $response->setCode(2);
+                    $response->setMessage("Se han importado correctamente los comentarios okay.");
+                }
+
+                $this->json($response);
             } catch (DeplynException $ex) {
-                return $ex;
+                $this->json($ex);
             }
         } else {
-            return (new Response(EMessages::ERROR))->setMessage("El archivo que desea procesar no existe.");
+            $this->json((new Response(EMessages::ERROR))->setMessage("El archivo que desea procesar no existe."));
         }
     }
 
@@ -1078,7 +1080,8 @@ class Utils extends CI_Controller {
                 $sheet = $objPHPExcel->getSheet(0);
                 //Obtenemos el highestRow...
                 $highestRow = 0;
-                $row = 2;
+                $row = $request->index;
+                $limit = $row + $request->limit;
                 $idTicket = 0;
                 $imported = 0;
                 $inconsistencies = 0;
@@ -1089,54 +1092,52 @@ class Utils extends CI_Controller {
 //                $objPHPWriter = $this->createErrorsFileExcel();
                 $rowWriter = 1;
 
-                while ($this->getValueCell($sheet, 'A' . $row) > 0) {
+                while ($this->getValueCell($sheet, 'A' . $row) > 0 && ($row < $limit)) {
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
                     //Comprobamos que el NOC no sea de Nokia, ya que realmente no pertenece a la data del proyecto...
-                    $noc = $this->getValueCell('DP' . $row);
-//                    if ($noc != "Nokia") {
-                    if (true) {
-                        $highestRow++;
-                        $obj = new ObjUtil([]);
-                        $imported = 0;
-                        $inconsistencies = 0;
-                        $cellInconsistencies = [];
+                    $noc = $this->getValueCell($sheet, 'DP' . $row);
+                    $highestRow++;
+                    $obj = new ObjUtil([]);
+                    $imported = 0;
+                    $inconsistencies = 0;
+                    $cellInconsistencies = [];
 
-                        $this->getParamsOnAir($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
-                        //Obtenemos el preparation_stage.
-                        $this->getPreparationStage($sheet, $obj, $row);
+                    $this->getParamsOnAir($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
+                    //Obtenemos el preparation_stage.
+                    $this->getPreparationStage($sheet, $obj, $row);
 
-                        //Obtenemos toda la información del onAir...
-                        $this->getPrecheck($sheet, $obj, $row);
-                        $this->get12H($sheet, $obj, $row);
-                        $this->get24H($sheet, $obj, $row);
-                        $this->get36H($sheet, $obj, $row);
-                        $this->getScaledOnAir($sheet, $obj, $row);
-                        $obj->row = $row;
+                    //Obtenemos toda la información del onAir...
+                    $this->getPrecheck($sheet, $obj, $row);
+                    $this->get12H($sheet, $obj, $row);
+                    $this->get24H($sheet, $obj, $row);
+                    $this->get36H($sheet, $obj, $row);
+                    $this->getScaledOnAir($sheet, $obj, $row);
+                    $obj->row = $row;
 
-                        if ($obj->k_id_status_onair == ConstStates::STAND_BY_SEGUIMIENTO_FO || $obj->k_id_status_onair == ConstStates::STAND_BY_PRODUCCION) {
-                            $inconsistencies++;
-                        }
-
-                        if ($inconsistencies == 0) {
-                            //Iniciamos la inserción del nuevo registro OnAir...
-                            $imported++;
-                            $idTicket = $this->insertTicket($obj);
-                        } else {
-                            //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
-//                            $this->printLineError($objPHPWriter, $rowWriter, $obj);
-                            $rowWriter++;
-                        }
+                    if ($obj->k_id_status_onair == ConstStates::STAND_BY_SEGUIMIENTO_FO || $obj->k_id_status_onair == ConstStates::STAND_BY_PRODUCCION) {
+                        $inconsistencies++;
                     }
-                    if (($row % 50) == 0) {
-                        sleep(3);
+
+                    if ($inconsistencies == 0) {
+                        //Iniciamos la inserción del nuevo registro OnAir...
+                        $imported++;
+                        $idTicket = $this->insertTicket($obj);
+                    } else {
+                        //La idea es pintar la fila que no se pudo pintar y las celdas que probocaron el error...
+//                            $this->printLineError($objPHPWriter, $rowWriter, $obj);
+                        $rowWriter++;
                     }
 
                     $row++;
                     if (count($cellInconsistencies) > 0) {
                         $inconsistenciesFull[] = $cellInconsistencies;
                     }
+                }
+
+                if (($limit - $row) >= 2) {
+                    $response->setCode(2);
                 }
 
                 $filename = null;
