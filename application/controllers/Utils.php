@@ -1089,7 +1089,7 @@ class Utils extends CI_Controller {
 //                $objPHPWriter = $this->createErrorsFileExcel();
                 $rowWriter = 1;
 
-                while ($this->getValueCell('A' . $row) > 0) {
+                while ($this->getValueCell($sheet, 'A' . $row) > 0) {
                     $imported = 0;
                     $inconsistencies = 0;
                     $cellInconsistencies = [];
