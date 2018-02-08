@@ -10,5 +10,3 @@ delete from precheck;
 delete from follow_up_12h;
 delete from follow_up_24h;
 delete from follow_up_36h;
-
---Code: 05750C416F;

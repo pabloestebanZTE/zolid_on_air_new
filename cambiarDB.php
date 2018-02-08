@@ -1,4 +1,17 @@
+<style type="text/css">
+    *{
+        font-family: sans-serif;        
+        font-size: 16px;
+    }
+</style>
 <?php
+if (empty($_POST["db"])) {
+    echo "No se recibió el name de la configuración que desea setear por defecto";
+    return;
+}
+
+
+file_put_contents("application/config/db.php", "<?php
 
 return [
     /*
@@ -25,7 +38,7 @@ return [
      */
     //Por favor, Seguir subiendo la configuración de sus localhost y no la del servidor
     //que el único que apunte a el servidor mysql sea quíen suba el proyecto con nuevos cambios...
-    'default' => 'jj',
+    'default' => '" . $_POST["db"] . "',
     /*
       |--------------------------------------------------------------------------
       | Database Connections
@@ -122,3 +135,6 @@ return [
         ],
     ]
 ];
+");
+
+echo "Se ha actualizado la configuración de base de datos correctamente.";

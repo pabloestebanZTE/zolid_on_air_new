@@ -230,7 +230,11 @@ class TicketOnair extends CI_Controller {
         }
         $res->k_id_preparation = $preparatinStage->findByIdPreparation($res->k_id_preparation)->data;
         $res->k_id_band = $band->findById($res->k_id_band)->data; //band
+//        var_dump($assign)
         $res->k_id_status_onair = $statusOnair->findById($res->k_id_status_onair)->data; //Status onair
+//        if(!$res->k_id_station){
+//            var_dump($res);
+//        }
         $res->k_id_station = $station->findById($res->k_id_station)->data; //Station
         $res->k_id_work = $work->findById($res->k_id_work)->data; //work
         $res->k_id_technology = $technology->findById($res->k_id_technology)->data; //technology
