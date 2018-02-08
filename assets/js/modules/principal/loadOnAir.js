@@ -49,6 +49,7 @@ var load = {
     index: 2,
     linesFile: -1,
     actualProcess: null,
+    sleepTime: 2000,
     getLinesFile: function (data, callback) {
         app.post('Utils/countLinesFile', {
             file: data.path
@@ -108,7 +109,7 @@ var load = {
                         load.index += response.data.row;
                         window.setTimeout(function () {
                             load.processData(data, alert);
-                        }, 5000);
+                        }, load.sleepTime);
                     } else {
                         swal("Error", "Lo sentimos, no se pudo procesar el OnAir que ha subido.", "error");
                     }
@@ -145,7 +146,7 @@ var load = {
                         load.index += response.data;
                         window.setTimeout(function () {
                             load.processComments(data, alert);
-                        }, 5000);
+                        }, load.sleepTime);
                     } else {
                         swal("Error", "Lo sentimos, no se pudo procesar el OnAir que ha subido.", "error");
                     }
