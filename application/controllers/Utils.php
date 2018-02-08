@@ -608,12 +608,12 @@ class Utils extends CI_Controller {
                     $row++;
                 }
 
-                return true;
+                return new Response(EMessages::SUCCESS);
             } catch (DeplynException $ex) {
-                return false;
+                return $ex;
             }
         } else {
-            return false;
+            return (new Response(EMessages::ERROR))->setMessage("El archivo que desea procesar no existe.");
         }
     }
 
@@ -1048,6 +1048,7 @@ class Utils extends CI_Controller {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="processData()" >
     public function processData() {
+        error_reporting(E_ERROR);
         $request = $this->request;
         $response = new Response(EMessages::SUCCESS);
         $file = $request->file;
