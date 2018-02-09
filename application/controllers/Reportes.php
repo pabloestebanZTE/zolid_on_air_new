@@ -148,8 +148,6 @@ class Reportes extends CI_Controller {
     }
 
     public function reportOnair() {
-
-
         $filename = "Reporte_ONAIR_" . date("Y-m-d") . ".xls";
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel; charset=utf-8");
@@ -597,7 +595,7 @@ class Reportes extends CI_Controller {
         /* print_r($res); */
         $data = [];
         for ($f = 0; $f < count($res); $f++) {
-
+            $regional = ($res[$f]->k_id_station->k_id_city->k_id_regional) ? $res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional : "";
             $data[$f] = [
                 "Id-On Air" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_onair)),
                 "Nombre_Estación-EB" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_station->n_name_station)),
@@ -616,7 +614,7 @@ class Reportes extends CI_Controller {
                 "controlador" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_controlador)), //o
                 "idcontrolador" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_preparation->n_idcontrolador)), //p
                 "Ciudad" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_station->k_id_city->n_name_city)), //q
-                "Regional" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->k_id_station->k_id_city->k_id_regional->n_name_regional)), //r
+                "Regional" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $regional)), //r
                 "desbloqueo" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_desbloqueo)), //s
                 "bloqueado" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->d_bloqueo)), //t
                 "reviewedfo" => utf8_decode(str_replace(array("\n", "\r", "\t"), '', $res[$f]->n_reviewedfo)), //u

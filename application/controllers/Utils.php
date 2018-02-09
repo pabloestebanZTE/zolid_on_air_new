@@ -204,6 +204,7 @@ class Utils extends CI_Controller {
             "n_contratista" => $this->getValueCell($sheet, 'AN' . $row),
             "n_comentarioccial" => $this->getValueCell($sheet, 'AO' . $row),
             "n_ticketremedy" => $this->getValueCell($sheet, 'AP' . $row),
+            "b_vistamm" => $this->getValueCell($sheet, 'M' . $row),
             "n_lac" => $this->getValueCell($sheet, 'AT' . $row),
             "n_rac" => $this->getValueCell($sheet, 'AU' . $row),
             "n_sac" => $this->getValueCell($sheet, 'AV' . $row),
@@ -252,10 +253,12 @@ class Utils extends CI_Controller {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getScaledOnAir(&$sheet, &$obj)" >
     private function getScaledOnAir(&$sheet, &$obj, $row) {
-        $dateScaled = $this->getValueCell($sheet, 'BF' . $row);
-        $validator = new Validator($dateScaled);
-        if ($validator->required("", $dateScaled)) {
-            $obj->scaled_on_air = (new ObjUtil([
+        $timeScaled = $this->getValueCell($sheet, 'BF' . $row);
+        $dateScaled = $this->getValueCell($sheet, 'BG' . $row);
+        $validator = new Validator($timeScaled);
+
+        if ($validator->required("", $timeScaled) || $validator->required("", $dateScaled)) {
+            $objTemp = (new ScaledOnAirModel([
                 "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BG" . $row),
                 "time_esc_imp" => $this->getValueCell($sheet, 'BI' . $row),
                 "cont_esc_npo" => $this->getValueCell($sheet, 'BL' . $row),
@@ -275,7 +278,8 @@ class Utils extends CI_Controller {
                 "i_cont_esc_oym" => $this->getValueCell($sheet, 'BR' . $row),
                 "i_time_esc_calidad" => $this->getValueCell($sheet, 'BU' . $row),
                 "n_detalle_solucion" => $this->getValueCell($sheet, 'CU' . $row),
-                    ]))->all();
+            ]));
+            $obj->scaled_on_air = $objTemp;
         }
     }
 
@@ -325,7 +329,7 @@ class Utils extends CI_Controller {
 
         //Obtenemos la tecnología.
         $technology = $this->getValueCell($sheet, 'E' . $row);
-        $obj->k_id_technology = (new TechnologyModel())->where("n_name_technology", "=", $technology)->orWhere("n_name_technology", "LIKE", "%$technology%")->first();
+        $obj->k_id_technology = (new TechnologyModel())->where("n_name_technology", "=", $technology)->first();
 
         if (!$obj->k_id_technology) {
             $inconsistencies++;
@@ -401,9 +405,7 @@ class Utils extends CI_Controller {
         //Obtenemos los campos comunes...
         $obj->k_id_onair = $this->getValueCell($sheet, 'A' . $row);
         $obj->b_excpetion_gri = $this->getValueCell($sheet, 'I' . $row);
-        ;
         $obj->d_fecha_ultima_rev = $this->getDatePHPExcel($sheet, "K" . $row);
-        $obj->b_vistamm = $this->getValueCell($sheet, 'M' . $row);
         $obj->d_bloqueo = $this->getDatePHPExcel($sheet, "T" . $row);
         $obj->d_desbloqueo = $this->getDatePHPExcel($sheet, "S" . $row);
         $obj->d_fechaproduccion = $this->getDatePHPExcel($sheet, "AF" . $row);
@@ -589,6 +591,8 @@ class Utils extends CI_Controller {
     public function processAndInsertComments() {
         error_reporting(E_ERROR);
         $response = new Response(EMessages::SUCCESS);
+//        $this->json($response);
+//        return;
         $request = $this->request;
         $file = $request->file;
         //Verificamos si existe el archivo...
@@ -665,7 +669,8 @@ class Utils extends CI_Controller {
                 $this->json($ex);
             }
         } else {
-            $this->json((new Response(EMessages::ERROR))->setMessage("El archivo que desea procesar no existe."));
+            $response = new Response(EMessages::ERROR, "No se encontró el archivo " . $file);
+            $this->json($response);
         }
     }
 
@@ -1268,6 +1273,11 @@ class Utils extends CI_Controller {
             if ($objTck->onAir36h) {
                 $objTck->onAir36h->setKIdOnair($idTick);
                 $objTck->onAir36h->save();
+            }
+
+            //Insertamos los escalamientos...
+            if ($this->scaled_on_air) {
+                $this->scaled_on_air->setKIdOnair($idTick);
             }
             return $idTick;
         } catch (DeplynException $exc) {

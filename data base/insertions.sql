@@ -860,24 +860,19 @@ INSERT INTO user(k_id_user, n_name_user, n_last_name_user, n_username_user, n_ma
 
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test UMTS');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Reporte Radiante Pre GSM/UMTS');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Snapshot Liviano UMTS / LTE');
+INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Snapshot Liviano UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Log Alarmas historico GSM/UMTS/LTE');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test UMTS / LTE');
+INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Reporte Radiante Pre GSM/UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Log Alarmas historico UMTS');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Log Alarmas historico UMTS/LTE');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Reporte Radiante Pre UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Snapshot Liviano LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Log Alarmas historico LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Reporte Radiante Pre LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Reporte Radiante Pre GSM');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Snapshot Liviano UMTS/LTE');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Reporte Radiante Pre UMTS');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Snapshot Liviano UMTS/LTE');
-INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test UMTS/LTE');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ip Conectivity Test GSM/UMTS');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Log Alarmas Externas GSM Comando ZEFO');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('KPIs PRE GSM');
