@@ -190,9 +190,9 @@ class Acs extends CI_Controller {
         $this->json($response);
     }
 
-    public function getAllPersonRequests() {
+    public function getAllPersonAutocomplete() {
         $avmModel = new Dao_avm_model();
-        $response = $avmModel->getAllPersonRequests($this->request);
+        $response = $avmModel->getAllPersonAutocomplete($this->request);
         $this->json($response);
 //        echo json_encode($response);
     }

@@ -54,11 +54,12 @@ $(document).ready(function () {
     $("#n_persona_solicita_vmlc").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: "getAllPersonRequests",
+                url: "getAllPersonAutocomplete",
                 type: 'post',
                 dataType: "json",
                 data: {
-                    search: request.term
+                    search: request.term,
+                    field: "n_persona_solicita_vmlc"
                 },
                 success: function (data) {
                     response(data);
@@ -67,7 +68,48 @@ $(document).ready(function () {
         },
         select: function (event, ui) {
             $('#n_persona_solicita_vmlc').val(ui.item.label);
-//            $('#selectuser_id').val(ui.item.value); // save selected id to input
+            return false;
+        }
+    });
+
+    $("#n_integrador_backoffice").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "getAllPersonAutocomplete",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    search: request.term,
+                    field: "n_integrador_backoffice"
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#n_integrador_backoffice').val(ui.item.label);
+            return false;
+        }
+    });
+
+    $("#n_lider_cuadrilla_vm").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "getAllPersonAutocomplete",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    search: request.term,
+                    field: "n_lider_cuadrilla_vm"
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#n_lider_cuadrilla_vm').val(ui.item.label);
             return false;
         }
     });
@@ -421,38 +463,37 @@ var vista = {
         return hoy;
     },
     onChangeChecklist: function (callback) {
-        $('#items_checklist').html('');
+        var status = ($("#form4").is(":visible")) ? 'S' : 'E';
+        $('#items_checklist_'.status).html('');
         if ($('#k_id_work').val().trim() == "" || $('#k_id_technology').val().trim() == "") {
             return;
         }
         app.post('Utils/getCheckList', {
             idTipoTrabajo: $('#k_id_work').val(),
-            idTecnologia: $('#k_id_technology').val()
-        })
-                .success(function (response) {
-                    var data = app.parseResponse(response);
-                    if (data) {
-                        //Listamos los nuevos items del checklist...
-                        console.info("Se han consultado los items para el checklist...");
+            idTecnologia: $('#k_id_technology').val(),
+            status: status
+        }).success(function (response) {
+            var data = app.parseResponse(response);
+            if (data) {
+                //Listamos los nuevos items del checklist...
+                console.info("Se han consultado los items para el checklist...");
 //                        console.log(data);
-                        for (var i = 0; i < data.length; i++) {
-                            var dat = data[i];
-                            vista.addItemCheckList(dat);
-                        }
-                        if (typeof callback === "function") {
-                            callback();
-                        }
-                    } else {
-                        console.warn("No se pudo consultar el checklist...");
-                    }
-                })
-                .error(function (e) {
-                    console.error("Error al consultar el checklist...", e);
-                })
-                .send();
+                for (var i = 0; i < data.length; i++) {
+                    var dat = data[i];
+                    vista.addItemCheckList(dat, status);
+                }
+                if (typeof callback === "function") {
+                    callback();
+                }
+            } else {
+                console.warn("No se pudo consultar el checklist...");
+            }
+        }).error(function (e) {
+            console.error("Error al consultar el checklist...", e);
+        }).send();
     },
-    addItemCheckList: function (obj) {
-        var content = $('#items_checklist');
+    addItemCheckList: function (obj, status) {
+        var content = $('#items_checklist_'.status);
         var html = dom.fillString('<div class="display-block"><input id="chk_p_{k_id_checklist}" name="vm.checklist[]"  type="checkbox"><label for="chk_p_{k_id_checklist}" class="text-bold">{nombre_documento}.</label></div>', obj);
         content.append(html);
     },

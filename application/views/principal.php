@@ -8,6 +8,7 @@
                 <a href="#" class="close">&times;</a>
                 <p id="text" class="m-b-0 p-b-0"></p>
             </div>
+            <label id="lblProgressInformation" class="hidden">0 de 0</label>
             <div class="progress hidden" id="progressProcessImportData">
                 <div class="progress-bar progress-bar-striped active" role="progressbar"
                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%">

@@ -124,7 +124,7 @@ class Utils extends CI_Controller {
         $db = new DB();
         $list = $db->select("SELECT c.*, docs_acs.n_nombre as nombre_documento FROM checklist c INNER JOIN documentos_acs docs_acs "
                         . "ON c.k_id_documento = docs_acs.k_id_documento WHERE c.k_id_technology = " . $this->request->idTecnologia . " "
-                        . "AND c.k_id_work = " . $this->request->idTipoTrabajo)->get();
+                        . "AND c.k_id_work = " . $this->request->idTipoTrabajo . " AND c.n_type = " . $this->request->status)->get();
 //        $list = $checklistModel->where("k_id_technology", "=", $this->request->idTecnologia)
 //                        ->where("k_id_work", "=", $this->request->idTipoTrabajo)->get();
         $response = new Response(EMessages::QUERY);
@@ -204,6 +204,8 @@ class Utils extends CI_Controller {
             "n_contratista" => $this->getValueCell($sheet, 'AN' . $row),
             "n_comentarioccial" => $this->getValueCell($sheet, 'AO' . $row),
             "n_ticketremedy" => $this->getValueCell($sheet, 'AP' . $row),
+            "b_vistamm" => $this->getValueCell($sheet, 'M' . $row),
+            "id_notificacion" => $this->getValueCell($sheet, 'CA1' . $row),
             "n_lac" => $this->getValueCell($sheet, 'AT' . $row),
             "n_rac" => $this->getValueCell($sheet, 'AU' . $row),
             "n_sac" => $this->getValueCell($sheet, 'AV' . $row),
@@ -252,10 +254,13 @@ class Utils extends CI_Controller {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getScaledOnAir(&$sheet, &$obj)" >
     private function getScaledOnAir(&$sheet, &$obj, $row) {
-        $dateScaled = $this->getValueCell($sheet, 'BF' . $row);
-        $validator = new Validator($dateScaled);
-        if ($validator->required("", $dateScaled)) {
-            $obj->scaled_on_air = (new ObjUtil([
+        $timeScaled = $this->getValueCell($sheet, 'BF' . $row);
+        $dateScaled = $this->getValueCell($sheet, 'BG' . $row);
+        $validator = new Validator($timeScaled);
+
+        if ($validator->required("", $timeScaled) || $validator->required("", $dateScaled)) {
+            $obj->scaled_on_air = new ScaledOnAirModel([
+                "d_time_escalado" => $this->getValueCell($sheet, 'BF' . $row),
                 "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BG" . $row),
                 "time_esc_imp" => $this->getValueCell($sheet, 'BI' . $row),
                 "cont_esc_npo" => $this->getValueCell($sheet, 'BL' . $row),
@@ -275,7 +280,7 @@ class Utils extends CI_Controller {
                 "i_cont_esc_oym" => $this->getValueCell($sheet, 'BR' . $row),
                 "i_time_esc_calidad" => $this->getValueCell($sheet, 'BU' . $row),
                 "n_detalle_solucion" => $this->getValueCell($sheet, 'CU' . $row),
-                    ]))->all();
+            ]);
         }
     }
 
@@ -325,7 +330,7 @@ class Utils extends CI_Controller {
 
         //Obtenemos la tecnología.
         $technology = $this->getValueCell($sheet, 'E' . $row);
-        $obj->k_id_technology = (new TechnologyModel())->where("n_name_technology", "=", $technology)->orWhere("n_name_technology", "LIKE", "%$technology%")->first();
+        $obj->k_id_technology = (new TechnologyModel())->where("n_name_technology", "=", $technology)->first();
 
         if (!$obj->k_id_technology) {
             $inconsistencies++;
@@ -401,9 +406,7 @@ class Utils extends CI_Controller {
         //Obtenemos los campos comunes...
         $obj->k_id_onair = $this->getValueCell($sheet, 'A' . $row);
         $obj->b_excpetion_gri = $this->getValueCell($sheet, 'I' . $row);
-        ;
         $obj->d_fecha_ultima_rev = $this->getDatePHPExcel($sheet, "K" . $row);
-        $obj->b_vistamm = $this->getValueCell($sheet, 'M' . $row);
         $obj->d_bloqueo = $this->getDatePHPExcel($sheet, "T" . $row);
         $obj->d_desbloqueo = $this->getDatePHPExcel($sheet, "S" . $row);
         $obj->d_fechaproduccion = $this->getDatePHPExcel($sheet, "AF" . $row);
@@ -441,6 +444,10 @@ class Utils extends CI_Controller {
         $obj->n_en_prorroga = $this->getValueCell($sheet, 'DN' . $row);
         $obj->n_cont_prorrogas = $this->getValueCell($sheet, 'DO' . $row);
         $obj->n_noc = $this->getValueCell($sheet, 'DP' . $row);
+        $obj->i_valor_kpi1 = $this->getValueCell($sheet, 'CF' . $row);
+        $obj->i_valor_kpi2 = $this->getValueCell($sheet, 'CH' . $row);
+        $obj->i_valor_kpi3 = $this->getValueCell($sheet, 'CJ' . $row);
+        $obj->i_valor_kpi4 = $this->getValueCell($sheet, 'CL' . $row);
         $obj->fecha_rft = $this->getDatePHPExcel($sheet, 'DH' . $row);
         $obj->d_t_from_notif = (new Validator())->required("", $this->getValueCell($sheet, 'BW' . $row)) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
     }
@@ -536,6 +543,7 @@ class Utils extends CI_Controller {
     }
 
     public function countLinesFile() {
+        error_reporting(E_ERROR);
         $request = $this->request;
         $file = $request->file;
         $response = new Response(EMessages::SUCCESS);
@@ -547,9 +555,7 @@ class Utils extends CI_Controller {
                 require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
                 $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
                 $cacheSettings = array(' memoryCacheSize ' => '15MB');
-//            if (intval(phpversion()) <= 5) {
                 PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
-//            }
                 PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
                 $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
 
@@ -560,10 +566,18 @@ class Utils extends CI_Controller {
 
                 //Obtenemos la página.
                 $sheet = $objPHPExcel->getSheet(0);
-                $highestRowSheet1 = $sheet->getHighestRow();
+                $row = 1;
+                $validator = new Validator();
+                while ($validator->required("", $this->getValueCell($sheet, "A" . $row))) {
+                    $row++;
+                }
+                $highestRowSheet1 = $row;
 
                 $sheet = $objPHPExcel->getSheet(1);
-                $highestRowSheet2 = $sheet->getHighestRow();
+                while ($validator->required("", $this->getValueCell($sheet, "A" . $row))) {
+                    $row++;
+                }
+                $highestRowSheet2 = $row;
 
                 $lines = [
                     "sheet1" => $highestRowSheet1,
@@ -580,7 +594,10 @@ class Utils extends CI_Controller {
 
     //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
+        error_reporting(E_ERROR);
         $response = new Response(EMessages::SUCCESS);
+//        $this->json($response);
+//        return;
         $request = $this->request;
         $file = $request->file;
         //Verificamos si existe el archivo...
@@ -640,8 +657,6 @@ class Utils extends CI_Controller {
                             //Se inserta el comentario...
                             $reportCommentsModel = new ReporteComentarioModel();
                             $reportCommentsModel->insert($obj->all());
-                        } else {
-                            //Se marca la celda como no existe el ticket...
                         }
                     }
 
@@ -651,18 +666,20 @@ class Utils extends CI_Controller {
                 if (($limit - $row) >= 2) {
                     $response->setCode(2);
                     $response->setMessage("Se han importado correctamente los comentarios.");
-                    $response->setData($row - $request->index);
                 }
 
+                $response->setData($row - $request->index);
                 $this->json($response);
             } catch (DeplynException $ex) {
                 $this->json($ex);
             }
         } else {
-            $this->json((new Response(EMessages::ERROR))->setMessage("El archivo que desea procesar no existe."));
+            $response = new Response(EMessages::ERROR, "No se encontró el archivo " . $file);
+            $this->json($response);
         }
     }
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Se crea el objeto de PHPExcel, para escribir los posibles errores que se presenten en el archivo..." >
     public function createErrorsFileExcel() {
         $objPHPWriter = new PHPExcel();
@@ -1261,6 +1278,12 @@ class Utils extends CI_Controller {
             if ($objTck->onAir36h) {
                 $objTck->onAir36h->setKIdOnair($idTick);
                 $objTck->onAir36h->save();
+            }
+
+            //Insertamos los escalamientos...
+            if ($objTck->scaled_on_air) {
+                $objTck->scaled_on_air->setKIdOnair($idTick);
+                $objTck->scaled_on_air->save();
             }
             return $idTick;
         } catch (DeplynException $exc) {
