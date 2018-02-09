@@ -271,24 +271,48 @@ class TicketOnair extends CI_Controller {
         $this->request->d_created_at = Hash::getDate();
         $response = $ticket->insertTicket($this->request);
 
-        //Ahora insertamos las relaciones...
-        if ($response->code > 0) {
+        //Ahora insertamos las relaciones...        
+        if ($related_tickets && $response->code > 0) {
             foreach ($related_tickets as $id) {
+                //Creamos la relación del ticket creado con el ticket relacionado...
                 $relatedTicketsModel = new RelatedTicketsModel();
                 $relatedTicketsModel->setKIdTicket1($response->data->data);
                 $relatedTicketsModel->setKIdTicket2($id);
                 $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
                 $relatedTicketsModel->setDCreated(Hash::getDate());
                 $relatedTicketsModel->save();
+
+                //Creamos las relaciones entre el ticketrelacionado con el ticket creado.
                 $relatedTicketsModel = new RelatedTicketsModel();
                 $relatedTicketsModel->setKIdTicket1($id);
                 $relatedTicketsModel->setKIdTicket2($response->data->data);
                 $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
                 $relatedTicketsModel->setDCreated(Hash::getDate());
                 $relatedTicketsModel->save();
+
+                //Creamos las relaciones entre tikcets relacionados...
+                $this->createRelationsTickets($id, $related_tickets);
             }
         }
         $this->json($response);
+    }
+
+    private function createRelationsTickets($idTicket, $related_tickets) {
+        foreach ($related_tickets as $id) {
+            if ($id != $idTicket) {
+                $relatedTicketsModel = new RelatedTicketsModel();
+                $exist = $relatedTicketsModel->where("k_id_ticket1", "=", $idTicket)
+                                ->where("k_id_ticket2", "=", $id)->exist();
+                if (!$exist) {
+                    $relatedTicketsModel = new RelatedTicketsModel();
+                    $relatedTicketsModel->setKIdTicket1($idTicket);
+                    $relatedTicketsModel->setKIdTicket2($id);
+                    $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                    $relatedTicketsModel->setDCreated(Hash::getDate());
+                    $relatedTicketsModel->save();
+                }
+            }
+        }
     }
 
     public function getAllStates() {

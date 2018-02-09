@@ -31,6 +31,7 @@
                                             <li><a href="#reinicioPrecheck" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-undo"></i> R. Pre</a></li>
                                             <li><a href="#reinicio12h" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-undo"></i> R. 12h</a></li>
                                             <li><a href="#standBy" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-pause"></i> StandBy</a></li>
+                                            <li><a href="#prioritariosTab" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-star"></i> Prioritarios</a></li>
                                         </ul>
                                         <div class="row p-t-15 p-b-15 p-l-10 hidden">
                                             <div class="col-md-3">
@@ -89,6 +90,10 @@
                                             <div class="tab-pane fade" id="standBy">
                                                 <h1 class="m-t-0">StandBy</h1>
                                                 <table id="tablaStandBy" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="prioritariosTab">
+                                                <h1 class="m-t-0">Prioritarios</h1>
+                                                <table id="tablaPrioritarios" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                         </div>
                                     </div>
@@ -297,4 +302,4 @@
 </div>
 <!--Fin Modal Preveiw Detalle-->
 <?php $this->load->view('parts/generic/scripts'); ?>
-<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/coordinador.js?v=1.0") ?>"></script>
+<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/coordinador.js?v=1.2") ?>"></script>
