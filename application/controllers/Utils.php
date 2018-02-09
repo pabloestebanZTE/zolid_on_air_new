@@ -205,6 +205,7 @@ class Utils extends CI_Controller {
             "n_comentarioccial" => $this->getValueCell($sheet, 'AO' . $row),
             "n_ticketremedy" => $this->getValueCell($sheet, 'AP' . $row),
             "b_vistamm" => $this->getValueCell($sheet, 'M' . $row),
+            "id_notificacion" => $this->getValueCell($sheet, 'CA1' . $row),
             "n_lac" => $this->getValueCell($sheet, 'AT' . $row),
             "n_rac" => $this->getValueCell($sheet, 'AU' . $row),
             "n_sac" => $this->getValueCell($sheet, 'AV' . $row),
@@ -258,7 +259,8 @@ class Utils extends CI_Controller {
         $validator = new Validator($timeScaled);
 
         if ($validator->required("", $timeScaled) || $validator->required("", $dateScaled)) {
-            $objTemp = (new ScaledOnAirModel([
+            $obj->scaled_on_air = new ScaledOnAirModel([
+                "d_time_escalado" => $this->getValueCell($sheet, 'BF' . $row),
                 "d_fecha_escalado" => $this->getDatePHPExcel($sheet, "BG" . $row),
                 "time_esc_imp" => $this->getValueCell($sheet, 'BI' . $row),
                 "cont_esc_npo" => $this->getValueCell($sheet, 'BL' . $row),
@@ -278,8 +280,7 @@ class Utils extends CI_Controller {
                 "i_cont_esc_oym" => $this->getValueCell($sheet, 'BR' . $row),
                 "i_time_esc_calidad" => $this->getValueCell($sheet, 'BU' . $row),
                 "n_detalle_solucion" => $this->getValueCell($sheet, 'CU' . $row),
-            ]));
-            $obj->scaled_on_air = $objTemp;
+            ]);
         }
     }
 
@@ -443,6 +444,10 @@ class Utils extends CI_Controller {
         $obj->n_en_prorroga = $this->getValueCell($sheet, 'DN' . $row);
         $obj->n_cont_prorrogas = $this->getValueCell($sheet, 'DO' . $row);
         $obj->n_noc = $this->getValueCell($sheet, 'DP' . $row);
+        $obj->i_valor_kpi1 = $this->getValueCell($sheet, 'CF' . $row);
+        $obj->i_valor_kpi2 = $this->getValueCell($sheet, 'CH' . $row);
+        $obj->i_valor_kpi3 = $this->getValueCell($sheet, 'CJ' . $row);
+        $obj->i_valor_kpi4 = $this->getValueCell($sheet, 'CL' . $row);
         $obj->fecha_rft = $this->getDatePHPExcel($sheet, 'DH' . $row);
         $obj->d_t_from_notif = (new Validator())->required("", $this->getValueCell($sheet, 'BW' . $row)) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
     }
@@ -1276,8 +1281,9 @@ class Utils extends CI_Controller {
             }
 
             //Insertamos los escalamientos...
-            if ($this->scaled_on_air) {
-                $this->scaled_on_air->setKIdOnair($idTick);
+            if ($objTck->scaled_on_air) {
+                $objTck->scaled_on_air->setKIdOnair($idTick);
+                $objTck->scaled_on_air->save();
             }
             return $idTick;
         } catch (DeplynException $exc) {
