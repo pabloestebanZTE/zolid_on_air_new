@@ -410,33 +410,37 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_technology) {
             $inconsistencies++;
             $cellInconsistencies[] = "E" . $row;
+            $this->fillErrorCell($sheet, 'F' . $row);
         }
 
         //Obtenemos la banda...
         $band = $this->getValueCell($sheet, 'F' . $row);
-        $obj->k_id_band = (new BandModel())->where("n_name_band", "=", $band)->orWhere("n_name_band", "LIKE", "%$band%")->first();
+        $obj->k_id_band = (new BandModel())->where("n_name_band", "=", $band)->first();
 
         if (!$obj->k_id_band) {
             $inconsistencies++;
             $cellInconsistencies[] = "F" . $row;
+            $this->fillErrorCell($sheet, 'F' . $row);
         }
 
         //Obtenemos el estado...
         $status = $this->getValueCell($sheet, 'G' . $row);
-        $obj->k_id_status = (new StatusModel())->where("n_name_status", "=", $status)->orWhere("n_name_status", "LIKE", "%$status%")->first();
+        $obj->k_id_status = (new StatusModel())->where("n_name_status", "=", $status)->first();
 
         if (!$obj->k_id_status) {
             $inconsistencies++;
             $cellInconsistencies[] = "G" . $row;
+            $this->fillErrorCell($sheet, 'G' . $row);
         }
 
         //Obtenemos el subestado...
         $subStatus = $this->getValueCell($sheet, 'H' . $row);
-        $obj->k_id_substatus = (new SubstatusModel())->where("n_name_substatus", "=", $subStatus)->orWhere("n_name_substatus", "LIKE", $subStatus)->first();
+        $obj->k_id_substatus = (new SubstatusModel())->where("n_name_substatus", "=", $subStatus)->first();
 
         if (!$obj->k_id_substatus) {
             $inconsistencies++;
             $cellInconsistencies[] = "H" . $row;
+            $this->fillErrorCell($sheet, 'H' . $row);
         }
 
 
@@ -446,6 +450,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_work) {
             $inconsistencies++;
             $cellInconsistencies[] = "L" . $row;
+            $this->fillErrorCell($sheet, 'L' . $row);
         }
 
         $objTck = $obj;
@@ -525,6 +530,16 @@ class Utils extends CI_Controller {
         $obj->i_valor_kpi4 = $this->getValueCell($sheet, 'CL' . $row);
         $obj->fecha_rft = $this->getDatePHPExcel($sheet, 'DH' . $row);
         $obj->d_t_from_notif = (new Validator())->required("", $this->getValueCell($sheet, 'BW' . $row)) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
+    }
+
+    public function fillErrorCell(&$sheet, $cell) {
+        $sheet->getStyle($cell)->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => 'fb9999')
+                    ),
+        ));
     }
 
     //</editor-fold>
@@ -1201,20 +1216,27 @@ class Utils extends CI_Controller {
             set_time_limit(-1);
             ini_set('memory_limit', '1500M');
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
+            require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/IOFactory.php';
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(' memoryCacheSize ' => '15MB');
 //            if (intval(phpversion()) <= 5) {
             PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
 //            }
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-            $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
+//            include_once('PHPExcel_1.8.0_doc/Classes/PHPExcel/IOFactory.php');
+//            $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel/IOFactory.php');
 
             try {
                 $validator = new Validator();
                 $inputFileType = PHPExcel_IOFactory::identify($file);
                 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
                 $objReader->setReadDataOnly(true);
+                //Leer el archivo...
                 $objPHPExcel = $objReader->load($file);
+
+                //Cambiar el archivo...
+//                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExce, $inputFileTypel);
+                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
                 //Obtenemos la página.
                 $sheet = $objPHPExcel->getSheet(0);
@@ -1283,14 +1305,7 @@ class Utils extends CI_Controller {
                 $filename = null;
 
                 if (count($inconsistenciesFull) > 0) {
-                    //Ponemos un nombre a la hoja.
-//                    $objPHPWriter->getActiveSheet()->setTitle("Reporte Errores de importación OnAir");
-//                    //Hacemos la hoja activa...
-//                    $objPHPWriter->setActiveSheetIndex(0);
-//                    //Guardamos.
-//                    $objWriter = new PHPExcel_Writer_Excel2007($objPHPWriter);
-//                    $filename = 'Reporte errores de importación OnAir.xlsx';
-//                    $objWriter->save($filename);
+                    $objWriter->save($file);
                 }
 
                 $response->setData([
