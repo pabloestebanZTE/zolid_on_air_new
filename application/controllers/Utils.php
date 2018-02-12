@@ -410,7 +410,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_technology) {
             $inconsistencies++;
             $cellInconsistencies[] = "E" . $row;
-            $this->fillErrorCell($sheet, 'F' . $row);
+            $this->fillErrorCell($sheet, 'E' . $row);
         }
 
         //Obtenemos la banda...
