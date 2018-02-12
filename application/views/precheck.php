@@ -699,28 +699,28 @@
                     });
                 });
 
+                var confirmRedirect = function () {
+                    swal({
+                        title: "Error",
+                        message: "No se pudo guardar los guardar los cambios, ¿Desea continuar?",
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Continuar",
+                        cancelButtonText: "Cancelar",
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                    }).then(function (res) {
+                        if (res.value) {
+                            location.href = app.urlTo("User/scaling?id=" + $('#idOnair').val());
+                        }
+                    });
+                };
+
                 //Se controla Click del botón no exitoso.
                 $('#btnNoexitiso').on('click', function (e) {
                     var btn = $(this);
                     app.stopEvent(e);
-                    var confirmRedirect = function () {
-                        swal({
-                            title: "Error",
-                            message: "No se pudo guardar los guardar los cambios, ¿Desea continuar?",
-                            type: "error",
-                            showCancelButton: true,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Continuar",
-                            cancelButtonText: "Cancelar",
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                        }).then(function (res) {
-                            if (res.value) {
-                                location.href = app.urlTo("User/scaling?id=" + $('#idOnair').val());
-                            }
-                        });
-                    };
-
 
                     //Antes que nada, verificamos los sectores...
                     $('#modalSectores #contentCommentSectores').hide();

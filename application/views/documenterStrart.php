@@ -789,9 +789,12 @@
                                                                     return;
                                                                 }
                                                                 ($('#assignServie2 #txtRelatedTickets').length == 0) && $('#assignServie2').append('<input type="hidden" name="related_tickets" id="txtRelatedTickets" />');
-                                                                var estacion = $('#cmbTicketRelation').val();
-                                                                var obj = dataEstaciones[estacion];
                                                                 var content = $('#tableRelacionTickets tbody');
+                                                                var estacion = $('#cmbTicketRelation').val();
+                                                                if (content.find('[data-i="' + estacion + '"]').length > 0) {
+                                                                    return;
+                                                                }
+                                                                var obj = dataEstaciones[estacion];
                                                                 content.find('.no-found').remove();
                                                                 console.log(obj);
                                                                 obj.i = content.find('tr').length + 1;

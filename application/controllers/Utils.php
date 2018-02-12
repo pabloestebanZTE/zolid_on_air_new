@@ -34,7 +34,7 @@ class Utils extends CI_Controller {
         $idTicket = $request->idTicket;
         //Consultamos los tickets relacionados...
         $db = new DB();
-        $data = $db->select("select tck.* from ticket_on_air tck inner join related_tickets rt on rt.k_id_ticket2 = tck.k_id_onair or rt.k_id_ticket2 = tck.k_id_onair where rt.k_id_ticket1 = $idTicket")->get();
+        $data = $db->select("select tck.*, rt.k_id_related_ticket from ticket_on_air tck inner join related_tickets rt on rt.k_id_ticket2 = tck.k_id_onair or rt.k_id_ticket2 = tck.k_id_onair where rt.k_id_ticket1 = $idTicket")->get();
         $this->getFKRegisters($data);
         $response->setData($data);
         $this->json($response);
@@ -141,6 +141,81 @@ class Utils extends CI_Controller {
         $response = new Response(EMessages::QUERY);
         $response->setData($data);
         $this->json($response);
+    }
+
+    public function deleteRelationTicket() {
+        try {
+            $response = new Response(EMessages::DELETE);
+            $request = $this->request;
+            $idRTicket = $request->idRTicket;
+            $relationModel = new RelatedTicketsModel();
+            $relationModel->where("k_id_related_ticket", "=", $idRTicket)->delete();
+            $this->json($response);
+        } catch (DeplynException $ex) {
+            $this->json($ex);
+        }
+    }
+
+    public function updateRelationsTicket() {
+        $request = $this->request;
+        $idTicket = $request->idTicket;
+        $related_tickets = json_decode($this->request->related_tickets);
+        //Ahora insertamos las relaciones...  
+        try {
+            $response = new Response(EMessages::UPDATE);
+            if ($related_tickets) {
+                foreach ($related_tickets as $id) {
+                    $relatedTicketsModel = new RelatedTicketsModel();
+                    $exist = $relatedTicketsModel->where("k_id_ticket1", "=", $idTicket)
+                                    ->where("k_id_ticket2", "=", $id)->exist();
+                    if (!$exist) {
+                        //Creamos la relación del ticket creado con el ticket relacionado...
+                        $relatedTicketsModel = new RelatedTicketsModel();
+                        $relatedTicketsModel->setKIdTicket1($idTicket);
+                        $relatedTicketsModel->setKIdTicket2($id);
+                        $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                        $relatedTicketsModel->setDCreated(Hash::getDate());
+                        $relatedTicketsModel->save();
+                    }
+
+                    $relatedTicketsModel = new RelatedTicketsModel();
+                    $exist = $relatedTicketsModel->where("k_id_ticket2", "=", $idTicket)
+                                    ->where("k_id_ticket1", "=", $id)->exist();
+                    if (!$exist) {
+                        //Creamos las relaciones entre el ticketrelacionado con el ticket creado.
+                        $relatedTicketsModel = new RelatedTicketsModel();
+                        $relatedTicketsModel->setKIdTicket1($id);
+                        $relatedTicketsModel->setKIdTicket2($idTicket);
+                        $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                        $relatedTicketsModel->setDCreated(Hash::getDate());
+                        $relatedTicketsModel->save();
+                    }
+                    //Creamos las relaciones entre tikcets relacionados...
+                    $this->createRelationsTickets($id, $related_tickets);
+                }
+            }
+            $this->json($response);
+        } catch (DeplynException $ex) {
+            $this->json($ex);
+        }
+    }
+
+    private function createRelationsTickets($idTicket, $related_tickets) {
+        foreach ($related_tickets as $id) {
+            if ($id != $idTicket) {
+                $relatedTicketsModel = new RelatedTicketsModel();
+                $exist = $relatedTicketsModel->where("k_id_ticket1", "=", $idTicket)
+                                ->where("k_id_ticket2", "=", $id)->exist();
+                if (!$exist) {
+                    $relatedTicketsModel = new RelatedTicketsModel();
+                    $relatedTicketsModel->setKIdTicket1($idTicket);
+                    $relatedTicketsModel->setKIdTicket2($id);
+                    $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                    $relatedTicketsModel->setDCreated(Hash::getDate());
+                    $relatedTicketsModel->save();
+                }
+            }
+        }
     }
 
     //</editor-fold>
@@ -533,15 +608,19 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
-
+    //<editor-fold defaultstate="collapsed" desc="getSectores()" >
     private function getSectores(&$sheet, &$obj) {
         //En esta función se comprobarán los sectores del ticket...
     }
 
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="printInconsistences()" >
     public function printInconsistences($inconsistences) {
         
     }
 
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="countLinesFile()" >
     public function countLinesFile() {
         error_reporting(E_ERROR);
         $request = $this->request;
@@ -592,6 +671,7 @@ class Utils extends CI_Controller {
         }
     }
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="processAndInsertComments" >
     public function processAndInsertComments() {
         error_reporting(E_ERROR);
@@ -937,8 +1017,7 @@ class Utils extends CI_Controller {
         return $objPHPWriter;
     }
 
-    //</editor-fold>
-    //
+    //</editor-fold>    
     //<editor-fold defaultstate="collapsed" desc="Pintar Linea en el archivo execel de errores de salida" >
     public function printLineError(&$objPHPWriter, $row, $obj) {
         $objPHPWriter->getActiveSheet()->setCellValue("A" . ($row + 2), $obj->k_id_onair);
@@ -1234,15 +1313,8 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
-
-    private $objs = [];
-
     //<editor-fold defaultstate="collapsed" desc="insertTicket() -- Para PHPExcel" >
     private function insertTicket($obj) {
-//        echo "PASO POR INSERT";
-//        $this->objs[] = $obj->all();
-//        return $this->objs;
-        //Obtenemos el preparation_stage;
         try {
             $validator = new Validator();
             if ($obj->k_id_status_onair == DB::NULLED) {
@@ -1292,12 +1364,12 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
-
-
+    //<editor-fold defaultstate="collapsed" desc="getUserByName()" >
     private function getUserByName($userName) {
         //Ojo! se crean algunos indices en la tabla, para ajustar los campos usados en este MATCH de MySQL ejecutar la siguiente consulta:
         //ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);
         return (new DB())->select('SELECT * FROM (SELECT * , MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AS puntuacion FROM user WHERE MATCH (user.n_name_user, user.n_last_name_user) AGAINST (\'%' . $userName . '%\') AND n_role_user IS NOT NULL AND n_role_user = "Ingeniero" ORDER BY puntuacion DESC LIMIT 15) q1 WHERE puntuacion >= 4')->first();
     }
 
+    //</editor-fold>
 }

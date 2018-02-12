@@ -49,7 +49,7 @@ $(function () {
         getStandBy: function () {
             vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaSeguimiento36h"));
         },
-        getStandBy: function () {
+        getPriorityList: function () {
             vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));
         },
 

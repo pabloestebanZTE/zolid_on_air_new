@@ -517,7 +517,22 @@ class TicketOnair extends CI_Controller {
         $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
         $response = $ticket->updateTicketScaling($this->request);
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_esc);
+        $this->sendRelatedTicketsToStandBy($this->request->k_id_onair);
         $this->json($response);
+    }
+
+    public function sendRelatedTicketsToStandBy($idTicket) {
+        $response = new Response(EMessages::UPDATE);
+        //Consultamos los tickets relacionados...
+        $db = new DB();
+        $data = $db->select("select tck.*, rt.k_id_related_ticket from ticket_on_air tck inner join related_tickets rt on rt.k_id_ticket2 = tck.k_id_onair or rt.k_id_ticket2 = tck.k_id_onair where rt.k_id_ticket1 = $idTicket")->get();
+        //Se envian todos los tickets relacionados a standby...
+        foreach ($data as $ticket) {
+            if ($ticket->k_id_onair != $idTicket) {
+                $ticketsOnAir = new dao_ticketOnAir_model();
+                $ticketsOnAir->toStandBy($ticket, $this->request);
+            }
+        }
     }
 
     public function recordRestart() {

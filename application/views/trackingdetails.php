@@ -12,6 +12,7 @@
     </style>
     <body data-base="<?= URL::base() ?>">        
         <?php $this->load->view('parts/generic/header'); ?>
+        <input type="hidden" id="link_view_ticket" value="Documenter/documenterFields" />
         <div class="container autoheight p-t-20">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
                 <a class="close">&times;</a>
