@@ -45,7 +45,7 @@ insert into city (k_id_city, k_id_regional, n_name_city) values (31,4,'Santander
 insert into city (k_id_city, k_id_regional, n_name_city) values (32,4,'Tunja');
 insert into city (k_id_city, k_id_regional, n_name_city) values (33,5,'Arauca');
 insert into city (k_id_city, k_id_regional, n_name_city) values (34,5,'Casanare');
-insert into city (k_id_city, k_id_regional, n_name_city) values (35,5,'Chia');
+insert into city (k_id_city, k_id_regional, n_name_city) values (28,5,'Chia');
 insert into city (k_id_city, k_id_regional, n_name_city) values (36,5,'Cundinamarca');
 insert into city (k_id_city, k_id_regional, n_name_city) values (37,5,'Girardot');
 insert into city (k_id_city, k_id_regional, n_name_city) values (38,5,'Meta');
@@ -104,7 +104,7 @@ insert into station (k_id_station, k_id_city, n_name_station) values (31,1,'BOG.
 insert into station (k_id_station, k_id_city, n_name_station) values (32,1,'BOG.Castilla');
 insert into station (k_id_station, k_id_city, n_name_station) values (33,1,'BOG.Catam');
 insert into station (k_id_station, k_id_city, n_name_station) values (34,1,'BOG.Cedros');
-insert into station (k_id_station, k_id_city, n_name_station) values (35,1,'BOG.Centro industrial n');
+insert into station (k_id_station, k_id_city, n_name_station) values (28,1,'BOG.Centro industrial n');
 insert into station (k_id_station, k_id_city, n_name_station) values (36,1,'BOG.Chapinero-1');
 insert into station (k_id_station, k_id_city, n_name_station) values (37,1,'BOG.Chapinero-3');
 insert into station (k_id_station, k_id_city, n_name_station) values (38,1,'BOG.Chico Oriental');
@@ -688,7 +688,7 @@ insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (32,3,8);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (33,4,8);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (34,5,8);
-insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (35,6,8);
+insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (28,6,8);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (36,7,8);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (37,2,9);
 insert into status_on_air (k_id_status_onair, k_id_status,k_id_substatus) values (38,3,10);
@@ -878,438 +878,447 @@ INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Log Alarmas Externas GS
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('KPIs PRE GSM');
 INSERT INTO `on_air`.`documentos_acs`(`n_nombre`)VALUES('Ping NPGEP/EIPU - Control Plane UMTS');
 
+-- /*Table checklist */
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (1,1,1,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (2,2,1,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (5,5,1,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (6,1,1,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (7,2,1,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (9,24,1,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (10,1,1,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (11,2,1,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (12,3,1,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (13,1,1,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (14,2,1,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (15,5,1,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (16,1,1,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (17,2,1,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (18,3,1,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (19,4,1,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (20,1,1,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (21,2,1,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (24,24,1,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (25,6,1,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (26,1,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (27,1,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (28,2,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (29,3,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (30,4,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (31,5,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (32,6,1,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (33,1,1,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (34,2,1,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (37,24,1,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (38,1,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (39,2,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (40,3,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (41,4,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (42,5,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (43,7,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (44,8,1,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (45,1,2,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (46,9,2,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (48,10,2,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (49,3,2,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (51,12,2,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (52,1,2,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (53,9,2,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (54,10,2,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (55,11,2,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (56,12,2,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (57,1,2,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (58,9,2,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (59,10,2,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (60,3,2,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (61,1,2,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (62,9,2,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (63,10,2,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (64,9,2,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (65,5,2,3,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (66,1,2,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (67,9,2,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (68,10,2,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (69,3,2,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (70,1,2,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (71,9,2,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (72,10,2,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (73,1,1,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (74,2,1,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (75,5,1,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (76,1,2,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (77,9,2,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (78,10,2,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (79,11,2,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (80,12,2,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (81,1,3,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (82,15,3,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (83,16,3,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (84,13,3,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (85,14,3,32,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (88,1,3,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (89,13,3,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (90,14,3,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (91,11,3,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (92,12,3,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (93,9,4,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (94,17,4,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (95,11,4,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (97,25,4,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (98,13,5,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (99,18,5,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (100,15,5,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (101,19,5,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (102,18,6,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (103,19,6,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (104,20,6,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (105,21,6,34,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (109,1,3,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (110,13,3,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (111,14,3,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (112,15,3,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (113,16,3,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (114,9,4,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (115,17,4,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (116,11,4,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (118,19,4,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (119,13,5,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (120,18,5,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (121,15,5,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (122,19,5,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (123,20,6,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (124,21,6,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (125,22,6,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (126,23,6,35,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (127,1,3,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (128,15,3,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (129,16,3,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (130,17,3,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (131,18,3,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (132,15,5,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (133,20,5,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (134,17,5,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (135,22,5,33,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (136,9,4,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (137,19,4,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (138,3,4,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (139,4,4,10,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (140,1,1,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (141,2,1,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (142,24,1,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (148,1,1,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (149,2,1,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (150,24,1,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (151,1,2,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (152,9,2,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (153,10,2,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (154,11,2,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (155,4,2,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (156,12,2,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (158,13,3,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (159,17,3,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (160,11,3,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (162,4,3,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (163,25,3,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (164,9,4,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (165,19,4,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (166,13,4,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (167,4,4,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (169,25,4,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (170,13,5,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (171,18,5,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (172,15,5,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (174,29,5,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (175,19,5,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (176,20,6,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (177,21,6,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (178,22,6,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (179,23,6,15,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (180,1,3,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (181,13,3,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (182,14,3,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (183,15,3,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (184,16,3,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (185,6,3,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (186,9,4,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (187,17,4,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (188,3,4,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (190,25,4,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (191,6,4,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (192,13,5,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (193,18,5,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (194,11,5,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (195,19,5,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (196,6,5,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (197,20,6,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (198,21,6,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (199,3,6,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (200,5,6,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (201,9,4,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (202,17,4,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (203,3,4,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (204,4,4,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (205,5,4,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (206,6,4,20,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (207,9,4,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (208,17,4,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (209,3,4,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (211,25,4,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (212,13,5,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (213,18,5,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (214,15,5,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (215,19,5,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (216,20,6,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (217,21,6,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (218,22,6,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (219,23,6,51,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (220,9,4,11,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (221,17,4,11,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (222,3,4,11,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (223,4,4,11,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (225,25,4,11,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (227,1,2,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (228,9,2,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (229,10,2,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (230,11,2,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (231,12,2,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (232,9,4,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (233,17,4,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (234,3,4,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (235,5,4,37,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (236,1,2,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (237,9,2,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (238,10,2,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (239,11,2,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (240,12,2,16,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (241,9,4,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (242,19,4,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (243,3,4,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (244,6,4,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (245,9,4,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (246,19,4,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (247,3,4,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (248,6,4,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (249,1,1,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (250,2,1,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (251,24,1,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (252,1,2,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (253,9,2,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (254,10,2,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (256,26,2,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (257,12,2,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (258,1,3,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (259,13,3,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (260,14,3,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (261,15,3,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (262,16,3,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (263,9,4,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (264,17,4,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (265,11,4,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (266,25,4,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (267,13,5,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (268,18,5,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (269,15,5,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (270,19,5,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (271,20,6,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (272,21,6,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (273,22,6,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (274,23,6,2,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (278,1,1,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (279,2,1,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (280,1,2,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (281,9,2,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (282,10,2,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (283,1,3,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (284,13,3,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (285,14,3,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (286,9,4,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (287,17,4,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (288,15,5,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (289,20,5,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (290,20,6,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (291,21,6,56,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (292,1,1,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (293,2,1,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (294,24,1,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (295,1,2,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (296,9,2,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (297,10,2,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (298,11,2,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (299,25,2,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (300,9,4,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (301,17,4,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (302,11,4,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (303,19,4,6,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (304,1,1,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (305,2,1,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (306,5,1,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (307,1,2,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (308,9,2,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (309,10,2,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (310,3,2,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (311,5,2,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (312,1,3,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (313,13,3,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (314,14,3,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (315,15,3,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (316,16,3,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (317,9,4,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (318,17,4,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (319,3,4,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (320,4,4,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (321,9,5,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (322,20,5,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (323,18,5,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (324,15,5,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (325,5,5,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (326,20,6,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (327,21,6,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (328,22,6,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (329,23,6,8,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (331,1,2,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (332,9,2,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (336,27,2,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (337,10,2,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (338,1,3,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (339,13,3,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (340,27,3,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (341,14,3,57,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (343,1,1,58,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (344,2,1,58,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (345,24,1,58,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (346,28,1,58,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (347,6,1,58,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (348,1,1,59,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (349,2,1,59,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (350,24,1,59,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (351,6,1,59,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (352,1,3,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (353,13,3,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (354,14,3,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (355,15,3,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (356,29,3,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (357,16,3,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (358,13,5,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (359,18,5,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (360,15,5,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (361,29,5,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (362,5,5,60,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (363,1,1,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (364,2,1,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (365,1,2,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (366,9,2,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (367,10,2,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (368,1,3,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (369,13,3,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (370,14,3,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (371,9,4,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (372,17,4,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (373,13,5,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (374,18,5,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (378,28,1,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (379,6,1,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (380,1,2,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (381,9,2,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (382,10,2,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (383,12,2,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (384,28,2,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (385,6,2,13,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (386,11,2,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (387,12,2,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (388,6,2,43,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (391,20,6,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (392,21,6,61,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (393,9,1,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (394,17,1,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (395,3,1,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (396,6,1,50,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (397,9,1,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (398,17,1,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (399,3,1,39,'E');
+INSERT INTO `checklist` (`k_id_checklist`,`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`) VALUES (400,6,1,39,'E');
+
+-- documentos cierre
+
 -- Adecuacion MMR - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,1,32);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(30,1,32,'S');
 
 -- Adecuacion MMR - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,32);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,2,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,32,'S');
 
 -- Adecuacion MMR - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,32);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,32);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,32,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,32,'S');
+
+-- Adecuacion LTE - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(33,1,34,'S');
 
 -- Adecuacion LTE - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,34);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,2,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,34,'S');
 
 -- Adecuacion LTE - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,34);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,34,'S');
 
 -- Adecuacion LTE - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,4,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,34);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,4,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(34,4,34,'S');
 
--- Adecuacion LTE - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,34);
+-- Adecuacion LTE	UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,5,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,5,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(35,5,34,'S');
 
 -- Adecuacion LTE - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(25,6,34);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(26,6,34);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,6,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(22,6,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(36,6,34,'S');
 
 -- Adecuacion Overlay - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,35);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(37,1,35,'S');
 
 -- Adecuacion Overlay - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,35);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,2,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,35,'S');
 
--- Adecuacion Overlay	GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,35);
+-- Adecuacion Overlay - GSM/UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,35,'S');
 
 -- Adecuacion Overlay - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,4,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,35);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,4,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(34,4,35,'S');
 
 -- Adecuacion Overlay - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,35);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,5,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,5,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(35,5,35,'S');
 
 -- Adecuacion Overlay - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(25,6,35);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(26,6,35);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,6,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(22,6,35,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(36,6,35,'S');
 
 -- Adecuacion para LTE 1900Mhz (RSH) - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,33);
-
--- Adecuacion para LTE 1900Mhz (RSH) - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,33);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,33);
-
--- Channel Element - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,10);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,10);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,10);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(4,4,10);
-
--- Modernización Multiradio - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(35,1,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,1,13);
-
--- Modernización Multiradio - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(35,2,13);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,2,13);
-
--- Reubicación - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,62);
-
--- Reubicación - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(4,2,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,62);
-
--- Reubicación - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(36,3,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,62);
-
--- Reubicación - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,4,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(4,4,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,62);
-
--- Reubicación - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(36,5,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,62);
-
--- Reubicación - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(25,6,62);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(26,6,62);
-
--- Sector Expansion - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,3,43);
-
--- Sector Expansion - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,4,43);
-
--- Sector Expansion - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,5,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,5,43);
-
--- Sector Expansion - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,6,43);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,6,43);
-
--- Segundo Nodo - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,20);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,20);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,20);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(4,4,20);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,4,20);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,4,20);
-
--- Upgrade Modulos RF - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,51);
-
--- Upgrade Modulos RF - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,51);
-
--- Upgrade Modulos RF - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(25,6,51);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(26,6,51);
-
--- Channel Element + Upgrade Modulos RF - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,11);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,11);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,11);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(4,4,11);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,11);
-
--- Cambio Feeder a Fibra - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,37);
-
--- Cambio Feeder a Fibra - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,37);
-
--- Cambio Feeder a Fibra - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(12,4,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,37);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,4,37);
-
--- RF Sharing a Dedicado - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,16);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,16);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,16);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,16);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,16);
-
--- Tercera Portadora (Claro) - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,50);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,50);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,50);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,4,50);
-
--- Cuarta Portadora (Claro) - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,39);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,39);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,39);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,4,39);
-
--- Adecuacion Sector Expansion - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,2);
-
--- Adecuacion Sector Expansion - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(33,2,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(14,2,2);
-
--- Adecuacion Sector Expansion - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,2);
-
--- Adecuacion Sector Expansion - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,4,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,2);
-
--- Adecuacion Sector Expansion - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(22,5,2);
-
--- Adecuacion Sector Expansion - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(25,6,2);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(26,6,2);
-
--- Cambio de Breaker - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,56);
-
--- Cambio de Breaker - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,56);
-
--- Cambio de Breaker - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,56);
-
--- Cambio de Breaker - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,56);
-
--- Cambio de Breaker - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,56);
-
--- Cambio de Breaker - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,56);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,56);
-
--- Cambio de Jumper en Feeder - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,6);
-
--- Cambio de Jumper en Feeder - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,2,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,2,6);
-
--- Cambio de Jumper en Feeder - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(13,4,6);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(30,4,6);
-
--- Cambio de Jumper y Breaker - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,1,8);
-
--- Cambio de Jumper y Breaker - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,2,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,2,8);
-
--- Cambio de Jumper y Breaker - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,8);
-
--- Cambio de Jumper y Breaker - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(3,4,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,4,8);
-
--- Cambio de Jumper y Breaker	UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,5,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,5,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,5,8);
-
--- Cambio de Jumper y Breaker - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,6,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,6,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(25,6,8);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(26,6,8);
-
--- Migración de alarmas externas - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,57);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,57);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(34,2,57);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,57);
-
--- Migración de alarmas externas - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,57);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,57);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(35,3,57);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,57);
-
--- Channel Element_MMR - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,58);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,58);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,58);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(35,1,58);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,1,58);
-
--- MMR Cambio de HW - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,59);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,59);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(27,1,59);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(6,1,59);
-
--- SRAN - GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,3,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(36,3,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(18,3,60);
-
--- SRAN - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(17,5,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(36,5,60);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(5,5,60);
-
--- TBS, Correcciones, Pruebas de Voz y Datos, Pruebas de Site Master, Prueba de Alarmas - GSM
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,1,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(2,1,61);
-
--- TBS, Correcciones, Pruebas de Voz y Datos, Pruebas de Site Master, Prueba de Alarmas - GSM/UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,2,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,2,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(10,2,61);
-
--- TBS, Correcciones, Pruebas de Voz y Datos, Pruebas de Site Master, Prueba de Alarmas	- GSM/UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(1,3,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,3,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(16,3,61);
-
--- TBS, Correcciones, Pruebas de Voz y Datos, Pruebas de Site Master, Prueba de Alarmas - UMTS
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(9,4,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(19,4,61);
-
--- TBS, Correcciones, Pruebas de Voz y Datos, Pruebas de Site Master, Prueba de Alarmas - UMTS/LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(15,5,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(20,5,61);
-
--- TBS, Correcciones, Pruebas de Voz y Datos, Pruebas de Site Master, Prueba de Alarmas - LTE
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(23,5,61);
-INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`)VALUES(24,5,61);
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,34,'S');
