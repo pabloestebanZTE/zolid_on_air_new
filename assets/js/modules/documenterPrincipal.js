@@ -85,7 +85,8 @@ var TD = {
         dom.printAlert('Consultando, por favor espere...', 'loading', $('#alertFases'));
         app.post('TicketOnair/getProcessTicket', {id: app.getParamURL("id")})
                 .success(function (response) {
-                    dom.alertControl(response, $('#alertFases'), true);
+//                    dom.alertControl(response, $('#alertFases'), true);
+                    $('#alertFases').hide();
                     if (response.code > 0) {
                         $('#contentFases').removeClass('hidden').hide().fadeIn(500);
                         //Listamos los grupos...
@@ -94,6 +95,10 @@ var TD = {
                             TD.listDetails(response.data.details);
                         }
                         TD.setTimers(response.data);
+                    } else {
+                        $('#contentFases').removeClass('hidden').hide().fadeIn(500);
+                        $('#contentFases .hour-step').addClass('hidden');
+                        $('.comment-step').trigger('click');
                     }
                 })
                 .error(function (e) {

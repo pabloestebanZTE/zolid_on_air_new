@@ -657,7 +657,7 @@
                     </div>
                     <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
-                            <div class="display-block pull-right" style="width: 400px;">
+                            <div class="display-block pull-right hidden" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
                                     <label class="">Grupos:</label>
                                 </div>
