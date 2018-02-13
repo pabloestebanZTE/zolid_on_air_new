@@ -264,7 +264,7 @@ class DB {
                                 ->setMessage("Debe invocarse el método table antes que el método insert()");
             }
             $this->sql = "DELETE FROM $this->table $this->wheres";
-            $result = $this->exec($this->sql);
+            $result = DB::$con->exec($this->sql);
             return true;
         } catch (Exception $exc) {
             throw (new DeplynException(EMessages::ERROR_DELETE))

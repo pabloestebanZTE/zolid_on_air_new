@@ -1658,11 +1658,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
 
         $comment = $request->comment;
-//
-//        //Se deja el proceso en stand by...
-//        //Empezamos guardando toda la configuración del estado actual del proceso, tiempos, etc, etc...
-//        //DETECTAMOS EL SEGUIMIENTO ACTUAL...
-        $status_onair = DB::table("status_on_air")
+        $status_onair = (new StatusOnairModel())
                 ->where("k_id_status_onair", "=", $tck->k_id_status_onair)
                 ->first();
         if ($status_onair) {
@@ -1671,19 +1667,19 @@ class Dao_ticketOnair_model extends CI_Model {
             $stepModel = null;
             $d_fin = null;
             switch ($status_onair->k_id_substatus) {
-                case ConstSubStates::SEGUIMIENTO_12H:
+                case ConstStates::SEGUIMIENTO_12H:
                     $actual_status = "12h";
                     $stepIdField = "k_id_12h_real";
                     $stepModel = new OnAir12hModel();
                     $d_fin = "d_fin12h";
                     break;
-                case ConstSubStates::SEGUIMIENTO_24H:
+                case ConstStates::SEGUIMIENTO_24H:
                     $actual_status = "24h";
                     $stepIdField = "k_id_24h_real";
                     $stepModel = new OnAir24hModel();
                     $d_fin = "d_fin24h";
                     break;
-                case ConstSubStates::SEGUIMIENTO_36H:
+                case ConstStates::SEGUIMIENTO_36H:
                     $actual_status = "36h";
                     $stepIdField = "k_id_36h_real";
                     $stepModel = new OnAir36hModel();

@@ -51,7 +51,7 @@
             <div class="panel with-nav-tabs panel-primary">
                 <div class="panel panel-heading">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#crear_actividad"><i class="fa fa-fw fa-plus"></i> Crear Actividad</a></li>
+                        <li class="active"><a data-toggle="tab" href="#crear_actividad" id="tabCrearActividad"><i class="fa fa-fw fa-plus"></i> Crear Actividad</a></li>
                         <li><a data-toggle="tab" href="#relacionar" id="tabRelacionarTickets"><i class="fa fa-fw fa-rebel"></i> Relacionar Tickets</a></li>
                         <li><a data-toggle="tab" href="#crear_nueva_estacion"><i class="fa fa-fw fa-plus"></i> Crear nueva estación</a></li>
                     </ul>
@@ -424,200 +424,202 @@
     <script type="text/javascript" src="<?= URL::to('assets/js/DataStream.js') ?>"></script>
     <script type="text/javascript" src="<?= URL::to('assets/js/msg.reader.js') ?>"></script>
     <script type="text/javascript">
-                                                    $(function () {
+                                                        $(function () {
 
-                                                        $('.select-tecnologia').on('change', function () {
-                                                            app.get('Utils/bandsByTech', {
-                                                                id_technology: $('.select-tecnologia').val()
-                                                            })
-                                                                    .success(function (response) {
-                                                                        var data = app.parseResponse(response);
-                                                                        if (data) {
-                                                                            dom.llenarCombo($('.select-banda'), data, {text: "n_name_band", value: "k_id_band"});
-                                                                        }
-                                                                        dom.comboVacio($('.select-banda'));
-                                                                    })
-                                                                    .error(function () {
-                                                                        dom.comboVacio($('.select-banda'));
-                                                                    }).send();
-                                                        });
+                                                            $('.select-tecnologia').on('change', function () {
+                                                                app.get('Utils/bandsByTech', {
+                                                                    id_technology: $('.select-tecnologia').val()
+                                                                })
+                                                                        .success(function (response) {
+                                                                            var data = app.parseResponse(response);
+                                                                            if (data) {
+                                                                                dom.llenarCombo($('.select-banda'), data, {text: "n_name_band", value: "k_id_band"});
+                                                                            }
+                                                                            dom.comboVacio($('.select-banda'));
+                                                                        })
+                                                                        .error(function () {
+                                                                            dom.comboVacio($('.select-banda'));
+                                                                        }).send();
+                                                            });
 
-                                                        var info = <?php echo $respuesta; ?>;
-                                                        console.log(info);
+                                                            var info = <?php echo $respuesta; ?>;
+                                                            console.log(info);
 //                                                                    for (var j = 0; j < info.bands.data.length; j++) {
 //                                                                        $('.select-banda').append($('<option>', {
 //                                                                            value: info.bands.data[j].k_id_band,
 //                                                                            text: info.bands.data[j].n_name_band
 //                                                                        }));
 //                                                                    }
-                                                        for (var j = 0; j < info.technologies.data.length; j++) {
-                                                            $('.select-tecnologia').append($('<option>', {
-                                                                value: info.technologies.data[j].k_id_technology,
-                                                                text: info.technologies.data[j].n_name_technology
-                                                            }));
-                                                        }
-                                                        for (var j = 0; j < info.works.data.length; j++) {
-                                                            $('.select-tipotrabajo').append($('<option>', {
-                                                                value: info.works.data[j].k_id_work,
-                                                                text: info.works.data[j].n_name_ork
-                                                            }));
-                                                        }
-                                                        for (var j = 0; j < info.stations.data.length; j++) {
-                                                            $('#estacion').append($('<option>', {
-                                                                value: info.stations.data[j].k_id_station,
-                                                                text: info.stations.data[j].n_name_station
-                                                            }));
-                                                        }
-                                                        for (var j = 0; j < info.status.data.length; j++) {
-                                                            $('#status').append($('<option>', {
-                                                                value: info.status.data[j].k_id_status,
-                                                                text: info.status.data[j].n_name_status
-                                                            }));
-                                                        }
-                                                        for (var j = 0; j < info.regions.data.length; j++) {
-                                                            $('#regional_field').append($('<option>', {
-                                                                value: info.regions.data[j].k_id_regional,
-                                                                text: info.regions.data[j].n_name_regional
-                                                            }));
-                                                        }
-                                                        $('select').select2({"width": "100%"});
-                                                        //dom.configCalendar($('#d_ingreso_on_air'));
-                                                        changeCrqChg();
-
-                                                    });
-
-                                                    function changeCrqChg() {
-                                                        var valRadio = $('input:radio[name=crq_chg]:checked').val();
-                                                        switch (valRadio) {
-                                                            case "CRQ":
-                                                                $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
-                                                                break;
-                                                            case "CHG":
-                                                                $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
-                                                                break;
-                                                        }
-                                                    }
-
-                                                    function validateCrqChg() {
-                                                        var valinput = $('#n_crq').val();
-                                                        var valRadio = $('input:radio[name=crq_chg]:checked').val();
-                                                        var info = <?php echo $respuesta; ?>;
-                                                        for (var m = 0; m < info.crq.data.length; m++) {
-                                                            if (valinput == info.crq.data[m].n_crq) {
-                                                                swal("Código " + valRadio + " invalido", "Lo sentimos, el código " + valRadio + " ya existe.", "warning");
-                                                            }
-                                                        }
-                                                    }
-
-                                                    function editTextCityRegional() {
-                                                        var estacion = $("#estacion").val();
-                                                        var info = <?php echo $respuesta; ?>;
-                                                        var city;
-                                                        for (var j = 0; j < info.stations.data.length; j++) {
-                                                            if (info.stations.data[j].k_id_station == estacion) {
-                                                                for (var m = 0; m < info.cities.data.length; m++) {
-                                                                    if (info.stations.data[j].k_id_city == info.cities.data[m].k_id_city) {
-                                                                        city = info.cities.data[m].k_id_regional;
-                                                                        $('input[name=ciudad]').val(info.cities.data[m].n_name_city);
-                                                                    }
-                                                                }
-                                                                for (var x = 0; x < info.regions.data.length; x++) {
-                                                                    if (info.regions.data[x].k_id_regional == city) {
-                                                                        $('input[name=regional]').val(info.regions.data[x].n_name_regional);
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-
-                                                    function fillCities() {
-                                                        var regional = $("#regional_field").val();
-                                                        var info = <?php echo $respuesta; ?>;
-                                                        for (var j = 0; j < info.cities.data.length; j++) {
-                                                            if (info.cities.data[j].k_id_regional == regional) {
-                                                                $('#city_id').append($('<option>', {
-                                                                    value: info.cities.data[j].k_id_city,
-                                                                    text: info.cities.data[j].n_name_city
+                                                            for (var j = 0; j < info.technologies.data.length; j++) {
+                                                                $('.select-tecnologia').append($('<option>', {
+                                                                    value: info.technologies.data[j].k_id_technology,
+                                                                    text: info.technologies.data[j].n_name_technology
                                                                 }));
                                                             }
-                                                        }
-                                                    }
+                                                            for (var j = 0; j < info.works.data.length; j++) {
+                                                                $('.select-tipotrabajo').append($('<option>', {
+                                                                    value: info.works.data[j].k_id_work,
+                                                                    text: info.works.data[j].n_name_ork
+                                                                }));
+                                                            }
+                                                            for (var j = 0; j < info.stations.data.length; j++) {
+                                                                $('#estacion').append($('<option>', {
+                                                                    value: info.stations.data[j].k_id_station,
+                                                                    text: info.stations.data[j].n_name_station
+                                                                }));
+                                                            }
+                                                            for (var j = 0; j < info.status.data.length; j++) {
+                                                                $('#status').append($('<option>', {
+                                                                    value: info.status.data[j].k_id_status,
+                                                                    text: info.status.data[j].n_name_status
+                                                                }));
+                                                            }
+                                                            for (var j = 0; j < info.regions.data.length; j++) {
+                                                                $('#regional_field').append($('<option>', {
+                                                                    value: info.regions.data[j].k_id_regional,
+                                                                    text: info.regions.data[j].n_name_regional
+                                                                }));
+                                                            }
+                                                            $('select').select2({"width": "100%"});
+                                                            //dom.configCalendar($('#d_ingreso_on_air'));
+                                                            changeCrqChg();
 
-                                                    function editSubstatus() {
-                                                        var status = $("#status").val();
-                                                        console.log(status);
-                                                        var info = <?php echo $respuesta; ?>;
-                                                        $('#substatus').empty();
-                                                        for (var j = 0; j < info.statusOnAir.data.length; j++) {
-                                                            if (status == info.statusOnAir.data[j].k_id_status) {
-                                                                if (info.statusOnAir.data[j].k_id_status_onair != 78) {
-                                                                    $('#substatus').append($('<option>', {
-                                                                        value: info.statusOnAir.data[j].k_id_status_onair,
-                                                                        text: info.statusOnAir.data[j].n_name_substatus
+                                                        });
+
+                                                        function changeCrqChg() {
+                                                            var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                            switch (valRadio) {
+                                                                case "CRQ":
+                                                                    $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
+                                                                    break;
+                                                                case "CHG":
+                                                                    $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
+                                                                    break;
+                                                            }
+                                                        }
+
+                                                        function validateCrqChg() {
+                                                            var valinput = $('#n_crq').val();
+                                                            var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                            var info = <?php echo $respuesta; ?>;
+                                                            for (var m = 0; m < info.crq.data.length; m++) {
+                                                                if (valinput == info.crq.data[m].n_crq) {
+                                                                    swal("Código " + valRadio + " invalido", "Lo sentimos, el código " + valRadio + " ya existe.", "warning");
+                                                                }
+                                                            }
+                                                        }
+
+                                                        function editTextCityRegional() {
+                                                            var estacion = $("#estacion").val();
+                                                            var info = <?php echo $respuesta; ?>;
+                                                            var city;
+                                                            for (var j = 0; j < info.stations.data.length; j++) {
+                                                                if (info.stations.data[j].k_id_station == estacion) {
+                                                                    for (var m = 0; m < info.cities.data.length; m++) {
+                                                                        if (info.stations.data[j].k_id_city == info.cities.data[m].k_id_city) {
+                                                                            city = info.cities.data[m].k_id_regional;
+                                                                            $('input[name=ciudad]').val(info.cities.data[m].n_name_city);
+                                                                        }
+                                                                    }
+                                                                    for (var x = 0; x < info.regions.data.length; x++) {
+                                                                        if (info.regions.data[x].k_id_regional == city) {
+                                                                            $('input[name=regional]').val(info.regions.data[x].n_name_regional);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+                                                        function fillCities() {
+                                                            var regional = $("#regional_field").val();
+                                                            var info = <?php echo $respuesta; ?>;
+                                                            for (var j = 0; j < info.cities.data.length; j++) {
+                                                                if (info.cities.data[j].k_id_regional == regional) {
+                                                                    $('#city_id').append($('<option>', {
+                                                                        value: info.cities.data[j].k_id_city,
+                                                                        text: info.cities.data[j].n_name_city
                                                                     }));
                                                                 }
                                                             }
-                                                            if (status == 9) {
-                                                                $('#substatus').val(97);
+                                                        }
+
+                                                        function editSubstatus() {
+                                                            var status = $("#status").val();
+                                                            console.log(status);
+                                                            var info = <?php echo $respuesta; ?>;
+                                                            $('#substatus').empty();
+                                                            for (var j = 0; j < info.statusOnAir.data.length; j++) {
+                                                                if (status == info.statusOnAir.data[j].k_id_status) {
+                                                                    if (info.statusOnAir.data[j].k_id_status_onair != 78) {
+                                                                        $('#substatus').append($('<option>', {
+                                                                            value: info.statusOnAir.data[j].k_id_status_onair,
+                                                                            text: info.statusOnAir.data[j].n_name_substatus
+                                                                        }));
+                                                                    }
+                                                                }
+                                                                if (status == 9) {
+                                                                    $('#substatus').val(97);
+                                                                }
                                                             }
                                                         }
-                                                    }
     </script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
     <script type="text/javascript">
-                                                    $(function () {
+                                                        $(function () {
 
-                                                        $('#tblSectores').on('change', 'input:checkbox', function () {
-                                                            var chk = $(this);
-                                                            if (chk.hasClass('check-head')) {
-                                                                $('#tblSectores input:checkbox').prop('checked', chk.is(':checked'));
-                                                                return;
-                                                            }
-                                                            if ($('#tblSectores td input:checked').length == 0 || chk.is(':checked')) {
-                                                                $('#tblSectores input.check-head').prop('checked', chk.is(':checked'));
-                                                            }
-                                                        });
-
-
-                                                        var form = $('#assignServie2');
-                                                        form.validate();
-                                                        var onSubmitForm = function (e) {
-                                                            if (e.isDefaultPrevented())
-                                                            {
-                                                                return;
-                                                            }
-                                                            app.stopEvent(e);
-                                                            $('#btnAceptarModalSectores').trigger('click');
-                                                            var json = $('#jsonSectores').val();
-                                                            if (json.trim() != "") {
-                                                                json = JSON.parse(json);
-                                                                var input = $('#cmbEstadoSectores');
-                                                                var sectoresIncluidos = "";
-                                                                var sectoresDesbloqueados = "";
-
-                                                                for (var i = 0; i < json.length; i++) {
-                                                                    var temp = json[i];
-                                                                    if (temp.state != -1) {
-                                                                        temp.state = input.val();
-                                                                    }
-
-                                                                    if (input.val() == 1 && temp.state == 1) {
-                                                                        sectoresIncluidos += temp.name + ((i < (json.length - 1) ? ", " : ""));
-                                                                    } else if (input.val() == 0 && temp.state == 0) {
-                                                                        sectoresDesbloqueados += temp.name + ((i < (json.length - 1) ? ", " : ""));
-                                                                    }
+                                                            $('#tblSectores').on('change', 'input:checkbox', function () {
+                                                                var chk = $(this);
+                                                                if (chk.hasClass('check-head')) {
+                                                                    $('#tblSectores input:checkbox').prop('checked', chk.is(':checked'));
+                                                                    return;
                                                                 }
-                                                                $('#sectoresBloqueados').val(sectoresIncluidos);
-                                                                $('#sectoresDebloqueados').val(sectoresDesbloqueados);
-                                                                $('#jsonSectores').val(JSON.stringify(json));
-                                                            }
+                                                                if ($('#tblSectores td input:checked').length == 0 || chk.is(':checked')) {
+                                                                    $('#tblSectores input.check-head').prop('checked', chk.is(':checked'));
+                                                                }
+                                                            });
 
-                                                            var form = $(this);
 
-                                                            var submitFtn = function () {
-                                                                relatedTickets = [];
-                                                                if (form.attr('data-rt') == "true") {
+                                                            var form = $('#assignServie2');
+
+
+
+                                                            form.validate();
+                                                            var onSubmitForm = function (e) {
+                                                                if (e.isDefaultPrevented())
+                                                                {
+                                                                    return;
+                                                                }
+                                                                app.stopEvent(e);
+                                                                $('#btnAceptarModalSectores').trigger('click');
+                                                                var json = $('#jsonSectores').val();
+                                                                if (json.trim() != "") {
+                                                                    json = JSON.parse(json);
+                                                                    var input = $('#cmbEstadoSectores');
+                                                                    var sectoresIncluidos = "";
+                                                                    var sectoresDesbloqueados = "";
+
+                                                                    for (var i = 0; i < json.length; i++) {
+                                                                        var temp = json[i];
+                                                                        if (temp.state != -1) {
+                                                                            temp.state = input.val();
+                                                                        }
+
+                                                                        if (input.val() == 1 && temp.state == 1) {
+                                                                            sectoresIncluidos += temp.name + ((i < (json.length - 1) ? ", " : ""));
+                                                                        } else if (input.val() == 0 && temp.state == 0) {
+                                                                            sectoresDesbloqueados += temp.name + ((i < (json.length - 1) ? ", " : ""));
+                                                                        }
+                                                                    }
+                                                                    $('#sectoresBloqueados').val(sectoresIncluidos);
+                                                                    $('#sectoresDebloqueados').val(sectoresDesbloqueados);
+                                                                    $('#jsonSectores').val(JSON.stringify(json));
+                                                                }
+
+                                                                var form = $(this);
+
+                                                                var submitFtn = function () {
+                                                                    relatedTickets = [];
                                                                     var trs = $('#tableRelacionTickets tbody tr');
                                                                     for (var i = 0; i < trs.length; i++) {
                                                                         var tr = $(trs[i]);
@@ -625,208 +627,253 @@
                                                                             relatedTickets.push(tr.attr('data-i'));
                                                                         }
                                                                     }
-                                                                }
 
-                                                                $('#txtRelatedTickets').val(JSON.stringify(relatedTickets));
-                                                                dom.submitDirect(form, function (response) {
-                                                                    if (response.code > 0) {
-                                                                        $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
-                                                                        $('#cmbTicketRelation').html('<option value="">Seleccione</option>').trigger('change.select2');
-                                                                    }
-                                                                });
-                                                            };
-                                                            //Comprobamos si la banda seleccionada contiene dos bandas...
-                                                            if ($('#banda option:selected').text().search('/') >= 0 && !form.attr('data-rt')) {
-                                                                dom.confirmar("Este caso tiene dos bandas, ¿desea relacionar otro(s) tickets para este caso?", function () {
-                                                                    $('#tabRelacionarTickets').trigger('click');
-                                                                    form.attr('data-rt', 'true');
-                                                                    dom.scrollTop();
-                                                                }, function () {
-                                                                    form.attr('data-rt', 'false');
+                                                                    $('#txtRelatedTickets').val(JSON.stringify(relatedTickets));
+                                                                    dom.submitDirect(form, function (response) {
+                                                                        if (response.code > 0) {
+                                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
+                                                                            $('#cmbTicketRelation').html('<option value="">Seleccione</option>').trigger('change.select2');
+                                                                            $('#tableRelacionTickets tbody').html('<tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> No se han agregado relaciones para este ticket.</td></tr>');
+                                                                        }
+                                                                    });
+                                                                };
+                                                                //Comprobamos si la banda seleccionada contiene dos bandas...
+                                                                if ($('#banda option:selected').text().search('/') >= 0 && !form.attr('data-rt')) {
+                                                                    dom.confirmar("Este caso tiene dos bandas, ¿desea relacionar otro(s) tickets para este caso?", function () {
+                                                                        $('#tabRelacionarTickets').trigger('click');
+                                                                        form.attr('data-rt', 'true');
+                                                                        dom.scrollTop();
+                                                                    }, function () {
+                                                                        form.attr('data-rt', 'false');
+                                                                        submitFtn();
+                                                                    });
+                                                                } else {
                                                                     submitFtn();
-                                                                });
-                                                            } else {
-                                                                submitFtn();
-                                                            }
-                                                        };
-                                                        form.on('submit', onSubmitForm);
+                                                                }
+                                                            };
+                                                            form.on('submit', onSubmitForm);
 
 //                                                                    dom.submit($('#assignServie2'), function (response) {
 //                                                                        if (response.code > 0) {
 //                                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> Seleccionar sectores');
 //                                                                        }
 //                                                                    });
-                                                        dom.submit($('#stationForm'), function () {
-                                                            location.href = app.urlTo('User/createTicketOnair');
-                                                        });
+                                                            dom.submit($('#stationForm'), function () {
+                                                                location.href = app.urlTo('User/createTicketOnair');
+                                                            });
 
-                                                        $('#btnTodayDate').on('click', function () {
-                                                            app.get('Utils/getActualDate')
-                                                                    .success(function (response) {
-                                                                        console.log(response);
-                                                                        if (response.code > 0) {
-                                                                            $('#d_ingreso_on_air').val(formatDate(response.data, "yyyy-MM-ddTHH:mm", "yyyy-MM-dd HH:mm"));
-                                                                        }
-                                                                    })
-                                                                    .send();
-                                                        });
-
-                                                        $('#copyToClipBoard').on('click', function () {
-                                                            var temp = document.getElementById('inputForClipBoard');
-                                                            temp = document.createElement('input');
-                                                            temp.id = 'inputForClipBoard';
-                                                            temp.style.opacity = '0';
-                                                            temp.style.position = 'absolute';
-                                                            temp.style.bottom = '0';
-                                                            document.body.appendChild(temp);
-                                                            temp.value = $('select#estacion option:selected').text();
-                                                            temp.select();
-                                                            document.execCommand("Copy");
-                                                            temp.remove();
-                                                        });
-
-
-                                                        function getSectores() {
-                                                            var obj = {
-                                                                idTipoTrabajo: $('#tipotrabajo').val(),
-                                                                idTecnologia: $('#tecnologia').val(),
-                                                                idBanda: $('#banda').val()
-                                                            };
-                                                            var valid = 0;
-                                                            if (obj.idTipoTrabajo.trim() == "") {
-                                                                valid--;
-                                                            }
-                                                            if (obj.idTecnologia.trim() == "") {
-                                                                valid--;
-                                                            }
-                                                            if (obj.idBanda.trim() == "") {
-                                                                valid--;
-                                                            }
-                                                            if (valid != 0) {
-                                                                return;
-                                                            }
-
-                                                            $('#tblSectores tbody').html('<tr><td colspan="2"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultando...</td></tr>');
-                                                            app.post('TicketOnair/getSectores', obj)
-                                                                    .success(function (response) {
-                                                                        var data = app.parseResponse(response);
-                                                                        if (data && data.length > 0) {
-                                                                            var tabla = $('#tblSectores tbody');
-                                                                            tabla.html('');
-                                                                            //Llenamos la tabla sectores...
-                                                                            for (var i = 0; i < data.length; i++) {
-                                                                                var dat = data[i];
-                                                                                tabla.append(dom.fillString('<tr data-id="{k_id_sector}" data-name="{name}"><td>{name}</td><td><div class="checkbox checkbox-primary" style=""><input id="checkbox_block_{k_id_sector}" type="checkbox" name="check_{k_id_sector}" value="1" /><label for="checkbox_block_{k_id_sector}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                                                            $('#btnTodayDate').on('click', function () {
+                                                                app.get('Utils/getActualDate')
+                                                                        .success(function (response) {
+                                                                            console.log(response);
+                                                                            if (response.code > 0) {
+                                                                                $('#d_ingreso_on_air').val(formatDate(response.data, "yyyy-MM-ddTHH:mm", "yyyy-MM-dd HH:mm"));
                                                                             }
-                                                                        } else {
-                                                                            $('#tblSectores tbody').html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
-                                                                        }
-                                                                    }).error(function () {
-                                                                swal("Error", "Se ha producido un error inesperado y no se pudo consultar los sectores.", "error");
-                                                            }).send();
-                                                        }
+                                                                        })
+                                                                        .send();
+                                                            });
+
+                                                            $('#copyToClipBoard').on('click', function () {
+                                                                var temp = document.getElementById('inputForClipBoard');
+                                                                temp = document.createElement('input');
+                                                                temp.id = 'inputForClipBoard';
+                                                                temp.style.opacity = '0';
+                                                                temp.style.position = 'absolute';
+                                                                temp.style.bottom = '0';
+                                                                document.body.appendChild(temp);
+                                                                temp.value = $('select#estacion option:selected').text();
+                                                                temp.select();
+                                                                document.execCommand("Copy");
+                                                                temp.remove();
+                                                            });
+
+                                                            function getSectores() {
+                                                                var obj = {
+                                                                    idTipoTrabajo: $('#tipotrabajo').val(),
+                                                                    idTecnologia: $('#tecnologia').val(),
+                                                                    idBanda: $('#banda').val()
+                                                                };
+                                                                var valid = 0;
+                                                                if (obj.idTipoTrabajo.trim() == "") {
+                                                                    valid--;
+                                                                }
+                                                                if (obj.idTecnologia.trim() == "") {
+                                                                    valid--;
+                                                                }
+                                                                if (obj.idBanda.trim() == "") {
+                                                                    valid--;
+                                                                }
+                                                                if (valid != 0) {
+                                                                    return;
+                                                                }
+
+                                                                $('#tblSectores tbody').html('<tr><td colspan="2"><i class="fa fa-fw fa-refresh fa-spin"></i> Consultando...</td></tr>');
+                                                                app.post('TicketOnair/getSectores', obj)
+                                                                        .success(function (response) {
+                                                                            var data = app.parseResponse(response);
+                                                                            if (data && data.length > 0) {
+                                                                                var tabla = $('#tblSectores tbody');
+                                                                                tabla.html('');
+                                                                                //Llenamos la tabla sectores...
+                                                                                for (var i = 0; i < data.length; i++) {
+                                                                                    var dat = data[i];
+                                                                                    tabla.append(dom.fillString('<tr data-id="{k_id_sector}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input id="checkbox_block_{k_id_sector}" type="checkbox" name="check_{k_id_sector}" value="1" /><label for="checkbox_block_{k_id_sector}" class="text-bold">Seleccionar</label></div></td></tr>', dat));
+                                                                                }
+                                                                            } else {
+                                                                                $('#tblSectores tbody').html('<tr><td colspan="3" class="no-found"><i class="fa fa-fw fa-warning"></i> No hay sectores disponibles.</td></tr>');
+                                                                            }
+                                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked:not(.check-head)').length + ') Sectores seleccionados');
+                                                                        }).error(function () {
+                                                                    $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked:not(.check-head)').length + ') Sectores seleccionados');
+                                                                    swal("Error", "Se ha producido un error inesperado y no se pudo consultar los sectores.", "error");
+                                                                }).send();
+                                                            }
 
 
-                                                        $('#btnCheckSectores').on('click', function () {
-                                                            $('#modalSectores').modal('show');
-                                                        });
+                                                            $('#btnCheckSectores').on('click', function () {
+                                                                $('#modalSectores').modal('show');
+                                                            });
 
-                                                        $('.select-tipotrabajo').on('change', function () {
-                                                            $('.select-tipotrabajo').val($(this).val()).trigger('change.select2');
-                                                            getSectores();
-                                                        });
+                                                            $('.select-tipotrabajo').on('change', function () {
+                                                                $('.select-tipotrabajo').val($(this).val()).trigger('change.select2');
+                                                                getSectores();
+                                                            });
 
-                                                        $('.select-tecnologia').on('change', function () {
-                                                            $('.select-tecnologia').val($(this).val()).trigger('change.select2');
-                                                            getSectores();
-                                                        });
+                                                            $('.select-tecnologia').on('change', function () {
+                                                                $('.select-tecnologia').val($(this).val()).trigger('change.select2');
+                                                                getSectores();
+                                                            });
 
-                                                        $('.select-banda').on('change', function () {
-                                                            $('.select-banda').val($(this).val()).trigger('change.select2');
-                                                            getSectores();
-                                                        });
+                                                            $('.select-banda').on('change', function () {
+                                                                $('.select-banda').val($(this).val()).trigger('change.select2');
+                                                                getSectores();
+                                                            });
 
-                                                        $('#btnAceptarModalSectores').on('click', function () {
-                                                            var sectores = [];
+                                                            $('#btnAceptarModalSectores').on('click', function () {
+                                                                var sectores = [];
 //                                                                        var sectoresIncluidos = "";
 //                                                                        var sectoresDesbloqueados = "";
-                                                            var inputs = $('#tblSectores').find('input:checkbox').not('.check-head');
-                                                            for (var i = 0; i < inputs.length; i++) {
-                                                                var input = $(inputs[i]);
-                                                                var tr = input.parents('tr');
-                                                                var temp = {
-                                                                    id: tr.attr('data-id'),
-                                                                    name: tr.attr('data-name'),
-                                                                    state: ((input.is(':checked')) ? true : -1)
-                                                                };
-                                                                sectores.push(temp);
+                                                                var inputs = $('#tblSectores').find('input:checkbox').not('.check-head');
+                                                                for (var i = 0; i < inputs.length; i++) {
+                                                                    var input = $(inputs[i]);
+                                                                    var tr = input.parents('tr');
+                                                                    var temp = {
+                                                                        id: tr.attr('data-id'),
+                                                                        name: tr.attr('data-name'),
+                                                                        state: ((input.is(':checked')) ? true : -1)
+                                                                    };
+                                                                    sectores.push(temp);
 //                                                                            if (input.val() == 1) {
 //                                                                                sectoresIncluidos += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
 //                                                                            } else if (input.val() == 0) {
 //                                                                                sectoresDesbloqueados += temp.name + ((i < (inputs.length - 1) ? ", " : ""));
 //                                                                            }
-                                                            }
-                                                            $('#jsonSectores').val(JSON.stringify(sectores));
+                                                                }
+                                                                $('#jsonSectores').val(JSON.stringify(sectores));
 //                                                                        $('#sectoresBloqueados').val(sectoresIncluidos);
 //                                                                        $('#sectoresDebloqueados').val(sectoresDesbloqueados);
-                                                            $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked').length + ') Sectores agregados');
-                                                            if (sectores.length > 0) {
-                                                                $('.estado-sectores').removeClass('hidden');
-                                                                $('#cmbEstadoSectores').prop('required', true);
-                                                            } else {
-                                                                $('.estado-sectores').addClass('hidden');
-                                                                $('#cmbEstadoSectores').prop('required', false);
-                                                            }
-                                                        });
+                                                                $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked:not(.check-head)').length + ') Sectores seleccionados');
+                                                                if (sectores.length > 0) {
+                                                                    $('.estado-sectores').removeClass('hidden');
+                                                                    $('#cmbEstadoSectores').prop('required', true);
+                                                                } else {
+                                                                    $('.estado-sectores').addClass('hidden');
+                                                                    $('#cmbEstadoSectores').prop('required', false);
+                                                                }
+                                                            });
 
 
-                                                        //Se ajusta el panel de relacionar tickets...
-                                                        $('#btnAddTicketRelation').on('click', function () {
-                                                            if (typeof dataEstaciones == "undefined") {
-                                                                return;
-                                                            }
-                                                            ($('#assignServie2 #txtRelatedTickets').length == 0) && $('#assignServie2').append('<input type="hidden" name="related_tickets" id="txtRelatedTickets" />');
-                                                            var estacion = $('#cmbTicketRelation').val();
-                                                            var obj = dataEstaciones[estacion];
-                                                            var content = $('#tableRelacionTickets tbody');
-                                                            content.find('.no-found').remove();
-                                                            console.log(obj);
-                                                            obj.i = content.find('tr').length + 1;
-                                                            content.append(dom.fillString('<tr data-i="{k_id_onair}"><td>{i}</td><td><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a><button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button></div></td></tr>', obj));
-                                                        });
+                                                            //Se ajusta el panel de relacionar tickets...
+                                                            $('#btnAddTicketRelation').on('click', function () {
+                                                                if (typeof dataEstaciones == "undefined") {
+                                                                    return;
+                                                                }
+                                                                ($('#assignServie2 #txtRelatedTickets').length == 0) && $('#assignServie2').append('<input type="hidden" name="related_tickets" id="txtRelatedTickets" />');
+                                                                var content = $('#tableRelacionTickets tbody');
+                                                                var estacion = $('#cmbTicketRelation').val();
+                                                                if (content.find('[data-i="' + estacion + '"]').length > 0) {
+                                                                    return;
+                                                                }
+                                                                var obj = dataEstaciones[estacion];
+                                                                content.find('.no-found').remove();
+                                                                console.log(obj);
+                                                                obj.i = content.find('tr').length + 1;
+                                                                content.append(dom.fillString('<tr data-i="{k_id_onair}"><td>{i}</td><td><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a><button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button></div></td></tr>', obj));
+                                                            });
 
-                                                        $('#estacion').on('change', function () {
-                                                            app.post('Utils/getTicketsByStations', {idStation: $(this).val()})
-                                                                    .success(function (response) {
-                                                                        var cmb = $('#cmbTicketRelation');
-                                                                        var data = app.parseResponse(response);
-                                                                        if (data && data.length > 0) {
-                                                                            dataEstaciones = {};
-                                                                            cmb.html('');
-                                                                            var max = data.length;
-                                                                            for (var i = 0; i < max; i++) {
-                                                                                var obj = data[i];
-                                                                                dataEstaciones[obj.k_id_onair] = obj;
-                                                                                obj.i = i + 1;
-                                                                                $el = $(dom.fillString('<option value="{k_id_onair}">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</option>', obj));
-                                                                                cmb.append($el);
+                                                            $('#estacion').on('change', function () {
+                                                                app.post('Utils/getTicketsByStations', {idStation: $(this).val()})
+                                                                        .success(function (response) {
+                                                                            var cmb = $('#cmbTicketRelation');
+                                                                            var data = app.parseResponse(response);
+                                                                            if (data && data.length > 0) {
+                                                                                dataEstaciones = {};
+                                                                                cmb.html('');
+                                                                                var max = data.length;
+                                                                                for (var i = 0; i < max; i++) {
+                                                                                    var obj = data[i];
+                                                                                    dataEstaciones[obj.k_id_onair] = obj;
+                                                                                    obj.i = i + 1;
+                                                                                    $el = $(dom.fillString('<option value="{k_id_onair}">#{k_id_onair} - {k_id_station.n_name_station} - {k_id_technology.n_name_technology} - {k_id_band.n_name_band}</option>', obj));
+                                                                                    cmb.append($el);
 //                                                                                content.append(dom.fillString('<tr><td>{i}</td><td><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_band.n_name_band}</td></tr>', obj));
-                                                                            }
-                                                                            cmb.trigger('change.select2');
-                                                                        } else {
-                                                                            cmb.append($('<option>', {
-                                                                                value: "",
-                                                                                text: "No hay tickets para relacionar"
-                                                                            }));
+                                                                                }
+                                                                                cmb.trigger('change.select2');
+                                                                            } else {
+                                                                                cmb.html('');
+                                                                                cmb.append($('<option>', {
+                                                                                    value: "",
+                                                                                    text: "No hay tickets para relacionar"
+                                                                                }));
 //                                                                            cmb.html('<tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> No se han agregado relaciones para este tikcet.</td></tr>');
-                                                                        }
-                                                                    })
-                                                                    .error(function (error) {
-                                                                        console.error(error);
-                                                                    })
-                                                                    .send();
+                                                                            }
+                                                                        })
+                                                                        .error(function (error) {
+                                                                            console.error(error);
+                                                                        })
+                                                                        .send();
+                                                            });
+
+
+                                                            //Se implementa el evento clic para el botón agregar sector de la tabla sectores...
+                                                            $('.btn-add-sector').on('click', function () {
+                                                                var table = $('#tblSectores tbody');
+                                                                var tr = $('<tr><td class="" colspan="3"><div style="width: 100%; display: table" class="input-group"><div class="input-group-addon">Sector:</div><input type="text" class="form-control" placeholder="Nombre del sector" /><div class="input-group-btn"><button type="button" class="btn btn-success push-sector-btn"><i class="fa fa-fw fa-save"></i></button><button type="button" class="btn btn-danger delete-sector-btn"><i class="fa fa-fw fa-trash"></i></button></div></div></td></tr>');
+                                                                table.find('.no-found').remove();
+                                                                table.prepend(tr);
+                                                                tr.find('input').focus();
+                                                            });
+
+                                                            $('#tblSectores').on('click', '.push-sector-btn', function () {
+                                                                var btn = $(this);
+                                                                var tr = btn.parents('tr');
+                                                                var table = $('#tblSectores');
+                                                                if (tr.find('input').val().trim() == "") {
+                                                                    return;
+                                                                }
+                                                                table.find('tr.no-found').remove();
+                                                                var dat = {
+                                                                    id: tr.find('input').val(),
+                                                                    name: tr.find('input').val(),
+                                                                    state: 1,
+                                                                };
+                                                                tr.remove();
+                                                                table.append(dom.fillString('<tr data-id="{id}" data-name="{name}"><td>{name}</td><td colspan="2"><div class="checkbox checkbox-primary" style=""><input ' + ((dat.state == 1 || dat.state == 0) ? 'checked="true"' : '') + ' id="checkbox_block_{id}" type="checkbox" name="check_{id}" value="1" ><label for="checkbox_block_{id}" class="text-bold">Seleccionar</label> <button class="close btn-remove-sector-added m-r-15" title="Eliminar sector">&times</button></div></td></tr>', dat));
+                                                            });
+                                                            $('#tblSectores').on('click', '.delete-sector-btn', function () {
+                                                                var tr = $(this).parents('tr');
+                                                                tr.remove();
+                                                            });
+                                                            $('#tblSectores').on('click', '.btn-remove-sector-added', function () {
+                                                                var tr = $(this).parents('tr');
+                                                                tr.remove();
+                                                            });
+
+                                                            $('#btnGuardarRelacionTickets').on('click', function () {
+                                                                $('#tabCrearActividad').trigger('click');
+                                                                $('#assignServie2').trigger('submit');
+                                                            });
                                                         });
-                                                    });
     </script>
     <?php
     if (isset($error)) {
@@ -886,11 +933,14 @@
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 300px; border: 1px solid #ddd;">
                                 <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
-                                    <thead><tr>
+                                    <thead>
+                                        <tr>
                                             <th class="vertical-middle"><i class="fa fa-fw fa-wrench"></i> Sector</th><th class="p-l-5"><div class="checkbox checkbox-primary" style=""><input id="checkbox_head_sectores" type="checkbox" name="check_sectores" class="check-head" value="1" ><label for="checkbox_head_sectores" class="text-bold">Seleccionar todos</label></div></th>
-                                        </tr></thead>
+                                            <th class="p-all-0 vertical-middle text-right"><button class="btn btn-default btn-sm m-r-15 btn-add-sector" ><i class="fa fa-fw fa-plus"></i> Agregar sector</button></th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
-                                        <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
+                                        <tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
                                     </tbody>
                                 </table>
                             </div>

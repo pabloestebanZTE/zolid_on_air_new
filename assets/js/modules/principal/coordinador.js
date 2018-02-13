@@ -17,6 +17,7 @@ $(function () {
             vista.getReinicioPrecheck();
             vista.getReinicio12h();
             vista.getStandBy();
+            vista.getPriorityList();
         },
         getPendingList: function () {
             vista.tablaPendientes = $('#tablaPendientes').DataTable(vista.genericCogDataTable("Precheck/getPendingList", "tablaPendientes"));
@@ -48,6 +49,10 @@ $(function () {
         getStandBy: function () {
             vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaSeguimiento36h"));
         },
+        getPriorityList: function () {
+            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));
+        },
+
         genericCogDataTable: function (url, table) {
             $('.contentPrincipal').removeClass('hidden');
             return {

@@ -23,6 +23,7 @@ var vista = {
         if (tr.find('input').val().trim() == "") {
             return;
         }
+        table.find('tr.no-found').remove();
         var dat = {
             id: tr.find('input').val(),
             name: tr.find('input').val(),

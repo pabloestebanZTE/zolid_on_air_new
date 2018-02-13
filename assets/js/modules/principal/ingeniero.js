@@ -4,6 +4,7 @@ $(function () {
         init: function () {
             vista.events();
             vista.listActivities();
+            vista.getPriorityList();
         },
         //Eventos de la ventana.
         events: function () {
@@ -63,6 +64,9 @@ $(function () {
          */
         listActivities: function () {
             vista.tablaPrincipal = $('#tablaPrincipal').DataTable(vista.genericCogDataTable("TicketOnair/ticketUser", "tablaPendientes"));
+        },
+        getPriorityList: function () {
+            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));
         },
         //Temporalmente...
         fillNA: function () {

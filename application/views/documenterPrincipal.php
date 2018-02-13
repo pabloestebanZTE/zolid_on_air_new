@@ -31,7 +31,7 @@
                                 <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a data-toggle="tab" href="#basic_information"><i class="fa fa-fw fa-info-circle"></i> Información básica</a></li>
-                                        <li><a data-toggle="tab" href="#related_tickets" id="tabRelacionarTickets" ><i class="fa fa-fw fa-rebel"></i> Tickets relacionados (<span id="spanRelatedTickets">0</span>)</a></li>
+                                        <li><a data-toggle="tab" href="#related_tickets" id="tabRelacionarTickets" ><i class="fa fa-fw fa-rebel"></i> Trabajos relacionados (<span id="spanRelatedTickets">0</span>)</a></li>
                                     </ul>
                                 <?php } ?>
                                 <?php if (Auth::isDocumentador() || Auth::isCoordinador()) { ?>
@@ -213,7 +213,7 @@
                                                 <div class="panel-body">
                                                     <div class="relation-content-editor" >
                                                         <div class="form-group">
-                                                            <label for="cmbRegional" class="col-md-3 control-label">Ticket:</label>
+                                                            <label for="cmbRegional" class="col-md-3 control-label">Trabajos asociados:</label>
                                                             <div class="col-md-8 selectContainer">
                                                                 <div class="input-group">
                                                                     <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>

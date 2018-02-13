@@ -101,6 +101,7 @@ var load = {
                         alert = dom.printAlert('Cargando comentarios del OnAir en el sistema, por favor no cierre esta ventana.', 'loading', $('#principalAlert'));
                         load.indexTemp = response.data.row;
                         load.index = 2;
+                        load.inconsistenciesFull = response.data.inconsistenciesFull.join();
                         window.setTimeout(function () {
                             load.processComments(data, alert);
                         }, 2000);
@@ -139,6 +140,14 @@ var load = {
                             load.indexTemp += response.data;
                         }
                         load.endImport(alert);
+                        if (load.inconsistenciesFull.trim() != "") {
+                            swal("Importado", "Se ha importado toda la información, pero surgieron algunos inconvenientes, haga clic en Ok para descargar el archivo marcado los errores.", "success").then(function () {
+                                $('#lblProgressInformation').hide();
+                                $('#progressProcessImportData').hide();
+                                location.href = app.urlTo(data.path);
+                            });
+                            return;
+                        }
                         swal("Importado", "Se ha importado toda la información del OnAir correctamente.", "success")
                                 .then(function () {
                                     location.reload();
@@ -167,6 +176,12 @@ var load = {
         load.showProgress();
         $('body').removeAttr('onbeforeunload');
         $('#btnLoadOnAir').html('<i class="fa fa-fw fa-paperclip"></i> Cargar OnAir').prop('disabled', false);
+
+        var progress = $('#progressProcessImportData');
+        progress.removeClass('hidden');
+        var progressValue = 100;
+        progress.find('.progress-bar').html(progressValue + '%').css('width', progressValue + '%').attr('title', progressValue + '% de progreso.');
+
         alert.hide();
     }
 };

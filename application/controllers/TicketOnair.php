@@ -271,24 +271,48 @@ class TicketOnair extends CI_Controller {
         $this->request->d_created_at = Hash::getDate();
         $response = $ticket->insertTicket($this->request);
 
-        //Ahora insertamos las relaciones...
-        if ($response->code > 0) {
+        //Ahora insertamos las relaciones...        
+        if ($related_tickets && $response->code > 0) {
             foreach ($related_tickets as $id) {
+                //Creamos la relación del ticket creado con el ticket relacionado...
                 $relatedTicketsModel = new RelatedTicketsModel();
                 $relatedTicketsModel->setKIdTicket1($response->data->data);
                 $relatedTicketsModel->setKIdTicket2($id);
                 $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
                 $relatedTicketsModel->setDCreated(Hash::getDate());
                 $relatedTicketsModel->save();
+
+                //Creamos las relaciones entre el ticketrelacionado con el ticket creado.
                 $relatedTicketsModel = new RelatedTicketsModel();
                 $relatedTicketsModel->setKIdTicket1($id);
                 $relatedTicketsModel->setKIdTicket2($response->data->data);
                 $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
                 $relatedTicketsModel->setDCreated(Hash::getDate());
                 $relatedTicketsModel->save();
+
+                //Creamos las relaciones entre tikcets relacionados...
+                $this->createRelationsTickets($id, $related_tickets);
             }
         }
         $this->json($response);
+    }
+
+    private function createRelationsTickets($idTicket, $related_tickets) {
+        foreach ($related_tickets as $id) {
+            if ($id != $idTicket) {
+                $relatedTicketsModel = new RelatedTicketsModel();
+                $exist = $relatedTicketsModel->where("k_id_ticket1", "=", $idTicket)
+                                ->where("k_id_ticket2", "=", $id)->exist();
+                if (!$exist) {
+                    $relatedTicketsModel = new RelatedTicketsModel();
+                    $relatedTicketsModel->setKIdTicket1($idTicket);
+                    $relatedTicketsModel->setKIdTicket2($id);
+                    $relatedTicketsModel->setKIdUserCreator(Auth::user()->k_id_user);
+                    $relatedTicketsModel->setDCreated(Hash::getDate());
+                    $relatedTicketsModel->save();
+                }
+            }
+        }
     }
 
     public function getAllStates() {
@@ -493,7 +517,22 @@ class TicketOnair extends CI_Controller {
         $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
         $response = $ticket->updateTicketScaling($this->request);
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_esc);
+        $this->sendRelatedTicketsToStandBy($this->request->k_id_onair);
         $this->json($response);
+    }
+
+    public function sendRelatedTicketsToStandBy($idTicket) {
+        $response = new Response(EMessages::UPDATE);
+        //Consultamos los tickets relacionados...
+        $db = new DB();
+        $data = $db->select("select tck.*, rt.k_id_related_ticket from ticket_on_air tck inner join related_tickets rt on rt.k_id_ticket2 = tck.k_id_onair or rt.k_id_ticket2 = tck.k_id_onair where rt.k_id_ticket1 = $idTicket")->get();
+        //Se envian todos los tickets relacionados a standby...
+        foreach ($data as $ticket) {
+            if ($ticket->k_id_onair != $idTicket) {
+                $ticketsOnAir = new dao_ticketOnAir_model();
+                $ticketsOnAir->toStandBy($ticket, $this->request);
+            }
+        }
     }
 
     public function recordRestart() {
