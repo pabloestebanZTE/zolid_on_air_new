@@ -1399,9 +1399,9 @@ class Utils extends CI_Controller {
         $desbloqueados = $this->getValueCell($sheet, 'AK' . $row);
         //Comprobamos si los sectores están bloqueados o desbloqueados...
         if ($validator->required("desbloqueados", $desbloqueados)) {
-            return $this->processJsonSectores($sectores, 0);
+            return $this->processJsonSectores($desbloqueados, 0);
         } else if ($validator->required("bloqueados", $bloqueados)) {
-            return $this->processJsonSectores($sectores, 1);
+            return $this->processJsonSectores($bloqueados, 1);
         }
         return null;
     }
