@@ -1322,3 +1322,214 @@ INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,
 INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,34,'S');
 INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,34,'S');
 INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,34,'S');
+
+-- Adecuacion para LTE 1900Mhz (RSH) - UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,5,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,5,34,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(35,5,34,'S');
+
+-- Adecuacion Sector Expansion - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(33,1,2,'S');
+
+-- Adecuacion Sector Expansion - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(26,2,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,2,'S');
+
+-- Adecuacion Sector Expansion - GSM/UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,2,'S');
+
+-- Adecuacion Sector Expansion - UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,4,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(34,4,2,'S');
+
+-- Adecuacion Sector Expansion - UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,5,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,5,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(35,5,2,'S');
+
+-- Adecuacion Sector Expansion - LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,6,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(22,6,2,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(36,6,2,'S');
+
+-- Cambio de Breaker - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,56,'S');
+
+-- Cambio de Breaker - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,56,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,56,'S');
+
+-- Cambio de Breaker - GSM/UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,56,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,56,'S');
+
+-- Cambio de Breaker - UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,56,'S');
+
+-- Cambio de Breaker - UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,5,56,'S');
+
+-- Cambio de Breaker - LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,6,56,'S');
+
+-- Cambio de Jumper en Feeder - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,6,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(37,1,6,'S');
+
+-- Cambio de Jumper en Feeder - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,6,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,6,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,2,6,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(34,2,6,'S');
+
+-- Cambio de Jumper en Feeder - UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,6,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,4,6,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(34,4,6,'S');
+
+-- Cambio de Jumper y Breaker - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(33,1,8,'S');
+
+-- Cambio de Jumper y Breaker - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(3,2,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(33,2,8,'S');
+
+-- Cambio de Jumper y Breaker	GSM/UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,8,'S');
+
+-- Cambio de Jumper y Breaker - UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(3,4,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(33,4,8,'S');
+
+-- Cambio de Jumper y Breaker - UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,5,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,5,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,5,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(35,5,8,'S');
+
+-- Cambio de Jumper y Breaker - LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,6,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(22,6,8,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(36,6,8,'S');
+
+-- Channel Element - UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,10,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(3,4,10,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(4,4,10,'S');
+
+-- Migración de alarmas externas - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,57,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,57,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,2,57,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(38,2,57,'S');
+
+-- Migración de alarmas externas - GSM/UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,57,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,57,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,3,57,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(39,3,57,'S');
+
+-- Modernización Multiradio - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(37,1,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,1,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,1,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(38,1,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(40,1,13,'S');
+
+-- Modernización Multiradio - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(27,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(38,2,13,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(40,2,13,'S');
+
+-- Channel Element_MMR - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,58,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,1,58,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(37,1,58,'S');
+
+-- MMR Cambio de HW - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,59,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(37,1,59,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,1,59,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(41,1,59,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,1,59,'S');
+
+-- Reubicación de Equipos - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(33,1,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,1,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(38,1,15,'S');
+
+-- Reubicación de Equipos - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,2,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(4,2,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,2,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(38,2,15,'S');
+
+-- Reubicación de Equipos - GSM/UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,3,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,3,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,3,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(29,3,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(32,3,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,3,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(39,3,15,'S');
+
+-- Reubicación de Equipos - UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,4,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,4,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(4,4,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(34,4,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,4,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(38,4,15,'S');
+
+-- Reubicación de Equipos - UMTS/LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(13,5,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(15,5,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(29,5,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(35,5,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,5,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(39,5,15,'S');
+
+-- Reubicación de Equipos - LTE
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(20,6,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(22,6,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(36,6,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(7,6,15,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(42,6,15,'S');
+
+-- Sector Expansion - GSM
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,1,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(37,1,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,1,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(41,1,43,'S');
+
+-- Sector Expansion - GSM/UMTS
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(1,2,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(9,2,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(11,2,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(31,2,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(6,2,43,'S');
+INSERT INTO `on_air`.`checklist`(`k_id_documento`,`k_id_technology`,`k_id_work`,`n_type`)VALUES(41,2,43,'S');
