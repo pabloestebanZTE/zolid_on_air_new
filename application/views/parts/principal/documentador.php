@@ -46,5 +46,5 @@
     </div>
 </div>
 <?php $this->load->view('parts/generic/scripts'); ?>
-<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/documentador.js") ?>"></script>
+<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/documentador.js?v=" . time()) ?>"></script>
 <script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/loadOnAir.js?v=" . time()) ?>"></script>
