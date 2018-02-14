@@ -464,7 +464,7 @@ var vista = {
     },
     onChangeChecklist: function (callback) {
         var status = ($("#form4").is(":visible")) ? 'S' : 'E';
-        $('#items_checklist_'.status).html('');
+        $('#items_checklist_' + status).html('');
         if ($('#k_id_work').val().trim() == "" || $('#k_id_technology').val().trim() == "") {
             return;
         }
@@ -493,7 +493,7 @@ var vista = {
         }).send();
     },
     addItemCheckList: function (obj, status) {
-        var content = $('#items_checklist_'.status);
+        var content = $('#items_checklist_' + status);
         var html = dom.fillString('<div class="display-block"><input id="chk_p_{k_id_checklist}" name="vm.checklist[]"  type="checkbox"><label for="chk_p_{k_id_checklist}" class="text-bold">{nombre_documento}.</label></div>', obj);
         content.append(html);
     },
