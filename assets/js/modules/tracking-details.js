@@ -16,8 +16,9 @@ var vista = {
             app.stopEvent(e);
             $('#formTrackingDetails').find('#typeBlock_Dinamic').remove();
             $('#formTrackingDetails').append('<input type="hidden" id="typeBlock_Dinamic" name="typeBlock" value="' + $('#cmbEstadoSectores').val() + '" />');
-            vista.configSectores();
-            dom.submitDirect($('#formTrackingDetails'), null, false);
+            if (vista.configSectores()) {
+                dom.submitDirect($('#formTrackingDetails'), null, false);
+            }
         });
     },
     onClickPushSector: function () {
@@ -236,6 +237,8 @@ var vista = {
             dom.submitDirect($('#formTrackingDetails'), function () {
                 location.href = app.urlTo("User/scaling?id=" + app.getParamURL('id'));
             }, false);
+        } else if (action == "FOR_UPDATE") {
+            dom.submitDirect($('#formTrackingDetails'), null, false);
         }
         $('#modalSectores').modal('hide');
         $('#modalSectores').addClass('updated');
@@ -246,9 +249,10 @@ var vista = {
             if (!cmbSectores.parents('.input-group').next().hasClass('error')) {
                 cmbSectores.parents('.input-group').after('<label class="error m-l-40 m-t-5 text-right center-block"><i class="fa fa-fw fa-warning"></i> Seleccione el estado para los sectores.</label>');
                 $('#modalSectores').addClass('updated');
+                $('#modalSectores').attr('data-action', 'FOR_UPDATE');
                 $('#modalSectores').modal('show');
             }
-            return;
+            return false;
         }
         var sectores = [];
         var sectoresBloqueados = "";
@@ -297,6 +301,7 @@ var vista = {
         console.log("SECTORES: ", sectores);
 //        $('#btnEditarSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + selecteds + ') Sectores seleccionados');
         cmbSectores.parents('.input-group').next('.error').remove();
+        return true;
     },
     onClickEditarSectores: function () {
         $('#txtBandaModal').val($('#cmbBanda option:selected').text());
