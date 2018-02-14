@@ -1419,7 +1419,7 @@ class Utils extends CI_Controller {
                 ];
             }
         }
-        return $objSectores;
+        return json_encode($objSectores);
     }
 
 }
