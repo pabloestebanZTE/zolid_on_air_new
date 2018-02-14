@@ -2,11 +2,15 @@ var vista = {
     contentFases: $('#contentFases'),
     exec: false,
     init: function () {
+        if ($('#isBlock').val() == "true") {
+            $('.icon-step').addClass('no-action');
+        }
         vista.events();
         vista.configView();
         vista.listCombox();
         vista.getDetails();
         vista.getStatesProduction();
+        dom.submit($('#detailsForm'), null, false);
         dom.submit($('#formDetallesBasicos'), null, false);
         $('#formTrackingDetails').on('submit', function (e) {
             app.stopEvent(e);
@@ -65,6 +69,12 @@ var vista = {
 
         $('#cmbEstadosTD').on('change', vista.onChangeCmbEstados);
         $('#cmbSubEstadosTD').on('change', vista.onChangeState);
+
+        $('#modalSectores').on('shown.bs.modal', function () {
+            $('#txtBandaModal').val($('#cmbBanda option:selected').text());
+            $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
+            $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
+        });
     },
     onClickRemoveSector: function () {
         var tr = $(this).parents('tr');
@@ -199,6 +209,9 @@ var vista = {
                             + ' </div>'
                             + '</div></div>'
                             + '</div>';
+                    if (!dat.comentario_resucoment) {
+                        comentario_resucoment = "";
+                    }
                     content.append(dom.fillString(comment, dat));
 //                    '<h2 class="h5 m-t-0"><span class="text-muted text-normal"><i class="fa fa-fw fa-tag"></i> {n_estado_eb_resucomen}</span></h2>'
                 }
@@ -213,8 +226,16 @@ var vista = {
     },
     onClickAceptarModalSectores: function () {
         vista.configSectores();
-        if ($('#modalSectores').attr('data-action') === "REINICIO_12H") {
+        var action = $('#modalSectores').attr('data-action');
+        if (action === "REINICIO_12H") {
             vista.restart12h();
+        } else if (action === "SCALED") {
+            $('#formTrackingDetails').find('#typeBlock_Dinamic').remove();
+            $('#formTrackingDetails').append('<input type="hidden" id="typeBlock_Dinamic" name="typeBlock" value="' + $('#cmbEstadoSectores').val() + '" />');
+            vista.configSectores();
+            dom.submitDirect($('#formTrackingDetails'), function () {
+                location.href = app.urlTo("User/scaling?id=" + app.getParamURL('id'));
+            }, false);
         }
         $('#modalSectores').modal('hide');
         $('#modalSectores').addClass('updated');
@@ -355,12 +376,18 @@ var vista = {
             case "QUITSTANDBY":
                 vista.quitStandBy();
                 break;
+            case "SCALED":
+                vista.scaled();
+                break;
             default :
                 swal("Error", "No ha seleccionado ninguna acción de la lista", "error").then(function () {
                     $('#modalChangeState').modal('show');
                 });
                 break;
         }
+    },
+    scaled: function () {
+        $('#modalSectores').attr('data-action', 'SCALED').modal('show');
     },
     quitStandBy: function () {
         app.post("TicketOnair/quitStandBy", {
@@ -636,9 +663,9 @@ var vista = {
                         alert.hide();
                         var form = $('#formDetallesBasicos');
                         form.fillForm(response.data);
+                        console.log("OBJETO: ", response.data);
                         $('#cmbTecnologia').trigger('change');
                         $('#cmbBanda').on('selectfilled', function () {
-                            console.log("OKAY", response.data.k_id_band.k_id_band);
                             $(this).val(response.data.k_id_band.k_id_band).trigger('change.select2');
                         });
                         $('#n_enteejecutor').trigger('change.select2');
@@ -661,10 +688,15 @@ var vista = {
                             $(this).val($(this).attr('data-value')).trigger('change.select2');
                         });
 
-
                         rg.getTickets(response.data.k_id_station.k_id_station);
-                        rg.getRelatedTickets(response.data.k_id_onair)
+                        rg.getRelatedTickets(response.data.k_id_onair);
 
+                        var stateVMm = (response.data.k_id_preparation.b_vistamm) ? ((response.data.k_id_preparation.b_vistamm.toUpperCase() == "TRUE") ? true : false) : false;
+                        $('[name="preparation_stage.b_vistamm"]').prop('checked', stateVMm);
+                        var priority = (response.data.i_priority == 1) ? true : false;
+                        $('[name="ticket_on_air.i_priority"]').prop('checked', priority);
+                        $('#detailsForm').fillForm(response.data);
+                        vista.fillFormSeguimiento(response.data);
 //                        vista.listCombox();
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");
@@ -673,6 +705,53 @@ var vista = {
             alert.print("Se ha producido un error desconocido, compruebe su conexión a internet y vuelva a intentarlo.", "danger");
             console.error(error);
         }).send();
+    },
+    fillFormSeguimiento: function (fields) {
+        $('#detailsForm input[name=n_integrador]').val(fields.k_id_preparation.n_integrador);
+        $('#detailsForm input[name=n_contratista]').val(fields.k_id_preparation.n_contratista);
+        $('#detailsForm input[name=n_evidenciasl]').val(fields.k_id_preparation.n_evidenciasl);
+        $('#detailsForm input[name=n_evidenciatg]').val(fields.k_id_preparation.n_evidenciatg);
+        $('#detailsForm input[name=id_rftools]').val(fields.k_id_preparation.id_rftools);
+        $('#detailsForm input[name=i_lider_cambio]').val(fields.i_lider_cambio);
+        $('#detailsForm input[name=i_lider_cuadrilla]').val(fields.i_lider_cuadrilla);
+        $('#detailsForm input[name=n_lac]').val(fields.k_id_preparation.n_lac);
+        $('#detailsForm input[name=n_rac]').val(fields.k_id_preparation.n_rac);
+        $('#detailsForm input[name=n_sac]').val(fields.k_id_preparation.n_sac);
+        $('#detailsForm #n_testgestion option[value="' + fields.k_id_preparation.n_testgestion + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_sitiolimpio option[value="' + fields.k_id_preparation.n_sitiolimpio + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_instalacion_hw_sitio option[value="' + fields.k_id_preparation.n_instalacion_hw_sitio + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_cambios_config_solicitados option[value="' + fields.k_id_preparation.n_cambios_config_solicitados + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_cambios_config_final option[value="' + fields.k_id_preparation.n_cambios_config_final + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_integracion_gestion_y_trafica option[value="' + fields.k_id_preparation.n_integracion_gestion_y_trafica + '"]').attr('selected', 'selected');
+        $('#detailsForm #puesta_servicio_sitio_nuevo_lte option[value="' + fields.k_id_preparation.puesta_servicio_sitio_nuevo_lte + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_instalacion_hw_4g_sitio option[value="' + fields.k_id_preparation.n_instalacion_hw_4g_sitio + '"]').attr('selected', 'selected');
+        $('#detailsForm #pre_launch option[value="' + fields.k_id_preparation.pre_launch + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_implementacion_campo option[value="' + fields.n_implementacion_campo + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_gestion_power option[value="' + fields.n_gestion_power + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_obra_civil option[value="' + fields.n_obra_civil + '"]').attr('selected', 'selected');
+        $('#detailsForm #on_air option[value="' + fields.on_air + '"]').attr('selected', 'selected');
+        $('#detailsForm #n_noc option[value="' + fields.n_noc + '"]').attr('selected', 'selected');
+
+
+        $('input[name=k_id_ticket]').val(fields.k_id_onair);
+        $('input[name=k_id_prep]').val(fields.k_id_preparation.k_id_preparation);
+
+        $('input[name=n_name_station]').val(fields.k_id_station.n_name_station);
+        $('input[name=n_name_band]').val(fields.k_id_band.n_name_band);
+        $('input[name=n_name_regional]').val(fields.k_id_station.k_id_city.k_id_regional.n_name_regional);
+        $('input[name=n_name_user]').val(fields.k_id_preparation.n_contratista);
+        $('input[name=txtFechaIngresoOnAir]').val(fields.k_id_preparation.d_ingreso_on_air);
+        $('input[name=n_crq]').val(fields.k_id_preparation.n_crq);
+        $('input[name=n_wp]').val(fields.k_id_preparation.n_wp);
+        $('input[name=n_name_technology]').val(fields.k_id_technology.n_name_technology);
+        $('input[name=n_name_ork]').val(fields.k_id_work.n_name_ork);
+        $('input[name=n_name_city]').val(fields.k_id_station.k_id_city.n_name_city);
+        $('input[name=n_enteejecutor]').val(fields.k_id_preparation.n_enteejecutor);
+        $('input[name=n_name_status]').val(fields.k_id_status_onair.k_id_status.n_name_status);
+        $('input[name=n_name_substatus]').val(fields.k_id_status_onair.k_id_substatus.n_name_substatus);
+        $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
+        $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
+        $('#detailsForm select').trigger('change.select2');
     },
     onClickDetails: function () {
         $('#modalDetailsInit').modal('show');

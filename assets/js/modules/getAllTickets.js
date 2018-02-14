@@ -12,28 +12,28 @@ $(function () {
             $('.contentPrincipal').removeClass('hidden');
             vista.tablaPrincipal = $('#tablaPrincipal').DataTable({
                 columns: [
-                        {title: "Estación", data: "k_id_station.n_name_station"},
-                        {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
-                        {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
-                        {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
-                        {title: "Tiempo", data: vista.setTimer},
-                        {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
-                        {title: "Banda", data: 'k_id_band.n_name_band'},
-                        {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
-                        {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
-                        {title: "Encargado", data: function (obj) {
-                              if (typeof obj.i_actualEngineer === "object") {
-                                    return obj.i_actualEngineer.n_name_user + " " + obj.i_actualEngineer.n_last_name_user;
-                              } else {
+                    {title: "Estación", data: "k_id_station.n_name_station"},
+                    {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
+                    {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
+                    {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
+                    {title: "Tiempo", data: vista.setTimer},
+                    {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
+                    {title: "Banda", data: 'k_id_band.n_name_band'},
+                    {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
+                    {title: "Fecha Última revisión", data: 'd_fecha_ultima_rev'},
+                    {title: "Encargado", data: function (obj) {
+                            if (typeof obj.i_actualEngineer === "object") {
+                                return obj.i_actualEngineer.n_name_user + " " + obj.i_actualEngineer.n_last_name_user;
+                            } else {
                                 return obj.i_actualEngineer;
-                              }
                             }
-                         },
-                        {title: "Opciones", data: vista.getButtons},
-                    ],
+                        }
+                    },
+                    {title: "Opciones", data: vista.getButtons},
+                ],
                 "language": {
                     "url": app.urlbase + "assets/plugins/datatables/lang/es.json"
-                    
+
                 },
                 columnDefs: [{
                         defaultContent: "",
@@ -76,7 +76,7 @@ $(function () {
         },
         getButtons: function (obj) {
             return '<div class="btn-group">'
-                    + '<a href="' + app.urlTo('Documenter/documenterFields?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Documentación"><span class="fa fa-fw fa-file-archive-o"></span></a>'
+                    + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Documentación"><span class="fa fa-fw fa-file-archive-o"></span></a>'
                     + '</div>';
         },
         setTimer: function (obj, style, none, settings) {

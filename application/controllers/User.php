@@ -115,7 +115,22 @@ class User extends CI_Controller {
         $kpiDao = new Dao_kpi_model();
         //Se registra el KPI.
         $kpiDao->record($this->request->id);
-        $this->load->view('trackingdetails');
+
+        //Se valida si los botones estarán bloqueados para el usuario logueado...
+        $block = null;
+        if (Auth::isIngeniero()) {
+            //Verificamos si el ticket actual está asignado al usuario actualmente logueado...
+            $ticketModel = new TicketOnAirModel();
+            $ticket = $ticketModel->where("k_id_onair", "=", $this->request->id)->first();
+            if ($ticket->i_actualEngineer != Auth::user()->k_id_user) {
+                $block = "true";
+            } else {
+                $block = "false";
+            }
+        } else {
+            $block = "false";
+        }
+        $this->load->view('trackingdetails', ["block" => $block]);
     }
 
     public function toAssign($ticket) {

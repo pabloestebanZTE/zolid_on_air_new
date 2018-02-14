@@ -31,7 +31,7 @@
                 </div>
             </div>
             <?php $this->load->view('parts/generic/scripts'); ?>
-            <script type="text/javascript" src="<?= URL::to("assets/js/modules/getAllTickets.js") ?>"></script>
+            <script type="text/javascript" src="<?= URL::to("assets/js/modules/getAllTickets.js?v=" . time()) ?>"></script>
         </div>
         <!--footer Section -->
         <div class="for-full-back" id="footer">

@@ -7,6 +7,7 @@ var TD = {
 //        TD.fillTable([]);
         TD.getInfoForms();
         TD.getDetails();
+        TD.getDetail();
     },
     events: function () {
         $('#btnDetails').on('click', TD.onClickDetails);
@@ -19,7 +20,7 @@ var TD = {
         $(this).addClass('active');
         $('#contentComments').removeClass('hidden');
         TD.getComments();
-    },
+    },    
     getComments: function () {
         var idTicket = $('#idProceso').val();
         var content = $('#contentComments .wiget');
@@ -80,6 +81,65 @@ var TD = {
         dom.configCalendar($('#txtBloqueado'));
 //        dom.notify.vencimiento();
 //        dom.notify("NUEVOS TICKETS!!", "Tienes nuevos tickes para asignar", "info");
+    },
+    /**
+     * Básicamente llenará los formuarios de los dos paneles principales del acordión.
+     * @returns {undefined}
+     */
+    getDetail: function () {
+        var alert = dom.printAlert('Consultando detalles, por favor espere...', 'loading', $('#principalAlert'));
+        //Consultamos...
+        app.post('TicketOnair/getAllService', {id: app.getParamURL('id')})
+                .success(function (response) {
+                    if (response.code > 0) {
+                        $('#trackingDetails').removeClass('hidden');
+                        var form = $('#formDetallesBasicos');
+                        form.fillForm(response.data);
+                        console.log("OBJETO: ", response.data);
+                        $('#cmbTecnologia').trigger('change');
+                        $('#cmbBanda').on('selectfilled', function () {
+                            $(this).val(response.data.k_id_band.k_id_band).trigger('change.select2');
+                        });
+                        $('#n_enteejecutor').trigger('change.select2');
+                        var objTemp = {ticket_on_air: response.data};
+                        var form = $('#formTrackingDetails');
+                        form.fillForm(objTemp);
+                        try {
+                            if (response.data.n_json_sectores) {
+                                vista.fillTableSectores(response.data);
+                            }
+                        } catch (e) {
+                        }
+                        objTemp = {preparation_stage: response.data.k_id_preparation};
+                        form.fillForm(objTemp);
+                        form.find('#cmbEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_status.k_id_status);
+                        form.find('#cmbSubEstadosTD').attr("data-value", response.data.k_id_status_onair.k_id_status_onair);
+                        form.find('.select-fill').trigger('select2fill');
+                        form.find('select').trigger('change.select2');
+                        $('#cmbSubEstadosTD').on('filledStatic', function () {
+                            $(this).val($(this).attr('data-value')).trigger('change.select2');
+                        });
+
+
+                        rg.getTickets(response.data.k_id_station.k_id_station);
+                        rg.getRelatedTickets(response.data.k_id_onair);
+
+                        var stateVMm = (response.data.k_id_preparation.b_vistamm) ? ((response.data.k_id_preparation.b_vistamm.toUpperCase() == "TRUE") ? true : false) : false;
+                        $('[name="preparation_stage.b_vistamm"]').prop('checked', stateVMm);
+                        var priority = (response.data.i_priority == 1) ? true : false;
+                        $('[name="ticket_on_air.i_priority"]').prop('checked', priority);
+//                        vista.listCombox();
+                    } else {
+                        alert.print("No se encontró ninguna coincidencia", "warning");
+                    }
+                })
+                .complete(function () {
+                    alert.hide();
+                })
+                .error(function (error) {
+                    alert.print("Se ha producido un error desconocido, compruebe su conexión a internet y vuelva a intentarlo.", "danger");
+                    console.error(error);
+                }).send();
     },
     getDetails: function () {
         dom.printAlert('Consultando, por favor espere...', 'loading', $('#alertFases'));
