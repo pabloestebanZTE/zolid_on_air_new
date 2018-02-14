@@ -267,7 +267,235 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="fa fa-fw fa-list"></i> Detalles</a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse22"><i class="fa fa-fw fa-list"></i> Detalles</a>
+                            </h4>
+                        </div>
+                        <div id="collapse22" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="stepwizard col-md-offset-3 m-t-10 m-b-25">
+                                    <div class="stepwizard-row setup-panel">
+                                        <div class="stepwizard-step">
+                                            <a href="#step-0" type="button" class="btn btn-primary btn-circle">1</a>
+                                            <!--<p>Parte 1</p>-->
+                                        </div>
+                                        <div class="stepwizard-step">
+                                            <a href="#step-1" type="button" class="btn btn-default btn-circle">2</a>
+                                            <!--<p>Parte 1</p>-->
+                                        </div>
+                                        <div class="stepwizard-step">
+                                            <a href="#step-2" type="button" class="btn btn-default btn-circle" >3</a>
+                                            <!--<p>Parte 2</p>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="formTrackingDetails" action="TicketOnair/updateTicket">
+                                    <div class="alert alert-success alert-dismissable hidden">
+                                        <a class="close" >&times;</a>
+                                        <p class="p-b-0" id="text"></p>
+                                    </div>
+                                    <input type="hidden" name="ticket_on_air.id_onair" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "0" ?>" id="idProceso" />
+                                    <div class="display-block p-l-40 p-r-40 m-b-0 well step-panel" id="step-0">
+                                        <div class="row form-xs">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtBCFWBTS">BCF WBTS:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtBCFWBTS" placeholder="BCF WBTS" name="preparation_stage.n_bcf_wbts_id" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtBTS">BTS:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtBTS" name="preparation_stage.n_bts_id" placeholder="BTS" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group p-t-15">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox2" type="checkbox" name="preparation_stage.b_vistamm">
+                                                        <label for="checkbox2" class="text-bold">
+                                                            VistaMM
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txtControlador">Controlador:</label>
+                                                    <input type="text" id="txtControlador" class="form-control input-sm" placeholder="Controlador" name="preparation_stage.n_controlador" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtIdControlador">ID Controlador:</label>
+                                                    <input type="text" id="txtIdControlador" class="form-control input-sm" placeholder="Id Controlador" name="preparation_stage.n_idcontrolador" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtBtsIpAddress">BTS IP Address:</label>
+                                                    <input type="text" class="form-control input-sm" placeholder="BTS IP Address" id="txtBtsIpAddress" name="preparation_stage.n_btsipaddress" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group p-t-15">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox23" type="checkbox" name="ticket_on_air.i_priority">
+                                                        <label for="checkbox23" class="text-bold">
+                                                            Marcar como Prioritario
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--ingenieroPrecheck y FinPre los generará el sistema.-->
+                                        </div>
+                                    </div>
+                                    <div class="hidden display-block p-l-40 p-r-40 m-b-0 well step-panel" id="step-1">
+                                        <div class="row form-xs">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtCorrecionPendientes">Corrección pendientes:</label>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtCorrecionPendientes" name="preparation_stage.d_correccionespendientes" value="" placeholder="DD/MM/YYYY"  style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtTicketTremedy">Ticket Remedy:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtTicketTremedy" placeholder="Tiecket Tremedy" name="preparation_stage.n_ticketremedy" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtLAC">LAC:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtLAC" placeholder="LAC" name="preparation_stage.n_lac" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtRAC">RAC:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtRAC" placeholder="RAC" name="preparation_stage.n_rac" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtSAC">SAC:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSAC" placeholder="SAC" name="preparation_stage.n_sac" />
+                                                </div>
+                                            </div>
+                                            <!--                                            <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtIdNotificacion">Id Notificación:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtIdNotificacion" placeholder="Id Notificación" name="preparation_stage.id_notificacion" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtIdDocumentacion">Id Documentación:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtIdDocumentacion" placeholder="Id Documentación" name="preparation_stage.id_documentacion" />
+                                                                                            </div>
+                                                                                        </div>-->
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="txtComentarioSocial">Comentario Social:</label>
+                                                    <textarea class="form-control input-sm" id="txtComentarioSocial" rows="3" placeholder="Escriba aquí..." name="preparation_stage.n_comentarioccial"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hidden well display-block p-l-40 p-r-40 m-b-0 step-panel" id="step-2">
+                                        <div class="row form-xs">
+                                            <input type="hidden" name="estado_sectores" id="txtEstadoSectores"/>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="cmbEstadosTD">Estado:</label>
+                                                    <select class="form-control select-fill input-sm" name="ticket_on_air.k_id_status" id="cmbEstadosTD" <?= (Auth::isCoordinador()) ? '' : 'disabled=""' ?>>
+                                                        <option>Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="cmbSubEstadosTD">SubEstado:</label>
+                                                    <select class="form-control input-sm" name="ticket_on_air.k_id_substatus" id="cmbSubEstadosTD" <?= (Auth::isCoordinador()) ? '' : 'disabled=""' ?>>
+                                                        <option>Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtFechaBloqueado">Bloqueado:</label>
+                                                    <input type="datetime-local" disabled="disabled" class="form-control input-sm" id="txtFechaBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_bloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtFechaDesBloqueado">Desbloqueado:</label>
+                                                    <input type="datetime-local" disabled="disabled" class="form-control input-sm" id="txtFechaDesBloqueado" placeholder="DD/MM/YYYY" name="ticket_on_air.d_desbloqueo" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="hidden" name="ticket_on_air.n_sectoresbloqueados" id="sectoresBloqueados" />
+                                                <input type="hidden" name="ticket_on_air.n_sectoresdesbloqueados" id="sectoresDebloqueados"/>
+                                                <input type="hidden" name="ticket_on_air.n_json_sectores" id="jsonSectores" />
+                                                <div class="form-group">
+                                                    <button type="button" id="btnEditarSectores" class="btn btn-primary m-t-20" title="Ver y editar sectores"><i class="fa fa-fw fa-check-square-o"></i> (0) Sectores agregados</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtFechaRFT">Fecha RFT:</label>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaRFT" placeholder="DD/MM/YYYY" name="ticket_on_air.fecha_rft" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtFechaCG">Fecha CG:</label>
+                                                    <input type="datetime-local" class="form-control input-sm" id="txtFechaCG" placeholder="DD/MM/YYYY" name="ticket_on_air.d_fecha_cg" style="width: 189px;" data-callback="dom.formatDateForPrint"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtExclusionTrafico">Exclusión bajo tráfico:</label>
+                                                    <input type="text" class="form-control input-sm" id="txtExclusionTrafico" placeholder="Exclusión bajo tráfico" name="ticket_on_air.n_exclusion_bajo_trafico" />
+    <!--                                                <select class="form-control input-sm" id="cmbExclusionTrafico">
+                                                        <option value="">Seleccione</option>
+                                                    </select>-->
+                                                </div>
+                                            </div>
+                                            <?php if (Auth::isCoordinador()) { ?>
+                                                <div class="col-md-12 hidden" id="comment_change_stated">
+                                                    <div class="form-group">
+                                                        <label for="txtCoordinadorComment">Comentario:</label>
+                                                        <textarea class="form-control" id="txtCoordinadorComment" name="ticket_on_air.coordinador_comment" placeholder="Escriba su comentario aquí."></textarea>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                            <!--                                            <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtTicket">Ticket:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtTicket" placeholder="Ticket" name="ticket_on_air.n_ticket"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="cmbEstadoTicket">Estado Ticket:</label>
+                                                                                                <select class="form-control input-sm" id="cmbEstadoTicket" name="ticket_on_air.n_estado_ticket">
+                                                                                                    <option value="">Seleccione</option>
+                                                                                                    <option value="Abierto">Abierto</option>
+                                                                                                    <option value="Cerrado">Cerrado</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>-->
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="fa fa-fw fa-list"></i> Detalles de seguimiento</a>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
@@ -657,7 +885,7 @@
                     </div>
                     <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
-                            <div class="display-block pull-right" style="width: 400px;">
+                            <div class="display-block pull-right hidden" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
                                     <label class="">Grupos:</label>
                                 </div>
@@ -840,7 +1068,7 @@
                 $('input[name=n_bcf_wbts_id]').val(fields.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(fields.k_id_preparation.n_comentario_doc);
 
-            })
+            });
         </script>
 
         <script type="text/javascript" >

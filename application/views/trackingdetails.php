@@ -13,6 +13,7 @@
     <body data-base="<?= URL::base() ?>">        
         <?php $this->load->view('parts/generic/header'); ?>
         <input type="hidden" id="link_view_ticket" value="User/trackingDetails" />
+        <input type="hidden" id="isBlock" value="<?= $block ?>" />
         <div class="container autoheight p-t-20">
             <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
                 <a class="close">&times;</a>
@@ -365,6 +366,16 @@
                                                     <input type="text" class="form-control input-sm" placeholder="BTS IP Address" id="txtBtsIpAddress" name="preparation_stage.n_btsipaddress" />
                                                 </div>
                                             </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group p-t-15">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox23" type="checkbox" name="ticket_on_air.i_priority">
+                                                        <label for="checkbox23" class="text-bold">
+                                                            Marcar como Prioritario
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!--ingenieroPrecheck y FinPre los generará el sistema.-->
                                         </div>
                                     </div>
@@ -400,18 +411,18 @@
                                                     <input type="text" class="form-control input-sm" id="txtSAC" placeholder="SAC" name="preparation_stage.n_sac" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtIdNotificacion">Id Notificación:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtIdNotificacion" placeholder="Id Notificación" name="preparation_stage.id_notificacion" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtIdDocumentacion">Id Documentación:</label>
-                                                    <input type="text" class="form-control input-sm" id="txtIdDocumentacion" placeholder="Id Documentación" name="preparation_stage.id_documentacion" />
-                                                </div>
-                                            </div>
+                                            <!--                                            <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtIdNotificacion">Id Notificación:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtIdNotificacion" placeholder="Id Notificación" name="preparation_stage.id_notificacion" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-3">
+                                                                                            <div class="form-group">
+                                                                                                <label for="txtIdDocumentacion">Id Documentación:</label>
+                                                                                                <input type="text" class="form-control input-sm" id="txtIdDocumentacion" placeholder="Id Documentación" name="preparation_stage.id_documentacion" />
+                                                                                            </div>
+                                                                                        </div>-->
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="txtComentarioSocial">Comentario Social:</label>
@@ -511,6 +522,385 @@
                             </div>
                         </div>
                     </div>
+
+                    <?php if (!Auth::isIngeniero()) { ?>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse22"><i class="fa fa-fw fa-list"></i> Detalles de seguimiento</a>
+                                </h4>
+                            </div>
+                            <div id="collapse22" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <form class="form-horizontal well"  action="Documenter/updateDetails" method="post"  id="detailsForm" name="detailsForm">
+                                        <div class="panel-body">
+                                            <div class="alert alert-success alert-dismissable hidden" id="principalAlert">
+                                                <a href="#" class="close">&times;</a>
+                                                <p id="text" class="m-b-0 p-b-0"></p>
+                                            </div>
+                                            <fieldset class="col-md-6 control-label">
+                                                <div class="form-group">
+                                                    <label for="txtIntegrador" class="col-md-3 control-label">Integrador:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" name="n_integrador" id="n_integrador" class="form-control" value="" >
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtContratista" class="col-md-3 control-label">Contratista:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" class="form-control " id="n_contratista" name="n_contratista" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtEvidenciaSL" class="col-md-3 control-label">Evidencia SL:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-file-text"></i></span>
+                                                            <input type="text" class="form-control " id="n_evidenciasl" name="n_evidenciasl" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtEvidenciaTG" class="col-md-3 control-label">Evidencia TG:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-file-text"></i></span>
+                                                            <input type="text" class="form-control " id="n_evidenciatg" name="n_evidenciatg" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtIDRFTools" class="col-md-3 control-label">ID RFTools:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-key"></i></span>
+                                                            <input type="text" class="form-control " id="id_rftools" name="id_rftools" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtLiderCambio" class="col-md-3 control-label">Líder Cambio:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" class="form-control " id="i_lider_cambio" name="i_lider_cambio" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtLiderCuadrilla" class="col-md-3 control-label">Líder Cuadrilla:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" class="form-control " id="i_lider_cuadrilla" name="i_lider_cuadrilla" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtLac" class="col-md-3 control-label">LAC:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" class="form-control " id="n_lac" name="n_lac" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtSac" class="col-md-3 control-label">SAC:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" class="form-control " id="n_sac" name="n_sac" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="txtRac" class="col-md-3 control-label">RAC:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                                            <input type="text" class="form-control " id="n_rac" name="n_rac" value="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <!--  fin seccion izquierda form---->
+
+                                            <!--  inicio seccion derecha form---->
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <label for="cmbPrelaunch" class="col-md-3 control-label">Prelaunch:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                            <select name="pre_launch" id="pre_launch" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbTestGestion" class="col-md-3 control-label">Test gestión:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                            <select name="n_testgestion" id="n_testgestion" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbSitioLimpio" class="col-md-3 control-label">Sitio limpio:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                            <select name="n_sitiolimpio" id="n_sitiolimpio" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbInstalacionHWSitio" class="col-md-3 control-label">Instalación HW Sitio:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_instalacion_hw_sitio" id="n_instalacion_hw_sitio" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbCambiosConfigSolicitados" class="col-md-3 control-label">Ejecutar cambios de configuración solicitados:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_cambios_config_solicitados" id="n_cambios_config_solicitados" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbCambiosConfigFinal" class="col-md-3 control-label">Realizar cambios configuración final:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_cambios_config_final" id="n_cambios_config_final" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbIntegracionGestionTrafica" class="col-md-3 control-label">Integración Gestión y Trafica:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                            <select name="n_integracion_gestion_y_trafica" id="n_integracion_gestion_y_trafica" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbPuestaServicioSitioNuevoLTE" class="col-md-3 control-label">Puesta Servicio Sitio Nuevo LTE:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                            <select name="puesta_servicio_sitio_nuevo_lte" id="puesta_servicio_sitio_nuevo_lte" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbInstalacionHW4GSitio" class="col-md-3 control-label">Realizar instalación HW 4G en Sitio:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                            <select name="n_instalacion_hw_4g_sitio" id="n_instalacion_hw_4g_sitio" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--                                            <div class="form-group">
+                                                                                                <label for="cmbDoc" class="col-md-3 control-label">DOC:</label>
+                                                                                                <div class="col-md-8 selectContainer">
+                                                                                                    <div class="input-group">
+                                                                                                        <span class="input-group-addon"><i class="fa fa-fw fa-check-circle"></i></span>
+                                                                                                        <select name="n_doc" id="n_doc" class="form-control selectpicker">
+                                                                                                            <option value="">Seleccione</option>
+                                                                                                            <option value="ABIERTO">ABIERTO</option>
+                                                                                                            <option value="CERRADO">CERRADO</option>
+                                                                                                            <option value="NA">NA</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>-->
+
+                                                <div class="form-group">
+                                                    <label for="cmbImplementacionCampo" class="col-md-3 control-label">Implementación en Campo:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_implementacion_campo" id="n_implementacion_campo" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cmbImplementacionCampo" class="col-md-3 control-label">Implementación Remota:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_implementacion_remota" id="n_implementacion_remota" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cmbGestionPower" class="col-md-3 control-label">Gestión Power:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_gestion_power" id="n_gestion_power" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbObraCivil" class="col-md-3 control-label">Obra Civil:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="n_obra_civil" id="n_obra_civil" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbOnAIR" class="col-md-3 control-label">Ejecución On AIR:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-unlock"></i></span>
+                                                            <select name="on_air" id="on_air" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="ABIERTO">ABIERTO</option>
+                                                                <option value="CERRADO">CERRADO</option>
+                                                                <option value="NA">NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cmbNOC" class="col-md-3 control-label">NOC:</label>
+                                                    <div class="col-md-8 selectContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-fw fa-building"></i></span>
+                                                            <select name="n_noc" id="n_noc" class="form-control selectpicker" required>
+                                                                <option value="">Seleccione</option>
+                                                                <option value="NOKIA">NOKIA</option>
+                                                                <option value="NOKIA_ZTE">NOKIA ZTE</option>
+                                                                <option value="ZTE">ZTE</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" class="form-control " id="k_id_ticket" name="k_id_ticket" value="" />
+                                                <input type="hidden" class="form-control " id="k_id_prep" name="k_id_prep" value="" />
+                                            </fieldset>
+                                            <!--   fin seccion derecha---->
+
+                                            <!-- Button -->
+                                            <center>
+                                                <div class="form-group">
+                                                    <label class="col-md-12 control-label"></label>
+                                                    <div class="col-md-12">
+                                                        <button type="submit" id="btnGuardar" class="btn btn-primary" onclick = "">Guardar <span class="fa fa-fw fa-floppy-o"></span></button>
+                                                    </div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="well">
                     <div class="alert alert-info alert-dismissable m-b-0" id="alertFases">
@@ -527,7 +917,7 @@
                     </div>
                     <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
-                            <div class="display-block pull-right" style="width: 400px;">
+                            <div class="display-block pull-right hidden" style="width: 400px;">
                                 <div class="col-xs-4 text-right p-r-0 p-t-5">
                                     <label class="">Grupos:</label>
                                 </div>
@@ -762,7 +1152,7 @@
                             <a href="javascript:;" data-action="STANDBY"><span class="icon-state theme2"><i class="fa fa-fw fa-stop-circle"></i></span> Stand By</a>
                         </li>
                         <li>
-                            <a href="<?= URL::to("User/scaling?id=" . $_GET['id']); ?>"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar Proceso</a>
+                            <a href="javascript:;" data-action="SCALED"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar Proceso</a>
                         </li>                                                                        
                     </ul>
                     <div class="row">

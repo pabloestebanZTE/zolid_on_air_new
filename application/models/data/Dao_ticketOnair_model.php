@@ -129,7 +129,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticketOnAir = new TicketOnAirModel();
             $datos = $ticketOnAir->where("k_id_onair", "=", $id)
                     ->first();
-            if (!$datos->k_id_station) {
+            if ($datos && !$datos->k_id_station) {
                 $ticketOnAir->getSQL();
 //                var_dump($datos);
             }
@@ -196,6 +196,11 @@ class Dao_ticketOnair_model extends CI_Model {
 
                 if ($tempPreparationStage) {
                     $idPreparation = $tempPreparationStage->k_id_preparation;
+                    if ($request->preparation_stage->b_vistamm == 1) {
+                        $request->preparation_stage->b_vistamm = "True";
+                    } else {
+                        $request->preparation_stage->b_vistamm = "False";
+                    }
                     //SE ACTUALIZA EL PREPARATION_STAGE.
                     $psModel->where("k_id_preparation", "=", $tempTicketOnAir->k_id_preparation)
                             ->update($request->preparation_stage->all());
@@ -234,6 +239,8 @@ class Dao_ticketOnair_model extends CI_Model {
                 //Se buscan los sectores...
                 //Se actualiza el ticket.
                 $ticketModel = new TicketOnAirModel();
+//                var_dump($obj);
+                $obj->i_priority = $request->ticket_on_air->i_priority . "";
                 $ticketModel->where("k_id_onair", "=", $request->ticket_on_air->id_onair)->update($obj->all());
 
                 if ($request->ticket_on_air->statuschanged) {
@@ -1655,7 +1662,6 @@ class Dao_ticketOnair_model extends CI_Model {
         } else if ($tck == null) {
             return new Response(EMessages::ERROR, "Ticket no referido.");
         }
-
 
         $comment = $request->comment;
         $status_onair = (new StatusOnairModel())

@@ -243,6 +243,8 @@
                                         <option value="">Seleccione</option>
                                         <option value="80">Reinicio Precheck</option>
                                         <option value="79">Reinicio 12H</option>
+                                        <option value="79">Reinicio 24H</option>
+                                        <option value="79">Reinicio 36H</option>
                                     </select>
                                 </div>
                             </div>

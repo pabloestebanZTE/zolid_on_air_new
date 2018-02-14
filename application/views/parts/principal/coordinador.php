@@ -302,4 +302,4 @@
 </div>
 <!--Fin Modal Preveiw Detalle-->
 <?php $this->load->view('parts/generic/scripts'); ?>
-<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/coordinador.js?v=1.3") ?>"></script>
+<script type="text/javascript" src="<?= URL::to("assets/js/modules/principal/coordinador.js?v=" . time()) ?>"></script>

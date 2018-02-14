@@ -323,7 +323,11 @@ class Utils extends CI_Controller {
 //        echo "ESTE EL ID ($idPrecheck) DEL PRECHECK PARA $obj->k_id_onair<br/>";
 
         $obj->k_id_precheck = $idPrecheck;
-        $obj->i_precheck_realizado = 1;
+        //Comprueba que no sea reinicio precheck...
+        $v = (ConstStates::REINICIO_PRECHECK == $obj->k_id_status_onair);
+        if (!$v) {
+            $obj->i_precheck_realizado = 1;
+        }
     }
 
     //</editor-fold>
@@ -492,6 +496,7 @@ class Utils extends CI_Controller {
         $obj->d_fechaproduccion = $this->getDatePHPExcel($sheet, "AF" . $row);
         $obj->n_sectoresbloqueados = $this->getValueCell($sheet, 'AJ' . $row);
         $obj->n_sectoresdesbloqueados = $this->getValueCell($sheet, 'AK' . $row);
+        $obj->n_json_sectores = $this->getJsonSectores($sheet, $row);
         $obj->n_estadoonair = $this->getValueCell($sheet, 'AL' . $row);
         $obj->n_atribuible_nokia = $this->getValueCell($sheet, 'AM' . $row);
         $obj->d_asignacion_final = $this->getDatePHPExcel($sheet, 'BB' . $row);
@@ -1387,4 +1392,34 @@ class Utils extends CI_Controller {
     }
 
     //</editor-fold>
+
+    public function getJsonSectores(&$sheet, $row) {
+        $validator = new Validator();
+        $bloqueados = $this->getValueCell($sheet, 'AJ' . $row);
+        $desbloqueados = $this->getValueCell($sheet, 'AK' . $row);
+        //Comprobamos si los sectores están bloqueados o desbloqueados...
+        if ($validator->required("desbloqueados", $desbloqueados)) {
+            return $this->processJsonSectores($sectores, 0);
+        } else if ($validator->required("bloqueados", $bloqueados)) {
+            return $this->processJsonSectores($sectores, 1);
+        }
+        return null;
+    }
+
+    private function processJsonSectores($sectores, $state) {
+        $splitSectores = explode(",", $sectores);
+        $objSectores = [];
+        $validator = new Validator();
+        foreach ($objSectores as $sector) {
+            if ($validator->required("sector", $sector)) {
+                $objSectores[] = [
+                    "id" => $sector,
+                    "name" => $sector,
+                    "state" => $state
+                ];
+            }
+        }
+        return $objSectores;
+    }
+
 }
