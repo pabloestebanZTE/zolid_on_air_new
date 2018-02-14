@@ -1410,7 +1410,7 @@ class Utils extends CI_Controller {
         $splitSectores = explode(",", $sectores);
         $objSectores = [];
         $validator = new Validator();
-        foreach ($objSectores as $sector) {
+        foreach ($splitSectores as $sector) {
             if ($validator->required("sector", $sector)) {
                 $objSectores[] = [
                     "id" => $sector,
