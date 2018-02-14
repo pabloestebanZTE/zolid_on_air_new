@@ -594,6 +594,7 @@
                     {
                         return;
                     }
+                    $('#modalSectores #contentCommentSectores').show();
                     app.stopEvent(e);
                     var form = $(this);
                     if (hasSectores) {
