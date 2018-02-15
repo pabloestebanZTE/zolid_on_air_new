@@ -875,7 +875,7 @@
                                                             <select name="n_noc" id="n_noc" class="form-control selectpicker" required>
                                                                 <option value="">Seleccione</option>
                                                                 <option value="NOKIA">NOKIA</option>
-                                                                <option value="NOKIA_ZTE">NOKIA ZTE</option>
+                                                                <option value="NOKIA-ZTE">NOKIA ZTE</option>
                                                                 <option value="ZTE">ZTE</option>
                                                             </select>
                                                         </div>

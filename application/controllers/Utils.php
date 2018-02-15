@@ -46,7 +46,9 @@ class Utils extends CI_Controller {
      * getValueCell($sheet, $cell)
      */
     private function getValueCell(&$sheet, $cell) {
-        return str_replace(array("\n", "\r", "\t"), '', $sheet->getCell($cell)->getValue());
+        $string = str_replace(array("\n", "\r", "\t"), '', $sheet->getCell($cell)->getValue());
+        $string = str_replace(array("_x000D_"), "<br/>", $sheet->getCell($cell)->getValue());
+        return $string;
     }
 
     //<editor-fold defaultstate="collapsed" desc="getFKRegisters()" >
@@ -298,7 +300,7 @@ class Utils extends CI_Controller {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getPrecheck(&$sheet, &$obj)" >
-    private function getPrecheck(&$sheet, &$obj, $row) {
+    private function getPrecheck(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies, $row) {
         $userName = $this->getValueCell($sheet, 'Y' . $row);
         $user = $this->getUserByName($userName);
         $user = (($user) ? $user->k_id_user : DB::NULLED);
@@ -312,6 +314,29 @@ class Utils extends CI_Controller {
 
         if ($date == DB::NULLED && $user == DB::NULLED) {
             $obj->k_id_precheck = DB::NULLED;
+            $v = false;
+            switch ($obj->k_id_status_onair) {
+                case ConstStates::SEGUIMIENTO_12H:
+                case ConstStates::SEGUIMIENTO_24H:
+                case ConstStates::SEGUIMIENTO_36H:
+                case ConstStates::PRODUCCION:
+                case ConstStates::SCALED:
+                    $v = true;
+                    break;
+            }
+            if ($v) {
+                //Aquí validamos si es requerido el precheck, para mostrar la inconsistencia...
+                if ($date == DB::NULLED) {
+                    $inconsistencies++;
+                    $cellInconsistencies[] = "AQ" . $row;
+                    $this->fillErrorCell($sheet, 'AQ', $row);
+                }
+                if ($user == DB::NULLED) {
+                    $inconsistencies++;
+                    $cellInconsistencies[] = "Y" . $row;
+                    $this->fillErrorCell($sheet, "Y", $row);
+                }
+            }
             return;
         }
 
@@ -332,7 +357,7 @@ class Utils extends CI_Controller {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getScaledOnAir(&$sheet, &$obj)" >
-    private function getScaledOnAir(&$sheet, &$obj, $row) {
+    private function getScaledOnAir(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies, $row) {
         $timeScaled = $this->getValueCell($sheet, 'BF' . $row);
         $dateScaled = $this->getValueCell($sheet, 'BG' . $row);
         $validator = new Validator($timeScaled);
@@ -360,6 +385,21 @@ class Utils extends CI_Controller {
                 "i_time_esc_calidad" => $this->getValueCell($sheet, 'BU' . $row),
                 "n_detalle_solucion" => $this->getValueCell($sheet, 'CU' . $row),
             ]);
+        } else {
+            $v = false;
+            switch ($obj->k_id_status_onair) {
+                case ConstStates::SCALED:
+                    $v = true;
+                    break;
+            }
+            if ($v) {
+                //Aquí validamos si es requerido el escalamiento para mostrar la inconsistencia...
+                $inconsistencies++;
+                $cellInconsistencies[] = "BF" . $row;
+                $this->fillErrorCell($sheet, 'BF', $row);
+                $cellInconsistencies[] = "BG" . $row;
+                $this->fillErrorCell($sheet, 'BG', $row);
+            }
         }
     }
 
@@ -414,7 +454,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_technology) {
             $inconsistencies++;
             $cellInconsistencies[] = "E" . $row;
-            $this->fillErrorCell($sheet, 'E' . $row);
+            $this->fillErrorCell($sheet, 'E', $row);
         }
 
         //Obtenemos la banda...
@@ -424,7 +464,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_band) {
             $inconsistencies++;
             $cellInconsistencies[] = "F" . $row;
-            $this->fillErrorCell($sheet, 'F' . $row);
+            $this->fillErrorCell($sheet, 'F', $row);
         }
 
         //Obtenemos el estado...
@@ -434,7 +474,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_status) {
             $inconsistencies++;
             $cellInconsistencies[] = "G" . $row;
-            $this->fillErrorCell($sheet, 'G' . $row);
+            $this->fillErrorCell($sheet, 'G', $row);
         }
 
         //Obtenemos el subestado...
@@ -444,7 +484,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_substatus) {
             $inconsistencies++;
             $cellInconsistencies[] = "H" . $row;
-            $this->fillErrorCell($sheet, 'H' . $row);
+            $this->fillErrorCell($sheet, 'H', $row);
         }
 
 
@@ -454,7 +494,7 @@ class Utils extends CI_Controller {
         if (!$obj->k_id_work) {
             $inconsistencies++;
             $cellInconsistencies[] = "L" . $row;
-            $this->fillErrorCell($sheet, 'L' . $row);
+            $this->fillErrorCell($sheet, 'L', $row);
         }
 
         $objTck = $obj;
@@ -537,19 +577,20 @@ class Utils extends CI_Controller {
         $obj->d_t_from_notif = (new Validator())->required("", $this->getValueCell($sheet, 'BW' . $row)) ? $this->getDatePHPExcel($sheet, 'BV' . $row) : DB::NULLED;
     }
 
-    public function fillErrorCell(&$sheet, $cell) {
-        $sheet->getStyle($cell)->applyFromArray(
+    public function fillErrorCell(&$sheet, $cell, $row) {
+        $sheet->getStyle($cell . $row)->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
                         'color' => array('rgb' => 'fb9999')
                     ),
         ));
+        $sheet->setCellValue("DR" . $row, "ERROR");
     }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="get12H(&$sheet, &$obj, $row)" >
-    private function get12H(&$sheet, &$obj, $row) {
+    private function get12H(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies, $row) {
         //Iniciamos la creación del 12h...
         $onAir12hModel = new OnAir12hModel();
         $validator = new Validator();
@@ -564,12 +605,29 @@ class Utils extends CI_Controller {
             $onAir12hModel->setIState(0);
             $onAir12hModel->setIHours(0);
             $obj->onAir12h = $onAir12hModel;
+        } else {
+            $v = false;
+            switch ($obj->k_id_status_onair) {
+                case ConstStates::SEGUIMIENTO_12H:
+                case ConstStates::SEGUIMIENTO_24H:
+                case ConstStates::SEGUIMIENTO_36H:
+                case ConstStates::PRODUCCION:
+                case ConstStates::SCALED:
+                    $v = true;
+                    break;
+            }
+            if ($v) {
+                //Aquí validamos si es requerido el 12h, para mostrar la inconsistencia...
+                $inconsistencies++;
+                $cellInconsistencies[] = "AR" . $row;
+                $this->fillErrorCell($sheet, 'AR', $row);
+            }
         }
     }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="get24H(&$sheet, &$obj, $row)" >
-    private function get24H(&$sheet, &$obj, $row) {
+    private function get24H(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies, $row) {
         //INiciamos la creación del 24h...
         $onAir24hModel = new OnAir24hModel();
         $validator = new Validator();
@@ -594,12 +652,28 @@ class Utils extends CI_Controller {
 //            }
             //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
             $obj->onAir24h = $onAir24hModel;
+        } else {
+            $v = false;
+            switch ($obj->k_id_status_onair) {
+                case ConstStates::SEGUIMIENTO_24H:
+                case ConstStates::SEGUIMIENTO_36H:
+                case ConstStates::PRODUCCION:
+                case ConstStates::SCALED:
+                    $v = true;
+                    break;
+            }
+            if ($v) {
+                //Aquí validamos si es requerido el 24h, para mostrar la inconsistencia...
+                $inconsistencies++;
+                $cellInconsistencies[] = "DA" . $row;
+                $this->fillErrorCell($sheet, "DA", $row);
+            }
         }
     }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="get36H(&$sheet, &$obj, $row)" >
-    private function get36H(&$sheet, &$obj, $row) {
+    private function get36H(&$sheet, &$obj, &$inconsistencies, &$cellInconsistencies, $row) {
         //Iniciamos la creación del 12h...
         $onAir36hModel = new OnAir36hModel();
         $validator = new Validator();
@@ -624,6 +698,21 @@ class Utils extends CI_Controller {
 //            }
             //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
             $obj->onAir12h = $onAir36hModel;
+        } else {
+            $v = false;
+            switch ($obj->k_id_status_onair) {
+                case ConstStates::SEGUIMIENTO_36H:
+                case ConstStates::PRODUCCION:
+                case ConstStates::SCALED:
+                    $v = true;
+                    break;
+            }
+            if ($v) {
+                //Aquí validamos si es requerido el 12h, para mostrar la inconsistencia...
+                $inconsistencies++;
+                $cellInconsistencies[] = "DB" . $row;
+                $this->fillErrorCell($sheet, "DB", $row);
+            }
         }
     }
 
@@ -1276,11 +1365,11 @@ class Utils extends CI_Controller {
                     $this->getPreparationStage($sheet, $obj, $row);
 
                     //Obtenemos toda la información del onAir...
-                    $this->getPrecheck($sheet, $obj, $row);
-                    $this->get12H($sheet, $obj, $row);
-                    $this->get24H($sheet, $obj, $row);
-                    $this->get36H($sheet, $obj, $row);
-                    $this->getScaledOnAir($sheet, $obj, $row);
+                    $this->getPrecheck($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
+                    $this->get12H($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
+                    $this->get24H($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
+                    $this->get36H($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
+                    $this->getScaledOnAir($sheet, $obj, $inconsistencies, $cellInconsistencies, $row);
                     $obj->row = $row;
 
                     if ($obj->k_id_status_onair == ConstStates::STAND_BY_SEGUIMIENTO_FO || $obj->k_id_status_onair == ConstStates::STAND_BY_PRODUCCION) {
@@ -1310,6 +1399,7 @@ class Utils extends CI_Controller {
                 $filename = null;
 
                 if (count($inconsistenciesFull) > 0) {
+                    $sheet->setCellValue("DR1", count($inconsistenciesFull) . " Errores de importación");
                     $objWriter->save($file);
                 }
 
