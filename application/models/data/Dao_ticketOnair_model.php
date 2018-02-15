@@ -549,8 +549,19 @@ class Dao_ticketOnair_model extends CI_Model {
         try {
             $ticketOnAir = new TicketOnAirModel();
             $request->i_actualEngineer = 0;
+            $request->d_precheck_init = Hash::getDate();
             $datos = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)
                     ->update($request->all());
+            //Consultamos el ticket para verificar el prepartion stage...
+            $ticketOnAir = new TicketOnAirModel();
+            $temp = $ticketOnAir->where("k_id_onair", "=", $request->k_id_onair)->first();
+            if ($temp) {
+                $psModel = new PreparationStageModel();
+                $psModel->where("k_id_preparation", "=", $temp->k_id_preparation)
+                        ->update([
+                            "d_correccionespendientes" => Hash::getDate()
+                ]);
+            }
 //            echo $ticketOnAir->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);

@@ -128,6 +128,9 @@ class User extends CI_Controller {
                 $block = "false";
             }
         } else {
+            $block = "true";
+        }
+        if (Auth::isCoordinador()) {
             $block = "false";
         }
         $this->load->view('trackingdetails', ["block" => $block]);

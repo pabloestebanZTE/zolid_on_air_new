@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="form-group">
                             <label for="txtEstado" class="col-md-3 control-label">Estado:</label>
                             <div class="col-md-8 selectContainer">
