@@ -877,3 +877,7 @@ ALTER TABLE user ADD FULLTEXT(n_name_user, n_last_name_user);
 -- Actualización Miercoles, 07 de Febrero de 2018.
 ALTER TABLE `on_air`.`checklist` 
 ADD COLUMN `n_type` ENUM('E', 'S') NULL DEFAULT 'E' AFTER `k_id_work`;
+
+-- Actualización Viernes 16 de Febrero de 2018.
+ALTER TABLE `ticket_on_air`
+	CHANGE COLUMN `n_estado_sectores` `n_estado_sectores` VARCHAR(20) NULL DEFAULT NULL AFTER `d_fechaproduccion`;

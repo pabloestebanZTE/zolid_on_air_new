@@ -600,7 +600,7 @@ class Utils extends CI_Controller {
             $onAir12hModel->setDStart12h(Hash::subtractHours($date, 1));
             $onAir12hModel->setDFin12h($date);
             $onAir12hModel->setITimestamp(0);
-            $onAir12hModel->setIRound(0);
+            $onAir12hModel->setIRound(1);
             $onAir12hModel->setIPercent(0);
             $onAir12hModel->setIState(0);
             $onAir12hModel->setIHours(0);
@@ -637,7 +637,7 @@ class Utils extends CI_Controller {
             $onAir24hModel->setDStart24h(Hash::subtractHours($date, 1));
             $onAir24hModel->setDFin24h($date);
             $onAir24hModel->setITimestamp(0);
-            $onAir24hModel->setIRound(0);
+            $onAir24hModel->setIRound(1);
             $onAir24hModel->setIPercent(0);
             $onAir24hModel->setIState(0);
             $onAir24hModel->setIHours(0);
@@ -683,7 +683,7 @@ class Utils extends CI_Controller {
             $onAir36hModel->setDStart36h(Hash::subtractHours($date, 1));
             $onAir36hModel->setDFin36h($date);
             $onAir36hModel->setITimestamp(0);
-            $onAir36hModel->setIRound(0);
+            $onAir36hModel->setIRound(1);
             $onAir36hModel->setIPercent(0);
             $onAir36hModel->setIState(0);
             $onAir36hModel->setIHours(0);

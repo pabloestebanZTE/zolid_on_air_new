@@ -180,7 +180,6 @@ class Dao_ticketOnair_model extends CI_Model {
 
     function updateTicket($request) {
         try {
-
             $ticketOnAir = new TicketOnAirModel();
             //CONSULTAMOS EL REGISTRO ONAIR...
             $tempTicketOnAir = $ticketOnAir->where("k_id_onair", "=", $request->ticket_on_air->id_onair)->first();
@@ -216,6 +215,8 @@ class Dao_ticketOnair_model extends CI_Model {
                 ]);
 
                 //Se actualizan los sectores...
+                //Comprobamos en que estado se encuentran los sectores...
+
                 $valid = new Validator();
                 if ($valid->required(null, $request->ticket_on_air->n_json_sectores)) {
                     $tempOnair = new TicketOnAirModel();
@@ -239,7 +240,6 @@ class Dao_ticketOnair_model extends CI_Model {
                 //Se buscan los sectores...
                 //Se actualiza el ticket.
                 $ticketModel = new TicketOnAirModel();
-//                var_dump($obj);
                 $obj->i_priority = $request->ticket_on_air->i_priority . "";
                 $ticketModel->where("k_id_onair", "=", $request->ticket_on_air->id_onair)->update($obj->all());
 
@@ -562,7 +562,6 @@ class Dao_ticketOnair_model extends CI_Model {
                             "d_correccionespendientes" => Hash::getDate()
                 ]);
             }
-//            echo $ticketOnAir->getSQL();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
@@ -1221,7 +1220,6 @@ class Dao_ticketOnair_model extends CI_Model {
 
                 //Pasamos a la siguiente fase...
                 $this->toFase($fase, $ticket, $cog12, $cog24, $cog36, $faseActual);
-
 
                 //Se actualizan los sectores...
                 $valid = new Validator();
