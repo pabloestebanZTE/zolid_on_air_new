@@ -216,7 +216,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
                 //Se actualizan los sectores...
                 //Comprobamos en que estado se encuentran los sectores...
-
+                $estadoSectores = $tempTicketOnAir->n_estado_sectores;
                 $valid = new Validator();
                 if ($valid->required(null, $request->ticket_on_air->n_json_sectores)) {
                     $tempOnair = new TicketOnAirModel();
@@ -224,12 +224,18 @@ class Dao_ticketOnair_model extends CI_Model {
                     if ($request->typeBlock == 1) {
                         $obj->n_sectoresbloqueados = $request->ticket_on_air->n_sectoresbloqueados;
                         $obj->n_sectoresdesbloqueados = DB::NULLED;
-                        $obj->d_bloqueo = Hash::getDate();
+                        if ($estadoSectores != "BLOQUEADOS") {
+                            $obj->d_bloqueo = Hash::getDate();
+                            $obj->n_estado_sectores = "BLOQUEADOS";
+                        }
                     } else
                     if ($request->typeBlock == 0) {
                         $obj->n_sectoresbloqueados = DB::NULLED;
                         $obj->n_sectoresdesbloqueados = $request->ticket_on_air->n_sectoresdesbloqueados;
-                        $obj->d_desbloqueo = Hash::getDate();
+                        if ($estadoSectores != "DESBLOQUEADOS") {
+                            $obj->d_desbloqueo = Hash::getDate();
+                            $obj->n_estado_sectores = "DESBLOQUEADOS";
+                        }
                     }
                 }
 
