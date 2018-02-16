@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Detalle solucion:</label>
                             <div class="col-md-8 selectContainer">
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="txtEstado" class="col-md-3 control-label">Estado:</label>
                             <div class="col-md-8 selectContainer">
@@ -233,7 +233,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="cmbSubEstado" class="col-md-3 control-label">Subestado:</label>
                             <div class="col-md-8 selectContainer">
@@ -245,6 +244,17 @@
                                         <option value="79">Reinicio 12H</option>
                                         <option value="79">Reinicio 24H</option>
                                         <option value="79">Reinicio 36H</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cmbSubEstado" class="col-md-3 control-label">Persona que solicita el reinicio:</label>
+                            <div class="col-md-8 selectContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                    <select class="form-control" id="cmbSolicitanteReinicio" name="k_id_solicitante_reinicio" required>
+                                        <option value="">Seleccione</option>
                                     </select>
                                 </div>
                             </div>
@@ -277,17 +287,22 @@
         <script>
             $(function () {
                 var fields = <?php echo $fields; ?>;
-                
+
                 console.log(fields);
-                
-                for (var j = 0; j < fields.status.data.length; j++){
+
+                for (var j = 0; j < fields.status.data.length; j++) {
                     $('#status').append($('<option>', {
                         value: fields.status.data[j].k_id_status,
                         text: fields.status.data[j].n_name_status
                     }));
                 }
+
+                var users = <?php echo $users; ?>;
+                console.log(users);
+                var cmb = $('#cmbSolicitanteReinicio');
+                dom.llenarCombo(cmb, users.data, {text: ["n_name_user", "n_last_name_user"], value: "k_id_user"});
 //                editSubstatus();
-                                
+
                 $('input[name=n_name_station]').val(fields.k_id_station.n_name_station);
                 $('input[name=n_name_band]').val(fields.k_id_band.n_name_band);
                 $('input[name=n_name_regional]').val(fields.k_id_station.k_id_city.k_id_regional.n_name_regional);
@@ -307,7 +322,7 @@
                 if (fields.scaledOnair !== null) {
                     $('input[name=k_id_scaled_on_air]').val(fields.scaledOnair.k_id_scaled_on_air);
                 }
-                
+
                 if (fields.i_precheck_realizado === null) {
                     $('#substatus option[value="80"]').attr('selected', 'selected');
                 } else {
@@ -315,20 +330,20 @@
                 }
 
             });
-            
-            function editSubstatus(){
-            var status = $( "#status" ).val();
-            var info = <?php echo $fields; ?>;
-            $('#substatus').empty();
-            for (var j = 0; j < info.statusOnAir.data.length; j++){
-              if(status === info.statusOnAir.data[j].k_id_status){
-                  $('#substatus').append($('<option>', {
-                      value: info.statusOnAir.data[j].k_id_status_onair,
-                      text: info.statusOnAir.data[j].n_name_substatus
-                  }));
-              }
+
+            function editSubstatus() {
+                var status = $("#status").val();
+                var info = <?php echo $fields; ?>;
+                $('#substatus').empty();
+                for (var j = 0; j < info.statusOnAir.data.length; j++) {
+                    if (status === info.statusOnAir.data[j].k_id_status) {
+                        $('#substatus').append($('<option>', {
+                            value: info.statusOnAir.data[j].k_id_status_onair,
+                            text: info.statusOnAir.data[j].n_name_substatus
+                        }));
+                    }
+                }
             }
-          }
         </script>
 
         <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
@@ -337,7 +352,9 @@
         <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.0") ?>" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
-                dom.submit($('#restartForm'), function(){window.location = app.urlTo('User/principal');}, false);
+                dom.submit($('#restartForm'), function () {
+                    window.location = app.urlTo('User/principal');
+                }, false);
             })
             // , function(){location.href = app.urlTo('User/principalView');}
         </script>

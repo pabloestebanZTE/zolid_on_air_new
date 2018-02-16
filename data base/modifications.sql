@@ -881,3 +881,6 @@ ADD COLUMN `n_type` ENUM('E', 'S') NULL DEFAULT 'E' AFTER `k_id_work`;
 -- Actualización Viernes 16 de Febrero de 2018.
 ALTER TABLE `ticket_on_air`
 	CHANGE COLUMN `n_estado_sectores` `n_estado_sectores` VARCHAR(20) NULL DEFAULT NULL AFTER `d_fechaproduccion`;
+
+ALTER TABLE `ticket_on_air`
+	ADD COLUMN `k_id_solicitante_reinicio` INT NULL DEFAULT NULL AFTER `n_ola_excedido`;

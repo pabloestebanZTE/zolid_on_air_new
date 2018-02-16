@@ -85,7 +85,9 @@ class Documenter extends CI_Controller {
             $res->scaledOnair = $scaledOnair->getScaledByTicket($res->k_id_onair)->data; //scaledOnair nuevo elemento
             $res->k_id_precheck = $precheck->getPrecheckByIdPrech($res->k_id_precheck)->data; //precheck
         }
+        $users = new Dao_user_model();
         $answer['fields'] = json_encode($res);
+        $answer['users'] = json_encode($users->getAllEngineers());
         $this->load->view('restart', $answer);
     }
 
