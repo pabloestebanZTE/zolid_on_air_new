@@ -536,6 +536,7 @@ class Utils extends CI_Controller {
         $obj->d_fechaproduccion = $this->getDatePHPExcel($sheet, "AF" . $row);
         $obj->n_sectoresbloqueados = $this->getValueCell($sheet, 'AJ' . $row);
         $obj->n_sectoresdesbloqueados = $this->getValueCell($sheet, 'AK' . $row);
+        $obj->n_estado_sectores = $this->getEstadoSectores($sheet, $row);
         $obj->n_json_sectores = $this->getJsonSectores($sheet, $row);
         $obj->n_estadoonair = $this->getValueCell($sheet, 'AL' . $row);
         $obj->n_atribuible_nokia = $this->getValueCell($sheet, 'AM' . $row);
@@ -569,6 +570,7 @@ class Utils extends CI_Controller {
         $obj->n_en_prorroga = $this->getValueCell($sheet, 'DN' . $row);
         $obj->n_cont_prorrogas = $this->getValueCell($sheet, 'DO' . $row);
         $obj->n_noc = $this->getValueCell($sheet, 'DP' . $row);
+        $obj->n_reviewedfo = $this->getValueCell($sheet, 'U' . $row);
         $obj->i_valor_kpi1 = $this->getValueCell($sheet, 'CF' . $row);
         $obj->i_valor_kpi2 = $this->getValueCell($sheet, 'CH' . $row);
         $obj->i_valor_kpi3 = $this->getValueCell($sheet, 'CJ' . $row);
@@ -1484,16 +1486,24 @@ class Utils extends CI_Controller {
     //</editor-fold>
 
     public function getJsonSectores(&$sheet, $row) {
+        if ($this->getEstadoSectores($sheet, $row) == "DESBLOQUEADOS") {
+            return $this->processJsonSectores($desbloqueados, 0);
+        } else if ($this->getEstadoSectores($sheet, $row) == "BLOQUEADOS") {
+            return $this->processJsonSectores($bloqueados, 1);
+        }
+        return null;
+    }
+
+    public function getEstadoSectores(&$sheet, $row) {
         $validator = new Validator();
         $bloqueados = $this->getValueCell($sheet, 'AJ' . $row);
         $desbloqueados = $this->getValueCell($sheet, 'AK' . $row);
         //Comprobamos si los sectores están bloqueados o desbloqueados...
         if ($validator->required("desbloqueados", $desbloqueados)) {
-            return $this->processJsonSectores($desbloqueados, 0);
+            return "DESBLOQUEADOS";
         } else if ($validator->required("bloqueados", $bloqueados)) {
-            return $this->processJsonSectores($bloqueados, 1);
+            return "BLOQUEADOS";
         }
-        return null;
     }
 
     private function processJsonSectores($sectores, $state) {

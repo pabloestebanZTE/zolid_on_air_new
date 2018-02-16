@@ -510,13 +510,24 @@ class TicketOnair extends CI_Controller {
     public function createScaling() {
         $scaling = new Dao_scaledOnair_model();
         $ticket = new Dao_ticketOnair_model();
+        //Se busca el ticket...
         $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
+        //Se actualiza la fecha final de la fase actual...
+        if ($ticket->updateEndDateFase($response) <= 0) {
+            $this->json((new Response(EMessages::ERROR_ACTION)));
+            return;
+        }
         $this->request->n_round = $response->n_round;
+        //Se inserta el escalamiento...
         $response = $scaling->insertScaling($this->request);
         $this->request->n_round = $this->request->n_round + 1;
+        //Se actualiza la ronda del ticket.
         $response = $ticket->updateRoundTicket($this->request->k_id_onair, $this->request->n_round);
+        //Se actualiza el ticket en escalamiento...
         $response = $ticket->updateTicketScaling($this->request);
+        //Se registra el comentario...
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_esc);
+        //Se envian todos los tickets relacionados al ticket que se esta escalando a StandBy.
         $this->sendRelatedTicketsToStandBy($this->request->k_id_onair);
         $this->json($response);
     }

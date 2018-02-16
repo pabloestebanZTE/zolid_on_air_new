@@ -603,17 +603,25 @@ class Dao_ticketOnair_model extends CI_Model {
                 ];
 
                 $valid = new Validator();
+                $ticket = (new TicketOnAirModel())->where("k_id_onair", "=", $id)->first();
+                $estadoSectores = $ticket->n_estado_sectores;
                 if ($request && $valid->required(null, $request->jsonSectores)) {
                     $obj["n_json_sectores"] = $request->jsonSectores;
                     if ($request->typeBlock == 1) {
                         $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
                         $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                        $obj["d_bloqueo"] = Hash::getDate();
+                        if ($estadoSectores != "BLOQUEADOS") {
+                            $obj["d_bloqueo"] = Hash::getDate();
+                            $obj["n_estado_sectores"] = "BLOQUEADOS";
+                        }
                     } else
                     if ($request->typeBlock == 0) {
                         $obj["n_sectoresbloqueados"] = DB::NULLED;
                         $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
-                        $obj["d_desbloqueo"] = Hash::getDate();
+                        if ($estadoSectores != "DESBLOQUEADOS") {
+                            $obj["d_desbloqueo"] = Hash::getDate();
+                            $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                        }
                     }
                 }
 
@@ -1055,18 +1063,25 @@ class Dao_ticketOnair_model extends CI_Model {
                 $obj = [
                     "i_actualEngineer" => 0,
                 ];
+                $estadoSectores = $ticket->n_estado_sectores;
                 $valid = new Validator();
                 if ($valid->required(null, $request->jsonSectores)) {
                     $obj["n_json_sectores"] = $request->jsonSectores;
                     if ($request->typeBlock == 1) {
                         $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
                         $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                        $obj["d_bloqueo"] = Hash::getDate();
+                        if ($estadoSectores != "BLOQUEADOS") {
+                            $obj["d_bloqueo"] = Hash::getDate();
+                            $obj["n_estado_sectores"] = "BLOQUEADOS";
+                        }
                     } else
                     if ($request->typeBlock == 0) {
                         $obj["n_sectoresbloqueados"] = DB::NULLED;
                         $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
-                        $obj["d_desbloqueo"] = Hash::getDate();
+                        if ($estadoSectores != "DESBLOQUEADOS") {
+                            $obj["d_desbloqueo"] = Hash::getDate();
+                            $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                        }
                     }
                 }
                 $ticketModel->where("k_id_onair", "=", $id)->update($obj);
@@ -1227,6 +1242,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 //Pasamos a la siguiente fase...
                 $this->toFase($fase, $ticket, $cog12, $cog24, $cog36, $faseActual);
 
+                $estadoSectores = $ticket->n_estado_sectores;
                 //Se actualizan los sectores...
                 $valid = new Validator();
                 if ($valid->required(null, $request->jsonSectores)) {
@@ -1235,12 +1251,18 @@ class Dao_ticketOnair_model extends CI_Model {
                     if ($request->typeBlock == 1) {
                         $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
                         $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                        $obj["d_bloqueo"] = Hash::getDate();
+                        if ($estadoSectores != "BLOQUEADOS") {
+                            $obj["d_bloqueo"] = Hash::getDate();
+                            $obj["n_estado_sectores"] = "BLOQUEADOS";
+                        }
                     } else
                     if ($request->typeBlock == 0) {
                         $obj["n_sectoresbloqueados"] = DB::NULLED;
                         $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
-                        $obj["d_desbloqueo"] = Hash::getDate();
+                        if ($estadoSectores != "DESBLOQUEADOS") {
+                            $obj["d_desbloqueo"] = Hash::getDate();
+                            $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                        }
                     }
                     $tempOnair->where("k_id_onair", "=", $id)->update($obj);
                 }
@@ -1362,6 +1384,24 @@ class Dao_ticketOnair_model extends CI_Model {
             }
         } else {
             return null;
+        }
+    }
+
+    public function updateEndDateFase($ticket) {
+        try {
+            $stepModel = $this->getStepModel($ticket);
+            if ($stepModel) {
+                $res = $stepModel->stepModel
+                                ->where("k_id_onair", "=", $ticket->k_id_onair)
+                                ->where("i_round", "=", $ticket->n_round)->update([
+                    $stepModel->d_fin => Hash::getDate()
+                ]);
+                return $res;
+            } else {
+                return 0;
+            }
+        } catch (DeplynException $ex) {
+            return 0;
         }
     }
 
@@ -1508,6 +1548,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "d_fechaproduccion" => Hash::getDate(),
                     "n_estadoonair" => "ON_AIR",
                     "i_actualEngineer" => 0,
+                    "n_estado_sectores" => "DESBLOQUEADOS",
                     "n_json_sectores" => $sectores,
                     "n_sectoresbloqueados" => DB::NULLED,
                     "n_sectoresdesbloqueados" => $sectoresDesbloqueados,
@@ -1737,6 +1778,33 @@ class Dao_ticketOnair_model extends CI_Model {
                 "data_standby" => json_encode($json, true),
                 "i_actualEngineer" => 0
             ]);
+
+
+            //Se actualizan los sectores...
+            $estadoSectores = $tck->n_estado_sectores;
+            $valid = new Validator();
+            if ($valid->required(null, $request->n_json_sectores)) {
+                $tempOnair = new TicketOnAirModel();
+                $obj = ["n_json_sectores" => $request->n_json_sectores];
+                if ($request->typeBlock == 1) {
+                    $obj["n_sectoresbloqueados"] = $request->n_sectores_bloqueados;
+                    $obj["n_sectoresdesbloqueados"] = DB::NULLED;
+                    if ($estadoSectores != "BLOQUEADOS") {
+                        $obj["d_bloqueo"] = Hash::getDate();
+                        $obj["n_estado_sectores"] = "BLOQUEADOS";
+                    }
+                } else
+                if ($request->typeBlock == 0) {
+                    $obj["n_sectoresbloqueados"] = DB::NULLED;
+                    $obj["n_sectoresdesbloqueados"] = $request->n_sectores_desbloqueados;
+                    if ($estadoSectores != "DESBLOQUEADOS") {
+                        $obj["d_desbloqueo"] = Hash::getDate();
+                        $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                    }
+                }
+                $tempOnair->where("k_id_onair", "=", $request->idOnAir)->update($obj);
+            }
+
             $this->registerReportComment($tck->k_id_onair, $comment);
             return new Response(EMessages::SUCCESS, "Se ha actualizado el estado del proceso correctamente.");
         } else {
@@ -1761,6 +1829,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
 
             //Se actualizan los sectores...
+            $estadoSectores = $tck->n_estado_sectores;
             $valid = new Validator();
             if ($valid->required(null, $request->jsonSectores)) {
                 $tempOnair = new TicketOnAirModel();
@@ -1768,12 +1837,18 @@ class Dao_ticketOnair_model extends CI_Model {
                 if ($request->typeBlock == 1) {
                     $obj["n_sectoresbloqueados"] = $request->sectoresBloqueados;
                     $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                    $obj["d_bloqueo"] = Hash::getDate();
+                    if ($estadoSectores != "BLOQUEADOS") {
+                        $obj["d_bloqueo"] = Hash::getDate();
+                        $obj["n_estado_sectores"] = "BLOQUEADOS";
+                    }
                 } else
                 if ($request->typeBlock == 0) {
                     $obj["n_sectoresbloqueados"] = DB::NULLED;
                     $obj["n_sectoresdesbloqueados"] = $request->sectoresDesbloqueados;
-                    $obj["d_desbloqueo"] = Hash::getDate();
+                    if ($estadoSectores != "DESBLOQUEADOS") {
+                        $obj["d_desbloqueo"] = Hash::getDate();
+                        $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                    }
                 }
                 $tempOnair->where("k_id_onair", "=", $request->idTicket)->update($obj);
             }

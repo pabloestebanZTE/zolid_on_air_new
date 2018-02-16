@@ -471,11 +471,11 @@
                                                     $('input[name=i_time_esc_calidad]').val(items.scaledOnair.i_time_esc_calidad);
                                                     $('#n_atribuible_nokia2 option[value="' + items.scaledOnair.n_atribuible_nokia2 + '"]').attr('selected', 'selected');
                                                     $('input[name=n_tipificacion_solucion]').val(items.scaledOnair.n_tipificacion_solucion);
-                                                    $('input[name=n_detalle_solucion]').val(items.scaledOnair.n_detalle_solucion);
+                                                    $('input[name=n_detalle_s+olucion]').val(items.scaledOnair.n_detalle_solucion);
                                                     $('input[name=n_ultimo_subestado_de_escalamiento]').val(items.scaledOnair.n_ultimo_subestado_de_escalamiento);
 
                                                     contEscStatus();
-                                                    window.setInterval("contEscStatus()", 60000);
+//                                                    window.setInterval("contEscStatus()", 60000);
                                                     editSubstatus();
                                                 }
 

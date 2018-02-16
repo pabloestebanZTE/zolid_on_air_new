@@ -239,6 +239,10 @@ var vista = {
             }, false);
         } else if (action == "FOR_UPDATE") {
             dom.submitDirect($('#formTrackingDetails'), null, false);
+        } else if (action == "STAND_BY") {
+            dom.submitDirect($('#formTrackingDetails'), function () {
+                vista.sendStandBy();
+            }, false);
         }
         $('#modalSectores').modal('hide');
         $('#modalSectores').addClass('updated');
@@ -416,6 +420,9 @@ var vista = {
         }).send();
     },
     toStandBy: function () {
+        $('#modalSectores').attr('data-action', 'STAND_BY').modal('show');
+    },
+    sendStandBy: function () {
         app.post("TicketOnair/toStandBy", {
             'idTicket': $('#idProceso').val(),
             'comment': $('#txtObservations').val(),

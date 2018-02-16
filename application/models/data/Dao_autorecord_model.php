@@ -43,7 +43,8 @@ class Dao_autorecord_model extends CI_Model {
                 $ticketOnAirModel = new TicketOnAirModel();
                 $ticketOnAirModel->where("k_id_onair", "=", $ticket->k_id_onair)->update([
                     "n_sectoresbloqueados" => $sectoresString,
-                    "n_json_sectores" => json_encode($sectores_json)
+                    "n_json_sectores" => json_encode($sectores_json),
+                    "n_estado_sectores" => "BLOQUEADOS"
                 ]);
             }
         } catch (DeplynException $exc) {

@@ -214,6 +214,7 @@ class Precheck extends CI_Controller {
 
             $ticketDao = new Dao_ticketOnair_model();
 
+            $estadoSectores = $ticketOnAir->n_estado_sectores;
             //Se actualizan los sectores...
             $valid = new Validator();
             if ($valid->required(null, $this->request->n_json_sectores)) {
@@ -222,12 +223,18 @@ class Precheck extends CI_Controller {
                 if ($this->request->typeBlock == 1) {
                     $obj["n_sectoresbloqueados"] = $this->request->n_sectores_bloqueados;
                     $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                    $obj["d_bloqueo"] = Hash::getDate();
+                    if ($estadoSectores != "BLOQUEADOS") {
+                        $obj["n_estado_sectores"] = "BLOQUEADOS";
+                        $obj["d_bloqueo"] = Hash::getDate();
+                    }
                 } else
                 if ($this->request->typeBlock == 0) {
                     $obj["n_sectoresbloqueados"] = DB::NULLED;
                     $obj["n_sectoresdesbloqueados"] = $this->request->n_sectores_desbloqueados;
-                    $obj["d_desbloqueo"] = Hash::getDate();
+                    if ($estadoSectores != "DESBLOQUEADOS") {
+                        $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                        $obj["d_desbloqueo"] = Hash::getDate();
+                    }
                 }
                 $tempOnair->where("k_id_onair", "=", $this->request->idOnAir)->update($obj);
             }
@@ -256,6 +263,7 @@ class Precheck extends CI_Controller {
         //Se registra el KPI.
         $kpiDao->record($ticketOnAir, false, true);
 
+        $estadoSectores = $ticketOnAir->n_estado_sectores;
         $valid = new Validator();
         if ($valid->required(null, $this->request->jsonSectores)) {
             $tempOnair = new TicketOnAirModel();
@@ -263,12 +271,18 @@ class Precheck extends CI_Controller {
             if ($this->request->typeBlock == 1) {
                 $obj["n_sectoresbloqueados"] = $this->request->sectoresBloqueados;
                 $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                $obj["d_bloqueo"] = Hash::getDate();
+                if ($estadoSectores != "BLOQUEADOS") {
+                    $obj["n_estado_sectores"] = "BLOQUEADOS";
+                    $obj["d_bloqueo"] = Hash::getDate();
+                }
             } else
             if ($this->request->typeBlock == 0) {
                 $obj["n_sectoresbloqueados"] = DB::NULLED;
                 $obj["n_sectoresdesbloqueados"] = $this->request->sectoresDesbloqueados;
-                $obj["d_desbloqueo"] = Hash::getDate();
+                if ($estadoSectores != "DESBLOQUEADOS") {
+                    $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                    $obj["d_desbloqueo"] = Hash::getDate();
+                }
             }
             $tempOnair->where("k_id_onair", "=", $this->request->idOnair)->update($obj);
         }
@@ -412,6 +426,8 @@ class Precheck extends CI_Controller {
                 "n_idcontrolador" => $request->n_idcontrolador
             ]);
 
+            $ticket = (new TicketOnAirModel())->where("k_id_onair", "=", $this->request->idOnair)->first();
+            $estadoSectores = $ticket->n_estado_sectores;
             //Se actualizan los sectores...
             $valid = new Validator();
             if ($valid->required(null, $this->request->jsonSectores)) {
@@ -420,12 +436,18 @@ class Precheck extends CI_Controller {
                 if ($this->request->typeBlock == 1) {
                     $obj["n_sectoresbloqueados"] = $this->request->sectoresBloqueados;
                     $obj["n_sectoresdesbloqueados"] = DB::NULLED;
-                    $obj["d_bloqueo"] = Hash::getDate();
+                    if ($estadoSectores != "BLOQUEADOS") {
+                        $obj["d_bloqueo"] = Hash::getDate();
+                        $obj["n_estado_sectores"] = "BLOQUEADOS";
+                    }
                 } else
                 if ($this->request->typeBlock == 0) {
                     $obj["n_sectoresbloqueados"] = DB::NULLED;
                     $obj["n_sectoresdesbloqueados"] = $this->request->sectoresDesbloqueados;
-                    $obj["d_desbloqueo"] = Hash::getDate();
+                    if ($estadoSectores != "DESBLOQUEADOS") {
+                        $obj["n_estado_sectores"] = "DESBLOQUEADOS";
+                        $obj["d_desbloqueo"] = Hash::getDate();
+                    }
                 }
                 $tempOnair->where("k_id_onair", "=", $this->request->idOnair)->update($obj);
             }
