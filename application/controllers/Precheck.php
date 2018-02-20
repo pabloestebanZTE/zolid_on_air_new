@@ -214,7 +214,7 @@ class Precheck extends CI_Controller {
 
             $ticketDao = new Dao_ticketOnair_model();
 
-            $estadoSectores = $ticketOnAir->n_estado_sectores;
+            $estadoSectores = $ticket->n_estado_sectores;
             //Se actualizan los sectores...
             $valid = new Validator();
             if ($valid->required(null, $this->request->n_json_sectores)) {

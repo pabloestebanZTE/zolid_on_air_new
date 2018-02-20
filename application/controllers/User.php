@@ -155,7 +155,7 @@ class User extends CI_Controller {
 
         $ticket = $this->request->id;
         $res = $ticketOnair->findByIdOnAir($ticket)->data;
-        $res->scaledOnair = $scaledOnair->getScaledByTicketRound($res->k_id_onair, $res->n_round)->data; //scaledOnair nuevo elemento
+//        $res->scaledOnair = $scaledOnair->getScaledByTicketRound($res->k_id_onair, $res->n_round)->data; //scaledOnair nuevo elemento
         $res->statusOnAir = $status->getAll();
         $res->status = $status->getAllStatus();
         $res->substatus = $status->getAllSubstatus();
@@ -172,7 +172,41 @@ class User extends CI_Controller {
             }
         }
 
+        //Se consulta el último escalamiento...
+
+        if ($res->n_round > 1) {
+            //Se fija a la ronda anterior para traer el escalamiento anterior...
+            $res->n_round = $res->n_round - 1;
+        }
+        $scalingModel = new ScaledOnAirModel();
+        $scaling = $scalingModel->where("k_id_onair", "=", $ticket)
+                ->where("n_round", "=", $res->n_round)
+                ->orderBy("n_round", "desc")
+                ->first();
+        if (!$scaling) {
+            $scaling = (new ObjUtil([
+                "d_time_escalado" => 0,
+                "i_cont_esc_imp" => 0,
+                "i_cont_esc_rf" => 0,
+                "cont_esc_npo" => 0,
+                "cont_esc_care" => 0,
+                "i_cont_esc_oym" => 0,
+                "i_cont_esc_gdrt" => 0,
+                "cont_esc_calidad" => 0,
+                "time_esc_imp" => 0,
+                "i_time_esc_rf" => 0,
+                "i_time_esc_npo" => 0,
+                "i_time_esc_care" => 0,
+                "i_cont_esc_oym" => 0,
+                "time_esc_oym" => 0,
+                "i_time_esc_gdrt" => 0,
+                "i_time_esc_calidad" => 0,
+                    ]))->all();
+        } else {
+            $scaling->n_comentario_esc = null;
+        }
         $answer['items'] = json_encode($res);
+        $answer['scaling'] = json_encode($scaling);
         $this->load->view('scaling', $answer);
     }
 

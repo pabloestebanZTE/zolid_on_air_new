@@ -18,5 +18,15 @@ class ConstStates {
     const STAND_BY_SEGUIMIENTO_FO = 100;
     const STAND_BY_PRODUCCION = 101;
     const SCALED = 101;
+    const CANCELADO = 1;
+    const DESMONTADO = 2;
+    const ESCALADO_GRUPO_CALIDAD = 3;
+    const ESCALADO_A_IMPLEMENTACION = 4;
+    const ESCALADO_A_OYM = 5;
+    const ESCALADO_A_RF = 6;
+    const ESCALADO_CONTROL_CAMBIOS = 7;
+    const PRODUCCION_REAL = 8;
+    const SEGUIMIENTO_FO = 9;
+    const ESCALADO_A_GDRT = 11;
 
 }

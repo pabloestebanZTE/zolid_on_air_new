@@ -91,10 +91,12 @@ class CI_Controller {
         $this->load->model('bin/Hash');
         $this->load->model('bin/Session');
         $this->load->model('bin/Redirect');
+        $this->load->model('bin/DeplynAutoloader');
         $this->load->model('bin/ObjUtil');
         $this->load->model('dto/ReporteComentarioModel');
         $this->load->model('data/Dao_audit_model');
         $this->request = new Request();
+        DeplynAutoloader::register();
         date_default_timezone_set("America/Bogota");
         log_message('info', 'Controller Class Initialized');
     }
@@ -122,16 +124,4 @@ class CI_Controller {
         }
     }
 
-}
-
-function __autoload($class_name) {
-    $file = $class_name . ".php";
-    $folders = ["models/dto", "models/data", "models/bin"];
-    foreach ($folders as $folder) {
-        $path = APPPATH . $folder . DIRECTORY_SEPARATOR . $file;
-        if (file_exists($path)) {
-            require_once $path;
-            break;
-        }
-    }
 }

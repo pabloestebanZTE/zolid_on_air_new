@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * <b>Deplyn Class</b><br/>
+ * ------------<br/>
+ * @version 2.3 - https://deplyn.com/framework/php/2.3
+ * @author <b>Starlly Software</b> - https://starlly.com.<br/>
+ * @licence GNU - https://deplyn.com/framework/php/licence.txt<br/>
+ * @contact developer@starlly.com<br/>
+ */
 class Validator extends Request {
 
     private $errors;
@@ -20,7 +28,7 @@ class Validator extends Request {
     public function make($request, $validations, $messages = null) {
         parent::__construct($request);
         $values = $this->all();
-        $this->messages = isset($messages) ? $messages : $this->messages;
+        $this->messages = isset($messages) ? $messages : $this->messagesInit;
         //Recorremos los campos que tenemos que validar.
         foreach ($validations as $key => $validate) {
             //Obtenemos el campo.
@@ -72,7 +80,7 @@ class Validator extends Request {
 
     public function required($field, $value, $messages = null) {
         $rtn = isset($value) ? (trim($value) != "") : false;
-        $messages = (count($messages) == 0) ? $this->messages : $messages;
+        $messages = isset($messages) ? $messages : $this->messagesInit;
         if (!$rtn && is_array($messages)) {
             $this->errors[] = $this->getError($field, "required", $messages);
         }
@@ -81,25 +89,25 @@ class Validator extends Request {
 
     public function email($field, $value, $messages = null) {
         $rtn = isset($value) ? filter_var($value, FILTER_VALIDATE_EMAIL) : false;
-        $messages = (count($messages) == 0) ? $this->messages : $messages;
+        $messages = isset($messages) ? $messages : $this->messagesInit;
         if (!$rtn && is_array($messages)) {
             $this->errors[] = $this->getError($field, "email", $messages);
         }
         return $rtn;
     }
 
-    public function numeric($field, $value, $messages = null){
-      $rtn = (is_numeric(null) ? true : false);
-      $messages = (count($messages) == 0) ? $this->messages : $messages;
-      if (!$rtn && is_array($messages)) {
-          $this->errors[] = $this->getError($field, "numeric", $messages);
-      }
-      return $rtn;
+    public function numeric($field, $value, $messages = null) {
+        $rtn = (is_numeric(null) ? true : false);
+        $messages = isset($messages) ? $messages : $this->messagesInit;
+        if (!$rtn && is_array($messages)) {
+            $this->errors[] = $this->getError($field, "numeric", $messages);
+        }
+        return $rtn;
     }
 
     public function url($field, $value, $messages = null) {
         $rtn = isset($value) ? filter_var($value, FILTER_VALIDATE_EMAIL) : false;
-        $messages = (count($messages) == 0) ? $this->messages : $messages;
+        $messages = isset($messages) ? $messages : $this->messagesInit;
         if (!$rtn && is_array($messages)) {
             $this->errors[] = $this->getError($field, "url", $messages);
         }
@@ -118,7 +126,7 @@ class Validator extends Request {
         $db = new DB();
         $num = $db->select("SELECT * FROM $table WHERE $field = \"$value\"")->count();
         $rtn = ($num == 0);
-        $messages = (count($messages) == 0) ? $this->messages : $messages;
+        $messages = isset($messages) ? $messages : $this->messagesInit;
         if (!$rtn) {
             $this->errors[] = $this->getError($field, "unique", $messages);
         }
@@ -133,18 +141,18 @@ class Validator extends Request {
      * @param Array $messages
      * @return Boolean
      */
-    public function min($min, $field, $value, $messages = null){
-      $value = ($value != null && trim($value) != "") ? $value : false;
-      if(!$value){
-        return false;
-      }
-      $length = strlen($value);
-      $rtn = $length >= $min;
-      $messages = (count($messages) == 0) ? $this->messages : $messages;
-      if (!$rtn) {
-          $this->errors[] = $this->getError($field, "min", $messages);
-      }
-      return $rtn;
+    public function min($min, $field, $value, $messages = null) {
+        $value = ($value != null && trim($value) != "") ? $value : false;
+        if (!$value) {
+            return false;
+        }
+        $length = strlen($value);
+        $rtn = $length >= $min;
+        $messages = isset($messages) ? $messages : $this->messagesInit;
+        if (!$rtn) {
+            $this->errors[] = $this->getError($field, "min", $messages);
+        }
+        return $rtn;
     }
 
     /**
@@ -155,18 +163,18 @@ class Validator extends Request {
      * @param Array $messages
      * @return Boolean
      */
-    public function max($max, $field, $value, $messages = null){
-      $value = ($value != null && trim($value) != "") ? $value : false;
-      if(!$value){
-        return false;
-      }
-      $length = strlen($value);
-      $rtn = $length <= $max;
-      $messages = (count($messages) == 0) ? $this->messages : $messages;
-      if (!$rtn) {
-          $this->errors[] = $this->getError($field, "max", $messages);
-      }
-      return $rtn;
+    public function max($max, $field, $value, $messages = null) {
+        $value = ($value != null && trim($value) != "") ? $value : false;
+        if (!$value) {
+            return false;
+        }
+        $length = strlen($value);
+        $rtn = $length <= $max;
+        $messages = isset($messages) ? $messages : $this->messagesInit;
+        if (!$rtn) {
+            $this->errors[] = $this->getError($field, "max", $messages);
+        }
+        return $rtn;
     }
 
     private function getError($field, $action, $messages) {
@@ -190,17 +198,17 @@ class Validator extends Request {
         return (is_array($this->errors)) && (count($this->errors) > 0);
     }
 
-   /**
-   * Retornará el arreglo de errores encontrados en la validación...
-   * @return Boolean
-   */
+    /**
+     * Retornará el arreglo de errores encontrados en la validación...
+     * @return Boolean
+     */
     function getErrors() {
         return $this->errors;
     }
 
     /**
-    *  Comprobará si existe un error específico en la validación realizada, es decir podrás comprobar si existe un error del tipo __FIELD__.ERROR.
-    */
+     *  Comprobará si existe un error específico en la validación realizada, es decir podrás comprobar si existe un error del tipo __FIELD__.ERROR.
+     */
     function existError($keyName) {
         if (!is_array($this->errors)) {
             return false;

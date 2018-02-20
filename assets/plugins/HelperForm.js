@@ -37,6 +37,7 @@ $.fn.fillForm = function (data) {
                     $el.filter('[value="' + val + '"]').attr('checked', 'checked');
                     break;
                 default:
+                    val = ((val != null) && ((val + '').search('<br/>')) >= 0) ? val.replace(new RegExp('<br/>', 'g'), '') : val;
                     var callback = $el.attr('data-callback');
                     if (callback) {
                         val = eval(callback + '("' + val + '", "fillForm")');

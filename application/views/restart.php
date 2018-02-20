@@ -5,7 +5,6 @@
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
             <form class="form-horizontal well" name="restartForm" id="restartForm" action="TicketOnair/recordRestart">
-
                 <div class="panel-body">
                     <fieldset class="col-md-6 control-label">
                         <div class="form-group">

@@ -513,10 +513,7 @@ class TicketOnair extends CI_Controller {
         //Se busca el ticket...
         $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
         //Se actualiza la fecha final de la fase actual...
-        if ($ticket->updateEndDateFase($response) <= 0) {
-            $this->json((new Response(EMessages::ERROR_ACTION)));
-            return;
-        }
+        $ticket->updateEndDateFase($response);
         $this->request->n_round = $response->n_round;
         //Se inserta el escalamiento...
         $response = $scaling->insertScaling($this->request);
@@ -551,14 +548,19 @@ class TicketOnair extends CI_Controller {
         $follow12h = new Dao_followUp12h_model();
         $onair12 = new Dao_onAir12h_model();
         $ticket = new Dao_ticketOnair_model();
+        //Verifica que se haya recibido correctamente el id de escalamiento...
         if ($this->request->k_id_scaled_on_air != null) {
+            //Actualiza alguna información del registro de escalamiento...
             $response = $scaling->updateScaling($this->request);
 //            $follow12h = new Dao_followUp12h_model();
 //            $onair12 = new Dao_onAir12h_model();
 //            $ticket = new Dao_ticketOnair_model();
+            //Busca el ticket...
             $response = $ticket->findByIdOnAir($this->request->k_id_onair)->data;
+            //Asigna al request la ronda del ticket...
             $this->request->n_round = $response->n_round;
             $this->request->i_round = $response->n_round;
+            //Inserta el responsable del seguimiento 12h...
             $response = $follow12h->insert12hFollowUp($this->request);
             $this->request->k_id_follow_up_12h = $response->data->data;
             $this->request->d_start12h = Hash::getDate();
@@ -569,12 +571,15 @@ class TicketOnair extends CI_Controller {
         } else {
             $response = $scaling->insertScaling($this->request);
         }
+        //Inserta el precheck...
         $this->request->d_precheck_init = DB::NULLED;
         $this->request->i_prorroga_hours = 0;
         if ($this->request->k_id_status_onair == 80) {
             $this->request->i_precheck_realizado = DB::NULLED;
         }
+        //Actualiza algunos campos y la fecha correcciones_pendientes en prepartion_stage...
         $response = $ticket->updateTicketScaling($this->request);
+        //Registra el comentario...
         $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_detalle_solucion);
         $this->json($response);
     }
