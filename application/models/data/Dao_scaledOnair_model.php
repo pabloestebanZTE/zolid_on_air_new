@@ -146,8 +146,14 @@ class Dao_scaledOnair_model extends CI_Model {
                     $contTotalEsc += $scaledOnAirModel->getIContEscOym();
                     $contTotalEsc += $scaledOnAirModel->getIContEscRf();
                     $contTotalEsc += $scaledOnAirModel->getITimeEscGdrt();
-
                     $scaledOnAirModel->setDTimeEscalado($timeTotalEsc);
+
+                    $ticketModel = new TicketOnAirModel();
+                    $ticketModel->setIContTotalEscalamiento($contTotalEsc);
+                    $ticketModel->setITimeTotalEscalamiento($timeTotalEsc);
+                    $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair);
+                    $ticketModel->update();
+
                     //::FORFIX Fijar el total de los contadores...
                     return $scaledOnAirModel;
                 }

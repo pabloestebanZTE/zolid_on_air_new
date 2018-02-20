@@ -645,7 +645,10 @@ class Dao_ticketOnair_model extends CI_Model {
         try {
             $ticketOnAir = new TicketOnAirModel();
             $datos = $ticketOnAir->where("k_id_onair", "=", $id)
-                    ->update(["i_actualEngineer" => $value]);
+                    ->update([
+                "i_actualEngineer" => $value,
+                "n_en_prorroga" => "FALSE"
+            ]);
 
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
@@ -1089,6 +1092,8 @@ class Dao_ticketOnair_model extends CI_Model {
                         }
                     }
                 }
+                $obj["n_en_prorroga"] = "TRUE";
+                $obj["n_cont_prorrogas"] = ($ticket->n_cont_prorrogas >= 0) ? ($ticket->n_cont_prorrogas + 1) : 1;
                 $ticketModel->where("k_id_onair", "=", $id)->update($obj);
             } else {
                 $response = new Response(EMessages::EMPTY_MSG, "No se encontró el proceso.");
@@ -1557,6 +1562,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_json_sectores" => $sectores,
                     "n_sectoresbloqueados" => DB::NULLED,
                     "n_sectoresdesbloqueados" => $sectoresDesbloqueados,
+                    "n_en_prorroga" => "FALSE"
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
@@ -1781,7 +1787,8 @@ class Dao_ticketOnair_model extends CI_Model {
             $ticket->where("k_id_onair", "=", $tck->k_id_onair)->update([
                 "k_id_status_onair" => 100,
                 "data_standby" => json_encode($json, true),
-                "i_actualEngineer" => 0
+                "i_actualEngineer" => 0,
+                "n_en_prorroga" => "FALSE"
             ]);
 
 

@@ -606,6 +606,15 @@ class Utils extends CI_Controller {
             $onAir12hModel->setIPercent(0);
             $onAir12hModel->setIState(0);
             $onAir12hModel->setIHours(0);
+            $follow12hModel = new FollowUp12hModel();
+            $userName = $this->getValueCell($sheet, 'Z' . $row);
+            if ($userName) {
+                $user = $this->getUserByName($userName);
+                $follow12hModel->setKIdUser($user->k_id_user);
+                $follow12hModel->setNRound(0);
+                $idFollow = $follow12hModel->save();
+                $onAir12hModel->setKIdFollowUp12h($idFollow);
+            }
             $obj->onAir12h = $onAir12hModel;
         } else {
             $v = false;
@@ -689,15 +698,15 @@ class Utils extends CI_Controller {
             $onAir36hModel->setIPercent(0);
             $onAir36hModel->setIState(0);
             $onAir36hModel->setIHours(0);
-//            $follow36HModel = new FollowUp36hModel();
-//            $userName = $this->getValueCell($sheet, 'Y' . $row);
-//            if ($userName) {
-//                $user = $this->getUserByName($userName);
-//                $follow36HModel->setKIdUser($user->k_id_user);
-//                $follow36HModel->setNRound(0);
-//                $idFollow = $follow36HModel->save();
-//                $onAir36hModel->setKIdFollowUp36h($idFollow);
-//            }
+            $follow36HModel = new FollowUp36hModel();
+            $userName = $this->getValueCell($sheet, 'AA' . $row);
+            if ($userName) {
+                $user = $this->getUserByName($userName);
+                $follow36HModel->setKIdUser($user->k_id_user);
+                $follow36HModel->setNRound(0);
+                $idFollow = $follow36HModel->save();
+                $onAir36hModel->setKIdFollowUp36h($idFollow);
+            }
             //Se deja solo instanciado para la inserción, así una vez insertado el ticket instanciamos el id de dicho ticket sobre este objeto.
             $obj->onAir12h = $onAir36hModel;
         } else {

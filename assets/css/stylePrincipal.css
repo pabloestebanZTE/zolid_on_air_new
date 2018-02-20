@@ -1043,3 +1043,7 @@ body{
     background: linear-gradient(to bottom,#b7b4b4 0,#585858) !important;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7b4b4', endColorstr='#585858', GradientType=0 )!important;
 }
+
+table th, table td{
+    font-size: 11px;
+}

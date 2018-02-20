@@ -19,7 +19,7 @@
                         <hr/>
                         <legend>Reinicios</legend>
                         <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
-                        <table id="tablaReinicios" class="table table-hover table-condensed table-striped"></table>
+                        <table id="tablaReinicios" class="table table-hover table-condensed table-striped" width="100%"></table>
                     </div>
                 </div>
             </fieldset>
