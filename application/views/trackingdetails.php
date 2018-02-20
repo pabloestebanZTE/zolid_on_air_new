@@ -1230,7 +1230,7 @@
                     <div class="row p-t-15">
                         <div class="col-xs-12">
                             <div style="display: block; overflow: auto; overflow-x: hidden; max-height: 200px; border: 1px solid #ddd;">
-                                <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores">
+                                <table class="table table-bordered table-condensed table-striped table-sm" id="tblSectores" width="100%">
                                     <thead><tr><th class="vertical-middle">Sector</th><th><div class="checkbox checkbox-primary" style=""><input id="checkbox_tdheader_1" type="checkbox" name="checkbox_tdheader_1" class="checkbox-head" value="1" ><label for="checkbox_tdheader_1" class="text-bold">Seleccionar todos</label></div></th><th class="p-all-0 vertical-middle text-right"><button class="btn btn-default btn-sm m-r-15 btn-add-sector" ><i class="fa fa-fw fa-plus"></i> Agregar sector</button></th></tr></thead>
                                     <tbody>
                                         <tr><td colspan="3"><i class="fa fa-fw fa-warning"></i> Ningún sector disponible</td></tr>
