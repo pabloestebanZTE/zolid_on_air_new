@@ -576,11 +576,16 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
-    function updateRoundTicket($id, $value) {
+    function updateRoundTicket($id, $value, $request = null) {
         try {
             $ticketOnAir = new TicketOnAirModel();
+            $obj = ["n_round" => $value];
+            if ($request != null) {
+                $obj["n_ticket"] = $request->n_ticket;
+                $obj["n_responsable_ticket"] = $request->n_responsable_ticket;
+            }
             $datos = $ticketOnAir->where("k_id_onair", "=", $id)
-                    ->update(["n_round" => $value]);
+                    ->update($obj);
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;

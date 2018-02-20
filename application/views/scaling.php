@@ -132,6 +132,16 @@
                             <!--  inicio seccion derecha form parte superior---->
                             <fieldset>
                                 <div class="form-group">
+                                    <label for="n_responsable_ticket" class="col-md-3 control-label">Responsable ticket:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                                            <input type='text' name="n_responsable_ticket" id="n_responsable_ticket" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
                                     <label for="txtTimeEscalado" class="col-md-3 control-label">Time escalado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -140,8 +150,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group" style="height: 40px;"></div>
 
                                 <!--                                <div class="form-group">
                                                                     <label for="txtAtribuibleNokia2" class="col-md-3 control-label">Atribuible a nokia 2:</label>
