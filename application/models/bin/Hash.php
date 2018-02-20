@@ -116,4 +116,16 @@ class Hash {
         }
     }
 
+    public static function getMinutesBettween($date1, $date2 = null) {
+        $date1 = Hash::getTimeStamp($date1);
+        if (!$date2) {
+            $date2 = Hash::getDate();
+        }
+        $date2 = Hash::getTimeStamp($date2);
+        $diff = ($date2 - $date1);
+        $hours = floor(abs($diff) / 36e5);
+        $minutes = round((($diff % 86400000) % 3600000) / 60000) + ($hours * 60);
+        return $minutes;
+    }
+
 }

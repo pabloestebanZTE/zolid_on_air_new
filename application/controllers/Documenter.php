@@ -82,7 +82,7 @@ class Documenter extends CI_Controller {
             $res->k_id_station = $station->findById($res->k_id_station)->data; //Station
             $res->k_id_work = $work->findById($res->k_id_work)->data; //work
             $res->k_id_technology = $technology->findById($res->k_id_technology)->data; //technology
-            $res->scaledOnair = $scaledOnair->getScaledByTicket($res->k_id_onair)->data; //scaledOnair nuevo elemento
+            $res->scaledOnair = $scaledOnair->getScaledByTicketRound($res->k_id_onair, $res->n_round)->data; //scaledOnair nuevo elemento
             $res->k_id_precheck = $precheck->getPrecheckByIdPrech($res->k_id_precheck)->data; //precheck
         }
         $users = new Dao_user_model();

@@ -648,7 +648,7 @@
                                 }
                             })
                             .error(function () {
-                                swal("Error", "Se ha producido un error inesperado al iniciar el precheck.");
+                                swal("Error", "Se ha producido un error inesperado al iniciar el precheck.", "error");
                             })
                             .send();
                 };
