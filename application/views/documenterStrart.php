@@ -185,7 +185,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" required>
+                                                <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
                                                     <option value="" >Seleccione el tipo de trabajo</option>
                                                 </select>
                                             </div>
@@ -262,13 +262,42 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Observaciones de Creación</label>
                                         <div class="col-md-8 inputGroupContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                                                 <textarea class="form-control" name="n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones de Creación"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">GRI</label>
+                                        <div class="col-md-8 selectContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
+                                                <select name="b_excpetion_gri" id="b_excpetion_gri" class="form-control selectpicker">
+                                                    <option value="">Seleccione la aprobación</option>
+                                                    <option value="falso">falso</option>
+                                                    <option value="ok - control cambios">ok - control cambios</option>
+                                                    <option value="ok gri">ok gri</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">SLN Modernizacion:</label>
+                                        <div class="col-md-8 selectContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
+                                                <select name="n_sln_modernizacion" id="n_sln_modernizacion" class="form-control selectpicker">
+                                                    <option value="">Seleccione la SLN Modernizacion</option>
+                                                    <option value="mod dedicada">mod dedicada</option>
+                                                    <option value="mod concurrente">mod concurrente</option>
+                                                    <option value="rf sharing">rf sharing</option>
+                                                    <option value="rx diversity">rx diversity</option>
+                                                    <option value="N/A">N/A</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -496,6 +525,16 @@
                                                                     $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
                                                                     break;
                                                             }
+                                                        }
+                                                        
+                                                        function validateSln() {
+                                                            var valTipoTrabajo = $('#tipotrabajo option:selected').text();
+                                                            if (valTipoTrabajo === 'Modernizacion Multiradio' || valTipoTrabajo === 'Modernización Multiradio') {
+                                                                $("#n_sln_modernizacion").val('').trigger('change.select2');
+                                                            } else {
+                                                                $("#n_sln_modernizacion").val('N/A').trigger('change.select2');
+                                                            }
+
                                                         }
 
                                                         function validateCrqChg() {

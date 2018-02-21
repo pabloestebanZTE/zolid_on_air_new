@@ -72,10 +72,11 @@ class TicketOnAirModel extends Model {
     protected $d_t_from_asign;
     protected $n_ola;
     protected $n_ola_excedido;
-    protected $k_id_solicitante_reinicio;
     protected $n_ola_areas;
     protected $n_ola_areas_excedido;
     protected $n_comentario_sectores;
+    protected $n_responsable_ticket;
+    
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
     //Los campos que desea exculir del modelo.
@@ -645,15 +646,6 @@ class TicketOnAirModel extends Model {
     public function getNOlaExcedido() {
         return $this->n_ola_excedido;
     }
-
-    public function setKIdSolicitanteReinicio($k_id_solicitante_reinicio) {
-        $this->k_id_solicitante_reinicio = $k_id_solicitante_reinicio;
-    }
-
-    public function getKIdSolicitanteReinicio() {
-        return $this->k_id_solicitante_reinicio;
-    }
-
     public function setNOlaAreas($n_ola_areas) {
         $this->n_ola_areas = $n_ola_areas;
     }
@@ -677,5 +669,12 @@ class TicketOnAirModel extends Model {
     public function getNComentarioSectores() {
         return $this->n_comentario_sectores;
     }
+    public function setNResponsableTicket($n_responsable_ticket) {
+        $this->n_responsable_ticket = $n_responsable_ticket;
+    }
+    public function getNResponsableTicket() {
+        return $this->n_responsable_ticket;
+    }
 
 }
+
