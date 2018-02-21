@@ -324,8 +324,10 @@
 
                 if (fields.i_precheck_realizado === null) {
                     $('#substatus option[value="80"]').attr('selected', 'selected');
+                    $('#substatus option[value="79"]').remove();
                 } else {
                     $('#substatus option[value="79"]').attr('selected', 'selected');
+                    $('#substatus option[value="80"]').remove();
                 }
 
             });
