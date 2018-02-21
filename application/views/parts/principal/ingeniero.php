@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="col col-md-12 p-t-40">
                                         <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
-                                        <table id="tablaPrincipal" class="table table-hover table-condensed table-striped"></table>
+                                        <table id="tablaPrincipal" class="table table-hover table-condensed table-striped" width="100%"></table>
                                         <br/>
                                     </div>
                                 </div>
@@ -37,9 +37,9 @@
             <div class="tab-pane fade" id="tab_prioritarios">
                 <form class= 'well form-horizontal' action='' method='post'  id='assignService' name='assignServie' enctype= 'multipart/form-data'>
                     <fieldset>
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col col-md-12 p-t-40">
-                                <table id="tablaPrioritarios" class="table table-hover table-condensed table-striped"></table>
+                                <table id="tablaPrioritarios" class="table table-hover table-condensed table-striped" width="100%"></table>
                                 <br/>
                             </div>
                         </div>

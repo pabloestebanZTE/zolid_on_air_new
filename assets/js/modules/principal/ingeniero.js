@@ -66,7 +66,7 @@ $(function () {
             vista.tablaPrincipal = $('#tablaPrincipal').DataTable(vista.genericCogDataTable("TicketOnair/ticketUser", "tablaPendientes"));
         },
         getPriorityList: function () {
-            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));
+            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList?hidescaled=true", "tablaPrioritarios"));
         },
         //Temporalmente...
         fillNA: function () {
