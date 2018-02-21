@@ -345,12 +345,11 @@ class Utils extends CI_Controller {
         $precheckModel->setKIdUser($user);
         //::Pendiente n_comentario_ing.
         $idPrecheck = $precheckModel->save()->data;
-//        echo "ESTE EL ID ($idPrecheck) DEL PRECHECK PARA $obj->k_id_onair<br/>";
-
         $obj->k_id_precheck = $idPrecheck;
         //Comprueba que no sea reinicio precheck...
         $v = (ConstStates::REINICIO_PRECHECK == $obj->k_id_status_onair);
         if (!$v) {
+            $obj->d_precheck_init = $obj->d_fecha_ultima_rev;
             $obj->i_precheck_realizado = 1;
         }
     }

@@ -260,7 +260,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <table class="table table-bordered table-condensed table-striped table-hover" id="tableRelacionTickets">
+                                                        <table class="table table-bordered table-condensed table-striped table-hover" id="tableRelacionTickets" width="100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th>#</th>

@@ -915,7 +915,11 @@ class Dao_ticketOnair_model extends CI_Model {
     //Fin Coordinador...
     //Documentador...
     public function getPriorityList($request) {
-        return $this->getListTicket($request, "i_priority = '1'");
+        $sql = "i_priority = '1'";
+        if ($request->hidescaled == true) {
+            $sql .= " AND i_actualEngineer > 0";
+        }
+        return $this->getListTicket($request, $sql);
     }
 
     public function getTracingList($request) {

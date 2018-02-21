@@ -278,9 +278,9 @@
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                                 <select name="b_excpetion_gri" id="b_excpetion_gri" class="form-control selectpicker">
                                                     <option value="">Seleccione la aprobación</option>
-                                                    <option value="falso">falso</option>
-                                                    <option value="ok - control cambios">ok - control cambios</option>
-                                                    <option value="ok gri">ok gri</option>
+                                                    <option value="FALSO">FALSO</option>
+                                                    <option value="OK - CONTROL CAMBIOS">OK - CONTROL CAMBIOS</option>
+                                                    <option value="OK GRI">OK GRI</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -526,7 +526,7 @@
                                                                     break;
                                                             }
                                                         }
-                                                        
+
                                                         function validateSln() {
                                                             var valTipoTrabajo = $('#tipotrabajo option:selected').text();
                                                             if (valTipoTrabajo === 'Modernizacion Multiradio' || valTipoTrabajo === 'Modernización Multiradio') {
