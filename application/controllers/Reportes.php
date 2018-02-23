@@ -147,11 +147,10 @@ class Reportes extends CI_Controller {
         $objWriter->save($filename);
         Redirect::to(URL::to($filename));
     }
-    
-     private function getValueCell(&$sheet, $cell) {
-        $string = str_replace(array("\n", "\r", "\t"), '', $sheet->getCell($cell)->getValue());
-        $string = str_replace(array("_x000D_"), "<br/>", $sheet->getCell($cell)->getValue());
-        return $string;
+
+    private function setCellValue(&$sheet, $cell, $value) {
+        $value = str_replace(array("<br/>"), "", $value);
+        $sheet->setCellValue($cell, $value);
     }
 
     public function reportOnair() {
