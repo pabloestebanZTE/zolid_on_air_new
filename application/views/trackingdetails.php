@@ -443,7 +443,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbEstadosTD">Estado:</label>
-                                                    <select class="form-control select-fill input-sm" name="ticket_on_air.k_id_status" id="cmbEstadosTD" <?= (Auth::isCoordinador()) ? '' : 'disabled=""' ?>>
+                                                    <select class="form-control select-fill input-sm" name="ticket_on_air.k_id_status" id="cmbEstadosTD" <?= (Auth::isCoordinador() || Auth::isDocumentador()) ? '' : 'disabled=""' ?>>
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>
@@ -451,7 +451,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="cmbSubEstadosTD">SubEstado:</label>
-                                                    <select class="form-control input-sm" name="ticket_on_air.k_id_substatus" id="cmbSubEstadosTD" <?= (Auth::isCoordinador()) ? '' : 'disabled=""' ?>>
+                                                    <select class="form-control input-sm" name="ticket_on_air.k_id_substatus" id="cmbSubEstadosTD" <?= (Auth::isCoordinador() || Auth::isDocumentador()) ? '' : 'disabled=""' ?>>
                                                         <option>Seleccione</option>
                                                     </select>
                                                 </div>

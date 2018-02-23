@@ -586,6 +586,13 @@ var vista = {
         }
         ul.find('a.active').removeClass('active');
         link.addClass('active');
+        if (link.attr('data-action') == "SCALED") {
+            $('label[for="txtObservations"]').hide();
+            $('#txtObservations').slideUp(500);
+        } else {
+            $('label[for="txtObservations"]').show();
+            $('#txtObservations').slideDown(500);
+        }
     },
     onClickIconStep: function () {
         var icon = $(this);
