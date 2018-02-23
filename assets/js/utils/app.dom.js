@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 var dom = {
 //Para agregar todas las interacciones del dom genericas.
     init: function () {
@@ -224,6 +218,7 @@ var dom = {
      * @returns {undefined}
      */
     timer: function (element, progressElement, callback, obj) {
+        var timeInterval = (1000 * 60);
         var timeInit = obj.time;
         var time = obj.i_timestamp;
         var timeTotal = obj.i_timetotal;
@@ -262,7 +257,6 @@ var dom = {
                 if (state != 2 && element.hasClass('prorroga')) {
                     window.clearInterval(interval);
                     interval = null;
-//                    console.warn("SE TERMINA EL INTERVAL POR PRORROGA.");
                     return;
                 }
                 if (state == 2) {
@@ -277,7 +271,10 @@ var dom = {
                     element.html('<span class="text-danger" title="Excedido"><i class="fa fa-fw fa-warning"></i> ' + dom.parseTime(dom.mathTimer(obj.i_timeexceeded)) + '</span>');
                     if (interval != null) {
                         window.clearInterval(interval);
-                        interval = null;
+                        interval = window.setInterval(function () {
+                            obj.i_timeexceeded += (1000 * 60);
+                            element.html('<span class="text-danger" title="Excedido"><i class="fa fa-fw fa-warning"></i> ' + dom.parseTime(dom.mathTimer(obj.i_timeexceeded)) + '</span>');
+                        }, timeInterval);
                         //Se crea otra vez el intervalo para las 3 horas.
                     }
                     if (typeof callback === "function" && (state == 0 || state == 2)) {
@@ -299,6 +296,7 @@ var dom = {
 //        var timeTotal = ((time / percentValue) * 100);
 
         var refresh = function () {
+//            var mathTime = (1000 * 60);
             var mathTime = (1000 * 60);
             today += mathTime;
             var v = dom.betweenHours(new Date('01/01/2017 06:00'), new Date('01/01/2017 18:00'), new Date(today));
@@ -326,7 +324,7 @@ var dom = {
         //Creamos el intervalo a un minuto...
         interval = window.setInterval(function () {
             refresh();
-        }, (1000 * 60));
+        }, timeInterval);
     },
     configCalendar: function (control, fechaInicio, fechaFin, fechaDefecto, btnToday) {
         control.datepicker('remove');

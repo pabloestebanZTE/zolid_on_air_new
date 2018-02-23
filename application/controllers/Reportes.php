@@ -120,21 +120,21 @@ class Reportes extends CI_Controller {
         $objPhpExcel->getActiveSheet()->getColumnDimension('J')->setWidth(30);
         $objPhpExcel->getActiveSheet()->getColumnDimension('K')->setWidth(40);
         $objPhpExcel->getActiveSheet()->getColumnDimension('L')->setWidth(20);
-
+        $sheet = $objPhpExcel->getActiveSheet();
         //Ahora pintamos los datos...
         for ($i = 0; $i < count($respuesta); $i++) {
-            $objPhpExcel->getActiveSheet()->setCellValue("A" . ($i + 2), $respuesta[$i]->k_id_on_air);
-            $objPhpExcel->getActiveSheet()->setCellValue("B" . ($i + 2), $respuesta[$i]->n_nombre_estacion_eb);
-            $objPhpExcel->getActiveSheet()->setCellValue("C" . ($i + 2), $respuesta[$i]->n_tecnologia);
-            $objPhpExcel->getActiveSheet()->setCellValue("D" . ($i + 2), $respuesta[$i]->n_banda);
-            $objPhpExcel->getActiveSheet()->setCellValue("E" . ($i + 2), $respuesta[$i]->n_tipo_trabajo);
-            $objPhpExcel->getActiveSheet()->setCellValue("F" . ($i + 2), $respuesta[$i]->n_estado_eb_resucomen);
-            $objPhpExcel->getActiveSheet()->setCellValue("G" . ($i + 2), $respuesta[$i]->comentario_resucoment);
-            $objPhpExcel->getActiveSheet()->setCellValue("H" . ($i + 2), $respuesta[$i]->hora_actualizacion_resucomen);
-            $objPhpExcel->getActiveSheet()->setCellValue("I" . ($i + 2), $respuesta[$i]->usuario_resucomen);
-            $objPhpExcel->getActiveSheet()->setCellValue("J" . ($i + 2), $respuesta[$i]->ente_ejecutor);
-            $objPhpExcel->getActiveSheet()->setCellValue("K" . ($i + 2), $respuesta[$i]->tipificacion_resucomen);
-            $objPhpExcel->getActiveSheet()->setCellValue("L" . ($i + 2), $respuesta[$i]->noc);
+            $this->setCellValue($sheet, "A" . ($i + 2), $respuesta[$i]->k_id_on_air);
+            $this->setCellValue($sheet, "B" . ($i + 2), $respuesta[$i]->n_nombre_estacion_eb);
+            $this->setCellValue($sheet, "C" . ($i + 2), $respuesta[$i]->n_tecnologia);
+            $this->setCellValue($sheet, "D" . ($i + 2), $respuesta[$i]->n_banda);
+            $this->setCellValue($sheet, "E" . ($i + 2), $respuesta[$i]->n_tipo_trabajo);
+            $this->setCellValue($sheet, "F" . ($i + 2), $respuesta[$i]->n_estado_eb_resucomen);
+            $this->setCellValue($sheet, "G" . ($i + 2), $respuesta[$i]->comentario_resucoment);
+            $this->setCellValue($sheet, "H" . ($i + 2), $respuesta[$i]->hora_actualizacion_resucomen);
+            $this->setCellValue($sheet, "I" . ($i + 2), $respuesta[$i]->usuario_resucomen);
+            $this->setCellValue($sheet, "J" . ($i + 2), $respuesta[$i]->ente_ejecutor);
+            $this->setCellValue($sheet, "K" . ($i + 2), $respuesta[$i]->tipificacion_resucomen);
+            $this->setCellValue($sheet, "L" . ($i + 2), $respuesta[$i]->noc);
         }
 
         //Ponemos un nombre a la hoja.
@@ -146,6 +146,12 @@ class Reportes extends CI_Controller {
         $filename = 'Reporte Comentarios - (' . date("Y-m-d") . ').xlsx';
         $objWriter->save($filename);
         Redirect::to(URL::to($filename));
+    }
+    
+     private function getValueCell(&$sheet, $cell) {
+        $string = str_replace(array("\n", "\r", "\t"), '', $sheet->getCell($cell)->getValue());
+        $string = str_replace(array("_x000D_"), "<br/>", $sheet->getCell($cell)->getValue());
+        return $string;
     }
 
     public function reportOnair() {
@@ -1060,7 +1066,6 @@ class Reportes extends CI_Controller {
             $objPhpExcel->getActiveSheet()->setCellValue("DN" . ($r + 2), $res[$r]->n_en_prorroga);
             $objPhpExcel->getActiveSheet()->setCellValue("DO" . ($r + 2), $res[$r]->n_cont_prorrogas);
             $objPhpExcel->getActiveSheet()->setCellValue("DP" . ($r + 2), $res[$r]->n_noc);
-
 
             if ($res[$r]->k_id_station) {
                 $objPhpExcel->getActiveSheet()->setCellValue("B" . ($r + 2), (($res[$r]->k_id_station) ? $res[$r]->k_id_station->n_name_station : null));
