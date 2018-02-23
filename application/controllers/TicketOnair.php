@@ -607,7 +607,7 @@ class TicketOnair extends CI_Controller {
         //Actualiza algunos campos y la fecha correcciones_pendientes en prepartion_stage...
         $response = $ticket->updateTicketScaling($this->request);
         //Registra el comentario...
-        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_detalle_solucion);
+        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_detalle_solucion, $this->request->solicitante_reinicio);
         $this->json($response);
     }
 

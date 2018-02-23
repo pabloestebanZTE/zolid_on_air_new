@@ -53,7 +53,7 @@ class Dao_ticketOnair_model extends CI_Model {
         return $res->data;
     }
 
-    public function registerReportComment($idTicket, $comment = null) {
+    public function registerReportComment($idTicket, $comment = null, $solicitante = null) {
         try {
             $ticket = new TicketOnAirModel();
             $tck = $this->getTicketById($idTicket);
@@ -71,7 +71,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_estado_eb_resucomen" => ($tck->k_id_status_onair) ? $tck->k_id_status_onair["k_id_status"]->n_name_status . " - " . (($tck->k_id_status_onair) ? $tck->k_id_status_onair["k_id_substatus"]->n_name_substatus : null) : "Indefinido",
                     "comentario_resucoment" => $comment,
                     "hora_actualizacion_resucomen" => Hash::getDate(),
-                    "usuario_resucomen" => (Auth::check()) ? Auth::user()->n_name_user . " " . Auth::user()->n_last_name_user : "Indefinido ",
+                    "usuario_resucomen" => (($solicitante) ? $solicitante : (Auth::check()) ? Auth::user()->n_name_user . " " . Auth::user()->n_last_name_user : "Indefinido "),
                     "ente_ejecutor" => ($tck->k_id_preparation) ? $tck->k_id_preparation->n_enteejecutor : "Indefinido",
                     "tipificacion_resucomen" => null,
                     "noc" => $tck->n_noc,
