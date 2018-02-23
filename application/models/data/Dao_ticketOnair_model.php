@@ -1363,6 +1363,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $stepIdField = null;
             $stepModel = null;
             $k_id_follow = null;
+            $d_start = null;
             $d_fin = null;
             switch ($status_onair->k_id_substatus) {
                 case ConstSubStates::SEGUIMIENTO_12H:
@@ -1370,6 +1371,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $stepIdField = "k_id_12h_real";
                     $stepModel = new OnAir12hModel();
                     $k_id_follow = "k_id_follow_up_12h";
+                    $d_start = "d_start12h";
                     $d_fin = "d_fin12h";
                     break;
                 case ConstSubStates::SEGUIMIENTO_24H:
@@ -1377,6 +1379,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $stepIdField = "k_id_24h_real";
                     $stepModel = new OnAir24hModel();
                     $k_id_follow = "k_id_follow_up_24h";
+                    $d_start = "d_start24h";
                     $d_fin = "d_fin24h";
                     break;
                 case ConstSubStates::SEGUIMIENTO_36H:
@@ -1384,6 +1387,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $stepIdField = "k_id_36h_real";
                     $k_id_follow = "k_id_follow_up_36h";
                     $stepModel = new OnAir36hModel();
+                    $d_start = "d_start36h";
                     $d_fin = "d_fin36h";
                     break;
             }
@@ -1391,6 +1395,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $obj = new ObjUtil([
                     "stepModel" => $stepModel,
                     "stepIdField" => $stepIdField,
+                    "d_start" => $d_start,
                     "d_fin" => $d_fin,
                     "k_id_follow" => $k_id_follow
                 ]);

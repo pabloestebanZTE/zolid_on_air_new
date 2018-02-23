@@ -420,10 +420,19 @@ class TicketOnair extends CI_Controller {
             $follow12 = new dao_followUp12h_model();
             $response = $track12->getOnair12ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
             if (!$response->data) {
-                $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
-                return;
+                $idFollow = $track12->insertOnAir12(new ObjUtil([
+                    "d_start12h" => $ticketOnAirTemp->d_fecha_ultima_rev,
+                    "i_timestamp" => 0,
+                    "k_id_onair" => $ticketOnAirTemp->k_id_onair,
+                    "i_round" => $ticketOnAirTemp->n_round,
+                    "i_percent" => 0,
+                    "i_state" => 0,
+                    "i_hours" => 0,
+                ]));
+                $this->request->k_id_follow_up_12h = $idFollow->data->data;
+            } else {
+                $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
             }
-            $this->request->k_id_follow_up_12h = $response->data->k_id_follow_up_12h;
             $response = $follow12->update12FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
             $idStatus = 81;
@@ -441,10 +450,19 @@ class TicketOnair extends CI_Controller {
             $follow24 = new dao_followUp24h_model();
             $response = $track24->getOnair24ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
             if (!$response->data) {
-                $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
-                return;
+                $idFollow = $track24->insertOnAir24(new ObjUtil([
+                    "d_start24h" => $ticketOnAirTemp->d_fecha_ultima_rev,
+                    "i_timestamp" => 0,
+                    "k_id_onair" => $ticketOnAirTemp->k_id_onair,
+                    "i_round" => $ticketOnAirTemp->n_round,
+                    "i_percent" => 0,
+                    "i_state" => 0,
+                    "i_hours" => 0,
+                ]));
+                $this->request->k_id_follow_up_24h = $idFollow->data->data;
+            } else {
+                $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
             }
-            $this->request->k_id_follow_up_24h = $response->data->k_id_follow_up_24h;
             $response = $follow24->update24FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
             $response = $ticket->updatePrecheckOnair($this->request, 82);
@@ -458,10 +476,19 @@ class TicketOnair extends CI_Controller {
             $follow36 = new dao_followUp36h_model();
             $response = $track36->getOnair36ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
             if (!$response->data) {
-                $this->json(new Response(EMessages::ERROR, "El proceso no existe, o no se creó correctamente."));
-                return;
+                $idFollow = $track36->insertOnAir36(new ObjUtil([
+                    "d_start36h" => $ticketOnAirTemp->d_fecha_ultima_rev,
+                    "i_timestamp" => 0,
+                    "k_id_onair" => $ticketOnAirTemp->k_id_onair,
+                    "i_round" => $ticketOnAirTemp->n_round,
+                    "i_percent" => 0,
+                    "i_state" => 0,
+                    "i_hours" => 0,
+                ]));
+                $this->request->k_id_follow_up_36h = $idFollow->data->data;
+            } else {
+                $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
             }
-            $this->request->k_id_follow_up_36h = $response->data->k_id_follow_up_36h;
             $response = $follow36->update36FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
             $response = $ticket->updatePrecheckOnair($this->request, 83);

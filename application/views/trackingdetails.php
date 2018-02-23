@@ -1279,7 +1279,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnAceptarModalSectores">Aceptar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClosedModalSectores">Cerrar</button>
                 </div>
             </div>
 

@@ -43,6 +43,9 @@ var vista = {
         tr.remove();
     },
     events: function () {
+        $('#modalSectores #btnClosedModalSectores').on('click', function () {
+            $('#modalSectores').addClass('ws_closed');
+        });
         $('#tblSectores').on('click', '.push-sector-btn', vista.onClickPushSector);
         $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickRemoveSector);
         $('#tblSectores').on('click', '.btn-remove-sector-added', vista.onClickRemoveSector);
@@ -249,12 +252,20 @@ var vista = {
     },
     configSectores: function () {
         var cmbSectores = $('#cmbEstadoSectores');
+        var modal = $('#modalSectores');
         if (cmbSectores.val().trim() == "") {
             if (!cmbSectores.parents('.input-group').next().hasClass('error')) {
                 cmbSectores.parents('.input-group').after('<label class="error m-l-40 m-t-5 text-right center-block"><i class="fa fa-fw fa-warning"></i> Seleccione el estado para los sectores.</label>');
-                $('#modalSectores').addClass('updated');
-                $('#modalSectores').attr('data-action', 'FOR_UPDATE');
-                $('#modalSectores').modal('show');
+                modal.addClass('updated');
+                modal.attr('data-action', 'FOR_UPDATE');
+                modal.hasClass('ws_closed');
+                modal.modal('show');
+            }
+            if (modal.hasClass('ws_closed')) {
+                modal.addClass('updated');
+                modal.attr('data-action', 'FOR_UPDATE');
+                modal.hasClass('ws_closed');
+                modal.modal('show');
             }
             return false;
         }
