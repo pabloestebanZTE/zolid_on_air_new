@@ -8,6 +8,8 @@ class Reportes extends CI_Controller {
         ini_set("memory_limit", -1);
         ini_set('max_execution_time', -1);
         parent::__construct();
+        require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
+        PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
         $this->load->model('bin/PHPExcel-1.8.1/Classes/PHPExcel');
         $this->load->model('data/Dao_reporte_comentario_model');
         $this->load->model('data/Dao_ticketOnair_model');
