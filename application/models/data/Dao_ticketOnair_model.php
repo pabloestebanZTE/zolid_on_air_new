@@ -2,8 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-//    session_start();
-
 class Dao_ticketOnair_model extends CI_Model {
 
     var $request;
@@ -105,7 +103,7 @@ class Dao_ticketOnair_model extends CI_Model {
                 $response = new Response(EMessages::ERROR_INSERT);
                 $response->setData($ticket->getSQL());
             }
-            $this->registerReportComment($datos->data, $request->n_comentario_doc . ' - ' . $request->n_persona_solicita_notificacion);
+            $this->registerReportComment($datos->data, $request->n_comentario_doc, $request->n_persona_solicita_notificacion);
             return $response;
         } catch (DeplynException $ex) {
             return $ex;
