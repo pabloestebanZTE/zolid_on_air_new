@@ -884,3 +884,8 @@ ALTER TABLE `ticket_on_air`
 
 ALTER TABLE `ticket_on_air`
 	ADD COLUMN `k_id_solicitante_reinicio` INT NULL DEFAULT NULL AFTER `n_ola_excedido`;
+
+
+-- Actualización Viernes, 23 de febrero 2018.
+ALTER TABLE `ticket_on_air`
+	CHANGE COLUMN `k_id_solicitante_reinicio` `solicitante_reinicio` VARCHAR(250) NULL DEFAULT NULL AFTER `n_ola_excedido`;
