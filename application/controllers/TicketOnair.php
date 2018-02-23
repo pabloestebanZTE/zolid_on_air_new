@@ -523,7 +523,7 @@ class TicketOnair extends CI_Controller {
         //Se actualiza el ticket en escalamiento...
         $response = $ticket->updateTicketScaling($this->request);
         //Se registra el comentario...
-        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_esc);
+        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_comentario_esc . " - Solicitado por: " . $this->request->n_responsable_ticket);
         //Se envian todos los tickets relacionados al ticket que se esta escalando a StandBy.
         $this->sendRelatedTicketsToStandBy($this->request->k_id_onair);
         $this->json($response);

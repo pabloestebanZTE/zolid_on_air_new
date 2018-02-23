@@ -248,13 +248,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cmbSubEstado" class="col-md-3 control-label">Persona que solicita el reinicio:</label>
+                            <label for="cmbSubEstado" class="col-md-3 control-label">Personal externo a ZTE:</label>
                             <div class="col-md-8 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                    <select class="form-control" id="cmbSolicitanteReinicio" name="k_id_solicitante_reinicio" required>
-                                        <option value="">Seleccione</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="solicitante_reinicio" />
                                 </div>
                             </div>
                         </div>

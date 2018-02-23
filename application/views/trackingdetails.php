@@ -367,6 +367,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtResponsableTicket">Responsable ticket:</label>
+                                                    <input type="text" class="form-control input-sm" placeholder="Responsable Ticket" id="txtResponsableTicket" name="ticket_on_air.n_responsable_ticket" disabled=""/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <div class="form-group p-t-15">
                                                     <div class="checkbox checkbox-primary">
                                                         <input id="checkbox23" type="checkbox" name="ticket_on_air.i_priority">
