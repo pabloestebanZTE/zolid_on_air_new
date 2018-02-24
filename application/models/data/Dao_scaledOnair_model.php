@@ -151,6 +151,7 @@ class Dao_scaledOnair_model extends CI_Model {
                     $ticketModel = new TicketOnAirModel();
                     $ticketModel->setIContTotalEscalamiento($contTotalEsc);
                     $ticketModel->setITimeTotalEscalamiento($timeTotalEsc);
+                    $ticketModel->setKIdStatusOnair($request->k_id_status_onair);
                     $ticketModel->where("k_id_onair", "=", $ticket->k_id_onair);
                     $ticketModel->update();
 
