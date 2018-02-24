@@ -157,6 +157,12 @@ class TimerGlobal {
         $time = Hash::getTimeStamp($obj->{$field});
         $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
 
+        //Si la hora actual sobrepasa el rango...
+        $v = Hash::betweenHoras("06:00:00", "18:00:00");
+        if ($v) {
+            
+        }
+
         $date = date("H:i:s");
         $parts = explode(":", $date);
         $hour = $parts[0];
