@@ -285,7 +285,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="cmbModernizacion" style="display: none;">
                                         <label class="col-md-3 control-label">SLN Modernizacion:</label>
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
@@ -298,6 +298,15 @@
                                                     <option value="rx diversity">rx diversity</option>
                                                     <option value="N/A">N/A</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Persona Solicita notificación:</label>
+                                        <div class="col-md-8 selectContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
+                                                <input type='text' name="n_persona_solicita_notificacion" id="n_persona_solicita_notificacion" class="form-control" value='' >
                                             </div>
                                         </div>
                                     </div>
@@ -531,8 +540,10 @@
                                                             var valTipoTrabajo = $('#tipotrabajo option:selected').text();
                                                             if (valTipoTrabajo === 'Modernizacion Multiradio' || valTipoTrabajo === 'Modernización Multiradio') {
                                                                 $("#n_sln_modernizacion").val('').trigger('change.select2');
+                                                                $('#cmbModernizacion').css("display", "block");
                                                             } else {
                                                                 $("#n_sln_modernizacion").val('N/A').trigger('change.select2');
+                                                                $('#cmbModernizacion').css("display", "none");
                                                             }
 
                                                         }
