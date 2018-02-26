@@ -602,34 +602,34 @@ class TicketOnair extends CI_Controller {
             $this->request->i_round = $response->n_round;
             //Inserta el responsable del seguimiento 12h...
             //Tratamiento de reinicio 12h
-            if($this->request->k_id_status_onair == 79){
-              $response = $follow12h->insert12hFollowUp($this->request);
-              $this->request->k_id_follow_up_12h = $response->data->data;
-              $this->request->d_start12h = Hash::getDate();
-              if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
-                  $this->request->d_fin12h = Hash::getDate();
-              }
-              $response = $onair12->insertOnAir12($this->request);
+            if ($this->request->k_id_status_onair == 79) {
+                $response = $follow12h->insert12hFollowUp($this->request);
+                $this->request->k_id_follow_up_12h = $response->data->data;
+                $this->request->d_start12h = Hash::getDateForTrack(TimerGlobal::TRACK);
+                if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
+                    $this->request->d_fin12h = Hash::getDateForTrack(TimerGlobal::TRACK);
+                }
+                $response = $onair12->insertOnAir12($this->request);
             }
             //Tratamiento de reinicio 24h
-            if($this->request->k_id_status_onair == 108){
-              $response = $follow24h->insert24hFollowUp($this->request);
-              $this->request->k_id_follow_up_24h = $response->data->data;
-              $this->request->d_start24h = Hash::getDate();
-              if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
-                  $this->request->d_fin24h = Hash::getDate();
-              }
-              $response = $onair->insertOnAir36($this->request);
+            if ($this->request->k_id_status_onair == 108) {
+                $response = $follow24h->insert24hFollowUp($this->request);
+                $this->request->k_id_follow_up_24h = $response->data->data;
+                $this->request->d_start24h = Hash::getDateForTrack(TimerGlobal::TRACK);
+                if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
+                    $this->request->d_fin24h = Hash::getDateForTrack(TimerGlobal::TRACK);
+                }
+                $response = $onair->insertOnAir36($this->request);
             }
             //Tratamiento de reinicio 36h
-            if($this->request->k_id_status_onair == 109){
-              $response = $follow36h->insert36hFollowUp($this->request);
-              $this->request->k_id_follow_up_36h = $response->data->data;
-              $this->request->d_start36h = Hash::getDate();
-              if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
-                  $this->request->d_fin36h = Hash::getDate();
-              }
-              $response = $onair36->insertOnAir36($this->request);
+            if ($this->request->k_id_status_onair == 109) {
+                $response = $follow36h->insert36hFollowUp($this->request);
+                $this->request->k_id_follow_up_36h = $response->data->data;
+                $this->request->d_start36h = Hash::getDateForTrack(TimerGlobal::TRACK);
+                if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
+                    $this->request->d_fin36h = Hash::getDateForTrack(TimerGlobal::TRACK);
+                }
+                $response = $onair36->insertOnAir36($this->request);
             }
         } else {
             $response = $scaling->insertScaling($this->request);
