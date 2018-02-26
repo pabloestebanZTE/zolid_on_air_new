@@ -27,6 +27,8 @@ class ConstSubStates {
     const SITIIO_FUERA_DE_SERVICIO = 17;
     const PRECHECK = 18;
     const REINICIO_12H = 19;
+    const REINICIO_24H = 35;
+    const REINICIO_36H = 36;
     const REINICIO_PRECHECK = 20;
     const SEGUIMIENTO_12H = 21;
     const SEGUIMIENTO_24H = 22;
