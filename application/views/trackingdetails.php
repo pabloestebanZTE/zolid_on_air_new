@@ -201,11 +201,11 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                        <label class="col-md-3 control-label">Observaciones de Creación:</label>
                                                         <div class="col-md-8 inputGroupContainer">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                                <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                                <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones de creación" readonly="false"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
