@@ -1490,6 +1490,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $idStatus = $request->idStatus;
             $comment = $request->comment;
             $ticketModel = new TicketOnAirModel();
+            $preparationModel = new PreparationStageModel();
             $ticket = $ticketModel->where("k_id_onair", "=", $id)->first();
             if ($ticket) {
                 //Detectar el estado actual...
@@ -1572,6 +1573,9 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_sectoresbloqueados" => DB::NULLED,
                     "n_sectoresdesbloqueados" => $sectoresDesbloqueados,
                     "n_en_prorroga" => "FALSE"
+                ]);
+                $preparationModel->where("k_id_preparation", "=", $ticket->k_id_preparation)->update([
+                            "b_vistamm" => "False"
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {

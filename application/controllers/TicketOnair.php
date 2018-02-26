@@ -265,6 +265,7 @@ class TicketOnair extends CI_Controller {
         $this->request->i_week = Hash::getDate();
         $this->request->d_asignacion_final = Hash::getDate();
         $this->request->i_week = Date("W");
+        $this->request->b_vistamm = "True";
         $response = $ticketPS->insertPreparationStage($this->request);
         $this->request->k_id_preparation = $response->data->data;
         $this->request->i_actualEngineer = 0;
