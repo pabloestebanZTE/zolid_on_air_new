@@ -79,6 +79,12 @@ var vista = {
             $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
             $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
         });
+        
+        $('#btnEscalar').on('click', vista.onClickBtnEscalar);
+    },
+    onClickBtnEscalar: function (e) {
+        app.stopEvent(e);
+        location.href = app.urlTo("User/scaling?id=" + app.getParamURL('id'));
     },
     onClickRemoveSector: function () {
         var tr = $(this).parents('tr');
