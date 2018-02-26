@@ -656,6 +656,13 @@
 
                 var applySectores = function () {
                     var cmbSectores = $('#cmbEstadoSectores');
+                    if (cmbSectores.val().trim() == "") {
+                        if (!cmbSectores.parents('.input-group').next().hasClass('error')) {
+                            cmbSectores.parents('.input-group').after('<label class="error m-l-40 m-t-5 text-right center-block"><i class="fa fa-fw fa-warning"></i> Seleccione el estado para los sectores.</label>');
+                            $('#modalSectores').modal('show');
+                            return false;
+                        }
+                    }
                     //Preparamos los sectores...
                     var sectores = [];
                     var sectoresBloqueados = "";
@@ -686,6 +693,7 @@
                     $('#sectoresBloqueados').val(sectoresBloqueados);
                     $('#sectoresDebloqueados').val(sectoresDesbloqueados);
                     $('#modalSectores').modal('hide');
+                    return true;
                 };
 
 
@@ -772,7 +780,9 @@
                 //Fin sectores dinámicos.
 
                 $('#btnAceptarModalSectores').on('click', function () {
-                    applySectores();
+                    if (!applySectores()) {
+                        return;
+                    }
                     if ($('#modalSectores').attr('data-action') === "start_precheck") {
                         startPrecheck();
                     } else if ($('#modalSectores').attr('data-action') === 'PRECHECK_NO_EXITOSO') {

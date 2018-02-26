@@ -685,7 +685,7 @@
                                                                             $('#cmbTicketRelation').html('<option value="">Seleccione</option>').trigger('change.select2');
                                                                             $('#tableRelacionTickets tbody').html('<tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> No se han agregado relaciones para este ticket.</td></tr>');
                                                                         }
-                                                                    });
+                                                                    }, false);
                                                                 };
                                                                 //Comprobamos si la banda seleccionada contiene dos bandas...
                                                                 if ($('#banda option:selected').text().search('/') >= 0 && !form.attr('data-rt')) {

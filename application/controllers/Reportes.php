@@ -148,7 +148,7 @@ class Reportes extends CI_Controller {
         Redirect::to(URL::to($filename));
     }
 
-    private function setCellValue(&$sheet, $cell,$value) {
+    private function setCellValue(&$sheet, $cell, $value) {
         $value = str_replace(array("<br/>"), "", $value);
         $sheet->setCellValue($cell, $value);
     }

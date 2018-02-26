@@ -233,6 +233,10 @@ var vista = {
         var action = $('#modalSectores').attr('data-action');
         if (action === "REINICIO_12H") {
             vista.restart12h();
+        } else if (action === "REINICIO_24H"){
+          vista.restart24h();
+        } else if(action === "REINICIO_36H"){
+          vista.restart36h();
         } else if (action === "SCALED") {
             $('#formTrackingDetails').find('#typeBlock_Dinamic').remove();
             $('#formTrackingDetails').append('<input type="hidden" id="typeBlock_Dinamic" name="typeBlock" value="' + $('#cmbEstadoSectores').val() + '" />');
@@ -879,6 +883,48 @@ var vista = {
                     });
                 });
                 break
+                //Caso Reinicio 24H
+              case "35":
+                $('[data-ref="#contentDetails_24h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 24H');
+                $('.progress-step').css('width', 100 + '%');
+                $('.hour-step').removeClass('disabled').addClass('produccion');
+                $('#contentDetails_24h_content').removeClass('hidden');
+                $('#alertReinicio24h').removeClass('hidden');
+                vista.contentFases.addClass('hidden').hide();
+                $('#btnRunActividad24').on('click', function () {
+                    dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
+                        $('#modalSectores').attr('data-action', 'REINICIO_24H').modal('show');
+                        $('#sectionComentarioSectores').removeClass('hidden');
+                        $('#txtBandaModal').val($('#cmbBanda option:selected').text());
+                        $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
+                        $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
+                    }, function () {
+                        swal("Cancelado", "Se ha cancelado la operación", "error");
+                    });
+                });
+                break
+                //Caso Reinicio 36H
+              case "36":
+                $('[data-ref="#contentDetails_36h_content"]').addClass('active').removeClass('disabled');
+                $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 36H');
+                $('.progress-step').css('width', 100 + '%');
+                $('.hour-step').removeClass('disabled').addClass('produccion');
+                $('#contentDetails_36h_content').removeClass('hidden');
+                $('#alertReinicio36h').removeClass('hidden');
+                vista.contentFases.addClass('hidden').hide();
+                $('#btnRunActividad36').on('click', function () {
+                    dom.confirmar("Se iniciará la actividad, ¿Está seguro de continuar con esta operación?", function () {
+                        $('#modalSectores').attr('data-action', 'REINICIO_36H').modal('show');
+                        $('#sectionComentarioSectores').removeClass('hidden');
+                        $('#txtBandaModal').val($('#cmbBanda option:selected').text());
+                        $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
+                        $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
+                    }, function () {
+                        swal("Cancelado", "Se ha cancelado la operación", "error");
+                    });
+                });
+                break
             case "20":
                 $('[data-ref="#contentDetails_12h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio Precheck');
@@ -917,6 +963,52 @@ var vista = {
         };
         vista.appendSectores(obj);
         app.post('TicketOnair/restart12h', obj).success(function (response) {
+            if (response.code > 0) {
+                swal({
+                    title: "Iniciado",
+                    type: "success",
+                    text: "Se ha iniciado el proceso correctamente.",
+                    button: "Aceptar"
+                }).then(function () {
+                    location.href = app.urlTo("User/principal");
+                });
+            } else {
+                swal("Error", response.message);
+            }
+        }).error(function (e) {
+            swal("Error", "Se ha producido un error inesperado.", "error");
+        }).send();
+    },
+    restart24h: function () {
+        var obj = {
+            idTicket: $('#idProceso').val(),
+            comentario_reinicio24h: $('#txtComentarioStartPrecheck').val()
+        };
+        vista.appendSectores(obj);
+        app.post('TicketOnair/restart24h', obj).success(function (response) {
+            if (response.code > 0) {
+                swal({
+                    title: "Iniciado",
+                    type: "success",
+                    text: "Se ha iniciado el proceso correctamente.",
+                    button: "Aceptar"
+                }).then(function () {
+                    location.href = app.urlTo("User/principal");
+                });
+            } else {
+                swal("Error", response.message);
+            }
+        }).error(function (e) {
+            swal("Error", "Se ha producido un error inesperado.", "error");
+        }).send();
+    },
+    restart36h: function () {
+        var obj = {
+            idTicket: $('#idProceso').val(),
+            comentario_reinicio36h: $('#txtComentarioStartPrecheck').val()
+        };
+        vista.appendSectores(obj);
+        app.post('TicketOnair/restart36h', obj).success(function (response) {
             if (response.code > 0) {
                 swal({
                     title: "Iniciado",

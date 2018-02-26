@@ -139,37 +139,91 @@ class OnAir24hModel extends Model {
         return $obj;
     }
 
-    private function timer(&$obj, $field, $timeMath) {
+    private function timer(&$obj, $field, $timeMath, $track = "SEGUIMIENTO") {
 //        echo $field;
         $timestamp = 0;
         $percent = 0;
 
-        $time = Hash::getTimeStamp($obj->{$field});
-        $today = Hash::getTimeStamp(date("Y-m-d H:i:s"));
-
-        $date = date("H:i:s");
-        $parts = explode(":", $date);
-        $hour = $parts[0];
-        $minute = $parts[1];
-        $v = Hash::betweenHoras("06:00:00", "18:00:00");
-        if (!$v) {
-            $hrs = 0;
-            if (floor($hour) < 6) {
-                $hrs = floor($hour);
-                //Detectamos si el día de hoy es igual o inferior al día del registro...                    
-                if (date("d", $time / 1000) != date("d", $today / 1000)) {
-                    $hrs += 6;
-                }
-            } else if (floor($hour) > 18) {
-                $hrs = floor($hour) - 18;
-            }
-            $time += $hrs * (((1000 * 60) * 60));
-        } else {
-            if (date("d", $time / 1000) != date("d", $today / 1000)) {
-                $hrs = 12;
-                $time += $hrs * (((1000 * 60) * 60));
-            }
+        $timeTemp = new Date($obj->{$field});
+        $todayTemp = new Date(Hash::getDate());
+        $limit = 18;
+        $hs = 12;
+        switch ($track) {
+            case TimerGlobal::NOTY:
+                $limit = 22;
+                $hs = 8;
+                break;
+            case TimerGlobal::TRACK:
+                $limit = 18;
+                $hs = 12;
+                break;
         }
+
+        if ($timeTemp->year == $todayTemp->year && ($timeTemp->day == $todayTemp->day || ($timeTemp->day - 1) == $todayTemp->day || ($todayTemp->day - 1 ) == $timeTemp->day) && $timeTemp->month == $todayTemp->month) {
+            //Se se ha pasado la hora habíl, se buscará cuanto tiempo ha pasado de la hora hábil...
+            if ($todayTemp->hour > $limit) {
+                //Obtengo el tiempo excedido...
+                $h_e = $todayTemp->hour - $limit;
+                if ($timeTemp->day > $todayTemp->day) {
+                    $todayTemp->day = $timeTemp->day;
+                    $todayTemp->hour = 6;
+                } else {
+                    $todayTemp->hour += $h_e;
+//                    echo "HORA: ".$todayTemp->hour . " --- ";
+//                    echo "SE PASA:". $h_e;
+                    if ($todayTemp->hour >= 24) {
+                        $todayTemp->hour = 24;
+                    }
+                }
+
+//                $todayTemp->hour += $hs;
+                //Obtenego el tiempo el recorrido del día de hoy.
+//                $r = ($limit - ($todayTemp->hour - $h_e));
+//
+//                //Ahora lo sumaremos a la fecha actual...
+//                $todayTemp->hour += $r;
+//                //Claramente, se ha pasado, entonces sumamos el hs...
+//                $todayTemp->hour += $hs;
+//
+//                $timeTemp->hour -= $hs;
+//                $todayTemp->hour += $timeTemp->hour;
+//                echo "A: ".$limit;
+            } else {
+                if ($todayTemp->hour < 6) {
+                    $h_e = 6;
+                    if ($timeTemp->day > $todayTemp->day) {
+                        $todayTemp->day = $timeTemp->day;
+                    }
+                    if ($timeTemp->hour == 6) {
+                        $todayTemp->hour = 6;
+                        $todayTemp->minute = $timeTemp->minute;
+                    }
+//                    $h_e = ($limit - ($timeTemp->hour));
+//                    $todayTemp->hour += ($hs - $h_e);
+                } else {
+//                    $todayTemp->hour = 6;
+//                    if ($timeTemp->day > $todayTemp->day) {
+//                        
+//                    }
+                }
+//                if ($todayTemp->hour >= 13) {
+//                    $h_e -= 6;
+//                }
+//                if ($todayTemp->hour < 6) {
+//                    $todayTemp->hour = 6 + $h_e;
+//                } else {
+//                    $todayTemp->hour += $h_e;
+//                }
+            }
+//            if ($todayTemp->day > $timeTemp->day) {
+//                $timeTemp->day = $todayTemp->day;
+//            }
+            $time = Hash::getTimeStamp($timeTemp->getDate());
+        } else {
+            $time = Hash::getTimeStamp($obj->{$field});
+        }
+
+        $today = Hash::getTimeStamp($todayTemp->getDate());
 
         $timeFinal = $time + ((1000 * 60) * 60) * $timeMath;
         //Milisegundos entre la fecha y hoy (tiempo que falta)...
