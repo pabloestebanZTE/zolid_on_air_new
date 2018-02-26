@@ -79,7 +79,7 @@ var vista = {
             $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
             $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
         });
-        
+
         $('#btnEscalar').on('click', vista.onClickBtnEscalar);
     },
     onClickBtnEscalar: function (e) {
@@ -239,10 +239,10 @@ var vista = {
         var action = $('#modalSectores').attr('data-action');
         if (action === "REINICIO_12H") {
             vista.restart12h();
-        } else if (action === "REINICIO_24H"){
-          vista.restart24h();
-        } else if(action === "REINICIO_36H"){
-          vista.restart36h();
+        } else if (action === "REINICIO_24H") {
+            vista.restart24h();
+        } else if (action === "REINICIO_36H") {
+            vista.restart36h();
         } else if (action === "SCALED") {
             $('#formTrackingDetails').find('#typeBlock_Dinamic').remove();
             $('#formTrackingDetails').append('<input type="hidden" id="typeBlock_Dinamic" name="typeBlock" value="' + $('#cmbEstadoSectores').val() + '" />');
@@ -447,6 +447,7 @@ var vista = {
         app.post("TicketOnair/toStandBy", {
             'idTicket': $('#idProceso').val(),
             'comment': $('#txtObservations').val(),
+            'typeBlock': $('#cmbEstadoSectores').val()
         })
                 .success(function (response) {
                     if (response.code > 0) {
@@ -890,7 +891,7 @@ var vista = {
                 });
                 break
                 //Caso Reinicio 24H
-              case "35":
+            case "35":
                 $('[data-ref="#contentDetails_24h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 24H');
                 $('.progress-step').css('width', 100 + '%');
@@ -911,7 +912,7 @@ var vista = {
                 });
                 break
                 //Caso Reinicio 36H
-              case "36":
+            case "36":
                 $('[data-ref="#contentDetails_36h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 36H');
                 $('.progress-step').css('width', 100 + '%');

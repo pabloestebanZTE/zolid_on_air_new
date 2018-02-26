@@ -1573,7 +1573,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_en_prorroga" => "FALSE"
                 ]);
                 $preparationModel->where("k_id_preparation", "=", $ticket->k_id_preparation)->update([
-                            "b_vistamm" => "False"
+                    "b_vistamm" => "False"
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
@@ -1643,23 +1643,57 @@ class Dao_ticketOnair_model extends CI_Model {
             //Ahora vamos a las tablas...
             $date = (Hash::getTimeStamp(Hash::getDate()) - $json->time_elapsed);
             $date = Hash::timeStampToDate($date);
+            //Verificamos los sectores y los pasamos a desbloqueados...
+            //Se pasan todos los sectores bloqueados a desbloqueados...
+            $sectores = $tck->n_json_sectores;
+            $sectoresDesbloqueados = "";
+            if ($sectores) {
+                $finalSectores = [];
+                $sectores = json_decode($sectores, true);
+                $i = 0;
+                if (is_array($sectores) || is_object($sectores)) {
+                    $count = count($sectores);
+                    foreach ($sectores as $value) {
+                        $obj = [
+                            "id" => $value["id"],
+                            "name" => $value["name"],
+                            "state" => (($value["state"] != -1) ? 0 : -1), //Desbloqueado...
+                        ];
+                        $finalSectores[] = $obj;
+                        $sectoresDesbloqueados .= $value["name"] . (($i < ($count - 1) ? ", " : ""));
+                        $i++;
+                    }
+                    $sectores = $finalSectores;
+                    $sectores = json_encode($sectores, true);
+                } else {
+                    $sectores = DB::NULLED;
+                }
+            } else {
+                $sectores = DB::NULLED;
+            }
+
+            $objForUpdate = new ObjUtil([
+                "n_sectoresbloqueados" => DB::NULLED,
+                "n_sectoresdesbloqueados" => $sectoresDesbloqueados,
+                "n_json_sectores" => $sectores,
+                "n_estado_sectores" => "DESBLOQUEADOS"
+            ]);
+
             if ($json->actual_status == "precheck") {
                 //Lo ponemos en seguimiento precheck...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
+                $objForUpdate->d_precheck_init = $date;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                            "d_precheck_init" => $date,
-                ]);
+                        ->update($objForUpdate->all());
                 $comment = "Se detiene el Stand By --- $request->comment";
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "12h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                ]);
+                        ->update($objForUpdate->all());
                 //Actualizmos el detalle de 12h...
                 $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir12hModel();
@@ -1667,14 +1701,13 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "24h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                ]);
+                        ->update($objForUpdate->all());
                 //Actualizmos el detalle de 12h...
                 $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir24hModel();
@@ -1682,14 +1715,13 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "36h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                ]);
+                        ->update($objForUpdate->all());
                 //Actualizmos el detalle de 12h...
                 $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir36hModel();
@@ -1697,7 +1729,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             }
             return new Response(EMessages::CORRECT, "Se ha detenido correctamente el Stand By.");
         } else {
