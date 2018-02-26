@@ -692,6 +692,10 @@ class Dao_ticketOnair_model extends CI_Model {
                 }
             }
 
+//            if (strpos($order, "n_name_user") !== false) {
+//                $searchValue = $request->search->value;
+//                $condition .= " AND n_name_user LIKE = '%$searchValue%' ";
+//            }
             //Armamos la sentencia de ordenamiento.
             $i = 0;
             $max = count($listOrders);
@@ -714,16 +718,18 @@ class Dao_ticketOnair_model extends CI_Model {
                         AND sb.k_id_substatus = sa.k_id_substatus
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
+                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0 
                         WHERE
-                        (t.n_name_technology LIKE '%$request->searchValue%'
-                        OR s.n_name_status LIKE '%$request->searchValue%'
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
-                        OR bd.n_name_band LIKE '%$request->searchValue%'
-                        OR st.n_name_station LIKE '%$request->searchValue%'
-                        OR w.n_name_ork LIKE '%$request->searchValue%')
-                        AND $condition
-                        group by tk.k_id_onair
+                        (t.n_name_technology LIKE '%$request->searchValue%' 
+                        OR s.n_name_status LIKE '%$request->searchValue%' 
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
+                        OR bd.n_name_band LIKE '%$request->searchValue%' 
+                        OR st.n_name_station LIKE '%$request->searchValue%' 
+                        OR w.n_name_ork LIKE '%$request->searchValue%' 
+                        OR u.n_name_user LIKE '%$request->searchValue%')
+                        AND $condition 
+                        group by tk.k_id_onair 
                         order by $order limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
@@ -738,13 +744,15 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station
                         INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0 
                         WHERE
-                        (t.n_name_technology LIKE '%$request->searchValue%'
-                        OR s.n_name_status LIKE '%$request->searchValue%'
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
-                        OR bd.n_name_band LIKE '%$request->searchValue%'
-                        OR st.n_name_station LIKE '%$request->searchValue%'
-                        OR w.n_name_ork LIKE '%$request->searchValue%')
+                        (t.n_name_technology LIKE '%$request->searchValue%' 
+                        OR s.n_name_status LIKE '%$request->searchValue%' 
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
+                        OR bd.n_name_band LIKE '%$request->searchValue%' 
+                        OR st.n_name_station LIKE '%$request->searchValue%' 
+                        OR w.n_name_ork LIKE '%$request->searchValue%' 
+                        OR u.n_name_user LIKE '%$request->searchValue%') 
                         AND $condition
                         order by $order";
             } else {
@@ -759,8 +767,6 @@ class Dao_ticketOnair_model extends CI_Model {
                         . "where $condition "
                         . "order by $order";
             }
-
-//            echo $sql;
 
             $pending = $db->select($sql)->get();
 
@@ -787,7 +793,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
     //Coordinador...
     public function getPendingList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -799,7 +805,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getAssignList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -811,7 +817,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getNotificationList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -827,7 +833,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getPrecheckList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -839,7 +845,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getReinicioPrecheckList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -851,7 +857,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getReinicio12hList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -863,7 +869,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getStandByList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -875,7 +881,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getSeguimiento12hList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -887,7 +893,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getSeguimiento24hList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -899,7 +905,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getSeguimiento36hhList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -933,9 +939,16 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     //Fin documentador...
-
     public function getAllTickets($request) {
-        return $this->getListTicket($request, "1 = 1");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "1 = 1", $orderBy);
     }
 
     public function getAssign() {
