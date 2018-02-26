@@ -524,6 +524,7 @@
                                         </div>
                                     </div>
                                     <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
+                                    <button class="btn btn-primary pull-right m-t-10 m-r-5" id="btnEscalar"><i class="fa fa-fw fa-undo"></i> Escalar</button>
                                 </form>
                             </div>
                         </div>
