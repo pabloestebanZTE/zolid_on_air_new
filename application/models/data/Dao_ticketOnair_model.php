@@ -915,7 +915,11 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getPriorityList($request) {
         $sql = "i_priority = '1'";
         if ($request->hidescaled == true) {
-            $sql .= " AND i_actualEngineer > 0";
+            if ($request->byIngener == true) {
+                $sql .= " AND i_actualEngineer = " . Auth::user()->k_id_user;
+            } else {
+                $sql .= " AND i_actualEngineer > 0";
+            }
         }
         return $this->getListTicket($request, $sql);
     }
