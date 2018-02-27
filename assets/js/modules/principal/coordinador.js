@@ -41,13 +41,13 @@ $(function () {
             vista.tablaSeguimiento36h = $('#tablaSeguimiento36h').DataTable(vista.genericCogDataTable("Precheck/getSeguimiento36hList", "tablaSeguimiento36h"));
         },
         getReinicioPrecheck: function () {
-            vista.tablaReinicioPrecheck = $('#tablaReinicioPrecheck').DataTable(vista.genericCogDataTable("Precheck/getReinicioPrecheckList", "tablaSeguimiento36h"));
+            vista.tablaReinicioPrecheck = $('#tablaReinicioPrecheck').DataTable(vista.genericCogDataTable("Precheck/getReinicioPrecheckList", "tablaReinicioPrecheck"));
         },
         getReinicio12h: function () {
-            vista.tablaReinicio12h = $('#tablaReinicio12h').DataTable(vista.genericCogDataTable("Precheck/getReinicio12hList", "tablaSeguimiento36h"));
+            vista.tablaReinicio12h = $('#tablaReinicio12h').DataTable(vista.genericCogDataTable("Precheck/getReinicio12hList", "tablaReinicio12h"));
         },
         getStandBy: function () {
-            vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaSeguimiento36h"));
+            vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaStandBy"));
         },
         getPriorityList: function () {
             vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));

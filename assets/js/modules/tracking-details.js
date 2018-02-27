@@ -4,6 +4,9 @@ var vista = {
     init: function () {
         if ($('#isBlock').val() == "true") {
             $('.icon-step').addClass('no-action');
+            $('#formDetallesBasicos').find('input, select, textarea').prop('disabled', true);
+            $('#formDetallesBasicos').find('button').remove();
+            $('#formTrackingDetails').find('input, select, textarea').prop('disabled', true);
         }
         vista.events();
         vista.configView();
@@ -43,8 +46,15 @@ var vista = {
         tr.remove();
     },
     events: function () {
-        $('#modalSectores #btnClosedModalSectores').on('click', function () {
+        $('#modalSectores').on('hidden.bs.modal', function () {
             $('#modalSectores').addClass('ws_closed');
+            $('#modalChangeState').modal('hide');
+            window.setTimeout(function () {
+                if (!$('#modalSectores').hasClass('edit-sectores')) {
+                    $('#modalChangeState').modal('show');
+                    $('#modalSectores').removeClass('edit-sectores');
+                }
+            }, 500);
         });
         $('#tblSectores').on('click', '.push-sector-btn', vista.onClickPushSector);
         $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickRemoveSector);
@@ -164,18 +174,22 @@ var vista = {
             $('#txtBandaModal').val($('#cmbBanda option:selected').text());
             $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
             $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
-            $('#modalSectores').modal('show');
-        } else if (btn.hasClass('lock')) {
-            $('.btn-sectores.unlock').prop('disabled', false).show();
-            $('#cmbEstadoSectores').val(1).trigger('change.select2');
-            btn.prop('disabled', true).hide();
-            $('#modalSectores').addClass('updated');
-        } else if (btn.hasClass('unlock')) {
-            $('.btn-sectores.lock').prop('disabled', false).show();
-            btn.prop('disabled', true).hide();
-            $('#cmbEstadoSectores').val(0).trigger('change.select2');
-            $('#modalSectores').addClass('updated');
+            $('#modalChangeState').modal('hide');
+            window.setTimeout(function () {
+                $('#modalSectores').modal('show');
+            }, 500);
         }
+//        else if (btn.hasClass('lock')) {
+//            $('.btn-sectores.unlock').prop('disabled', false).show();
+//            $('#cmbEstadoSectores').val(1).trigger('change.select2');
+//            btn.prop('disabled', true).hide();
+//            $('#modalSectores').addClass('updated');
+//        } else if (btn.hasClass('unlock')) {
+//            $('.btn-sectores.lock').prop('disabled', false).show();
+//            btn.prop('disabled', true).hide();
+//            $('#cmbEstadoSectores').val(0).trigger('change.select2');
+//            $('#modalSectores').addClass('updated');
+//        }
         vista.configSectores();
     },
     onClickCommentStep: function () {
@@ -332,6 +346,7 @@ var vista = {
         $('#txtBandaModal').val($('#cmbBanda option:selected').text());
         $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
         $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
+        $('#modalSectores').addClass('edit-sectores');
         $('#modalSectores').modal('show');
     },
     addSector: function () {
