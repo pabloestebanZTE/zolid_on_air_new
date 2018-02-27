@@ -125,7 +125,7 @@ class TimerGlobal {
         if ($tck->d_precheck_init == null) {
             return null;
         }
-        $this->timer($obj, "d_precheck_init", $time);
+        $this->timer($obj, "d_precheck_init", $time, TimerGlobal::NOTY);
         return $obj;
     }
 
