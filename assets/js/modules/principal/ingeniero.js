@@ -41,7 +41,7 @@ $(function () {
                 },
                 columnDefs: [{
                         defaultContent: "",
-                        targets: 0,
+                        targets: -1,
                         orderable: false,
                     }],
                 order: [[1, 'asc']],

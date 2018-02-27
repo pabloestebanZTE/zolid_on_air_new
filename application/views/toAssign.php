@@ -170,7 +170,7 @@
                                     <div class="col-md-8 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                            <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor" placeholder="Observaciones Coordinador"></textarea>
+                                            <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor" placeholder="Observaciones de asignación"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
         <!-- CUSTOM SCRIPT   -->
         <script>
             $(function () {
-                var ticket = <?php echo $ticket; ?>;
+                ticket = <?php echo $ticket; ?>;
                 var users = <?php echo $users; ?>;
                 for (var j = 0; j < users.data.length; j++) {
                     $('#k_id_user').append($('<option>', {
@@ -224,6 +224,7 @@
                 $('input[name=n_bcf_wbts_id]').val(ticket.k_id_preparation.n_bcf_wbts_id);
                 $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
                 $('input[name=k_id_ticket]').val(ticket.k_id_onair);
+                $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
 
             })
         </script>

@@ -77,7 +77,9 @@ $(function () {
                             }
                         }
                     },
-                    {title: "Opciones", data: vista.getButtonsPending},
+                    {title: "Opciones", data: function (obj) {
+                            return vista.getButtonsPending(obj, table);
+                        }},
                 ],
                 "language": {
                     "url": app.urlbase + "assets/plugins/datatables/lang/es.json"
@@ -129,9 +131,9 @@ $(function () {
         fillNA: function () {
             return "N/A";
         },
-        getButtonsPending: function (obj) {
+        getButtonsPending: function (obj, table) {
             return '<div class="btn-group">'
-                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" data-table="tablaPendientes" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
+                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" data-table="' + table + '" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
                     + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ir al Detalle"><span class="fa fa-fw fa-search"></span></a>'
                     + '<a href="' + app.urlTo('User/assignEngineer?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar"><span class="fa fa-fw fa-tag"></span></a>'
                     + '</div>';

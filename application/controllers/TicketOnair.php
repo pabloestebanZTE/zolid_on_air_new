@@ -257,8 +257,6 @@ class TicketOnair extends CI_Controller {
 
     public function insertTicketOnair() {
         $related_tickets = json_decode($this->request->related_tickets);
-//        echo $related_tickets[0];
-//        return;
         $ticket = new dao_ticketOnAir_model();
         $ticketPS = new dao_preparationStage_model();
         //camilo se envia semana actual y fecha de creacion
@@ -383,6 +381,12 @@ class TicketOnair extends CI_Controller {
         //Corregimos los probables errores de data externa...
         $autoRecordDao = new Dao_autorecord_model();
         $autoRecordDao->record($ticketOnAirTemp);
+
+        //JJ: Se actualiza las observaciones de asignación...
+        $tempTicket = new TicketOnAirModel();
+        $tempTicket->setNComentarioCoor($this->request->n_comentario_coor);
+        $tempTicket->where("k_id_onair", "=", $this->request->k_id_ticket);
+        $tempTicket->update();
 
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair

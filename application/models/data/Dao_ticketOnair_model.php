@@ -829,7 +829,15 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getIngenerList($request) {
-        return $this->getListTicket($request, "tk.i_actualEngineer = " . Auth::user()->k_id_user);
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.i_actualEngineer = " . Auth::user()->k_id_user, $orderBy);
     }
 
     public function getPrecheckList($request) {
