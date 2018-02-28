@@ -233,8 +233,12 @@
             $(function () {
                 ticket = <?php echo $ticket; ?>;
                 var users = <?php echo $users; ?>;
-                var valuesTime = <?= $valuesTime; ?>;
-                dom.timer($('#txtTimeStandBy'), null, null, valuesTime);
+                var valuesTime = <?= isset($valuesTime) ? $valuesTime : "null"; ?>;
+                if (valuesTime && $('#cmbEstadoStandBy').val() > 0) {
+                    dom.timer($('#txtTimeStandBy'), null, null, valuesTime);
+                } else {
+                    $('#reloadTimePanel').hide();
+                }
                 for (var j = 0; j < users.data.length; j++) {
                     $('#k_id_user').append($('<option>', {
                         value: users.data[j].k_id_user,

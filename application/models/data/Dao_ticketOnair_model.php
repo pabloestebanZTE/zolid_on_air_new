@@ -1784,11 +1784,13 @@ class Dao_ticketOnair_model extends CI_Model {
                 $newState = ConstStates::SEGUIMIENTO_36H;
                 break;
         }
+//        echo "ESTADO::: $newState";
         //Se actualiza el estado del ticket...
         if ($newState) {
             $ticketOnAirModel->where("k_id_onair", "=", $tck->k_id_onair);
-            $ticketOnAirModel->setKIdStatusOnair($newState);
-            $ticketOnAirModel->update();
+            $ticketOnAirModel->update([
+                "k_id_status_onair" => $newState
+            ]);
 
             $step = $this->getStepModel($tck);
             if ($step) {
@@ -1821,6 +1823,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     $stepModel->insert($obj);
                 }
             }
+            $ticket->registerReportComment($tck->k_id_onair, $request->n_comentario_coor);
         }
     }
 

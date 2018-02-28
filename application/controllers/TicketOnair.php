@@ -536,11 +536,11 @@ class TicketOnair extends CI_Controller {
                 }
             }
             //Se asigna el ingeniero...
-            $ticketModel = new TicketOnAirModel();
-            $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
-                    ->update([
-                        "i_actualEngineer" => $this->request->k_id_user
-            ]);
+//            $ticketModel = new TicketOnAirModel();
+//            $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
+//                    ->update([
+//                        "i_actualEngineer" => $this->request->k_id_user
+//            ]);
 //            $this->request->n_comentario_coor = "Se detiene el Stand By --- " . $this->request->n_comentario_coor;
             $this->json(new Response(EMessages::SUCCESS, "Se ha asignado y detenido el Stand by correctamente."));
             $flag = 1;
