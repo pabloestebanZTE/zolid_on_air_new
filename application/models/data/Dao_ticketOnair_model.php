@@ -1784,7 +1784,6 @@ class Dao_ticketOnair_model extends CI_Model {
                 $newState = ConstStates::SEGUIMIENTO_36H;
                 break;
         }
-//        echo "ESTADO::: $newState";
         //Se actualiza el estado del ticket...
         if ($newState) {
             $ticketOnAirModel->where("k_id_onair", "=", $tck->k_id_onair);
