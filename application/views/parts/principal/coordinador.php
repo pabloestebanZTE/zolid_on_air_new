@@ -107,7 +107,6 @@
         </form>
     </div>
 </div>
-
 <!--Modal Preview Detalle-->
 <div class="modal fade" role="dialog" id="modalPreview">
     <div class="modal-dialog modal-lg">
@@ -228,7 +227,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="txtciudad" class="col-md-3 control-label">Ciudad:</label>
                                 <div class="col-md-8 selectContainer">
@@ -238,7 +236,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="txtEnteEjecutor" class="col-md-3 control-label">Ente Ejecutor:</label>
                                 <div class="col-md-8 selectContainer">
@@ -248,7 +245,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="txtEstado" class="col-md-3 control-label">Estado:</label>
                                 <div class="col-md-8 selectContainer">
@@ -258,7 +254,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="txtSubestado" class="col-md-3 control-label">subestado:</label>
                                 <div class="col-md-8 selectContainer">
@@ -268,13 +263,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Observaciones de Creación</label>
                                 <div class="col-md-8 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                        <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones de creación" readonly="false"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +278,7 @@
                                 <div class="col-md-8 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor" readonly="false"></textarea>
+                                        <textarea class="form-control" name="n_comentario_coor" id="n_comentario_coor" readonly="false" placeholder="Observaciones de asignación" ></textarea>
                                     </div>
                                 </div>
                             </div>

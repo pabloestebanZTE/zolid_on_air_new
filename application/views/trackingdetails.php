@@ -201,11 +201,11 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="col-md-3 control-label">Observaciones de Creación</label>
+                                                        <label class="col-md-3 control-label">Observaciones de Creación:</label>
                                                         <div class="col-md-8 inputGroupContainer">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                                <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones coordinador" readonly="false"></textarea>
+                                                                <textarea class="form-control" name="k_id_preparation.n_comentario_doc" id="n_comentario_doc" placeholder="Observaciones de creación" readonly="false"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -523,8 +523,12 @@
                                                                                         </div>-->
                                         </div>
                                     </div>
-                                    <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
-                                    <button class="btn btn-primary pull-right m-t-10 m-r-5" id="btnEscalar"><i class="fa fa-fw fa-undo"></i> Escalar</button>
+                                    <?php
+                                    if (!$block) {
+                                        ?>
+                                        <button class="btn btn-success pull-right m-t-10"><i class="fa fa-fw fa-save"></i> Actualizar</button>
+                                        <button class="btn btn-primary pull-right m-t-10 m-r-5" id="btnEscalar"><i class="fa fa-fw fa-undo"></i> Escalar</button>
+                                    <?php } ?>
                                 </form>
                             </div>
                         </div>
@@ -1183,8 +1187,8 @@
                             <label class="center-block" id="lblSectoresSeleccionados"><i class="fa fa-fw fa-wrench"></i> (<span class="length-sectores">0</span>) Sectores<span class="state-sectores"></span>:</label>
                             <div class="btn-group p-t-5 p-l-15">
                                 <button type="button" class="btn btn-default btn-sectores view"><i class="fa fa-fw fa-check"></i> Verificar</button>
-                                <button type="button" class="btn btn-danger btn-sectores lock"><i class="fa fa-fw fa-lock"></i> Bloquear</button>
-                                <button type="button" class="btn btn-success btn-sectores unlock"><i class="fa fa-fw fa-unlock"></i> Desbloquear</button>
+<!--                                <button type="button" class="btn btn-danger btn-sectores lock"><i class="fa fa-fw fa-lock"></i> Bloquear</button>
+                                <button type="button" class="btn btn-success btn-sectores unlock"><i class="fa fa-fw fa-unlock"></i> Desbloquear</button>-->
                             </div>
                         </div>
                     </div>
@@ -1312,6 +1316,6 @@
     <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/plugins/jquery.mask.js') ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/plugins/jquery.validate.min.js") ?>" type="text/javascript"></script>
-    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=' . time()) ?>" type="text/javascript"></script>
+    <script src="<?= URL::to('assets/js/modules/tracking-details.js?v=' . time()) ?>" type="text/javascript"></script>    
 </body>
 </html>

@@ -41,7 +41,7 @@ $(function () {
                 },
                 columnDefs: [{
                         defaultContent: "",
-                        targets: 0,
+                        targets: -1,
                         orderable: false,
                     }],
                 order: [[1, 'asc']],
@@ -66,7 +66,7 @@ $(function () {
             vista.tablaPrincipal = $('#tablaPrincipal').DataTable(vista.genericCogDataTable("TicketOnair/ticketUser", "tablaPendientes"));
         },
         getPriorityList: function () {
-            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList?hidescaled=true", "tablaPrioritarios"));
+            vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList?hidescaled=true&byIngener=true", "tablaPrioritarios"));
         },
         //Temporalmente...
         fillNA: function () {

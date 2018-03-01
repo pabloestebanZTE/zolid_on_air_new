@@ -41,13 +41,13 @@ $(function () {
             vista.tablaSeguimiento36h = $('#tablaSeguimiento36h').DataTable(vista.genericCogDataTable("Precheck/getSeguimiento36hList", "tablaSeguimiento36h"));
         },
         getReinicioPrecheck: function () {
-            vista.tablaReinicioPrecheck = $('#tablaReinicioPrecheck').DataTable(vista.genericCogDataTable("Precheck/getReinicioPrecheckList", "tablaSeguimiento36h"));
+            vista.tablaReinicioPrecheck = $('#tablaReinicioPrecheck').DataTable(vista.genericCogDataTable("Precheck/getReinicioPrecheckList", "tablaReinicioPrecheck"));
         },
         getReinicio12h: function () {
-            vista.tablaReinicio12h = $('#tablaReinicio12h').DataTable(vista.genericCogDataTable("Precheck/getReinicio12hList", "tablaSeguimiento36h"));
+            vista.tablaReinicio12h = $('#tablaReinicio12h').DataTable(vista.genericCogDataTable("Precheck/getReinicio12hList", "tablaReinicio12h"));
         },
         getStandBy: function () {
-            vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaSeguimiento36h"));
+            vista.tablaStandBy = $('#tablaStandBy').DataTable(vista.genericCogDataTable("Precheck/getStandByList", "tablaStandBy"));
         },
         getPriorityList: function () {
             vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));
@@ -77,14 +77,16 @@ $(function () {
                             }
                         }
                     },
-                    {title: "Opciones", data: vista.getButtonsPending},
+                    {title: "Opciones", data: function (obj) {
+                            return vista.getButtonsPending(obj, table);
+                        }},
                 ],
                 "language": {
                     "url": app.urlbase + "assets/plugins/datatables/lang/es.json"
                 },
                 columnDefs: [{
                         defaultContent: "",
-                        targets: 0,
+                        targets: -1,
                         orderable: false,
                     }],
                 order: [[4, 'desc']],
@@ -129,9 +131,9 @@ $(function () {
         fillNA: function () {
             return "N/A";
         },
-        getButtonsPending: function (obj) {
+        getButtonsPending: function (obj, table) {
             return '<div class="btn-group">'
-                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" data-table="tablaPendientes" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
+                    + '<a href="javascript:;" class="btn btn-default btn-xs btn-preview" data-toggle="tooltip" data-table="' + table + '" title="Vista previa"><span class="fa fa-fw fa-eye"></span></a>'
                     + '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Ir al Detalle"><span class="fa fa-fw fa-search"></span></a>'
                     + '<a href="' + app.urlTo('User/assignEngineer?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Asignar"><span class="fa fa-fw fa-tag"></span></a>'
                     + '</div>';

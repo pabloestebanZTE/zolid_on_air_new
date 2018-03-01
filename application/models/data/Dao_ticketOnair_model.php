@@ -692,6 +692,10 @@ class Dao_ticketOnair_model extends CI_Model {
                 }
             }
 
+//            if (strpos($order, "n_name_user") !== false) {
+//                $searchValue = $request->search->value;
+//                $condition .= " AND n_name_user LIKE = '%$searchValue%' ";
+//            }
             //Armamos la sentencia de ordenamiento.
             $i = 0;
             $max = count($listOrders);
@@ -714,16 +718,18 @@ class Dao_ticketOnair_model extends CI_Model {
                         AND sb.k_id_substatus = sa.k_id_substatus
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
+                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0 
                         WHERE
-                        (t.n_name_technology LIKE '%$request->searchValue%'
-                        OR s.n_name_status LIKE '%$request->searchValue%'
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
-                        OR bd.n_name_band LIKE '%$request->searchValue%'
-                        OR st.n_name_station LIKE '%$request->searchValue%'
-                        OR w.n_name_ork LIKE '%$request->searchValue%')
-                        AND $condition
-                        group by tk.k_id_onair
+                        (t.n_name_technology LIKE '%$request->searchValue%' 
+                        OR s.n_name_status LIKE '%$request->searchValue%' 
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
+                        OR bd.n_name_band LIKE '%$request->searchValue%' 
+                        OR st.n_name_station LIKE '%$request->searchValue%' 
+                        OR w.n_name_ork LIKE '%$request->searchValue%' 
+                        OR u.n_name_user LIKE '%$request->searchValue%')
+                        AND $condition 
+                        group by tk.k_id_onair 
                         order by $order limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(tk.k_id_onair) as count FROM ticket_on_air tk
@@ -738,13 +744,15 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station
                         INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0 
                         WHERE
-                        (t.n_name_technology LIKE '%$request->searchValue%'
-                        OR s.n_name_status LIKE '%$request->searchValue%'
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
-                        OR bd.n_name_band LIKE '%$request->searchValue%'
-                        OR st.n_name_station LIKE '%$request->searchValue%'
-                        OR w.n_name_ork LIKE '%$request->searchValue%')
+                        (t.n_name_technology LIKE '%$request->searchValue%' 
+                        OR s.n_name_status LIKE '%$request->searchValue%' 
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
+                        OR bd.n_name_band LIKE '%$request->searchValue%' 
+                        OR st.n_name_station LIKE '%$request->searchValue%' 
+                        OR w.n_name_ork LIKE '%$request->searchValue%' 
+                        OR u.n_name_user LIKE '%$request->searchValue%') 
                         AND $condition
                         order by $order";
             } else {
@@ -759,8 +767,6 @@ class Dao_ticketOnair_model extends CI_Model {
                         . "where $condition "
                         . "order by $order";
             }
-
-//            echo $sql;
 
             $pending = $db->select($sql)->get();
 
@@ -787,7 +793,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
     //Coordinador...
     public function getPendingList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -799,7 +805,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getAssignList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -811,7 +817,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getNotificationList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -823,11 +829,19 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getIngenerList($request) {
-        return $this->getListTicket($request, "tk.i_actualEngineer = " . Auth::user()->k_id_user);
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "tk.i_actualEngineer = " . Auth::user()->k_id_user, $orderBy);
     }
 
     public function getPrecheckList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -839,7 +853,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getReinicioPrecheckList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -851,7 +865,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getReinicio12hList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -863,7 +877,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getStandByList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -875,7 +889,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getSeguimiento12hList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -887,7 +901,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getSeguimiento24hList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -899,7 +913,7 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     public function getSeguimiento36hhList($request) {
-        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev"];
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
         $orderBy = null;
         if ($request->order) {
             $col = $columns[$request->order->all()[0]->column];
@@ -915,7 +929,11 @@ class Dao_ticketOnair_model extends CI_Model {
     public function getPriorityList($request) {
         $sql = "i_priority = '1'";
         if ($request->hidescaled == true) {
-            $sql .= " AND i_actualEngineer > 0";
+            if ($request->byIngener == true) {
+                $sql .= " AND i_actualEngineer = " . Auth::user()->k_id_user;
+            } else {
+                $sql .= " AND i_actualEngineer > 0";
+            }
         }
         return $this->getListTicket($request, $sql);
     }
@@ -929,9 +947,16 @@ class Dao_ticketOnair_model extends CI_Model {
     }
 
     //Fin documentador...
-
     public function getAllTickets($request) {
-        return $this->getListTicket($request, "1 = 1");
+        $columns = ["n_name_station", "n_name_ork", "n_name_status", "n_name_substatus", "d_fecha_ultima_rev", "n_name_technology", "n_name_band", "d_ingreso_on_air", "d_fecha_ultima_rev", "n_name_user"];
+        $orderBy = null;
+        if ($request->order) {
+            $col = $columns[$request->order->all()[0]->column];
+            $orderBy["col"] = $col;
+            $dir = $request->order->all()[0]->dir;
+            $orderBy["dir"] = $dir;
+        }
+        return $this->getListTicket($request, "1 = 1", $orderBy);
     }
 
     public function getAssign() {
@@ -1573,7 +1598,7 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_en_prorroga" => "FALSE"
                 ]);
                 $preparationModel->where("k_id_preparation", "=", $ticket->k_id_preparation)->update([
-                            "b_vistamm" => "False"
+                    "b_vistamm" => "False"
                 ]);
                 $this->registerReportComment($ticket->k_id_onair, $comment);
             } else {
@@ -1643,23 +1668,57 @@ class Dao_ticketOnair_model extends CI_Model {
             //Ahora vamos a las tablas...
             $date = (Hash::getTimeStamp(Hash::getDate()) - $json->time_elapsed);
             $date = Hash::timeStampToDate($date);
+            //Verificamos los sectores y los pasamos a desbloqueados...
+            //Se pasan todos los sectores bloqueados a desbloqueados...
+            $sectores = $tck->n_json_sectores;
+            $sectoresDesbloqueados = "";
+            if ($sectores) {
+                $finalSectores = [];
+                $sectores = json_decode($sectores, true);
+                $i = 0;
+                if (is_array($sectores) || is_object($sectores)) {
+                    $count = count($sectores);
+                    foreach ($sectores as $value) {
+                        $obj = [
+                            "id" => $value["id"],
+                            "name" => $value["name"],
+                            "state" => (($value["state"] != -1) ? 0 : -1), //Desbloqueado...
+                        ];
+                        $finalSectores[] = $obj;
+                        $sectoresDesbloqueados .= $value["name"] . (($i < ($count - 1) ? ", " : ""));
+                        $i++;
+                    }
+                    $sectores = $finalSectores;
+                    $sectores = json_encode($sectores, true);
+                } else {
+                    $sectores = DB::NULLED;
+                }
+            } else {
+                $sectores = DB::NULLED;
+            }
+
+            $objForUpdate = new ObjUtil([
+                "n_sectoresbloqueados" => DB::NULLED,
+                "n_sectoresdesbloqueados" => $sectoresDesbloqueados,
+                "n_json_sectores" => $sectores,
+                "n_estado_sectores" => "DESBLOQUEADOS"
+            ]);
+
             if ($json->actual_status == "precheck") {
                 //Lo ponemos en seguimiento precheck...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
+                $objForUpdate->d_precheck_init = $date;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                            "d_precheck_init" => $date,
-                ]);
+                        ->update($objForUpdate->all());
                 $comment = "Se detiene el Stand By --- $request->comment";
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "12h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                ]);
+                        ->update($objForUpdate->all());
                 //Actualizmos el detalle de 12h...
                 $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir12hModel();
@@ -1667,14 +1726,13 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "24h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                ]);
+                        ->update($objForUpdate->all());
                 //Actualizmos el detalle de 12h...
                 $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir24hModel();
@@ -1682,14 +1740,13 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             } else if ($json->actual_status == "36h") {
                 //Lo ponemos en seguimiento 12h...
                 $ticketModel = new TicketOnAirModel();
+                $objForUpdate->k_id_status_onair = $json->k_id_status_onair;
                 $ticketModel->where("k_id_onair", "=", $tck->k_id_onair)
-                        ->update([
-                            "k_id_status_onair" => $json->k_id_status_onair,
-                ]);
+                        ->update($objForUpdate->all());
                 //Actualizmos el detalle de 12h...
                 $comment = "Se detiene el Stand By --- $request->comment";
                 $seguimientoModel = new OnAir36hModel();
@@ -1697,11 +1754,75 @@ class Dao_ticketOnair_model extends CI_Model {
                     "n_comentario" => $comment,
                     "d_start12h" => $date,
                 ]);
-                $this->registerReportComment($tck->k_id_onair, $comment);
+//                $this->registerReportComment($tck->k_id_onair, $comment);
             }
             return new Response(EMessages::CORRECT, "Se ha detenido correctamente el Stand By.");
         } else {
             return new Response(EMessages::ERROR, "El ticket no se encuentra en Stand By.");
+        }
+    }
+
+    public function stopStandByManual($tck, $request) {
+        $newState = null;
+        $ticketOnAirModel = new TicketOnAirModel();
+        switch ($request->new_state_standby) {
+            case ConstStates::PRECHECK:
+                //Lo pasamos a precheck...
+                $newState = ConstStates::PRECHECK;
+                $ticketOnAirModel->setIPrecheckRealizado(0);
+                $ticketOnAirModel->setDPrecheckInit(Hash::getDateForTrack(TimerGlobal::NOTY));
+                break;
+            case ConstStates::SEGUIMIENTO_12H:
+                $newState = ConstStates::SEGUIMIENTO_12H;
+                break;
+            case ConstStates::SEGUIMIENTO_24H:
+                //Aquí actualizamos el seguimiento 24h o lo creamos...
+                $newState = ConstStates::SEGUIMIENTO_24H;
+                break;
+            case ConstStates::SEGUIMIENTO_36H:
+                //Aquí actualiamos el seguimiento 36h o lo creamos...
+                $newState = ConstStates::SEGUIMIENTO_36H;
+                break;
+        }
+        //Se actualiza el estado del ticket...
+        if ($newState) {
+            $ticketOnAirModel->where("k_id_onair", "=", $tck->k_id_onair);
+            $ticketOnAirModel->update([
+                "k_id_status_onair" => $newState
+            ]);
+
+            $step = $this->getStepModel($tck);
+            if ($step) {
+                $stepModel = $step->stepModel;
+                $v = $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
+                                ->where("i_round", "=", $tck->n_round)->exist();
+
+                //Si existe, lo actualiza...
+                $stepModel = $step->stepModel;
+                $obj = [
+                    "k_id_onair" => $tck->k_id_onair,
+                    $step->d_start => Hash::getDateForTrack(TimerGlobal::TRACK),
+                    "d_fin12h" => DB::NULLED,
+                    "d_start_temp" => DB::NULLED,
+                    "i_state" => 0,
+                    "i_hours" => 0,
+                    "i_percent" => 0,
+                    "i_timestamp" => 0,
+                    "n_comentario" => DB::NULLED,
+                    "i_round" => $tck->n_round,
+                    "d_created_at" => Hash::getDate(),
+                ];
+                $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->where("i_round", "=", $tck->n_round);
+                if ($v) {
+                    $stepModel->update($obj);
+                }
+                //De lo contrario, lo inserta...
+                else {
+                    $stepModel->insert($obj);
+                }
+            }
+            $ticket->registerReportComment($tck->k_id_onair, $request->n_comentario_coor);
         }
     }
 

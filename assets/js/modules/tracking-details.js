@@ -4,6 +4,9 @@ var vista = {
     init: function () {
         if ($('#isBlock').val() == "true") {
             $('.icon-step').addClass('no-action');
+            $('#formDetallesBasicos').find('input, select, textarea').prop('disabled', true);
+            $('#formDetallesBasicos').find('button').remove();
+            $('#formTrackingDetails').find('input, select, textarea').prop('disabled', true);
         }
         vista.events();
         vista.configView();
@@ -43,8 +46,15 @@ var vista = {
         tr.remove();
     },
     events: function () {
-        $('#modalSectores #btnClosedModalSectores').on('click', function () {
+        $('#modalSectores').on('hidden.bs.modal', function () {
             $('#modalSectores').addClass('ws_closed');
+            $('#modalChangeState').modal('hide');
+            window.setTimeout(function () {
+                if (!$('#modalSectores').hasClass('edit-sectores')) {
+                    $('#modalChangeState').modal('show');
+                    $('#modalSectores').removeClass('edit-sectores');
+                }
+            }, 500);
         });
         $('#tblSectores').on('click', '.push-sector-btn', vista.onClickPushSector);
         $('#tblSectores').on('click', '.delete-sector-btn', vista.onClickRemoveSector);
@@ -79,7 +89,7 @@ var vista = {
             $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
             $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
         });
-        
+
         $('#btnEscalar').on('click', vista.onClickBtnEscalar);
     },
     onClickBtnEscalar: function (e) {
@@ -164,18 +174,22 @@ var vista = {
             $('#txtBandaModal').val($('#cmbBanda option:selected').text());
             $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
             $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
-            $('#modalSectores').modal('show');
-        } else if (btn.hasClass('lock')) {
-            $('.btn-sectores.unlock').prop('disabled', false).show();
-            $('#cmbEstadoSectores').val(1).trigger('change.select2');
-            btn.prop('disabled', true).hide();
-            $('#modalSectores').addClass('updated');
-        } else if (btn.hasClass('unlock')) {
-            $('.btn-sectores.lock').prop('disabled', false).show();
-            btn.prop('disabled', true).hide();
-            $('#cmbEstadoSectores').val(0).trigger('change.select2');
-            $('#modalSectores').addClass('updated');
+            $('#modalChangeState').modal('hide');
+            window.setTimeout(function () {
+                $('#modalSectores').modal('show');
+            }, 500);
         }
+//        else if (btn.hasClass('lock')) {
+//            $('.btn-sectores.unlock').prop('disabled', false).show();
+//            $('#cmbEstadoSectores').val(1).trigger('change.select2');
+//            btn.prop('disabled', true).hide();
+//            $('#modalSectores').addClass('updated');
+//        } else if (btn.hasClass('unlock')) {
+//            $('.btn-sectores.lock').prop('disabled', false).show();
+//            btn.prop('disabled', true).hide();
+//            $('#cmbEstadoSectores').val(0).trigger('change.select2');
+//            $('#modalSectores').addClass('updated');
+//        }
         vista.configSectores();
     },
     onClickCommentStep: function () {
@@ -239,10 +253,10 @@ var vista = {
         var action = $('#modalSectores').attr('data-action');
         if (action === "REINICIO_12H") {
             vista.restart12h();
-        } else if (action === "REINICIO_24H"){
-          vista.restart24h();
-        } else if(action === "REINICIO_36H"){
-          vista.restart36h();
+        } else if (action === "REINICIO_24H") {
+            vista.restart24h();
+        } else if (action === "REINICIO_36H") {
+            vista.restart36h();
         } else if (action === "SCALED") {
             $('#formTrackingDetails').find('#typeBlock_Dinamic').remove();
             $('#formTrackingDetails').append('<input type="hidden" id="typeBlock_Dinamic" name="typeBlock" value="' + $('#cmbEstadoSectores').val() + '" />');
@@ -332,6 +346,7 @@ var vista = {
         $('#txtBandaModal').val($('#cmbBanda option:selected').text());
         $('#txtTecnologiaModal').val($('#cmbTecnologia option:selected').text());
         $('#txtTipoTrabajoModal').val($('#cmbTipoTrabajo option:selected').text());
+        $('#modalSectores').addClass('edit-sectores');
         $('#modalSectores').modal('show');
     },
     addSector: function () {
@@ -447,6 +462,7 @@ var vista = {
         app.post("TicketOnair/toStandBy", {
             'idTicket': $('#idProceso').val(),
             'comment': $('#txtObservations').val(),
+            'typeBlock': $('#cmbEstadoSectores').val()
         })
                 .success(function (response) {
                     if (response.code > 0) {
@@ -609,6 +625,11 @@ var vista = {
         var parent = icon.parents('.hour-step');
         var hr = parseInt(parent.attr('data-value')) + 12;
         hr = (hr > 36) ? 36 : hr;
+        if (hr == 36) {
+            window.setTimeout(function () {
+                $('a[data-action="NEXT"]').addClass('disabled')
+            }, 100);
+        }
         $('#txtTiempoProrroga').val("12");
         $('#modalChangeState #txtObservations').val("");
         $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
@@ -890,7 +911,7 @@ var vista = {
                 });
                 break
                 //Caso Reinicio 24H
-              case "35":
+            case "35":
                 $('[data-ref="#contentDetails_24h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 24H');
                 $('.progress-step').css('width', 100 + '%');
@@ -911,7 +932,7 @@ var vista = {
                 });
                 break
                 //Caso Reinicio 36H
-              case "36":
+            case "36":
                 $('[data-ref="#contentDetails_36h_content"]').addClass('active').removeClass('disabled');
                 $('.timerstamp').html('<i class="fa fa-fw fa-undo"></i> Reinicio 36H');
                 $('.progress-step').css('width', 100 + '%');

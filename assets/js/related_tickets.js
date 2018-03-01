@@ -107,7 +107,7 @@ var rg = {
         content.find('.no-found').remove();
         console.log(obj);
         obj.i = content.find('tr').length + 1;
-        content.append(dom.fillString('<tr data-i="{k_id_onair}"><td>{i}</td><td><a href="' + app.urlTo($('#link_view_ticket')+'?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_technology.n_name_technology} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a><button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button></div></td></tr>', obj));
+        content.append(dom.fillString('<tr data-i="{k_id_onair}"><td>{i}</td><td><a href="' + app.urlTo($('#link_view_ticket')+'?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_technology.n_name_technology} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('User/trackingDetails?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a><button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button></div></td></tr>', obj));
     },
     getRelatedTickets: function (idTicket) {
         app.post('Utils/getRelatedTicketsByIdTicked', {
@@ -122,7 +122,7 @@ var rg = {
                         for (var i = 0; i < data.length; i++) {
                             var obj = data[i];
                             obj.i = i + 1;
-                            content.append(dom.fillString('<tr class="saved" data-i="{k_id_onair}" data-id="{k_id_related_ticket}"><td>{i}</td><td><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_technology.n_name_technology} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('Documenter/documenterFields?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a>' + ((rgPermisesUpdate) ? '<button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button>' : '') + '</div></td></tr>', obj));
+                            content.append(dom.fillString('<tr class="saved" data-i="{k_id_onair}" data-id="{k_id_related_ticket}"><td>{i}</td><td><a href="' + app.urlTo('User/trackingDetails?id=') + '{k_id_onair}" target="_blank">#{k_id_onair} - {k_id_station.n_name_station} / {k_id_technology.n_name_technology} / {k_id_band.n_name_band}</td><td><div class="btn-group"><a href="' + app.urlTo('User/trackingDetails?id=') + '{k_id_onair}" target="_blank" class="btn btn-xs btn-default" title="Ver ticket"><i class="fa fa-fw fa-eye"></i></a>' + ((rgPermisesUpdate) ? '<button class="btn btn-xs btn-danger btn-delete-relation" title="Eliminar"><i class="fa fa-fw fa-times"></i></button>' : '') + '</div></td></tr>', obj));
                         }
                     } else {
                         content.html('<tr class="no-found"><td colspan="3"><i class="fa fa-fw fa-warning"></i> No se han agregado relaciones para este tikcet.</td></tr>');

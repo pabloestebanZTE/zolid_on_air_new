@@ -292,21 +292,31 @@ class OnAir12hModel extends Model {
         $obj->today = $today;
     }
 
-    public function updateTimeStamp($tck) {
+    public function updateTimeStamp($tck, $customDate = null) {
         $model = new OnAir12hModel();
         $obj = $model->getLastDetail($tck, $tck->n_round);
         $obj = new ObjUtil($obj);
+
         if (!$obj) {
             return null;
         }
 
         if ($obj->i_state == 0) {
+            if ($customDate) {
+                $obj->d_start12h = $customDate;
+            }
             $this->timer($obj, "d_start12h", 12);
         } else if ($obj->i_state == 1) {
             //3horas...           
+            if ($customDate) {
+                $obj->d_start_temp = $customDate;
+            }
             $this->timer($obj, "d_start_temp", 3);
         } else if ($obj->i_state == 2) {
             //Prórroga...
+            if ($customDate) {
+                $obj->d_start_temp = $customDate;
+            }
             $this->timer($obj, "d_start_temp", $obj->i_hours);
         } else if ($obj->i_state == 3) {
             return $obj;
