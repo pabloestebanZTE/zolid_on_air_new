@@ -10,7 +10,7 @@
             color: #FFF;
         }
     </style>
-    <body data-base="<?= URL::base() ?>">        
+    <body data-base="<?= URL::base() ?>">
         <?php $this->load->view('parts/generic/header'); ?>
         <input type="hidden" id="link_view_ticket" value="User/trackingDetails" />
         <input type="hidden" id="isBlock" value="<?= $block ?>" />
@@ -234,7 +234,7 @@
                                     <?php } ?>
                                     <?php if ($view) { ?>
                                         <div id="related_tickets" class="tab-pane fade">
-                                            <div class="form-horizontal well" method="post"  id="stationForm" name="stationForm">                                                
+                                            <div class="form-horizontal well" method="post"  id="stationForm" name="stationForm">
                                                 <div class="alert alert-info alert-dismissable">
                                                     <a href="#" class="close" >&times;</a>
                                                     <p class="p-b-0" id="text">
@@ -254,7 +254,7 @@
                                                                     <div class="input-group-btn"><button type="button" id="btnAddTicketRelation" title="Agregar" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button></div>
                                                                 </div>
                                                             </div>
-                                                        </div>                                
+                                                        </div>
                                                         <div class="form-group">
                                                             <hr/>
                                                         </div>
@@ -273,7 +273,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <!--  fin seccion izquierda form---->                                    
+                                                    <!--  fin seccion izquierda form---->
 
                                                     <!-- Button -->
                                                     <center>
@@ -289,7 +289,7 @@
                                         </div>
                                     <?php } ?>
                                     <?php if ($view) { ?>
-                                    </div>                                
+                                    </div>
                                 <?php } ?>
                             </div>
                         </div>
@@ -921,6 +921,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="hidden" id="alertReinicio24h">
+                        <div class="row">
+                            <div class="col-xs-12 p-l-25 p-r-25">
+                                <p class="m-t-0 m-b-0">La actividad actual se encuentra en estado: <b>Reinicio 24h</b> haga clic en el siguiente botón si desea iniciarla.</p>
+                                <button class="btn btn-primary" id="btnRunActividad24"><i class="fa fa-fw fa-play"></i> Iniciar Actividad</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden" id="alertReinicio36h">
+                        <div class="row">
+                            <div class="col-xs-12 p-l-25 p-r-25">
+                                <p class="m-t-0 m-b-0">La actividad actual se encuentra en estado: <b>Reinicio 36h</b> haga clic en el siguiente botón si desea iniciarla.</p>
+                                <button class="btn btn-primary" id="btnRunActividad36"><i class="fa fa-fw fa-play"></i> Iniciar Actividad</button>
+                            </div>
+                        </div>
+                    </div>
                     <div id="contentFases" class="hidden">
                         <div class="col-xs-12 text-right">
                             <div class="display-block pull-right hidden" style="width: 400px;">
@@ -1159,7 +1175,7 @@
                         </li>
                         <li>
                             <a href="javascript:;" data-action="SCALED"><span class="icon-state theme4"><i class="fa fa-fw fa-undo"></i></span> Escalar Proceso</a>
-                        </li>                                                                        
+                        </li>
                     </ul>
                     <div class="row">
                         <div class="col-xs-12 p-b-15">
@@ -1248,7 +1264,7 @@
                     <hr/>
                     <div class="row">
                         <div class="col-md-3 text-right">
-                            <label class="m-t-5">Estado sectores:</label>                            
+                            <label class="m-t-5">Estado sectores:</label>
                         </div>
                         <div class="col-md-9">
                             <div class="input-group">
@@ -1260,12 +1276,12 @@
                                     <option value="1">Bloqueados</option>
                                     <option value="0">Desbloqueados</option>
                                 </select>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="row hidden m-t-15" id="sectionComentarioSectores">
                         <div class="col-md-3 text-right">
-                            <label class="m-t-5">Observaciones:</label>                            
+                            <label class="m-t-5">Observaciones:</label>
                         </div>
                         <div class="col-md-9">
                             <div class="input-group">
@@ -1273,7 +1289,7 @@
                                     <i class="fa fa-fw fa-comment"></i>
                                 </div>
                                 <textarea class="form-control" placeholder="Observaciones" id="txtComentarioStartPrecheck"></textarea>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>

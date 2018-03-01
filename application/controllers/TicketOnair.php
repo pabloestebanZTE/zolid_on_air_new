@@ -271,7 +271,7 @@ class TicketOnair extends CI_Controller {
         $this->request->d_created_at = Hash::getDateForTrack();
         $response = $ticket->insertTicket($this->request);
 
-        //Ahora insertamos las relaciones...        
+        //Ahora insertamos las relaciones...
         if ($related_tickets && $response->code > 0) {
             foreach ($related_tickets as $id) {
                 //Creamos la relación del ticket creado con el ticket relacionado...
@@ -445,7 +445,7 @@ class TicketOnair extends CI_Controller {
         }
 
         //24h
-        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 82) {
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 82 || $ticketOnAirTemp->k_id_status_onair == 108) {
             $track24 = new dao_onAir24h_model();
             $follow24 = new dao_followUp24h_model();
             $response = $track24->getOnair24ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
@@ -465,13 +465,17 @@ class TicketOnair extends CI_Controller {
             }
             $response = $follow24->update24FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
-            $response = $ticket->updatePrecheckOnair($this->request, 82);
+            $idStatus = 82;
+            if ($ticketOnAirTemp->k_id_status_onair == 108) {
+                $idStatus = 108;
+            }
+            $response = $ticket->updatePrecheckOnair($this->request, $idStatus);
             $this->json($response);
             $flag = 1;
         }
 
         //36h
-        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 83) {
+        if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 83 || $ticketOnAirTemp->k_id_status_onair == 109) {
             $track36 = new dao_onAir36h_model();
             $follow36 = new dao_followUp36h_model();
             $response = $track36->getOnair36ByIdOnairAndRound($ticketOnAirTemp->k_id_onair, $ticketOnAirTemp->n_round);
@@ -491,7 +495,11 @@ class TicketOnair extends CI_Controller {
             }
             $response = $follow36->update36FollowUp($this->request);
             $this->request->i_actualEngineer = $this->request->k_id_user;
-            $response = $ticket->updatePrecheckOnair($this->request, 83);
+            $idStatus = 83;
+            if ($ticketOnAirTemp->k_id_status_onair == 109) {
+                $idStatus = 109;
+            }
+            $response = $ticket->updatePrecheckOnair($this->request, $idStatus);
             $this->json($response);
             $flag = 1;
         }
@@ -574,6 +582,10 @@ class TicketOnair extends CI_Controller {
         $scaling = new Dao_scaledOnair_model();
         $follow12h = new Dao_followUp12h_model();
         $onair12 = new Dao_onAir12h_model();
+        $follow24h = new Dao_followUp24h_model();
+        $onair24 = new Dao_onAir24h_model();
+        $follow36h = new Dao_followUp36h_model();
+        $onair36 = new Dao_onAir36h_model();
         $ticket = new Dao_ticketOnair_model();
         //Verifica que se haya recibido correctamente el id de escalamiento...
         if ($this->request->k_id_scaled_on_air != null) {
@@ -593,27 +605,70 @@ class TicketOnair extends CI_Controller {
             $this->request->d_start12h = Hash::getDateForTrack(TimerGlobal::TRACK);
             if ($this->request->k_id_status_onair >= 87) {
                 $this->request->d_fin12h = Hash::getDate();
+                //Tratamiento de reinicio 12h
+                if ($this->request->k_id_status_onair == 79) {
+                    $response = $follow12h->insert12hFollowUp($this->request);
+                    $this->request->k_id_follow_up_12h = $response->data->data;
+                    $this->request->d_start12h = Hash::getDate();
+                    if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
+                        $this->request->d_fin12h = Hash::getDate();
+                    }
+                    $response = $onair12->insertOnAir12($this->request);
+                }
+                //Tratamiento de reinicio 24h
+                if ($this->request->k_id_status_onair == 108) {
+                    $response = $follow24h->insert24hFollowUp($this->request);
+                    $this->request->k_id_follow_up_24h = $response->data->data;
+                    $this->request->d_start24h = Hash::getDate();
+                    if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
+                        $this->request->d_fin24h = Hash::getDate();
+                    }
+                    $response = $onair24->insertOnAir24($this->request);
+                }
+                //Tratamiento de reinicio 36h
+                if ($this->request->k_id_status_onair == 109) {
+                    $response = $follow36h->insert36hFollowUp($this->request);
+                    $this->request->k_id_follow_up_36h = $response->data->data;
+                    $this->request->d_start36h = Hash::getDate();
+                    if ($this->request->k_id_status_onair >= 87 && $this->request->k_id_status_onair <= 105) {
+                        $this->request->d_fin36h = Hash::getDate();
+                    }
+                    $response = $onair36->insertOnAir36($this->request);
+                }
+            } else {
+                $response = $scaling->insertScaling($this->request);
             }
-            $response = $onair12->insertOnAir12($this->request);
-        } else {
-            $response = $scaling->insertScaling($this->request);
+
+
+            //Inserta el precheck...
+            $this->request->d_precheck_init = DB::NULLED;
+            $this->request->i_prorroga_hours = 0;
+            if ($this->request->k_id_status_onair == 80) {
+                $this->request->i_precheck_realizado = DB::NULLED;
+            }
+            //Actualiza algunos campos y la fecha correcciones_pendientes en prepartion_stage...
+            $response = $ticket->updateTicketScaling($this->request);
+            //Registra el comentario...
+            $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_detalle_solucion, $this->request->solicitante_reinicio);
+            $this->json($response);
         }
-        //Inserta el precheck...
-        $this->request->d_precheck_init = DB::NULLED;
-        $this->request->i_prorroga_hours = 0;
-        if ($this->request->k_id_status_onair == 80) {
-            $this->request->i_precheck_realizado = DB::NULLED;
-        }
-        //Actualiza algunos campos y la fecha correcciones_pendientes en prepartion_stage...
-        $response = $ticket->updateTicketScaling($this->request);
-        //Registra el comentario...
-        $ticket->registerReportComment($this->request->k_id_onair, $this->request->n_detalle_solucion, $this->request->solicitante_reinicio);
-        $this->json($response);
     }
 
     public function restart12h() {
         $ticketOnAirDAO = new Dao_ticketOnair_model();
         $response = $ticketOnAirDAO->restart12h($this->request);
+        $this->json($response);
+    }
+
+    public function restart24h() {
+        $ticketOnAirDAO = new Dao_ticketOnair_model();
+        $response = $ticketOnAirDAO->restart24h($this->request);
+        $this->json($response);
+    }
+
+    public function restart36h() {
+        $ticketOnAirDAO = new Dao_ticketOnair_model();
+        $response = $ticketOnAirDAO->restart36h($this->request);
         $this->json($response);
     }
 
