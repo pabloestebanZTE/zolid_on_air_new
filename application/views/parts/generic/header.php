@@ -19,7 +19,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div>
-                            <div id="divImg"><img id="imgRol" src="<?= URL::to('assets/img/' . Auth::getRole() . '.png') ?>"/></div>
+                            <div id="divImg"><img id="imgRol" src="<?= URL::to('assets/img/' . Auth::user()->k_id_user . '.png') ?>"/></div>
                             <div id="infoUsu">
                                 <span>
                                     <?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?><br>
