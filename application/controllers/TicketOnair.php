@@ -268,7 +268,7 @@ class TicketOnair extends CI_Controller {
         $response = $ticketPS->insertPreparationStage($this->request);
         $this->request->k_id_preparation = $response->data->data;
         $this->request->i_actualEngineer = 0;
-        $this->request->d_created_at = Hash::getDate();
+        $this->request->d_created_at = Hash::getDateForTrack();
         $response = $ticket->insertTicket($this->request);
 
         //Ahora insertamos las relaciones...        
@@ -590,7 +590,7 @@ class TicketOnair extends CI_Controller {
             //Inserta el responsable del seguimiento 12h...
             $response = $follow12h->insert12hFollowUp($this->request);
             $this->request->k_id_follow_up_12h = $response->data->data;
-            $this->request->d_start12h = Hash::getDate();
+            $this->request->d_start12h = Hash::getDateForTrack(TimerGlobal::TRACK);
             if ($this->request->k_id_status_onair >= 87) {
                 $this->request->d_fin12h = Hash::getDate();
             }

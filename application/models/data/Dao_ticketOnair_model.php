@@ -1875,7 +1875,7 @@ class Dao_ticketOnair_model extends CI_Model {
             //Ahora actualizamos la fecha Start de el registro 12h...
             $onAir12h = new OnAir12hModel();
             $this->insertCommentDetail($onAir12h, $tck, [
-                "d_start12h" => Hash::getDate(),
+                "d_start12h" => Hash::getDateForTrack(TimerGlobal::TRACK),
                 "i_hours" => 0,
                 "n_comentario" => "Se inicia el proceso después de pasar por un Reinicio12h."
             ]);

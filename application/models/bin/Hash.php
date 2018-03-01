@@ -59,6 +59,62 @@ class Hash {
         return date("Y-m-d H:i:s");
     }
 
+    public static function getDateForTrackFromDate($date, $track) {
+        $timer = new TimerGlobal();
+        $date = new Date($date);
+        $limit = 18; //Hasta las 10:00 pm.
+//        switch ($track) {
+//            case TimerGlobal::NOTY:
+//                $limit = 22;
+//                break;
+//            case TimerGlobal::TRACK:
+//                $limit = 18;
+//                break;
+//        }
+        if ($date->hour >= $limit) {
+            if ($date->hour > $limit) {
+                $date->hour = 6;
+                $date->minute = 0;
+                $date->secound = 0;
+                //Se pasa para el siguiente día...
+                $date->day++;
+            }
+        } else if ($date->hour < 6) {
+            $date->hour = 6;
+            $date->minute = 0;
+            $date->secound = 0;
+        }
+        return $date->getDate();
+    }
+
+    public static function getDateForTrack($track = "NOTY") {
+        $timer = new TimerGlobal();
+        $date = new Date(Hash::getDate());
+        $limit = 18; //Hasta las 10:00 pm.
+        switch ($track) {
+            case TimerGlobal::NOTY:
+                $limit = 22;
+                break;
+            case TimerGlobal::TRACK:
+                $limit = 18;
+                break;
+        }
+        if ($date->hour >= $limit) {
+            if ($date->hour > $limit) {
+                $date->hour = 6;
+                $date->minute = 0;
+                $date->secound = 0;
+                //Se pasa para el siguiente día...
+                $date->day++;
+            }
+        } else if ($date->hour < 6) {
+            $date->hour = 6;
+            $date->minute = 0;
+            $date->secound = 0;
+        }
+        return $date->getDate();
+    }
+
     public static function addMinutes($date, $minutes) {
         $nuevafecha = strtotime('+' . $minutes . ' minute', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
@@ -91,6 +147,12 @@ class Hash {
 
     public static function subtractDay($date, $day) {
         $nuevafecha = strtotime('-' . $day . ' day', strtotime($date));
+        $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
+        return $nuevafecha;
+    }
+
+    public static function subtractMillisecounds($date, $secounds) {
+        $nuevafecha = strtotime('-' . $secounds . ' secounds', strtotime($date));
         $nuevafecha = date('Y-m-d H:i:s', $nuevafecha);
         return $nuevafecha;
     }

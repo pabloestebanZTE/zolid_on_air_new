@@ -1530,4 +1530,8 @@ class Utils extends CI_Controller {
         return json_encode($objSectores);
     }
 
+    public function xd() {
+        echo Hash::getDateForTrack();
+    }
+
 }

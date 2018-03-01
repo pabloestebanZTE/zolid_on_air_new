@@ -328,7 +328,7 @@ class Precheck extends CI_Controller {
             $onair12 = new Dao_onAir12h_model();
             $response = $follow12h->insert12hFollowUp($this->request);
             $this->request->k_id_follow_up_12h = $response->data->data;
-            $this->request->d_start12h = Hash::getDate();
+            $this->request->d_start12h = Hash::getDateForTrack(TimerGlobal::TRACK);
             if ($this->request->k_id_status_onair >= 87) {
                 $this->request->d_fin12h = Hash::getDate();
             }
