@@ -294,7 +294,7 @@ class OnAir36hModel extends Model {
         $obj->today = $today;
     }
 
-    public function updateTimeStamp($tck) {
+    public function updateTimeStamp($tck, $customDate = null) {
         $model = new OnAir36hModel();
         $obj = $model->getLastDetail($tck, $tck->n_round);
         $obj = new ObjUtil($obj);

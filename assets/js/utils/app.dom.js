@@ -296,7 +296,6 @@ var dom = {
 //        var timeTotal = ((time / percentValue) * 100);
 
         var refresh = function () {
-//            var mathTime = (1000 * 60);
             var mathTime = (1000 * 60);
             today += mathTime;
             var v = dom.betweenHours(new Date('01/01/2017 06:00'), new Date('01/01/2017 18:00'), new Date(today));

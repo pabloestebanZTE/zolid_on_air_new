@@ -267,7 +267,7 @@ class TicketOnair extends CI_Controller {
         $response = $ticketPS->insertPreparationStage($this->request);
         $this->request->k_id_preparation = $response->data->data;
         $this->request->i_actualEngineer = 0;
-        $this->request->d_created_at = Hash::getDate();
+        $this->request->d_created_at = Hash::getDateForTrack(TimerGlobal::NOTY);
         $response = $ticket->insertTicket($this->request);
 
         //Ahora insertamos las relaciones...
@@ -512,24 +512,35 @@ class TicketOnair extends CI_Controller {
         //STAND BY...
         $actualizar_fecha_ultima_revision = false;
         if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 100) {
-            $ticket->stopStandBy($ticketOnAirTemp, $this->request);
+            $isManual = false;
+            if ($this->request->reload_time == "true") {
+                //Se detiene el StandBy normalmente...
+                $ticket->stopStandBy($ticketOnAirTemp, $this->request);
+            } else {
+                //De lo contrario se realiza el procedimiento de manera manual...
+                $isManual = true;
+                $ticket->stopStandByManual($ticketOnAirTemp, $this->request);
+            }
             //Detectamos el estado actual...
             $obj = $ticket->getStepModel($ticketOnAirTemp);
             if ($obj) {
+                //Consultamos el step...
                 $step = $obj->stepModel
                                 ->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
                                 ->where("i_hours", "=", $ticketOnAirTemp->i_hours)->first();
                 if ($step) {
+                    //Actualizamos el ingeniero asignado...
                     $idFollow = $step->{$obj->k_id_follow};
                     $idUser = $this->request->k_id_user;
                     $ticket->updateFollow($ticketOnAirTemp, $idFollow, $idUser);
                 }
             }
-            $ticketModel = new TicketOnAirModel();
-            $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
-                    ->update([
-                        "i_actualEngineer" => $this->request->k_id_user
-            ]);
+            //Se asigna el ingeniero...
+//            $ticketModel = new TicketOnAirModel();
+//            $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
+//                    ->update([
+//                        "i_actualEngineer" => $this->request->k_id_user
+//            ]);
 //            $this->request->n_comentario_coor = "Se detiene el Stand By --- " . $this->request->n_comentario_coor;
             $this->json(new Response(EMessages::SUCCESS, "Se ha asignado y detenido el Stand by correctamente."));
             $flag = 1;

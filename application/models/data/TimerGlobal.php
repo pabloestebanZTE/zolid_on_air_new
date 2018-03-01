@@ -15,10 +15,11 @@ class TimerGlobal {
         
     }
 
-    public function updateTimeStamp($tck) {
+    public function updateTimeStamp($tck, $customDate = null) {
         try {
             $id = (is_object($tck)) ? $tck->k_id_onair : $tck;
             if (!is_object($tck)) {
+                $ticketModel = new TicketOnAirModel();
                 $tck = $ticketModel->where("k_id_onair", "=", $id)->first();
             }
             if ($tck) {
@@ -51,33 +52,33 @@ class TimerGlobal {
                             break;
                         case ConstSubStates::NOTIFICACION:
                             $actual_status = "NOTY";
-                            $temp = $this->getTimeNotification($tck);
+                            $temp = $this->getTimeNotification($tck, $customDate);
                             break;
                         case ConstSubStates::PRECHECK:
                             $actual_status = "PCHK";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_PRECHECK:
                             $actual_status = "R_PCHK";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_12H:
                             $actual_status = "R_12H";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_24H:
                             $actual_status = "R_24H";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_36H:
                             $actual_status = "R_36H";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                     }
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 if ($stepModel) {
-                    $temp = $stepModel->updateTimeStamp($tck);
+                    $temp = $stepModel->updateTimeStamp($tck, $customDate);
                 }
                 if (is_object($temp)) {
                     $temp->actual_status = $actual_status;
@@ -105,18 +106,18 @@ class TimerGlobal {
         ]);
     }
 
-    public function getTimeNotification($tck) {
+    public function getTimeNotification($tck, $customDate = null) {
         //Suponiendo que ya conocemos el estado, lo que haremos será arrancar el cronómetro...
         $obj = $this->getObjectModel();
-        $obj->d_created_at = $tck->d_created_at;
+        $obj->d_created_at = ($customDate == null) ? $tck->d_created_at : $customDate;
         $this->timer($obj, "d_created_at", 3);
         return $obj;
     }
 
-    public function getTimePrecheck($tck) {
+    public function getTimePrecheck($tck, $customDate = null) {
         //Suponiendo que ya conocemos el estado, lo que haremos será arrancar el cronómetro...
         $obj = $this->getObjectModel();
-        $obj->d_precheck_init = $tck->d_precheck_init;
+        $obj->d_precheck_init = ($customDate == null) ? $tck->d_precheck_init : $customDate;
         //Detectamos si está en stand by...
         $time = 3;
         if ($tck->i_prorroga_hours > 0) {
@@ -176,23 +177,35 @@ class TimerGlobal {
                 break;
         }
 
-        if ($timeTemp->year == $todayTemp->year && ($timeTemp->day == $todayTemp->day || ($timeTemp->day - 1) == $todayTemp->day || ($todayTemp->day - 1 ) == $timeTemp->day) && $timeTemp->month == $todayTemp->month) {
+        $now = time(); // or your date as well
+        $your_date = strtotime($timeTemp->getDate());
+        $datediff = $now - $your_date;
+        $days = round($datediff / (60 * 60 * 24));
+
+        if ($days <= 1) {
+            if (($todayTemp->day != $timeTemp->day)) {
+                $todayTemp = new Date(Hash::getDateForTrack());
+            }
             //Se se ha pasado la hora habíl, se buscará cuanto tiempo ha pasado de la hora hábil...
             if ($todayTemp->hour > $limit) {
                 $h_e = $todayTemp->hour - $limit;
                 $timeTemp->hour += $h_e;
             } else {
                 $h_e = $limit - $timeTemp->hour;
-                if ($todayTemp->hour < 6) {
+                if ($todayTemp->hour < 6 && $timeTemp->day != $todayTemp->day) {
                     $timeTemp->hour = 6;
                     $todayTemp->hour = 6 + $h_e;
                 } else {
-//                    $todayTemp->hour += $h_e;
+                    if ($todayTemp->hour < 6) {
+                        $todayTemp->minute = 0;
+                        $todayTemp->secound = 0;
+                        $todayTemp->hour += (6 - $todayTemp->hour);
+                    }
                 }
             }
-            if ($todayTemp->day > $timeTemp->day) {
-                $timeTemp->day = $todayTemp->day;
-            }
+//            if ($todayTemp->day > $timeTemp->day) {
+//                $timeTemp->day = $todayTemp->day;
+//            }
             $time = Hash::getTimeStamp($timeTemp->getDate());
         } else {
             $time = Hash::getTimeStamp($obj->{$field});

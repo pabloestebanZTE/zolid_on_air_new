@@ -278,6 +278,18 @@ class User extends CI_Controller {
         $answer['status'] = $status->getAllStatus();
         $answer['substatus'] = $status->getAllSubstatus();
         $answer['statusOnAir'] = $status->getAll();
+        $answer['tck'] = $response->data;
+        if ($response->data->data_standby) {
+            $json = json_decode($response->data->data_standby, true);
+            $answer["stateStandBy"] = $json["k_id_status_onair"];
+            $date = (Hash::getTimeStamp(Hash::getDate()) - $json["time_elapsed"]);
+            $date = Hash::timeStampToDate($date);
+            $timerGlobal = new TimerGlobal();
+            $tck = (new TicketOnAirModel())->where("k_id_onair", "=", $response->data->k_id_onair)->first();
+            $tck->k_id_status_onair = $json["k_id_status_onair"];
+            $valuesTime = $timerGlobal->updateTimeStamp($tck, $date);
+            $answer["valuesTime"] = json_encode($valuesTime, true);
+        }
         $this->toAssign($answer);
     }
 
