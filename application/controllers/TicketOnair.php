@@ -267,7 +267,7 @@ class TicketOnair extends CI_Controller {
         $response = $ticketPS->insertPreparationStage($this->request);
         $this->request->k_id_preparation = $response->data->data;
         $this->request->i_actualEngineer = 0;
-        $this->request->d_created_at = Hash::getDate();
+        $this->request->d_created_at = Hash::getDateForTrack(TimerGlobal::NOTY);
         $response = $ticket->insertTicket($this->request);
 
         //Ahora insertamos las relaciones...
