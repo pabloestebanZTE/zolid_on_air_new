@@ -79,6 +79,17 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="txtCiudad" class="col-md-3 control-label">Fecha Ingreso On-Air:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                            <input type='text' name="txtFecha" id="txtFecha" class="form-control" value='' readonly="false">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="cbmIngeniero" class="col-md-3 control-label">Ingeniero:</label>
                                     <div class="col-md-8 selectContainer">
@@ -126,16 +137,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="txtCiudad" class="col-md-3 control-label">Fecha Ingreso On-Air:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='text' name="txtFecha" id="txtFecha" class="form-control" value='' readonly="false">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="txtCiudad" class="col-md-3 control-label">Estado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -166,7 +167,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Observaciones de Asignación</label>
+                                    <label class="col-md-3 control-label">Observaciones de Asignación:</label>
                                     <div class="col-md-8 inputGroupContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
@@ -174,6 +175,36 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                if (isset($tck) && $tck->k_id_status_onair["k_id_status_onair"] == ConstStates::STAND_BY_SEGUIMIENTO_FO) {
+                                    ?>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Estado StandBy:</label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-fw fa-caret-right"></i></span>
+                                                <select class="form-control" id="cmbEstadoStandBy" name="new_state_standby">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="<?= ConstStates::PRECHECK ?>" <?= (isset($stateStandBy) && $stateStandBy == ConstStates::PRECHECK) ? 'selected="true" data-selected="true"' : '' ?>>Precheck</option>
+                                                    <option value="<?= ConstStates::SEGUIMIENTO_12H ?>" <?= (isset($stateStandBy) && $stateStandBy == ConstStates::SEGUIMIENTO_12H) ? 'selected="true" data-selected="true"' : '' ?>>Seguimiento 12h</option>
+                                                    <option value="<?= ConstStates::SEGUIMIENTO_24H ?>" <?= (isset($stateStandBy) && $stateStandBy == ConstStates::SEGUIMIENTO_24H) ? 'selected="true" data-selected="true"' : '' ?>>Seguimiento 24h</option>
+                                                    <option value="<?= ConstStates::SEGUIMIENTO_36H ?>" <?= (isset($stateStandBy) && $stateStandBy == ConstStates::SEGUIMIENTO_36H) ? 'selected="true" data-selected="true"' : '' ?>>Seguimiento 36h</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="reloadTimePanel">
+                                        <label class="col-md-3 control-label">Recuperar tiempo:</label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span disabled="true" id="txtTimeStandBy" class="form-control" >--:--</span>
+                                                <div class="input-group-btn"><button type="button" id="btnRecuperarTiempo" title="Recuperar tiempo" class="btn btn-primary"><i class="fa fa-fw fa-undo"></i> Recuperar</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                             </fieldset>
                             <input type='hidden' name="k_id_ticket" id="k_id_ticket" class="form-control" value='' readonly="false">
 
@@ -202,6 +233,8 @@
             $(function () {
                 ticket = <?php echo $ticket; ?>;
                 var users = <?php echo $users; ?>;
+                var valuesTime = <?= $valuesTime; ?>;
+                dom.timer($('#txtTimeStandBy'), null, null, valuesTime);
                 for (var j = 0; j < users.data.length; j++) {
                     $('#k_id_user').append($('<option>', {
                         value: users.data[j].k_id_user,
@@ -225,6 +258,37 @@
                 $('textarea[name=n_comentario_doc]').val(ticket.k_id_preparation.n_comentario_doc);
                 $('input[name=k_id_ticket]').val(ticket.k_id_onair);
                 $('textarea[name=n_comentario_coor]').val(ticket.n_comentario_coor);
+
+                $('#btnRecuperarTiempo').on('click', function () {
+                    var btn = $(this);
+                    if (btn.hasClass('added')) {
+                        btn.attr('class', 'btn btn-primary');
+                        btn.html('<i class="fa fa-fw fa-undo"></i> Recuperar').attr('title', 'Recupearar Tiempo');
+                        $('#txtTimeStandBy').parent().removeClass('has-success');
+                        $('#hdnReloadTime').remove();
+                    } else {
+                        btn.attr('class', 'btn btn-default added');
+                        btn.html('<i class="fa fa-fw fa-times"></i> Cancelar').attr('title', 'Cancelar');
+                        $('#txtTimeStandBy').parent().addClass('has-success');
+                        $('#assignEng').append('<input type="hidden" name="reload_time" value="true" id="hdnReloadTime" />');
+                    }
+                });
+
+
+                $('#cmbEstadoStandBy').on('change', function () {
+                    var cmb = $(this);
+                    var v = cmb.find('option:selected').attr('data-selected') == "true";
+                    if (v) {
+                        $('#reloadTimePanel').show();
+                    } else {
+                        var btn = $('#btnRecuperarTiempo');
+                        btn.attr('class', 'btn btn-primary');
+                        btn.html('<i class="fa fa-fw fa-undo"></i> Recuperar').attr('title', 'Recupearar Tiempo');
+                        $('#txtTimeStandBy').parent().removeClass('has-success');
+                        $('#hdnReloadTime').remove();
+                        $('#reloadTimePanel').hide();
+                    }
+                });
 
             })
         </script>

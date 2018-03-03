@@ -512,19 +512,30 @@ class TicketOnair extends CI_Controller {
         //STAND BY...
         $actualizar_fecha_ultima_revision = false;
         if ($flag == 0 && $ticketOnAirTemp->k_id_status_onair == 100) {
-            $ticket->stopStandBy($ticketOnAirTemp, $this->request);
+            $isManual = false;
+            if ($this->request->reload_time == "true") {
+                //Se detiene el StandBy normalmente...
+                $ticket->stopStandBy($ticketOnAirTemp, $this->request);
+            } else {
+                //De lo contrario se realiza el procedimiento de manera manual...
+                $isManual = true;
+                $ticket->stopStandByManual($ticketOnAirTemp, $this->request);
+            }
             //Detectamos el estado actual...
             $obj = $ticket->getStepModel($ticketOnAirTemp);
             if ($obj) {
+                //Consultamos el step...
                 $step = $obj->stepModel
                                 ->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
                                 ->where("i_hours", "=", $ticketOnAirTemp->i_hours)->first();
                 if ($step) {
+                    //Actualizamos el ingeniero asignado...
                     $idFollow = $step->{$obj->k_id_follow};
                     $idUser = $this->request->k_id_user;
                     $ticket->updateFollow($ticketOnAirTemp, $idFollow, $idUser);
                 }
             }
+            //Se asigna el ingeniero...
             $ticketModel = new TicketOnAirModel();
             $ticketModel->where("k_id_onair", "=", $ticketOnAirTemp->k_id_onair)
                     ->update([

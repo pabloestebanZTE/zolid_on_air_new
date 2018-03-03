@@ -15,10 +15,11 @@ class TimerGlobal {
         
     }
 
-    public function updateTimeStamp($tck) {
+    public function updateTimeStamp($tck, $customDate = null) {
         try {
             $id = (is_object($tck)) ? $tck->k_id_onair : $tck;
             if (!is_object($tck)) {
+                $ticketModel = new TicketOnAirModel();
                 $tck = $ticketModel->where("k_id_onair", "=", $id)->first();
             }
             if ($tck) {
@@ -51,33 +52,33 @@ class TimerGlobal {
                             break;
                         case ConstSubStates::NOTIFICACION:
                             $actual_status = "NOTY";
-                            $temp = $this->getTimeNotification($tck);
+                            $temp = $this->getTimeNotification($tck, $customDate);
                             break;
                         case ConstSubStates::PRECHECK:
                             $actual_status = "PCHK";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_PRECHECK:
                             $actual_status = "R_PCHK";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_12H:
                             $actual_status = "R_12H";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_24H:
                             $actual_status = "R_24H";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                         case ConstSubStates::REINICIO_36H:
                             $actual_status = "R_36H";
-                            $temp = $this->getTimePrecheck($tck);
+                            $temp = $this->getTimePrecheck($tck, $customDate);
                             break;
                     }
                 }
                 //VERIFICAMOS Y ACTUALIZAMOS EL TIEMPO QUE FALTA...
                 if ($stepModel) {
-                    $temp = $stepModel->updateTimeStamp($tck);
+                    $temp = $stepModel->updateTimeStamp($tck, $customDate);
                 }
                 if (is_object($temp)) {
                     $temp->actual_status = $actual_status;
@@ -105,18 +106,18 @@ class TimerGlobal {
         ]);
     }
 
-    public function getTimeNotification($tck) {
+    public function getTimeNotification($tck, $customDate = null) {
         //Suponiendo que ya conocemos el estado, lo que haremos será arrancar el cronómetro...
         $obj = $this->getObjectModel();
-        $obj->d_created_at = $tck->d_created_at;
+        $obj->d_created_at = ($customDate == null) ? $tck->d_created_at : $customDate;
         $this->timer($obj, "d_created_at", 3);
         return $obj;
     }
 
-    public function getTimePrecheck($tck) {
+    public function getTimePrecheck($tck, $customDate = null) {
         //Suponiendo que ya conocemos el estado, lo que haremos será arrancar el cronómetro...
         $obj = $this->getObjectModel();
-        $obj->d_precheck_init = $tck->d_precheck_init;
+        $obj->d_precheck_init = ($customDate == null) ? $tck->d_precheck_init : $customDate;
         //Detectamos si está en stand by...
         $time = 3;
         if ($tck->i_prorroga_hours > 0) {

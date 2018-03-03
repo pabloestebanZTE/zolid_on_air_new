@@ -1762,6 +1762,68 @@ class Dao_ticketOnair_model extends CI_Model {
         }
     }
 
+    public function stopStandByManual($tck, $request) {
+        $newState = null;
+        $ticketOnAirModel = new TicketOnAirModel();
+        switch ($request->new_state_standby) {
+            case ConstStates::PRECHECK:
+                //Lo pasamos a precheck...
+                $newState = ConstStates::PRECHECK;
+                $ticketOnAirModel->setIPrecheckRealizado(0);
+                $ticketOnAirModel->setDPrecheckInit(Hash::getDateForTrack(TimerGlobal::NOTY));
+                break;
+            case ConstStates::SEGUIMIENTO_12H:
+                $newState = ConstStates::SEGUIMIENTO_12H;
+                break;
+            case ConstStates::SEGUIMIENTO_24H:
+                //Aquí actualizamos el seguimiento 24h o lo creamos...
+                $newState = ConstStates::SEGUIMIENTO_24H;
+                break;
+            case ConstStates::SEGUIMIENTO_36H:
+                //Aquí actualiamos el seguimiento 36h o lo creamos...
+                $newState = ConstStates::SEGUIMIENTO_36H;
+                break;
+        }
+        //Se actualiza el estado del ticket...
+        if ($newState) {
+            $ticketOnAirModel->where("k_id_onair", "=", $tck->k_id_onair);
+            $ticketOnAirModel->setKIdStatusOnair($newState);
+            $ticketOnAirModel->update();
+
+            $step = $this->getStepModel($tck);
+            if ($step) {
+                $stepModel = $step->stepModel;
+                $v = $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
+                                ->where("i_round", "=", $tck->n_round)->exist();
+
+                //Si existe, lo actualiza...
+                $stepModel = $step->stepModel;
+                $obj = [
+                    "k_id_onair" => $tck->k_id_onair,
+                    $step->d_start => Hash::getDateForTrack(TimerGlobal::TRACK),
+                    "d_fin12h" => DB::NULLED,
+                    "d_start_temp" => DB::NULLED,
+                    "i_state" => 0,
+                    "i_hours" => 0,
+                    "i_percent" => 0,
+                    "i_timestamp" => 0,
+                    "n_comentario" => DB::NULLED,
+                    "i_round" => $tck->n_round,
+                    "d_created_at" => Hash::getDate(),
+                ];
+                $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
+                        ->where("i_round", "=", $tck->n_round);
+                if ($v) {
+                    $stepModel->update($obj);
+                }
+                //De lo contrario, lo inserta...
+                else {
+                    $stepModel->insert($obj);
+                }
+            }
+        }
+    }
+
     private function insertCommentDetail($stepModel, $tck, $obj) {
         //Insetamos el comentario...
         $temp = $stepModel->where("k_id_onair", "=", $tck->k_id_onair)
