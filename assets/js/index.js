@@ -21,7 +21,7 @@ $(function () {
 //                $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();
             } else if (isKey(e, 67)) {//D = Coordinador...
-                $('[name="username"]').val("frchaconm");
+                $('[name="username"]').val("jebermudezr");
                 $('[name="password"]').val("abc123");
 //                $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();
@@ -31,7 +31,7 @@ $(function () {
 //                $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();
             } else if (isKey(e, 73)) {//I = Ingeniero...
-                $('[name="username"]').val("jdgómezs");
+                $('[name="username"]').val("wmamador");
                 $('[name="password"]').val("abc123");
 //                $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();
