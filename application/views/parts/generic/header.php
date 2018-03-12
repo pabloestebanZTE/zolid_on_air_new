@@ -19,7 +19,16 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <div>
-                            <div id="divImg"><img id="imgRol" src="<?= URL::to('assets/img/' . Auth::user()->k_id_user . '.png') ?>"/></div>
+                            <?php
+                            $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.png');
+                            if (file_exists($img)) {
+                              $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.PNG');
+                              if (file_exists($img)) {
+                                $img = URL::to('assets/img/' . Auth::user()->n_role_user . '.png');
+                              }
+                            }
+                            ?>
+                            <div id="divImg"><img id="imgRol" src="<?= $img ?>"/></div>
                             <div id="infoUsu">
                                 <span>
                                     <?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?><br>
