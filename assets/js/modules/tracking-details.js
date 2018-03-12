@@ -625,11 +625,11 @@ var vista = {
         var parent = icon.parents('.hour-step');
         var hr = parseInt(parent.attr('data-value')) + 12;
         hr = (hr > 36) ? 36 : hr;
-        if (hr == 36) {
-            window.setTimeout(function () {
-                $('a[data-action="NEXT"]').addClass('disabled')
-            }, 100);
-        }
+//        if (hr == 36) {
+//            window.setTimeout(function () {
+//                $('a[data-action="NEXT"]').addClass('disabled')
+//            }, 100);
+//        }
         $('#txtTiempoProrroga').val("12");
         $('#modalChangeState #txtObservations').val("");
         $('#cmbSiguienteFase').val(hr + "h").trigger('change.select2');
