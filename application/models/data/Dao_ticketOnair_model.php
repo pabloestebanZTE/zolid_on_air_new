@@ -825,7 +825,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $dir = $request->order->all()[0]->dir;
             $orderBy["dir"] = $dir;
         }
-        return $this->getListTicket($request, "tk.k_id_status_onair = 97 and i_actualEngineer = 0", $orderBy);
+        return $this->getListTicket($request, "tk.k_id_status_onair = 97 and (i_actualEngineer = 0 or i_actualEngineer is null)", $orderBy);
     }
 
     public function getIngenerList($request) {
