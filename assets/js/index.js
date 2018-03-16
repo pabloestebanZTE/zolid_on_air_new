@@ -16,7 +16,7 @@ $(function () {
         };
         if (keyPrev == 17) { //Tecla Shit.
             if (isKey(e, 68)) {//C = Documentador...
-                $('[name="username"]').val("fngarciat");
+                $('[name="username"]').val("rlflores");
                 $('[name="password"]').val("abc123");
 //                $('[name="projectList"]').val("On Air");
                 $('#formu button[type="submit"]').click();

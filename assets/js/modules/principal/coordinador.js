@@ -18,6 +18,7 @@ $(function () {
             vista.getReinicio12h();
             vista.getStandBy();
             vista.getPriorityList();
+            vista.getMyAssignmentsList();
         },
         getPendingList: function () {
             vista.tablaPendientes = $('#tablaPendientes').DataTable(vista.genericCogDataTable("Precheck/getPendingList", "tablaPendientes"));
@@ -51,6 +52,9 @@ $(function () {
         },
         getPriorityList: function () {
             vista.tablaPrioritarios = $('#tablaPrioritarios').DataTable(vista.genericCogDataTable("TicketOnair/getPriorityList", "tablaPrioritarios"));
+        },
+        getMyAssignmentsList: function () {
+            vista.tablaMisAsignados = $('#tablaMisAsignados').DataTable(vista.genericCogDataTable("TicketOnair/ticketUser", "tablaMisAsignados"));
         },
 
         genericCogDataTable: function (url, table) {

@@ -239,6 +239,7 @@
                 } else {
                     $('#reloadTimePanel').hide();
                 }
+                console.log(users.data);
                 for (var j = 0; j < users.data.length; j++) {
                     $('#k_id_user').append($('<option>', {
                         value: users.data[j].k_id_user,

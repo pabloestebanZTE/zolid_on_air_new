@@ -32,6 +32,13 @@
                                             <li><a href="#reinicio12h" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-undo"></i> R. 12h</a></li>
                                             <li><a href="#standBy" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-pause"></i> StandBy</a></li>
                                             <li><a href="#prioritariosTab" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-star"></i> Prioritarios</a></li>
+                                            <?php
+                                            if (Auth::user()->k_id_user != '79923638' && Auth::user()->k_id_user != '999') {
+                                                ?>
+                                                <li><a href="#asignadosTab" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-tag"></i> Asignados</a></li>
+                                                <?php
+                                            }
+                                            ?>
                                         </ul>
                                         <div class="row p-t-15 p-b-15 p-l-10 hidden">
                                             <div class="col-md-3">
@@ -94,6 +101,10 @@
                                             <div class="tab-pane fade" id="prioritariosTab">
                                                 <h1 class="m-t-0">Prioritarios</h1>
                                                 <table id="tablaPrioritarios" class="table table-hover table-condensed table-striped" width='100%'></table>
+                                            </div>
+                                            <div class="tab-pane fade" id="asignadosTab">
+                                                <h1 class="m-t-0">Asignados</h1>
+                                                <table id="tablaMisAsignados" class="table table-hover table-condensed table-striped" width='100%'></table>
                                             </div>
                                         </div>
                                     </div>

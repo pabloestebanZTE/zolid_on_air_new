@@ -28,7 +28,9 @@
         public function getAllEngineers(){
           try {
             $user = new UserModel();
-            $datos = $user->where("n_role_user","=","Ingeniero")->get();
+            $datos = $user->where("n_role_user","=","Ingeniero")
+                          ->orWhere("n_role_user","=","Coordinador")->get();
+//        print_r($user->getSQL());
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;
