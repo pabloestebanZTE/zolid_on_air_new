@@ -11,7 +11,8 @@ $(function () {
         //Eventos de la ventana.
         events: function () {
 			crono.meses = ['',31,28,31,30,31,30,31,31,30,31,30,31];
-			crono.weekday = ["D","L","M","M","J","V","S"];        	
+			crono.weekday = ["D","L","M","M","J","V","S"];
+			crono.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         	var mes = new Date();
         	// console.log(baseurl);
         	$.post( baseurl + "/Evaluador/c_cronograma",
@@ -21,10 +22,15 @@ $(function () {
         		function(data){
         			var obj = JSON.parse(data);
         			crono.llenar_tabla(obj, mes);
+
+        			$('#btn-hoy').on('click', function(){
+                        crono.onClickVerActividadHoy(obj, (mes.getMonth()+1));
+                    });
         		}
         	);
 
         	$('#table_cronograma').on('click', 'a.actualizar', crono.onClickActualizar);
+        	$('#table_modal').on('click', 'a.actualizar', crono.onClickActualizar);
         	
         	// mostrar u ocultar calendario y cronograma
         	$('#btn-calendario').click(function(){
@@ -52,6 +58,85 @@ $(function () {
 
 
         },
+
+
+        //mostrar modal de eventos de hoy
+        onClickVerActividadHoy: function(obj){
+        	// console.log(obj);
+            $('#modal_hoy').modal('show');
+            var hoy = new Date();
+            $('#titleType').html('Detalle total de actividades Para entregar Hoy: '+hoy.getDate()+' de '+crono.months[(hoy.getMonth()+1)]+' de '+hoy.getFullYear());
+            $('#body_table_modal').html('');
+
+            var frec = "";
+            var hora = "";
+            var ini = 0;
+	        var cuerpo = "";
+
+            $.each(obj, function(i,item){
+
+            	cuerpo = "";
+        		 ini = (item.start[8] == 0) ? 9 : 8;
+				num_dia = item.start.slice(ini, 10);
+				if (num_dia == hoy.getDate() && item.estado == 1) {
+					if (item.id_reporte == 1) {
+						frec = 'Lunes';
+						hora = '18:00';
+					} 
+					else if (item.id_reporte == 2) {
+						frec = 'Diario';
+						hora = '10:00';
+					}
+					else if (item.id_reporte == 3) {
+						frec = 'Diario';
+						hora = '12:00';
+					}
+					else if (item.id_reporte == 4) {
+						frec = 'Diario';
+						hora = '18:00';
+					}
+					else if (item.id_reporte == 5) {
+						frec = 'Miercoles';
+						hora = '18:00';
+					}
+					else if (item.id_reporte == 6 || item.id_reporte == 7) {
+						frec = 'Martes';
+						hora = '10:00';
+					}
+					else if (item.id_reporte == 8 || item.id_reporte == 9) {
+						frec = 'Martes';
+						hora = '18:00';
+					}
+					else if (item.id_reporte == 10) {
+						frec = 'Miercoles';
+						hora = '18:00';
+					}
+					else if (item.id_reporte == 11) {
+						frec = 'Viernes';
+						hora = '18:00';
+					}
+					else if (item.id_reporte == 12 || item.id_reporte == 13 || item.id_reporte == 14 || item.id_reporte == 15) {
+						frec = 'Diario';
+						hora = '06:00';
+					}
+
+
+
+					cuerpo += '<tr>';
+		              cuerpo += '<th>'+item.reporte+'</th>';
+		              cuerpo += '<td>'+frec+'</td>';
+		              cuerpo += '<td>'+hora+'</td>';
+		              cuerpo += '<td><a class="actualizar" id="'+item.id+'"><i class="fa fa-fw fa-calendar"></i></a></td>';
+		            cuerpo += '</tr>';
+
+					$('#body_table_modal').append(cuerpo);
+					// $('#body_table_modal').append(cuerpo);
+				}
+            }); 
+            
+        },
+
+
 
         getMonthActual: function(){
         	var f = new Date();
@@ -167,6 +252,8 @@ $(function () {
         	// console.log(obj);
 			var fecha = "";
 			var header = '';
+			var hoy = new Date();			
+	        var cont_badge = 0;
 
 			// armo la tablla vacia	        				
 			for (var d = 1; d <= crono.meses[(mes.getMonth()+1)] ; d++) {
@@ -235,8 +322,17 @@ $(function () {
 				if (obj[f].id_reporte == 13) {total_13++;if (obj[f].estado == 2) {eje_13++;} else if (obj[f].estado == 1) {prog_13++;}}
 				if (obj[f].id_reporte == 14) {total_14++;if (obj[f].estado == 2) {eje_14++;} else if (obj[f].estado == 1) {prog_14++;}}
 				if (obj[f].id_reporte == 15) {total_15++;if (obj[f].estado == 2) {eje_15++;} else if (obj[f].estado == 1) {prog_15++;}}
+				
+				// calculo el badge del boton
+				if (num_dia == hoy.getDate() && obj[f].estado == 1) {
+					cont_badge++;
+				}
 			}
 
+			// Pinto cantidad del badge
+			$('#hoyBadge').html(cont_badge);
+
+			// calculo de porcentaje de las barra de tabla cron
 			$('#tb_header').append('<th>Porcentaje</th>');
 			$('#report_1').append(crono.getporcen(eje_1, total_1));
 			$('#report_2').append(crono.getporcen(eje_2, total_2));
@@ -253,6 +349,34 @@ $(function () {
 			$('#report_13').append(crono.getporcen(eje_13, total_13));
 			$('#report_14').append(crono.getporcen(eje_14, total_14));
 			$('#report_15').append(crono.getporcen(eje_15, total_15));
+
+			// para calculo de menu sticky porcentages y cantidad
+			var cant_total = (total_1) + (total_2) + (total_3) + (total_4) + (total_5) + (total_6) + (total_7) + (total_8) + (total_9) + (total_10) + (total_11) + (total_12) + (total_13) + (total_14) + (total_15);
+			var cant_ejec = (eje_1) + (eje_2) + (eje_3) + (eje_4) + (eje_5) + (eje_6) + (eje_7) + (eje_8) + (eje_9) + (eje_10) + (eje_11) + (eje_12) + (eje_13) + (eje_14) + (eje_15);
+			var cant_progr = (prog_1) + (prog_2) + (prog_3) + (prog_4) + (prog_5) + (prog_6) + (prog_7) + (prog_8) + (prog_9) + (prog_10) + (prog_11) + (prog_12) + (prog_13) + (prog_14) + (prog_15);
+        	crono.llenarstiky(cant_total, cant_ejec, cant_progr);
+
+        },
+
+
+        // calculo y pinto menu sticky con porcentajes
+        llenarstiky: function(total, ejec, prog){
+            var porc_ejec = (ejec * 100) / total;
+            var porc_prog = (prog * 100) / total;
+            // cantidades
+            $('#total_total').html('Total: ' + total);
+            $('#cant_eje').html('Cantidad: ' + ejec);
+            $('#cant_prog').html('Cantidad: ' + prog);
+            // porcentages para barra
+            $('#porc_eje').html(Math.round(porc_ejec, -1) + '%');
+            $('#bar_eje').css('width', porc_ejec + '%');
+
+            $('#porc_prog').html(Math.round(porc_prog, -1) + '%');
+            $('#bar_prog').css('width', porc_prog + '%');
+
+
+
+
         },
 
         //retorna barras de progreso con porcentaje total

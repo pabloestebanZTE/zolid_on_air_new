@@ -31,52 +31,88 @@
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
 
-
+          <!-- ============================INICIO MENU STICKY============================ -->
           <div class="contenedor closed" id="content_fixed">
+
             <div id="btn_fixed" >
               <span class="rotate-90 text">
-              <i class="glyphicon glyphicon-chevron-up"></i><span style="margin-left: 10px;">Total %</span>
+                <i class="glyphicon glyphicon-chevron-up"></i><span class="title_sticky">Total %</span>
               </span>
             </div>
             <div class="hidden" id="menu_fixed">
               <span id="btn_close_fixed">
                 <i class="glyphicon glyphicon-chevron-right"></i> Cerrar
               </span>
-              <div class='containerfluid' style=' width: 100%'>
+              <div class='containerfluid'>
                 <div class='row'>
-                  <div class='col-md-12'>ejecutadas
-                    <div class='progress' style='height: 20px;'>
-                      <div class='progress-bar progress-bar-ínfo progress-bar-striped active' role='progressbar' style='width: 50%;'>
-                        <div style='font-size: 10px; margin-top: -3px;'>50%</div>
+                  <h1 id="total_total">...</h1><hr> 
+                  <div class='col-md-12'><h4>Ejecutadas</h4>
+                    <div class='progress'>
+                      <div id="bar_eje" class='progress-bar progress-bar-success progress-bar-striped active' role='progressbar'>
+                        <div id="porc_eje" class="f-s-10_m-t-3">...</div>
                       </div>
                     </div>
                   </div>
                 </div>
-             </div>
+                <h5 id="cant_eje">...</h5><hr>
 
-             <div class='containerfluid' style=' width: 63px'>
                 <div class='row'>
-                  <div class='col-md-12'>programadas
-                    <div class='progress' style='height: 13px;'>
-                      <div class='progress-bar progress-bar-ínfo progress-bar-striped active' role='progressbar' style='width: 50%;'>
-                        <div style='font-size: 10px; margin-top: -3px;'>50%</div>
+                  <div class='col-md-12'><strong><h4>Programadas</h4></strong> 
+                    <div class='progress'>
+                      <div id="bar_prog" class='progress-bar progress-bar-primary progress-bar-striped active' role='progressbar'>
+                        <div id="porc_prog" class="f-s-10_m-t-3">...</div>
                       </div>
                     </div>
                   </div>
                 </div>
-             </div>
+              </div>
 
-
+              <h5 id="cant_prog">...</h5><br>
 
             </div>
           </div>
+          <!-- ====================================FIN MENU STICKY==================================== -->
+
+          <!-- ====================================INICIO MODAL HOY ====================================-->
+          <!-- Modal Graficas Mes-->
+          <div class="modal fade" id="modal_hoy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-fw fa-close" alt="cerrar" class="modalImage" ></i></button>
+                  <h4 class="modal-title" id="titleType">...</h4>
+                </div>
+                <div class="modal-body">   
+
+                  <table id="table_modal" class="table table-bordered">
+                      <thead>
+                          <tr>
+                            <th>ACTIVIDADES</th>
+                            <th>Frecuencia</th>
+                            <th>H Max</th>
+                            <?php $fecha = new DateTime(); ?>
+                            <th class="td_hoy">hoy <?= $fecha->format('d') ?></th>
+                          </tr>
+                      </thead>
+                      <tbody id="body_table_modal">
+                        
+                      </tbody>
 
 
 
 
+                  </table>
+                    
 
 
-
+                </div>
+                <div class="modal-footer">
+                  <!-- <h4 class="foot">Zolid By ZTE Colombia | All Right Reserved</h4> -->
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar  <i class="glyphicon glyphicon-chevron-up"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
           <div class="panel-cronograma">
@@ -106,7 +142,7 @@
                       <button id="btn-calendario" class="btn btn-primary">Calendario</button>
                   </div>
                   <div class="col-sm-4">
-                      <button type="button" class="btn btn-warning" id="btn-hoy">hoy <span id="hoyBadge" class="badge">...</span></button>
+                      <button type="button" class="btn btn-warning" id="btn-hoy" title="Pendientes Hoy">hoy <span id="hoyBadge" class="badge">...</span></button>
                   </div>
 
                 </div><br><br><br>
@@ -201,8 +237,9 @@
           </div>
           <div class="calendario" style="display: none; margin-top: 25px">
             <div class="col-sm-3 col-md-offset-4">
-                      <button id="btn-cronograma" class="btn btn-info">Cronograma</button>
-            </div><br>
+                      <button id="btn-cronograma" class="btn btn-primary">Cronograma</button>
+            </div>
+            <br>
             <div id='calendar'></div>
           </div>
 
@@ -211,8 +248,10 @@
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
         </div>
-
+    <script src="<?= URL::to('assets/plugins/bootstrap/js/bootstrap.min.js') ?>" /></script>
     <script type="text/javascript">var baseurl = "<?php echo URL::base(); ?>";</script>
+
+
     <script src="<?= URL::to("assets/plugins/sweetalert-master/sweetalert2.min.js") ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/js/modules/cronograma/getCronograma.js") ?>" type="text/javascript"></script>
     <script src="<?= URL::to("assets/js/modules/cronograma/getCalendarDates.js") ?>" type="text/javascript"></script>

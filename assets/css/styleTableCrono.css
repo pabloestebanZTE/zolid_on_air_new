@@ -15,8 +15,8 @@
  .contenedor {
 	z-index: 1;
 	background-color: #fff;
-	width: 120px;
-	height: 180px;
+	width: 200px;
+	height: 380px;
 	border-style: solid;
 	border-color: #207be5;
 	position: fixed;
@@ -123,7 +123,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	background-color: #337ab7;
 	border-color: transparent;	
 	width: 30px;
-	height: 180px;
+	height: 380px;
 	box-shadow: -1px 2px 8px #333;
 	border-radius: 15px 0px 0px 15px;
 
@@ -175,3 +175,61 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 #GDatos{
 	margin-bottom: 5px;
 } 
+
+#btn-hoy {
+	margin-left: 36px;
+}
+
+
+/**********Jhon Faber**********/
+#content_fixed h4 {
+	text-align: center;
+	color: white;
+}
+#content_fixed h5 {
+	text-align: center;
+	color: white;
+}
+#menu_fixed h1 {
+	text-align: center; 
+	color:white;
+}
+#menu_fixed {
+	background: #020229;
+	height: 100%;
+
+	border-radius: 9px; 
+}
+
+#content_fixed .containerfluid {
+	width: 80%; 
+	margin: auto;
+}
+
+#content_fixed hr {
+	margin-top: 2px;
+	margin-bottom: 2px;
+	border-top: 1px solid #013ADF;
+}
+
+#content_fixed .col-md-12 {
+	text-align: center;
+} 
+
+#content_fixed .progress {
+	height: 15px;
+}
+
+#content_fixed .progress-bar{
+	/*min-width: 18%;*/
+}
+
+#content_fixed .f-s-10_m-t-3 {
+	font-size: 15px; 
+	margin-top: -3px;
+}
+
+#content_fixed .title_sticky{
+	margin: -92px
+}
+/********** fin Jhon Faber**********/
