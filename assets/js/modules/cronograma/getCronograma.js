@@ -13,23 +13,26 @@ $(function () {
 			crono.meses = ['',31,28,31,30,31,30,31,31,30,31,30,31];
 			crono.weekday = ["D","L","M","M","J","V","S"];
 			crono.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        	var mes = new Date();
+        	crono.mes = new Date();
         	// console.log(baseurl);
         	$.post( baseurl + "/Evaluador/c_cronograma",
         		{
-        			mes: (mes.getMonth()+1)
+        			mes: (crono.mes.getMonth()+1)
         		},
         		function(data){
         			var obj = JSON.parse(data);
-        			crono.llenar_tabla(obj, mes);
+        			crono.llenar_tabla(obj, crono.mes);
 
         			$('#btn-hoy').on('click', function(){
-                        crono.onClickVerActividadHoy(obj, (mes.getMonth()+1));
+                        crono.onClickVerActividadHoy(obj, (crono.mes.getMonth()+1));
                     });
         		}
         	);
 
+        	// Actualizar eventos
         	$('#table_cronograma').on('click', 'a.actualizar', crono.onClickActualizar);
+        	$('#table_cronograma').on('click', 'a.bloqueado', crono.onClickAlert);
+
         	$('#table_modal').on('click', 'a.actualizar', crono.onClickActualizar);
         	
         	// mostrar u ocultar calendario y cronograma
@@ -250,6 +253,7 @@ $(function () {
         //
         llenar_tabla: function(obj, mes){
         	// console.log(obj);
+        	// console.log(mes.getDate());
 			var fecha = "";
 			var header = '';
 			var hoy = new Date();			
@@ -298,7 +302,14 @@ $(function () {
 					posicion = "#"+num_dia+"_"+obj[f].id_reporte;
 					// console.log(posicion);
 					if (obj[f].estado == 1) {
-						$(posicion).html("<a class='actualizar' id='"+obj[f].id+"'><i class='fa fa-fw fa-calendar'></i></a>");
+
+						if (num_dia == mes.getDate()) {
+							$(posicion).html("<a class='actualizar' id='"+obj[f].id+"'><i class='fa fa-fw fa-calendar'></i></a>");							
+						} else {
+							$(posicion).html("<a class='bloqueado' id='"+obj[f].id+"'><i class='fa fa-fw fa-calendar-times-o'></i></a>");
+						}
+
+						
 					} 	else if(obj[f].estado == 2) {
 							$(posicion).css("color", "green");
 							$(posicion).html("<i class='fa fa-fw fa-check'></i>");
@@ -407,7 +418,8 @@ $(function () {
 				  text: "Una vez que se actualice, ¡no podrá recuperar el actual estado!",
 				  icon: "warning",
 				  buttons: true,
-				  // dangerMode: true,
+				  
+				  dangerMode: true,
 				  buttons: ["Cancelar!", "Actualizar!"],
 			})
 				.then((actualizar) => {
@@ -419,9 +431,22 @@ $(function () {
 				 	} else {
 				    swal("¡Cancelaste la actualización!",{
 				    	icon: "error",
+				    	dangerMode: true,
 				    });
 					}
 				});
+        },
+
+
+        // Alerta solo puede editar eventos de hoy
+        onClickAlert: function(){
+            swal({
+			  title: "Error!",
+			  text: "Solo puedes editar eventos de hoy!",
+			  icon: "error",
+			  dangerMode: true,
+			  // className: "red-bg",
+			})
         },
 
         //actualizo a ejecutado el evento

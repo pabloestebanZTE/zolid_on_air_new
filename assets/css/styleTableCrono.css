@@ -1,3 +1,4 @@
+/*ESTILOS TABLA CRONOGRAMA*/
 #table_cronograma > thead > tr > th,
 #table_cronograma > tbody > tr > th,
 #table_cronograma > tfoot > tr > th,
@@ -9,9 +10,18 @@
   vertical-align: top;
   border-top: 1px solid #ddd;
 }
+.bloqueado {
+	color: #000;
+}
+
+.bloqueado, .actualizar {
+	cursor: pointer;
+}
 
 
 
+
+/*MENU STICKY*/
  .contenedor {
 	z-index: 1;
 	background-color: #fff;
@@ -233,3 +243,42 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	margin: -92px
 }
 /********** fin Jhon Faber**********/
+
+/*.swal-overlay {
+  background-color: rgba(43, 165, 137, 0.45);
+}*/
+
+
+/*ESTILOS BOTOS SWEET ALERT*/
+
+/* .swal-button {
+  padding: 7px 19px;
+  border-radius: 2px;
+  background-color: #ec4a4a;
+  font-size: 14px;
+  border: 1px solid #e62323;
+  text-shadow: 2px -1px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 4px #866a6a;
+  width: 100px;
+
+}
+
+.swal-button:hover{
+	background-color: #e23434;
+} */
+/* FIN ESTILOS BOTOS SWEET ALERT*/
+
+
+/*calendar*/
+.fc-content {
+	cursor: pointer;
+
+}
+.fc-content:hover{
+	background-color: #fff;
+	color: #2e6da4;
+}
+
+.fc-today, .fc-event-container{
+	background-color: rgba(4, 255, 0, 0.16) !important;
+}
