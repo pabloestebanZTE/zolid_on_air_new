@@ -127,11 +127,11 @@
                                     <div class="form-group">
                                         <div class="col-md-8 selectContainer">
                                             <div class="radio radio-primary" style="text-align: left; margin-left: 140px;">
-                                                <input id="CRQ" type="radio" name="crq_chg" value="CRQ" onclick="changeCrqChg()" checked>
+                                                <input id="CRQ" type="radio" name="crq_chg" value="CRQ" onclick="changeCrqChg('CRQ')" checked>
                                                 <label for="CRQ" class="text-bold">
                                                     CRQ
                                                 </label><br/>
-                                                <input id="CHG" type="radio" name="crq_chg" value="CHG" onclick="changeCrqChg()">
+                                                <input id="CHG" type="radio" name="crq_chg" value="CHG" onclick="changeCrqChg('CHG')">
                                                 <label for="CHG" class="text-bold">
                                                     CHG
                                                 </label>
@@ -520,13 +520,13 @@
                                                             }
                                                             $('select').select2({"width": "100%"});
                                                             //dom.configCalendar($('#d_ingreso_on_air'));
-                                                            changeCrqChg();
+                                                            changeCrqChg('CRQ');
 
                                                         });
 
-                                                        function changeCrqChg() {
-                                                            var valRadio = $('input:radio[name=crq_chg]:checked').val();
-                                                            switch (valRadio) {
+                                                        function changeCrqChg(cod) {
+//                                                            var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                            switch (cod) {
                                                                 case "CRQ":
                                                                     $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
                                                                     break;
