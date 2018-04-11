@@ -84,15 +84,28 @@
                                     <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
                                     <select name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control selectpicker" required>
                                         <option value="">Seleccione</option>
+                                        <option value="Actualizacion Condiciones de Servicio">Actualizacion Condiciones de Servicio</option>
                                         <option value="Actualización de DF">Actualización de DF</option>
                                         <option value="Ajuste cableado OVP">Ajuste cableado OVP</option>
+                                        <option value="Ajuste de Cableado en Caja de Alarmas">Ajuste de Cableado en Caja de Alarmas</option>
                                         <option value="Ajuste de Sistema Radiante">Ajuste de Sistema Radiante</option>
-                                        <option value="ajuste fisico RF">Ajuste fisico RF</option>
+                                        <option value="Ajuste fisico RF">Ajuste fisico RF</option>
+                                        <option value="Alarmas de Sincronismo">Alarmas de Sincronismo</option>
                                         <option value="Aval RF">Aval RF</option>
+                                        <option value="Cambio de Antena">Cambio de Antena</option>
+                                        <option value="Cambio de Breakers AC/DC">Cambio de Breakers AC/DC</option>
+                                        <option value="Cambio de Caja de Alarmas">Cambio de Caja de Alarmas</option>
+                                        <option value="Cambio de FBBA">Cambio de FBBA</option>
+                                        <option value="Cambio de Fibra Óptica">Cambio de Fibra Óptica</option>
+                                        <option value='Cambio de Gabinete Microondas'>Cambio de Gabinete Microondas</option>
                                         <option value="Cambio de HW">Cambio de HW</option>
                                         <option value="Cambio de Jumper">Cambio de Jumper</option>
+                                        <option value='Cambio de OVP'>Cambio de OVP</option>
                                         <option value="Cambio de Parámetros">Cambio de Parámetros</option>
                                         <option value="Cambio de RET">Cambio de RET</option>
+                                        <option value='Cambio de Transceiver'>Cambio de Transceiver</option>
+                                        <option value='Cambio tarjeta de TX'>Cambio tarjeta de TX</option>
+                                        <option value='Carga de Licencias'>Carga de Licencias</option>
                                         <option value="Comportamiento Esperado Handover">Comportamiento Esperado Handover</option>
                                         <option value="Corrección de Parámetros">Corrección de Parámetros</option>
                                         <option value="Corrección de Políticas">Corrección de Políticas</option>
@@ -101,13 +114,21 @@
                                         <option value="Correción de Parámetros">Correción de Parámetros</option>
                                         <option value="Culminación de Actividades">Culminación de Actividades</option>
                                         <option value="Envio de Evidencias">Envio de Evidencias</option>
+                                        <option value='Excepcion Control Cambios'>Excepcion Control Cambios</option>
                                         <option value="Excepción GRI">Excepción GRI</option>
+                                        <option value='Instalacion de Filtros'>Instalacion de Filtros</option>
+                                        <option value='Instalacion de Ret Kit'>Instalacion de Ret Kit</option>
                                         <option value="No hay solución del Ejecutor">No hay solución del Ejecutor</option>
                                         <option value="Optimización Física RF">Optimización Física RF</option>
                                         <option value="Optimizacion logica RF">Optimizacion logica RF</option>
+                                        <option value='Recarga de SW'>Recarga de SW</option>
                                         <option value="Recomisionamiento">Recomisionamiento</option>
                                         <option value="Reinicio RF Module">Reinicio RF Module</option>
+                                        <option value='Reemplazo de SM'>Reemplazo de SM</option>
+                                        <option value='Reinicio RF Module'>Reinicio RF Module</option>
+                                        <option value='Rollback'>Rollback</option>
                                         <option value="Se corrige DF">Se corrige DF</option>
+                                        <option value='Solucion Cruce de Sectores'>Solucion Cruce de Sectores</option>
                                         <option value="Solución de Fallas de Energía">Solución de Fallas de Energía</option>
                                     </select>
                                 </div>
