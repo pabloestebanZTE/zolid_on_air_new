@@ -566,7 +566,73 @@
                                                     <div class="col-md-8 selectContainer">
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                            <input type="text" class="form-control " id="n_contratista" name="n_contratista" value="" />
+                                                            <select class="form-control selectpicker" id="n_contratista" name="n_contratista">
+                                                                <option>Seleccione</option>
+                                                                <option value='1TEL'>1TEL</option>
+                                                                <option value='ADS INTEGRAL'>ADS INTEGRAL</option>
+                                                                <option value='ADSM INGENIEROS LTDA'>ADSM INGENIEROS LTDA</option>
+                                                                <option value='ANTENAS Y TORRES SAS'>ANTENAS Y TORRES SAS</option>
+                                                                <option value='ASECONES'>ASECONES</option>
+                                                                <option value='ATENA CORPORATION SAS'>ATENA CORPORATION SAS</option>
+                                                                <option value='BLUE SKILL LTDA'>BLUE SKILL LTDA</option>
+                                                                <option value='CINCO'>CINCO</option>
+                                                                <option value='CLARO'>CLARO</option>
+                                                                <option value='CONECTAR'>CONECTAR</option>
+                                                                <option value='DASCOM'>DASCOM</option>
+                                                                <option value='DECOM'>DECOM</option>
+                                                                <option value='DELTEC SA'>DELTEC SA</option>
+                                                                <option value='DIELCOM SAS'>DIELCOM SAS</option>
+                                                                <option value='ENECON'>ENECON</option>
+                                                                <option value='ENERGITELCO'>ENERGITELCO</option>
+                                                                <option value='ERICSON DE COLOMBIA'>ERICSON DE COLOMBIA</option>
+                                                                <option value='EZENTIS'>EZENTIS</option>
+                                                                <option value='FECOM'>FECOM</option>
+                                                                <option value='FIBRATERRA'>FIBRATERRA</option>
+                                                                <option value='FUREL'>FUREL</option>
+                                                                <option value='GAMMA SOLUTIONS'>GAMMA SOLUTIONS</option>
+                                                                <option value='HUAWEI'>HUAWEI</option>
+                                                                <option value='INFONET ENTERPRISE S.A.'>INFONET ENTERPRISE S.A.</option>
+                                                                <option value='INGEANT'>INGEANT</option>
+                                                                <option value='INGEREDES'>INGEREDES</option>
+                                                                <option value='INGETEL LTDA'>INGETEL LTDA</option>
+                                                                <option value='INGYTELCOM S.A.'>INGYTELCOM S.A.</option>
+                                                                <option value='INMEL'>INMEL</option>
+                                                                <option value='INTELCOM SOLUCIONES SAS'>INTELCOM SOLUCIONES SAS</option>
+                                                                <option value='IPMOVILES LTDA'>IPMOVILES LTDA</option>
+                                                                <option value='JANACOR LTDA'>JANACOR LTDA</option>
+                                                                <option value='KHYN TELECOMUNICACIONES'>KHYN TELECOMUNICACIONES</option>
+                                                                <option value='LEADCOM'>LEADCOM</option>
+                                                                <option value='LINEA COMUNICACIONES S.A.S.'>LINEA COMUNICACIONES S.A.S.</option>
+                                                                <option value='MER INFRAESTRUCTURA COLOMBIA LTDA'>MER INFRAESTRUCTURA COLOMBIA LTDA</option>
+                                                                <option value='MNB COMUNICACIONES E.U.'>MNB COMUNICACIONES E.U.</option>
+                                                                <option value='MONTAJES Y DATOS SAS'>MONTAJES Y DATOS SAS</option>
+                                                                <option value='MSI'>MSI</option>
+                                                                <option value='NEOSTAR DE COLOMBIA SAS'>NEOSTAR DE COLOMBIA SAS</option>
+                                                                <option value='NESITELCO'>NESITELCO</option>
+                                                                <option value='NEWICT'>NEWICT</option>
+                                                                <option value='NEXPRO'>NEXPRO</option>
+                                                                <option value='NOKIA'>NOKIA</option>
+                                                                <option value='OIN'>OIN</option>
+                                                                <option value='OPG INGENIERIA LTDA'>OPG INGENIERIA LTDA</option>
+                                                                <option value='OPTIMACON'>OPTIMACON</option>
+                                                                <option value='OSC TELECOMS'>OSC TELECOMS</option>
+                                                                <option value='PACIFIC'>PACIFIC</option>
+                                                                <option value='PRECOOM'>PRECOOM</option>
+                                                                <option value='REDES Y SERVICIOS LTDA'>REDES Y SERVICIOS LTDA</option>
+                                                                <option value='SAI SAS'>SAI SAS</option>
+                                                                <option value='SERVINTELCO SAS'>SERVINTELCO SAS</option>
+                                                                <option value='SITCOM'>SITCOM</option>
+                                                                <option value='SOI SOLUTIONS'>SOI SOLUTIONS</option>
+                                                                <option value='SOLINTELCO'>SOLINTELCO</option>
+                                                                <option value='TECH MAHINDRA'>TECH MAHINDRA</option>
+                                                                <option value='UNION ELECTRICA SA'>UNION ELECTRICA SA</option>
+                                                                <option value='WISECA'>WISECA</option>
+                                                                <option value='WITEC'>WITEC</option>
+                                                                <option value='YINDA'>YINDA</option>
+                                                                <option value='ZOOM NETWORKS'>ZOOM NETWORKS</option>
+
+                                                            </select>
+                                                            <!--<input type="text" class="form-control " id="n_contratista" name="n_contratista" value="" />-->
                                                         </div>
                                                     </div>
                                                 </div>
