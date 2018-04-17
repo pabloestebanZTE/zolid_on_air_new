@@ -78,6 +78,7 @@ class TicketOnAirModel extends Model {
     protected $n_comentario_sectores;
     protected $n_responsable_ticket;
     protected $n_persona_solicita_notificacion;
+    protected $n_desasignado;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "ticket_on_air";
@@ -544,6 +545,12 @@ class TicketOnAirModel extends Model {
     }
     public function getNPersonaSolicitaNotificacion() {
         return $this->n_persona_solicita_notificacion;
+    }
+    public function setNDesasignado($n_desasignado) {
+        $this->n_desasignado = $n_desasignado;
+    }
+    public function getNDesasignado() {
+        return $this->n_desasignado;
     }
 
 

@@ -8,7 +8,7 @@ $(function () {
         },
         //Eventos de la ventana.
         events: function () {
-
+            $('#assignService').on('click', '.unassign', vista.unassign);
         },
         genericCogDataTable: function (url, table) {
             $('.contentPrincipal').removeClass('hidden');
@@ -72,10 +72,38 @@ $(function () {
         fillNA: function () {
             return "N/A";
         },
+        unassign: function () {
+            var register = $(this);
+            var activity = register.parents('tr');
+            var record = vista.tablaPrincipal.row(activity).data();
+            dom.confirmar("Se desligara la asignacion, ¿Está seguro de continuar con esta operación?", function () {
+                app.post('TicketOnair/unassignEngineer', {
+                    k_id_onair: record.k_id_onair
+                }).success(function (response) {
+                    if (response.code > 0) {
+                        swal({
+                            title: "Iniciado",
+                            type: "success",
+                            text: "Se ha iniciado el proceso correctamente.",
+                            button: "Aceptar"
+                        }).then(function () {
+                            location.reload();
+                        });
+                    } else {
+                        swal("Error", response.message);
+                    }
+                }).error(function (e) {
+                    swal("Error", "Se ha producido un error inesperado.", "error");
+                }).send();
+            }, function () {
+                swal("Cancelado", "Se ha cancelado la operación", "error");
+            });
+        },
         getButtons: function (obj) {
             return '<div class="btn-group">'
                     + ((obj.k_id_substatus != 31 && obj.k_id_substatus != 18 && obj.k_id_substatus != 20) ? '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Seguimiento"><span class="fa fa-fw fa-history"></span></a>' : '')
                     + ((obj.i_precheck_realizado != 1) ? '<a  href="' + app.urlTo('User/doPrecheck?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Precheck"><span class="fa fa-fw fa-file-archive-o"></span></a>' : '')
+                    + '<a class="btn btn-default btn-xs unassign" data-toggle="tooltip" title="Des-asignar"><span class="fa fa-fw fa-unlink"></span></a>'
                     + '</div>';
         },
         setTimer: function (obj, style, none, settings, table) {
