@@ -12,7 +12,7 @@
         public function getAll(){
           try {
             $work = new WorkModel();
-            $datos = $work->get();
+            $datos = $work->orderBy("n_name_ork","ASC")->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;

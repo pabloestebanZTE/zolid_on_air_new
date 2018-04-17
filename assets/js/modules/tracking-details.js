@@ -769,7 +769,7 @@ var vista = {
     },
     fillFormSeguimiento: function (fields) {
         $('#detailsForm input[name=n_integrador]').val(fields.k_id_preparation.n_integrador);
-        $('#detailsForm input[name=n_contratista]').val(fields.k_id_preparation.n_contratista);
+        $('#detailsForm #n_contratista option[value="' + fields.k_id_preparation.n_contratista + '"]').attr('selected', 'selected');
         $('#detailsForm input[name=n_evidenciasl]').val(fields.k_id_preparation.n_evidenciasl);
         $('#detailsForm input[name=n_evidenciatg]').val(fields.k_id_preparation.n_evidenciatg);
         $('#detailsForm input[name=id_rftools]').val(fields.k_id_preparation.id_rftools);

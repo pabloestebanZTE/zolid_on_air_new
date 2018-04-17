@@ -118,21 +118,21 @@ class User extends CI_Controller {
 
         //Se valida si los botones estarán bloqueados para el usuario logueado...
         $block = null;
-        if (Auth::isIngeniero()) {
-            //Verificamos si el ticket actual está asignado al usuario actualmente logueado...
-            $ticketModel = new TicketOnAirModel();
-            $ticket = $ticketModel->where("k_id_onair", "=", $this->request->id)->first();
-            if ($ticket->i_actualEngineer != Auth::user()->k_id_user) {
-                $block = "true";
-            } else {
-                $block = "false";
-            }
-        } else {
-            $block = "true";
-        }
-        if (Auth::isCoordinador()) {
-            $block = "false";
-        }
+//        if (Auth::isIngeniero()) {
+//            //Verificamos si el ticket actual está asignado al usuario actualmente logueado...
+//            $ticketModel = new TicketOnAirModel();
+//            $ticket = $ticketModel->where("k_id_onair", "=", $this->request->id)->first();
+//            if ($ticket->i_actualEngineer != Auth::user()->k_id_user) {
+//                $block = "true";
+//            } else {
+//                $block = "false";
+//            }
+//        } else {
+//            $block = "true";
+//        }
+//        if (Auth::isCoordinador()) {
+//            $block = "false";
+//        }
         $this->load->view('trackingdetails', ["block" => $block]);
     }
 

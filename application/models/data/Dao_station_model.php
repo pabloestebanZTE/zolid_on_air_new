@@ -15,7 +15,7 @@ class Dao_station_model extends CI_Model {
     public function getAll() {
         try {
             $station = new StationModel();
-            $datos = $station->get();
+            $datos = $station->orderBy("n_name_station","ASC")->get();
             $response = new Response(EMessages::SUCCESS);
             $response->setData($datos);
             return $response;

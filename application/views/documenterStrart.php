@@ -524,11 +524,9 @@
 
                                                         });
 
-                                                        function changeCrqChg(algo) {
-                                                            // console.log(algo);
-                                                            // var valRadio = $('input:radio[name=crq_chg]:checked').val();
-                                                            var valRadio = algo;
-                                                            switch (valRadio) {
+
+                                                        function changeCrqChg(cod) {
+                                                            switch (cod) {
                                                                 case "CRQ":
                                                                     $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
                                                                     break;
