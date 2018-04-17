@@ -127,11 +127,11 @@
                                     <div class="form-group">
                                         <div class="col-md-8 selectContainer">
                                             <div class="radio radio-primary" style="text-align: left; margin-left: 140px;">
-                                                <input id="CRQ" type="radio" name="crq_chg" value="CRQ" onclick="changeCrqChg()" checked>
+                                                <input id="CRQ" type="radio" name="crq_chg" value="CRQ" onclick="changeCrqChg('CRQ')" checked>
                                                 <label for="CRQ" class="text-bold">
                                                     CRQ
                                                 </label><br/>
-                                                <input id="CHG" type="radio" name="crq_chg" value="CHG" onclick="changeCrqChg()">
+                                                <input id="CHG" type="radio" name="crq_chg" value="CHG" onclick="changeCrqChg('CHG')">
                                                 <label for="CHG" class="text-bold">
                                                     CHG
                                                 </label>
@@ -481,7 +481,7 @@
                                                             });
 
                                                             var info = <?php echo $respuesta; ?>;
-                                                            console.log(info);
+                                                            // console.log(info);
 //                                                                    for (var j = 0; j < info.bands.data.length; j++) {
 //                                                                        $('.select-banda').append($('<option>', {
 //                                                                            value: info.bands.data[j].k_id_band,
@@ -520,12 +520,14 @@
                                                             }
                                                             $('select').select2({"width": "100%"});
                                                             //dom.configCalendar($('#d_ingreso_on_air'));
-                                                            changeCrqChg();
+                                                            changeCrqChg('CRQ');
 
                                                         });
 
-                                                        function changeCrqChg() {
-                                                            var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                        function changeCrqChg(algo) {
+                                                            // console.log(algo);
+                                                            // var valRadio = $('input:radio[name=crq_chg]:checked').val();
+                                                            var valRadio = algo;
                                                             switch (valRadio) {
                                                                 case "CRQ":
                                                                     $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
@@ -534,6 +536,7 @@
                                                                     $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
                                                                     break;
                                                             }
+                                                                    // console.log(valRadio);
                                                         }
 
                                                         function validateSln() {
