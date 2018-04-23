@@ -391,6 +391,7 @@ class TicketOnair extends CI_Controller {
         $flag = 0;
         //Camilo: agrega fecha cada vez que se asigna alguien en tb ticket onair
         $this->request->n_reviewedfo = Hash::getDate();
+        $this->request->n_desasignado = 0;
         //Se cormprueba si es reinicio precheck...
         //Reinicio Precheck = 80 && Reinicio 12H = 79
         if ($ticketOnAirTemp->k_id_status_onair == 97 || $ticketOnAirTemp->k_id_status_onair == 80) {
@@ -691,6 +692,12 @@ class TicketOnair extends CI_Controller {
     public function getCommentsTicket() {
         $ticketOnAirDAO = new Dao_ticketOnair_model();
         $response = $ticketOnAirDAO->getCommentsTicket($this->request);
+        $this->json($response);
+    }
+    
+    public function unassignEngineer() {
+        $ticketOnAirDAO = new Dao_ticketOnair_model();
+        $response = $ticketOnAirDAO->unassignEngineer($this->request);
         $this->json($response);
     }
 

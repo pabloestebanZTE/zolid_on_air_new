@@ -2158,6 +2158,22 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
+    
+    public function unassignEngineer($request) {
+        $response = new Response(EMessages::UPDATE);
+        try {
+            $temp = new TicketOnAirModel();
+            $temp->where("k_id_onair", "=", $request->k_id_onair)->update([
+                "i_actualEngineer" => 0,
+                "n_desasignado" => 1,
+            ]);
+//            echo $comments->getSQL();
+//            $response->setData($data);
+            return $response;
+        } catch (Exception $ex) {
+            return $ex;
+        }
+    }
 
 }
 
