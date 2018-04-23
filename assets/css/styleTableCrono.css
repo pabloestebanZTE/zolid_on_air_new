@@ -1,0 +1,11 @@
+#table_cronograma > thead > tr > th,
+#table_cronograma > tbody > tr > th,
+#table_cronograma > tfoot > tr > th,
+#table_cronograma > thead > tr > td,
+#table_cronograma > tbody > tr > td,
+#table_cronograma > tfoot > tr > td {
+  padding: 4px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
