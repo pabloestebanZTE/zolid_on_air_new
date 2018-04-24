@@ -889,3 +889,13 @@ ALTER TABLE `ticket_on_air`
 -- Actualización Viernes, 23 de febrero 2018.
 ALTER TABLE `ticket_on_air`
 	CHANGE COLUMN `k_id_solicitante_reinicio` `solicitante_reinicio` VARCHAR(250) NULL DEFAULT NULL AFTER `n_ola_excedido`;
+
+
+--  Actualización Martes, 17 de abril 2018.
+CREATE TABLE `on_air`.`quality_report` (
+  `k_id_quality_report` INT NOT NULL AUTO_INCREMENT,
+  `k_id_onair` INT NOT NULL,
+  `k_id_user` INT NOT NULL,
+  `n_hallazgo` VARCHAR(100) NULL DEFAULT NULL,
+  `n_observaciones` VARCHAR(5000) NULL DEFAULT NULL,
+  PRIMARY KEY (`k_id_quality_report`));

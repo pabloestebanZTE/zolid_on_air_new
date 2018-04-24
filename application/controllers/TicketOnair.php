@@ -694,11 +694,36 @@ class TicketOnair extends CI_Controller {
         $response = $ticketOnAirDAO->getCommentsTicket($this->request);
         $this->json($response);
     }
-    
+
     public function unassignEngineer() {
         $ticketOnAirDAO = new Dao_ticketOnair_model();
         $response = $ticketOnAirDAO->unassignEngineer($this->request);
         $this->json($response);
+    }
+
+    public function getTicketSampling() {
+        $response = null;
+        if (Auth::check()) {
+            $ticketOnAirDAO = new Dao_ticketOnair_model();
+            $response = $ticketOnAirDAO->getTicketSampling();
+            $this->json($response);
+        } else {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
+    }
+    
+    public function insertQualityReport() {
+        //Se comprueba si no hay sesión.
+        $response = null;
+        if (Auth::check()) {
+            $otHijaModel = new Dao_ticketOnair_model();
+            $res = $otHijaModel->insertQualityReport($this->request);
+            $this->json($res);
+        } else {
+            $this->json(new Response(EMessages::SESSION_INACTIVE));
+            return;
+        }
     }
 
 }

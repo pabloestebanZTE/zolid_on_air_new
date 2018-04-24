@@ -14,6 +14,7 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->load->model('dto/OnAir12hModel');
         $this->load->model('dto/OnAir24hModel');
         $this->load->model('dto/OnAir36hModel');
+        $this->load->model('dto/QualityReportModel');
         $this->load->model('data/Dao_followUp12h_model');
         $this->load->model('data/Dao_followUp24h_model');
         $this->load->model('data/Dao_followUp36h_model');
@@ -2171,6 +2172,37 @@ class Dao_ticketOnair_model extends CI_Model {
 //            $response->setData($data);
             return $response;
         } catch (Exception $ex) {
+            return $ex;
+        }
+    }
+    
+    public function getTicketSampling() {
+        try {
+            $db = new DB();
+            $fecha_actual = date("Y-m-d");
+            $datos = $db->select("SELECT a.k_id_on_air, hora_actualizacion_resucomen, n_estado_eb_resucomen, 
+                                    n_nombre_estacion_eb, n_tecnologia, n_banda, 
+                                    n_tipo_trabajo, usuario_resucomen
+                                FROM reporte_comentario AS a
+                                WHERE hora_actualizacion_resucomen LIKE '$fecha_actual%' AND NOT EXISTS (
+                                    SELECT * FROM quality_report AS b where b.k_id_onair = a.k_id_on_air
+                                )")->get();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (DeplynException $ex) {
+            return $ex;
+        }
+    }
+    
+    public function insertQualityReport($request) {
+        try {
+            $qualityReport = new QualityReportModel();
+            $datos = $qualityReport->insert($request->all());
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (DeplynException $ex) {
             return $ex;
         }
     }

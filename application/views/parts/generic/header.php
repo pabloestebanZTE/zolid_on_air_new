@@ -22,10 +22,10 @@
                             <?php
                             $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.png');
                             if (file_exists($img)) {
-                              $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.PNG');
-                              if (file_exists($img)) {
-                                $img = URL::to('assets/img/' . Auth::user()->n_role_user . '.png');
-                              }
+                                $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.PNG');
+                                if (file_exists($img)) {
+                                    $img = URL::to('assets/img/' . Auth::user()->n_role_user . '.png');
+                                }
                             }
                             ?>
                             <div id="divImg"><img id="imgRol" src="<?= $img ?>"/></div>
@@ -43,13 +43,15 @@
                             <li>
                                 <a href="<?= URL::to('Acs/principal') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Acs</a>
                             </li>
-
+                            <li>
+                                <a href="<?= URL::to('User/KpisReportes') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;KPIS/Reportes</a>
+                            </li>
                             <li>
                                 <?php
                                 if (Auth::getRole() == 'COORDINADOR') {
-                                   echo  " <a href=". URL::to('Reportes/reportComments')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
-                                   echo  " <a href=". URL::to('reportes/reportOnair')."/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
-                                  }
+                                    echo " <a href=" . URL::to('Reportes/reportComments') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
+                                    echo " <a href=" . URL::to('reportes/reportOnair') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
+                                }
                                 ?>
                             </li>
                             <li>
