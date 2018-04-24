@@ -25,6 +25,7 @@ $(function () {
         	);
 
         	$('#table_cronograma').on('click', 'a.actualizar', crono.onClickActualizar);
+        	
         	// mostrar u ocultar calendario y cronograma
         	$('#btn-calendario').click(function(){
         		$('.panel-cronograma').hide(500);
@@ -36,6 +37,18 @@ $(function () {
         		$('.panel-cronograma').show(500);
         	});
 
+
+        	// menu sticky
+        	$('#btn_fixed').on('click', function(){
+                $(this).hide();                
+                $('#content_fixed').removeClass('closed');
+                $('#content_fixed #menu_fixed').removeClass('hidden').hide().fadeIn(500);
+            });
+            $('#btn_close_fixed').on('click', function(){                
+                $('#content_fixed').addClass('closed');
+                $('#content_fixed #menu_fixed').hide();
+                $('#btn_fixed').fadeIn(500);
+            });
 
 
         },

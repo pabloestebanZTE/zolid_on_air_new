@@ -10,14 +10,12 @@
 
       #calendar {
         margin-top: 50px !important;
-        max-width: 900px;
+        max-width: 700px;
         margin: 0 auto;
         margin-bottom: 20px;
         font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif !important;
         font-size: 14px !important;
       }
-
-
     </style>
     <?php $this->load->view('parts/generic/head'); ?>
         <link href="<?= URL::to('assets/plugins/fullcalendar/fullcalendar.min.css') ?>" rel="stylesheet" />
@@ -32,6 +30,55 @@
 
         <?php $this->load->view('parts/generic/header'); ?>
         <div class="container autoheight p-t-20">
+
+
+          <div class="contenedor closed" id="content_fixed">
+            <div id="btn_fixed" >
+              <span class="rotate-90 text">
+              <i class="glyphicon glyphicon-chevron-up"></i><span style="margin-left: 10px;">Total %</span>
+              </span>
+            </div>
+            <div class="hidden" id="menu_fixed">
+              <span id="btn_close_fixed">
+                <i class="glyphicon glyphicon-chevron-right"></i> Cerrar
+              </span>
+              <div class='containerfluid' style=' width: 100%'>
+                <div class='row'>
+                  <div class='col-md-12'>ejecutadas
+                    <div class='progress' style='height: 20px;'>
+                      <div class='progress-bar progress-bar-ínfo progress-bar-striped active' role='progressbar' style='width: 50%;'>
+                        <div style='font-size: 10px; margin-top: -3px;'>50%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+
+             <div class='containerfluid' style=' width: 63px'>
+                <div class='row'>
+                  <div class='col-md-12'>programadas
+                    <div class='progress' style='height: 13px;'>
+                      <div class='progress-bar progress-bar-ínfo progress-bar-striped active' role='progressbar' style='width: 50%;'>
+                        <div style='font-size: 10px; margin-top: -3px;'>50%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </div>
+
+
+
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
           <div class="panel-cronograma">
                 <!-- select -->
                 <div class="form-group" style="margin-top: 25px">
@@ -55,9 +102,13 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-sm-3">
-                      <button id="btn-calendario" class="btn btn-info">Calendario</button>
+                  <div class="col-sm-1">
+                      <button id="btn-calendario" class="btn btn-primary">Calendario</button>
                   </div>
+                  <div class="col-sm-4">
+                      <button type="button" class="btn btn-warning" id="btn-hoy">hoy <span id="hoyBadge" class="badge">...</span></button>
+                  </div>
+
                 </div><br><br><br>
 
 

@@ -91,7 +91,7 @@ $(function () {
 
         //Eventos de la ventana.
         events: function () {
-			           
+        	
         },
     };
     calendar.init();
