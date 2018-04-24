@@ -15,6 +15,7 @@ class Evaluador extends CI_Controller {
         parent::__construct();
         $this->load->model('dto/UserModel');
         $this->load->model('data/Dao_evaluador_model');
+        $this->load->model('data/Dao_reporte_comentario_model');
     }
 
     public function getUsers() {
@@ -39,4 +40,31 @@ class Evaluador extends CI_Controller {
         $this->json($data);
     }
 
+    //
+    public function c_calendar(){
+        // $data = $this->Dao_reporte_comentario_model->getCronograma();
+        $this->load->view('calendar');
+    }
+
+    //
+    public function c_cronograma(){
+        $mes = $this->input->post('mes');
+        $data = $this->Dao_reporte_comentario_model->getCronogramaPorMes($mes)->data;
+        echo json_encode($data);
+    }
+
+    //actualizar eventos del cronograma
+    public function c_updateCrono(){
+        $response = $this->Dao_reporte_comentario_model->d_updateCrono($this->request);
+        $this->json($response);
+    }
+
+    //trae todos los eventos de cronograma
+    public function getAllEventsCron(){
+        $data = $this->Dao_reporte_comentario_model->getAllCron()->data;
+        echo json_encode($data);
+    }
+
 }
+
+

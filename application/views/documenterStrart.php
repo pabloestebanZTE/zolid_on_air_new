@@ -481,7 +481,7 @@
                                                             });
 
                                                             var info = <?php echo $respuesta; ?>;
-                                                            console.log(info);
+                                                            // console.log(info);
 //                                                                    for (var j = 0; j < info.bands.data.length; j++) {
 //                                                                        $('.select-banda').append($('<option>', {
 //                                                                            value: info.bands.data[j].k_id_band,
@@ -524,8 +524,8 @@
 
                                                         });
 
+
                                                         function changeCrqChg(cod) {
-//                                                            var valRadio = $('input:radio[name=crq_chg]:checked').val();
                                                             switch (cod) {
                                                                 case "CRQ":
                                                                     $('#n_crq').mask("CRQ999999999999", {placeholder: "CRQ000009999999"});
@@ -534,6 +534,7 @@
                                                                     $('#n_crq').mask("CHG99999", {placeholder: "CHG99999"});
                                                                     break;
                                                             }
+                                                                    // console.log(valRadio);
                                                         }
 
                                                         function validateSln() {
