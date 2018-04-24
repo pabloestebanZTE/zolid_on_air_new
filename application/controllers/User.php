@@ -352,6 +352,14 @@ class User extends CI_Controller {
     public function getAllTickets() {
         $this->load->view('getAllTickets');
     }
+    
+    public function KpisReportes() {
+        $this->load->view('KpisReportes');
+    }
+    
+    public function ticketSampling() {
+        $this->load->view('ticketSampling');
+    }
 
 }
 
