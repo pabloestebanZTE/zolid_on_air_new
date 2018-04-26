@@ -16,10 +16,18 @@
                 </div>
                 <div class="col col-md-12 m-t-20">
                     <div class="col col-md-6">
-                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/ticketSampling') ?>">KPI CALIDAD</a>
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas">KPI CALIDAD</a>
                     </div>
                     <div class="col col-md-6">
-                        <a class="btn btn-primary btn-lg btn-block btnMetricas">REPORTERIA</a>
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('Evaluador/c_calendar') ?>">REPORTERIA</a>
+                    </div>
+                </div>
+                <div class="col col-md-12 m-t-20">
+                    <div class="col col-md-6">
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/ticketSampling') ?>">AUDITORIAS ON AIR</a>
+                    </div>
+                    <div class="col col-md-6">
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas">PLANES DE MEJORA</a>
                     </div>
                 </div>
             </div>

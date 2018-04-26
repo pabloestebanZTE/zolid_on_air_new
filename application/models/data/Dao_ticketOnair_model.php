@@ -774,7 +774,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $db = new DB();
             $count = $db->select($sqlCount)->first();
 
-           // echo $sqlCount;
+            // echo $sqlCount;
 
             $count = ($count) ? $count->count : 0;
             $data = [
@@ -1137,6 +1137,7 @@ class Dao_ticketOnair_model extends CI_Model {
     private function changeFase($obj, $ticket, $stepModel, $followModel, $type) {
         //Actualizamos o insertamos el nuevo registro de la siguiente fase.
         $this->createProcess($stepModel, $ticket, $obj->d_start, $obj->d_end, $obj->comment, $type);
+        $this->updateEngTicket($ticket->k_id_onair, 0);
         if ($type == "START") {
             $request = $this->request;
             $request->n_round = $ticket->n_round;
@@ -1148,7 +1149,7 @@ class Dao_ticketOnair_model extends CI_Model {
             $stepModel->where("k_id_onair", "=", $ticket->k_id_onair)
                     ->where("i_round", "=", $ticket->n_round)
                     ->update($objTemp);
-            $this->updateEngTicket($ticket->k_id_onair, 0);
+//            $this->updateEngTicket($ticket->k_id_onair, 0);
             $this->updateStatusTicket($ticket->k_id_onair, $obj->state);
         }
     }
@@ -2159,7 +2160,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
+
     public function unassignEngineer($request) {
         $response = new Response(EMessages::UPDATE);
         try {
@@ -2175,7 +2176,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
+
     public function getTicketSampling() {
         try {
             $db = new DB();
@@ -2194,7 +2195,7 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
+
     public function insertQualityReport($request) {
         try {
             $qualityReport = new QualityReportModel();

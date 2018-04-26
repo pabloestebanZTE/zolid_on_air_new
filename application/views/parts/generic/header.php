@@ -44,13 +44,11 @@
                                 <a href="<?= URL::to('Acs/principal') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;Acs</a>
                             </li>
                             <li>
-                                <a href="<?= URL::to('User/KpisReportes') ?>"><i class="fa fa-fw fa-tags"></i>&nbsp;&nbsp;KPIS/Reportes</a>
-                            </li>
-                            <li>
                                 <?php
                                 if (Auth::getRole() == 'COORDINADOR') {
                                     echo " <a href=" . URL::to('Reportes/reportComments') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
                                     echo " <a href=" . URL::to('reportes/reportOnair') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
+                                    echo " <a href=" . URL::to('User/KpisReportes') . "/><i class='fa fa-fw fa-tags'></i>&nbsp;&nbsp;KPIS/Reportes</a>";
                                 }
                                 ?>
                             </li>

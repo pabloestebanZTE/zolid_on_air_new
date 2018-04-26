@@ -18,6 +18,9 @@
             <form class= 'well form-horizontal' action='' method='post' enctype= 'multipart/form-data'>
                 <fieldset>
                     <div class="row">
+                        <div class="col col-md-12 p-b-20" style="text-align: right;">
+                            <a class="btn btn-primary" href="<?= URL::to('User/SeeStats') ?>"><i class="glyphicon glyphicon-stats" aria-hidden="true"></i>&nbsp;&nbsp;Ver Estadísticas</a>
+                        </div>
                         <div class="col col-md-12 p-t-40">
                             <input type="hidden" value="<?= Auth::getRole() ?>" id="rol">
                             <table id="ticketSampling" class="table table-hover table-striped" width="100%"></table>

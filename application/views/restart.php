@@ -124,6 +124,7 @@
                                         <option value='Recarga de SW'>Recarga de SW</option>
                                         <option value="Recomisionamiento">Recomisionamiento</option>
                                         <option value="Reinicio RF Module">Reinicio RF Module</option>
+                                        <option value='Reemplazo de RF'>Reemplazo de RF</option>
                                         <option value='Reemplazo de SM'>Reemplazo de SM</option>
                                         <option value='Reinicio RF Module'>Reinicio RF Module</option>
                                         <option value='Rollback'>Rollback</option>

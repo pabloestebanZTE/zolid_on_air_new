@@ -360,6 +360,10 @@ class User extends CI_Controller {
     public function ticketSampling() {
         $this->load->view('ticketSampling');
     }
+    
+    public function SeeStats() {
+        $this->load->view('SeeStats');
+    }
 
 }
 
