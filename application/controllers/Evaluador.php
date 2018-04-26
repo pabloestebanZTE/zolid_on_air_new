@@ -66,5 +66,3 @@ class Evaluador extends CI_Controller {
     }
 
 }
-
-
