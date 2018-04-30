@@ -364,6 +364,50 @@ class User extends CI_Controller {
     public function SeeStats() {
         $this->load->view('SeeStats');
     }
+    
+    public function getAllTicketsEdit() {
+        $this->load->view('getAllTicketsEdit');
+    }
+    
+    public function formEditTicket() {
+        if (!Auth::check()) {
+            Redirect::to(URL::base());
+        }
+
+        $status = new Dao_ticketOnair_model();
+        $station = new dao_station_model();
+        $band = new dao_band_model();
+        $work = new dao_work_model();
+        $technology = new dao_technology_model();
+        $status = new dao_statusOnair_model();
+        $crq = new dao_preparationStage_model();
+
+        $res['stations'] = $station->getAll();
+        $res['cities'] = $station->getAllCities();
+        $res['regions'] = $station->getAllRegions();
+        $res['bands'] = $band->getAll();
+        $res['works'] = $work->getAll();
+        $res['technologies'] = $technology->getAll();
+        $res['statusOnAir'] = $status->getAll();
+        $res['status'] = $status->getAllStatus();
+        $res['substatus'] = $status->getAllSubstatus();
+        $res['crq'] = $crq->getAllCRQ();
+
+        for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
+            for ($j = 0; $j < count($res['status']->data); $j++) {
+                if ($res['statusOnAir']->data[$i]->k_id_status == $res['status']->data[$j]->k_id_status) {
+                    $res['statusOnAir']->data[$i]->n_name_status = $res['status']->data[$j]->n_name_status;
+                }
+            }
+            for ($j = 0; $j < count($res['substatus']->data); $j++) {
+                if ($res['statusOnAir']->data[$i]->k_id_substatus == $res['substatus']->data[$j]->k_id_substatus) {
+                    $res['statusOnAir']->data[$i]->n_name_substatus = $res['substatus']->data[$j]->n_name_substatus;
+                }
+            }
+        }
+        $answer['respuesta'] = json_encode($res);
+        $this->load->view('formEditTicket', $answer);
+    }
 
 }
 

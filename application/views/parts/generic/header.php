@@ -20,15 +20,15 @@
                     <li>
                         <div>
                             <?php
-                            $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.png');
-                            if (file_exists($img)) {
-                                $img = URL::to('assets/img/' . Auth::user()->k_id_user . '.PNG');
-                                if (file_exists($img)) {
-                                    $img = URL::to('assets/img/' . Auth::user()->n_role_user . '.png');
+                            $img = 'assets/img/' . Auth::user()->k_id_user . '.png';
+                            if (!file_exists($img)) {
+                                $img = 'assets/img/' . Auth::user()->k_id_user . '.PNG';
+                                if (!file_exists($img)) {
+                                    $img = 'assets/img/' . Auth::user()->n_role_user . '.png';
                                 }
                             }
                             ?>
-                            <div id="divImg"><img id="imgRol" src="<?= $img ?>"/></div>
+                            <div id="divImg"><img id="imgRol" src="<?= URL::to($img); ?>"/></div>
                             <div id="infoUsu">
                                 <span>
                                     <?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?><br>
@@ -46,6 +46,9 @@
                             <li>
                                 <?php
                                 if (Auth::getRole() == 'COORDINADOR') {
+                                    if (Auth::user()->k_id_user == 79923638 || Auth::user()->k_id_user == 999) {
+                                        echo " <a href=" . URL::to('User/getAllTicketsEdit') . "/><i class='fa fa-fw fa fa-list'></i>&nbsp;&nbsp;Editar tickets</a>";
+                                    }
                                     echo " <a href=" . URL::to('Reportes/reportComments') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
                                     echo " <a href=" . URL::to('reportes/reportOnair') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
                                     echo " <a href=" . URL::to('User/KpisReportes') . "/><i class='fa fa-fw fa-tags'></i>&nbsp;&nbsp;KPIS/Reportes</a>";

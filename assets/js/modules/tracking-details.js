@@ -759,6 +759,9 @@ var vista = {
                         $('#detailsForm').fillForm(response.data);
                         vista.fillFormSeguimiento(response.data);
 //                        vista.listCombox();
+                        if (userSession !== response.data.i_actualEngineer) {
+                            $('.icon-step').remove();
+                        }
                     } else {
                         alert.print("No se encontró ninguna coincidencia", "warning");
                     }

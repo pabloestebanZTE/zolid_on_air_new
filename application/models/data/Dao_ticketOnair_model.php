@@ -2207,6 +2207,25 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
+    
+    public function getAllInformationTicket($id) {
+        try {
+            $db = new DB();
+            $fecha_actual = date("Y-m-d");
+            $datos = $db->select("SELECT a.k_id_on_air, hora_actualizacion_resucomen, n_estado_eb_resucomen, 
+                                    n_nombre_estacion_eb, n_tecnologia, n_banda, 
+                                    n_tipo_trabajo, usuario_resucomen
+                                FROM reporte_comentario AS a
+                                WHERE hora_actualizacion_resucomen LIKE '$fecha_actual%' AND NOT EXISTS (
+                                    SELECT * FROM quality_report AS b where b.k_id_onair = a.k_id_on_air
+                                )")->get();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (DeplynException $ex) {
+            return $ex;
+        }
+    }
 
 }
 

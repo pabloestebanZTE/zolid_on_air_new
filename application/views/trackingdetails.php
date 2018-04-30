@@ -1377,7 +1377,8 @@
 
     <?php $this->load->view('parts/generic/scripts'); ?>
     <script type="text/javascript" >
-        var rgPermisesUpdate = <?= (Auth::isDocumentador()) ? "true" : "false"; ?>
+        var rgPermisesUpdate = <?= (Auth::isDocumentador()) ? "true" : "false"; ?>;
+        var userSession = '<?php echo Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user; ?>';
     </script>
     <script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js?v=1') ?>" type="text/javascript"></script>
     <script src="<?= URL::to('assets/js/related_tickets.js?v=' . time()) ?>" type="text/javascript"></script>
