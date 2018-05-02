@@ -374,14 +374,17 @@ class User extends CI_Controller {
             Redirect::to(URL::base());
         }
 
-        $status = new Dao_ticketOnair_model();
+        $ticket = new Dao_ticketOnair_model();
         $station = new dao_station_model();
         $band = new dao_band_model();
         $work = new dao_work_model();
         $technology = new dao_technology_model();
         $status = new dao_statusOnair_model();
         $crq = new dao_preparationStage_model();
+        $precheck = new Dao_precheck_model();
 
+        $res['ticket'] = $ticket->findByIdOnAir($this->request->id);
+        $res['preparationStage'] = $crq->findByIdPreparation($res['ticket']->data->k_id_preparation);
         $res['stations'] = $station->getAll();
         $res['cities'] = $station->getAllCities();
         $res['regions'] = $station->getAllRegions();
@@ -392,6 +395,7 @@ class User extends CI_Controller {
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
         $res['crq'] = $crq->getAllCRQ();
+        $res['$precheck'] = $precheck->getPrecheckByIdPrech($res['ticket']->data->k_id_precheck);
 
         for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
             for ($j = 0; $j < count($res['status']->data); $j++) {
