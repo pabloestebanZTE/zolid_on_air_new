@@ -27,7 +27,7 @@
                         <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/ticketSampling') ?>">AUDITORIAS ON AIR</a>
                     </div>
                     <div class="col col-md-6">
-                        <a class="btn btn-primary btn-lg btn-block btnMetricas">PLANES DE MEJORA</a>
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/improvementPlans') ?>">PLANES DE MEJORA</a>
                     </div>
                 </div>
             </div>
