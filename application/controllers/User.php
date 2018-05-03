@@ -412,6 +412,10 @@ class User extends CI_Controller {
         $answer['respuesta'] = json_encode($res);
         $this->load->view('formEditTicket', $answer);
     }
+    
+    public function improvementPlans() {
+        $this->load->view('planes-mejora');
+    }
 
 }
 
