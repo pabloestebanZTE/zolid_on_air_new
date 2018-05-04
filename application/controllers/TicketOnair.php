@@ -705,23 +705,28 @@ class TicketOnair extends CI_Controller {
 
     public function getTicketSampling() {
         $response = null;
+
         if (Auth::check()) {
-            $ticketOnAirDAO = new Dao_ticketOnair_model();
+
+          // $variable = new TipoObjeto()
+          //OBJETO = NEW CLASE()
+            $ticketOnAirDAO = new Dao_ticketOnair_model(); // CREACION DE UN OBJETO DE TIPO DAO TK ON AIR
             $response = $ticketOnAirDAO->getTicketSampling();
+            // este objeto vaya y llame a esa funcion
             $this->json($response);
         } else {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
             return;
         }
     }
-    
+
     public function insertQualityReport() {
         //Se comprueba si no hay sesión.
         $response = null;
-        if (Auth::check()) {
-            $otHijaModel = new Dao_ticketOnair_model();
-            $res = $otHijaModel->insertQualityReport($this->request);
-            $this->json($res);
+        if (Auth::check()) {// verifica si la sesion esta activa 
+            $otHijaModel = new Dao_ticketOnair_model();//objeto tipo dao
+            $res = $otHijaModel->insertQualityReport($this->request);// invoca al metodo (insertqualityreport) 
+            $this->json($res); //
         } else {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
             return;
@@ -737,11 +742,11 @@ class TicketOnair extends CI_Controller {
         $this->Dao_ticketOnair_model->updateTicketForm($this->input->post());
         // $this->json($response);
         // header('Content-Type: text/plain');
-        // $this->load->view('formEditTicket',$a,2560); 
+        // $this->load->view('formEditTicket',$a,2560);
         // print_r(URL::to('TicketOnair/editarTicket'));
         $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair');
-        // header($location);
-                
+        header($location);
+
     }
 
 }

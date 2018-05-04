@@ -719,18 +719,18 @@ class Dao_ticketOnair_model extends CI_Model {
                         AND sb.k_id_substatus = sa.k_id_substatus
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station
-                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work 
-                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0 
+                        INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
+                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0
                         WHERE
-                        (t.n_name_technology LIKE '%$request->searchValue%' 
-                        OR s.n_name_status LIKE '%$request->searchValue%' 
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
-                        OR bd.n_name_band LIKE '%$request->searchValue%' 
-                        OR st.n_name_station LIKE '%$request->searchValue%' 
-                        OR w.n_name_ork LIKE '%$request->searchValue%' 
+                        (t.n_name_technology LIKE '%$request->searchValue%'
+                        OR s.n_name_status LIKE '%$request->searchValue%'
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
+                        OR bd.n_name_band LIKE '%$request->searchValue%'
+                        OR st.n_name_station LIKE '%$request->searchValue%'
+                        OR w.n_name_ork LIKE '%$request->searchValue%'
                         OR u.n_name_user LIKE '%$request->searchValue%')
-                        AND $condition 
-                        group by tk.k_id_onair 
+                        AND $condition
+                        group by tk.k_id_onair
                         order by $order limit $request->start, $request->length";
 
                 $sqlCount = "SELECT count(distinct tk.k_id_onair) as count FROM ticket_on_air tk
@@ -745,15 +745,15 @@ class Dao_ticketOnair_model extends CI_Model {
                         INNER JOIN band bd ON bd.k_id_band = tk.k_id_band
                         INNER JOIN station st ON st.k_id_station = tk.k_id_station
                         INNER JOIN `work` w ON w.k_id_work = tk.k_id_work
-                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0 
+                        LEFT JOIN user u ON u.k_id_user = tk.i_actualEngineer OR tk.i_actualEngineer = 0
                         WHERE
-                        (t.n_name_technology LIKE '%$request->searchValue%' 
-                        OR s.n_name_status LIKE '%$request->searchValue%' 
-                        OR sb.n_name_substatus LIKE '%$request->searchValue%' 
-                        OR bd.n_name_band LIKE '%$request->searchValue%' 
-                        OR st.n_name_station LIKE '%$request->searchValue%' 
-                        OR w.n_name_ork LIKE '%$request->searchValue%' 
-                        OR u.n_name_user LIKE '%$request->searchValue%') 
+                        (t.n_name_technology LIKE '%$request->searchValue%'
+                        OR s.n_name_status LIKE '%$request->searchValue%'
+                        OR sb.n_name_substatus LIKE '%$request->searchValue%'
+                        OR bd.n_name_band LIKE '%$request->searchValue%'
+                        OR st.n_name_station LIKE '%$request->searchValue%'
+                        OR w.n_name_ork LIKE '%$request->searchValue%'
+                        OR u.n_name_user LIKE '%$request->searchValue%')
                         AND $condition
                         order by $order";
             } else {
@@ -2181,15 +2181,18 @@ class Dao_ticketOnair_model extends CI_Model {
         try {
             $db = new DB();
             $fecha_actual = date("Y-m-d");
-            $datos = $db->select("SELECT a.k_id_on_air, hora_actualizacion_resucomen, n_estado_eb_resucomen, 
-                                    n_nombre_estacion_eb, n_tecnologia, n_banda, 
+
+            $fecha_anterior = date('Y-m-d', strtotime($fecha_actual. ' - 7 days'));
+            $sql = "SELECT a.k_id_on_air, hora_actualizacion_resucomen, n_estado_eb_resucomen,
+                                    n_nombre_estacion_eb, n_tecnologia, n_banda,
                                     n_tipo_trabajo, usuario_resucomen
                                 FROM reporte_comentario AS a
-                                WHERE hora_actualizacion_resucomen LIKE '$fecha_actual%' AND NOT EXISTS (
+                                WHERE hora_actualizacion_resucomen <= '$fecha_actual' AND hora_actualizacion_resucomen > '$fecha_anterior'  AND NOT EXISTS (
                                     SELECT * FROM quality_report AS b where b.k_id_onair = a.k_id_on_air
-                                )")->get();
+                                )";
+            $datos = $db->select($sql)->get();
             $response = new Response(EMessages::SUCCESS);
-            $response->setData($datos);
+            $response->setData($datos);//no se sabe qsi estan retornando o devolviendo algo  pero cuando hay un igual // retornando o devolviendo algo
             return $response;
         } catch (DeplynException $ex) {
             return $ex;
@@ -2207,13 +2210,13 @@ class Dao_ticketOnair_model extends CI_Model {
             return $ex;
         }
     }
-    
+
     public function getAllInformationTicket($id) {
         try {
             $db = new DB();
             $fecha_actual = date("Y-m-d");
-            $datos = $db->select("SELECT a.k_id_on_air, hora_actualizacion_resucomen, n_estado_eb_resucomen, 
-                                    n_nombre_estacion_eb, n_tecnologia, n_banda, 
+            $datos = $db->select("SELECT a.k_id_on_air, hora_actualizacion_resucomen, n_estado_eb_resucomen,
+                                    n_nombre_estacion_eb, n_tecnologia, n_banda,
                                     n_tipo_trabajo, usuario_resucomen
                                 FROM reporte_comentario AS a
                                 WHERE hora_actualizacion_resucomen LIKE '$fecha_actual%' AND NOT EXISTS (
@@ -2230,7 +2233,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
 
     function updateTicketForm($request) {
-         print_r($request);
+         // print_r($request);
         // retorno los valores del ticket actual
         $query = $this->db->get_where('ticket_on_air', array('k_id_onair' => $request['k_id_onair']));
         $ticket = $query->row();
@@ -2242,19 +2245,21 @@ class Dao_ticketOnair_model extends CI_Model {
             'n_atribuible_nokia'             => $request['n_atribuible_nokia'],
             'd_actualizacion_final'          => $request['d_actualizacion_final'],
             'd_asignacion_final'             => $request['d_asignacion_final'],
-            'd_t_from_notif'                 => $request['d_t_from_notif'],
+            'd_t_from_notif'                 => str_replace("T", " ", $request['d_t_from_notif']),
             'k_id_work'                      => $request['k_id_work'],
             'k_id_technology'                => $request['k_id_technology'],
             'k_id_band'                      => $request['k_id_band'],
             'b_excpetion_gri'                => $request['b_excpetion_gri'],
             'n_persona_solicita_notificacion'=> $request['n_persona_solicita_notificacion'],
-            'd_t_from_asign'                 => $request['d_t_from_asign'],
+            'd_t_from_asign'                 => str_replace("T", " ", $request['d_t_from_asign']),
             'n_kpis_degraded'                => $request['n_kpis_degraded'],
             'n_kpi1'                         => $request['n_kpi1'],
             'i_valor_kpi1'                   => $request['i_valor_kpi1'],
             'n_kpi2'                         => $request['n_kpi2'],
+            'k_id_status_onair'              => $request['k_id_status_onair'],
             'i_valor_kpi2'                   => $request['i_valor_kpi2'],
             'n_kpi3'                         => $request['n_kpi3'],
+            'd_fecha_ultima_rev'              => $request['d_fecha_ultima_rev'],
             'i_valor_kpi3'                   => $request['i_valor_kpi3'],
             'n_kpi4'                         => $request['n_kpi4'],
             'i_valor_kpi4'                   => $request['i_valor_kpi4'],
@@ -2286,14 +2291,6 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->db->where('k_id_onair', $request['k_id_onair']);
         $this->db->update('ticket_on_air', $camposTicket);
 
-        // tratamiento para actualizar estado
-
-
-
-
-
-
-
 
         // alisto todos los campos de la tabla preparation stage 33
         $camposPreparation = array(
@@ -2304,7 +2301,6 @@ class Dao_ticketOnair_model extends CI_Model {
             'n_wp'                            => $request['n_wp'],
             'n_bcf_wbts_id'                   => $request['n_bcf_wbts_id'],
             'n_bts_id'                        => $request['n_bts_id'],
-            'd_fecha_ultima_rev'              => $request['d_fecha_ultima_rev'],
             'b_vistamm'                       => $request['b_vistamm'],
             'n_controlador'                   => $request['n_controlador'],
             'n_idcontrolador'                 => $request['n_idcontrolador'],
@@ -2324,13 +2320,18 @@ class Dao_ticketOnair_model extends CI_Model {
             'n_integracion_gestion_y_trafica' => $request['n_integracion_gestion_y_trafica'],
             'n_instalacion_hw_4g_sitio'       => $request['n_instalacion_hw_4g_sitio'],
             'pre_launch'                      => $request['pre_launch'],
-            'n_evidenciasl '                  => $request['n_evidenciasl '],
+            'n_evidenciasl '                  => $request['n_evidenciasl'],
             'n_evidenciatg'                   => $request['n_evidenciatg'],
             'n_comentario_doc'                => $request['n_comentario_doc'],
             'id_documentacion'                => $request['id_documentacion'],
             'id_rftools'                      => $request['id_rftools'],
+            'id_notificacion'                      => $request['id_notificacion'],
             'puesta_servicio_sitio_nuevo_lte' => $request['puesta_servicio_sitio_nuevo_lte']
         );
+
+        // se hace el update de todos los campos de la tabla preparation stage
+        $this->db->where('k_id_preparation', $ticket->k_id_preparation);
+        $this->db->update('preparation_stage', $camposPreparation);
 
 
 
