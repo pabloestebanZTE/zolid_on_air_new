@@ -17,7 +17,7 @@ $(function () {//JQUERY SOLO LEALA Y EJECUTELA
 //            var form = $(this);
 //        dom.confirmar("¿Está seguro que desea escalar el ticket?", function () {
             dom.submitDirect($('#formModal'), function (response) {
-                if (response.code > 0) {
+                if (response > 0) {
                     swal("Guardado", "Se guardaron los cambios exitosamente", "success").then(function () {
                         //$('#modalEditTicket').modal('hide');
                         location.reload();
