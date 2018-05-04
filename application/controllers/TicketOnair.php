@@ -730,8 +730,8 @@ class TicketOnair extends CI_Controller {
 
     //Se actualiza ticket editado en formulario
     public function editarTicket(){
-        // header('Content-Type: text/plain');
-        // print_r($this->request);
+        header('Content-Type: text/plain');
+        print_r($this->request);
 
         // print_r($this->input->post());
         $this->Dao_ticketOnair_model->updateTicketForm($this->input->post());

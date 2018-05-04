@@ -2230,7 +2230,7 @@ class Dao_ticketOnair_model extends CI_Model {
 
 
     function updateTicketForm($request) {
-         print_r($request);
+         // print_r($request);
         // retorno los valores del ticket actual
         $query = $this->db->get_where('ticket_on_air', array('k_id_onair' => $request['k_id_onair']));
         $ticket = $query->row();
@@ -2253,8 +2253,10 @@ class Dao_ticketOnair_model extends CI_Model {
             'n_kpi1'                         => $request['n_kpi1'],
             'i_valor_kpi1'                   => $request['i_valor_kpi1'],
             'n_kpi2'                         => $request['n_kpi2'],
+            'k_id_status_onair'              => $request['k_id_status_onair'],
             'i_valor_kpi2'                   => $request['i_valor_kpi2'],
             'n_kpi3'                         => $request['n_kpi3'],
+            'd_fecha_ultima_rev'              => $request['d_fecha_ultima_rev'],
             'i_valor_kpi3'                   => $request['i_valor_kpi3'],
             'n_kpi4'                         => $request['n_kpi4'],
             'i_valor_kpi4'                   => $request['i_valor_kpi4'],
@@ -2286,14 +2288,6 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->db->where('k_id_onair', $request['k_id_onair']);
         $this->db->update('ticket_on_air', $camposTicket);
 
-        // tratamiento para actualizar estado
-
-
-
-
-
-
-
 
         // alisto todos los campos de la tabla preparation stage 33
         $camposPreparation = array(
@@ -2304,7 +2298,6 @@ class Dao_ticketOnair_model extends CI_Model {
             'n_wp'                            => $request['n_wp'],
             'n_bcf_wbts_id'                   => $request['n_bcf_wbts_id'],
             'n_bts_id'                        => $request['n_bts_id'],
-            'd_fecha_ultima_rev'              => $request['d_fecha_ultima_rev'],
             'b_vistamm'                       => $request['b_vistamm'],
             'n_controlador'                   => $request['n_controlador'],
             'n_idcontrolador'                 => $request['n_idcontrolador'],
@@ -2324,13 +2317,18 @@ class Dao_ticketOnair_model extends CI_Model {
             'n_integracion_gestion_y_trafica' => $request['n_integracion_gestion_y_trafica'],
             'n_instalacion_hw_4g_sitio'       => $request['n_instalacion_hw_4g_sitio'],
             'pre_launch'                      => $request['pre_launch'],
-            'n_evidenciasl '                  => $request['n_evidenciasl '],
+            'n_evidenciasl '                  => $request['n_evidenciasl'],
             'n_evidenciatg'                   => $request['n_evidenciatg'],
             'n_comentario_doc'                => $request['n_comentario_doc'],
             'id_documentacion'                => $request['id_documentacion'],
             'id_rftools'                      => $request['id_rftools'],
+            'id_notificacion'                      => $request['id_notificacion'],
             'puesta_servicio_sitio_nuevo_lte' => $request['puesta_servicio_sitio_nuevo_lte']
         );
+
+        // se hace el update de todos los campos de la tabla preparation stage
+        $this->db->where('k_id_preparation', $ticket->k_id_preparation);
+        $this->db->update('preparation_stage', $camposPreparation);
 
 
 
