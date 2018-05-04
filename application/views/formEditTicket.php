@@ -38,13 +38,14 @@
                             </div>
                             <legend >Crear Actividad</legend>
                             <fieldset class="col-md-6 control-label">
+                                <input type="hidden" name="k_id_onair" value="">
                                 <!-- Input Text -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Estacion:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                            <select name="k_id_station" id="estacion" class="form-control selectpicker" onchange="editTextCityRegional()" required>
+                                            <select name="k_id_station" id="estacion" class="form-control selectpicker" onchange="editTextCityRegional()">
                                                 <option value="" >Seleccione la estación</option>
                                             </select>
                                             <div class="input-group-btn">
@@ -78,7 +79,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                            <select name="n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker" required>
+                                            <select name="n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker">
                                                 <option value="" >Seleccione el ente ejecutor</option><option value="Claro" >Claro</option><option value="Nokia" >Nokia</option>
                                             </select>
                                         </div>
@@ -89,7 +90,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                            <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDateForPrint" required>
+                                            <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDateForPrint">
                                             <div class="input-group-btn">
                                                 <button type="button" id="btnTodayDate" class="btn btn-primary" title="Fecha Actual"><i class="fa fa-fw fa-calendar-check-o"></i></button>
                                             </div>
@@ -115,7 +116,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_crq" id="n_crq" class="form-control" value='' required onfocusout="validateCrqChg()">
+                                            <input type='text' name="n_crq" id="n_crq" class="form-control" value='' onfocusout="validateCrqChg()">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +170,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
+                                            <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker">
                                                 <option value="" >Seleccione</option>
                                                 <option value="TRUE">TRUE</option>
                                                 <option value=">FALSE">FALSE</option>
@@ -258,7 +259,23 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">Ingeniero precheck:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+
+                                            <!--<input type='text' name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control" value='' >-->
+                                            <select name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control selectpicker select-usuarios" >
+                                                <option value="" >Seleccione el Ingeniero</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+    
+
+                                <!-- <div class="form-group">
                                     <label class="col-md-3 control-label">Ingeniero precheck:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -266,13 +283,15 @@
                                             <input type='text' name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control" value='' >
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Ingeniero final 12 horas:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <input type='text' name="n_ingenierofinal12horas" id="n_ingenierofinal12horas" class="form-control" value='' >
+                                            <select name="n_ingenierofinal12horas" id="n_ingenierofinal12horas" class="form-control selectpicker select-usuarios" >
+                                                <option value="" >Seleccione el Ingeniero</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>    
@@ -281,7 +300,9 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <input type='text' name="n_ingenierogarantia" id="n_ingenierogarantia" class="form-control" value='' >
+                                            <select name="n_ingenierogarantia" id="n_ingenierogarantia" class="form-control selectpicker select-usuarios" >
+                                                <option value="" >Seleccione el Ingeniero</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div> 
@@ -310,7 +331,7 @@
                                             <select class="form-control" name="n_sitiolimpio" id="n_sitiolimpio">
                                                 <option value="ABIERTO">ABIERTO</option>
                                                 <option value="CERRADO">CERRADO</option>
-                                                <option value="NA">NA</option>
+                                                <option value="N/A">N/A</option>
                                             </select>
                                         </div>                             
                                     </div>
@@ -320,7 +341,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fechaproduccion" id="d_fechaproduccion" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fechaproduccion" id="d_fechaproduccion" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -401,7 +422,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_finpre" id="d_finpre" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_finpre" id="d_finpre" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div> 
@@ -410,7 +431,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_fin12h" id="d_fin12h" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fin12h" id="d_fin12h" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div> 
@@ -455,7 +476,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="n_integracion_gestion_y_trafica" id="_integracion_gestion_y_trafica" class="form-control" value='' >
+                                            <input type='text' name="puesta_servicio_sitio_nuevo_lte" id="puesta_servicio_sitio_nuevo_lte" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>  
@@ -488,7 +509,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_actualizacion_final" id="d_actualizacion_final" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_actualizacion_final" id="d_actualizacion_final" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -497,7 +518,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_asignacion_final" id="d_asignacion_final" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_asignacion_final" id="d_asignacion_final" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div> 
@@ -533,7 +554,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -551,7 +572,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_t_from_notif" id="d_t_from_notif" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_t_from_notif" id="d_t_from_notif" class="form-control" data-callback="dom.formatDateForPrint">
                                         </div>
                                     </div>
                                 </div>
@@ -565,7 +586,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
+                                            <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()">
                                                 <option value="" >Seleccione el tipo de trabajo</option>
                                             </select>
                                         </div>
@@ -577,7 +598,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                            <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change" required>
+                                            <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change">
                                                 <option value="" >Seleccione la tecnologia</option>
                                             </select>
                                         </div>
@@ -595,7 +616,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="n_sectoresbloqueados" id="sectoresBloqueados" />
+
+                               <!--  <input type="hidden" name="n_sectoresbloqueados" id="sectoresBloqueados" />
                                 <input type="hidden" name="n_sectoresdesbloqueados" id="sectoresDebloqueados"/>
                                 <input type="hidden" name="n_json_sectores" id="jsonSectores" />
                                 <div class="form-group">
@@ -618,14 +640,15 @@
                                             </select>
                                         </div>                             
                                     </div>
-                                </div>
+                                </div> -->
+
                                 <!-- Select Basic -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Estado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <select name="k_id_status" id="status" class="form-control selectpicker" onchange="editSubstatus()" required>
+                                            <select name="k_id_status" id="status" class="form-control selectpicker" onchange="editSubstatus()">
                                                 <option value="" >Seleccione el Estado</option>
                                             </select>
                                         </div>
@@ -636,7 +659,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <select name="k_id_status_onair" id="substatus" class="form-control selectpicker" required>
+                                            <select name="k_id_status_onair" id="substatus" class="form-control selectpicker">
                                                 <option value="">Seleccione el Subestado</option>
                                             </select>
                                         </div>
@@ -704,7 +727,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_t_from_asign" id="d_t_from_asign" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_t_from_asign" id="d_t_from_asign" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -965,7 +988,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fin24h" id="d_fin24h" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fin24h" id="d_fin24h" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -974,7 +997,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fin36h" id="d_fin36h" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fin36h" id="d_fin36h" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -1052,7 +1075,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="fecha_rft" id="fecha_rft" class="form-control" value='' >
+                                            <input type='datetime-local' name="fecha_rft" id="fecha_rft" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -1061,7 +1084,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fecha_cg" id="d_fecha_cg" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fecha_cg" id="d_fecha_cg" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -1254,6 +1277,12 @@
                                                             text: info.regions.data[j].n_name_regional
                                                         }));
                                                     }
+                                                    for (var j = 0; j < info.user.data.length; j++) {
+                                                        $('.select-usuarios').append($('<option>', {
+                                                            value: info.user.data[j].k_id_user,
+                                                            text: info.user.data[j].n_name_user + ' ' + info.user.data[j].n_last_name_user
+                                                        }));
+                                                    }
                                                     $('select').select2({"width": "100%"});
                                                     //dom.configCalendar($('#d_ingreso_on_air'));
                                                     changeCrqChg('CRQ');
@@ -1265,10 +1294,17 @@
                                                 function paintForm() {
                                                     var ticketOnAir = <?php echo $respuesta; ?>;
                                                     var form = $('#formEditTicket');
-                                                    console.log(ticketOnAir.preparationStage.data.d_ingreso_on_air);
                                                     form.fillForm(ticketOnAir.ticket.data);
                                                     form.fillForm(ticketOnAir.preparationStage.data);
-                                                    bandsByTech()
+                                                    form.fillForm(ticketOnAir.precheck.data);
+                                                    bandsByTech();
+                                                    $("#n_ingenieroprecheck").val(ticketOnAir.precheck.data.k_id_user).trigger('change.select2');
+                                                    for (var j = 0; j < ticketOnAir.statusOnAir.data.length; j++) {
+                                                        if (ticketOnAir.statusOnAir.data[j].k_id_status_onair == ticketOnAir.ticket.data.k_id_status_onair) {
+                                                            $("#status").val(ticketOnAir.statusOnAir.data[j].k_id_status).trigger('change.select2');
+                                                            $("#substatus").val(ticketOnAir.statusOnAir.data[j].k_id_status_onair).trigger('change.select2');
+                                                        }
+                                                    }
                                                 }
 
                                                 function bandsByTech() {
@@ -1586,10 +1622,10 @@
                                                         $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked:not(.check-head)').length + ') Sectores seleccionados');
                                                         if (sectores.length > 0) {
                                                             $('.estado-sectores').removeClass('hidden');
-                                                            $('#cmbEstadoSectores').prop('required', true);
+                                                            $('#cmbEstadoSectores').prop(', true);
                                                         } else {
                                                             $('.estado-sectores').addClass('hidden');
-                                                            $('#cmbEstadoSectores').prop('required', false);
+                                                            $('#cmbEstadoSectores').prop(', false);
                                                         }
                                                     });
 
@@ -1707,7 +1743,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                        <select id="tipoTrabajoModal" class="form-control selectpicker select-tipotrabajo" required>
+                                        <select id="tipoTrabajoModal" class="form-control selectpicker select-tipotrabajo">
                                             <option value="" >Seleccione el tipo de trabajo</option>
                                         </select>
                                     </div>
@@ -1719,7 +1755,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia helper-change" required>
+                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia helper-change">
                                             <option value="" >Seleccione la tecnología</option>
                                         </select>
                                     </div>
@@ -1731,7 +1767,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                        <select id="bandaModal" class="form-control selectpicker select-banda" required>
+                                        <select id="bandaModal" class="form-control selectpicker select-banda">
                                             <option value="" >Seleccione la banda</option>
                                         </select>
                                     </div>

@@ -7,6 +7,8 @@ class TicketOnair extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('data/Dao_ticketOnair_model');
+        // $this->load->model('data/Dao_ticketOnair_model');
+
         $this->load->model('data/Dao_station_model');
         $this->load->model('data/Dao_band_model');
         $this->load->model('data/Dao_work_model');
@@ -731,8 +733,17 @@ class TicketOnair extends CI_Controller {
 
     //Se actualiza ticket editado en formulario
     public function editarTicket(){
-        header('Content-Type: text/plain');
-        print_r($_POST);
+        // header('Content-Type: text/plain');
+        // print_r($this->request);
+
+        // print_r($this->input->post());
+        $this->Dao_ticketOnair_model->updateTicketForm($this->input->post());
+        // $this->json($response);
+        // header('Content-Type: text/plain');
+        // $this->load->view('formEditTicket',$a,2560);
+        // print_r(URL::to('TicketOnair/editarTicket'));
+        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair');
+        // header($location);
 
     }
 
