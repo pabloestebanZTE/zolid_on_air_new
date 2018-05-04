@@ -31,7 +31,7 @@
             <div class="panel-body">
                 <div class="tab-content">
                     <div id="crear_actividad" class="tab-pane fade in active">
-                        <form class="well form-horizontal" action="" method="post"  id="formEditTicket" name="formEditTicket">
+                        <form class="well form-horizontal" action="<?= URL::to('TicketOnair/editarTicket') ?>" method="post"  id="formEditTicket" name="formEditTicket">
                             <div class="alert alert-success alert-dismissable hidden">
                                 <a href="#" class="close" >&times;</a>
                                 <p class="p-b-0" id="text"></p>
@@ -596,7 +596,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                            <select name="k_id_band" id="banda" class="form-control selectpicker select-banda" required>
+                                            <select name="k_id_band" id="banda" class="form-control selectpicker select-banda">
                                                 <option value="" >Seleccione la banda</option>
                                             </select>
                                         </div>

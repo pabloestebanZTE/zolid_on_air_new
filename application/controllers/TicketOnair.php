@@ -726,4 +726,11 @@ class TicketOnair extends CI_Controller {
         }
     }
 
+    //Se actualiza ticket editado en formulario
+    public function editarTicket(){
+        header('Content-Type: text/plain');
+        print_r($_POST);
+        
+    }
+
 }
