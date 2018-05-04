@@ -703,9 +703,15 @@ class TicketOnair extends CI_Controller {
 
     public function getTicketSampling() {
         $response = null;
-        if (Auth::check()) {
-            $ticketOnAirDAO = new Dao_ticketOnair_model();
+        if (Auth::check()) {// validad si la sesion esta activa o no 
+            //$a=int
+            //objeto         =  nwe clase
+            //
+            $ticketOnAirDAO = new Dao_ticketOnair_model();//creacion de un objeto type DAO//instancia de un clase 
+            //instanciar. le dar una var a un tippo(parametros)
+            
             $response = $ticketOnAirDAO->getTicketSampling();
+            // este objeto vaya y llame a esa funcion
             $this->json($response);
         } else {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
@@ -713,13 +719,14 @@ class TicketOnair extends CI_Controller {
         }
     }
     
+
     public function insertQualityReport() {
         //Se comprueba si no hay sesión.
         $response = null;
-        if (Auth::check()) {
-            $otHijaModel = new Dao_ticketOnair_model();
-            $res = $otHijaModel->insertQualityReport($this->request);
-            $this->json($res);
+        if (Auth::check()) {// verifica si la sesion esta activa 
+            $otHijaModel = new Dao_ticketOnair_model();//objeto tipo dao
+            $res = $otHijaModel->insertQualityReport($this->request);// invoca al metodo (insertqualityreport) 
+            $this->json($res); //
         } else {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
             return;
