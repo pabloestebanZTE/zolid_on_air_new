@@ -89,6 +89,7 @@ $(function () {
             }
             ini.ticketSampling = $('#ticketSampling').DataTable(dom.configTable(data,
                     [
+                        {title: "Fecha", data: "hora_actualizacion_resucomen"},
                         {title: "Estación", data: "n_nombre_estacion_eb"},
                         {title: "Tipo de Trabajo", data: "n_tipo_trabajo"},
                         {title: "Estado", data: "n_estado_eb_resucomen"},

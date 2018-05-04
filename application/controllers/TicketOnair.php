@@ -704,7 +704,10 @@ class TicketOnair extends CI_Controller {
     public function getTicketSampling() {
         $response = null;
         if (Auth::check()) {
-            $ticketOnAirDAO = new Dao_ticketOnair_model();
+
+          // $variable = new TipoObjeto()
+          //OBJETO = NEW CLASE()
+            $ticketOnAirDAO = new Dao_ticketOnair_model(); // CREACION DE UN OBJETO DE TIPO DAO TK ON AIR
             $response = $ticketOnAirDAO->getTicketSampling();
             $this->json($response);
         } else {
@@ -712,7 +715,7 @@ class TicketOnair extends CI_Controller {
             return;
         }
     }
-    
+
     public function insertQualityReport() {
         //Se comprueba si no hay sesión.
         $response = null;
@@ -730,7 +733,7 @@ class TicketOnair extends CI_Controller {
     public function editarTicket(){
         header('Content-Type: text/plain');
         print_r($_POST);
-        
+
     }
 
 }
