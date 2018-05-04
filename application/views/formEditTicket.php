@@ -265,9 +265,10 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <select name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control selectpicker">
-                                                <option value="">Seleccione la ingeniero</option>
-                                                <option value="1098690755">yarith y tal</option>
+
+                                            <!--<input type='text' name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control" value='' >-->
+                                            <select name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control selectpicker select-usuarios" >
+                                                <option value="" >Seleccione el Ingeniero</option>
                                             </select>
                                         </div>
                                     </div>
@@ -288,7 +289,9 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <input type='text' name="n_ingenierofinal12horas" id="n_ingenierofinal12horas" class="form-control" value='' >
+                                            <select name="n_ingenierofinal12horas" id="n_ingenierofinal12horas" class="form-control selectpicker select-usuarios" >
+                                                <option value="" >Seleccione el Ingeniero</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>    
@@ -297,7 +300,9 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <input type='text' name="n_ingenierogarantia" id="n_ingenierogarantia" class="form-control" value='' >
+                                            <select name="n_ingenierogarantia" id="n_ingenierogarantia" class="form-control selectpicker select-usuarios" >
+                                                <option value="" >Seleccione el Ingeniero</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div> 
@@ -326,7 +331,7 @@
                                             <select class="form-control" name="n_sitiolimpio" id="n_sitiolimpio">
                                                 <option value="ABIERTO">ABIERTO</option>
                                                 <option value="CERRADO">CERRADO</option>
-                                                <option value="NA">NA</option>
+                                                <option value="N/A">N/A</option>
                                             </select>
                                         </div>                             
                                     </div>
@@ -336,7 +341,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fechaproduccion" id="d_fechaproduccion" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fechaproduccion" id="d_fechaproduccion" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -417,7 +422,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_finpre" id="d_finpre" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_finpre" id="d_finpre" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div> 
@@ -426,7 +431,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_fin12h" id="d_fin12h" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fin12h" id="d_fin12h" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div> 
@@ -504,7 +509,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_actualizacion_final" id="d_actualizacion_final" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_actualizacion_final" id="d_actualizacion_final" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -513,7 +518,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_asignacion_final" id="d_asignacion_final" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_asignacion_final" id="d_asignacion_final" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div> 
@@ -549,7 +554,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -567,7 +572,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_t_from_notif" id="d_t_from_notif" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_t_from_notif" id="d_t_from_notif" class="form-control" data-callback="dom.formatDateForPrint">
                                         </div>
                                     </div>
                                 </div>
@@ -722,7 +727,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_t_from_asign" id="d_t_from_asign" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_t_from_asign" id="d_t_from_asign" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -983,7 +988,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fin24h" id="d_fin24h" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fin24h" id="d_fin24h" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -992,7 +997,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fin36h" id="d_fin36h" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fin36h" id="d_fin36h" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -1070,7 +1075,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="fecha_rft" id="fecha_rft" class="form-control" value='' >
+                                            <input type='datetime-local' name="fecha_rft" id="fecha_rft" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -1079,7 +1084,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
-                                            <input type='datetime-local' name="d_fecha_cg" id="d_fecha_cg" class="form-control" value='' >
+                                            <input type='datetime-local' name="d_fecha_cg" id="d_fecha_cg" class="form-control" data-callback="dom.formatDateForPrint" >
                                         </div>
                                     </div>
                                 </div>
@@ -1272,6 +1277,12 @@
                                                             text: info.regions.data[j].n_name_regional
                                                         }));
                                                     }
+                                                    for (var j = 0; j < info.user.data.length; j++) {
+                                                        $('.select-usuarios').append($('<option>', {
+                                                            value: info.user.data[j].k_id_user,
+                                                            text: info.user.data[j].n_name_user + ' ' + info.user.data[j].n_last_name_user
+                                                        }));
+                                                    }
                                                     $('select').select2({"width": "100%"});
                                                     //dom.configCalendar($('#d_ingreso_on_air'));
                                                     changeCrqChg('CRQ');
@@ -1283,10 +1294,17 @@
                                                 function paintForm() {
                                                     var ticketOnAir = <?php echo $respuesta; ?>;
                                                     var form = $('#formEditTicket');
-                                                    console.log(ticketOnAir.preparationStage.data.d_ingreso_on_air);
                                                     form.fillForm(ticketOnAir.ticket.data);
                                                     form.fillForm(ticketOnAir.preparationStage.data);
-                                                    bandsByTech()
+                                                    form.fillForm(ticketOnAir.precheck.data);
+                                                    bandsByTech();
+                                                    $("#n_ingenieroprecheck").val(ticketOnAir.precheck.data.k_id_user).trigger('change.select2');
+                                                    for (var j = 0; j < ticketOnAir.statusOnAir.data.length; j++) {
+                                                        if (ticketOnAir.statusOnAir.data[j].k_id_status_onair == ticketOnAir.ticket.data.k_id_status_onair) {
+                                                            $("#status").val(ticketOnAir.statusOnAir.data[j].k_id_status).trigger('change.select2');
+                                                            $("#substatus").val(ticketOnAir.statusOnAir.data[j].k_id_status_onair).trigger('change.select2');
+                                                        }
+                                                    }
                                                 }
 
                                                 function bandsByTech() {
