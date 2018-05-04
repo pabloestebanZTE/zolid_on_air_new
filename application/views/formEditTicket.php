@@ -38,13 +38,14 @@
                             </div>
                             <legend >Crear Actividad</legend>
                             <fieldset class="col-md-6 control-label">
+                                <input type="hidden" name="k_id_onair" value="">
                                 <!-- Input Text -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Estacion:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                            <select name="k_id_station" id="estacion" class="form-control selectpicker" onchange="editTextCityRegional()" required>
+                                            <select name="k_id_station" id="estacion" class="form-control selectpicker" onchange="editTextCityRegional()">
                                                 <option value="" >Seleccione la estación</option>
                                             </select>
                                             <div class="input-group-btn">
@@ -78,7 +79,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
-                                            <select name="n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker" required>
+                                            <select name="n_enteejecutor" id="n_enteejecutor" class="form-control selectpicker">
                                                 <option value="" >Seleccione el ente ejecutor</option><option value="Claro" >Claro</option><option value="Nokia" >Nokia</option>
                                             </select>
                                         </div>
@@ -89,7 +90,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                            <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDateForPrint" required>
+                                            <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' data-callback="dom.formatDateForPrint">
                                             <div class="input-group-btn">
                                                 <button type="button" id="btnTodayDate" class="btn btn-primary" title="Fecha Actual"><i class="fa fa-fw fa-calendar-check-o"></i></button>
                                             </div>
@@ -115,7 +116,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
-                                            <input type='text' name="n_crq" id="n_crq" class="form-control" value='' required onfocusout="validateCrqChg()">
+                                            <input type='text' name="n_crq" id="n_crq" class="form-control" value='' onfocusout="validateCrqChg()">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +170,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
+                                            <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker">
                                                 <option value="" >Seleccione</option>
                                                 <option value="TRUE">TRUE</option>
                                                 <option value=">FALSE">FALSE</option>
@@ -258,7 +259,22 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">Ingeniero precheck:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <select name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control selectpicker">
+                                                <option value="">Seleccione la ingeniero</option>
+                                                <option value="1098690755">yarith y tal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+    
+
+                                <!-- <div class="form-group">
                                     <label class="col-md-3 control-label">Ingeniero precheck:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
@@ -266,7 +282,7 @@
                                             <input type='text' name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control" value='' >
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Ingeniero final 12 horas:</label>
                                     <div class="col-md-8 selectContainer">
@@ -455,7 +471,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="n_integracion_gestion_y_trafica" id="_integracion_gestion_y_trafica" class="form-control" value='' >
+                                            <input type='text' name="puesta_servicio_sitio_nuevo_lte" id="puesta_servicio_sitio_nuevo_lte" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>  
@@ -565,7 +581,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
+                                            <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()">
                                                 <option value="" >Seleccione el tipo de trabajo</option>
                                             </select>
                                         </div>
@@ -577,7 +593,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                            <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change" required>
+                                            <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change">
                                                 <option value="" >Seleccione la tecnologia</option>
                                             </select>
                                         </div>
@@ -595,7 +611,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="n_sectoresbloqueados" id="sectoresBloqueados" />
+
+                               <!--  <input type="hidden" name="n_sectoresbloqueados" id="sectoresBloqueados" />
                                 <input type="hidden" name="n_sectoresdesbloqueados" id="sectoresDebloqueados"/>
                                 <input type="hidden" name="n_json_sectores" id="jsonSectores" />
                                 <div class="form-group">
@@ -618,14 +635,15 @@
                                             </select>
                                         </div>                             
                                     </div>
-                                </div>
+                                </div> -->
+
                                 <!-- Select Basic -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Estado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <select name="k_id_status" id="status" class="form-control selectpicker" onchange="editSubstatus()" required>
+                                            <select name="k_id_status" id="status" class="form-control selectpicker" onchange="editSubstatus()">
                                                 <option value="" >Seleccione el Estado</option>
                                             </select>
                                         </div>
@@ -636,7 +654,7 @@
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                            <select name="k_id_status_onair" id="substatus" class="form-control selectpicker" required>
+                                            <select name="k_id_status_onair" id="substatus" class="form-control selectpicker">
                                                 <option value="">Seleccione el Subestado</option>
                                             </select>
                                         </div>
@@ -1586,10 +1604,10 @@
                                                         $('#btnCheckSectores').html('<i class="fa fa-fw fa-check-square-o"></i> (' + $('#tblSectores').find('input:checked:not(.check-head)').length + ') Sectores seleccionados');
                                                         if (sectores.length > 0) {
                                                             $('.estado-sectores').removeClass('hidden');
-                                                            $('#cmbEstadoSectores').prop('required', true);
+                                                            $('#cmbEstadoSectores').prop(', true);
                                                         } else {
                                                             $('.estado-sectores').addClass('hidden');
-                                                            $('#cmbEstadoSectores').prop('required', false);
+                                                            $('#cmbEstadoSectores').prop(', false);
                                                         }
                                                     });
 
@@ -1707,7 +1725,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                        <select id="tipoTrabajoModal" class="form-control selectpicker select-tipotrabajo" required>
+                                        <select id="tipoTrabajoModal" class="form-control selectpicker select-tipotrabajo">
                                             <option value="" >Seleccione el tipo de trabajo</option>
                                         </select>
                                     </div>
@@ -1719,7 +1737,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia helper-change" required>
+                                        <select id="tecnologiaModal" class="form-control selectpicker select-tecnologia helper-change">
                                             <option value="" >Seleccione la tecnología</option>
                                         </select>
                                     </div>
@@ -1731,7 +1749,7 @@
                                 <div class="selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                        <select id="bandaModal" class="form-control selectpicker select-banda" required>
+                                        <select id="bandaModal" class="form-control selectpicker select-banda">
                                             <option value="" >Seleccione la banda</option>
                                         </select>
                                     </div>
