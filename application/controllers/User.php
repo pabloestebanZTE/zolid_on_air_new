@@ -382,6 +382,8 @@ class User extends CI_Controller {
         $status = new dao_statusOnair_model();
         $crq = new dao_preparationStage_model();
         $precheck = new Dao_precheck_model();
+        $user = new Dao_user_model();
+        $onAir12h = new Dao_onAir12h_model();
 
         $res['ticket'] = $ticket->findByIdOnAir($this->request->id);
         $res['preparationStage'] = $crq->findByIdPreparation($res['ticket']->data->k_id_preparation);
@@ -395,7 +397,8 @@ class User extends CI_Controller {
         $res['status'] = $status->getAllStatus();
         $res['substatus'] = $status->getAllSubstatus();
         $res['crq'] = $crq->getAllCRQ();
-        $res['$precheck'] = $precheck->getPrecheckByIdPrech($res['ticket']->data->k_id_precheck);
+        $res['precheck'] = $precheck->getPrecheckByIdPrech($res['ticket']->data->k_id_precheck);
+        $res['user'] = $user->getAllEngineers();
 
         for ($i = 0; $i < count($res['statusOnAir']->data); $i++) {
             for ($j = 0; $j < count($res['status']->data); $j++) {

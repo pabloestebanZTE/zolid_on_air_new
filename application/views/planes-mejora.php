@@ -131,16 +131,16 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="reportanteAccion" class="col-sm-2 control-label">Fuente de la Acción</label>
+                                                        <label for="fuenteAccion" class="col-sm-2 control-label">Fuente de la Acción</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control input-md" id="reportanteAccion" name="reportanteAccion" >
+                                                            <input class="form-control input-md" id="fuenteAccion" name="fuenteAccion" >
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="descripcionHallazgo" class="col-sm-2 control-label">Descripción del Hallazgo</label>
                                                         <div class="col-sm-10">
-                                                            <input class="form-control input-md" id="descripcionHallazgo" name="descripcionHallazgo" placeholder="Requisito en caso que aplique"><br>
+                                                            <input class="form-control input-md" id="requisitoDescripcionHallazgo" name="requisitoDescripcionHallazgo" placeholder="Requisito en caso que aplique"><br>
                                                             <textarea name="descripcionHallazgo" class="form-control txt-plataforma" id="descripcionHallazgo " cols="6" rows="4" placeholder="Descripción del hallazgo u oportunidad de mejora" ></textarea>
                                                         </div>
                                                     </div>
@@ -173,10 +173,10 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="analisisCausa" class="col-sm-2 control-label">Conclusión</label>
+                                                        <label for="conclusionAnalisisCausa" class="col-sm-2 control-label">Conclusión</label>
                                                         <div class="col-sm-10">
-                                                            <textarea name="analisisCausa" class="form-control txt-plataforma" id="analisisCausa" cols="4" rows="3" placeholder="Causa raíz real principal"></textarea><br>
-                                                            <input class="form-control input-md" id="responsableAccion" name="responsableAccion" placeholder="Categoría">
+                                                            <textarea name="conclusionAnalisisCausa" class="form-control txt-plataforma" id="conclusionAnalisisCausa" cols="4" rows="3" placeholder="Causa raíz real principal"></textarea><br>
+                                                            <input class="form-control input-md" id="categoriaAnalisisCausa" name="categoriaAnalisisCausa" placeholder="Categoría">
                                                         </div>
                                                     </div>
                                                 </form>
