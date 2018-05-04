@@ -26,6 +26,7 @@ return [
     //Por favor, Seguir subiendo la configuración de sus localhost y no la del servidor
     //que el único que apunte a el servidor mysql sea quíen suba el proyecto con nuevos cambios...
     'default' => 'mysqlLocalhost',//cambiamos a donde vamos a direccionar el cambio
+
     /*
       |--------------------------------------------------------------------------
       | Database Connections
@@ -49,19 +50,6 @@ return [
             'database' => 'on_air',
             'username' => 'AdminZTE',
             'password' => 'a4b3c2d1',
-            'charset' => 'utf8',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'strict' => true,
-            'engine' => null,
-        ],
-        'mysql2' => [
-            'driver' => 'mysql',
-            'host' => 'mysql.hostinger.co',
-            'port' => '3306',
-            'database' => 'u100536767_zolid',
-            'username' => 'u100536767_zolid',
-            'password' => 'abc123',
             'charset' => 'utf8',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',

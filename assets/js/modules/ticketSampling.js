@@ -89,8 +89,7 @@ $(function () {//JQUERY SOLO LEALA Y EJECUTELA
                 return;
             }
             ini.ticketSampling = $('#ticketSampling').DataTable(dom.configTable(data,
-                    [
-                        
+                    [                        
                         {title: "Hora de actualizacion", data: "hora_actualizacion_resucomen"},
                         {title: "Estación", data: "n_nombre_estacion_eb"},
                         {title: "Tipo de Trabajo", data: "n_tipo_trabajo"},
@@ -105,3 +104,4 @@ $(function () {//JQUERY SOLO LEALA Y EJECUTELA
 
     ini.init();// carga todo lo que tiene en ini y pongalo en el dom
 });
+
