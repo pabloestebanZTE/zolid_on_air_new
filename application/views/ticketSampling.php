@@ -33,6 +33,7 @@
             <!-- Modal Cierre -->
             <div id="modalEditTicket" class="modal fade" role="dialog" >
                 <div class="modal-dialog modal-lg2" style="width: 1000px;">
+                    <form class="well form-horizontal" id="formModal" action="<?= URL::to('TicketOnair/insertQualityReport') ?>" method="post" novalidate="novalidate">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
@@ -40,9 +41,7 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <form class="well form-horizontal" id="formModal" action="TicketOnair/insertQualityReport" method="post" novalidate="novalidate">
-                                    <input name="k_id_register" id="k_id_register" type="hidden">
-                                    <input name="estado_orden_trabajo_hija" id="estado_orden_trabajo_hija" type="hidden">
+                                    
                                     <fieldset>
                                         <div class="widget bg_white m-t-25 display-block">
                                             <fieldset class="col-md-6">
@@ -106,7 +105,7 @@
                                                     <div class="col-md-8 selectContainer">
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
-                                                            <input name="n_usuario_encargado" id="n_usuario_encargado" class="form-control" type="text" disabled="true">
+                                                            <input name="n_usuario_encargado" id="n_usuario_encargado" class="form-control" type="text" readonly >
                                                         </div>
                                                     </div>
                                                 </div>                 
@@ -272,7 +271,7 @@
                                                     <div class="col-md-8 selectContainer">
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class='fa fa-fw fa-eye'></i></span>
-                                                            <select name="ex_signal_level" id="ex_signal_level" class="form-control">
+                                                            <select name="n_rx_signal_level" id="n_rx_signal_level" class="form-control">
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
@@ -445,18 +444,30 @@
                                         </div>                                    
                                     </fieldset>
 
-                                </form>
                             </div>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal"><i class='glyphicon glyphicon-remove'></i>&nbsp;Cancelar</button>
-                            <button type="button" class="btn btn-info" id="btnGuardar"><i class='glyphicon glyphicon-save'></i>&nbsp;Guardar</button>
+                            <button type="submit" class="btn btn-info"><i class='glyphicon glyphicon-save'></i>&nbsp;Guardar</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
+
+    
+        <?php 
+            if (!isset($msj)) {
+                $msj = "";
+            }
+
+
+         ?>
+
+
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
@@ -465,5 +476,17 @@
         <!-- CUSTOM SCRIPT   -->
         <script scr="<?= URL::to("assets/plugins/sweetalert-master/dist/sweetalert.min.js") ?>" ></script>
         <script type="text/javascript" src="<?= URL::to("assets/js/modules/ticketSampling.js") ?>"></script>
+        <script type="text/javascript">
+            var message = "<?php echo $msj; ?>";
+                if (message == 'ok') {
+                    swal("Bien!", "Se Guardo correctamente!", "success");                    
+                } else if(message == 'error'){
+                    swal("Ups!", "Hay un error en la insercion!", "error");                    
+
+                }
+
+
+
+        </script>
     </body>
 </html>

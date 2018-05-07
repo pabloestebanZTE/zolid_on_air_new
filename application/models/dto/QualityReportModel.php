@@ -7,10 +7,6 @@ class QualityReportModel extends Model {
     protected $n_usuario_encargado;
     protected $n_hallazgo;
     protected $n_observaciones;
-    //Los campos que desea ocultar para que no se reflejen en la vista.
-    protected $table = "quality_report";
-    //Los campos que desea exculir del modelo.
-    protected $exclude = ["hidden", "exclude", "table", "class", "db", "__data"];
     protected $n_checklist;
     protected $n_precheck;
     protected $n_kpis;
@@ -30,6 +26,11 @@ class QualityReportModel extends Model {
     protected $n_tareas_remedy;
     protected $n_calidad_gestion;
     protected $n_observaciones_final;
+    //Los campos que desea ocultar para que no se reflejen en la vista.
+    protected $table = "quality_report";
+    //Los campos que desea exculir del modelo.
+    protected $exclude = ["hidden", "exclude", "table", "class", "db", "__data"];
+    
 
     public function __construct($properties = null) {
         parent::__construct($properties);
