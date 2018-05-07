@@ -2291,7 +2291,7 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->db->where('k_id_onair', $request['k_id_onair']);
         $this->db->update('ticket_on_air', $camposTicket);
 
-
+    
         // alisto todos los campos de la tabla preparation stage 33
         $camposPreparation = array(
             'n_enteejecutor'                  => $request['n_enteejecutor'],
