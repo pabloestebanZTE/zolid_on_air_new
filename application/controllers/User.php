@@ -384,6 +384,7 @@ class User extends CI_Controller {
         $precheck = new Dao_precheck_model();
         $user = new Dao_user_model();
         $onAir12h = new Dao_onAir12h_model();
+        $comments = new Dao_reporte_comentario_model();
 
         $res['ticket'] = $ticket->findByIdOnAir($this->request->id);
         $res['preparationStage'] = $crq->findByIdPreparation($res['ticket']->data->k_id_preparation);
@@ -413,12 +414,14 @@ class User extends CI_Controller {
             }
         }
         $answer['respuesta'] = json_encode($res);
+        $answer['comentarios'] = json_encode($comments->findReportCommentsByIdOnAir($this->request->id));
         $this->load->view('formEditTicket', $answer);
     }
     
     public function improvementPlans() {
         $this->load->view('planes-mejora');
     }
+
 
 }
 

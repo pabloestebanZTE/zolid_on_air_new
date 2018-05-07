@@ -105,6 +105,20 @@ class Dao_reporte_comentario_model extends CI_Model {
             return $ex;
         }
     }
+    
+    public function findReportCommentsByIdOnAir($id) {
+        try {
+            $reporte = new ReporteComentarioModel();
+            $datos = $reporte->where("k_id_on_air", "=", $id)
+                    ->get();
+//            echo $reporte->getSQL();
+            $response = new Response(EMessages::SUCCESS);
+            $response->setData($datos);
+            return $response;
+        } catch (DeplynException $ex) {
+            return $ex;
+        }
+    }
 
 }
 
