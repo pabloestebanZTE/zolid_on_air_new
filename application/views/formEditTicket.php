@@ -150,7 +150,7 @@
                                     <label class="col-md-3 control-label">Fecha ingreso On Air:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
                                             <input type='datetime-local' name="d_ingreso_on_air" id="d_ingreso_on_air" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@
                                     <label class="col-md-3 control-label">Fecha ultima revisión:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-id-card"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
                                             <input type='datetime-local' name="d_fecha_ultima_rev" id="d_fecha_ultima_rev" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                     <label class="col-md-3 control-label">Controlador:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa fa-desktop"></i></span>
                                             <input type='text' name="n_controlador" id="n_controlador" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                     <label class="col-md-3 control-label">Id controlador:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa-address-book"></i></span>
                                             <input type='text' name="n_idcontrolador" id="n_idcontrolador" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@
                                     <label class="col-md-3 control-label">Desbloqueo:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa fa-unlock"></i></span>
                                             <input type='datetime-local' name="d_desbloqueo" id="d_desbloqueo" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@
                                     <label class="col-md-3 control-label">Bloqueado:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-fw fa fa-lock"></i></span>
                                             <input type='datetime-local' name="d_desbloqueo" id="d_desbloqueo" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -226,16 +226,7 @@
                                     <label class="col-md-3 control-label">Corrección pendientes:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                            <input type='text' name="d_correccionespendientes" id="d_correccionespendientes" class="form-control" value='' >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Corrección pendientes:</label>
-                                    <div class="col-md-8 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
                                             <input type='text' name="d_correccionespendientes" id="d_correccionespendientes" class="form-control" value='' >
                                         </div>
                                     </div>
@@ -253,8 +244,305 @@
                                     <label class="col-md-3 control-label">Integrador:</label>
                                     <div class="col-md-8 selectContainer">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                             <input type='text' name="n_integrador" id="n_integrador" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">Ingeniero precheck:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input type='text' name="n_ingenieroprecheck" id="n_ingenieroprecheck" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Ingeniero final 12 horas:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input type='text' name="n_ingenierofinal12horas" id="n_ingenierofinal12horas" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Ingeniero garantia:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input type='text' name="n_ingenierogarantia" id="n_ingenierogarantia" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                               <div class="form-group test-gestion">
+                                    <label class="col-md-3 control-label">Test gestion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_testgestion" id="n_testgestion">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group sitio-limpio">
+                                    <label class="col-md-3 control-label">Sitio limpio:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_sitiolimpio" id="n_sitiolimpio">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fecha produccion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_fechaproduccion" id="d_fechaproduccion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Instalacion HW Sitio:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_instalacion_hw_sitio" id="n_instalacion_hw_sitio" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Cambios config Solicitados:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_cambios_config_solicitados" id="n_cambios_config_solicitados" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Cambios Config Final:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_cambios_config_final" id="n_cambios_config_final" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Estado On air:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_estadoonair" id="n_estadoonair" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Atribuible nokia:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_atribuible_nokia" id="n_atribuible_nokia" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Contratista:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_contratista" id="n_contratista" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">comentario opccional:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='textarea' name="n_comentarioccial" id="n_comentarioccial" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Ticket remedy:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ticketremedy" id="n_ticketremedy" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fin Precheck:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="d_finpre" id="d_finpre" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fin 12h:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="d_fin12h" id="d_fin12h" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">LAC:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_lac" id="n_lac" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">RAC:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_rac" id="n_rac" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">SAC:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_sac" id="n_sac" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Integracion gestion y trafica:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_integracion_gestion_y_trafica" id="n_integracion_gestion_y_trafica" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Puesta de Servicio Sitio Nuevo LTE:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_integracion_gestion_y_trafica" id="_integracion_gestion_y_trafica" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Instalacion HW 4G Sitio:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_instalacion_hw_4g_sitio" id="n_instalacion_hw_4g_sitio" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                   <div class="form-group pre-launch">
+                                    <label class="col-md-3 control-label">Pre-launch:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="pre_launch" id="pre_launch">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Actualizacion final:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_actualizacion_final" id="d_actualizacion_final" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">Asignacion Final:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_asignacion_final" id="d_asignacion_final" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Evidencia SL:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_evidenciasl" id="n_evidenciasl" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Evidencia TG:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_evidenciatg" id="n_evidenciatg" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Time escalado:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="d_time_escalado" id="d_time_escalado" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fecha escalado:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_fecha_escalado" id="d_fecha_escalado" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Week:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_week" id="i_week" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">T from notif:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="d_t_from_notif" id="d_t_from_notif" class="form-control" value='' >
                                         </div>
                                     </div>
                                 </div>
@@ -394,10 +682,466 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">T from asign:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="d_t_from_asign" id="d_t_from_asign" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Atribuible Nokia2:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_atribuible_nokia2" id="n_atribuible_nokia2" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Kpis Degraded:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_kpis_degraded" id="n_kpis_degraded" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Id Notificacion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="id_notificacion" id="id_notificacion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Id Documentacion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="id_documentacion" id="id_documentacion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">ID RFTools:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="id_rftools" id="id_rftools" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Tipificacion Solucion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_tipificacion_solucion" id="n_tipificacion_solucion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">KPI1:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_kpi1" id="n_kpi1" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Valor KPI1:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_valor_kpi1" id="i_valor_kpi1" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">KPI2:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_kpi2" id="n_kpi2" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Valor KPI2:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_valor_kpi2" id="i_valor_kpi2" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">KPI3:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_kpi3" id="n_kpi3" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Valor KPI3:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_valor_kpi3" id="i_valor_kpi3" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">KPI4:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_kpi4" id="n_kpi4" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Valor_KPI4:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_valor_kpi4" id="i_valor_kpi4" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Alarma 1:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_alarma1" id="n_alarma1" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Alarma 2:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_alarma2" id="n_alarma2" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Alarma 3:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_alarma3" id="n_alarma3" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Alarma 4:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_alarma4" id="n_alarma4" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Cont total escalamiento:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_cont_total_escalamiento" id="i_cont_total_escalamiento" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Time total escalamiento:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_time_total_escalamiento" id="i_time_total_escalamiento" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OLA:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ola" id="n_ola" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OLA excedido:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ola_excedido" id="n_ola_excedido" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Detalle_Solucion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_detalle_solucion" id="n_detalle_solucion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Lider cambio:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_lider_cambio" id="i_lider_cambio" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Lider cuadrilla:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="i_lider_cuadrilla" id="i_lider_cuadrilla" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OLA areas:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ola_areas" id="n_ola_areas" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">OLA areas excedido:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ola_areas_excedido" id="n_ola_areas_excedido" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Ultimo Subestado De Escalamiento:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ultimo_subestado_de_escalamiento" id="n_ultimo_subestado_de_escalamiento" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fin 24H:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_fin24h" id="d_fin24h" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fin 36H:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_fin36h" id="d_fin36h" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group Implementacion-campo">
+                                    <label class="col-md-3 control-label">Implementacion campo:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_implementacion_campo" id="n_implementacion_campo">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Implementacion remota</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_implementacion_remota" id="n_implementacion_remota" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="form-group gestion-power">
+                                    <label class="col-md-3 control-label">Gestion power:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_gestion_power" id="n_gestion_power">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group obra-social">
+                                    <label class="col-md-3 control-label">Obra civil:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_obra_civil" id="n_obra_civil">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group on-air">
+                                    <label class="col-md-3 control-label">On Air:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="on_air" id="on_air">
+                                                <option value="ABIERTO">ABIERTO</option>
+                                                <option value="CERRADO">CERRADO</option>
+                                                <option value="NA">NA</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fecha RFT:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="fecha_rft" id="fecha_rft" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fecha CG:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o"></i></span>
+                                        <input type='datetime-local' name="d_fecha_cg" id="d_fecha_cg" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Exclusion bajo trafico:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_exclusion_bajo_trafico" id="n_exclusion_bajo_trafico" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Ticket:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_ticket" id="n_ticket" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Estado ticket:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_estado_ticket" id="n_estado_ticket" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">SLN Modernizacion:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                        <input type='text' name="n_sln_modernizacion" id="n_sln_modernizacion" class="form-control" value='' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group en-prorroga">
+                                    <label class="col-md-3 control-label">En Prorroga:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="on_air" id="on_air">
+                                                <option value="FALSO">FALSO</option>
+                                                <option value="VERDADERO">VERDADERO</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                
+                              <!--   <div class="form-group">
+                                  <label class="col-md-3 control-label">Cont_Prorrogas:</label>
+                                  <div class="col-md-8 selectContainer">
+                                      <div class="input-group">
+                                      <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                      <input type='text' name="n_cont_prorrogas" id="n_cont_prorrogas" class="form-control" value='' >
+                                      </div>
+                                  </div>
+                              </div> -->
+                                <div class="form-group cont-prorrogas">
+                                    <label class="col-md-3 control-label">Cont Prorrogas:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_cont_prorrogas" id="n_cont_prorrogas">
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div>
+                                <div class="form-group NOC">
+                                    <label class="col-md-3 control-label">NOC:</label>
+                                    <div class="col-md-8 selectContainer">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-fw fa-wrench"></i>
+                                            </div>
+                                            <select class="form-control" name="n_noc" id="n_noc">
+                                                <option value="NOKIA-ZTE">NOKIA-ZTE</option>
+                                                <option value="ZTE">ZTE</option>
+                                                
+                                            </select>
+                                        </div>                             
+                                    </div>
+                                </div> 
+                                
                             </fieldset>
                             <!--   fin seccion derecha---->
-                            <!-- Button -->
+                            <!-- Button ---->
                             <center>
                                 <div class="form-group">
                                     <label class="col-md-12 control-label"></label>

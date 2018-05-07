@@ -77,5 +77,22 @@
             return $ex;
           }
         }
+
+        public function insertUser($request){
+          try {
+              $db = new DB();
+          
+              $User = new UserModel();
+              $datos = $User->insert($request->all());
+              //echo $User->getSQL();
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (DeplynException $ex) {
+              return $ex;
+          }
+
+        }
+
     }
 ?>

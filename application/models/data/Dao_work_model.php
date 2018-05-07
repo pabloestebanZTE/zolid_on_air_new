@@ -34,7 +34,29 @@
           }
         }
 
+        public function insertWork($request) {
+          try {
+              $db = new DB();
+              $ult = $db->select('SELECT MAX(k_id_work) AS max FROM work;')->first();
 
+              $request->k_id_work = $ult->max+1;
+
+              $work = new WorkModel();
+              $datos = $work->insert($request->all());
+  //            echo $work->getSQL();
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (DeplynException $ex) {
+              return $ex;
+          }
+       }
+
+       /* public function datosEspecificos($algo){
+          $query = $this->db->query("SELECT n_name_ork, b_aplica_bloqueo, n_abreviacion FROM on_air.work; ")
+          return $query result();
+
+        }*/
 
     }
 ?>

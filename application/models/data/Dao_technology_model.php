@@ -34,5 +34,24 @@
         }
       }
 
+      public function insertTech($request){
+
+        try {
+              $db = new DB();
+              $ult = $db->select('SELECT MAX(k_id_technology) AS max FROM technology;')->first();
+
+              $request->k_id_technology = $ult->max+1;
+
+              $technology = new TechnologyModel();
+              $datos = $technology->insert($request->all());
+  //            echo $work->getSQL();
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (DeplynException $ex) {
+              return $ex;
+          }
+      }
+
   }
 ?>
