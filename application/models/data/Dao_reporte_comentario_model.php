@@ -120,6 +120,18 @@ class Dao_reporte_comentario_model extends CI_Model {
         }
     }
 
+    // actualiza reporte comentario, hay que pasarle un array cuyos keys sean = a las columnas de reporte comentario
+    public function updateComments($data){
+        $this->db->where('k_id_primary', $data['k_id_primary']);
+        $this->db->update('reporte_comentario',$data);
+        $error = $this->db->error();
+        if ($error['message']) {
+          return $error;
+        }else{
+            return "ok";
+        }
+    }
+
 }
 
 ?>
