@@ -3,7 +3,7 @@
     <?php $this->load->view('parts/generic/head'); ?>
     <link rel="stylesheet" href="<?= URL::to('assets/css/styleModalCami.css') ?>"/>
     <!--   SWEET ALERT    -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.min.css" /> -->
     <style type="text/css">
         .nav li a {
             background-color:#207be5;
@@ -16,7 +16,7 @@
     <!-- Push.js   -->
     <script type="text/javascript" src="<?= URL::base()?>/assets/plugins/push.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.min.js"></script> -->
     <!--   SCRIPT PROPIOS   -->
     <script type="text/javascript" charset="utf-8" async defer>
         //Funcion para mostrar mensaje de error de validacion de datos
@@ -1031,7 +1031,8 @@
                     <!-- INICIO SEGUNDA PESTAÑA -->
                     <div id="comentarios" class="tab-pane fade">
 
-                        <h3>Editar Comentarios </h3>
+                        <h3 class="dis-in-line-blk">Editar Comentarios </h3>
+                        <button id="newComment" class="btn btn-primary" style="margin-left: 20%;"><i class="fa fa-fw fa-plus"></i>Nuevo Comentario</button>
 
                         <table class="table table-hover table-bordered" id="table_comments">
                             <thead>
@@ -1826,7 +1827,8 @@
                                                         <i class="fa fa-fw fa-wrench"></i>
                                                     </div>
                                                     <select class="form-control" name="mdl_n_noc" id="mdl_n_noc">
-                                                        <option value="NOKIA-ZTE">NOKIA-ZTE</option>
+                                                        <option value="">Seleccione</option>
+                                                        <option value="NOKIA-ZTE">NOKIA-ZTE</option>    
                                                         <option value="ZTE">ZTE</option>
 
                                                     </select>
@@ -1858,18 +1860,38 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal"><i class='glyphicon glyphicon-remove'></i>&nbsp;Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="mbtnDeleteComentario" style="float: left;"><i class='glyphicon glyphicon-remove'></i>&nbsp;Eliminar</button>
+                    <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal"><i class='glyphicon glyphicon-chevron-up'></i>&nbsp;Cancelar</button>
                     <button type="button" class="btn btn-info" id="mbtnUpdComentario"><i class='glyphicon glyphicon-save'></i>&nbsp;Actualizar</button>
+                    <button type="button" class="btn btn-primary" id="mbtnNewComentario"><i class='glyphicon glyphicon-save'></i>&nbsp;Insertar</button>
                 </div>
             </div>
         </div>
     </div>
 
+    
+    <?php if (isset($_GET['msj'])): ?>
+        <script type="text/javascript">
+            var inicial = $('body').attr('data-base');
+            var ticketAct = "<?= $_GET['id']?>";
 
+            Push.create( "El ticket " + ticketAct, {
+                      body: "Fue actualizado exitosamente",
+                      icon: inicial + '/assets/img/logoblue.png',
+                      timeout: 4000,
+                      onClick: function () {
+                          window.focus();
+                          this.close();
+                      }
+           });
+        </script>
+        
+    <?php endif ?>
 
+    
 
-
-
+    <script src="<?= URL::to("assets/plugins/sweetalert-master/sweetalert2.min.js") ?>" type="text/javascript"></script>
+        
 
 
 </body>

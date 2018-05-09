@@ -429,6 +429,22 @@ class User extends CI_Controller {
         echo json_encode($respuesta);
     }
 
+    //Inserta en la tabla reporte comentarios
+    public function insertComments(){
+        $respuesta = $this->Dao_reporte_comentario_model->insertComments($this->input->post());
+        echo json_encode($respuesta);
+    }
+
+    //Elimina comentario de la tabla reporte comentarios
+    public function DeleteComments(){
+        $id = $this->input->post('k_id_primary');
+        if ($id) {
+            $respuesta = $this->Dao_reporte_comentario_model->deleteComments($id);
+            echo json_encode($respuesta);
+        }
+        
+    }
+
 
 }
 

@@ -1074,3 +1074,8 @@ table th, table td{
 .table-hover td{
     cursor: pointer;
 }
+
+
+.dis-in-line-blk{
+    display: inline-block;
+}

@@ -21,19 +21,96 @@ $(function () {
              
 
 
-          })
-            // al darle clic al boton actualizar del modal
-            $('#mbtnUpdComentario').on('click', comment.onClickBotonActualizar); 
+            });
+            // al darle clic al boton actualizar del modal    
+            $('#mbtnUpdComentario').on('click',function(){
+              comment.onClickBotonInsoActComentario('updateComments');
+            } ); 
 
+            // al darle clic a agregar nuevo comentario
+            $('#newComment').on('click', comment.onClickBotonNuevoComentario); 
+            // al darle clic a insertar nuevo comentario
+            $('#mbtnNewComentario').on('click', function(){
+              comment.onClickBotonInsoActComentario('insertComments');              
+            }); 
+
+            // al darle clic a eliminar comentario
+            $('#mbtnDeleteComentario').on('click', function(){
+              swal({
+                  title: "¿Desea eliminar este comentario?",
+                  text: "Una vez de click en eliminar, ¡el comentario se eliminará permanentemente!",
+                  icon: "warning",
+                  buttons: true,
+                  
+                  dangerMode: true,
+                  buttons: ["Cancelar!", "Eliminar!"],
+              })
+                .then((actualizar) => {
+                    if (actualizar) {
+                      comment.onClickBotonInsoActComentario('DeleteComments');
+                      swal("¡OK!", "¡Tu archivo ha sido eliminado!", {
+                        icon: "success",
+                      });
+                  } else {
+                    swal("¡ Uff !", "Cancelaste la eliminación!",{
+                      icon: "error",
+                      dangerMode: true,
+                    });
+                  }
+                });
+
+
+
+
+                            
+            }); 
 
 
         },
+
+        onClickBotonNuevoComentario: function(){
+          $('#modalEditComment').modal('show');
+
+          $('#mbtnUpdComentario').css('display', 'none');
+          $('#mbtnDeleteComentario').css('display', 'none');
+
+          $('#mbtnNewComentario').css('display', 'inline-block');
+          var registro = [];
+          $ ('#modalTitle').html('insertar Comentario al ticket');
+
+          // $('#estacion_modal option:contains("'+registro['estacion']+'")').attr('selected','selected');
+          $('#select2-estacion_modal-container').html("");
+          // $('#select2-estacion_modal-container').css('max-width', '167px');
+          // $('#select2-estacion_modal-container').css('min-width', '167px');
+          
+          $('#select2-mdl_n_enteejecutor-container').html("");
+          $('#select2-modalTecnologia-container').html("");
+          $('#select2-modalBanda-container').html("");
+          $('#select2-modalTipotrabajo-container').html("");
+          $('#select2-mdl_n_noc-container').html("");
+          $('#select2-mtxtUserCom-container').html("");
+
+          $('#mdl_n_estado_eb_resucomen').val("");
+          $('#tipificacion_resucomen').val("");
+
+          $('#mdl_comentario_resucoment').html("");
+
+          // para fecha
+          
+          $('#mdl_d_ingreso_on_air').val("");
+
+          // comment.modalEditar(registro);
+           $('#modalEditComment').modal('show');
+            
+        },
+
+
+
         // Capturo los valores de la fila a la que le doy clic
         onClickTrtable_comments: function(){
           var registro = [];
           var fila = $(this);
         
-            // if (comment.table_comments) {
                registro['idonair'] = $('#k_id_onair').val();
                registro['idtr'] = $(this).attr("id");
                registro['estacion'] = fila.find('td').eq(0).html();
@@ -48,53 +125,42 @@ $(function () {
                registro['tipificacion'] = fila.find('td').eq(9).html();
                registro['noc'] = fila.find('td').eq(10).html();
 
-                // if (registro != undefined) {
-                  comment.modalEditar(registro);   
-                // }
-            // }
+              $ ('#modalTitle').html('Editar Comentario del ticket &nbsp;&nbsp;&nbsp;&nbsp;<b>N°' + registro['idonair'] +'</b>');
+
+              $('#mbtnNewComentario').css('display', 'none');
+              $('#mbtnUpdComentario').css('display', 'inline-block');
+              $('#mbtnDeleteComentario').css('display', 'inline-block')
+
+
+              $('#select2-estacion_modal-container').html(registro['estacion']);
+              // $('#select2-estacion_modal-container').css('max-width', '167px');
+              // $('#select2-estacion_modal-container').css('min-width', '167px');
+              
+              $('#select2-mdl_n_enteejecutor-container').html(registro['ejecutor']);
+              $('#select2-modalTecnologia-container').html(registro['tecn']);
+              $('#select2-modalBanda-container').html(registro['banda']);
+              $('#select2-modalTipotrabajo-container').html(registro['tipo']);
+              $('#select2-mdl_n_noc-container').html(registro['noc']);
+              $('#select2-mtxtUserCom-container').html(registro['usuario']);
+
+              $('#mdl_n_estado_eb_resucomen').val(registro['estado']);
+              $('#tipificacion_resucomen').val(registro['tipificacion']);
+
+              $('#mdl_comentario_resucoment').html(registro['comentario']);
+              registro['actualizacion'] = registro['actualizacion'].replace(" ", "T");
+              var dateControl = $('#mdl_d_ingreso_on_air');
+              dateControl.val(registro['actualizacion']);
+
+              $('#id_comentario').val(registro['idtr']);
+              $('#modalEditComment').modal('show');
             
         },
-        //llama el modal
-        modalEditar: function(registro){
-          // console.log(registro);
-          //mostrar modal
-          $('#modalEditComment').modal('show');
-
-          $ ('#modalTitle').html('Editar Comentario del ticket &nbsp;&nbsp;&nbsp;&nbsp;<b>N°' + registro['idonair'] +'</b>');
-
-          // $('#estacion_modal option:contains("'+registro['estacion']+'")').attr('selected','selected');
-          $('#select2-estacion_modal-container').html(registro['estacion']);
-          // $('#select2-estacion_modal-container').css('max-width', '167px');
-          // $('#select2-estacion_modal-container').css('min-width', '167px');
-          
-          $('#select2-mdl_n_enteejecutor-container').html(registro['ejecutor']);
-          $('#select2-modalTecnologia-container').html(registro['tecn']);
-          $('#select2-modalBanda-container').html(registro['banda']);
-          $('#select2-modalTipotrabajo-container').html(registro['tipo']);
-          $('#select2-mdl_n_noc-container').html(registro['noc']);
-          $('#select2-mtxtUserCom-container').html(registro['usuario']);
-
-          $('#mdl_n_estado_eb_resucomen').val(registro['estado']);
-          $('#tipificacion_resucomen').val(registro['tipificacion']);
-
-          $('#mdl_comentario_resucoment').html(registro['comentario']);
-
-          // para fecha
-          registro['actualizacion'] = registro['actualizacion'].replace(" ", "T");
-          var dateControl = $('#mdl_d_ingreso_on_air');
-          dateControl.val(registro['actualizacion']);
-
-          $('#id_comentario').val(registro['idtr']);
-          
-        },
+        
 
 
 
-
-
-
-        onClickBotonActualizar: function(){
-
+        onClickBotonInsoActComentario: function(funcion){
+          var idonair = $('#k_id_onair').val();
           var idtr = $('#id_comentario').val();
           var estacion = $('#select2-estacion_modal-container').html();
           var tecn = $('#select2-modalTecnologia-container').html();
@@ -106,16 +172,16 @@ $(function () {
           var usuario = $('#select2-mtxtUserCom-container').html();
           var ejecutor = $('#select2-mdl_n_enteejecutor-container').html();
           var tipificacion = $('#tipificacion_resucomen').val();
-          var noc = $('#select2-n_noc-container').html();
+          var noc = $('#select2-mdl_n_noc-container').html();
 
 
 
           /***************Envio los datos obtenidos por ajax al controlador para actualizar***************/
           // Ruta del controlador y funcion donde enviamos la peticion
-          $.post(comment.baseurl+"/User/updateComments", 
+          $.post(comment.baseurl + "/User/" + funcion, 
             //parametros que vamos a enviar por POST
              {
-
+                k_id_on_air : idonair,
                 k_id_primary : idtr,
                 n_nombre_estacion_eb : estacion,
                 n_tecnologia : tecn,
@@ -137,8 +203,8 @@ $(function () {
                 var image = "";
                 var title = "";
                 if (res == "ok") {
-                      title = 'El comentario Seleccionado';
-                      body = 'fue actualizado exitosamente!';
+                      title = 'Su solicitud';
+                      body = 'fue ejecutada exitosamente!';
                       image = 'logoblue.png';
                       location.reload();
 

@@ -132,6 +132,30 @@ class Dao_reporte_comentario_model extends CI_Model {
         }
     }
 
+    // insert EN EL REPORTE COMENTARIOS
+    public function insertComments($data){
+
+        $this->db->insert('reporte_comentario',$data);
+        $error = $this->db->error();
+        if ($error['message']) {
+          return $error;
+        }else{
+            return "ok";
+        }
+    }
+
+    // elimina un aid de la tabla comentarios
+    public function deleteComments($id){
+        $this->db->where('k_id_primary',$id);
+        $this->db->delete('reporte_comentario');
+        $error = $this->db->error();
+        if ($error['message']) {
+          return $error;
+        }else{
+            return "ok";
+        }
+    }
+
 }
 
 ?>
