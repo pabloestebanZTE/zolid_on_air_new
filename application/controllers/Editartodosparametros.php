@@ -12,7 +12,7 @@
 			}
 		
 		//Esta funcion carga la vista de edicion
-		public function cargarVista () {
+		public function editarCrudColums () {
 			//la respuesta trae los datos llamados por el modal
 			$respuesta['work']= $this->Dao_work_model->getAll()->data;
 			$respuesta['tecnologia'] = $this->Dao_technology_model->getAll()->data;
@@ -30,7 +30,7 @@
 	
 		}
 		private function locationCargarVista(){
-			$location = "location: ". URL::base() ."/Editartodosparametros/cargarVista";
+			$location = "location: ". URL::base() ."/Editartodosparametros/editarCrudColums";
 			header($location);
 			}
 		public function newTech(){
@@ -50,22 +50,52 @@
 		}
 		public function newUser(){
 			//insert User
-			$user = new Dao_user_model();
-			$res = $user->insertUser($this->request);
+			$User = new Dao_user_model();
+			$res = $User->insertUser($this->request);
 			$this->locationCargarVista();
 			/*print_r($request);*/
 		}
 		public function updateBand(){
-
 			$data = array(
-				'k_id_band' => $this->input->post('id') , 
-				'n_name_band' => $this->input->post('n_name_band') 
+				'k_id_band' => $this->input->post('id') ,
+				'n_name_band' => $this->input->post('n_name_band')
 			);
-
 			$this->Dao_band_model->updateBand($data);
 			/*print_r($_POST);*/
 			$this->locationCargarVista();
 		}
-
+		public function updateWork(){
+			$data = array(
+				'k_id_work' => $this->input->post('id') ,
+				'n_name_ork' => $this->input->post('n_name_ork'),
+				'n_abreviacion' => $this->input->post('n_abreviacion'),
+				'b_aplica_bloqueo' => $this->input->post('b_aplica_bloqueo')
+			);
+			$this->Dao_work_model->updateWork($data);
+			/*print_r($_POST);*/
+			$this->locationCargarVista();
+		}
+		public function updateTech(){
+			$data = array(
+				'k_id_technology' => $this->input->post('id') ,
+				'n_name_technology' => $this->input->post('n_name_technology')
+			);
+			$this->Dao_technology_model->updateTech($data);
+			/*print_r($_POST);*/
+			$this->locationCargarVista();
+		}
+		public function updateUser(){
+			$data = array(
+				'k_id_user' => $this->input->post('id'),
+				'n_name_user' => $this->input->post('n_name_user'),
+				'n_last_name_user' =>$this->input->post('n_last_name_user'),
+				'n_mail_user' => $this->input->post('n_mail_user'),
+				'n_role_user' => $this->input->post('n_role_user'),
+				'n_username_user' => $this->input->post('n_username_user')
+				);
+				$this->Dao_user_model->updateUser($data);
+				$this->locationCargarVista();
+					
+		}
 }
 ?>

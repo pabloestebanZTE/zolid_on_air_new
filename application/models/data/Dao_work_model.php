@@ -52,6 +52,12 @@
           }
        }
 
+       public function updateWork($data){
+        $this->db->where('k_id_work', $data['k_id_work'] );
+        $this->db->update('work', $data);
+
+       }
+
        /* public function datosEspecificos($algo){
           $query = $this->db->query("SELECT n_name_ork, b_aplica_bloqueo, n_abreviacion FROM on_air.work; ")
           return $query result();

@@ -18,3 +18,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.3/sweetalert2.all.min.js"></script>
 <script src="<?= URL::to("assets/plugins/HelperForm.js?v=1.2") ?>" type="text/javascript"></script>
 <script src="<?= URL::to("assets/plugins/FormatDate.js") ?>" type="text/javascript"></script>
+<script src="<?= URL::to('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') ?>" type="text/javascript"></script>

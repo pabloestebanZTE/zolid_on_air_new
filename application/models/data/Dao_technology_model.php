@@ -53,5 +53,10 @@
           }
       }
 
+      public function updateTech($data){
+        $this->db->where('k_id_technology', $data['k_id_technology'] );
+        $this->db->update('technology', $data);
+      }
+
   }
 ?>

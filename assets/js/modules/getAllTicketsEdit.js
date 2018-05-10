@@ -16,7 +16,7 @@ $(function () {
                     {title: "Tipo de trabajo", data: 'k_id_work.n_name_ork'},
                     {title: "Estado", data: 'k_id_status_onair.k_id_status.n_name_status'},
                     {title: "SubEstado", data: 'k_id_status_onair.k_id_substatus.n_name_substatus'},
-                    {title: "Tiempo", data: vista.setTimer},
+//                    {title: "Tiempo", data: vista.setTimer},
                     {title: "Tecnologia", data: 'k_id_technology.n_name_technology'},
                     {title: "Banda", data: 'k_id_band.n_name_band'},
                     {title: "Fecha Creacion Onair", data: 'k_id_preparation.d_ingreso_on_air'},
@@ -77,6 +77,7 @@ $(function () {
         getButtons: function (obj) {
             return '<div class="btn-group">'
                     + '<a href="' + app.urlTo('User/formEditTicket?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Documentación"><span class="fa fa-fw fa-edit"></span></a>'
+                    + '<a href="' + app.urlTo('User/formEditTicketComments?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Comentarios"><span class="fa fa-fw fa-comments"></span></a>'
                     + '</div>';
         },
         setTimer: function (obj, style, none, settings) {
