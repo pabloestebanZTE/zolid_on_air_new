@@ -751,7 +751,7 @@ class TicketOnair extends CI_Controller {
         // header('Content-Type: text/plain');
         // $this->load->view('formEditTicket',$a,2560);
         // print_r(URL::to('TicketOnair/editarTicket'));
-        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair');
+        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair')."&msj=ok";
         header($location);
 
     }
