@@ -48,7 +48,7 @@ $(function () {
                 .then((actualizar) => {
                     if (actualizar) {
                       comment.onClickBotonInsoActComentario('DeleteComments');
-                      swal("¡OK!", "¡Tu archivo ha sido eliminado!", {
+                      swal("¡OK!", "¡El comentario ha sido eliminado!", {
                         icon: "success",
                       });
                   } else {
