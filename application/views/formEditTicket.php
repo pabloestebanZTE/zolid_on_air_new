@@ -61,7 +61,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                                <select name="k_id_station" id="estacion" class="form-control selectpicker select-estacion" onchange="editTextCityRegional()">
+                                                <select name="k_id_station" id="estacion" class="form-control selectpicker select-estacion" onchange="editTextCityRegional()" required>
                                                     <option value="" >Seleccione la estación</option>
                                                 </select>
                                                 <div class="input-group-btn">
@@ -536,7 +536,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()">
+                                                <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
                                                     <option value="" >Seleccione el tipo de trabajo</option>
                                                 </select>
                                             </div>
@@ -548,7 +548,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-tablet"></i></span>
-                                                <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change">
+                                                <select name="k_id_technology" id="tecnologia" class="form-control selectpicker select-tecnologia helper-change" required>
                                                     <option value="" >Seleccione la tecnologia</option>
                                                 </select>
                                             </div>
@@ -560,7 +560,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-signal"></i></span>
-                                                <select name="k_id_band" id="banda" class="form-control selectpicker select-banda">
+                                                <select name="k_id_band" id="banda" class="form-control selectpicker select-banda" required>
                                                     <option value="" >Seleccione la banda</option>
                                                 </select>
                                             </div>
@@ -573,7 +573,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                <select name="k_id_status" id="status" class="form-control selectpicker" onchange="editSubstatus()">
+                                                <select name="k_id_status" id="status" class="form-control selectpicker" onchange="editSubstatus()" required>
                                                     <option value="" >Seleccione el Estado</option>
                                                 </select>
                                             </div>
@@ -584,7 +584,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
-                                                <select name="k_id_status_onair" id="substatus" class="form-control selectpicker">
+                                                <select name="k_id_status_onair" id="substatus" class="form-control selectpicker" required>
                                                     <option value="">Seleccione el Subestado</option>
                                                 </select>
                                             </div>
