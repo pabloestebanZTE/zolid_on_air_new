@@ -212,7 +212,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-md-3 control-label">Desbloqueo:</label>
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
@@ -226,10 +226,10 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='datetime-local' name="d_desbloqueo" id="d_desbloqueo" class="form-control"  data-callback="dom.formatDateForPrint">
+                                                <input type='datetime-local' name="d_bloqueo" id="d_bloqueo" class="form-control"  data-callback="dom.formatDateForPrint">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Reviewedfo:</label>
                                         <div class="col-md-8 selectContainer">
@@ -968,15 +968,6 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
                                                 <input type='text' name="n_estado_ticket" id="n_estado_ticket" class="form-control"  >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">SLN Modernizacion:</label>
-                                        <div class="col-md-8 selectContainer">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='text' name="n_sln_modernizacion" id="n_sln_modernizacion" class="form-control"  >
                                             </div>
                                         </div>
                                     </div>
