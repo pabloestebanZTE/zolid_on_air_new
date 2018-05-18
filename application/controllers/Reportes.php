@@ -153,7 +153,12 @@ class Reportes extends CI_Controller {
         $sheet->setCellValue($cell, $value);
     }
 
+
+
+
     public function reportOnair() {
+        $fechaActual = Hash::getDate();
+        $fechaActual = Date('Y-m-d H:i:s');
 //        $filename = "Reporte_ONAIR_" . date("Y-m-d") . ".xls";
 //        header("Content-Disposition: attachment; filename=\"$filename\"");
 //        header("Content-Type: application/vnd.ms-excel; charset=utf-8");
@@ -776,6 +781,8 @@ class Reportes extends CI_Controller {
         $objPhpExcel->getActiveSheet()->setCellValue("I1", "excepcion GRI");
         $objPhpExcel->getActiveSheet()->setCellValue("J1", "Fecha ingreso On Air");
         $objPhpExcel->getActiveSheet()->setCellValue("K1", "Fechaultimarev");
+
+
         $objPhpExcel->getActiveSheet()->setCellValue("L1", "tipo De trabajo");
         $objPhpExcel->getActiveSheet()->setCellValue("M1", "vistamm");
         $objPhpExcel->getActiveSheet()->setCellValue("N1", "enteejecutor");
@@ -1124,12 +1131,75 @@ class Reportes extends CI_Controller {
                 $objPhpExcel->getActiveSheet()->setCellValue("E" . ($r + 2), $res[$r]->k_id_technology->n_name_technology);
             }
             if ($res[$r]->k_id_status_onair) {
+
                 if ($res[$r]->k_id_status_onair['k_id_status']) {
                     $objPhpExcel->getActiveSheet()->setCellValue("G" . ($r + 2), $res[$r]->k_id_status_onair['k_id_status']->n_name_status);
+
+                    switch ($res[$r]->k_id_status_onair['k_id_status']->n_name_status) {
+                        case 'Escalado a Grupo Calidad':
+                            $res[$r]->scaled_onair->cont_esc_calidad = $res[$r]->scaled_onair->cont_esc_calidad + 1;
+                            $p1 = strtotime($fechaActual = Date('Y-m-d H:i:s'));
+                            $p2 = strtotime($res[$r]->d_fecha_ultima_rev);
+                            $seg = $p1 - $p2;
+                            $min = $seg / 60;
+                            $res[$r]->scaled_onair->i_time_esc_calidad = ceil($min);
+                            break;
+
+                        case 'Escalado a Implementacion':
+                            $res[$r]->scaled_onair->i_cont_esc_imp = $res[$r]->scaled_onair->i_cont_esc_imp + 1;
+                            // $fechaActual = Hash::getDate();
+                            // $fechaActual = Date('Y-m-d H:i:s');
+                            $p1 = strtotime($fechaActual = Date('Y-m-d H:i:s'));
+                            $p2 = strtotime($res[$r]->d_fecha_ultima_rev);
+                            $seg = $p1 - $p2;
+                            $min = $seg / 60;
+                            $res[$r]->scaled_onair->time_esc_imp = ceil($min);                            
+                            break;
+
+                        case 'Escalado a OyM':
+                            $res[$r]->scaled_onair->i_cont_esc_oym = $res[$r]->scaled_onair->i_cont_esc_oym + 1;
+                            $p1 = strtotime($fechaActual = Date('Y-m-d H:i:s'));
+                            $p2 = strtotime($res[$r]->d_fecha_ultima_rev);
+                            $seg = $p1 - $p2;
+                            $min = $seg / 60;
+                            $res[$r]->scaled_onair->time_esc_oym = ceil($min);
+                        break;
+
+                        case 'Escalado a RF':
+                            $res[$r]->scaled_onair->i_cont_esc_rf = $res[$r]->scaled_onair->i_cont_esc_rf + 1;
+                            $p1 = strtotime($fechaActual = Date('Y-m-d H:i:s'));
+                            $p2 = strtotime($res[$r]->d_fecha_ultima_rev);
+                            $seg = $p1 - $p2;
+                            $min = $seg / 60;
+                            $res[$r]->scaled_onair->i_time_esc_rf = ceil($min);
+                        break;
+
+                        case 'Escalado Control Cambios':
+                            $res[$r]->scaled_onair->cont_esc_npo = $res[$r]->scaled_onair->cont_esc_npo + 1;
+                            $p1 = strtotime($fechaActual = Date('Y-m-d H:i:s'));
+                            $p2 = strtotime($res[$r]->d_fecha_ultima_rev);
+                            $seg = $p1 - $p2;
+                            $min = $seg / 60;
+                            $res[$r]->scaled_onair->i_time_esc_npo = ceil($min);
+                        break;
+
+                        case 'Escalado a GDRT':
+                            $res[$r]->scaled_onair->i_cont_esc_gdrt = $res[$r]->scaled_onair->i_cont_esc_gdrt + 1;
+                            $p1 = strtotime($fechaActual = Date('Y-m-d H:i:s'));
+                            $p2 = strtotime($res[$r]->d_fecha_ultima_rev);
+                            $seg = $p1 - $p2;
+                            $min = $seg / 60;
+                            $res[$r]->scaled_onair->i_time_esc_gdrt = ceil($min);
+                        break;
+                    }
+
                 }
                 if ($res[$r]->k_id_status_onair['k_id_substatus']) {
                     $objPhpExcel->getActiveSheet()->setCellValue("H" . ($r + 2), $res[$r]->k_id_status_onair['k_id_substatus']->n_name_substatus);
                 }
+
+
+
             }
             if ($res[$r]->k_id_work) {
                 $objPhpExcel->getActiveSheet()->setCellValue("L" . ($r + 2), $res[$r]->k_id_work->n_name_ork);
@@ -1186,7 +1256,11 @@ class Reportes extends CI_Controller {
         $objPhpExcel->getActiveSheet()->setTitle('Reporte ONAIR');
         //Hacemos la hoja activa...
         $objPhpExcel->setActiveSheetIndex(0);
+
+
         //Guardamos.
+
+
         $objWriter = new PHPExcel_Writer_Excel2007($objPhpExcel);
         $filename = 'Reporte ONAIR - (' . date("Y-m-d") . ').xlsx';
         $objWriter->save($filename);
