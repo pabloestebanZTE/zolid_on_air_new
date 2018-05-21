@@ -77,7 +77,6 @@ $(function () {
         getButtons: function (obj) {
             return '<div class="btn-group">'
                     + '<a href="' + app.urlTo('User/formEditTicket?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Documentación"><span class="fa fa-fw fa-edit"></span></a>'
-                    + '<a href="' + app.urlTo('User/formEditTicketComments?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Comentarios"><span class="fa fa-fw fa-comments"></span></a>'
                     + '</div>';
         },
         setTimer: function (obj, style, none, settings) {

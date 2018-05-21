@@ -186,7 +186,7 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker">
+                                                <select name="b_vistamm" id="b_vistamm" class="form-control selectpicker" required>
                                                     <option value="" >Seleccione</option>
                                                     <option value="TRUE">TRUE</option>
                                                     <option value=">FALSE">FALSE</option>
@@ -295,7 +295,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="n_sitiolimpio" id="n_sitiolimpio">
+                                                <select class="form-control" name="n_sitiolimpio" id="n_sitiolimpio" required>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="N/A">N/A</option>
@@ -319,7 +319,14 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='text' name="n_instalacion_hw_sitio" id="n_instalacion_hw_sitio" class="form-control"  >
+                                                <!-- <input type='text' name="n_instalacion_hw_sitio" id="n_instalacion_hw_sitio" class="form-control"  > -->
+                                                 <select name="n_instalacion_hw_sitio" id="n_instalacion_hw_sitio"  class="form-control selectpicker">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="ABIERTO">ABIERTO</option>
+                                                    <option value="CERRADO">CERRADO</option>
+                                                    <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div> 
@@ -328,7 +335,14 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='text' name="n_cambios_config_solicitados" id="n_cambios_config_solicitados" class="form-control"  >
+                                                <select name="n_cambios_config_solicitados" id="n_cambios_config_solicitados"  class="form-control selectpicker">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="ABIERTO">ABIERTO</option>
+                                                    <option value="CERRADO">CERRADO</option>
+                                                    <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
+                                                </select>
+                                                <!-- <input type='text' name="n_cambios_config_solicitados" id="n_cambios_config_solicitados" class="form-control"  > -->
                                             </div>
                                         </div>
                                     </div> 
@@ -337,7 +351,14 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='text' name="n_cambios_config_final" id="n_cambios_config_final" class="form-control"  >
+                                                <select name="n_cambios_config_final" id="n_cambios_config_final"  class="form-control selectpicker">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="ABIERTO">ABIERTO</option>
+                                                    <option value="CERRADO">CERRADO</option>
+                                                    <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
+                                                </select>
+                                                <!-- <input type='text' name="n_cambios_config_final" id="n_cambios_config_final" class="form-control"  > -->
                                             </div>
                                         </div>
                                     </div> 
@@ -346,7 +367,12 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='text' name="n_estadoonair" id="n_estadoonair" class="form-control"  >
+                                                <select name="n_estadoonair" id="n_estadoonair"  class="form-control selectpicker" required>
+                                                    <option value="">Seleccione</option>
+                                                    <option value="ON_AIR">ON_AIR</option>
+                                                    <option value="NO ON AIR">NO ON AIR</option>
+                                                </select>
+                                                <!-- <input type='text' name="n_estadoonair" id="n_estadoonair" class="form-control"  > -->
                                             </div>
                                         </div>
                                     </div> 
@@ -356,11 +382,12 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
                                                 <!--<input type='text'  class="form-control"  >-->
-                                                <select class="form-control" name="n_atribuible_nokia" id="n_atribuible_nokia">
+                                                <select class="form-control" name="n_atribuible_nokia" id="n_atribuible_nokia" required>
                                                     <option value="">Seleccione</option>
                                                     <option value="SI">SI</option>
                                                     <option value="NO">NO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -425,12 +452,12 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <!--<input type='text' name="n_integracion_gestion_y_trafica" id="n_integracion_gestion_y_trafica" class="form-control"  >-->
                                                 <select name="n_integracion_gestion_y_trafica" id="n_integracion_gestion_y_trafica" class="form-control selectpicker">
                                                     <option value="">Seleccione</option>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -441,11 +468,12 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
                                                 <!--<input type='text' name="puesta_servicio_sitio_nuevo_lte" id="puesta_servicio_sitio_nuevo_lte" class="form-control"  >-->
-                                                <select name="puesta_servicio_sitio_nuevo_lte" id="puesta_servicio_sitio_nuevo_lte" class="form-control selectpicker">
+                                                <select name="puesta_servicio_sitio_nuevo_lte" id="puesta_servicio_sitio_nuevo_lte" class="form-control selectpicker" required>
                                                     <option value="">Seleccione</option>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -456,11 +484,12 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
                                                 <!--<input type='text' name="n_instalacion_hw_4g_sitio" id="n_instalacion_hw_4g_sitio" class="form-control"  >-->
-                                                <select name="n_instalacion_hw_4g_sitio" id="n_instalacion_hw_4g_sitio" class="form-control selectpicker">
+                                                <select name="n_instalacion_hw_4g_sitio" id="n_instalacion_hw_4g_sitio" class="form-control selectpicker" required>
                                                     <option value="">Seleccione</option>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -472,10 +501,11 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="pre_launch" id="pre_launch">
+                                                <select class="form-control" name="pre_launch" id="pre_launch" required>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>                             
                                         </div>
@@ -605,10 +635,11 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-thumbs-o-up"></i></span>
                                                 <select name="b_excpetion_gri" id="b_excpetion_gri" class="form-control selectpicker">
-                                                    <option value="">Seleccione la aprobación</option>
+                                                    <option value="">Seleccione GRI</option>
                                                     <option value="FALSO">FALSO</option>
                                                     <option value="OK - CONTROL CAMBIOS">OK - CONTROL CAMBIOS</option>
                                                     <option value="OK GRI">OK GRI</option>
+                                                    <option value="OK - GRI">OK - GRI</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -858,10 +889,11 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="n_implementacion_campo" id="n_implementacion_campo">
+                                                <select class="form-control" name="n_implementacion_campo" id="n_implementacion_campo" required>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>                             
                                         </div>
@@ -877,6 +909,7 @@
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -888,10 +921,11 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="n_gestion_power" id="n_gestion_power">
+                                                <select class="form-control" name="n_gestion_power" id="n_gestion_power" required>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>                             
                                         </div>
@@ -903,10 +937,11 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="n_obra_civil" id="n_obra_civil">
+                                                <select class="form-control" name="n_obra_civil" id="n_obra_civil" required>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
                                                     <option value="NA">NA</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>                             
                                         </div>
@@ -918,10 +953,14 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="on_air" id="on_air">
+                                                <select class="form-control" name="on_air" id="on_air" required>
+                                                    <option value="NA">NA</option>
                                                     <option value="ABIERTO">ABIERTO</option>
                                                     <option value="CERRADO">CERRADO</option>
-                                                    <option value="NA">NA</option>
+                                                    <option value="TAREAS SIN CREAR">TAREAS SIN CREAR</option>
+                                                    <option value="PENDIENTE CRQ">PENDIENTE CRQ</option>
+                                                    <option value="TAREAS ADICIONALES">TAREAS ADICIONALES</option>
+                                                    <option value="N/A">N/A</option>
                                                 </select>
                                             </div>                             
                                         </div>
@@ -949,7 +988,12 @@
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
-                                                <input type='text' name="n_exclusion_bajo_trafico" id="n_exclusion_bajo_trafico" class="form-control"  >
+                                                <select class="form-control" name="n_exclusion_bajo_trafico" id="n_exclusion_bajo_trafico" required>
+                                                    <option value="">SELECCIONE</option>
+                                                    <option value="SI">SI</option>
+                                                    <option value="NO">NO</option>
+                                                </select>
+                                                <!-- <input type='text' name="n_exclusion_bajo_trafico" id="n_exclusion_bajo_trafico" class="form-control"  > -->
                                             </div>
                                         </div>
                                     </div>
@@ -978,8 +1022,9 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="n_en_prorroga" id="n_en_prorroga">
+                                                <select class="form-control" name="n_en_prorroga" id="n_en_prorroga" required>
                                                     <option value="FALSO">FALSO</option>
+                                                    <option value="FALSE">FALSE</option>
                                                     <option value="VERDADERO">VERDADERO</option>
                                                 </select>
                                             </div>                             
@@ -994,7 +1039,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-fw fa-wrench"></i>
                                                 </div>
-                                                <select class="form-control" name="n_noc" id="n_noc">
+                                                <select class="form-control" name="n_noc" id="n_noc" required>
                                                     <option value="NOKIA-ZTE">NOKIA-ZTE</option>
                                                     <option value="ZTE">ZTE</option>
 
@@ -1171,7 +1216,7 @@
                                                     form.fillForm(ticketOnAir.preparationStage.data);
                                                     form.fillForm(ticketOnAir.precheck.data);
                                                     bandsByTech();
-                                                    $("#n_ingenieroprecheck").val(ticketOnAir.precheck.data.k_id_user).trigger('change.select2');
+                                                    // $("#n_ingenieroprecheck").val(ticketOnAir.precheck.data.k_id_user).trigger('change.select2');
                                                     for (var j = 0; j < ticketOnAir.statusOnAir.data.length; j++) {
                                                         if (ticketOnAir.statusOnAir.data[j].k_id_status_onair == ticketOnAir.ticket.data.k_id_status_onair) {
                                                             $("#status").val(ticketOnAir.statusOnAir.data[j].k_id_status).trigger('change.select2');
