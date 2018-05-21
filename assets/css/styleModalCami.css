@@ -39,3 +39,7 @@
 #modalTitle {
   padding: 0;
 }
+.select2-selection{
+  min-width: 192px; 
+}
+

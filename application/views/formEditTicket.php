@@ -535,7 +535,7 @@
                                         <label class="col-md-3 control-label">Tipo de trabajo:</label>
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                                <span class="input-group-addon "><i class="fa fa-fw fa-briefcase"></i></span>
                                                 <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
                                                     <option value="" >Seleccione el tipo de trabajo</option>
                                                 </select>
@@ -1057,27 +1057,7 @@
 
                             <?php } ?>
                         </table>                     
-    
-
-
-
-
-                        
                     </div>
-
-
-                    
-
-            
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -1666,7 +1646,7 @@
                                             <div class="col-md-5 selectContainer">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                                    <select name="k_id_station" id="estacion_modal" class="form-control selectpicker select-estacion" onchange="editTextCityRegional()">
+                                                    <select name="k_id_station" id="estacion_modal" class="form-control selectpicker select-estacion  onchange="editTextCityRegional()" style="margin:0">
                                                         <option value="" >Seleccione la estación</option>
                                                     </select>
                                                 </div>
@@ -1717,7 +1697,7 @@
                                         </div>
 
                                         <!-- Select Basic -->
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label">Estado:</label>
                                             <div class="col-md-8 selectContainer">
                                                 <div class="input-group">
@@ -1739,8 +1719,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div> -->
-                                        <div class="form-group">
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <label class="col-md-3 control-label">Estado Comentario:</label>
                                             <div class="col-md-8 selectContainer">
                                                 <div class="input-group">
@@ -1748,7 +1728,7 @@
                                                     <input type='text' name="n_estado_eb_resucomen" id="mdl_n_estado_eb_resucomen" class="form-control"  >
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="form-group">
                                             <label for="mtxtUserCom" class="col-md-3 control-label">Usuario Comentario &nbsp;</label>
@@ -1777,8 +1757,7 @@
                                             <div class="col-md-8 selectContainer">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                                    <input type='datetime-local' name="mdl_d_ingreso_on_air" id="mdl_d_ingreso_on_air" class="form-control" value="">
-                                                    
+                                                    <input type='datetime-local' name="mdl_d_ingreso_on_air" id="mdl_d_ingreso_on_air" class="form-control" style="margin: 0px -68px 0 0px;" value="">
                                                 </div>
                                             </div>
                                         </div>
