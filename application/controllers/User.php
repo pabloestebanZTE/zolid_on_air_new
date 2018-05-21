@@ -47,14 +47,14 @@ class User extends CI_Controller {
             //Se actualiza la forma de validar los roles...
             //Podemos acceder directamente al método que comprobará un rol en especifico.
             if (Auth::isCoordinador()) {
-                
+
             }
             if (Auth::isDocumentador()) {
-                
+
             }
             //O también podemos detectar si el rol es uno personalizado...
             if (Auth::isRole("Ingeniero")) {
-                
+
             }
             Redirect::redirect(URL::to("User/principal"));
         } else {
@@ -352,23 +352,27 @@ class User extends CI_Controller {
     public function getAllTickets() {
         $this->load->view('getAllTickets');
     }
-    
+
     public function KpisReportes() {
         $this->load->view('KpisReportes');
     }
-    
+
     public function ticketSampling() {
         $this->load->view('ticketSampling');
     }
-    
+
     public function SeeStats() {
         $this->load->view('SeeStats');
     }
-    
+
+    public function PQRs() {
+        $this->load->view('pqrs');
+    }
+
     public function getAllTicketsEdit() {
         $this->load->view('getAllTicketsEdit');
     }
-    
+
     public function formEditTicket() {
         if (!Auth::check()) {
             Redirect::to(URL::base());
@@ -415,7 +419,7 @@ class User extends CI_Controller {
         $answer['respuesta'] = json_encode($res);
         $this->load->view('formEditTicket', $answer);
     }
-    
+
     public function improvementPlans() {
         $this->load->view('planes-mejora');
     }

@@ -1,4 +1,4 @@
-$(function () {
+$(function () {//JQUERY SOLO LEALA Y EJECUTELA
     var ini = {
         timers: [],
         init: function () {
@@ -6,7 +6,7 @@ $(function () {
             ini.listTickets();
         },
         //Eventos de la ventana.
-        events: function () {
+        events: function () {//
             //Al darle clic a una fila llama la funcion onClickTrTablaTicketSampling
             $('#ticketSampling').on('click', 'tr', ini.onClickTrTablaTicketSampling);
             $('#k_id_estado_ot').on('change', ini.onChangeTextStateOt);
@@ -62,7 +62,7 @@ $(function () {
             // ini.fillTable([]);
             //Realiza la petición AJAX para traer los datos...
             var alert = dom.printAlert('Consultando registros, por favor espere.', 'loading', $('#principalAlert'));
-            app.post('TicketOnair/getTicketSampling')
+            app.post('TicketOnair/getTicketSampling')// ayax...la pagina carga y se detiene pero en el ayax sigue cargando
                     .complete(function () {
                         alert.hide();
                         $('.contentPrincipal').removeClass('hidden');
@@ -70,6 +70,7 @@ $(function () {
                     .success(function (response) {
 //                        console.log(response);
                         if (app.successResponse(response)) {
+                            //console.log (response); 
                             ini.fillTable(response.data);
                         } else {
                             ini.fillTable([]);
@@ -88,8 +89,8 @@ $(function () {
                 return;
             }
             ini.ticketSampling = $('#ticketSampling').DataTable(dom.configTable(data,
-                    [
-                        {title: "Fecha", data: "hora_actualizacion_resucomen"},
+                    [                        
+                        {title: "Hora de actualizacion", data: "hora_actualizacion_resucomen"},
                         {title: "Estación", data: "n_nombre_estacion_eb"},
                         {title: "Tipo de Trabajo", data: "n_tipo_trabajo"},
                         {title: "Estado", data: "n_estado_eb_resucomen"},
@@ -101,5 +102,6 @@ $(function () {
         }
     };
 
-    ini.init();
+    ini.init();// carga todo lo que tiene en ini y pongalo en el dom
 });
+

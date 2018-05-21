@@ -11,7 +11,7 @@
                         <a class="btn btn-primary btn-lg btn-block btnMetricas">KPIS ACS</a>
                     </div>
                     <div class="col col-md-6">
-                        <a class="btn btn-primary btn-lg btn-block btnMetricas">KPI ON AIR</a>
+                      <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/logout') ?>">KPI´s ON AIR</a>
                     </div>
                 </div>
                 <div class="col col-md-12 m-t-20">
@@ -30,12 +30,27 @@
                         <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/improvementPlans') ?>">PLANES DE MEJORA</a>
                     </div>
                 </div>
+                <div class="col col-md-12 m-t-20">
+                    <div class="col col-md-6">
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="<?= URL::to('User/PQRs') ?>">PQR´s</a>
+                    </div>
+                    <div class="col col-md-6">
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="#">Auditoria ACS</a>
+                    </div>
+                </div>
+                <div class="col col-md-12 m-t-20">
+                    <div class="col col-md-6">
+                        <a class="btn btn-primary btn-lg btn-block btnMetricas" href="#">Auditoria M.M.</a>
+                    </div>
+
+                </div>
+            </div>
             </div>
         </div>
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
-        </div>        
+        </div>
         <!-- CUSTOM SCRIPT   -->
         <script scr="<?= URL::to("assets/plugins/sweetalert-master/dist/sweetalert.min.js") ?>" ></script>
     </body>
