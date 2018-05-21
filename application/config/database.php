@@ -138,5 +138,3 @@ $db['mysql'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
-

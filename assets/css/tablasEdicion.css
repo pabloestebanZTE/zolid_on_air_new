@@ -1,0 +1,37 @@
+.btn_Agreg_Tec, .btn_Agreg_user, .btn_Agreg_Work, .btn_Agreg_band	 {
+    background-color: #207be5 !important;
+    border: blue;
+}
+.box {
+    height: 100%;
+    border: 2px solid #d5cbcb;
+    border-radius: 15px;
+}
+.boxLeft-te{  
+    
+    margin:22px 0px 0px 97px;
+    padding: 15px;
+}
+.boxRigth-wo{
+    padding: 10px;
+     margin: 15px 0px 0px 1px;
+}
+.boxLeft-us{
+    padding: 20px;
+    margin: 15px 0px 0px 1px;
+}
+.boxRigh-ba{
+    padding: 15px; 
+    margin: 20px 30px;  
+}
+.boxLeft-te, .boxRigh-ba {
+    display: flex;
+}
+td {
+    cursor: pointer;
+}
+/* .box-ficti {
+    margin: arriba derecha abajo izquierda */
+.resetMargin{
+    margin: auto 0px;
+}

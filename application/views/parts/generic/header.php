@@ -52,6 +52,7 @@
                                     echo " <a href=" . URL::to('Reportes/reportComments') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte Comentarios</a>";
                                     echo " <a href=" . URL::to('reportes/reportOnair') . "/><i class='glyphicon glyphicon-export'></i>&nbsp;&nbsp;exportar Reporte ONAIR</a>";
                                     echo " <a href=" . URL::to('User/KpisReportes') . "/><i class='fa fa-fw fa-tags'></i>&nbsp;&nbsp;KPIS/Reportes</a>";
+                                    echo " <a href=" . URL::to('Editartodosparametros/editarCrudColums') . "/><i class='glyphicon glyphicon-edit'></i>&nbsp;&nbsp;Editar/items</a>";
                                 }
                                 ?>
                             </li>

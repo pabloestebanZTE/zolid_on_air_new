@@ -721,12 +721,19 @@ class TicketOnair extends CI_Controller {
     }
 
     public function insertQualityReport() {
-        //Se comprueba si no hay sesión.
-        $response = null;
-        if (Auth::check()) {// verifica si la sesion esta activa 
-            $otHijaModel = new Dao_ticketOnair_model();//objeto tipo dao
-            $res = $otHijaModel->insertQualityReport($this->request);// invoca al metodo (insertqualityreport) 
-            $this->json($res); //
+        if (Auth::check()) {// verifica si la sesion esta activa
+
+            $res = $this->Dao_ticketOnair_model->insertQualityReport($this->request);// invoca al metodo (insertqualityreport)
+            if ($res == 1) {
+                $mensaje['msj'] = 'ok';
+            }else {
+                $mensaje['msj'] = 'error';
+            }
+
+
+
+
+            $this->load->view('ticketSampling', $mensaje);
         } else {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
             return;
@@ -744,7 +751,7 @@ class TicketOnair extends CI_Controller {
         // header('Content-Type: text/plain');
         // $this->load->view('formEditTicket',$a,2560);
         // print_r(URL::to('TicketOnair/editarTicket'));
-        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair');
+        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair')."&msj=ok";
         header($location);
 
     }
