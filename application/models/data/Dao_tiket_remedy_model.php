@@ -23,6 +23,22 @@ class Dao_tiket_remedy_model extends CI_Model {
         }
     }
     
+    public function getAllTiketRemedy(){
+        try {
+          $tiketRemedy = new TiketRemedyModel();
+          $datos = $tiketRemedy->get();
+          $response = new Response(EMessages::SUCCESS);
+          $response->setData($datos);
+          return $response;
+        } catch (DeplynException $ex) {
+          return $ex;
+        }
+    }
+
+    
 }
 
 ?>
+
+
+

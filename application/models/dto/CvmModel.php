@@ -19,6 +19,7 @@ class CvmModel extends Model {
     protected $i_ingeniero_cierre;
     protected $d_hora_atencion_cierre;
     protected $d_hora_cierre_confirmado;
+    protected $d_hora_solicitud_cierre;
     protected $n_comentarios_cierre;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
@@ -132,6 +133,12 @@ class CvmModel extends Model {
     }
     public function getDHoraCierreConfirmado() {
         return $this->d_hora_cierre_confirmado;
+    }
+    public function setDHoraSolicitudCierre($d_hora_solicitud_cierre) {
+        $this->d_hora_solicitud_cierre = $d_hora_solicitud_cierre;
+    }
+    public function getDHoraSolicitudCierre() {
+        return $this->d_hora_solicitud_cierre;
     }
     public function setNComentariosCierre($n_comentarios_cierre) {
         $this->n_comentarios_cierre = $n_comentarios_cierre;

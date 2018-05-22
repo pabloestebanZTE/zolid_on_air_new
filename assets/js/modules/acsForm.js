@@ -71,6 +71,10 @@ $(document).ready(function () {
             return false;
         }
     });
+    
+    $(".n_persona_solicita, .n_nombre_grupo_skype").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
 
     $("#n_integrador_backoffice").autocomplete({
         source: function (request, response) {
@@ -114,6 +118,12 @@ $(document).ready(function () {
         }
     });
 
+    $("btnGenerarVm").click(function(){
+        var solicitante = $("#n_persona_solicita").val();
+        $('#n_lider_cuadrilla_vm').val(solicitante);
+    })
+    
+
 });
 
 var vista = {
@@ -147,6 +157,60 @@ var vista = {
         $('.select-note').on('change', vista.onChangeNote);
         $('.estado_ticket_remedy').on('change', vista.onActivateRemedyClosing);
         $('.estado_ticket_remedy').on('change', vista.onChangeTypeAffectation);
+        $('.estado-vm').on('change', vista.onChangeMotivoVM);
+        $('#b_vistamm').on('change', vista.onChangeVistaMM);
+        $('#n_sub_estado').on('change', vista.onChangeSubEstado);
+    },
+    onChangeVistaMM: function(){
+        var vistaMM = $('#b_vistamm option:selected').text();
+        
+        switch(vistaMM) {
+            case 'SI':
+                $('#file-b_vistamm').show();
+                $('#cmmnt-b_vistamm').hide();
+                break;
+
+            case 'NO':
+                $('#cmmnt-b_vistamm').show();
+                $('#file-b_vistamm').hide();
+                break;
+
+            case 'N/A':
+                $('#file-b_vistamm').hide();
+                $('#cmmnt-b_vistamm').hide();                
+                break;
+
+            default:
+                $('#file-b_vistamm').hide();
+                $('#cmmnt-b_vistamm').hide(); 
+                break;       
+        }
+
+    },
+    onChangeMotivoVM: function() {
+        var estadoVM = $('#n_estado_vm option:selected').text();
+        var option = '';
+        switch(estadoVM) {
+            case 'Activo':
+                option = '<option value="Seleccione">Seleccione</option>'
+                        +'<option value="Con alarmas previas">Con alarmas previas</option>'
+                        +'<option value="Sin alarmas activas">Sin alarmas activas</option>';
+                break;
+
+            case 'Rechazado':
+                option = '<option value="Seleccione">Seleccione</option>'
+                        +'<option value="Fecha Erronea">Fecha Erronea</option>'
+                        +'<option value="FM Cancela Actividad">FM Cancela Actividad</option>'
+                        +'<option value="ID Informacion Erronea">ID Informacion Erronea</option>'
+                        +'<option value="ID Sin VM">ID Sin VM</option>'
+                        +'<option value="ID VM Rechazado">ID VM Rechazado</option>'
+                        +'<option value="LC Cancela Actividad">LC Cancela Actividad</option>';
+                break;
+        }
+
+        $('#n_motivo_estado').empty();
+        $('#n_motivo_estado').append(option);
+        $('#n_motivo_estado').trigger('selectfilled');
     },
     onChangeTypeAffectation: function () {
         var estado_remedy = $('#n_estado_ticket option:selected').text();
@@ -218,13 +282,19 @@ var vista = {
         if (tipo_trabajo == 'Modernización Multiradio') {
             switch (tecnologia) {
                 case '2G':
-                    option = '<option value="Modernización concurrente">Modernización concurrente</option>'
-                            + '<option value="Modernización dedicada">Modernización dedicada</option>';
+                    option = '<option value="">Seleccione</option>'
+                            + '<option value="Modernización dedicada">Modernización dedicada</option>'
+                            + '<option value="Modernización concurrente">Modernización concurrente</option>'
+                            + '<option value="Modernización RF sharing">Modernización RF sharing</option>'
+                            + '<option value="Modernización RX diversity">Modernización RX diversity</option>'
                     break;
 
                 case '2G/3G':
-                    option = '<option value="Modernización RX diversity">Modernización RX diversity</option>'
-                            + '<option value="Modernización RF scharig">Modernización RF scharig</option>';
+                    option = '<option value="">Seleccione</option>'
+                            + '<option value="Modernización dedicada">Modernización dedicada</option>'
+                            + '<option value="Modernización concurrente">Modernización concurrente</option>'
+                            + '<option value="Modernización RF sharing">Modernización RF sharing</option>'
+                            + '<option value="Modernización RX diversity">Modernización RX diversity</option>'
                     break;
 
                 default:
@@ -244,8 +314,8 @@ var vista = {
         var option = '';
         switch (falla_final) {
             case "SI":
-                option = '<option value="Degradacion activa">Degradación activa</option>'
-                        + '<option value="Afectación activa">Afectación activa</option>';
+                option = '<option value="Activa">Activa</option>'
+                        + '<option value="Rechazado">Afectación activa</option>';
                 break;
             case "NO":
                 $("#n_tipo_falla_final").val('N/A').trigger('change.select2');
@@ -260,11 +330,7 @@ var vista = {
             default:
                 option = '<option value="">Seleccione</option>'
                         + '<option value="Activo">Activo</option>'
-                        + '<option value="Cancelado">Cancelado</option>'
-                        + '<option value="Cerrado">Cerrado</option>'
-                        + '<option value="Pendiente Apertura">Pendiente Apertura</option>'
                         + '<option value="Rechazado">Rechazado</option>'
-                        + '<option value="Suspendido">Suspendido</option>';
                 break;
         }
 
@@ -310,26 +376,26 @@ var vista = {
         var ente_ejecutor = $('#n_enteejecutor option:selected').text();
         switch (ente_ejecutor) {
             case "Claro":
-                $("#n_fm_nokia").val('N/A').trigger('change.select2');
-                $('#n_fm_nokia').attr('disabled', true);
+                $("#n_fm_nokia, #n_fm_nokia_remedy").val('N/A').trigger('change.select2');
+                $('#n_fm_nokia, #n_fm_nokia_remedy').attr('disabled', true);
                 $('#n_wp').removeAttr('required');
-                $('#n_fm_claro').removeAttr('disabled');
+                $('#n_fm_claro, #n_fm_claro_remedy').removeAttr('disabled');
                 break;
+            
             case "Nokia":
-                $("#n_fm_claro").val('N/A').trigger('change.select2');
-                $('#n_fm_claro').attr('disabled', true);
+                $("#n_fm_claro, #n_fm_claro_remedy").val('N/A').trigger('change.select2');
+                $('#n_fm_claro, #n_fm_claro_remedy').attr('disabled', true);
                 $('#n_wp').attr('required', true);
-                $('#n_fm_nokia').removeAttr('disabled');
+                $('#n_fm_nokia, #n_fm_nokia_remedy').removeAttr('disabled');
                 break;
         }
     },
     onChangeText: function () {
         var estacion = $('#k_id_station option:selected').text();
         var tipo_trabajo = $('#k_id_work option:selected').text()
-        var fin_programado = $('#d_fin_programado_sa').val().split('T');
-//        console.log(fin_programado[1]);
+        // var fin_programado = $('#d_fin_programado_sa').val().split('T');
         var texto = "*" + estacion + "* - Se confirma Apertura de VM para los siguientes 1 trabajos: " + tipo_trabajo
-                + " Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM y la hora de cierre programada para esta ventana es a las *" + fin_programado[1] + "*."
+                + " Sectores WO. Por favor tenga en cuenta que el tiempo de la revisión por parte del grupo integrador está incluido dentro del tiempo de la ejecución de la VM*."
                 + "Tenga en cuenta estas observaciones con el fin de no generar Afectación de Servicio."
                 + "*Recuerde que al momento del solicitar el cierre los valores de VSWR deben estar entre 1.6 y 2.6 y los features Antena Line supervision y RX signal debe estar activos durante toda la actividad.*";
         $('#texto').html(texto);
@@ -388,27 +454,65 @@ var vista = {
         $('#body_fecha_integracion').html(vista.fechaActual());
     },
     onActivateRemedyForm: function () {
-        var subEstado = $('#n_sub_estado').val();
+        var subEstado = $('#n_sub_estado  option:selected').val();
         var ente_ejecutor = $('#n_enteejecutor').val();
+        var option = "";
         if (subEstado === 'Exitoso') {
             $("#n_tipo_falla_final").val('N/A').trigger('change.select2');
+
+            switch(subEstado) {
+                case 'Exitoso':
+                    option = '<option value="Seleccione">Seleccione</option>'
+                            + '<option value="Actividad notificada">Actividad notificada</option>'
+                            + '<option value="No notificable">No notificable</option>';
+                    break;                                  
+            }
+            $('#n_estado_notificacion').empty();
+            $('#n_estado_notificacion').append(option);
+            $('#n_estado_notificacion').trigger('selectfilled');
+        }
+
+        if (subEstado === 'No Exitoso') {
+            switch(subEstado) {
+                case 'No Exitoso':
+                    option = '<option value="No notificable">No notificable</option>';
+                    break;
+            }
+            $('#n_estado_notificacion').empty();
+            $('#n_estado_notificacion').append(option);
+            $('#n_estado_notificacion').trigger('selectfilled');
         }
 
         if (subEstado === 'Afectación Activa' || subEstado === 'Notificacion activa' || subEstado === 'Degradacion Activa') {
             switch (subEstado) {
                 case 'Afectación Activa':
-                    $("#n_tipo_afectación").val('Afectacion de servicio').trigger('change.select2');
+                    option = '<option value="Pendiente notificar">Pendiente notificar</option>';
                     $("#n_falla_final").val('SI').trigger('change.select2');
-                    break;
+                    
+                    $("#n_tipo_afectacion").val('Afectacion de servicio').trigger('change.select2');
+                    $('#n_tipo_afectacion').attr('disabled', true);
+                break;
+                    
                 case 'Notificacion activa':
-                    $("#n_tipo_afectación").val('Notificacion').trigger('change.select2');
+                    option = '<option value="Pendiente notificar">Pendiente notificar</option>';
                     $("#n_falla_final").val('NO').trigger('change.select2');
-                    break;
+                    
+                    $("#n_tipo_afectacion").val('Notificacion').trigger('chankge.select2');
+                    $('#n_tipo_afectacion').attr('disabled', true);
+                break;
+                
                 case 'Degradacion Activa':
-                    $("#n_tipo_afectación").val('Performance - Degradacion').trigger('change.select2');
+                    option = '<option value="Pendiente notificar">Pendiente notificar</option>';
+                    $("#n_tipo_afectacion").val('Performance - Degradacion').trigger('change.select2');
+                    
                     $("#n_falla_final").val('SI').trigger('change.select2');
-                    break;
+                    $('#n_tipo_afectacion').attr('disabled', true);
+                break;
             }
+            $('#n_estado_notificacion').empty();
+            $('#n_estado_notificacion').append(option);
+            $('#n_estado_notificacion').trigger('selectfilled');
+
 
             $('#n_responsable_ticket').val(ente_ejecutor).trigger('change.select2');
             switch (ente_ejecutor) {
@@ -477,7 +581,6 @@ var vista = {
             if (data) {
                 //Listamos los nuevos items del checklist...
                 console.info("Se han consultado los items para el checklist...");
-//                        console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     var dat = data[i];
                     vista.addItemCheckList(dat, status);
@@ -525,6 +628,7 @@ var vista = {
         inputs.attr('type', 'text').addClass('for-time');
         inputs.mask("99:99", {placeholder: "HH:mm"});
         $('#n_numero_incidente').mask("INC999999999999", {placeholder: "INC999999999999"});
+        
     },
     get: function () {
         var id = app.getParamURL('id');
@@ -546,23 +650,35 @@ var vista = {
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(1)').removeClass('disabled').trigger('click');
                     $("#i_ingeniero_apertura").val(data.vm.i_ingeniero_apertura).trigger('change.select2');
+                    
+                    var solicitante = $("#n_persona_solicita").val();
+                    $('#n_lider_cuadrilla_vm').val(solicitante);
+                    $('#i_ingeniero_control').val(solicitante);
+                    $('.list-group-item:eq(2)').addClass('disabled').trigger('click');
                 }
+                
                 if (data.avm) {
                     $('#form2').find('input:checkbox').prop('checked', true);
                     var btn = $('#form2 button:submit');
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(2)').removeClass('disabled').trigger('click');
                     $("#i_ingeniero_control").val(data.vm.i_ingeniero_punto_control).trigger('change.select2');
+
+                    var solicitante = $("#n_persona_solicita").val();
+                    $('#i_ingeniero_control').val(solicitante);
+
+                    $('.list-group-item:eq(3)').addClass('disabled').trigger('click');
                 }
-                if ($('#form3 #i_ingeniero_control').val().trim() != "") {
-                    $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
-                }
+
                 if (data.cvm) {
                     var btn = $('#form4 button:submit');
                     btn.html(btn.attr('data-update-text'));
                     $('.list-group-item:eq(3)').removeClass('disabled').trigger('click');
                     $("#i_ingeniero_cierre").val(data.vm.i_ingeniero_cierre).trigger('change.select2');
-
+                    // var stateVM = "Cerrado";
+                    $("#n_estado_vm").val("Cerrado");
+                    $('.list-group-item:eq(4)').addClass('disabled').trigger('click');
+                    
                 }
                 if (data.tiketRemedy) {
                     formGlobal.fillForm(data.tiketRemedy);
@@ -647,16 +763,16 @@ var vista = {
         }
 
         if (form.attr('id') == "form2") {
-            var f1 = $('#d_inicio_programado_sa');
+            /* var f1 = $('#d_inicio_programado_sa');
             var f2 = $('#d_fin_programado_sa');
-            if (f1.val().trim() != "" && f2.val().trim() != "") {
+            if (f1.val().trim() != "" &&  f2.val().trim() != "") {
                 var d1 = new Date(f1.val());
                 var d2 = new Date(f2.val());
                 if (d1.getTime() >= d2.getTime()) {
                     swal("Atención", "La Fecha de Inicio Programado SA debe ser inferior a la Fecha Fin Programado SA", "warning");
                     return;
                 }
-            }
+            } */
 
             f1 = $('#n_hora_atencion_vm');
             f2 = $('#n_hora_inicio_real_vm');
@@ -744,13 +860,13 @@ var vista = {
         __mergeObj(obj, form4.getFormData());
 
         switch (form.attr('id')) {
-            case "form1":
+            case "form2":
                 obj.vm.n_fase_ventana = 'apertura vm';
                 break;
-            case "form2":
+            case "form3":
                 obj.vm.n_fase_ventana = 'punto control';
                 break;
-            case "form3":
+            case "form4":
                 obj.vm.n_fase_ventana = 'cierre vm';
                 break;
         }
@@ -782,9 +898,7 @@ var vista = {
                             $('#k_id_vm').val(response.data);
                             formGlobal.attr('data-mode', 'FOR_UPDATE');
                             var btn = form.find('button:submit');
-//                            var index = form.parents('.bhoechie-tab-content').next().index();
-//                            $('.list-group-item').removeClass('active');
-//                            $('.list-group-item:eq(' + (index - 1) + ')').removeClass('disabled').addClass('active').trigger('click');
+
                             btn.html(btn.attr('data-update-text'));
                         }
                         if (form.attr('id') == "form5") {

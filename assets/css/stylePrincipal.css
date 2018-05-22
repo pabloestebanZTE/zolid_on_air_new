@@ -1053,3 +1053,13 @@ body{
 table th, table td{
     font-size: 11px;
 }
+
+textarea {
+    resize: vertical !important;
+    min-height: 70px;
+    max-width: calc(100% - 20px);
+}
+
+#file-b_vistamm, #cmmnt-b_vistamm {
+    display: none;
+}

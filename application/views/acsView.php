@@ -10,16 +10,16 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 bhoechie-tab-menu">
                         <div class="list-group">
                             <a href="#" class="list-group-item active text-center">
-                                <h4 class="glyphicon glyphicon-plane"></h4><br/>Creación de Ventanas
+                                <h4 class="glyphicon glyphicon-pencil"></h4><br/>Creación de Ventanas
                             </a>
                             <a href="#" class="list-group-item text-center disabled">
-                                <h4 class="glyphicon glyphicon-road"></h4><br/>Apertura de VM
+                                <h4 class="glyphicon glyphicon-sort-by-attributes"></h4><br/>Apertura de VM
                             </a>
                             <a href="#" class="list-group-item text-center disabled">
-                                <h4 class="glyphicon glyphicon-home"></h4><br/>Punto de Control
+                                <h4 class="glyphicon glyphicon-record"></h4><br/>Punto de Control
                             </a>
                             <a href="#" class="list-group-item text-center disabled">
-                                <h4 class="glyphicon glyphicon-eye-open"></h4><br/>Cierre de VM
+                                <h4 class="glyphicon glyphicon-ok"></h4><br/>Cierre de VM
                             </a>
                             <!--                            <a href="#" class="list-group-item text-center">
                                                             <h4 class="glyphicon glyphicon-compressed"></h4><br/>Archivos
@@ -104,7 +104,7 @@
                                         <div class="col-md-6">
                                             <label for="n_persona_solicita" class="col-md-3 control-label">Persona que Solicita :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="vm.n_persona_solicita" id="n_persona_solicita" class="form-control control-change" data-name="persona_solicita" required>
+                                                <input type="text" name="vm.n_persona_solicita" id="n_persona_solicita" class="form-control control-change n_persona_solicita" data-name="persona_solicita" required>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@
                                         <div class="col-md-6">
                                             <label for="n_nombre_grupo_skype" class="col-md-3 control-label">Nombre Grupo Skype :</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="vm.n_nombre_grupo_skype" id="n_nombre_grupo_skype" class="form-control" required>
+                                                <input type="text" name="vm.n_nombre_grupo_skype" id="n_nombre_grupo_skype" class="form-control n_nombre_grupo_skype" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -237,7 +237,27 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>     
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label for="i_bcf" class="col-sm-3 control-label">BCF:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control control-email" id="i_bcf" name="avm.i_bcf"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="i_wbts" class="col-sm-3 control-label">WBTS:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control control-email" id="i_wbts" name="avm.i_wbts"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="i_lnbts" class="col-sm-3 control-label">LNBTS:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control control-email" id="i_lnbts" name="avm.i_lnbts"/>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group p-l-10 p-r-10">
                                         <label for="k_id_work" class="col-sm-2 control-label">Tipo de trabajo:</label>
                                         <div class="col-sm-10 ">
@@ -250,14 +270,10 @@
                                         <div class="col-md-6">
                                             <label for="n_estado_vm" class="col-sm-4 control-label">Estado VM:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
+                                                <select class="form-control control-change estado-vm" id="n_estado_vm" name="vm.n_estado_vm">
                                                     <option value="">Seleccione</option>
                                                     <option value="Activo">Activo</option>
-                                                    <!--<option value="Cancelado">Cancelado</option>-->
-                                                    <!--<option value="Cerrado">Cerrado</option>-->
-                                                    <!--<option value="Pendiente Apertura">Pendiente Apertura</option>-->
                                                     <option value="Rechazado">Rechazado</option>
-                                                    <!--<option value="Suspendido">Suspendido</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -287,7 +303,7 @@
                                         </div>
                                     </div>
                                     <div class="">
-                                        <div class="bg-white widget bg-gray p-l-25 p-r-25">
+                                        <!-- <div class="bg-white widget bg-gray p-l-25 p-r-25">
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <label>DATOS SITE ACCESS:</label>
@@ -308,7 +324,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> 
                                         <div class="clearfix m-t-20"></div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
@@ -331,15 +347,15 @@
                                         <div class="form-group p-l-10 p-r-10">
                                             <label for="n_persona_solicita_vmlc" class="col-sm-2 control-label text-right">Persona que solicita la VMLC:</label>
                                             <div class="col-sm-10">
-<!--                                                <select class="form-control control-change"  id="n_persona_solicita_vmlc" name="avm.n_persona_solicita_vmlc" data-name="persona_solicita"></select>-->
                                                 <input type="text" class="form-control control-change" id="n_persona_solicita_vmlc" name="avm.n_persona_solicita_vmlc" data-name="persona_solicita"/>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group row">
                                             <div class="col-md-6">
                                                 <label for="n_fm_nokia" class="col-sm-4 control-label">FM Nokia:</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" id="n_fm_nokia" name="avm.n_fm_nokia">
+                                                    <input type="text" class="form-control" id="n_fm_nokia" name="avm.n_fm_nokia"/>
+                                                    <!-- <select class="form-control" id="n_fm_nokia" name="avm.n_fm_nokia">
                                                         <option value="">Seleccione</option>
                                                         <option value="Andrea del Pilar Guerrero Sanchez">Andrea del Pilar Guerrero Sanchez</option>
                                                         <option value="Yetzabel Yadira Gutierrez Bueno">Yetzabel Yadira Gutierrez Bueno</option>
@@ -451,13 +467,14 @@
                                                         <option value="Nelson David Garzón Aya">Nelson David Garzón Aya</option>
                                                         <option value="Raul Zuñiga Parra">Raul Zuñiga Parra</option>
                                                         <option value="N/A">N/A</option>
-                                                    </select>
+                                                    </select> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="n_fm_claro" class="col-sm-3 control-label">FM Claro:</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="n_fm_claro" name="avm.n_fm_claro">
+                                                    <input type="text" class="form-control" id="n_fm_claro" name="avm.n_fm_claro"/>                                            
+                                                    <!-- <select class="form-control" id="n_fm_claro" name="avm.n_fm_claro">
                                                         <option value="">Seleccione</option>
                                                         <option value="Hugo Alejandro Blanco">Hugo Alejandro Blanco</option>
                                                         <option value="GVT_GCENTROGESTION">GVT_GCENTROGESTION</option>
@@ -474,7 +491,7 @@
                                                         <option value="Javier Antonio Kamell Yaspe">Javier Antonio Kamell Yaspe</option>
                                                         <option value="Oscar Barrera">Oscar Barrera</option>
                                                         <option value="N/A">N/A</option>
-                                                    </select>
+                                                    </select> -->
                                                 </div>
                                             </div>
                                         </div>                                           
@@ -544,7 +561,8 @@
                                             <div class="col-md-6">
                                                 <label for="n_regional_cluster" class="col-sm-3 control-label">Regional Cluster:</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="n_regional_cluster" name="avm.n_regional_cluster">
+                                                    <input type="text" class="form-control" id="n_regional_cluster" name="avm.n_regional_cluster"/>
+                                                    <!-- <select class="form-control" id="n_regional_cluster" name="avm.n_regional_cluster">
                                                         <option value="">Seleccione</option>
                                                         <option value="CL 1">CL 1</option>
                                                         <option value="">CL 2</option>
@@ -552,7 +570,7 @@
                                                         <option value="">CL 8</option>
                                                         <option value="">CL 9</option>
                                                         <option value="">CL 10</option>
-                                                    </select>
+                                                    </select> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -582,8 +600,11 @@
                                                         <option value="">Seleccione</option>
                                                         <option value="SI">SI</option>
                                                         <option value=">NO">NO</option>
-                                                        <!--<option value="N/A">N/A</option>-->
+                                                        <option value="N/A">N/A</option>
                                                     </select>
+                                                    <input id="file-b_vistamm" class="form-control" type="file" name="file-b_vistamm">
+                                                    <input id="cmmnt-b_vistamm" class="form-control" type="text" name="cmmnt-b_vistamm" placeholder="Detalle info. de mantenimiento">
+                                                    
                                                 </div>  
                                             </div>
                                         </div>                                        
@@ -661,12 +682,12 @@
                                                             Se crea Excel Precheck.
                                                         </label>
                                                     </div>
-                                                    <!--                                                    <div class="display-block">
-                                                                                                            <input id="chk_p_8" name="avm.checklist[]" type="checkbox">
-                                                                                                            <label for="chk_p_8" class="text-bold">
-                                                                                                                Se crea solicitud ID Access.
-                                                                                                            </label>
-                                                                                                        </div>-->
+                                                    <!-- <div class="display-block">
+                                                        <input id="chk_p_8" name="avm.checklist[]" type="checkbox">
+                                                        <label for="chk_p_8" class="text-bold">
+                                                            Se crea solicitud ID Access.
+                                                        </label>
+                                                    </div> -->
                                                     <div class="display-block">
                                                         <input id="chk_p_9" name="avm.checklist[]" type="checkbox">
                                                         <label for="chk_p_9" class="text-bold">
@@ -758,7 +779,7 @@
                                             </select>
                                         </div>
                                     </div>    
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="n_estado_vm" class="col-sm-4 control-label">Estado VM:</label>
                                             <div class="col-sm-8">
@@ -789,15 +810,16 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="bg-white widget bg-gray p-t-5 p-b-5 p-l-5 p-r-5">
                                         <div class="clearfix m-t-20"></div>
                                         <div class="form-group">
                                             <label for="i_ingeniero_control" class="col-sm-4 control-label">Ingeniero Control:</label>
                                             <div class="col-sm-8 p-r-30">
-                                                <select class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control" disabled>
+                                                <input type="text" class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control" disabled>
+                                                <!-- <select class="form-control select-ingeniero" id="i_ingeniero_control" name="vm.i_ingeniero_control" >
                                                     <option value="">Seleccione</option>
-                                                </select>
+                                                </select> -->
                                             </div>
                                         </div>    
                                         <div class="form-group">
@@ -884,18 +906,12 @@
                                         <div class="col-md-6">
                                             <label for="n_estado_vm" class="col-sm-4 control-label">Estado VM:</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Activo">Activo</option>
-                                                    <option value="Cancelado">Cancelado</option>
-                                                    <option value="Cerrado">Cerrado</option>
-                                                    <option value="Pendiente Apertura">Pendiente Apertura</option>
-                                                    <option value="Rechazado">Rechazado</option>
-                                                    <option value="Suspendido">Suspendido</option>
+                                                <select class="form-control control-change" id="n_estado_vm" name="vm.n_estado_vm" required>
+                                                    <option value="Cerrado">Cerrado</option>                                                    
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label for="n_motivo_estado" class="col-sm-3 control-label"><span class="display-block">Motivo:</span></label>
                                             <div class="col-sm-9">
                                                 <select class="form-control control-change" id="n_motivo_estado" name="vm.n_motivo_estado">
@@ -910,7 +926,7 @@
                                                     <option value="Sin alarmas activas">Sin alarmas activas</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
@@ -956,24 +972,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="i_telefono_lider_cambio" class="col-sm-4 control-label">Teléfono líder cambio:</label>
                                             <div class="col-sm-8">
                                                 <input type="text" id="i_telefono_lider_cambio" name="cvm.i_telefono_lider_cambio" class="form-control" />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="n_estado_vm_cierre" class="col-sm-3 control-label"><span class="display-block">Estado de VM:</span></label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="n_estado_vm_cierre" name="cvm.n_estado_vm_cierre">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Cancelado">Cancelado</option>
-                                                    <option value="Cerrado">Cerrado</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="form-group row">
                                         <div class="col-md-6">
@@ -981,23 +987,17 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="n_sub_estado" name="cvm.n_sub_estado">
                                                     <option value="">Seleccione</option>
-                                                    <option value="Afectación Activa">Afectación Activa</option>
-                                                    <option value="Cancelado">Cancelado</option>
-                                                    <option value="Degradacion Activa">Degradacion Activa</option>
-                                                    <!--<option value="Degradacion Superada">Degradacion Superada</option>-->
                                                     <option value="Exitoso">Exitoso</option>
                                                     <option value="No Exitoso">No Exitoso</option>
+                                                    <option value="Afectación Activa">Afectación Activa</option>
+                                                    <option value="Degradacion Activa">Degradacion Activa</option>
                                                     <option value="Notificacion activa">Notificacion activa</option>
+                                                    <!--<option value="Degradacion Superada">Degradacion Superada</option>-->
                                                     <!--<option value="Notificacion Finalizada">Notificacion Finalizada</option>-->
                                                 </select>
                                             </div>
                                         </div>
-                                        <!--                                        <div class="col-md-6">
-                                                                                    <label for="n_iniciar_vm_encontro" class="col-sm-3 control-label"><span class="display-block">Al iniciar VM se encontró:</span></label>
-                                                                                    <div class="col-sm-9">
-                                                                                        <input type="text" class="form-control" id="n_iniciar_vm_encontro" name="cvm.n_iniciar_vm_encontro"/>
-                                                                                    </div>
-                                                                                </div>-->
+
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
@@ -1060,9 +1060,9 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="n_estado_notificacion" name="cvm.n_estado_notificacion">
                                                     <option value="">Seleccione</option>
+                                                    <!-- <option value="Pendiente notificar">Pendiente notificar</option>
                                                     <option value="No notificable">No notificable</option>
-                                                    <option value="Pendiente notificar">Pendiente notificar</option>
-                                                    <option value="Actividad notificada">Actividad notificada</option>
+                                                    <option value="Actividad notificada">Actividad notificada</option> -->
                                                     <!--<option value="N/A">N/A</option>-->
                                                 </select>
                                             </div>
@@ -1077,13 +1077,19 @@
                                         </div>
                                     </div>  
                                     <div class="form-group row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="d_hora_atencion_cierre" class="col-sm-4 control-label">Hora de atención cierre:</label>
                                             <div class="col-sm-8">
                                                 <input type="time" id="d_hora_atencion_cierre" name="cvm.d_hora_atencion_cierre" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <label for="d_hora_solicitud_cierre" class="col-sm-4 control-label">Hora de solicitud cierre:</label>
+                                            <div class="col-sm-8">
+                                                <input type="time" id="d_hora_solicitud_cierre" name="cvm.d_hora_solicitud_cierre" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label for="d_hora_cierre_confirmado" class="col-sm-3 control-label"><span class="display-block">Hora de cierre confirmado:</span></label>
                                             <div class="col-sm-9">
                                                 <input type="time" class="form-control" id="d_hora_cierre_confirmado" name="cvm.d_hora_cierre_confirmado"/>
@@ -1184,7 +1190,7 @@
                                 <!--formulario remedy-->
                                 <form class="well form-horizontal" action="insertTiketRemedy" method="post" id="form5" style="display: none">
                                     <button id="btnMinusRemedy" style="position: absolute; right: 50px;" class="btn btn-primary m-t-20"><i class="fa fa-minus"></i></button>
-                                    <legend><h3>Tikets Remedy</h3></legend>
+                                    <legend><h3>Tickets Remedy</h3></legend>
                                     <div id="containerRemedy">
                                         <div class="form-group row">
                                             <div class="col-md-6">
@@ -1216,13 +1222,13 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="n_tipo_afectación" class="col-sm-3 control-label">Tipo de Afectación:</label>
+                                                <label for="n_tipo_afectacion" class="col-sm-3 control-label">Tipo de Afectación:</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="n_tipo_afectacion" name="n_tipo_afectacion">
                                                         <option value="">Seleccione</option>
-                                                        <option value="Afectacion de servicio">Afectacion de servicio</option>
-                                                        <option value="Notificacion">Notificacion</option>
-                                                        <option value="Performance - Degradacion">Performance - Degradacion</option>
+                                                        <option value="Afectacion de servicio">Afectación de servicio</option>
+                                                        <option value="Notificacion">Notificación</option>
+                                                        <option value="Performance - Degradacion">Performance - Degradación</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -1355,13 +1361,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="n_responsable_ticket" class="col-sm-3 control-label"><span class="display-block">Responsable de Ticket:</span></label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control control-change" id="n_responsable_ticket" name="n_responsable_ticket">
+                                                <label for="n_responsable_ticket" class="col-sm-4  control-label"><span class="display-block">Responsable de Ticket:</span></label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" id="n_responsable_ticket" name="n_responsable_ticket"/>
+                                                    <!-- <select class="form-control control-change" id="n_responsable_ticket" name="n_responsable_ticket">
                                                         <option value="">Seleccione</option>
                                                         <option value="Claro" >Claro</option>
                                                         <option value="Nokia" >Nokia</option>
-                                                    </select>
+                                                    </select> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -1375,9 +1382,9 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-6">
-                                                <label for="n_fm_claro" class="col-sm-4 control-label">FM Claro:</label>
+                                                <label for="n_fm_claro_remedy" class="col-sm-4 control-label">FM Claro:</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" id="n_fm_claro_remedy" name="n_fm_claro">
+                                                    <select class="form-control" id="n_fm_claro_remedy" name="n_fm_claro_remedy" disabled="">
                                                         <option value="">Seleccione</option>
                                                         <option value="N/A">N/A</option>
                                                         <option value="Hugo Alejandro Blanco">Hugo Alejandro Blanco</option>
@@ -1398,9 +1405,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="n_fm_nokia" class="col-sm-3 control-label">FM Nokia:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="n_fm_nokia_remedy" name="n_fm_nokia">
+                                                <label for="n_fm_nokia_remedy" class="col-sm-3 control-label">FM Nokia:</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" id="n_fm_nokia_remedy" name="n_fm_nokia_remedy" disabled="">
                                                         <option value="">Seleccione</option>
                                                         <option value="N/A">N/A</option>
                                                         <option value="Andrea del Pilar Guerrero Sanchez">Andrea del Pilar Guerrero Sanchez</option>

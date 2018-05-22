@@ -177,6 +177,7 @@ $.fn.getFormData = function () {
                 break;
             default:
                 let val = $el.val();
+                console.log($el);
                 var callback = $el.attr('data-callback');
                 if (callback) {
                     val = eval(callback + '("' + val + '", "getFormData")');

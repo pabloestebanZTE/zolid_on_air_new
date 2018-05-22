@@ -83,7 +83,7 @@ class Acs extends CI_Controller {
         $res['technologies'] = $technology->getAll();
         $res['users'] = $users->getAllEngineers();
         $res['crq'] = $crq->getAllCRQ();
-//        var_dump($dataForm);
+        //var_dump($dataForm);
 
         if ($dataForm) {
             $res['record'] = $dataForm;
@@ -93,7 +93,7 @@ class Acs extends CI_Controller {
     }
 
     /** Realiza la inserción completa de todo el formulario que se muestra en vmAcs,
-      teniendo en cuenta todas las reglas y demás cosas necesarias...
+      *teniendo en cuenta todas las reglas y demás cosas necesarias...
      */
     public function insertAcs() {
         $dao = new Dao_acs_model();
@@ -147,6 +147,12 @@ class Acs extends CI_Controller {
         if (Auth::check()) {
             $vm = new Dao_vm_model();
             $res = $vm->getAllVm();
+
+        $rtr = new Dao_tiket_remedy_model();
+        $res2 = $rtr->getAllTiketRemedy();
+        $res->data['remedy'] = $res2->data;
+
+
             $this->json($res);
         } else {
             $response = new Response(EMessages::NOT_ALLOWED);
@@ -194,7 +200,6 @@ class Acs extends CI_Controller {
         $avmModel = new Dao_avm_model();
         $response = $avmModel->getAllPersonAutocomplete($this->request);
         $this->json($response);
-//        echo json_encode($response);
     }
 
 }
