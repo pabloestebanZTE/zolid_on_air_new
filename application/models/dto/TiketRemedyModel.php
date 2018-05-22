@@ -29,7 +29,7 @@ class TiketRemedyModel extends Model {
         $this->class = get_class($this);
     }
     
-        public function setKIdTiketRemedy($k_id_tiket_remedy) {
+    public function setKIdTiketRemedy($k_id_tiket_remedy) {
         $this->k_id_tiket_remedy = $k_id_tiket_remedy;
     }
     public function getKIdTiketRemedy() {

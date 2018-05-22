@@ -11,6 +11,7 @@
                         <li><a href="#tab2default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Punto de Control</a></li>
                         <li><a href="#tab3default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> Cierre de VM</a></li>
                         <li><a href="#tab4default" class="tab-tables" data-toggle="tab" ><i class="fa fa-fw fa-tag"></i> VM hoy</a></li>
+                        <li><a href="#tab6default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-tag"></i> Tickets</a></li>
                         <li><a href="#tab5default" class="tab-tables" data-toggle="tab"><i class="fa fa-fw fa-list-ul"></i> VM historico</a></li>
                     </ul>
                 </div>
@@ -31,6 +32,10 @@
                         <div class="tab-pane table-responsive min-h-300" id="tab4default">
                             <h1 class="m-t-0">VM hoy</h1>
                             <table id="tablaVmHoy" class="table table-hover table-condensed table-striped" width='100%'></table>
+                        </div>
+                        <div class="tab-pane table-responsive min-h-300" id="tab6default">
+                            <h1 class="m-t-0">Tickets</h1>
+                            <table id="tablaVmTick" class="table table-hover table-condensed table-striped" width='100%'></table>
                         </div>
                         <div class="tab-pane table-responsive min-h-300" id="tab5default">
                             <h1 class="m-t-0">VM historico</h1>
@@ -109,6 +114,6 @@
         dom.llenarCombo($('.select-ingeniero'), info.users.data, {text: ["n_name_user", "n_last_name_user"], value: "k_id_user"});
         dom.submit($('#assignForm'), function () {
                 location.reload();
-        }, false);
-    });
+        }, false); 
+    });  */
 </script>

@@ -28,6 +28,9 @@ class AvmModel extends Model {
     protected $n_hora_atencion_vm;
     protected $n_hora_inicio_real_vm;
     protected $n_contratista;
+    protected $i_bcf;
+    protected $i_wbts;
+    protected $i_lnbts;
     
     //Los campos que desea ocultar para que no se reflejen en la vista.    
     protected $table = "avm";
@@ -195,7 +198,23 @@ class AvmModel extends Model {
     public function getNContratista() {
         return $this->n_contratista;
     }
-
-
+    public function setIbcf($i_bcf) {
+        $this->i_bcf = $i_bcf;
+    }
+    public function getIbcf() {
+        return $this->i_bcf;
+    }
+    public function setIwbts($i_wbts) {
+        $this->i_wbts = $i_wbts;
+    }
+    public function getIwbts() {
+        return $this->i_wbts;
+    }
+    public function setIlnbts($i_lnbts) {
+        $this->i_lnbts = $i_lnbts;
+    }
+    public function getIlnbts() {
+        return $this->i_lnbts;
+    }
 }
 
