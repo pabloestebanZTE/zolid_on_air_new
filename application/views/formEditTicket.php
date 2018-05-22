@@ -285,7 +285,7 @@
                                                     <option value="SI">SI</option>
                                                     <option value="NO">NO</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group sitio-limpio">
@@ -302,7 +302,7 @@
                                                     <option value="NA">NA</option>
                                                     <option value="SI">SI</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -329,7 +329,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Cambios config Solicitados:</label>
                                         <div class="col-md-8 selectContainer">
@@ -345,7 +345,7 @@
                                                 <!-- <input type='text' name="n_cambios_config_solicitados" id="n_cambios_config_solicitados" class="form-control"  > -->
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Cambios Config Final:</label>
                                         <div class="col-md-8 selectContainer">
@@ -361,7 +361,7 @@
                                                 <!-- <input type='text' name="n_cambios_config_final" id="n_cambios_config_final" class="form-control"  > -->
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Estado On air:</label>
                                         <div class="col-md-8 selectContainer">
@@ -375,7 +375,7 @@
                                                 <!-- <input type='text' name="n_estadoonair" id="n_estadoonair" class="form-control"  > -->
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Atribuible nokia:</label>
                                         <div class="col-md-8 selectContainer">
@@ -391,7 +391,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Contratista:</label>
                                         <div class="col-md-8 selectContainer">
@@ -400,7 +400,7 @@
                                                 <input type='text' name="n_contratista" id="n_contratista" class="form-control"  >
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">comentario opccional:</label>
                                         <div class="col-md-8 selectContainer">
@@ -409,7 +409,7 @@
                                                 <input type='textarea' name="n_comentarioccial" id="n_comentarioccial" class="form-control"  >
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Ticket remedy:</label>
                                         <div class="col-md-8 selectContainer">
@@ -418,7 +418,7 @@
                                                 <input type='text' name="n_ticketremedy" id="n_ticketremedy" class="form-control"  >
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">LAC:</label>
@@ -446,7 +446,7 @@
                                                 <input type='text' name="n_sac" id="n_sac" class="form-control"  >
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Integracion gestion y trafica:</label>
                                         <div class="col-md-8 selectContainer">
@@ -477,7 +477,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Instalacion HW 4G Sitio:</label>
                                         <div class="col-md-8 selectContainer">
@@ -507,7 +507,7 @@
                                                     <option value="NA">NA</option>
                                                     <option value="N/A">N/A</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -527,7 +527,7 @@
                                                 <input type='datetime-local' name="d_asignacion_final" id="d_asignacion_final" class="form-control" data-callback="dom.formatDateForPrint" >
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Evidencia SL:</label>
                                         <div class="col-md-8 selectContainer">
@@ -546,7 +546,7 @@
                                             </div>
                                         </div>
                                     </div>
-      
+
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">T from notif:</label>
                                         <div class="col-md-8 selectContainer">
@@ -565,7 +565,7 @@
                                         <label class="col-md-3 control-label">Tipo de trabajo:</label>
                                         <div class="col-md-8 selectContainer">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-fw fa-briefcase"></i></span>
+                                                <span class="input-group-addon "><i class="fa fa-fw fa-briefcase"></i></span>
                                                 <select name="k_id_work" id="tipotrabajo" class="form-control selectpicker select-tipotrabajo" onchange="validateSln()" required>
                                                     <option value="" >Seleccione el tipo de trabajo</option>
                                                 </select>
@@ -895,7 +895,7 @@
                                                     <option value="NA">NA</option>
                                                     <option value="N/A">N/A</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -913,7 +913,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group gestion-power">
                                         <label class="col-md-3 control-label">Gestion power:</label>
                                         <div class="col-md-8 selectContainer">
@@ -927,7 +927,7 @@
                                                     <option value="NA">NA</option>
                                                     <option value="N/A">N/A</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group obra-social">
@@ -943,7 +943,7 @@
                                                     <option value="NA">NA</option>
                                                     <option value="N/A">N/A</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group on-air">
@@ -962,7 +962,7 @@
                                                     <option value="TAREAS ADICIONALES">TAREAS ADICIONALES</option>
                                                     <option value="N/A">N/A</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -1027,7 +1027,7 @@
                                                     <option value="FALSE">FALSE</option>
                                                     <option value="VERDADERO">VERDADERO</option>
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
 
@@ -1044,7 +1044,7 @@
                                                     <option value="ZTE">ZTE</option>
 
                                                 </select>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -1061,9 +1061,9 @@
                             </form>
                         </div>
 
-                    </div>  
+                    </div>
 
-    
+
                     <!-- INICIO SEGUNDA PESTAÑA -->
                     <div id="comentarios" class="tab-pane fade">
 
@@ -1085,7 +1085,7 @@
                                 <th>Noc</th>
                             </thead>
                             <?php for ($i=0; $i < count($comentarios) ; $i++) { ?>
-                            
+
                             <tr id="<?= $comentarios[$i]->k_id_primary?>">
                                 <?= "<td>".$comentarios[$i]->n_nombre_estacion_eb."</td>"; ?>
                                 <?= "<td>".$comentarios[$i]->n_tecnologia."</td>"; ?>
@@ -1101,28 +1101,8 @@
                             </tr>
 
                             <?php } ?>
-                        </table>                     
-    
-
-
-
-
-                        
+                        </table>
                     </div>
-
-
-                    
-
-            
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -1687,7 +1667,7 @@
         echo '<script type="text/javascript">showMessage();</script>';
     }
     ?>
-    
+
     <!-- Modal Cierre -->
     <div id="modalEditComment" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -1711,7 +1691,7 @@
                                             <div class="col-md-5 selectContainer">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                                    <select name="k_id_station" id="estacion_modal" class="form-control selectpicker select-estacion" onchange="editTextCityRegional()">
+                                                    <select name="k_id_station" id="estacion_modal" class="form-control selectpicker select-estacion  onchange="editTextCityRegional()" style="margin:0">
                                                         <option value="" >Seleccione la estación</option>
                                                     </select>
                                                 </div>
@@ -1762,7 +1742,7 @@
                                         </div>
 
                                         <!-- Select Basic -->
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label">Estado:</label>
                                             <div class="col-md-8 selectContainer">
                                                 <div class="input-group">
@@ -1784,8 +1764,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div> -->
-                                        <div class="form-group">
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <label class="col-md-3 control-label">Estado Comentario:</label>
                                             <div class="col-md-8 selectContainer">
                                                 <div class="input-group">
@@ -1793,7 +1773,7 @@
                                                     <input type='text' name="n_estado_eb_resucomen" id="mdl_n_estado_eb_resucomen" class="form-control"  >
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="form-group">
                                             <label for="mtxtUserCom" class="col-md-3 control-label">Usuario Comentario &nbsp;</label>
@@ -1822,8 +1802,7 @@
                                             <div class="col-md-8 selectContainer">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-fw fa-calendar-o "></i></span>
-                                                    <input type='datetime-local' name="mdl_d_ingreso_on_air" id="mdl_d_ingreso_on_air" class="form-control" value="">
-                                                    
+                                                    <input type='datetime-local' name="mdl_d_ingreso_on_air" id="mdl_d_ingreso_on_air" class="form-control" style="margin: 0px -68px 0 0px;" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -1864,11 +1843,11 @@
                                                     </div>
                                                     <select class="form-control" name="mdl_n_noc" id="mdl_n_noc">
                                                         <option value="">Seleccione</option>
-                                                        <option value="NOKIA-ZTE">NOKIA-ZTE</option>    
+                                                        <option value="NOKIA-ZTE">NOKIA-ZTE</option>
                                                         <option value="ZTE">ZTE</option>
 
                                                     </select>
-                                                </div>                             
+                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1886,7 +1865,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                
+                                    </div>
                                 </div>
                                 <input type="hidden" name="" id="id_comentario" value="">
 
@@ -1905,7 +1884,7 @@
         </div>
     </div>
 
-    
+
     <?php if (isset($_GET['msj'])): ?>
         <script type="text/javascript">
             var inicial = $('body').attr('data-base');
@@ -1921,13 +1900,13 @@
                       }
            });
         </script>
-        
+
     <?php endif ?>
 
-    
+
 
     <script src="<?= URL::to("assets/plugins/sweetalert-master/sweetalert2.min.js") ?>" type="text/javascript"></script>
-        
+
 
 
 </body>

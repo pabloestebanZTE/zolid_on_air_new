@@ -41,7 +41,7 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                    
+
                                     <fieldset>
                                         <div class="widget bg_white m-t-25 display-block">
                                             <fieldset class="col-md-6">
@@ -108,11 +108,11 @@
                                                             <input name="n_usuario_encargado" id="n_usuario_encargado" class="form-control" type="text" readonly >
                                                         </div>
                                                     </div>
-                                                </div>                 
+                                                </div>
                                             </fieldset>
                                             <!--  fin seccion derecha form---->
                                         </div>
-                                        
+
                                         <div class="widget bg_white m-t-25 display-block" style="height: 200px;">
                                             <fieldset class="col-md-12 control-label">
                                                 <div class="form-group">
@@ -146,8 +146,8 @@
                                             </fieldset>
                                         </div>
                                     </fieldset>
-                                    <!-- Tercera seccion --> 
-                                 
+                                    <!-- Tercera seccion -->
+
                                     <fieldset>
                                         <div class="widget bg_white m-t-25 display-block">
                                             <fieldset class="col-md-6">
@@ -167,7 +167,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="form-group">
                                                     <label for="n_precheck" class="col-md-3 control-label">Precheck: &nbsp;</label>
                                                     <div class="col-md-8 selectContainer">
@@ -178,7 +178,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -194,7 +194,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -210,7 +210,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -227,7 +227,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -244,7 +244,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -260,7 +260,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -276,7 +276,7 @@
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
                                                                     <option value="N/A">N/A</option>
-                                                                
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -290,7 +290,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -311,7 +311,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -326,7 +326,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -340,7 +340,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -354,7 +354,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -368,7 +368,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -382,7 +382,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -396,7 +396,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -410,7 +410,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -424,7 +424,7 @@
                                                                     <option value="">Seleccione...</option>
                                                                     <option value="Ok"> Ok</option>
                                                                     <option value="No">No </option>
-                                                                    <option value="N/A">N/A</option>                                                       
+                                                                    <option value="N/A">N/A</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -441,9 +441,13 @@
 
                                             </fieldset>
                                             <!--  fin seccion derecha form---->
-                                        </div>                                    
+                                        </div>
                                     </fieldset>
 
+<<<<<<< HEAD
+                                </form>
+=======
+>>>>>>> d079e1c7b1309e5222f262eb4c5fa5cfdb906a71
                             </div>
                         </div>
 
@@ -458,8 +462,8 @@
         </div>
 
 
-    
-        <?php 
+
+        <?php
             if (!isset($msj)) {
                 $msj = "";
             }
@@ -471,7 +475,7 @@
         <!--footer Section -->
         <div class="for-full-back" id="footer">
             Zolid By ZTE Colombia | All Right Reserved
-        </div>     
+        </div>
         <?php $this->load->view('parts/generic/scripts'); ?>
         <!-- CUSTOM SCRIPT   -->
         <script scr="<?= URL::to("assets/plugins/sweetalert-master/dist/sweetalert.min.js") ?>" ></script>
@@ -479,9 +483,9 @@
         <script type="text/javascript">
             var message = "<?php echo $msj; ?>";
                 if (message == 'ok') {
-                    swal("Bien!", "Se Guardo correctamente!", "success");                    
+                    swal("Bien!", "Se Guardo correctamente!", "success");
                 } else if(message == 'error'){
-                    swal("Ups!", "Hay un error en la insercion!", "error");                    
+                    swal("Ups!", "Hay un error en la insercion!", "error");
 
                 }
 

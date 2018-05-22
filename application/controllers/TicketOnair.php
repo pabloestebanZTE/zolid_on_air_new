@@ -721,7 +721,7 @@ class TicketOnair extends CI_Controller {
     }
 
     public function insertQualityReport() {
-        if (Auth::check()) {// verifica si la sesion esta activa 
+        if (Auth::check()) {// verifica si la sesion esta activa
 
             $res = $this->Dao_ticketOnair_model->insertQualityReport($this->request);// invoca al metodo (insertqualityreport)
             if ($res == 1) {

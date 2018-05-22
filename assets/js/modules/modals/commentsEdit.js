@@ -90,7 +90,14 @@ $(function () {
           $('#select2-mdl_n_noc-container').html("");
           $('#select2-mtxtUserCom-container').html("");
 
-          $('#mdl_n_estado_eb_resucomen').val("");
+/*          $('#mdl_n_estado_eb_resucomen').val("");
+*/          
+          $('#select2-modalStatus-container').html("");
+          $('#select2-modalSubstatus-container').html("");
+
+
+
+
           $('#tipificacion_resucomen').val("");
 
           $('#mdl_comentario_resucoment').html("");
@@ -117,13 +124,21 @@ $(function () {
                registro['tecn'] = fila.find('td').eq(1).html();
                registro['banda'] = fila.find('td').eq(2).html();
                registro['tipo'] = fila.find('td').eq(3).html();
-               registro['estado'] = fila.find('td').eq(4).html();
+                var estadoTotal = fila.find('td').eq(4).html();
+               /*registro['subestado'] = fila.*/
                registro['comentario'] = fila.find('td').eq(5).html();
                registro['actualizacion'] = fila.find('td').eq(6).html();
                registro['usuario'] = fila.find('td').eq(7).html();
                registro['ejecutor'] = fila.find('td').eq(8).html();
                registro['tipificacion'] = fila.find('td').eq(9).html();
                registro['noc'] = fila.find('td').eq(10).html();
+
+               registro['estado'] = estadoTotal.split(" - ")[0];
+               registro['subestado'] = estadoTotal.split(" - ")[1];
+
+
+
+               console.log(registro);
 
               $ ('#modalTitle').html('Editar Comentario del ticket &nbsp;&nbsp;&nbsp;&nbsp;<b>N°' + registro['idonair'] +'</b>');
 
@@ -142,7 +157,8 @@ $(function () {
               $('#select2-modalTipotrabajo-container').html(registro['tipo']);
               $('#select2-mdl_n_noc-container').html(registro['noc']);
               $('#select2-mtxtUserCom-container').html(registro['usuario']);
-
+              $('#select2-modalStatus-container').html(registro['estado']);
+              $('#select2-modalSubstatus-container').html(registro['subestado']);
               $('#mdl_n_estado_eb_resucomen').val(registro['estado']);
               $('#tipificacion_resucomen').val(registro['tipificacion']);
 
@@ -166,14 +182,14 @@ $(function () {
           var tecn = $('#select2-modalTecnologia-container').html();
           var banda = $('#select2-modalBanda-container').html();
           var tipo = $('#select2-modalTipotrabajo-container').html();
-          var estado = $('#mdl_n_estado_eb_resucomen').val();
+          var estado = $('#select2-modalStatus-container').html() + ' - ' + $('#select2-modalSubstatus-container').html();
+          var subestado = $('#select2-modalSubstatus-container').val();
           var comentario = $('#mdl_comentario_resucoment').val();
           var actualizacion = $('#mdl_d_ingreso_on_air').val();
           var usuario = $('#select2-mtxtUserCom-container').html();
           var ejecutor = $('#select2-mdl_n_enteejecutor-container').html();
           var tipificacion = $('#tipificacion_resucomen').val();
           var noc = $('#select2-mdl_n_noc-container').html();
-
 
 
           /***************Envio los datos obtenidos por ajax al controlador para actualizar***************/
