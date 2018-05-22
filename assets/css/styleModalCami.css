@@ -1,0 +1,45 @@
+.bg-white{
+  background: #FFFFFF !important;
+}
+.bodyEdit {
+
+    padding-bottom: 2%;
+    padding-top: 2%;
+    background-color: #fff;
+}
+.bodyEdit h5 {
+  font-size: 16px;
+  line-height: 0.6; font-size: 1em
+}
+.modal-backdrop{
+  z-index: 0;
+}
+.modal-header {
+  background: linear-gradient(to right, #044576, #609af1, #044576);
+}
+#myModalLabel{
+  color: #fff;
+  padding-bottom:1px;
+}
+.bg_white {
+    background-color: #FBFBFB;
+    border-radius: 15px;
+}
+.mp{
+  color:#0b669a;
+  padding-top: 1%;
+  padding-right: 2%;
+  text-align: right;
+}
+#modalImage {
+  height: 40px;
+  padding-right:10px
+}
+
+#modalTitle {
+  padding: 0;
+}
+.select2-selection{
+  min-width: 192px; 
+}
+

@@ -1063,3 +1063,28 @@ textarea {
 #file-b_vistamm, #cmmnt-b_vistamm {
     display: none;
 }
+
+.navCami li a{
+    padding: 8px 25px !important;
+    background-color: transparent;
+}
+
+.navCami li a:hover{
+    padding: 8px 25px !important;
+    background-color: rgba(32, 123, 229, 0.69);
+    color:#fff;
+}
+
+.navCami li a:active{
+    padding: 8px 25px !important;
+    background-color: rgb(42, 128, 168);  
+}
+
+.table-hover td{
+    cursor: pointer;
+}
+
+
+.dis-in-line-blk{
+    display: inline-block;
+}

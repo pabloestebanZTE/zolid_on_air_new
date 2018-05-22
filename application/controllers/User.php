@@ -18,6 +18,7 @@ class User extends CI_Controller {
         $this->load->model('data/Dao_scaledOnair_model');
         $this->load->model('data/Dao_evaluador_model');
         $this->load->model('data/Dao_kpi_model');
+        $this->load->model('data/Dao_reporte_comentario_model');
     }
 
     private function validUser($request) {
@@ -47,14 +48,14 @@ class User extends CI_Controller {
             //Se actualiza la forma de validar los roles...
             //Podemos acceder directamente al método que comprobará un rol en especifico.
             if (Auth::isCoordinador()) {
-                
+
             }
             if (Auth::isDocumentador()) {
-                
+
             }
             //O también podemos detectar si el rol es uno personalizado...
             if (Auth::isRole("Ingeniero")) {
-                
+
             }
             Redirect::redirect(URL::to("User/principal"));
         } else {
@@ -352,23 +353,27 @@ class User extends CI_Controller {
     public function getAllTickets() {
         $this->load->view('getAllTickets');
     }
-    
+
     public function KpisReportes() {
         $this->load->view('KpisReportes');
     }
-    
+
     public function ticketSampling() {
         $this->load->view('ticketSampling');
     }
-    
+
     public function SeeStats() {
         $this->load->view('SeeStats');
     }
-    
+
+    public function PQRs() {
+        $this->load->view('pqrs');
+    }
+
     public function getAllTicketsEdit() {
         $this->load->view('getAllTicketsEdit');
     }
-    
+
     public function formEditTicket() {
         if (!Auth::check()) {
             Redirect::to(URL::base());
@@ -414,12 +419,34 @@ class User extends CI_Controller {
             }
         }
         $answer['respuesta'] = json_encode($res);
-        $answer['comentarios'] = json_encode($comments->findReportCommentsByIdOnAir($this->request->id));
+        $answer['comentarios'] = $comments->findReportCommentsByIdOnAir($this->request->id)->data;
         $this->load->view('formEditTicket', $answer);
     }
-    
+
     public function improvementPlans() {
         $this->load->view('planes-mejora');
+    }
+
+    //Actualiza la tabla comentarios
+    public function updateComments(){
+        $respuesta = $this->Dao_reporte_comentario_model->updateComments($this->input->post());
+        echo json_encode($respuesta);
+    }
+
+    //Inserta en la tabla reporte comentarios
+    public function insertComments(){
+        $respuesta = $this->Dao_reporte_comentario_model->insertComments($this->input->post());
+        echo json_encode($respuesta);
+    }
+
+    //Elimina comentario de la tabla reporte comentarios
+    public function DeleteComments(){
+        $id = $this->input->post('k_id_primary');
+        if ($id) {
+            $respuesta = $this->Dao_reporte_comentario_model->deleteComments($id);
+            echo json_encode($respuesta);
+        }
+        
     }
 
 

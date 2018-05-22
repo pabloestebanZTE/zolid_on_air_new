@@ -75,7 +75,30 @@ class Dao_user_model extends CI_Model {
         } catch (DeplynException $ex) {
             return $ex;
         }
-    }
+     }   
+
+        public function insertUser($request){
+          try {
+              $request->n_password = 'abc123';
+              $db = new DB();
+          
+              $User = new UserModel();
+              $datos = $User->insert($request->all());
+              //echo $User->getSQL();
+              $response = new Response(EMessages::SUCCESS);
+              $response->setData($datos);
+              return $response;
+          } catch (DeplynException $ex) {
+              return $ex;
+          }
+
+        }
+
+        public function updateUser($data){
+        $this->db->where('k_id_user', $data['k_id_user']);
+        $this->db->update('user', $data);
+        }
+    
 
 }
 

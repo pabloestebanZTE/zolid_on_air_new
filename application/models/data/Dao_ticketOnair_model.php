@@ -2205,36 +2205,36 @@ class Dao_ticketOnair_model extends CI_Model {
                 $fecha = new DateTime('2018-04-15');
 
                 $camposQuality = array(
-                    'k_id_onair' => $request->k_id_onair, 
-                    'n_hallazgo' => $request->n_hallazgo, 
-                    'n_usuario_encargado' => $request->n_usuario_encargado, 
-                    'n_observaciones' => $request->n_observaciones, 
-                    'n_checklist' => $request->n_checklist, 
-                    'n_precheck' => $request->n_precheck, 
-                    'n_kpis' => $request->n_kpis, 
-                    'n_alarma' => $request->n_alarma, 
-                    'n_evidencia_sectores_dbl' => $request->n_evidencia_sectores_dbl, 
-                    'n_vista_mm' => $request->n_vista_mm, 
-                    'n_alarmas_activas' => $request->n_alarmas_activas, 
-                    'n_rx_signal_lever' => $request->n_rx_signal_level, 
-                    'n_coordenadas' => $request->n_coordenadas, 
-                    'n_matriz_de_alarmas' => $request->n_matriz_de_alarmas, 
-                    'n_log_prueba_de_alarma' => $request->n_log_prueba_de_alarma, 
-                    'n_alarmas_ext' => $request->n_alarmas_ext, 
-                    'n_power_zte' => $request->n_power_zte, 
-                    'n_maximo' => $request->n_maximo, 
-                    'n_rf' => $request->n_rf, 
-                    'n_calidad_gestion_sectores' => $request->n_calidad_gestion_sectores, 
-                    'n_tareas_remedy' => $request->n_tarea_remedy, 
-                    'n_calidad_gestion' => $request->n_calidad_gestion, 
-                    'd_insertion_date' => $fecha->format('Y-m-d'), 
-                    'n_observaciones_final' => $request->n_observaciones_final, 
+                    'k_id_onair' => $request->k_id_onair,
+                    'n_hallazgo' => $request->n_hallazgo,
+                    'n_usuario_encargado' => $request->n_usuario_encargado,
+                    'n_observaciones' => $request->n_observaciones,
+                    'n_checklist' => $request->n_checklist,
+                    'n_precheck' => $request->n_precheck,
+                    'n_kpis' => $request->n_kpis,
+                    'n_alarma' => $request->n_alarma,
+                    'n_evidencia_sectores_dbl' => $request->n_evidencia_sectores_dbl,
+                    'n_vista_mm' => $request->n_vista_mm,
+                    'n_alarmas_activas' => $request->n_alarmas_activas,
+                    'n_rx_signal_lever' => $request->n_rx_signal_level,
+                    'n_coordenadas' => $request->n_coordenadas,
+                    'n_matriz_de_alarmas' => $request->n_matriz_de_alarmas,
+                    'n_log_prueba_de_alarma' => $request->n_log_prueba_de_alarma,
+                    'n_alarmas_ext' => $request->n_alarmas_ext,
+                    'n_power_zte' => $request->n_power_zte,
+                    'n_maximo' => $request->n_maximo,
+                    'n_rf' => $request->n_rf,
+                    'n_calidad_gestion_sectores' => $request->n_calidad_gestion_sectores,
+                    'n_tareas_remedy' => $request->n_tarea_remedy,
+                    'n_calidad_gestion' => $request->n_calidad_gestion,
+                    'd_insertion_date' => $fecha->format('Y-m-d'),
+                    'n_observaciones_final' => $request->n_observaciones_final,
                 );
 
                 $respuesta = $this->db->insert('quality_report', $camposQuality);
                 return $respuesta;
-              
-                
+
+
 
         } catch (DeplynException $ex) {
             return $ex;
@@ -2321,7 +2321,7 @@ class Dao_ticketOnair_model extends CI_Model {
         $this->db->where('k_id_onair', $request['k_id_onair']);
         $this->db->update('ticket_on_air', $camposTicket);
 
-    
+
         // alisto todos los campos de la tabla preparation stage 33
         $camposPreparation = array(
             'n_enteejecutor'                  => $request['n_enteejecutor'],
@@ -2369,7 +2369,7 @@ class Dao_ticketOnair_model extends CI_Model {
         // print_r($request->k_id_onair);
         // print_r($ticket);
 
-        
+
     }
 
 

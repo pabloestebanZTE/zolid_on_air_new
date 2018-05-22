@@ -721,7 +721,7 @@ class TicketOnair extends CI_Controller {
     }
 
     public function insertQualityReport() {
-        if (Auth::check()) {// verifica si la sesion esta activa 
+        if (Auth::check()) {// verifica si la sesion esta activa
 
             $res = $this->Dao_ticketOnair_model->insertQualityReport($this->request);// invoca al metodo (insertqualityreport)
             if ($res == 1) {
@@ -751,7 +751,7 @@ class TicketOnair extends CI_Controller {
         // header('Content-Type: text/plain');
         // $this->load->view('formEditTicket',$a,2560);
         // print_r(URL::to('TicketOnair/editarTicket'));
-        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair');
+        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair')."&msj=ok";
         header($location);
 
     }
