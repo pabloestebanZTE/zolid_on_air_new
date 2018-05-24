@@ -27,10 +27,10 @@ class Redirect {
     }
 
     public static function back() {
-        if (empty($this->uri)) {
+        if (empty(self::uri)) {
             return;
         }
-        self::redirect($this->uri);
+        self::redirect(self::uri);
     }
 
 }
