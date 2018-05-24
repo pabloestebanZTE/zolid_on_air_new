@@ -1691,7 +1691,7 @@
                                             <div class="col-md-5 selectContainer">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-fw fa-street-view"></i></span>
-                                                    <select name="k_id_station" id="estacion_modal" class="form-control selectpicker select-estacion  onchange="editTextCityRegional()" style="margin:0">
+                                                    <select name="k_id_station" id="estacion_modal" class="form-control selectpicker select-estacion" onchange="editTextCityRegional()"  style="margin:0">
                                                         <option value="" >Seleccione la estación</option>
                                                     </select>
                                                 </div>

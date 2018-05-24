@@ -101,7 +101,7 @@ $(function () {
         },
         getButtons: function (obj) {
             return '<div class="btn-group">'
-                    + ((obj.k_id_substatus != 31 && obj.k_id_substatus != 18 && obj.k_id_substatus != 20) ? '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Seguimiento"><span class="fa fa-fw fa-history"></span></a>' : '')
+                    + ((obj.k_id_substatus != 31 && obj.k_id_substatus != 18 && obj.k_id_substatus != 20 && obj.i_precheck_realizado == 1) ? '<a href="' + app.urlTo('User/trackingDetails?id=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Seguimiento"><span class="fa fa-fw fa-history"></span></a>' : '')
                     + ((obj.i_precheck_realizado != 1) ? '<a  href="' + app.urlTo('User/doPrecheck?idOnair=' + obj.k_id_onair) + '" class="btn btn-default btn-xs" data-toggle="tooltip" title="Precheck"><span class="fa fa-fw fa-file-archive-o"></span></a>' : '')
                     + '<a class="btn btn-default btn-xs unassign" data-toggle="tooltip" title="Des-asignar"><span class="fa fa-fw fa-unlink"></span></a>'
                     + '</div>';

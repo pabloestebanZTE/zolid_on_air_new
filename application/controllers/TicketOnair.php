@@ -708,8 +708,8 @@ class TicketOnair extends CI_Controller {
 
         if (Auth::check()) {
 
-          // $variable = new TipoObjeto()
-          //OBJETO = NEW CLASE()
+            // $variable = new TipoObjeto()
+            //OBJETO = NEW CLASE()
             $ticketOnAirDAO = new Dao_ticketOnair_model(); // CREACION DE UN OBJETO DE TIPO DAO TK ON AIR
             $response = $ticketOnAirDAO->getTicketSampling();
             // este objeto vaya y llame a esa funcion
@@ -722,11 +722,10 @@ class TicketOnair extends CI_Controller {
 
     public function insertQualityReport() {
         if (Auth::check()) {// verifica si la sesion esta activa
-
-            $res = $this->Dao_ticketOnair_model->insertQualityReport($this->request);// invoca al metodo (insertqualityreport)
+            $res = $this->Dao_ticketOnair_model->insertQualityReport($this->request); // invoca al metodo (insertqualityreport)
             if ($res == 1) {
                 $mensaje['msj'] = 'ok';
-            }else {
+            } else {
                 $mensaje['msj'] = 'error';
             }
 
@@ -741,19 +740,57 @@ class TicketOnair extends CI_Controller {
     }
 
     //Se actualiza ticket editado en formulario
-    public function editarTicket(){
+    public function editarTicket() {
         // header('Content-Type: text/plain');
         // print_r($this->request);
-
         // print_r($this->input->post());
         $this->Dao_ticketOnair_model->updateTicketForm($this->input->post());
         // $this->json($response);
         // header('Content-Type: text/plain');
         // $this->load->view('formEditTicket',$a,2560);
         // print_r(URL::to('TicketOnair/editarTicket'));
-        $location = "Location: ". URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair')."&msj=ok";
+        $location = "Location: " . URL::base() . "/User/formEditTicket?id=" . $this->input->post('k_id_onair') . "&msj=ok";
         header($location);
+    }
 
+    public function validateSectors() {
+        $ticketOnAirDAO = new Dao_ticketOnair_model(); // CREACION DE UN OBJETO DE TIPO DAO TK ON AIR
+        $tickets = new dao_ticketOnAir_model();
+        $tickets = $tickets->getAll();
+        echo count($tickets->data);
+        print_r($tickets->data[0]);
+        $count = 0;
+        for ($i = 0; $i < count($tickets->data); $i++) {
+            if ($tickets->data[$i]->n_json_sectores == "[]" || $tickets->data[$i]->n_json_sectores == null) {
+                $string = "";
+                $flag = 0;
+                if ($tickets->data[$i]->n_sectoresdesbloqueados != "" && $tickets->data[$i]->n_sectoresdesbloqueados != null) {
+                    $array = explode(",", $tickets->data[$i]->n_sectoresdesbloqueados);
+                    for ($j = 0; $j < count($array) - 1; $j++) {
+                        if ($j < count($array) - 2) {
+                            $string = $string . '{"id":"' . $array[$j] . '","name":"' . $array[$j] . '","state":"0"},';
+                        } else {
+                            $string = $string . '{"id":"' . $array[$j] . '","name":"' . $array[$j] . '","state":"0"}';
+                        }
+                    }
+                    $flag = 1;
+                }
+                if ($tickets->data[$i]->n_sectoresbloqueados != "" && $tickets->data[$i]->n_sectoresbloqueados != null) {
+                    $array = explode(",", $tickets->data[$i]->n_sectoresbloqueados);
+                    for ($j = 0; $j < count($array) - 1; $j++) {
+                        if ($j < count($array) - 2) {
+                            $string = $string . '{"id":"' . $array[$j] . '","name":"' . $array[$j] . '","state":"1"},';
+                        } else {
+                            $string = $string . '{"id":"' . $array[$j] . '","name":"' . $array[$j] . '","state":"1"}';
+                        }
+                    }
+                    $flag = 1;
+                }
+                if ($flag == 1 && $string != "") {
+                    $response = $ticketOnAirDAO->fixSectors($tickets->data[$i]->k_id_onair, "[" . $string . "]");
+                }
+            }
+        }
     }
 
 }
