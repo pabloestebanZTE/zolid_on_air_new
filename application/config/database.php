@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 
-$active_group = 'mysql';
+$active_group = 'mysqlLocalhost';
 
 $query_builder = TRUE;
 
